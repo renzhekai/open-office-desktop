@@ -1,0 +1,31 @@
+**********************************************************************
+** Visual Studio 2026 Developer Command Prompt v18.7.3
+** Copyright (c) 2026 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (0.6s)
+-- Generating done (0.3s)
+-- Build files have been written to: D:/open office/build/native-engine
+[1/15] Automatic MOC for target office_engine
+[2/14] Building CXX object CMakeFiles\office_engine.dir\app\engine\onlyoffice_engine_adapter_native.cpp.obj
+[3/14] Linking CXX static library office_engine.lib
+[4/14] Automatic MOC for target office_ui
+[5/13] Linking CXX executable bin\engine_contract_test.exe
+[6/13] Building CXX object CMakeFiles\office_ui.dir\app\ui\main_window.cpp.obj
+[7/13] Linking CXX static library office_ui.lib
+[8/13] Automatic MOC for target native_ui_test
+[9/12] Building CXX object CMakeFiles\OpenOffice.dir\app\main.cpp.obj
+[10/12] Linking CXX executable bin\OpenOffice.exe
+[11/12] Building CXX object CMakeFiles\native_ui_test.dir\tests\native\native_ui_test.cpp.obj
+[12/12] Linking CXX executable bin\native_ui_test.exe
+Internal ctest changing into directory: D:/open office/build/native-engine
+Test project D:/open office/build/native-engine
+    Start 1: engine_contract
+1/2 Test #1: engine_contract ..................   Passed    0.14 sec
+    Start 2: native_ui
+2/2 Test #2: native_ui ........................   Passed    5.26 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   5.40 sec

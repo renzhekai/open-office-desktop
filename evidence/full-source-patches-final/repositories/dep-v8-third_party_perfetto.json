@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-third_party_perfetto",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\perfetto",
+  "pin": "7cdc44f903d3bcfd1d0f67188bfa797a24756868",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:05.595078+00:00",
+  "head": "7cdc44f903d3bcfd1d0f67188bfa797a24756868",
+  "expected_commit_matches": true,
+  "origin": "https://android.googlesource.com/platform/external/perfetto.git",
+  "patch": {
+    "path": "patches/dep-v8-third_party_perfetto.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_perfetto.txt",
+    "size": 41,
+    "sha256": "82cbabf9b79205776a948dfeeeb93488cf3aac857754eb6ac2fffdcc33db16c9"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:07.531431+00:00"
+}

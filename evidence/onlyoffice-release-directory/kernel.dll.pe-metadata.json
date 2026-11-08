@@ -1,0 +1,5278 @@
+{
+  "file": "kernel.dll",
+  "inspection": "PE parsed as bytes from verified runtime; DLL never loaded/executed",
+  "uncompressed_size": 1031664,
+  "sha256": "31bc61268c7cdca0eb0107e555ff48e99b04936618a2ed220eff3cdea50fd55a",
+  "zip_crc32": "e3fae696",
+  "machine": "0x8664",
+  "pe_timestamp": 1791732001,
+  "linker_version": "14.29",
+  "characteristics": "0x2022",
+  "has_delay_import_directory": false,
+  "sections": [
+    {
+      "name": ".text",
+      "rva": 4096,
+      "virtual_size": 461011,
+      "raw_size": 461312,
+      "raw_offset": 1024,
+      "characteristics": 1610612768
+    },
+    {
+      "name": ".rdata",
+      "rva": 466944,
+      "virtual_size": 524014,
+      "raw_size": 524288,
+      "raw_offset": 462336,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".data",
+      "rva": 991232,
+      "virtual_size": 6104,
+      "raw_size": 3584,
+      "raw_offset": 986624,
+      "characteristics": 3221225536
+    },
+    {
+      "name": ".pdata",
+      "rva": 999424,
+      "virtual_size": 27240,
+      "raw_size": 27648,
+      "raw_offset": 990208,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".rsrc",
+      "rva": 1028096,
+      "virtual_size": 792,
+      "raw_size": 1024,
+      "raw_offset": 1017856,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".reloc",
+      "rva": 1032192,
+      "virtual_size": 3872,
+      "raw_size": 4096,
+      "raw_offset": 1018880,
+      "characteristics": 1107296320
+    }
+  ],
+  "imports": [
+    {
+      "dll": "bcrypt.dll",
+      "symbols": [
+        {
+          "name": "BCryptGenRandom"
+        }
+      ]
+    },
+    {
+      "dll": "UnicodeConverter.dll",
+      "symbols": [
+        {
+          "name": "??0CUnicodeConverter@NSUnicodeConverter@@QEAA@XZ"
+        },
+        {
+          "name": "??1CUnicodeConverter@NSUnicodeConverter@@QEAA@XZ"
+        },
+        {
+          "name": "?toUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@H_N@Z"
+        },
+        {
+          "name": "?toUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@PEBD_N@Z"
+        }
+      ]
+    },
+    {
+      "dll": "RPCRT4.dll",
+      "symbols": [
+        {
+          "name": "UuidCreate"
+        },
+        {
+          "name": "UuidToStringW"
+        },
+        {
+          "name": "RpcStringFreeW"
+        }
+      ]
+    },
+    {
+      "dll": "SHELL32.dll",
+      "symbols": [
+        {
+          "name": "SHGetKnownFolderPath"
+        },
+        {
+          "name": "SHCreateDirectoryExW"
+        },
+        {
+          "name": "SHGetFolderPathW"
+        }
+      ]
+    },
+    {
+      "dll": "ole32.dll",
+      "symbols": [
+        {
+          "name": "CoTaskMemFree"
+        }
+      ]
+    },
+    {
+      "dll": "MSVCP140.dll",
+      "symbols": [
+        {
+          "name": "?id@?$codecvt@DDU_Mbstatet@@@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?showmanyc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JXZ"
+        },
+        {
+          "name": "?_Fiopen@std@@YAPEAU_iobuf@@PEB_WHH@Z"
+        },
+        {
+          "name": "??1?$basic_istream@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_istream@DU?$char_traits@D@std@@@std@@QEAA@PEAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@PEAV?$basic_streambuf@DU?$char_traits@D@std@@@1@@Z"
+        },
+        {
+          "name": "??1?$basic_ostream@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAA@PEAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z"
+        },
+        {
+          "name": "??0?$basic_ios@DU?$char_traits@D@std@@@std@@IEAA@XZ"
+        },
+        {
+          "name": "?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?clear@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "??1?$basic_ios@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JPEBD_J@Z"
+        },
+        {
+          "name": "?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JPEAD_J@Z"
+        },
+        {
+          "name": "?_Init@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAXXZ"
+        },
+        {
+          "name": "?_Pninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAPEADXZ"
+        },
+        {
+          "name": "?getloc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEBA?AVlocale@2@XZ"
+        },
+        {
+          "name": "?pubsetbuf@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAPEAV12@PEAD_J@Z"
+        },
+        {
+          "name": "??1?$basic_streambuf@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAA@XZ"
+        },
+        {
+          "name": "?_Getcat@?$codecvt@DDU_Mbstatet@@@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "?unshift@?$codecvt@DDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEAD1AEAPEAD@Z"
+        },
+        {
+          "name": "?out@?$codecvt@DDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEBD1AEAPEBDPEAD3AEAPEAD@Z"
+        },
+        {
+          "name": "?in@?$codecvt@DDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEBD1AEAPEBDPEAD3AEAPEAD@Z"
+        },
+        {
+          "name": "?always_noconv@codecvt_base@std@@QEBA_NXZ"
+        },
+        {
+          "name": "?_Getgloballocale@locale@std@@CAPEAV_Locimp@12@XZ"
+        },
+        {
+          "name": "??Bid@locale@std@@QEAA_KXZ"
+        },
+        {
+          "name": "??1_Lockit@std@@QEAA@XZ"
+        },
+        {
+          "name": "??0_Lockit@std@@QEAA@H@Z"
+        },
+        {
+          "name": "?_Xinvalid_argument@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "?_Xout_of_range@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "?_Xlength_error@std@@YAXPEBD@Z"
+        }
+      ]
+    },
+    {
+      "dll": "KERNEL32.dll",
+      "symbols": [
+        {
+          "name": "DisableThreadLibraryCalls"
+        },
+        {
+          "name": "InitializeSListHead"
+        },
+        {
+          "name": "GetSystemTimeAsFileTime"
+        },
+        {
+          "name": "GetCurrentProcessId"
+        },
+        {
+          "name": "QueryPerformanceCounter"
+        },
+        {
+          "name": "IsDebuggerPresent"
+        },
+        {
+          "name": "GetProcAddress"
+        },
+        {
+          "name": "CreateEventW"
+        },
+        {
+          "name": "WaitForSingleObjectEx"
+        },
+        {
+          "name": "ResetEvent"
+        },
+        {
+          "name": "SetEvent"
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount"
+        },
+        {
+          "name": "IsProcessorFeaturePresent"
+        },
+        {
+          "name": "TerminateProcess"
+        },
+        {
+          "name": "GetCurrentProcess"
+        },
+        {
+          "name": "SetUnhandledExceptionFilter"
+        },
+        {
+          "name": "UnhandledExceptionFilter"
+        },
+        {
+          "name": "RtlVirtualUnwind"
+        },
+        {
+          "name": "RtlLookupFunctionEntry"
+        },
+        {
+          "name": "RtlCaptureContext"
+        },
+        {
+          "name": "RemoveDirectoryW"
+        },
+        {
+          "name": "GetFileAttributesW"
+        },
+        {
+          "name": "FindNextFileW"
+        },
+        {
+          "name": "FindFirstFileW"
+        },
+        {
+          "name": "CreateDirectoryW"
+        },
+        {
+          "name": "SystemTimeToFileTime"
+        },
+        {
+          "name": "FileTimeToSystemTime"
+        },
+        {
+          "name": "CopyFileW"
+        },
+        {
+          "name": "GetModuleHandleW"
+        },
+        {
+          "name": "GetModuleFileNameW"
+        },
+        {
+          "name": "GetTempPathW"
+        },
+        {
+          "name": "SetFilePointerEx"
+        },
+        {
+          "name": "SetEndOfFile"
+        },
+        {
+          "name": "GetTempFileNameW"
+        },
+        {
+          "name": "GetFullPathNameW"
+        },
+        {
+          "name": "GetFileSizeEx"
+        },
+        {
+          "name": "GetTickCount"
+        },
+        {
+          "name": "SetThreadPriority"
+        },
+        {
+          "name": "GetCurrentThreadId"
+        },
+        {
+          "name": "CreateThread"
+        },
+        {
+          "name": "Sleep"
+        },
+        {
+          "name": "WaitForSingleObject"
+        },
+        {
+          "name": "DeleteCriticalSection"
+        },
+        {
+          "name": "LeaveCriticalSection"
+        },
+        {
+          "name": "EnterCriticalSection"
+        },
+        {
+          "name": "InitializeCriticalSection"
+        },
+        {
+          "name": "GetLastError"
+        },
+        {
+          "name": "WriteFile"
+        },
+        {
+          "name": "SetFilePointer"
+        },
+        {
+          "name": "ReadFile"
+        },
+        {
+          "name": "CreateFileW"
+        },
+        {
+          "name": "FindClose"
+        },
+        {
+          "name": "FileTimeToLocalFileTime"
+        },
+        {
+          "name": "MultiByteToWideChar"
+        },
+        {
+          "name": "WideCharToMultiByte"
+        },
+        {
+          "name": "GetFileTime"
+        },
+        {
+          "name": "LocalFileTimeToFileTime"
+        },
+        {
+          "name": "SetFileTime"
+        },
+        {
+          "name": "CloseHandle"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140.dll",
+      "symbols": [
+        {
+          "name": "__std_exception_destroy"
+        },
+        {
+          "name": "__current_exception"
+        },
+        {
+          "name": "__std_type_info_destroy_list"
+        },
+        {
+          "name": "__C_specific_handler"
+        },
+        {
+          "name": "__std_exception_copy"
+        },
+        {
+          "name": "_purecall"
+        },
+        {
+          "name": "_CxxThrowException"
+        },
+        {
+          "name": "__std_terminate"
+        },
+        {
+          "name": "memcpy"
+        },
+        {
+          "name": "memcmp"
+        },
+        {
+          "name": "memmove"
+        },
+        {
+          "name": "memset"
+        },
+        {
+          "name": "memchr"
+        },
+        {
+          "name": "strstr"
+        },
+        {
+          "name": "strchr"
+        },
+        {
+          "name": "__current_exception_context"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140_1.dll",
+      "symbols": [
+        {
+          "name": "__CxxFrameHandler4"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-runtime-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_execute_onexit_table"
+        },
+        {
+          "name": "_register_onexit_function"
+        },
+        {
+          "name": "_initialize_onexit_table"
+        },
+        {
+          "name": "_initialize_narrow_environment"
+        },
+        {
+          "name": "_configure_narrow_argv"
+        },
+        {
+          "name": "abort"
+        },
+        {
+          "name": "_seh_filter_dll"
+        },
+        {
+          "name": "_initterm_e"
+        },
+        {
+          "name": "exit"
+        },
+        {
+          "name": "terminate"
+        },
+        {
+          "name": "_cexit"
+        },
+        {
+          "name": "_errno"
+        },
+        {
+          "name": "_invalid_parameter_noinfo_noreturn"
+        },
+        {
+          "name": "_initterm"
+        },
+        {
+          "name": "_crt_atexit"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-stdio-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "ftell"
+        },
+        {
+          "name": "__stdio_common_vfprintf"
+        },
+        {
+          "name": "fwrite"
+        },
+        {
+          "name": "_ftelli64"
+        },
+        {
+          "name": "__stdio_common_vswprintf"
+        },
+        {
+          "name": "__stdio_common_vswprintf_s"
+        },
+        {
+          "name": "fflush"
+        },
+        {
+          "name": "_fseeki64"
+        },
+        {
+          "name": "_wfopen_s"
+        },
+        {
+          "name": "_wfsopen"
+        },
+        {
+          "name": "fseek"
+        },
+        {
+          "name": "_get_stream_buffer_pointers"
+        },
+        {
+          "name": "tmpfile_s"
+        },
+        {
+          "name": "fgetc"
+        },
+        {
+          "name": "fgetpos"
+        },
+        {
+          "name": "fputc"
+        },
+        {
+          "name": "fsetpos"
+        },
+        {
+          "name": "setvbuf"
+        },
+        {
+          "name": "ungetc"
+        },
+        {
+          "name": "fread"
+        },
+        {
+          "name": "fopen"
+        },
+        {
+          "name": "_dup"
+        },
+        {
+          "name": "ferror"
+        },
+        {
+          "name": "fclose"
+        },
+        {
+          "name": "_close"
+        },
+        {
+          "name": "_read"
+        },
+        {
+          "name": "_wopen"
+        },
+        {
+          "name": "__acrt_iob_func"
+        },
+        {
+          "name": "__stdio_common_vsprintf"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-string-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "strncpy"
+        },
+        {
+          "name": "wcsncpy"
+        },
+        {
+          "name": "toupper"
+        },
+        {
+          "name": "strncmp"
+        },
+        {
+          "name": "tolower"
+        },
+        {
+          "name": "towlower"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-heap-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "free"
+        },
+        {
+          "name": "realloc"
+        },
+        {
+          "name": "_callnewh"
+        },
+        {
+          "name": "malloc"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_unlock_file"
+        },
+        {
+          "name": "_lock_file"
+        },
+        {
+          "name": "_wremove"
+        },
+        {
+          "name": "_wsplitpath"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-utility-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "bsearch"
+        },
+        {
+          "name": "srand"
+        },
+        {
+          "name": "rand"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-time-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_time64"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-convert-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "atoi"
+        },
+        {
+          "name": "wcstol"
+        },
+        {
+          "name": "atof"
+        },
+        {
+          "name": "strtol"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-math-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "ceil"
+        },
+        {
+          "name": "log10"
+        },
+        {
+          "name": "pow"
+        },
+        {
+          "name": "floor"
+        },
+        {
+          "name": "_dclass"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-environment-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_wdupenv_s"
+        },
+        {
+          "name": "_wgetenv"
+        }
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "name": "??0CBaseThread@NSThreads@@QEAA@XZ",
+      "ordinal": 1,
+      "rva": 370528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CBaseThreadMonitor@NSThreads@@AEAA@XZ",
+      "ordinal": 2,
+      "rva": 372768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CBaseThreadMonitor@NSThreads@@QEAA@AEBV01@@Z",
+      "ordinal": 3,
+      "rva": 370576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CByteBuilder@NSMemoryUtils@@QEAA@XZ",
+      "ordinal": 4,
+      "rva": 384784,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CByteReader@NSMemoryUtils@@QEAA@PEAE@Z",
+      "ordinal": 5,
+      "rva": 409600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CDeflate@@QEAA@XZ",
+      "ordinal": 6,
+      "rva": 4752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CFileBinary@NSFile@@QEAA@AEBV01@@Z",
+      "ordinal": 7,
+      "rva": 4816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CFileBinary@NSFile@@QEAA@XZ",
+      "ordinal": 8,
+      "rva": 413776,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CInflate@@QEAA@XZ",
+      "ordinal": 9,
+      "rva": 4752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0COfficeUtils@@QEAA@PEAP6AXJJPEAF@Z@Z",
+      "ordinal": 10,
+      "rva": 4864,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CRITICAL_SECTION@NSCriticalSection@@QEAA@XZ",
+      "ordinal": 11,
+      "rva": 369296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CRITICAL_SECTION_SMART@NSCriticalSection@@QEAA@XZ",
+      "ordinal": 12,
+      "rva": 369360,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStreamWriter@NSFile@@QEAA@$$QEAV01@@Z",
+      "ordinal": 13,
+      "rva": 436288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStreamWriter@NSFile@@QEAA@AEBV01@@Z",
+      "ordinal": 14,
+      "rva": 436288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStreamWriter@NSFile@@QEAA@_K@Z",
+      "ordinal": 15,
+      "rva": 436400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringBuilder@NSStringUtils@@QEAA@AEBV01@@Z",
+      "ordinal": 16,
+      "rva": 320576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringBuilder@NSStringUtils@@QEAA@XZ",
+      "ordinal": 17,
+      "rva": 384688,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringBuilder@NSStringUtils@@QEAA@_K@Z",
+      "ordinal": 18,
+      "rva": 384720,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringBuilderA@NSStringUtils@@QEAA@XZ",
+      "ordinal": 19,
+      "rva": 384784,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringUTF32@NSStringUtils@@QEAA@AEBV01@@Z",
+      "ordinal": 20,
+      "rva": 406576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringUTF32@NSStringUtils@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 21,
+      "rva": 406624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringUTF32@NSStringUtils@@QEAA@AEBV?$vector@IV?$allocator@I@std@@@std@@@Z",
+      "ordinal": 22,
+      "rva": 406688,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringUTF32@NSStringUtils@@QEAA@PEBIAEB_K@Z",
+      "ordinal": 23,
+      "rva": 406736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringUTF32@NSStringUtils@@QEAA@PEB_W@Z",
+      "ordinal": 24,
+      "rva": 406912,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringUTF32@NSStringUtils@@QEAA@XZ",
+      "ordinal": 25,
+      "rva": 406976,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CStringUnicodeIterator@NSStringExt@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 26,
+      "rva": 401072,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CTemporaryCS@@QEAA@PEAVCRITICAL_SECTION@NSCriticalSection@@@Z",
+      "ordinal": 27,
+      "rva": 369472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CTimer@NSTimers@@QEAA@XZ",
+      "ordinal": 28,
+      "rva": 374400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CXmlLiteReader@XmlUtils@@QEAA@AEBV01@@Z",
+      "ordinal": 29,
+      "rva": 320736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CXmlLiteReader@XmlUtils@@QEAA@XZ",
+      "ordinal": 30,
+      "rva": 352448,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CXmlNode@XmlUtils@@QEAA@AEBV01@@Z",
+      "ordinal": 31,
+      "rva": 320768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CXmlNode@XmlUtils@@QEAA@XZ",
+      "ordinal": 32,
+      "rva": 320816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CXmlWriter@XmlUtils@@QEAA@AEBV01@@Z",
+      "ordinal": 33,
+      "rva": 321040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CXmlWriter@XmlUtils@@QEAA@XZ",
+      "ordinal": 34,
+      "rva": 362640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CZipBuffer@@QEAA@AEBV0@@Z",
+      "ordinal": 35,
+      "rva": 11184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CZipBuffer@@QEAA@PEAEK@Z",
+      "ordinal": 36,
+      "rva": 11424,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CZipBuffer@@QEAA@XZ",
+      "ordinal": 37,
+      "rva": 11472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0IXmlDOMDocument@XmlUtils@@QEAA@AEBV01@@Z",
+      "ordinal": 38,
+      "rva": 321088,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0IXmlDOMDocument@XmlUtils@@QEAA@XZ",
+      "ordinal": 39,
+      "rva": 352528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CBaseThread@NSThreads@@UEAA@XZ",
+      "ordinal": 40,
+      "rva": 371104,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CBaseThreadMonitor@NSThreads@@QEAA@XZ",
+      "ordinal": 41,
+      "rva": 372992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CByteBuilder@NSMemoryUtils@@QEAA@XZ",
+      "ordinal": 42,
+      "rva": 384880,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CByteReader@NSMemoryUtils@@QEAA@XZ",
+      "ordinal": 43,
+      "rva": 103488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CDeflate@@QEAA@XZ",
+      "ordinal": 44,
+      "rva": 5136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CFileBinary@NSFile@@UEAA@XZ",
+      "ordinal": 45,
+      "rva": 414064,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CInflate@@QEAA@XZ",
+      "ordinal": 46,
+      "rva": 5136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CRITICAL_SECTION@NSCriticalSection@@QEAA@XZ",
+      "ordinal": 47,
+      "rva": 369520,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CRITICAL_SECTION_SMART@NSCriticalSection@@QEAA@XZ",
+      "ordinal": 48,
+      "rva": 369568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CStreamWriter@NSFile@@UEAA@XZ",
+      "ordinal": 49,
+      "rva": 436512,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CStringBuilder@NSStringUtils@@UEAA@XZ",
+      "ordinal": 50,
+      "rva": 384832,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CStringBuilderA@NSStringUtils@@QEAA@XZ",
+      "ordinal": 51,
+      "rva": 384880,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CStringUTF32@NSStringUtils@@UEAA@XZ",
+      "ordinal": 52,
+      "rva": 407104,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CStringUnicodeIterator@NSStringExt@@QEAA@XZ",
+      "ordinal": 53,
+      "rva": 401152,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CTemporaryCS@@QEAA@XZ",
+      "ordinal": 54,
+      "rva": 369664,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CTimer@NSTimers@@UEAA@XZ",
+      "ordinal": 55,
+      "rva": 374448,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CXmlLiteReader@XmlUtils@@UEAA@XZ",
+      "ordinal": 56,
+      "rva": 352560,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CXmlNode@XmlUtils@@QEAA@XZ",
+      "ordinal": 57,
+      "rva": 321920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CXmlWriter@XmlUtils@@QEAA@XZ",
+      "ordinal": 58,
+      "rva": 362832,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CZipBuffer@@QEAA@XZ",
+      "ordinal": 59,
+      "rva": 11760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1IXmlDOMDocument@XmlUtils@@UEAA@XZ",
+      "ordinal": 60,
+      "rva": 352592,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CBase64Converter@NSFile@@QEAAAEAV01@$$QEAV01@@Z",
+      "ordinal": 61,
+      "rva": 5184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CBase64Converter@NSFile@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 62,
+      "rva": 5184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CBaseThreadMonitor@NSThreads@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 63,
+      "rva": 371584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CByteBuilder@NSMemoryUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 64,
+      "rva": 322016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CByteReader@NSMemoryUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 65,
+      "rva": 409616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CConverter@NSStringExt@@QEAAAEAV01@$$QEAV01@@Z",
+      "ordinal": 66,
+      "rva": 5184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CConverter@NSStringExt@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 67,
+      "rva": 5184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CDeflate@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 68,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CFileBinary@NSFile@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 69,
+      "rva": 5216,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CInflate@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 70,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4COfficeUtils@@QEAAAEAV0@$$QEAV0@@Z",
+      "ordinal": 71,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4COfficeUtils@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 72,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CRITICAL_SECTION@NSCriticalSection@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 73,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CRITICAL_SECTION_SMART@NSCriticalSection@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 74,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStreamWriter@NSFile@@QEAAAEAV01@$$QEAV01@@Z",
+      "ordinal": 75,
+      "rva": 436544,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStreamWriter@NSFile@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 76,
+      "rva": 436544,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStringBuilder@NSStringUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 77,
+      "rva": 321968,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStringBuilderA@NSStringUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 78,
+      "rva": 322016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStringUTF32@NSStringUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 79,
+      "rva": 407344,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStringUTF32@NSStringUtils@@QEAAAEAV01@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 80,
+      "rva": 407376,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStringUTF32@NSStringUtils@@QEAAAEAV01@AEBV?$vector@IV?$allocator@I@std@@@std@@@Z",
+      "ordinal": 81,
+      "rva": 407600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStringUTF32@NSStringUtils@@QEAAAEAV01@PEB_W@Z",
+      "ordinal": 82,
+      "rva": 407632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CStringUnicodeIterator@NSStringExt@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 83,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CTemporaryCS@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 84,
+      "rva": 5200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CUtf8Converter@NSFile@@QEAAAEAV01@$$QEAV01@@Z",
+      "ordinal": 85,
+      "rva": 5184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CUtf8Converter@NSFile@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 86,
+      "rva": 5184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CXmlLiteReader@XmlUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 87,
+      "rva": 322048,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CXmlNode@XmlUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 88,
+      "rva": 322064,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CXmlWriter@XmlUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 89,
+      "rva": 322128,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CZipBuffer@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 90,
+      "rva": 11936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4IXmlDOMDocument@XmlUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 91,
+      "rva": 322272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??8CStringUTF32@NSStringUtils@@QEBA_NAEBV01@@Z",
+      "ordinal": 92,
+      "rva": 407840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??9CStringUTF32@NSStringUtils@@QEBA_NAEBV01@@Z",
+      "ordinal": 93,
+      "rva": 407920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??ACStringUTF32@NSStringUtils@@QEAAAEAI_K@Z",
+      "ordinal": 94,
+      "rva": 408000,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??HCStringUTF32@NSStringUtils@@QEBA?AV01@AEBV01@@Z",
+      "ordinal": 95,
+      "rva": 408016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??YCStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 96,
+      "rva": 384928,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??YCStringUTF32@NSStringUtils@@QEAAAEAV01@AEBI@Z",
+      "ordinal": 97,
+      "rva": 408240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??YCStringUTF32@NSStringUtils@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 98,
+      "rva": 408304,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??_7CBaseThread@NSThreads@@6B@",
+      "ordinal": 99,
+      "rva": 572232,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CFileBinary@NSFile@@6B@",
+      "ordinal": 100,
+      "rva": 469032,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CStreamWriter@NSFile@@6BCFileBinary@1@@",
+      "ordinal": 101,
+      "rva": 888920,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CStreamWriter@NSFile@@6BCStringBuilder@NSStringUtils@@@",
+      "ordinal": 102,
+      "rva": 888944,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CStringBuilder@NSStringUtils@@6B@",
+      "ordinal": 103,
+      "rva": 571744,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CStringUTF32@NSStringUtils@@6B@",
+      "ordinal": 104,
+      "rva": 888544,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CTimer@NSTimers@@6B@",
+      "ordinal": 105,
+      "rva": 572368,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CXmlLiteReader@XmlUtils@@6B@",
+      "ordinal": 106,
+      "rva": 571768,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7IXmlDOMDocument@XmlUtils@@6B@",
+      "ordinal": 107,
+      "rva": 571784,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_FCOfficeUtils@@QEAAXXZ",
+      "ordinal": 108,
+      "rva": 5392,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??_FCStreamWriter@NSFile@@QEAAXXZ",
+      "ordinal": 109,
+      "rva": 436768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddBool2@CStringBuilder@NSStringUtils@@QEAAX_N@Z",
+      "ordinal": 110,
+      "rva": 384960,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddChar2Safe@CStringBuilder@NSStringUtils@@QEAAX_WAEB_W@Z",
+      "ordinal": 111,
+      "rva": 385040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddCharNoCheck@CStringBuilder@NSStringUtils@@QEAAXAEB_W@Z",
+      "ordinal": 112,
+      "rva": 385136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddCharNoSafe@CStringBuilder@NSStringUtils@@QEAAXAEB_W@Z",
+      "ordinal": 113,
+      "rva": 385136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddCharNoSafe@CStringBuilderA@NSStringUtils@@QEAAXAEBD@Z",
+      "ordinal": 114,
+      "rva": 385168,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddCharSafe@CStringBuilder@NSStringUtils@@QEAAXAEB_W@Z",
+      "ordinal": 115,
+      "rva": 385200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddCharSafe@CStringBuilderA@NSStringUtils@@QEAAXAEBD@Z",
+      "ordinal": 116,
+      "rva": 385264,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddDouble@CStringBuilder@NSStringUtils@@QEAAXNH@Z",
+      "ordinal": 117,
+      "rva": 385328,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddInt64@CStringBuilder@NSStringUtils@@QEAAX_J@Z",
+      "ordinal": 118,
+      "rva": 386208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddInt@CStringBuilder@NSStringUtils@@QEAAXH@Z",
+      "ordinal": 119,
+      "rva": 386576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddIntDel100@CStringBuilder@NSStringUtils@@QEAAXH@Z",
+      "ordinal": 120,
+      "rva": 386624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddIntDel10@CStringBuilder@NSStringUtils@@QEAAXH@Z",
+      "ordinal": 121,
+      "rva": 386624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddIntNoCheck@CStringBuilder@NSStringUtils@@QEAAXH@Z",
+      "ordinal": 122,
+      "rva": 386672,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddIntNoCheckDel100@CStringBuilder@NSStringUtils@@QEAAXH@Z",
+      "ordinal": 123,
+      "rva": 386896,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddIntNoCheckDel10@CStringBuilder@NSStringUtils@@QEAAXH@Z",
+      "ordinal": 124,
+      "rva": 386896,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddRef@IXmlDOMDocument@XmlUtils@@UEAAIXZ",
+      "ordinal": 125,
+      "rva": 352608,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddSize@CByteBuilder@NSMemoryUtils@@QEAAX_K@Z",
+      "ordinal": 126,
+      "rva": 409632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddSize@CStreamWriter@NSFile@@UEAAX_K@Z",
+      "ordinal": 127,
+      "rva": 436880,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddSize@CStringBuilder@NSStringUtils@@UEAAX_K@Z",
+      "ordinal": 128,
+      "rva": 387232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddSize@CStringBuilderA@NSStringUtils@@QEAAX_K@Z",
+      "ordinal": 129,
+      "rva": 387488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddSpaceNoCheck@CStringBuilder@NSStringUtils@@QEAAXXZ",
+      "ordinal": 130,
+      "rva": 387728,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AddUInt@CStringBuilder@NSStringUtils@@QEAAXI@Z",
+      "ordinal": 131,
+      "rva": 387760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Base64Decode@NSBase64@@YAHPEBDHPEAEPEAH@Z",
+      "ordinal": 132,
+      "rva": 411600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Base64Decode@NSBase64@@YAHPEB_WHPEAEPEAH@Z",
+      "ordinal": 133,
+      "rva": 411616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Base64DecodeGetRequiredLength@NSBase64@@YAHH@Z",
+      "ordinal": 134,
+      "rva": 411632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Base64Encode@NSBase64@@YAHPEBEHPEAEPEAHK@Z",
+      "ordinal": 135,
+      "rva": 411648,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Base64EncodeGetRequiredLength@NSBase64@@YAHHK@Z",
+      "ordinal": 136,
+      "rva": 412256,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Cancel@CBaseThread@NSThreads@@UEAAXXZ",
+      "ordinal": 137,
+      "rva": 372016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Check@CStringUnicodeIterator@NSStringExt@@QEAA_NXZ",
+      "ordinal": 138,
+      "rva": 401168,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CheckHHHHChar@CUtf8Converter@NSFile@@SAJPEBE@Z",
+      "ordinal": 139,
+      "rva": 414656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CheckHHHHChar@CUtf8Converter@NSFile@@SAJPEB_W@Z",
+      "ordinal": 140,
+      "rva": 414816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CheckSuspend@CBaseThread@NSThreads@@UEAAXXZ",
+      "ordinal": 141,
+      "rva": 372096,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CheckXmlCode@CStringBuilder@NSStringUtils@@IEAAEI@Z",
+      "ordinal": 142,
+      "rva": 388048,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CheckXmlCodeHHHH@CStringBuilder@NSStringUtils@@IEAAEIPEB_W@Z",
+      "ordinal": 143,
+      "rva": 388160,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Clear@CByteBuilder@NSMemoryUtils@@QEAAXXZ",
+      "ordinal": 144,
+      "rva": 388432,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Clear@CStringBuilder@NSStringUtils@@QEAAXXZ",
+      "ordinal": 145,
+      "rva": 388368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Clear@CStringBuilderA@NSStringUtils@@QEAAXXZ",
+      "ordinal": 146,
+      "rva": 388432,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Clear@CXmlLiteReader@XmlUtils@@QEAAXXZ",
+      "ordinal": 147,
+      "rva": 352624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Clear@CXmlNode@XmlUtils@@QEAAXXZ",
+      "ordinal": 148,
+      "rva": 323712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ClearFuncs@CInflate@@QEAAXXZ",
+      "ordinal": 149,
+      "rva": 5488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ClearNoAttack@CByteBuilder@NSMemoryUtils@@QEAAXXZ",
+      "ordinal": 150,
+      "rva": 388528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ClearNoAttack@CStringBuilder@NSStringUtils@@QEAAXXZ",
+      "ordinal": 151,
+      "rva": 388496,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ClearNoAttack@CStringBuilderA@NSStringUtils@@QEAAXXZ",
+      "ordinal": 152,
+      "rva": 388528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CloseFile@CFileBinary@NSFile@@UEAAXXZ",
+      "ordinal": 153,
+      "rva": 414992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CloseFile@CStreamWriter@NSFile@@UEAAXXZ",
+      "ordinal": 154,
+      "rva": 436960,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Combine@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@0@Z",
+      "ordinal": 155,
+      "rva": 376176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Compress@COfficeUtils@@QEAAJPEAEPEAK0KF@Z",
+      "ordinal": 156,
+      "rva": 5520,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CompressFileOrDirectory@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_NHF1@Z",
+      "ordinal": 157,
+      "rva": 5584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CompressFilesFromMemory@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBQ6A_NAEAV23@AEAPEAEAEAJPEAX@Z4FPEA_N@Z",
+      "ordinal": 158,
+      "rva": 6112,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Copy@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 159,
+      "rva": 415040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CopyDirectory@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_N@Z",
+      "ordinal": 160,
+      "rva": 437440,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CorrectPathW@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV12@@Z",
+      "ordinal": 161,
+      "rva": 416800,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateDirectories@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 162,
+      "rva": 439376,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateDirectory@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 163,
+      "rva": 440096,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateDirectoryWithUniqueName@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 164,
+      "rva": 440176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateFile@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 165,
+      "rva": 417120,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateFileW@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 166,
+      "rva": 417216,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateTempFile@CFileBinary@NSFile@@QEAA_NXZ",
+      "ordinal": 167,
+      "rva": 417296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateTempFileWithUniqueName@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z",
+      "ordinal": 168,
+      "rva": 417344,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateTempFileWithUniqueName@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@V23@@Z",
+      "ordinal": 169,
+      "rva": 440896,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Decode@CBase64Converter@NSFile@@SA_NPEBDHAEAPEAEAEAH@Z",
+      "ordinal": 170,
+      "rva": 417568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Decode@NSBase32@@YA_NPEAEH0@Z",
+      "ordinal": 171,
+      "rva": 412416,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DecodeBase64Char@NSBase64@@YAHI@Z",
+      "ordinal": 172,
+      "rva": 412736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DecodeGetRequiredLength@NSBase32@@YAHH@Z",
+      "ordinal": 173,
+      "rva": 412800,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Decompress@NSZip@@YA_NPEBEAEBKPEAEAEAK@Z",
+      "ordinal": 174,
+      "rva": 6304,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DeleteCriticalSection@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ",
+      "ordinal": 175,
+      "rva": 369808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DeleteDirectory@NSDirectory@@YAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 176,
+      "rva": 440992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Destroy@CBaseThreadMonitor@NSThreads@@QEAA_NXZ",
+      "ordinal": 177,
+      "rva": 373136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DestroyOnFinish@CBaseThread@NSThreads@@UEAAXXZ",
+      "ordinal": 178,
+      "rva": 372144,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DisableOutput@IXmlDOMDocument@XmlUtils@@SAXXZ",
+      "ordinal": 179,
+      "rva": 352688,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EnableOutput@IXmlDOMDocument@XmlUtils@@SAXXZ",
+      "ordinal": 180,
+      "rva": 352704,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Encode@CBase64Converter@NSFile@@SA_NPEBEHAEAPEADAEAHK@Z",
+      "ordinal": 181,
+      "rva": 417712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Encode@NSBase32@@YA_NPEAEH0@Z",
+      "ordinal": 182,
+      "rva": 412816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EncodeGetRequiredLength@NSBase32@@YAHH@Z",
+      "ordinal": 183,
+      "rva": 413152,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?End@CDeflate@@QEAAXXZ",
+      "ordinal": 184,
+      "rva": 6352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?End@CInflate@@QEAAXXZ",
+      "ordinal": 185,
+      "rva": 6368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EndAttributes@CStringBuilder@NSStringUtils@@QEAAXXZ",
+      "ordinal": 186,
+      "rva": 388544,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EndAttributesAndNode@CStringBuilder@NSStringUtils@@QEAAXXZ",
+      "ordinal": 187,
+      "rva": 388592,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EndNode@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 188,
+      "rva": 388640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EndNodeWithNS@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 189,
+      "rva": 388768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Enter@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ",
+      "ordinal": 190,
+      "rva": 369824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Enter@CRITICAL_SECTION_SMART@NSCriticalSection@@QEAAXXZ",
+      "ordinal": 191,
+      "rva": 369840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EnterCS@CTemporaryCS@@QEAAXPEAVCRITICAL_SECTION@NSCriticalSection@@@Z",
+      "ordinal": 192,
+      "rva": 369888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Execute@NSXmlCanonicalizator@XmlUtils@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV34@H_N@Z",
+      "ordinal": 193,
+      "rva": 323744,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Execute@NSXmlCanonicalizator@XmlUtils@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@H_N@Z",
+      "ordinal": 194,
+      "rva": 323952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Exists@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 195,
+      "rva": 417872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Exists@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 196,
+      "rva": 441552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ExtractFilesToMemory@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBQ6AX0PEAEAEBJPEAX@Z3PEA_N@Z",
+      "ordinal": 197,
+      "rva": 6384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ExtractToDirectory@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEA_WF_N2@Z",
+      "ordinal": 198,
+      "rva": 6560,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ExtractToDirectory@COfficeUtils@@QEAAJPEAE_KAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEA_WF_N4@Z",
+      "ordinal": 199,
+      "rva": 6912,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Flush@CStreamWriter@NSFile@@QEAAXXZ",
+      "ordinal": 200,
+      "rva": 436992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromFile@CXmlLiteReader@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 201,
+      "rva": 352720,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromFile@CXmlLiteReader@XmlUtils@@QEAA_NPEB_W@Z",
+      "ordinal": 202,
+      "rva": 352736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromString@CXmlLiteReader@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 203,
+      "rva": 352928,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromString@CXmlLiteReader@XmlUtils@@QEAA_NPEB_W@Z",
+      "ordinal": 204,
+      "rva": 352944,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromStringA@CXmlLiteReader@XmlUtils@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 205,
+      "rva": 353296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromStringA@CXmlLiteReader@XmlUtils@@QEAA_NPEBDH@Z",
+      "ordinal": 206,
+      "rva": 353456,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromXmlFile@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 207,
+      "rva": 327296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromXmlFile@CXmlNode@XmlUtils@@QEAA_NPEB_W_N@Z",
+      "ordinal": 208,
+      "rva": 327472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromXmlString@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 209,
+      "rva": 327680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromXmlString@CXmlNode@XmlUtils@@QEAA_NPEB_W@Z",
+      "ordinal": 210,
+      "rva": 327840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?FromXmlStringA@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 211,
+      "rva": 328032,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Get@CBaseThreadMonitor@NSThreads@@SAAEAV12@XZ",
+      "ordinal": 212,
+      "rva": 373296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAddonFlag@COfficeUtils@@SAHXZ",
+      "ordinal": 213,
+      "rva": 7168,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAllAttributes@CXmlNode@XmlUtils@@QEAAXAEAV?$list@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@0@Z",
+      "ordinal": 214,
+      "rva": 328256,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAllAttributes@CXmlNode@XmlUtils@@QEAAXAEAV?$list@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@0@Z",
+      "ordinal": 215,
+      "rva": 328672,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAllAttributes@CXmlNode@XmlUtils@@QEAAXAEAV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@0@Z",
+      "ordinal": 216,
+      "rva": 329344,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAllAttributes@CXmlNode@XmlUtils@@QEAAXAEAV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@0@Z",
+      "ordinal": 217,
+      "rva": 329616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAppDataDir@NSSystemUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 218,
+      "rva": 444592,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttribute@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z",
+      "ordinal": 219,
+      "rva": 330160,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttribute@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@AEBV34@@Z",
+      "ordinal": 220,
+      "rva": 330528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttribute@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_WAEBV34@@Z",
+      "ordinal": 221,
+      "rva": 330768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeA@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV34@0@Z",
+      "ordinal": 222,
+      "rva": 330992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeA@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@AEBV34@@Z",
+      "ordinal": 223,
+      "rva": 331168,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeBase@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_WAEBV34@@Z",
+      "ordinal": 224,
+      "rva": 330768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeDouble@CXmlNode@XmlUtils@@QEAANAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBN@Z",
+      "ordinal": 225,
+      "rva": 331472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeDouble@CXmlNode@XmlUtils@@QEAANAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN@Z",
+      "ordinal": 226,
+      "rva": 331696,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeIfExist@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV34@@Z",
+      "ordinal": 227,
+      "rva": 332064,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBH@Z",
+      "ordinal": 228,
+      "rva": 332528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z",
+      "ordinal": 229,
+      "rva": 332752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeOrValue@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z",
+      "ordinal": 230,
+      "rva": 333120,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributeTextWithHHHH@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 231,
+      "rva": 353552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributesCount@CXmlLiteReader@XmlUtils@@QEAAHXZ",
+      "ordinal": 232,
+      "rva": 354080,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAttributesCount@CXmlNode@XmlUtils@@QEAAHXZ",
+      "ordinal": 233,
+      "rva": 333584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAvailIn@CDeflate@@QEAAIXZ",
+      "ordinal": 234,
+      "rva": 7184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAvailIn@CInflate@@QEAAIXZ",
+      "ordinal": 235,
+      "rva": 7184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAvailOut@CDeflate@@QEAAIXZ",
+      "ordinal": 236,
+      "rva": 7200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetAvailOut@CInflate@@QEAAIXZ",
+      "ordinal": 237,
+      "rva": 7200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetBaseThread@CBaseThreadMonitor@NSThreads@@QEAAPEAVCBaseThread@2@AEBK@Z",
+      "ordinal": 238,
+      "rva": 373552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetBoolValue@NSProcessEnv@@YA_NPEBD@Z",
+      "ordinal": 239,
+      "rva": 447248,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetBuffer@CStringBuilder@NSStringUtils@@QEAAPEA_WXZ",
+      "ordinal": 240,
+      "rva": 372176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetBuffer@CStringBuilderA@NSStringUtils@@QEAAPEADXZ",
+      "ordinal": 241,
+      "rva": 388944,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetBuildBranding@NSSystemUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 242,
+      "rva": 445664,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetCS@CBaseThreadMonitor@NSThreads@@QEAAPEAVCRITICAL_SECTION@NSCriticalSection@@XZ",
+      "ordinal": 243,
+      "rva": 5184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetChilds@CXmlNode@XmlUtils@@QEAA_NAEAV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@std@@@Z",
+      "ordinal": 244,
+      "rva": 333600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetCurSize@CByteBuilder@NSMemoryUtils@@QEAA_KXZ",
+      "ordinal": 245,
+      "rva": 388976,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetCurSize@CStringBuilder@NSStringUtils@@QEAA_KXZ",
+      "ordinal": 246,
+      "rva": 388960,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetCurSize@CStringBuilderA@NSStringUtils@@QEAA_KXZ",
+      "ordinal": 247,
+      "rva": 388976,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetCurrentThreadId@NSThreads@@YAKXZ",
+      "ordinal": 248,
+      "rva": 372160,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetData@CByteBuilder@NSMemoryUtils@@QEAAPEAEXZ",
+      "ordinal": 249,
+      "rva": 388944,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetData@CStringBuilder@NSStringUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 250,
+      "rva": 388992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetData@CStringBuilderA@NSStringUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 251,
+      "rva": 389056,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetDepth@CXmlLiteReader@XmlUtils@@QEAAHXZ",
+      "ordinal": 252,
+      "rva": 354112,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetDescriptor@CBaseThread@NSThreads@@QEAAPEAVCThreadDescriptor@2@XZ",
+      "ordinal": 253,
+      "rva": 372176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetDirectories@NSDirectory@@YA?AV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@3@@Z",
+      "ordinal": 254,
+      "rva": 441600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetDirectoryName@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 255,
+      "rva": 417936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetDirectoryName@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 256,
+      "rva": 378352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetEnvVariable@NSSystemUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 257,
+      "rva": 445856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetEnvVariableA@NSSystemUtils@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@3@@Z",
+      "ordinal": 258,
+      "rva": 446048,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetError@CBaseThread@NSThreads@@QEAAHXZ",
+      "ordinal": 259,
+      "rva": 372192,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFileExtention@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 260,
+      "rva": 418224,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFileName@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 261,
+      "rva": 418624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFileName@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 262,
+      "rva": 378656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFileNative@CFileBinary@NSFile@@QEAAPEAU_iobuf@@XZ",
+      "ordinal": 263,
+      "rva": 372176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFilePosition@CFileBinary@NSFile@@QEAAJXZ",
+      "ordinal": 264,
+      "rva": 419104,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFileSize@CFileBinary@NSFile@@QEAAJXZ",
+      "ordinal": 265,
+      "rva": 372240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFiles2@NSDirectory@@YAXV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@3@_N@Z",
+      "ordinal": 266,
+      "rva": 442688,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFiles@NSDirectory@@YA?AV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@3@_N@Z",
+      "ordinal": 267,
+      "rva": 444144,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFilesCount@NSDirectory@@YAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEB_N@Z",
+      "ordinal": 268,
+      "rva": 444288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFilesSize@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0AEA_K1@Z",
+      "ordinal": 269,
+      "rva": 7216,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetFolderPath@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 270,
+      "rva": 417936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetInnerXml@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 271,
+      "rva": 354160,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetInt@CByteReader@NSMemoryUtils@@QEAAHXZ",
+      "ordinal": 272,
+      "rva": 409824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetIntValue@NSProcessEnv@@YAHPEBD@Z",
+      "ordinal": 273,
+      "rva": 447552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetName@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 274,
+      "rva": 354208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetName@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 275,
+      "rva": 333984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameA@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 276,
+      "rva": 354240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameA@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 277,
+      "rva": 334448,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameChar@CXmlLiteReader@XmlUtils@@QEAAPEBDXZ",
+      "ordinal": 278,
+      "rva": 354480,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameNoNS@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 279,
+      "rva": 354544,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameNoNS@CXmlNode@XmlUtils@@AEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 280,
+      "rva": 334800,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameNoNS@XmlUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 281,
+      "rva": 335152,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameNoNS@XmlUtils@@YAPEBDPEBD@Z",
+      "ordinal": 282,
+      "rva": 335584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNameNoNSA@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 283,
+      "rva": 355072,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNamespace@CXmlNode@XmlUtils@@AEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 284,
+      "rva": 335632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNamespace@XmlUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z",
+      "ordinal": 285,
+      "rva": 335808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNamespacePrefix@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 286,
+      "rva": 355632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNode@CXmlNode@XmlUtils@@QEAA?AV12@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 287,
+      "rva": 336080,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNode@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV12@@Z",
+      "ordinal": 288,
+      "rva": 336144,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNodeType@CXmlLiteReader@XmlUtils@@QEAA?AW4XmlNodeType@2@XZ",
+      "ordinal": 289,
+      "rva": 355792,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNodes@CXmlNode@XmlUtils@@QEAA?AV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@@Z",
+      "ordinal": 290,
+      "rva": 336432,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNodes@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@4@@Z",
+      "ordinal": 291,
+      "rva": 336816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetOuterXml@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 292,
+      "rva": 355808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetPosition@CFileBinary@NSFile@@QEAAKXZ",
+      "ordinal": 293,
+      "rva": 419104,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetPriority@CBaseThread@NSThreads@@QEAAHXZ",
+      "ordinal": 294,
+      "rva": 372208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetProcessDirectory@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 295,
+      "rva": 419152,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetProcessPath@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 296,
+      "rva": 419600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetProgress@CFileBinary@NSFile@@QEAAJXZ",
+      "ordinal": 297,
+      "rva": 419760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetSize@CByteBuilder@NSMemoryUtils@@QEAA_KXZ",
+      "ordinal": 298,
+      "rva": 372176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetSize@CStringBuilder@NSStringUtils@@QEAA_KXZ",
+      "ordinal": 299,
+      "rva": 389120,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetSize@CStringBuilderA@NSStringUtils@@QEAA_KXZ",
+      "ordinal": 300,
+      "rva": 372176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetString@CByteReader@NSMemoryUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 301,
+      "rva": 409840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetStringUTF8@CByteReader@NSMemoryUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 302,
+      "rva": 409952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetStringValue@NSProcessEnv@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBD@Z",
+      "ordinal": 303,
+      "rva": 447888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetStringValueA@NSProcessEnv@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEBD@Z",
+      "ordinal": 304,
+      "rva": 448640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetStringW@CByteReader@NSMemoryUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 305,
+      "rva": 410208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetSubData@CStringBuilder@NSStringUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEB_K0@Z",
+      "ordinal": 306,
+      "rva": 389136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetSystemDirectory@NSSystemUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBW4SystemDirectoryType@1@@Z",
+      "ordinal": 307,
+      "rva": 446224,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTempPath@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 308,
+      "rva": 419808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTempPath@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 309,
+      "rva": 444560,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetText2@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 310,
+      "rva": 355856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetText2A@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 311,
+      "rva": 356528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetText3@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 312,
+      "rva": 355856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetText@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 313,
+      "rva": 357248,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetText@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 314,
+      "rva": 336944,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTextA@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 315,
+      "rva": 357488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTextA@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 316,
+      "rva": 337280,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTextChar@CXmlLiteReader@XmlUtils@@QEAAPEBDXZ",
+      "ordinal": 317,
+      "rva": 357520,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTextExt@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 318,
+      "rva": 337360,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTextIfExist@CXmlNode@XmlUtils@@QEAA_NAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 319,
+      "rva": 337472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTextWithHHHH@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 320,
+      "rva": 357584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTextWithHHHH@CXmlLiteReader@XmlUtils@@QEAAX_NAEAPEA_WAEAJ2@Z",
+      "ordinal": 321,
+      "rva": 357856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTickCount@NSTimers@@YAKXZ",
+      "ordinal": 322,
+      "rva": 374624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTime@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAUtm@@1@Z",
+      "ordinal": 323,
+      "rva": 420416,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeFromCharPtr@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@H@Z",
+      "ordinal": 324,
+      "rva": 420848,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeFromCharPtr@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBDJH@Z",
+      "ordinal": 325,
+      "rva": 420896,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeFromSingleByteString@CConverter@NSStringExt@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBEJW4ESingleByteEncoding@12@@Z",
+      "ordinal": 326,
+      "rva": 401184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeFromUTF16@CConverter@NSStringExt@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBGJ@Z",
+      "ordinal": 327,
+      "rva": 403632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeFromUTF32@CConverter@NSStringExt@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBIJ@Z",
+      "ordinal": 328,
+      "rva": 403712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEJ@Z",
+      "ordinal": 329,
+      "rva": 421312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8@CUtf8Converter@NSFile@@SAXPEAEJAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 330,
+      "rva": 421392,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8BufferSize@CUtf8Converter@NSFile@@SAJJ@Z",
+      "ordinal": 331,
+      "rva": 421408,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8WithHHHH@CUtf8Converter@NSFile@@SAXPEBEJAEAPEA_WAEAJ@Z",
+      "ordinal": 332,
+      "rva": 421424,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8WithHHHH_2bytes@CUtf8Converter@NSFile@@SAXPEBEJAEAPEA_WAEAJ@Z",
+      "ordinal": 333,
+      "rva": 421440,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8WithHHHH_4bytes@CUtf8Converter@NSFile@@SAXPEBEJAEAPEA_WAEAJ@Z",
+      "ordinal": 334,
+      "rva": 422240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8_2bytes@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEJ@Z",
+      "ordinal": 335,
+      "rva": 421312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8_2bytes@CUtf8Converter@NSFile@@SAXPEAEJAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 336,
+      "rva": 422928,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8_4bytes@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEJ@Z",
+      "ordinal": 337,
+      "rva": 423792,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUnicodeStringFromUTF8_4bytes@CUtf8Converter@NSFile@@SAXPEAEJAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 338,
+      "rva": 423872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf16FromUnicode@CConverter@NSStringExt@@SAPEAGAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAIAEB_N@Z",
+      "ordinal": 339,
+      "rva": 404128,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf16SizeFromUnicode@CUtf8Converter@NSFile@@SAJPEB_WJ_N@Z",
+      "ordinal": 340,
+      "rva": 424656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf16SizeFromUnicode_4bytes@CUtf8Converter@NSFile@@SAJPEB_WJ_N@Z",
+      "ordinal": 341,
+      "rva": 424672,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf16StringFromUnicode_4bytes2@CUtf8Converter@NSFile@@SAXPEB_WJAEAVCStringUtf16@2@@Z",
+      "ordinal": 342,
+      "rva": 424736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf16StringFromUnicode_4bytes@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAH_N@Z",
+      "ordinal": 343,
+      "rva": 424864,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf32FromUnicode@CConverter@NSStringExt@@SAPEAIAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAI@Z",
+      "ordinal": 344,
+      "rva": 404352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8FromFileContent@XmlUtils@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEAEI@Z",
+      "ordinal": 345,
+      "rva": 337712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8FromUTF32@CConverter@NSStringExt@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEBIJ@Z",
+      "ordinal": 346,
+      "rva": 404624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8FromUTF32@CConverter@NSStringExt@@SAXPEBIJAEAPEAEAEAJ@Z",
+      "ordinal": 347,
+      "rva": 404944,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8StringFromUnicode2@CUtf8Converter@NSFile@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEB_WJ_N@Z",
+      "ordinal": 348,
+      "rva": 425024,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8StringFromUnicode@CUtf8Converter@NSFile@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@@Z",
+      "ordinal": 349,
+      "rva": 425472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8StringFromUnicode@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z",
+      "ordinal": 350,
+      "rva": 425952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8StringFromUnicode_2bytes@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z",
+      "ordinal": 351,
+      "rva": 425984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetUtf8StringFromUnicode_4bytes@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z",
+      "ordinal": 352,
+      "rva": 426512,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetWStringFromUTF16@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBVCStringUtf16@2@@Z",
+      "ordinal": 353,
+      "rva": 426928,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetWStringFromUTF16@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBGJ@Z",
+      "ordinal": 354,
+      "rva": 427056,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetXml@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 355,
+      "rva": 338288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetXmlString@CXmlWriter@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 356,
+      "rva": 362960,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Init2@CInflate@@QEAAXXZ",
+      "ordinal": 357,
+      "rva": 7408,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Init@CBaseThreadMonitor@NSThreads@@QEAA_NPEAX@Z",
+      "ordinal": 358,
+      "rva": 373824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Init@CDeflate@@QEAAXHH@Z",
+      "ordinal": 359,
+      "rva": 7440,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Init@CInflate@@QEAAXXZ",
+      "ordinal": 360,
+      "rva": 7472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?InitializeCriticalSection@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ",
+      "ordinal": 361,
+      "rva": 369968,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsArchive@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 362,
+      "rva": 7504,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsArchive@COfficeUtils@@QEAAJPEAE_K@Z",
+      "ordinal": 363,
+      "rva": 7664,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsDefaultAttribute@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 364,
+      "rva": 359824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsEmptyElement@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 365,
+      "rva": 359856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsEmptyNode@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 366,
+      "rva": 359904,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsFileExistInArchive@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 367,
+      "rva": 7696,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsFileExistInArchive@COfficeUtils@@QEAAJPEAE_KAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 368,
+      "rva": 7872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsGlobalTempPathUse@CFileBinary@NSFile@@SA_NXZ",
+      "ordinal": 369,
+      "rva": 427296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsInit@CBaseThreadMonitor@NSThreads@@QEAA_NXZ",
+      "ordinal": 370,
+      "rva": 373904,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsPathInDirectory@NSSystemPath@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 371,
+      "rva": 379136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsPresent@NSProcessEnv@@YA_NPEBD@Z",
+      "ordinal": 372,
+      "rva": 448704,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsRunned@CBaseThread@NSThreads@@QEAAHXZ",
+      "ordinal": 373,
+      "rva": 372224,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsSpace@CStringBuilder@NSStringUtils@@QEAA_NXZ",
+      "ordinal": 374,
+      "rva": 389248,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsSuspended@CBaseThread@NSThreads@@QEAAHXZ",
+      "ordinal": 375,
+      "rva": 372240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsValid@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 376,
+      "rva": 359952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsValid@CXmlNode@XmlUtils@@QEBA_NXZ",
+      "ordinal": 377,
+      "rva": 339136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Join@CBaseThread@NSThreads@@MEAAXXZ",
+      "ordinal": 378,
+      "rva": 372256,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Leave@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ",
+      "ordinal": 379,
+      "rva": 369984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Leave@CRITICAL_SECTION_SMART@NSCriticalSection@@QEAAXXZ",
+      "ordinal": 380,
+      "rva": 370000,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?LeaveCS@CTemporaryCS@@QEAAXXZ",
+      "ordinal": 381,
+      "rva": 370048,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Load@NSProcessEnv@@YAXAEAVCXmlNode@XmlUtils@@@Z",
+      "ordinal": 382,
+      "rva": 449824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Load@NSProcessEnv@@YAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 383,
+      "rva": 449856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Load@NSProcessEnv@@YAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 384,
+      "rva": 449936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?LoadFileFromArchive@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAPEAEAEAK@Z",
+      "ordinal": 385,
+      "rva": 7920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?LoadFileFromArchive@COfficeUtils@@QEAAJPEAE_KAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAPEAEAEAK@Z",
+      "ordinal": 386,
+      "rva": 8112,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Move@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 387,
+      "rva": 427312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?MoveToElement@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 388,
+      "rva": 359968,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?MoveToFirstAttribute@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 389,
+      "rva": 360016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?MoveToNextAttribute@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 390,
+      "rva": 360064,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?MoveToStart@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 391,
+      "rva": 360112,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Next@CStringUnicodeIterator@NSStringExt@@QEAAXXZ",
+      "ordinal": 392,
+      "rva": 405392,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?NormalizePath@NSSystemPath@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV23@AEB_N@Z",
+      "ordinal": 393,
+      "rva": 379536,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?NormalizePath@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@AEB_N@Z",
+      "ordinal": 394,
+      "rva": 379568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OpenFile@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 395,
+      "rva": 427472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OpenFileNative@CFileBinary@NSFile@@SAPEAU_iobuf@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 396,
+      "rva": 427680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OpenTempFile@CFileBinary@NSFile@@SA_NPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAPEAU_iobuf@@PEA_W222@Z",
+      "ordinal": 397,
+      "rva": 427744,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathIsDirectory@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 398,
+      "rva": 441552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Process@CDeflate@@QEAAHH@Z",
+      "ordinal": 399,
+      "rva": 8192,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Process@CInflate@@QEAAHH@Z",
+      "ordinal": 400,
+      "rva": 8208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Read@CXmlLiteReader@XmlUtils@@QEAA_NAEAW4XmlNodeType@2@@Z",
+      "ordinal": 401,
+      "rva": 360192,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAllAttributes@CXmlNode@XmlUtils@@QEAAXAEAV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@0@Z",
+      "ordinal": 402,
+      "rva": 339968,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAllAttributesA@CXmlNode@XmlUtils@@QEAAXAEAV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@0@Z",
+      "ordinal": 403,
+      "rva": 340528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAllBytes@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAPEAEAEAK@Z",
+      "ordinal": 404,
+      "rva": 429200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAllTextUtf8@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV34@@Z",
+      "ordinal": 405,
+      "rva": 429600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAllTextUtf8A@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@@Z",
+      "ordinal": 406,
+      "rva": 429936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAttribute@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 407,
+      "rva": 340816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAttributeBase@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z",
+      "ordinal": 408,
+      "rva": 341232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAttributeDouble@CXmlNode@XmlUtils@@QEAANAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN@Z",
+      "ordinal": 409,
+      "rva": 341600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadAttributeInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z",
+      "ordinal": 410,
+      "rva": 341616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadFile@CFileBinary@NSFile@@QEAA_NPEAEK@Z",
+      "ordinal": 411,
+      "rva": 430224,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadFile@CFileBinary@NSFile@@QEAA_NPEAEKAEAK@Z",
+      "ordinal": 412,
+      "rva": 430288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNextNode@CXmlLiteReader@XmlUtils@@QEAA_NXZ",
+      "ordinal": 413,
+      "rva": 360272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNextSiblingNode2@CXmlLiteReader@XmlUtils@@QEAA_NH@Z",
+      "ordinal": 414,
+      "rva": 360384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNextSiblingNode@CXmlLiteReader@XmlUtils@@QEAA_NH@Z",
+      "ordinal": 415,
+      "rva": 360576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNode@CXmlNode@XmlUtils@@QEAA?AV12@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 416,
+      "rva": 336080,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNode@CXmlNode@XmlUtils@@QEAA?AV12@PEB_W@Z",
+      "ordinal": 417,
+      "rva": 341632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNodeNoNS@CXmlNode@XmlUtils@@QEAA?AV12@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 418,
+      "rva": 341872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNodeText@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 419,
+      "rva": 342272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNodeTextBase@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z",
+      "ordinal": 420,
+      "rva": 342480,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadNodesNoNS@CXmlNode@XmlUtils@@QEAA?AV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@@Z",
+      "ordinal": 421,
+      "rva": 342704,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadTillEnd@CXmlLiteReader@XmlUtils@@QEAA_NH@Z",
+      "ordinal": 422,
+      "rva": 360736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadValueInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z",
+      "ordinal": 423,
+      "rva": 343232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ReadValueString@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z",
+      "ordinal": 424,
+      "rva": 343568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Register@CBaseThreadMonitor@NSThreads@@AEAAXPEAVCBaseThread@2@@Z",
+      "ordinal": 425,
+      "rva": 373952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Release@IXmlDOMDocument@XmlUtils@@UEAAIXZ",
+      "ordinal": 426,
+      "rva": 360960,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Remove@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 427,
+      "rva": 430352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?RemoveLastSpaces@CStringBuilder@NSStringUtils@@QEAAXXZ",
+      "ordinal": 428,
+      "rva": 389280,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ResolveInDirectory@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@00@Z",
+      "ordinal": 429,
+      "rva": 379600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Resume@CBaseThread@NSThreads@@UEAAXXZ",
+      "ordinal": 430,
+      "rva": 372288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Save@NSProcessEnv@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
+      "ordinal": 431,
+      "rva": 450784,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SaveToFile@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_N@Z",
+      "ordinal": 432,
+      "rva": 430384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SaveToFile@CXmlWriter@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 433,
+      "rva": 363040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SeekFile@CFileBinary@NSFile@@QEAA_NHH@Z",
+      "ordinal": 434,
+      "rva": 430688,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetAddonFlag@COfficeUtils@@SAXH@Z",
+      "ordinal": 435,
+      "rva": 8224,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetAttributeInt@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z",
+      "ordinal": 436,
+      "rva": 343808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetBase@CXmlNode@XmlUtils@@AEAAXPEAVCXmlNodeBase@2@@Z",
+      "ordinal": 437,
+      "rva": 344400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetBoolValue@NSProcessEnv@@YA_NPEBDAEB_N@Z",
+      "ordinal": 438,
+      "rva": 450832,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetCOMNeed@CTimer@NSTimers@@QEAAXAEBH@Z",
+      "ordinal": 439,
+      "rva": 374640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetCurSize@CByteBuilder@NSMemoryUtils@@QEAAX_K@Z",
+      "ordinal": 440,
+      "rva": 389360,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetCurSize@CStringBuilder@NSStringUtils@@QEAAX_K@Z",
+      "ordinal": 441,
+      "rva": 389328,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetCurSize@CStringBuilderA@NSStringUtils@@QEAAX_K@Z",
+      "ordinal": 442,
+      "rva": 389360,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetIn@CDeflate@@QEAAXPEAEIK@Z",
+      "ordinal": 443,
+      "rva": 8240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetIn@CInflate@@QEAAXPEAEIK@Z",
+      "ordinal": 444,
+      "rva": 8240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetIntValue@NSProcessEnv@@YA_NPEBDAEBH@Z",
+      "ordinal": 445,
+      "rva": 451264,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetInterval@CTimer@NSTimers@@QEAAXAEBK@Z",
+      "ordinal": 446,
+      "rva": 374656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetOut@CDeflate@@QEAAXPEAEIK@Z",
+      "ordinal": 447,
+      "rva": 8272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetOut@CInflate@@QEAAXPEAEIK@Z",
+      "ordinal": 448,
+      "rva": 8272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetPosition@CFileBinary@NSFile@@QEAA_NH@Z",
+      "ordinal": 449,
+      "rva": 430736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetReleaseHandler@CBaseThreadMonitor@NSThreads@@QEAAXV?$function@$$A6AXPEAXPEAVCBaseThread@NSThreads@@@Z@std@@@Z",
+      "ordinal": 450,
+      "rva": 374128,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetStringValue@NSProcessEnv@@YA_NPEBDPEB_W@Z",
+      "ordinal": 451,
+      "rva": 451792,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetStringValueA@NSProcessEnv@@YA_NPEBD0@Z",
+      "ordinal": 452,
+      "rva": 452368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetTempPath@CFileBinary@NSFile@@SAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 453,
+      "rva": 430784,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetText@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 454,
+      "rva": 389376,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetText@CStringBuilderA@NSStringUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 455,
+      "rva": 389488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetTime@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAUtm@@1@Z",
+      "ordinal": 456,
+      "rva": 430832,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetXmlString@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 457,
+      "rva": 363216,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ShortenPath@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@AEB_N@Z",
+      "ordinal": 458,
+      "rva": 380800,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SizeFile@CFileBinary@NSFile@@QEAAJXZ",
+      "ordinal": 459,
+      "rva": 431328,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Skip@CStringBuilder@NSStringUtils@@QEAAXH@Z",
+      "ordinal": 460,
+      "rva": 389600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SkipBytes@CFileBinary@NSFile@@QEAA_NK@Z",
+      "ordinal": 461,
+      "rva": 431440,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SkipReservedTo@CFileBinary@NSFile@@QEAA_NK@Z",
+      "ordinal": 462,
+      "rva": 431504,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Sleep@NSThreads@@YAXH@Z",
+      "ordinal": 463,
+      "rva": 372304,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Start@CBaseThread@NSThreads@@UEAAXH@Z",
+      "ordinal": 464,
+      "rva": 372320,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?StartAttributes@CStringBuilder@NSStringUtils@@QEAAXXZ",
+      "ordinal": 465,
+      "rva": 103488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?StartNode@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 466,
+      "rva": 389616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?StartNodeWithNS@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 467,
+      "rva": 389712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Stop@CBaseThread@NSThreads@@UEAAXXZ",
+      "ordinal": 468,
+      "rva": 372480,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?StopNoJoin@CBaseThread@NSThreads@@UEAAXXZ",
+      "ordinal": 469,
+      "rva": 372560,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Suspend@CBaseThread@NSThreads@@UEAAXXZ",
+      "ordinal": 470,
+      "rva": 372624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?TellFile@CFileBinary@NSFile@@QEAAJXZ",
+      "ordinal": 471,
+      "rva": 431568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ThreadProc@CTimer@NSTimers@@MEAAKXZ",
+      "ordinal": 472,
+      "rva": 374672,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ToStdWString@CStringUTF32@NSStringUtils@@QEBA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 473,
+      "rva": 408512,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Truncate@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_K@Z",
+      "ordinal": 474,
+      "rva": 431600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Uncompress@COfficeUtils@@QEAAJPEAEPEAK0K@Z",
+      "ordinal": 475,
+      "rva": 8304,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Unregister@CBaseThreadMonitor@NSThreads@@AEAAXPEAVCBaseThread@2@@Z",
+      "ordinal": 476,
+      "rva": 374240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Value@CStringUnicodeIterator@NSStringExt@@QEAAIXZ",
+      "ordinal": 477,
+      "rva": 405456,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Write@CStringBuilder@NSStringUtils@@QEAAXAEAV12@AEB_K@Z",
+      "ordinal": 478,
+      "rva": 389840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 479,
+      "rva": 389872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@H@Z",
+      "ordinal": 480,
+      "rva": 390112,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@I@Z",
+      "ordinal": 481,
+      "rva": 390352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@N@Z",
+      "ordinal": 482,
+      "rva": 390576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z",
+      "ordinal": 483,
+      "rva": 390816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 484,
+      "rva": 391120,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 485,
+      "rva": 363280,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@@Z",
+      "ordinal": 486,
+      "rva": 363920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@H00@Z",
+      "ordinal": 487,
+      "rva": 364384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttribute@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@N@Z",
+      "ordinal": 488,
+      "rva": 365024,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttributeEncodeXml@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 489,
+      "rva": 391408,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteAttributeEncodeXml@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z",
+      "ordinal": 490,
+      "rva": 391648,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteBefore@CStringBuilder@NSStringUtils@@QEAAXAEAV12@@Z",
+      "ordinal": 491,
+      "rva": 391888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteBoolean@CXmlWriter@XmlUtils@@QEAAX_N@Z",
+      "ordinal": 492,
+      "rva": 365616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteDouble@CXmlWriter@XmlUtils@@QEAAXN@Z",
+      "ordinal": 493,
+      "rva": 365920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlChar@CStringBuilder@NSStringUtils@@IEAAX_WE@Z",
+      "ordinal": 494,
+      "rva": 392000,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 495,
+      "rva": 393456,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 496,
+      "rva": 393712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXPEB_WH@Z",
+      "ordinal": 497,
+      "rva": 393744,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlString@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 498,
+      "rva": 366352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlStringHHHH@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 499,
+      "rva": 393760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlStringHHHH@CStringBuilder@NSStringUtils@@QEAAXPEB_WH@Z",
+      "ordinal": 500,
+      "rva": 393792,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlStringHHHH_2bytes@CStringBuilder@NSStringUtils@@IEAAXPEB_WH@Z",
+      "ordinal": 501,
+      "rva": 393808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlStringHHHH_4bytes@CStringBuilder@NSStringUtils@@IEAAXPEB_WH@Z",
+      "ordinal": 502,
+      "rva": 394240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlString_2bytes@CStringBuilder@NSStringUtils@@IEAAXPEB_WH@Z",
+      "ordinal": 503,
+      "rva": 394512,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteEncodeXmlString_4bytes@CStringBuilder@NSStringUtils@@IEAAXPEB_WH@Z",
+      "ordinal": 504,
+      "rva": 394912,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteFile2@CFileBinary@NSFile@@QEAA_NPEBEK@Z",
+      "ordinal": 505,
+      "rva": 431808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteFile@CFileBinary@NSFile@@QEAA_NPEBEK@Z",
+      "ordinal": 506,
+      "rva": 432000,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteFile@CFileBinary@NSFile@@QEAA_NPEBXK@Z",
+      "ordinal": 507,
+      "rva": 432000,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteHexByte@CStringBuilder@NSStringUtils@@QEAAXAEBE@Z",
+      "ordinal": 508,
+      "rva": 395168,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteHexByteNoSafe@CStringBuilder@NSStringUtils@@QEAAXAEBE@Z",
+      "ordinal": 509,
+      "rva": 395280,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteHexColor3@CStringBuilder@NSStringUtils@@QEAAXAEBE00@Z",
+      "ordinal": 510,
+      "rva": 395360,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteHexColor3@CStringBuilder@NSStringUtils@@QEAAXAEBI@Z",
+      "ordinal": 511,
+      "rva": 395616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteHexInt3@CStringBuilder@NSStringUtils@@QEAAXAEBI@Z",
+      "ordinal": 512,
+      "rva": 395856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteHexInt4@CStringBuilder@NSStringUtils@@QEAAXAEBI@Z",
+      "ordinal": 513,
+      "rva": 396080,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteInt@CByteBuilder@NSMemoryUtils@@QEAAXAEBH@Z",
+      "ordinal": 514,
+      "rva": 410320,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteInteger@CXmlWriter@XmlUtils@@QEAAXH@Z",
+      "ordinal": 515,
+      "rva": 366368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNode@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 516,
+      "rva": 366720,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNode@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@H00@Z",
+      "ordinal": 517,
+      "rva": 367936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNode@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@N@Z",
+      "ordinal": 518,
+      "rva": 368064,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeBegin@CStringBuilder@NSStringUtils@@QEAAXV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 519,
+      "rva": 396352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeBegin@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 520,
+      "rva": 368144,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeEnd@CStringBuilder@NSStringUtils@@QEAAXV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N1@Z",
+      "ordinal": 521,
+      "rva": 396544,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeEnd@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N1@Z",
+      "ordinal": 522,
+      "rva": 368464,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValue@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 523,
+      "rva": 396768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValue@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@H@Z",
+      "ordinal": 524,
+      "rva": 396992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValue@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@I@Z",
+      "ordinal": 525,
+      "rva": 397216,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValue@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@N@Z",
+      "ordinal": 526,
+      "rva": 397424,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValue@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z",
+      "ordinal": 527,
+      "rva": 397648,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValue@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 528,
+      "rva": 397920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValueEncodeXml@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z",
+      "ordinal": 529,
+      "rva": 398192,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteNodeValueEncodeXml@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z",
+      "ordinal": 530,
+      "rva": 398416,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteReserved2@CFileBinary@NSFile@@QEAA_NK@Z",
+      "ordinal": 531,
+      "rva": 432048,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteReserved@CFileBinary@NSFile@@QEAA_NK@Z",
+      "ordinal": 532,
+      "rva": 432160,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteReservedTo@CFileBinary@NSFile@@QEAA_NK@Z",
+      "ordinal": 533,
+      "rva": 432272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteString@CByteBuilder@NSMemoryUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 534,
+      "rva": 410384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteString@CByteBuilder@NSMemoryUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 535,
+      "rva": 410496,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 536,
+      "rva": 384928,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteString@CStringBuilder@NSStringUtils@@QEAAXPEB_W_K@Z",
+      "ordinal": 537,
+      "rva": 398640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteString@CStringBuilderA@NSStringUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 538,
+      "rva": 398752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteString@CStringBuilderA@NSStringUtils@@QEAAXPEBD_K@Z",
+      "ordinal": 539,
+      "rva": 398848,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteString@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 540,
+      "rva": 369040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteStringNoSafe@CStringBuilder@NSStringUtils@@QEAAXPEB_W_K@Z",
+      "ordinal": 541,
+      "rva": 398928,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteStringNoSafe@CStringBuilderA@NSStringUtils@@QEAAXPEBD_K@Z",
+      "ordinal": 542,
+      "rva": 398992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteStringUTF8@CByteBuilder@NSMemoryUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 543,
+      "rva": 410608,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteStringUTF8@CFileBinary@NSFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z",
+      "ordinal": 544,
+      "rva": 432400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?WriteUtf8EncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 545,
+      "rva": 399040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?__ThreadProc@CBaseThread@NSThreads@@KAKPEAX@Z",
+      "ordinal": 546,
+      "rva": 372640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?addFile@CZipBuffer@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEAEK@Z",
+      "ordinal": 547,
+      "rva": 12272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?at@CStringUTF32@NSStringUtils@@QEAAAEAI_K@Z",
+      "ordinal": 548,
+      "rva": 409264,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?at@CStringUTF32@NSStringUtils@@QEBAAEBI_K@Z",
+      "ordinal": 549,
+      "rva": 409264,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?close@CZipBuffer@@QEAAXXZ",
+      "ordinal": 550,
+      "rva": 13136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?create@CZipBuffer@@QEAAXXZ",
+      "ordinal": 551,
+      "rva": 13248,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?empty@CStringUTF32@NSStringUtils@@QEBA_NXZ",
+      "ordinal": 552,
+      "rva": 409392,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?getFile@CZipBuffer@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEAPEAEAEAK@Z",
+      "ordinal": 553,
+      "rva": 13424,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?getPaths@CZipBuffer@@QEAA?AV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@XZ",
+      "ordinal": 554,
+      "rva": 14240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?isAborted@CBaseThread@NSThreads@@QEAA_NXZ",
+      "ordinal": 555,
+      "rva": 372736,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?length@CStringUTF32@NSStringUtils@@QEBA_KXZ",
+      "ordinal": 556,
+      "rva": 409408,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?move@CZipBuffer@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z",
+      "ordinal": 557,
+      "rva": 14384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?open@CZipBuffer@@QEAAXPEAEK@Z",
+      "ordinal": 558,
+      "rva": 14576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?private_GetXml@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 559,
+      "rva": 351456,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?private_GetXml@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 560,
+      "rva": 351568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?private_GetXmlFast@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z",
+      "ordinal": 561,
+      "rva": 351952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?private_GetXmlFast@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ",
+      "ordinal": 562,
+      "rva": 352064,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?removeFile@CZipBuffer@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z",
+      "ordinal": 563,
+      "rva": 15152,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?save@CZipBuffer@@QEAAXAEAPEAEAEAK@Z",
+      "ordinal": 564,
+      "rva": 15472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?string_replace@NSStringUtils@@YAXAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@1@Z",
+      "ordinal": 565,
+      "rva": 400512,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?string_replaceA@NSStringUtils@@YAXAEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV23@1@Z",
+      "ordinal": 566,
+      "rva": 400784,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?substr@CStringUTF32@NSStringUtils@@QEBA?AV12@_K0@Z",
+      "ordinal": 567,
+      "rva": 409424,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    }
+  ],
+  "source_relative_path": "converter/kernel.dll",
+  "full_archive_sha256_verified": "54979d04f1cdca56deb0c62e0356355a45f392cdb54f04f6b7e436b1f44c3605"
+}

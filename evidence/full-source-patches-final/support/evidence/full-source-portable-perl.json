@@ -1,0 +1,13 @@
+{
+  "status": "staged",
+  "version": "5.40.0.1",
+  "official_url": "https://github.com/StrawberryPerl/Perl-Dist-Strawberry/releases/download/SP_54001_64bit_UCRT/strawberry-perl-5.40.0.1-64bit-portable.zip",
+  "publisher_size_verified": true,
+  "zip_crc_verified": true,
+  "publisher_digest": null,
+  "local_sha256": "754f3e2a8e473dc68d1540c7802fb166a025f35ef18960c4564a31f8b5933907",
+  "size": 299399930,
+  "executable": "D:\\open office\\build\\full-source\\tools\\strawberry-perl-5.40.0.1\\perl\\bin\\perl.exe",
+  "system_path_modified": false,
+  "installer_executed": false
+}

@@ -1,0 +1,40 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-11-02T09:58:26.575795+00:00",
+  "raster_recompression": false,
+  "mobile": false,
+  "forms_addon": false,
+  "steps": [
+    {
+      "name": "common",
+      "command": [
+        "node",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build\\node_modules\\grunt-cli\\bin\\grunt",
+        "--gruntfile",
+        "D:\\open office\\scripts\\full_source_web_grunt.cjs",
+        "--base",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+        "--desktop",
+        "--verbose",
+        "init-build-common",
+        "increment-build",
+        "deploy-api",
+        "deploy-apps-common",
+        "deploy-socketio",
+        "deploy-xregexp",
+        "deploy-requirejs",
+        "deploy-megapixel",
+        "deploy-jquery",
+        "deploy-underscore",
+        "deploy-iscroll",
+        "deploy-fetch",
+        "deploy-es6-promise",
+        "deploy-common-embed",
+        "deploy-monaco"
+      ],
+      "status": "failed",
+      "pid": 53332,
+      "exit_code": 99
+    }
+  ]
+}

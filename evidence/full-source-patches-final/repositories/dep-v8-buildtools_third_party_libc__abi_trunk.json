@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-buildtools_third_party_libc__abi_trunk",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools\\third_party\\libc++abi\\trunk",
+  "pin": "196ba1aaa8ac285d94f4ea8d9836390a45360533",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:07.978781+00:00",
+  "head": "196ba1aaa8ac285d94f4ea8d9836390a45360533",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git",
+  "patch": {
+    "path": "patches/dep-v8-buildtools_third_party_libc__abi_trunk.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-buildtools_third_party_libc__abi_trunk.txt",
+    "size": 41,
+    "sha256": "e6607f517ad68f1951ed7e3340831723e6d6f5e7d8c35cfa5e10e5f13794c581"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:08.436913+00:00"
+}

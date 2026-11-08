@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-third_party_protobuf",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\protobuf",
+  "pin": "b68a347f56137b4b1a746e8c7438495a6ac1bd91",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:06.319043+00:00",
+  "head": "b68a347f56137b4b1a746e8c7438495a6ac1bd91",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/external/github.com/google/protobuf",
+  "patch": {
+    "path": "patches/dep-v8-third_party_protobuf.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_protobuf.txt",
+    "size": 41,
+    "sha256": "414e9da7640cd2d3dde1a464e9e635df91234c49a70a179d3fa70a34cf8335e0"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:07.834840+00:00"
+}

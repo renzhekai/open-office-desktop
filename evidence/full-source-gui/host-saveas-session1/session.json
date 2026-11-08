@@ -1,0 +1,24 @@
+{
+  "started_at_utc": "2026-11-06T09:38:28.731717+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-host-saveas\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\host-saveas-session1",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\host-saveas-session1\\launch-report.json"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\host-saveas-session1",
+  "profile_existed_before": false,
+  "entry_sha256": "9119d2026c2e76a3224e97c05307b075787db9981f01eca9fa177b8dfde8ed4f",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-host-saveas",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "host_candidate_marker_sha256": "3940bfcb32dd8539991766925a2a6d5d689127f3a7cd2bb901f06271e8dae9d2",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 46700,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-06T09:47:58.972739+00:00",
+  "native_events_sha256": "a4f0fd9b34fc2abf65b0279efd70db89a59736e45596907d835ef22ee2c8cbd6"
+}

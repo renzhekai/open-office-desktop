@@ -1,0 +1,20 @@
+{
+  "recorded_utc": "2026-11-03T09:48:19.516632+00:00",
+  "user_approval": "2026-11-03 chat: 批准下载 (only wasm-binaries.zip; reuse Python 3.11.8 and Node 24; no Java; no system PATH change)",
+  "url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/win/694434b6d47c5f6eff2c8fbd9eeb016c977ae9dc/wasm-binaries.zip",
+  "emscripten_version": "3.1.48",
+  "release_hash": "694434b6d47c5f6eff2c8fbd9eeb016c977ae9dc",
+  "expected_sha256_source": "https://github.com/emscripten-core/emsdk/blob/f677ef915645c09794f0ae88f21d3cba2886459f/bazel/revisions.bzl (sha_win)",
+  "sha256": "9276435ea7c402c18572a4301d6a26426eac73414b0ed5cb3e721044a50f651d",
+  "bytes": 441957173,
+  "sha256_match": true,
+  "zip_entries": 9258,
+  "zip_files": 9258,
+  "uncompressed_bytes": 1230595983,
+  "unsafe_paths": 0,
+  "crc_check": "passed",
+  "install_dir": "dependencies/emscripten-3.1.48/install",
+  "top_level": [
+    "install"
+  ]
+}

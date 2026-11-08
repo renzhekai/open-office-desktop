@@ -1,0 +1,5 @@
+{
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\openssl\\openssl\\Configurations\\10-main.conf",
+  "change": "VC static library /MT /Zl -> /MD /Zl",
+  "sha256": "98130b9e9f957edf713977a07158f98303bc96e50a00221a15999458a47a3faf"
+}

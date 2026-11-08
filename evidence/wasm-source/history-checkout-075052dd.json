@@ -1,0 +1,35 @@
+{
+  "recorded_utc": "2026-11-03T09:44:56.198572+00:00",
+  "path": "build/wasm-source/history-075052dd",
+  "remote": "https://github.com/ONLYOFFICE/core.git",
+  "commit": "075052dd3f41373affa533317d6734a0d34e0897",
+  "method": "git init + fetch --depth 1 --filter=blob:none --no-tags <commit>; sparse-checkout --no-cone; separate repository so upstream/DesktopEditors/.git/modules/core object store is untouched",
+  "sparse_paths": [
+    "/Common/js/",
+    "/DesktopEditor/fontengine/js/",
+    "/OfficeUtils/js/",
+    "/Common/3dParty/hunspell/",
+    "/Common/3dParty/hyphen/js/",
+    "/DesktopEditor/xmlsec/src/wasm/",
+    "/DesktopEditor/graphics/pro/js/",
+    "/DesktopEditor/raster/Metafile/"
+  ],
+  "checked_out_files": 383,
+  "checked_out_per_path": {
+    "/Common/js/": 9,
+    "/DesktopEditor/fontengine/js/": 15,
+    "/OfficeUtils/js/": 12,
+    "/Common/3dParty/hunspell/": 20,
+    "/Common/3dParty/hyphen/js/": 8,
+    "/DesktopEditor/xmlsec/src/wasm/": 52,
+    "/DesktopEditor/graphics/pro/js/": 43,
+    "/DesktopEditor/raster/Metafile/": 224
+  },
+  "worktree_clean": true,
+  "executed_from_checkout": false,
+  "before_py_risks": {
+    "DesktopEditor/graphics/pro/js/before.py": "edits shared core files in place (Common/3dParty/icu/icu/source/common/udata.cpp, DesktopEditor/cximage/png/pnglibconf.h, Common/3dParty/openssl/openssl/crypto/sha/sha512.c); must only run inside an isolated copy, never build/full-source",
+    "Common/3dParty/hunspell/before.py": "clones hunspell and deletes the hunspell dir when HEAD differs; do not run as-is",
+    "DesktopEditor/xmlsec/src/wasm/hash/before.py": "runs 3rdParty/openssl.py to prepare OpenSSL sources"
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "DesktopEditors",
+    "source": "D:\\open office\\upstream\\DesktopEditors",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors",
+    "commit": "daf8c6948148827201b2907ac1134d222fbfa7b4"
+  },
+  {
+    "name": "core",
+    "source": "D:\\open office\\upstream\\DesktopEditors\\core",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors\\core",
+    "commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed"
+  },
+  {
+    "name": "desktop-apps",
+    "source": "D:\\open office\\upstream\\DesktopEditors\\desktop-apps",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors\\desktop-apps",
+    "commit": "332c1905a5361dd4139481827b7ad4f4a9facd85"
+  },
+  {
+    "name": "desktop-sdk",
+    "source": "D:\\open office\\upstream\\DesktopEditors\\desktop-sdk",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors\\desktop-sdk",
+    "commit": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11"
+  },
+  {
+    "name": "dictionaries",
+    "source": "D:\\open office\\upstream\\DesktopEditors\\dictionaries",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors\\dictionaries",
+    "commit": "d3223bbb777883db66ac3cd249f71c6ebdc992c7"
+  },
+  {
+    "name": "web-apps",
+    "source": "D:\\open office\\upstream\\DesktopEditors\\web-apps",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps",
+    "commit": "f79972a400c3a696490094961772d1f86fac1b82"
+  },
+  {
+    "name": "sdkjs",
+    "source": "D:\\open office\\upstream\\DesktopEditors\\sdkjs",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs",
+    "commit": "9d2138866d929be32f1d107e8b5bfae36156e097"
+  },
+  {
+    "name": "build_tools",
+    "source": "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+    "worktree": "D:\\open office\\build\\full-source\\DesktopEditors\\build_tools",
+    "commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda"
+  }
+]

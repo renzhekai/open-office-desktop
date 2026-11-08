@@ -1,0 +1,25 @@
+{
+  "started_at_utc": "2026-11-02T11:49:41.567669+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\docx-reopen",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\docx-reopen\\launch-report.json",
+    "--open",
+    "D:\\open office\\fixtures\\results\\full-source-docx-roundtrip.docx",
+    "--exit-after-ms",
+    "60000"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\docx-reopen",
+  "profile_existed_before": false,
+  "entry_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 25184,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-02T11:50:44.091433+00:00",
+  "native_events_sha256": "7defe3125cd2cdd55a3c52386619073d8dd5ffe7f708ec86d2358b423e1a14b8"
+}

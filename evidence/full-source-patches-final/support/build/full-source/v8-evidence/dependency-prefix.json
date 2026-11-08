@@ -1,0 +1,9 @@
+{
+  "status": "verified",
+  "prefix_hex": "d7a2d2e23a20b0fcbaaccec4bcfe3a",
+  "encoding": "cp936",
+  "prefix_decoded": "\u6ce8\u610f: \u5305\u542b\u6587\u4ef6:",
+  "VSLANG": "1033",
+  "ninja_deps_output": "probe.obj: #deps 1, deps mtime 8153202441630781 (VALID)\r\n    probe.h\r\n\r\n",
+  "existing_build_note": "Initial monolith pass started before prefix fix; subsequent generation must include this prefix."
+}

@@ -1,0 +1,14 @@
+diff --git a/BUILD.gn b/BUILD.gn
+index f39529a3a953a338a8dafc5d2ba144128c4bf096..76830ebe67a8e9e6441cfd21b6da82560d47a406 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -2025,6 +2025,9 @@ v8_source_set("v8_wrappers") {
+   configs = [ ":internal_config" ]
+ 
+   sources = [ "src/base/platform/wrappers.h" ]
++  if (is_win) {
++    sources += [ "src/base/platform/wrappers.cc" ]
++  }
+ }
+ 
+ # This is split out to share basic headers with Torque.

@@ -1,0 +1,9 @@
+{
+  "status": "checked_out",
+  "source_only": true,
+  "url": "https://chromium.googlesource.com/v8/v8.git",
+  "commit": "a2d8eca22ad478a95ca67bb2421a9a2535113925",
+  "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8",
+  "started_at_utc": "2026-11-02T10:15:43.709725+00:00",
+  "finished_at_utc": "2026-11-02T10:15:58.131975+00:00"
+}

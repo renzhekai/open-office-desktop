@@ -1,0 +1,192 @@
+{
+  "python": {
+    "url": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+    "sha256": "6347068ca56bf4dd6319f7ef5695f5a03f1ade3e9aa2d6a095ab27faa77a1290",
+    "expected_sha256": "6347068ca56bf4dd6319f7ef5695f5a03f1ade3e9aa2d6a095ab27faa77a1290",
+    "checksum_source": "D:\\open office\\dependencies\\v8-tools\\python-3.11.8-embed-amd64.zip.sigstore",
+    "size": 11213669,
+    "deployment": "D:\\open office\\build\\full-source\\v8-tools\\python-3.11.8",
+    "signature_verification": "Digest compared with official HTTPS-served Sigstore metadata; signature chain not cryptographically verified",
+    "local_configuration": "python311._pth renamed to .original for normal script imports; PYTHONNOUSERSITE=1 process-only",
+    "members": [
+      {
+        "path": "python.exe",
+        "size": 103192,
+        "sha256": "01fd1819096d112696bd2152068c1195c9bd4f57b6ab776eddd98d66d44b8259"
+      },
+      {
+        "path": "pythonw.exe",
+        "size": 101656,
+        "sha256": "e65ecc6b135f8c2269a2163f5c906376f2fea3b61571d312d779f36f772ceac1"
+      },
+      {
+        "path": "python311.dll",
+        "size": 5789464,
+        "sha256": "2835e0f24fb13ef019608b13817f3acf8735fbc5f786d00501c4a151226bdff1"
+      },
+      {
+        "path": "python3.dll",
+        "size": 67352,
+        "sha256": "920350a7c24c46339754e38d0db34ab558e891da0b3a389d5230a0d379bee802"
+      },
+      {
+        "path": "vcruntime140.dll",
+        "size": 119192,
+        "sha256": "4d292623516f65c80482081e62d5dadb759dc16e851de5db24c3cbb57b87db83"
+      },
+      {
+        "path": "vcruntime140_1.dll",
+        "size": 49528,
+        "sha256": "a113f192195f245f17389e6ecbed8005990bcb2476ddad33f7c4c6c86327afe5"
+      },
+      {
+        "path": "LICENSE.txt",
+        "size": 36874,
+        "sha256": "e502c6b880ff58d614901495a9009c136539cd0b1e2a2abb8fc00b934c203419"
+      },
+      {
+        "path": "pyexpat.pyd",
+        "size": 198424,
+        "sha256": "58b95f03a2d7ec49f5260e3e874d2b9fb76e95ecc80537e27abef0c74d03cb00"
+      },
+      {
+        "path": "select.pyd",
+        "size": 30488,
+        "sha256": "fb06ac13f8b444c3f7ae5d2af15710a4e60a126c3c61a1f1e1683f05f685626c"
+      },
+      {
+        "path": "unicodedata.pyd",
+        "size": 1141016,
+        "sha256": "f28ac3e3ad02f9e1d8b22df15fa30b2190b080261a9adc6855248548cd870d20"
+      },
+      {
+        "path": "winsound.pyd",
+        "size": 31000,
+        "sha256": "2f92ade2dd26fe75ade6ecae1325e29559f7a76092131642939db4ab6aec67c5"
+      },
+      {
+        "path": "_asyncio.pyd",
+        "size": 65304,
+        "sha256": "76db93bd64cb4a36edb37694456f89bb588db98cf2733eb436f000b309eec3b2"
+      },
+      {
+        "path": "_bz2.pyd",
+        "size": 84760,
+        "sha256": "1be51ef2b5acbe490217aa1ff12618d24b95df6136c6844714b9ca997b4c7f9b"
+      },
+      {
+        "path": "_ctypes.pyd",
+        "size": 124696,
+        "sha256": "3d43869a4507ed8ece285ae85782d83bb16328cf636170acb895c227ebb142ac"
+      },
+      {
+        "path": "_decimal.pyd",
+        "size": 253720,
+        "sha256": "23bdd07b84d2dbcb077624d6dcbfc66ab13a9ef5f9eebe31dc0ffece21b9e50c"
+      },
+      {
+        "path": "_elementtree.pyd",
+        "size": 128280,
+        "sha256": "b4a866a63316a04e070d25acc055a1e4db9071e8e9fb6fe9cde019a8ef311ed5"
+      },
+      {
+        "path": "_hashlib.pyd",
+        "size": 65304,
+        "sha256": "2ad55e11bddb5b65cdf6e9e126d82a3b64551f7ad9d4cbf74a1058fd7e5993bd"
+      },
+      {
+        "path": "_lzma.pyd",
+        "size": 159512,
+        "sha256": "663f1087c2ed664c5995a3ffa64546d2e33a0fce8a9121b48cc7c056b74a2948"
+      },
+      {
+        "path": "_msi.pyd",
+        "size": 44824,
+        "sha256": "b3bdcec56de1f2671df824f3b1c619e070c5d86abe99bc1571667e9a63007c8c"
+      },
+      {
+        "path": "_multiprocessing.pyd",
+        "size": 34584,
+        "sha256": "3c5b0823e30810aee47fdfad567491bc33dd640c37e35c8600e75c5a8d05ce2a"
+      },
+      {
+        "path": "_overlapped.pyd",
+        "size": 51480,
+        "sha256": "4990f62e11c0a5ab15a9ffce9d054f06d0bc9213aea0c2a414a54fa01a5eb6dc"
+      },
+      {
+        "path": "_queue.pyd",
+        "size": 32536,
+        "sha256": "ac3b144d7d7c8ee39f29d8749c5a35c4314b5365198821605c883fd11807e766"
+      },
+      {
+        "path": "_socket.pyd",
+        "size": 79640,
+        "sha256": "8f9ede5044643413c3b072cd31a565956498ca07cdd17fb6a04483d388fdad76"
+      },
+      {
+        "path": "_sqlite3.pyd",
+        "size": 120088,
+        "sha256": "d077e236b709b5242d62ce4923feddbfcc719ec26612ed474ed3b25ee290d0ac"
+      },
+      {
+        "path": "_ssl.pyd",
+        "size": 176920,
+        "sha256": "591589dadc659d1ad4856d16cd25dc8e57eaa085bf68eb2929f8f93aba69db1b"
+      },
+      {
+        "path": "_uuid.pyd",
+        "size": 25368,
+        "sha256": "ce9e2a30c20e6b83446d9ba83bb83c5570e1b1da0e87ff467d1b4fc090da6c53"
+      },
+      {
+        "path": "_zoneinfo.pyd",
+        "size": 45848,
+        "sha256": "21acc8fa6ab18bc2e047a59899601c50daf395edfed8908b86fc63ec21ff5286"
+      },
+      {
+        "path": "libcrypto-3.dll",
+        "size": 5191960,
+        "sha256": "05fe080eab7fc535c51e10c1bd76a2f3e6217f9c91a25034774588881c3f99de"
+      },
+      {
+        "path": "libffi-8.dll",
+        "size": 39696,
+        "sha256": "eff52743773eb550fcc6ce3efc37c85724502233b6b002a35496d828bd7b280a"
+      },
+      {
+        "path": "libssl-3.dll",
+        "size": 787224,
+        "sha256": "2e9fbcd8f7fdc13a5179533239811456554f2b3aa2fb10e1b17be0df81c79006"
+      },
+      {
+        "path": "sqlite3.dll",
+        "size": 1500440,
+        "sha256": "ff950af2dad140377a55da6f3c242327ced0cf498db50e028abe1ed023f19b90"
+      },
+      {
+        "path": "python311.zip",
+        "size": 4280776,
+        "sha256": "29d8604802ed7e7979f8375788fa03f0801872b59605f6d2e88fd6b53d2d7189"
+      },
+      {
+        "path": "python311._pth",
+        "size": 80,
+        "sha256": "2e49845005576acc75d1fa54ca0aa29589c2714499a4d8d8122cb342b14ca446"
+      },
+      {
+        "path": "python.cat",
+        "size": 642408,
+        "sha256": "0765d528cbb8c4cc97e63111c717a91f0f918b9bc5dac8c142f298c224dc67fe"
+      }
+    ]
+  },
+  "cipd": {
+    "url": "https://chrome-infra-packages.appspot.com/client?platform=windows-amd64&version=git_revision%3A61ac72e84956112656e2500701dd252c5d92f6e6",
+    "version": "git_revision:61ac72e84956112656e2500701dd252c5d92f6e6",
+    "sha256": "a58d48748344c45a9511aab5b9b78d78fd6234c83ec9417700d81d2db8e5050d",
+    "size": 19385856,
+    "checksum_source": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\depot_tools\\cipd_client_version.digests"
+  },
+  "python2_installed": false
+}

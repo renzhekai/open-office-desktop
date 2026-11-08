@@ -1,0 +1,42 @@
+{
+  "name": "dep-v8",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8",
+  "pin": "a2d8eca22ad478a95ca67bb2421a9a2535113925",
+  "kind": "dependency_clone",
+  "receipt": "evidence/full-source-v8-source-result.json",
+  "started_at_utc": "2026-11-02T11:36:03.295667+00:00",
+  "head": "a2d8eca22ad478a95ca67bb2421a9a2535113925",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/v8/v8.git",
+  "patch": {
+    "path": "patches/dep-v8.patch",
+    "size": 434,
+    "sha256": "9e019e698f399a2cf9d70cc44b56a741f54e19a31bd1fef43a295a72bb4662c1"
+  },
+  "head_file": {
+    "path": "heads/dep-v8.txt",
+    "size": 41,
+    "sha256": "a5664c9d5585ba4cfbb244b257d97eb5d79bf40693c4a059161eeaaaa3fcf95f"
+  },
+  "changed_files": [
+    {
+      "path": "BUILD.gn",
+      "state": "file",
+      "size": 183953,
+      "sha256": "8bfd924a72fd3f2c11e5b0ff2cd5a1d89c37c82ec25fdfd473972db231f334b5"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:03.797724+00:00"
+}

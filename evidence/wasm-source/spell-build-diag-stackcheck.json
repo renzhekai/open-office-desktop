@@ -1,0 +1,136 @@
+{
+  "module": "spell",
+  "label": "diag-stackcheck",
+  "recipe": "Common/3dParty/hunspell/hunspell.json",
+  "recipe_sha256": "f88338b1d7e5b2c0424435129b734f596043a5eee8c25bb00a3621de85c753ec",
+  "started_utc": "2026-11-04T09:51:36.058414+00:00",
+  "emscripten": "3.1.48",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "jobs": 20,
+  "output_dir": "D:\\open office\\build\\wasm-source\\out\\spell\\diag-stackcheck",
+  "recipe_adaptations": [],
+  "diagnostic_extra_flags": [
+    "-s STACK_OVERFLOW_CHECK=2",
+    "-s ASSERTIONS=1"
+  ],
+  "post_process_adaptations": [
+    {
+      "historical": "function getBinaryPromise(){",
+      "used": "function getBinaryPromise(",
+      "reason": "Emscripten 3.1.48 glue signature is getBinaryPromise(binaryFile)"
+    },
+    {
+      "historical": "copy wasm/js/code.js to deploy/spell.js and wasm/js/index.html to deploy",
+      "used": "not copied",
+      "reason": "test page/client outside the official SDKJS common/spell/spell deploy"
+    },
+    {
+      "historical": "asm.js variant with --memory-init-file 0 (embed_mem_file)",
+      "used": "same",
+      "reason": "the official 2021 spell_ie.js loads a separate spell.js.mem; the rebuilt one embeds it, so deploying it must not keep the stale official spell.js.mem"
+    }
+  ],
+  "wasm": {
+    "compiled": 11,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "spell.js": {
+        "bytes": 38907,
+        "sha256": "94a402342ebbda621473bee27698a3121cdd6ad0fd9584dd17d66b4ef3a40a71"
+      },
+      "spell.wasm": {
+        "bytes": 543457,
+        "sha256": "ea80444992fc96af60893783c6da35352244a8658527ebef3a9b813156044455"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\spell\\diag-stackcheck\\wasm-commands.json"
+  },
+  "template_adaptations": [
+    {
+      "old": "return getBinaryPromise2();",
+      "new": "return getBinaryPromise2.apply(undefined, arguments);",
+      "matches": 1,
+      "reason": "3.1.48 getBinaryPromise2(binaryFile) needs the file name the glue passes to getBinaryPromise; the old no-argument forwarder would fetch(undefined)",
+      "reference": "Common/js/desktop_fetch.js:48 (upstream already forwards arguments this way)"
+    }
+  ],
+  "template_marker_counts": {
+    "//module": 1,
+    "//string_utf8": 0,
+    "//desktop_fetch": 0
+  },
+  "asm": {
+    "compiled": 11,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "spell.js": {
+        "bytes": 1044097,
+        "sha256": "39521084d1cd73f2042a3be65172989bdf010abd211207a1b4e0e2c571ef50ee"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\spell\\diag-stackcheck\\asm-commands.json"
+  },
+  "template_adaptations_ie": [
+    {
+      "old": "return getBinaryPromise2();",
+      "new": "return getBinaryPromise2.apply(undefined, arguments);",
+      "matches": 1,
+      "reason": "3.1.48 getBinaryPromise2(binaryFile) needs the file name the glue passes to getBinaryPromise; the old no-argument forwarder would fetch(undefined)",
+      "reference": "Common/js/desktop_fetch.js:48 (upstream already forwards arguments this way)"
+    }
+  ],
+  "template_marker_counts_ie": {
+    "//module": 1,
+    "//string_utf8": 0,
+    "//desktop_fetch": 0,
+    "//polyfill": 1
+  },
+  "post_process": [
+    {
+      "file": "spell.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1
+      },
+      "replacement": "__ATPOSTRUN__=[function(){self.onEngineInit();}];"
+    },
+    {
+      "file": "spell.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    },
+    {
+      "file": "spell_ie.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1
+      },
+      "replacement": "__ATPOSTRUN__=[function(){self.onEngineInit();}];"
+    },
+    {
+      "file": "spell_ie.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    }
+  ],
+  "deploy": {
+    "spell.js": {
+      "bytes": 53503,
+      "sha256": "10a8eca9d1356c6da54a5c646704963c8946ad3b8e5a257dec08c1bc8172330f"
+    },
+    "spell.wasm": {
+      "bytes": 543457,
+      "sha256": "ea80444992fc96af60893783c6da35352244a8658527ebef3a9b813156044455"
+    },
+    "spell_ie.js": {
+      "bytes": 1071441,
+      "sha256": "86e70077a2282629c5904a958adee22ce13ee63be15e2714ae7991d1a557d2ed"
+    }
+  },
+  "status": "built",
+  "finished_utc": "2026-11-04T09:52:06.226857+00:00"
+}

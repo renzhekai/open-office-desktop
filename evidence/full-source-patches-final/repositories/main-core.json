@@ -1,0 +1,66 @@
+{
+  "name": "main-core",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core",
+  "pin": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "kind": "main_worktree",
+  "receipt": "build/full-source/worktrees.json",
+  "started_at_utc": "2026-11-02T11:35:59.178563+00:00",
+  "head": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/ONLYOFFICE/core.git",
+  "patch": {
+    "path": "patches/main-core.patch",
+    "size": 3905,
+    "sha256": "a8712fc1623f25bf466c9c4077e151fd3f9d04943c48c5eef67637a899424a4a"
+  },
+  "head_file": {
+    "path": "heads/main-core.txt",
+    "size": 41,
+    "sha256": "f6d6eb39b6420fa4c17fdcb5c7ee32a092c8a28208208276a4ffddb24ce1e454"
+  },
+  "changed_files": [
+    {
+      "path": "Common/3dParty/boost/boost.pri",
+      "state": "file",
+      "size": 1971,
+      "sha256": "4133ebe750c888bb5b710c289250f61cfbe79dad96246a35c2ba8ece33e16916"
+    },
+    {
+      "path": "Common/3dParty/v8/v8.pri",
+      "state": "file",
+      "size": 2995,
+      "sha256": "20572f5f8949edb2de50f11026d2a1a0a24b97e5e56db2f01902ccf0dc0a0654"
+    },
+    {
+      "path": "DesktopEditor/agg-2.4/include/agg_basics.h",
+      "state": "file",
+      "size": 17401,
+      "sha256": "714e1d975cfa73a39b8a70403e69af77a7213a0b4b54bba8c3bc49fe75f48db6"
+    },
+    {
+      "path": "DesktopEditor/agg-2.4/include/agg_image_accessors.h",
+      "state": "file",
+      "size": 13645,
+      "sha256": "b4158aaa8dc405c4bf6d61f4d0fff3a1944eef7f897446fddf61ec2877f37773"
+    },
+    {
+      "path": "DesktopEditor/agg-2.4/include/agg_trans_affine.h",
+      "state": "file",
+      "size": 19305,
+      "sha256": "d410a7d7a373a786d62f4e89340f94dd32a9ddc5c148aa649730524e208d41d4"
+    }
+  ],
+  "changed_file_count": 5,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:01.866697+00:00"
+}

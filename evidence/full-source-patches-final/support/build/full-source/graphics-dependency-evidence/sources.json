@@ -1,0 +1,73 @@
+{
+  "katana": {
+    "repository": "https://github.com/jasenhuang/katana-parser.git",
+    "relative_path": "html/katana-parser",
+    "requested_ref": null,
+    "commit": "be6df458d4540eee375c513958dcb862a391cdd1",
+    "created_by_script": true,
+    "checked_out_commit": "be6df458d4540eee375c513958dcb862a391cdd1",
+    "status": "checked_out"
+  },
+  "harfbuzz": {
+    "repository": "https://github.com/harfbuzz/harfbuzz.git",
+    "relative_path": "harfbuzz/harfbuzz",
+    "requested_ref": null,
+    "commit": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+    "created_by_script": true,
+    "checked_out_commit": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+    "status": "checked_out"
+  },
+  "brotli": {
+    "repository": "https://github.com/google/brotli.git",
+    "relative_path": "brotli/brotli",
+    "requested_ref": null,
+    "commit": "a47d7475063eb223c87632eed806c0070e70da29",
+    "created_by_script": true,
+    "checked_out_commit": "a47d7475063eb223c87632eed806c0070e70da29",
+    "status": "checked_out"
+  },
+  "hyphen": {
+    "repository": "https://github.com/hunspell/hyphen.git",
+    "relative_path": "hyphen/hyphen",
+    "requested_ref": "HEAD",
+    "commit": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe",
+    "resolved_at_utc": "2026-11-02T10:29:07.988390+00:00",
+    "ref_resolution": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe\tHEAD",
+    "created_by_script": true,
+    "checked_out_commit": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe",
+    "status": "checked_out"
+  },
+  "x265": {
+    "repository": "https://github.com/Multicorewareinc/x265.git",
+    "relative_path": "heif/x265",
+    "requested_ref": "refs/heads/Release_4.1",
+    "commit": "32e25ffcf810c5fe284901859b369270824c4596",
+    "resolved_at_utc": "2026-11-02T10:30:49.550704+00:00",
+    "ref_resolution": "32e25ffcf810c5fe284901859b369270824c4596\trefs/heads/Release_4.1",
+    "created_by_script": true,
+    "checked_out_commit": "32e25ffcf810c5fe284901859b369270824c4596",
+    "status": "checked_out"
+  },
+  "libde265": {
+    "repository": "https://github.com/strukturag/libde265.git",
+    "relative_path": "heif/libde265",
+    "requested_ref": "refs/tags/v1.0.16",
+    "commit": "7ba65889d3d6d8a0d99b5360b028243ba843be3a",
+    "resolved_at_utc": "2026-11-02T10:31:10.739575+00:00",
+    "ref_resolution": "7ba65889d3d6d8a0d99b5360b028243ba843be3a\trefs/tags/v1.0.16",
+    "created_by_script": true,
+    "checked_out_commit": "7ba65889d3d6d8a0d99b5360b028243ba843be3a",
+    "status": "checked_out"
+  },
+  "libheif": {
+    "repository": "https://github.com/strukturag/libheif.git",
+    "relative_path": "heif/libheif",
+    "requested_ref": "refs/tags/v1.18.2",
+    "commit": "bf35e9eb25af8f2b7917996ad9ba849d922f8d15",
+    "resolved_at_utc": "2026-11-02T10:31:17.134970+00:00",
+    "ref_resolution": "bf35e9eb25af8f2b7917996ad9ba849d922f8d15\trefs/tags/v1.18.2",
+    "created_by_script": true,
+    "checked_out_commit": "bf35e9eb25af8f2b7917996ad9ba849d922f8d15",
+    "status": "checked_out"
+  }
+}

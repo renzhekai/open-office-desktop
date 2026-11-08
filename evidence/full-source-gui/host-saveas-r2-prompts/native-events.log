@@ -1,0 +1,4 @@
+2026-11-06T09:54:12.379Z action=initialized_not_roundtrip_verified event=-1 view=-1 request=0
+2026-11-06T09:59:23.287Z action=message_loop_returned event=-1 view=-1 request=0
+2026-11-06T09:59:23.337Z action=shutdown_completed event=-1 view=-1 request=0
+2026-11-06T09:59:23.339Z action=shutdown_completed event=-1 view=-1 request=0

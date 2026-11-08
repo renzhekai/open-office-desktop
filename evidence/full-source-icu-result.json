@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "version": [
+    74,
+    2,
+    0,
+    0
+  ],
+  "compiler_version": "14.44.35207",
+  "msbuild_target_definitions": "v145",
+  "real_data_loaded": true,
+  "converters_opened": [
+    "UTF-8",
+    "GB18030",
+    "windows-1252"
+  ],
+  "outputs": [
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icudt74.dll",
+      "size": 30786048,
+      "sha256": "9e9492b120f561e6ca0220beff943c10a6c237a7b83271d0b27e76c8dc78ca24"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icuuc74.dll",
+      "size": 2340864,
+      "sha256": "b260e105c64000a588bc1731acfc3d3364b7c0ffab877d3d45ec7c6ab8a140d0"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icudt.lib",
+      "size": 1686,
+      "sha256": "e1215d23ce14dc01f9b5c3809427e362c658645761d9fad145018c5610a5794c"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icuuc.lib",
+      "size": 1081586,
+      "sha256": "525d5731b3be19cffa782621a341fa8710fc5dda1e427a56ac42b500e27f9cf3"
+    }
+  ]
+}

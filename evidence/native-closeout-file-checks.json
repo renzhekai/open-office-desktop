@@ -1,0 +1,21 @@
+{
+  "OpenOffice.exe": {
+    "matches_staged_manifest": true,
+    "sha256": "75f5a57dc9ac46919af8933a7b2e23b3c021e78cda315ca4d46ef60d05e1dcc7"
+  },
+  "openoffice_qt6_documentscore.dll": {
+    "matches_staged_manifest": true,
+    "sha256": "d7d21a5025a855ccc83a7f4771c1f741800cd202d01755d5e9c5cdea686711e4"
+  },
+  "openoffice_qt6_videoplayer.dll": {
+    "matches_staged_manifest": true,
+    "sha256": "23560dba1ad8556f257a232fe79651e720143bb8000348b43faa919aa10c795c"
+  },
+  "saved_sample": {
+    "matches_GUI_verified_file": true,
+    "sha256": "0f1c78c8d53f8de66d0eda2de4fafd15c7a7a9fcfda8e587578182e1c3d9059e",
+    "bytes": 25868
+  },
+  "requirements_unchanged": true,
+  "entry_point_matches_GUI_verified_build": true
+}

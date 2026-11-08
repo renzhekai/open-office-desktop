@@ -1,0 +1,2396 @@
+<Updates>
+ <ApplicationName>{AnyApplication}</ApplicationName>
+ <ApplicationVersion>1.0.0</ApplicationVersion>
+ <Checksum>true</Checksum>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons</Name>
+  <DisplayName>Additional Libraries</DisplayName>
+  <Description>Additional Libraries for Qt 6.11.1.&lt;br>&lt;br>Most of the additional libraries are available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.  &lt;br>&lt;br>sha1: bfde7b892add48396756dc44a3e3fa03d98c5710</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn/>
+  <Default>false</Default>
+  <SortingPriority>3</SortingPriority>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>562f24a296faf0cbaa47f8c464f08e08885ffc9e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt3d</Name>
+  <DisplayName>Qt 3D</DisplayName>
+  <Description>Qt 3D Prebuilt Components for Qt 6.11.1. Qt 3D provides functionality for near-realtime simulation systems with support for 2D and 3D rendering in both Qt C++ and Qt Quick applications.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Script>installscript.qs</Script>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qt3d, qt.qt6.6111.examples.qt3d</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>4b012ab017799bbe2a175428553f7e29d5826290</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt3d.debug_information</Name>
+  <DisplayName>Qt 3D debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qt3d</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qt3d, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>95baf4094f079fcfbdea1b77cb40fb6452f5134b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt3d.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt 3D module debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qt3d</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qt3d, qt.qt6.6111.addons.qt3d.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qt3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="85072195" OS="Any" UncompressedSize="655343656"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qt3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>95f1fda02dfe3224fcd9ee5e1039c5fbb7aeeb96</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt3d.win64_msvc2022_64</Name>
+  <DisplayName>Qt 3D module for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qt3d, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qt3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="8543130" OS="Any" UncompressedSize="72701269"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qt3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>a90a319f963ffaa22759a535086242da348e4d24</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt5compat</Name>
+  <DisplayName>Qt 5 Compatibility module</DisplayName>
+  <Description>Qt 5 Compatibility module Prebuilt Components for Qt 6.11.1. Qt 5 Compatibility module allows to continue using some dedicated functionality which has been removed in Qt 6.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Dependencies>qt.qt6.6111.doc.qt5compat, qt.qt6.6111.examples.qt5compat, qt.qt6.6111.addons.qtshadertools</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>311e6784e445d8a80f2c72939d5be8142e330430</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt5compat.debug_information</Name>
+  <DisplayName>Qt 5 Compatibility module debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qt5compat</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qt5compat, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>78194b9995b905efb7bef9863cbcd1764eec08ce</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt5compat.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt 5 Compatibility module debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qt5compat</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qt5compat, qt.qt6.6111.addons.qt5compat.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qt5compat-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="7610278" OS="Any" UncompressedSize="54657064"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qt5compat-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>d1dcef6d56fd7299f7816bfe40cd421c7e4d18df</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qt5compat.win64_msvc2022_64</Name>
+  <DisplayName>Qt 5 Compatibility module for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qt5compat, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qt5compat-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1272951" OS="Any" UncompressedSize="8723191"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qt5compat-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>1dc0dc3712490441994cb93ac1b9ea8b70ea4c6d</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtactiveqt</Name>
+  <DisplayName>Active Qt</DisplayName>
+  <Description>Qt's ActiveX and COM support.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtactiveqt, qt.qt6.6111.examples.qtactiveqt</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>0bf5b87fc1b630ffe8f0d9a40cbad217a504d033</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtactiveqt.debug_information</Name>
+  <DisplayName>Active Qt debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtactiveqt</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtactiveqt, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>6c986c36cebf6809f84488caee466ef349c12dc2</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtactiveqt.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Active Qt debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtactiveqt</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtactiveqt, qt.qt6.6111.addons.qtactiveqt.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtactiveqt-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="3845876" OS="Any" UncompressedSize="24870952"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtactiveqt-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>07ff2d828447ea31f075dce44e7541a20c69cc75</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtactiveqt.win64_msvc2022_64</Name>
+  <DisplayName>Active Qt for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtactiveqt, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtactiveqt-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="8646786" OS="Any" UncompressedSize="78364709"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtactiveqt-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>03056ca05a422f0f9ecfd6282253ca78c2197cef</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcanvaspainter</Name>
+  <DisplayName>Qt Canvas Painter (TP)</DisplayName>
+  <Description>Accelerated 2D painting solution for Qt Quick and QRhi-based render targets.&lt;br>&lt;br>The release of Qt Canvas Painter with Qt 6.11.1 is a Technology Preview.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtcanvaspainter, qt.qt6.6111.examples.qtcanvaspainter</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>1449ab99f8665c72924921647d3b68d8d1d5f9ee</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcanvaspainter.debug_information</Name>
+  <DisplayName>Qt Canvas Painter debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtcanvaspainter</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtcanvaspainter, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>b907beeb1160841e0ef220c0b1f66d02723350a0</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcanvaspainter.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Canvas Painter debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtcanvaspainter</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtcanvaspainter, qt.qt6.6111.addons.qtcanvaspainter.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtcanvaspainter-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="5612246" OS="Any" UncompressedSize="35541032"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtcanvaspainter-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>9b028fa309608f3b3b8b403efe888516e5185c04</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcanvaspainter.win64_msvc2022_64</Name>
+  <DisplayName>Qt Canvas Painter for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtcanvaspainter, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtcanvaspainter-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="609452" OS="Any" UncompressedSize="3439408"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtcanvaspainter-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>298966fbe8759c6bc8a1777fa6d9aec36771f457</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcharts</Name>
+  <DisplayName>Qt Charts</DisplayName>
+  <Description>The Qt Charts API lets you easily create interactive and dynamic 2D charts using C++ and/or Qt Quick.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.&lt;br>&lt;br></Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtcharts, qt.qt6.6111.examples.qtcharts</Dependencies>
+  <AutoDependOn/>
+  <Script>installscript.qs</Script>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>b79f812a8e1ffca5cdf18f3463fc165379cca101</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcharts.debug_information</Name>
+  <DisplayName>Qt Charts debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtcharts</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtcharts, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>67f0edacf5f315ca128d0798338b82483d7a5ef8</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcharts.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Charts debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtcharts</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtcharts, qt.qt6.6111.addons.qtcharts.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtcharts-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="12852642" OS="Any" UncompressedSize="102498344"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtcharts-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>9b7d5f0d8f25ef9b0ba88a5a1408be836541fec4</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtcharts.win64_msvc2022_64</Name>
+  <DisplayName>Qt Charts for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtcharts, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtcharts-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1794109" OS="Any" UncompressedSize="16107459"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtcharts-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>9a216f5a3f6c2bc18208753221c9021251f2765f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtconnectivity</Name>
+  <DisplayName>Qt Connectivity</DisplayName>
+  <Description>This component includes two Qt modules. The two modules provide access to Bluetooth and NFC hardware.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtbluetooth, qt.qt6.6111.doc.qtnfc, qt.qt6.6111.examples.qtconnectivity</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>46031476229f9458141afeab2432875c807d314f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtconnectivity.debug_information</Name>
+  <DisplayName>Qt Connectivity debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtconnectivity</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtconnectivity, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>aa0fdc068f5d1a777df6c4f21f2b07b10fbcfcbb</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtconnectivity.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Connectivity debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtconnectivity</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtconnectivity, qt.qt6.6111.addons.qtconnectivity.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtconnectivity-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="6951241" OS="Any" UncompressedSize="49561640"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtconnectivity-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>91938a7ee91961a243ff40133b5b2be5053f7e98</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtconnectivity.win64_msvc2022_64</Name>
+  <DisplayName>Qt Connectivity for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtconnectivity, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtconnectivity-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1051612" OS="Any" UncompressedSize="7557056"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtconnectivity-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>d67c841c08a6e90ce5c1ff60b8845bc62297daad</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtdatavis3d</Name>
+  <DisplayName>Qt Data Visualization</DisplayName>
+  <Description>Qt Data Visualization is a module which provides a way to visualize data in 3D. There are C++ classes and QML types for displaying bar graphs, scatter graphs, surface graphs and ways of manipulating the 3D scene. In addition, the graphs are fully customizable with different themes.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.&lt;br>&lt;br></Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtdatavis3d, qt.qt6.6111.examples.qtdatavis3d</Dependencies>
+  <AutoDependOn/>
+  <Script>installscript.qs</Script>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>5635011184d354c9ef9a1c4af49f56bc12bb8b0e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtdatavis3d.debug_information</Name>
+  <DisplayName>Qt Data Visualization debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtdatavis3d</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtdatavis3d, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>60028d790ed9a7d34546bb0720b619654eb12cda</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtdatavis3d.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Data Visualization debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtdatavis3d</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtdatavis3d, qt.qt6.6111.addons.qtdatavis3d.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtdatavis3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="8646813" OS="Any" UncompressedSize="64086056"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtdatavis3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>f180d6cfba795c12943936bb1cc10d3ab08a714d</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtdatavis3d.win64_msvc2022_64</Name>
+  <DisplayName>Qt Data Visualization for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtdatavis3d, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtdatavis3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1274677" OS="Any" UncompressedSize="10323846"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtdatavis3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>ccb03d3ace8aedcc750e71348eba186b30da1827</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgraphs</Name>
+  <DisplayName>Qt Graphs</DisplayName>
+  <Description>Qt Graphs is a module which provides a way to visualize data in 3D. There are C++ classes and QML types for displaying bar graphs, scatter graphs, surface graphs and ways of manipulating the 3D scene. In addition, the graphs are fully customizable with different themes.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Script>installscript.qs</Script>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtgraphs, qt.qt6.6111.examples.qtgraphs</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>7f7394b14d87f0da9ccd1f5eb9991e1c2743c8b8</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgraphs.debug_information</Name>
+  <DisplayName>Qt Graphs debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtgraphs</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtgraphs, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>bff169c349836fbc07f171bced5a5ecbd5c1c54d</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgraphs.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Graphs debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtgraphs</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtgraphs, qt.qt6.6111.addons.qtgraphs.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtgraphs-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="18740679" OS="Any" UncompressedSize="127737896"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtgraphs-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>1c3fc19ebfed0d550de6fd0002310fe06ff32270</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgraphs.win64_msvc2022_64</Name>
+  <DisplayName>Qt Graphs for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtgraphs, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtgraphs-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="2132170" OS="Any" UncompressedSize="16835002"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtgraphs-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>d7905dfebe2dae8ead73ab3acbc50eb3111d206c</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgrpc</Name>
+  <DisplayName>Qt Protobuf and Qt GRPC</DisplayName>
+  <Description>QtGrpc contains the two modules QtProtobuf and QtGrpc:&lt;br>QtProtobuf provides a generator which can be used to generate Qt-based classes from messages defined in .proto files.&lt;br>QtGrpc provides support for generating Qt-based clients and servers based on service description in .proto files, as well as communicating with gRPC services using QtProtobuf messages.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Script>installscript.qs</Script>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtgrpc, qt.qt6.6111.examples.qtgrpc</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>dd3ffa192d729041e75c0007d953695842c478c5</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgrpc.debug_information</Name>
+  <DisplayName>Qt Protobuf and Qt GRPC debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtgrpc</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtgrpc, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>2c7ee79acd300d4c05e890dcadd72ddf24212f04</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgrpc.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Protobuf and Qt GRPC debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtgrpc</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtgrpc, qt.qt6.6111.addons.qtgrpc.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtgrpc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="23522209" OS="Any" UncompressedSize="174456872"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtgrpc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>28323e4cf5537a81ca7be95fa30cca878bcf7208</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtgrpc.win64_msvc2022_64</Name>
+  <DisplayName>Qt Protobuf and Qt GRPC for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtgrpc, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtgrpc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="7292826" OS="Any" UncompressedSize="87547004"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtgrpc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>0b84f5a5a215d1897e545fb5925c8f0514b00a2a</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qthttpserver</Name>
+  <DisplayName>Qt HTTP Server</DisplayName>
+  <Description>Qt HTTP Server supports building an HTTP server into an application.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Script>installscript.qs</Script>
+  <Dependencies>qt.qt6.6111.doc.qthttpserver, qt.qt6.6111.examples.qthttpserver, qt.qt6.6111.addons.qtwebsockets</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>45845721333e7b6beb0778f28603909992930d27</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qthttpserver.debug_information</Name>
+  <DisplayName>Qt HTTP Server debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qthttpserver</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qthttpserver, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>9fc93ea4814f0860d3d5964dcf3431eb4c571191</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qthttpserver.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt HTTP Server debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qthttpserver</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qthttpserver, qt.qt6.6111.addons.qthttpserver.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qthttpserver-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="2143826" OS="Any" UncompressedSize="14082088"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qthttpserver-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>bce45e474fb30280e7c360b0583a295eeb24bdaf</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qthttpserver.win64_msvc2022_64</Name>
+  <DisplayName>Qt HTTP Server for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qthttpserver, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qthttpserver-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="252122" OS="Any" UncompressedSize="1543024"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qthttpserver-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>273b1f85afe4fa73dc843278f54930b9bce79ad0</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtimageformats</Name>
+  <DisplayName>Qt Image Formats</DisplayName>
+  <Description>The Qt Image Formats  provides optional support for other image file formats. The core Qt Gui library by default supports reading and writing image files of the most common file formats: PNG, JPEG, BMP, GIF and a few more.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtimageformats</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>d0637c4712fbff4d03e99eeae607d509f9815e8d</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtimageformats.debug_information</Name>
+  <DisplayName>Qt Image Formats debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtimageformats</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtimageformats, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>1bbeb6e744fa1c3561215cfce2bce997b234efb8</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtimageformats.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Image Formats debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtimageformats</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtimageformats, qt.qt6.6111.addons.qtimageformats.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtimageformats-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="3224822" OS="Any" UncompressedSize="26107944"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtimageformats-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>b8c915b553edac8c4a86cde4303fe5368ee0f66c</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtimageformats.win64_msvc2022_64</Name>
+  <DisplayName>Qt Image Formats for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtimageformats, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtimageformats-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="823659" OS="Any" UncompressedSize="4663838"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtimageformats-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>9c148ca5a07b5df4145d290eacb2b1e1e2ae8c8b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlanguageserver</Name>
+  <DisplayName>Qt Language Server</DisplayName>
+  <Description>An implementation of the language server protocol, including JsonRPC.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtlanguageserver</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>4acb41be889711c2e3f608f7aaa7695d1c24fb21</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlanguageserver.win64_msvc2022_64</Name>
+  <DisplayName>Qt language Server for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtlanguageserver, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtlanguageserver-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="10256252" OS="Any" UncompressedSize="141081381"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtlanguageserver-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>b8f8e5468c69659f7efa9491ee577117ef793686</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlocation</Name>
+  <DisplayName>Qt Location (TP)</DisplayName>
+  <Description>Qt Location (TP).&lt;br>&lt;br>The release of Qt Location with Qt 6.11.1 is a Technology Preview.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtlocation, qt.qt6.6111.examples.qtlocation</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>770137b79bd523a44856359dc18f4f557f530977</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlocation.debug_information</Name>
+  <DisplayName>Qt Location debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtlocation</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtlocation, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>7ba642ae1cdbca49933f64b87b35f8fefa3b9a9a</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlocation.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Location debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtlocation</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtlocation, qt.qt6.6111.addons.qtlocation.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtlocation-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="15215029" OS="Any" UncompressedSize="106766376"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtlocation-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>8a55e3540ae05325c49065a0c23230bcb7038a8e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlocation.win64_msvc2022_64</Name>
+  <DisplayName>Qt Location for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtlocation, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtlocation-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1650346" OS="Any" UncompressedSize="13331029"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtlocation-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>a2228c9730905c35bcde1875daa5303d0def1e96</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlottie</Name>
+  <DisplayName>Qt Lottie Animation</DisplayName>
+  <Description>Qt Lottie Animation provides a QML API for rendering graphics and animations that are exported in JSON format by the Bodymovin plugin for Adobe After Effects.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtlottie</Dependencies>
+  <AutoDependOn/>
+  <Script>installscript.qs</Script>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>4715546bd884b6e655d6234c6d2575d3e36f4db6</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlottie.debug_information</Name>
+  <DisplayName>Qt Lottie Animation debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtlottie</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtlottie, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>5d01daa7eb1f2f69695f33a43d9cd3b4c4ec4d74</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlottie.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Lottie Animation debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtlottie</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtlottie, qt.qt6.6111.addons.qtlottie.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtlottie-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="8214362" OS="Any" UncompressedSize="61149224"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtlottie-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c35c4b6ed881e3abbe6bb6e2725e30e4af183e78</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtlottie.win64_msvc2022_64</Name>
+  <DisplayName>Qt Lottie Animation for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtlottie, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtlottie-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="564526" OS="Any" UncompressedSize="4177059"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtlottie-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>1c85c4747b3ca3a2ebd0cb865586d29060f37b26</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtmultimedia</Name>
+  <DisplayName>Qt Multimedia</DisplayName>
+  <Description>Qt Multimedia provides a rich set of QML types and C++ classes to handle multimedia content.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtmultimedia, qt.qt6.6111.examples.qtmultimedia</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>df5b791ffc706975fedd684e45223dd0d147ff1e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtmultimedia.debug_information</Name>
+  <DisplayName>Qt Multimedia debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtmultimedia</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtmultimedia, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>2853bec8454a06ddc1833ff71a6efad807aa4c32</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtmultimedia.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Multimedia debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtmultimedia</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtmultimedia, qt.qt6.6111.addons.qtmultimedia.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="29970274" OS="Any" UncompressedSize="213786664"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>fe628690e637ee612b194e91814b8a6f4dc85e03</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtmultimedia.win64_msvc2022_64</Name>
+  <DisplayName>Qt Multimedia for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtmultimedia, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="42734614" OS="Any" UncompressedSize="479246998"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c6be65456bd69e81a794f1950b34f3d147c4be50</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtnetworkauth</Name>
+  <DisplayName>Qt Network Authorization</DisplayName>
+  <Description>Qt Network Authorization provides a set of APIs that enable Qt applications to obtain limited access to online accounts and HTTP services without exposing users' passwords.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtnetworkauth, qt.qt6.6111.examples.qtnetworkauth</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>c950cbef3339da60b0851fb5a0bf88925d25670b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtnetworkauth.debug_information</Name>
+  <DisplayName>Qt Network Authorization debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtnetworkauth</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtnetworkauth, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>8546327d4ed574b673813c30793fcd3eaff92240</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtnetworkauth.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Network Authorization debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtnetworkauth</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtnetworkauth, qt.qt6.6111.addons.qtnetworkauth.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtnetworkauth-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1787364" OS="Any" UncompressedSize="12361768"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtnetworkauth-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>af811b50f1c2eb87de9cfe8966219be4a619e9f0</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtnetworkauth.win64_msvc2022_64</Name>
+  <DisplayName>Qt Network Authorization for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtnetworkauth, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtnetworkauth-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="288398" OS="Any" UncompressedSize="1818964"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtnetworkauth-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>a42124fd41372a4207225a9f8f439e9ae6fbd58b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtopenapi</Name>
+  <DisplayName>Qt Open API (TP)</DisplayName>
+  <Description>An extension of the upstream Open API generator that generates Qt6 Http Clients.&lt;br>&lt;br>The release of Qt Open API with Qt 6.11.1 is a Technology Preview.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtopenapi, qt.qt6.6111.examples.qtopenapi</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>b08b1cb1671903dd5d67a3b3b5230a9167c71a76</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtopenapi.debug_information</Name>
+  <DisplayName>Qt Open API debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtopenapi</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtopenapi, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>0203bd4f2c9e9227d91577324af77f1bfb1a4d7b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtopenapi.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Open API debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtopenapi</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtopenapi, qt.qt6.6111.addons.qtopenapi.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtopenapi-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1461964" OS="Any" UncompressedSize="10387496"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtopenapi-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c0c2b71271a4d4c2998edfde2ef26d1ff50dde0b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtopenapi.win64_msvc2022_64</Name>
+  <DisplayName>Qt Open API for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtopenapi, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtopenapi-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="333869" OS="Any" UncompressedSize="1545502"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtopenapi-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c15b740a581ef959dd0dbd6890fbd47ec76f0863</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtpositioning</Name>
+  <DisplayName>Qt Positioning</DisplayName>
+  <Description>The Qt Positioning API provides positioning information via QML and C++ interfaces.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtpositioning, qt.qt6.6111.examples.qtpositioning</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>c3432a34e114c4af0a1abae9cdf096d28f684e86</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtpositioning.debug_information</Name>
+  <DisplayName>Qt Positioning debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtpositioning</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtpositioning, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>472d2e2e8351bfebdb31cf8a4f4e99679a118259</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtpositioning.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Positioning debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtpositioning</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtpositioning, qt.qt6.6111.addons.qtpositioning.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtpositioning-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="10065250" OS="Any" UncompressedSize="71319592"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtpositioning-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c8d608f1a7ab755f2a0d31372e9bb67b27fe4ffe</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtpositioning.win64_msvc2022_64</Name>
+  <DisplayName>Qt Positioning for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtpositioning, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtpositioning-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1077028" OS="Any" UncompressedSize="8338934"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtpositioning-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>619bdd4314be89596e4d2ecdc0d51d7643f60208</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3d</Name>
+  <DisplayName>Qt Quick 3D</DisplayName>
+  <Description>Qt Quick 3D provides high-level 3D API for Qt Quick.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Dependencies>qt.qt6.6111.doc.qtquick3d, qt.qt6.6111.examples.qtquick3d, qt.qt6.6111.addons.qtshadertools, qt.qt6.6111.addons.qtquicktimeline</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>181120490317b2e2f8b30809108dc68c67288b25</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3d.debug_information</Name>
+  <DisplayName>Qt Quick 3D debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquick3d</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquick3d, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>e866dba3cc18ee5535ba271e32e0af33a2b74743</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3d.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Quick 3D debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquick3d</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquick3d, qt.qt6.6111.addons.qtquick3d.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtquick3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="94495012" OS="Any" UncompressedSize="673034280"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquick3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>43fd13fd73f557893d38dba792b94024b7d2c6f6</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3d.win64_msvc2022_64</Name>
+  <DisplayName>Qt Quick 3D for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtquick3d, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtquick3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="27934166" OS="Any" UncompressedSize="273416279"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquick3d-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c5e760c33fd30ad378077e29958826cfa5f780cd</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3dphysics</Name>
+  <DisplayName>Qt Quick 3D Physics</DisplayName>
+  <Description>Qt Quick 3D Physics provides a high-level QML module adding physical simulation capabilities to Qt Quick 3D.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Dependencies>qt.qt6.6111.doc.qtquick3dphysics, qt.qt6.6111.examples.qtquick3dphysics</Dependencies>
+  <Script>installscript.qs</Script>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>9878cb469d83878f9d8e61c07865dfb8c4173f4a</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3dphysics.debug_information</Name>
+  <DisplayName>Quick 3D Physics debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquick3dphysics</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquick3dphysics, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>7d33e5c2e26d4e971d8b6d3ed6e2ed80707d46ef</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3dphysics.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Quick 3D Physics debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquick3dphysics</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquick3dphysics, qt.qt6.6111.addons.qtquick3dphysics.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtquick3dphysics-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="17606883" OS="Any" UncompressedSize="117993512"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquick3dphysics-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>1e2bbf39b49f8d8fdee59ab43ceb83f1509831a8</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquick3dphysics.win64_msvc2022_64</Name>
+  <DisplayName>Qt Quick 3D Physics for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtquick3dphysics, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtquick3dphysics-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="43570104" OS="Any" UncompressedSize="444864712"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquick3dphysics-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>a1a37a71a88be87d56e66cd778d8e24679610b27</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquickeffectmaker</Name>
+  <DisplayName>Qt Quick Effect Maker</DisplayName>
+  <Description>Qt Quick Effect Maker (QQEM) for creating and editing custom shader effects.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtquickeffectmaker, qt.qt6.6111.examples.qtquickeffectmaker</Dependencies>
+  <AutoDependOn/>
+  <Script>installscript.qs</Script>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>bfaf8807424428d8de99ed516e7680c59fc4894e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquickeffectmaker.debug_information</Name>
+  <DisplayName>Qt Effect Makers debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquickeffectmaker</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquickeffectmaker, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>daababab7ff8479d0b3c80e452032c416ecc7d91</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquickeffectmaker.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Effect Makers debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquickeffectmaker</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquickeffectmaker, qt.qt6.6111.addons.qtquickeffectmaker.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtquickeffectmaker-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1856004" OS="Any" UncompressedSize="10580008"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquickeffectmaker-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c6360a3abe3f4e50217295df6481d9d912274c88</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquickeffectmaker.win64_msvc2022_64</Name>
+  <DisplayName>Qt Quick Effect Maker for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtquickeffectmaker, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtquickeffectmaker-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="3947842" OS="Any" UncompressedSize="5228852"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquickeffectmaker-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>48ed925dc36d784a83eeeb2d568004c3ee0c304f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquicktimeline</Name>
+  <DisplayName>Qt Quick Timeline</DisplayName>
+  <Description>The Qt Quick Timeline module enables keyframe-based animations and parameterization. It takes a tooling-friendly approach, and is therefore directly supported by Qt Design Studio and Qt Quick Designer that contain a timeline editor for creating keyframe based animations.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Dependencies>qt.qt6.6111.doc.qtquicktimeline</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>dd1564774f4051303f31a0079dcfc05208234705</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquicktimeline.debug_information</Name>
+  <DisplayName>Qt Quick Timeline debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquicktimeline</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquicktimeline, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>042b40eb0520e74883392c1e10a5f8d971d804aa</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquicktimeline.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Quick Timeline debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtquicktimeline</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtquicktimeline, qt.qt6.6111.addons.qtquicktimeline.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtquicktimeline-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="4298375" OS="Any" UncompressedSize="32423976"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquicktimeline-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>f01349e7d187e5d3d86931b844d0881a396b024e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtquicktimeline.win64_msvc2022_64</Name>
+  <DisplayName>Qt Quick Timeline for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtquicktimeline, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtquicktimeline-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="209388" OS="Any" UncompressedSize="1730246"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtquicktimeline-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>cc29b9cd4a3b5d81d6c9ee397c299a0ab81a3244</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtremoteobjects</Name>
+  <DisplayName>Qt Remote Objects</DisplayName>
+  <Description>Qt Remote Objects is an add-on library that provides an easy way to share Qt APIs between processes/devices.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtremoteobjects, qt.qt6.6111.examples.qtremoteobjects</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>05f29b36fbced4af0112857748aeb2be7eb3b3aa</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtremoteobjects.debug_information</Name>
+  <DisplayName>Qt Remote Objects debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtremoteobjects</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtremoteobjects, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>1fc96372f7abbf149f4c1118645cc041aef65d43</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtremoteobjects.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Remote Objects debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtremoteobjects</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtremoteobjects, qt.qt6.6111.addons.qtremoteobjects.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtremoteobjects-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="7065730" OS="Any" UncompressedSize="47788072"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtremoteobjects-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>95200f94b7624aa562b12bcdc4603da23f89489e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtremoteobjects.win64_msvc2022_64</Name>
+  <DisplayName>Qt Remote Objects for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtremoteobjects, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtremoteobjects-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1019890" OS="Any" UncompressedSize="6549657"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtremoteobjects-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>30e4ecc5bdcf1ff91efbb491cbb268102605665b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtscxml</Name>
+  <DisplayName>Qt State Machines</DisplayName>
+  <Description>The Qt State Machines package provides API's and execution models that can be used to effectively embed the elements and semantics of statecharts in Qt applications. For advanced use cases the state machines can even be created from State Chart XML (SCXML) files.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtscxml, qt.qt6.6111.examples.qtscxml</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>1ab9d698dd140c785390c89b62615322e38240a7</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtscxml.debug_information</Name>
+  <DisplayName>Qt State Machine debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtscxml</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtscxml, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>1cbd46d36b33f8b575d3d68e87aacde773d6523f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtscxml.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt State Machine debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtscxml</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtscxml, qt.qt6.6111.addons.qtscxml.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtscxml-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="10915175" OS="Any" UncompressedSize="78032936"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtscxml-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>770699dcbfa7abaf918fc06d0f6df24b70c31317</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtscxml.win64_msvc2022_64</Name>
+  <DisplayName>Qt State Machine for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtscxml, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtscxml-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1134338" OS="Any" UncompressedSize="8683920"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtscxml-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>94a92ab51e43db8fdc054fb23de85dd91fd2ca73</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtsensors</Name>
+  <DisplayName>Qt Sensors</DisplayName>
+  <Description>Qt Sensors provides classes for reading sensor data.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtsensors, qt.qt6.6111.examples.qtsensors</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>30dbcebc827581d1cbb743d0aeb026a8bb40d070</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtsensors.debug_information</Name>
+  <DisplayName>Qt Sensors debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtsensors</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtsensors, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>cd9c129c091872a9f40ea8fcb24af9edd44c7de3</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtsensors.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Sensors debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtsensors</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtsensors, qt.qt6.6111.addons.qtsensors.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtsensors-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="5428984" OS="Any" UncompressedSize="45662248"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtsensors-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>0999fe92fa542213b4161fc23b4b460c45883798</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtsensors.win64_msvc2022_64</Name>
+  <DisplayName>Qt Sensors for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtsensors, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtsensors-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="576946" OS="Any" UncompressedSize="5600831"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtsensors-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>4724f707979d19363dd8a87baa8549e8dac59497</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialbus</Name>
+  <DisplayName>Qt Serial Bus</DisplayName>
+  <Description>The Qt Serial Bus API provides classes and functions to access the various industrial serial buses and protocols, such as CAN, ModBus, and others.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtserialbus, qt.qt6.6111.examples.qtserialbus</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>0978c16646915c80ab9377c2dd869d4cc3cf4154</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialbus.debug_information</Name>
+  <DisplayName>Qt Serial Bus debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtserialbus</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtserialbus, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>38bfdf8078b1a0f78a690c5040e00026456b4da4</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialbus.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Serial Bus debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtserialbus</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtserialbus, qt.qt6.6111.addons.qtserialbus.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtserialbus-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="6058985" OS="Any" UncompressedSize="47812648"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtserialbus-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>04fd16731accef767e5df514042d8a18f815fb58</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialbus.win64_msvc2022_64</Name>
+  <DisplayName>Qt SerialBus for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtserialbus, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtserialbus-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="669262" OS="Any" UncompressedSize="4734985"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtserialbus-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>f866f3afacb6485a09060fe59a79f0106dabf6bc</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialport</Name>
+  <DisplayName>Qt Serial Port</DisplayName>
+  <Description>Qt Serial Port provides the basic functionality, which includes configuring, I/O operations, getting and setting the control signals of the RS-232 pinouts.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtserialport, qt.qt6.6111.examples.qtserialport</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>0340145aad99db026be4048ca8a0b18a8308a87a</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialport.debug_information</Name>
+  <DisplayName>Qt Serial Port debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtserialport</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtserialport, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>e1a3a85745e98930bbf39ee3ef73ede99b2d45eb</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialport.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Serial Port debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtserialport</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtserialport, qt.qt6.6111.addons.qtserialport.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtserialport-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="1029531" OS="Any" UncompressedSize="7503912"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtserialport-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>6109343d59c77f4bb2c83c6400444076160ead5f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtserialport.win64_msvc2022_64</Name>
+  <DisplayName>Qt SerialPort for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtserialport, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtserialport-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="155751" OS="Any" UncompressedSize="881833"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtserialport-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>f8901ef9e2720ac8ee62b0a7f47e3d5ef89b3cd4</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtshadertools</Name>
+  <DisplayName>Qt Shader Tools</DisplayName>
+  <Description>Qt Shader conditioning tool Prebuilt Components for Qt 6.11.1.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Dependencies>qt.qt6.6111.doc.qtshadertools</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>c6e38d4e63126c71117bafb58373369209aa11f3</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtshadertools.debug_information</Name>
+  <DisplayName>Qt Shader Tools debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtshadertools</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtshadertools, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>a42305147c21ddc35a6917bcb2556f91097ef656</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtshadertools.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Shader Tools debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtshadertools</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtshadertools, qt.qt6.6111.addons.qtshadertools.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtshadertools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="13707813" OS="Any" UncompressedSize="101085224"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtshadertools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>0f6b43a19388b294743774e1b2a049078b759445</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtshadertools.win64_msvc2022_64</Name>
+  <DisplayName>Qt Shader Tools for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtshadertools, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtshadertools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="3253431" OS="Any" UncompressedSize="18195041"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtshadertools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>4bfee6da78a405e6d59de8f48b08cbc2a85baa3f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtspeech</Name>
+  <DisplayName>Qt Speech</DisplayName>
+  <Description>The Qt Speech module allows using text to speech engines</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Dependencies>qt.qt6.6111.doc.qtspeech, qt.qt6.6111.examples.qtspeech</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>5eba1164a1c0f5b2ce8be59bc93bb5e65807b3f4</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtspeech.debug_information</Name>
+  <DisplayName>Qt Speech debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtspeech</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtspeech, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>4ba3e6d0c3d101d7d59dd022280fbc705aa705f0</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtspeech.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Speech debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtspeech</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtspeech, qt.qt6.6111.addons.qtspeech.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtspeech-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="5746659" OS="Any" UncompressedSize="41902120"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtspeech-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>de3bbae0c67f284d6b59b7f584bfb70c085dd0bf</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtspeech.win64_msvc2022_64</Name>
+  <DisplayName>Qt Speech for msvc2022_64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtspeech, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtspeech-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="475372" OS="Any" UncompressedSize="3481824"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtspeech-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>cda2efab4e7cbb5e3046fe59d4c08c741d54c104</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qttasktree</Name>
+  <DisplayName>Qt Task Tree (TP)</DisplayName>
+  <Description>The Qt Task Tree provides a declarative way to compose and execute asynchronous task workflows.&lt;br>&lt;br>The release of Qt Task Tree with Qt 6.11.1 is a Technology Preview.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qttasktree, qt.qt6.6111.examples.qttasktree</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>f82f0c28963f8c1e2b3b182fab9bfb7d8de3ef8c</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qttasktree.debug_information</Name>
+  <DisplayName>Qt Task Tree debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qttasktree</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qttasktree, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>cf43fa53aa975637f6e33df8ddf2ed5ad748a06d</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qttasktree.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Task Tree debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qttasktree</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qttasktree, qt.qt6.6111.addons.qttasktree.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qttasktree-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="2438341" OS="Any" UncompressedSize="15720488"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qttasktree-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>da0843a21bc1ee6db534168d0cc84f4adfbd6ff2</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qttasktree.win64_msvc2022_64</Name>
+  <DisplayName>Qt Task Tree for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qttasktree, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qttasktree-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="286595" OS="Any" UncompressedSize="1806863"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qttasktree-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>22286111ca81de52ce84af173ad195dd733e089b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtvirtualkeyboard</Name>
+  <DisplayName>Qt Virtual Keyboard</DisplayName>
+  <Description>The Qt Virtual Keyboard is a Qt Quick virtual keyboard that you can plug in to your platform or application. You can extend it with your ownlayouts and styles.&lt;br>&lt;br>This component is available under commercial licenses from The Qt Company, or under GPL v3. For open source use, please note the additional requirements compared to LGPL v3.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtvirtualkeyboard, qt.qt6.6111.examples.qtvirtualkeyboard</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>da50b5776c2a2a8f8b089d53a5c7fa5c747b56d1</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtvirtualkeyboard.debug_information</Name>
+  <DisplayName>Qt Virtual Keyboard debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtvirtualkeyboard</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtvirtualkeyboard, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>9f378f394002ec8095094812387b4fa2f808f2ce</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtvirtualkeyboard.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt Virtual Keyboard debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtvirtualkeyboard</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtvirtualkeyboard, qt.qt6.6111.addons.qtvirtualkeyboard.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtvirtualkeyboard-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="14061666" OS="Any" UncompressedSize="118792232"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtvirtualkeyboard-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>d8f187dabd5347da27fdfb5591a7f39801b25be3</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtvirtualkeyboard.win64_msvc2022_64</Name>
+  <DisplayName>Qt Virtual Keyboard for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtvirtualkeyboard, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtvirtualkeyboard-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="3063635" OS="Any" UncompressedSize="18070518"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtvirtualkeyboard-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>d3d2a779968307df9b6bf60fe1677093f9748f53</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebchannel</Name>
+  <DisplayName>Qt WebChannel</DisplayName>
+  <Description>Qt WebChannel enables peer-to-peer communication between a server (QML/C++ application) and a client (HTML/JavaScript or QML application). It is supported out of the box by Qt WebEngine. In addition it can work on all browsers that support WebSockets, enabling Qt WebChannel clients to run in any JavaScript environment (including QML). This requires the implementation of a custom transport based on Qt WebSockets.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtwebchannel, qt.qt6.6111.examples.qtwebchannel</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>233d983b5bf9f6a4c42306da20343fa89ed96d74</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebchannel.debug_information</Name>
+  <DisplayName>Qt WebChannel debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtwebchannel</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebchannel, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>09f1bb79639f2b4f1500b07bb27169fddbeb3595</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebchannel.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt WebChannel debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtwebchannel</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebchannel, qt.qt6.6111.addons.qtwebchannel.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtwebchannel-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="2572827" OS="Any" UncompressedSize="19652648"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtwebchannel-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>9915f9c5c05b47d6efd0ff2ed8c560e65c4e61b8</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebchannel.win64_msvc2022_64</Name>
+  <DisplayName>Qt WebChannel for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebchannel, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtwebchannel-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="305375" OS="Any" UncompressedSize="2062151"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtwebchannel-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>83b3a6a4cfd4bc937e1fb277eaf77cf6c90251d4</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebsockets</Name>
+  <DisplayName>Qt WebSockets</DisplayName>
+  <Description>WebSocket is a web-based protocol designed to enable two-way communication between a client application and a remote host. It enables the two entities to send data back and forth if the initial handshake succeeds. WebSocket is the solution for applications that struggle to get real-time data feeds with less network latency and minimum data exchange.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtwebsockets, qt.qt6.6111.examples.qtwebsockets</Dependencies>
+  <AutoDependOn/>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>0bd766c3dd3a5eabf636b01846efb36b8de05b82</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebsockets.debug_information</Name>
+  <DisplayName>Qt WebSockets debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtwebsockets</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebsockets, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>3f55318aabd88b4e5878157c85a02f27c68d5c17</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebsockets.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt WebSockets debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtwebsockets</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebsockets, qt.qt6.6111.addons.qtwebsockets.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtwebsockets-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="2543826" OS="Any" UncompressedSize="18685992"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtwebsockets-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>27e1375942d3963e7f141ada8f6f6ca34038310c</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebsockets.win64_msvc2022_64</Name>
+  <DisplayName>Qt WebSockets for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebsockets, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtwebsockets-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="279301" OS="Any" UncompressedSize="1808233"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtwebsockets-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>c5aa66ff8d9fe6fc04d279ae463e5aa8c05f9f5f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebview</Name>
+  <DisplayName>Qt WebView</DisplayName>
+  <Description>Qt WebView provides a way to display web content in a QML application without necessarily including a full web browser stack by using native APIs where it makes sense. This is useful on mobile platforms such as Android, iOS, and UWP (Universal Windows Platform); especially on iOS, where policy dictates that all web content is displayed using the operating system's web view. On Windows, Linux, and macOS, Qt WebView depends on the Qt WebEngine module to render content.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.doc.qtwebview, qt.qt6.6111.examples.qtwebview</Dependencies>
+  <AutoDependOn/>
+  <Script>installscript.qs</Script>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>e722f7d87985f930441701213989733073b351ab</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebview.debug_information</Name>
+  <DisplayName>Qt WebView debug information</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtwebview</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebview, qt.qt6.6111.debug_info</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>92be30d31d517564780dcbc5681ee6b27760dd8f</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebview.debug_information.win64_msvc2022_64</Name>
+  <DisplayName>Qt WebView debug information for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <SortingPriority/>
+  <Dependencies>qt.qt6.6111.addons.qtwebview</Dependencies>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebview, qt.qt6.6111.addons.qtwebview.debug_information, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Virtual>true</Virtual>
+  <DownloadableArchives>qtwebview-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="5657968" OS="Any" UncompressedSize="41754664"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtwebview-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>28c23e2a3f934b98db9e1b2fc3143d46cb213be9</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.addons.qtwebview.win64_msvc2022_64</Name>
+  <DisplayName>Qt WebView for MSVC 2022 64-bit</DisplayName>
+  <Description/>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.addons.qtwebview, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority/>
+  <DownloadableArchives>qtwebview-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="365350" OS="Any" UncompressedSize="2851672"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtwebview-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>17353921db8db836870b2ca320205a65a7ee3f9e</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.debug_info</Name>
+  <DisplayName>Qt Debug Information Files</DisplayName>
+  <Description>Qt 6.11.1 debug information files. Requires selection of target binary like gcc or MSVC.</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Default>false</Default>
+  <Script>installscript.qs</Script>
+  <AutoDependOn/>
+  <SortingPriority>2</SortingPriority>
+  <DownloadableArchives/>
+  <UpdateFile CompressedSize="0" OS="Any" UncompressedSize="0"/>
+  <SHA1>67f97d90d8c6f3782fd1a954e1174881607c3f62</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.debug_info.win64_msvc2022_64</Name>
+  <DisplayName>Desktop MSVC 2022 64-bit debug information files</DisplayName>
+  <Description>Qt 6.11.1 debug information files for Desktop MSVC 2022 64-bit</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <AutoDependOn>qt.qt6.6111.debug_info, qt.qt6.6111.win64_msvc2022_64</AutoDependOn>
+  <Dependencies>qt.qt6.6111.win64_msvc2022_64</Dependencies>
+  <Virtual>true</Virtual>
+  <SortingPriority>2</SortingPriority>
+  <DownloadableArchives>qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z, qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z, qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z, qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="578470243" OS="Any" UncompressedSize="4053622944"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64-debug-symbols.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>1ec7541763faab9af7e8ab9457e48466ae247ba0</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>qt.qt6.6111.win64_msvc2022_64</Name>
+  <DisplayName>MSVC 2022 64-bit</DisplayName>
+  <Description>Qt 6.11.1 Prebuilt Components for MSVC 2022 64-bit &lt;br>&lt;br>sha1: bfde7b892add48396756dc44a3e3fa03d98c5710</Description>
+  <Version>6.11.1-0-202605090529</Version>
+  <ReleaseDate>2026-05-09</ReleaseDate>
+  <Dependencies>qt.tools.qtcreator, qt.qt6.6111.doc, qt.qt6.6111.examples</Dependencies>
+  <AutoDependOn/>
+  <Default>false</Default>
+  <Script>installscript.qs</Script>
+  <SortingPriority>590</SortingPriority>
+  <DownloadableArchives>qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z, qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z, qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z, qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z, qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z, qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z, d3dcompiler_47-x64.7z, opengl32sw-64-mesa_11_2_2-signed_sha256.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="244908824" OS="Any" UncompressedSize="2264048085"/>
+  <Operations>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64</Argument>
+    <Argument>qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64/bin</Argument>
+    <Argument>d3dcompiler_47-x64.7z</Argument>
+   </Operation>
+   <Operation name="Extract">
+    <Argument>@TargetDir@/6.11.1/msvc2022_64/bin</Argument>
+    <Argument>opengl32sw-64-mesa_11_2_2-signed_sha256.7z</Argument>
+   </Operation>
+  </Operations>
+  <SHA1>ed87bb4bae096573241f34ef4f6ac279dbbc9996</SHA1>
+ </PackageUpdate>
+ <SHA1>5e33a4193247897c750cb1a97c3586072e94ba6a</SHA1>
+ <MetadataName>2026-05-09-0701_meta.7z</MetadataName>
+</Updates>

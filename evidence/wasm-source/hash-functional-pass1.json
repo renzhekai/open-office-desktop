@@ -1,0 +1,83 @@
+{
+  "module": "hash",
+  "label": "pass1",
+  "started_utc": "2026-11-04T05:03:29.578577+00:00",
+  "official_dir": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\hash\\hash",
+  "rebuilt_dir": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\deploy",
+  "inputs": {},
+  "harness": {
+    "path": "D:\\open office\\scripts\\wasm_engine_harness.cjs",
+    "sha256": "43be36284d380cea84031d9d225ce3195125ac32aa33d4ef4f936c703d43482c"
+  },
+  "node": "v24.15.0",
+  "variants": {
+    "wasm": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\hash\\hash\\engine.js",
+          "engine_sha256": "a017a4e9a073bb5c12f1671a0d1b2e41f4e37139533f5f34404887bb00a4b9d0",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\deploy\\engine.js",
+          "engine_sha256": "9d53eb977469e06f1848cf958d97d1eb0ded9f6b86336a5edffe271687ba0031",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": true,
+      "differences": [],
+      "independent": {
+        "official": {
+          "hash_matches_hashlib": true,
+          "hash_values_compared": 36,
+          "hash2_matches_python_reimplementation": true,
+          "hash2_values_compared": 20
+        },
+        "rebuilt": {
+          "hash_matches_hashlib": true,
+          "hash_values_compared": 36,
+          "hash2_matches_python_reimplementation": true,
+          "hash2_values_compared": 20
+        }
+      },
+      "passed": true
+    },
+    "asmjs": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\hash\\hash\\engine_ie.js",
+          "engine_sha256": "fc175dbb2c5bdd69836bff2c618d6f10a39a0f6050fd5cc0023b26c9d522a684",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\deploy\\engine_ie.js",
+          "engine_sha256": "e10101711121a9658700bd8be67b6fe01b2a644a4aa741cfc0cc249cbf364afd",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": true,
+      "differences": [],
+      "independent": {
+        "official": {
+          "hash_matches_hashlib": true,
+          "hash_values_compared": 36,
+          "hash2_matches_python_reimplementation": true,
+          "hash2_values_compared": 20
+        },
+        "rebuilt": {
+          "hash_matches_hashlib": true,
+          "hash_values_compared": 36,
+          "hash2_matches_python_reimplementation": true,
+          "hash2_values_compared": 20
+        }
+      },
+      "passed": true
+    }
+  },
+  "all_passed": true,
+  "finished_utc": "2026-11-04T05:03:33.628663+00:00"
+}

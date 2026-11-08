@@ -1,0 +1,120 @@
+2026-11-07T06:47:28.274Z action=initialized_not_roundtrip_verified event=-1 view=-1 request=0
+2026-11-07T06:47:28.754Z action=host_created event=-1 view=1 request=0
+2026-11-07T06:47:28.755Z action=request_accepted event=-1 view=-1 request=1
+2026-11-07T06:47:28.805Z action=native_event event=1002 view=1 request=1
+2026-11-07T06:47:28.810Z action=native_event event=7050 view=1 request=1
+2026-11-07T06:47:28.901Z action=native_event event=5015 view=1 request=1
+2026-11-07T06:47:28.939Z action=native_event event=7033 view=1 request=1
+2026-11-07T06:47:28.939Z action=native_event event=1002 view=1 request=1
+2026-11-07T06:47:29.071Z action=native_event event=5015 view=1 request=1
+2026-11-07T06:47:29.071Z action=native_event event=5015 view=1 request=1
+2026-11-07T06:47:29.427Z action=native_event event=5015 view=1 request=1
+2026-11-07T06:47:29.447Z action=native_event event=5015 view=1 request=1
+2026-11-07T06:47:29.453Z action=native_event event=5015 view=1 request=1
+2026-11-07T06:47:30.058Z action=native_event event=1013 view=1 request=1
+2026-11-07T06:47:30.211Z action=native_event event=5015 view=1 request=1
+2026-11-07T06:47:30.212Z action=operation_completed event=-1 view=-1 request=1
+2026-11-07T06:47:30.232Z action=native_event event=1013 view=1 request=0
+2026-11-07T06:47:30.349Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.387Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.422Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.436Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:47:30.483Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:47:30.483Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:47:30.485Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.551Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.599Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.647Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.689Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:30.728Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:57.102Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:47:58.308Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.322Z action=native_event event=3100 view=1 request=0
+2026-11-07T06:47:58.327Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.328Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.329Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.356Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.364Z action=native_event event=3100 view=1 request=0
+2026-11-07T06:47:58.378Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:47:58.380Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.380Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:47:58.400Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.402Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.445Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.500Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.546Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:58.681Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:59.403Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:47:59.403Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:08.947Z action=editor_command_accepted command=text.insert command_request=2
+2026-11-07T06:48:09.007Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:09.008Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:09.008Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:09.008Z action=editor_command_completed command=text.insert command_request=2
+2026-11-07T06:48:09.014Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:10.003Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:10.003Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:23.901Z action=editor_command_accepted command=edit.undo command_request=3
+2026-11-07T06:48:23.948Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:23.948Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:23.948Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:23.948Z action=editor_command_completed command=edit.undo command_request=3
+2026-11-07T06:48:23.954Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:24.202Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:24.202Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:37.336Z action=editor_command_accepted command=text.insert command_request=4
+2026-11-07T06:48:37.343Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:37.343Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:37.343Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:37.343Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:37.343Z action=editor_command_completed command=text.insert command_request=4
+2026-11-07T06:48:37.364Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:38.442Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:38.442Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:46.474Z action=editor_command_accepted command=edit.undo command_request=5
+2026-11-07T06:48:46.480Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:46.480Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:46.480Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:46.480Z action=editor_command_completed command=edit.undo command_request=5
+2026-11-07T06:48:46.493Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:46.563Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:46.563Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:50.288Z action=editor_command_accepted command=edit.redo command_request=6
+2026-11-07T06:48:50.336Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:50.336Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:50.336Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:48:50.336Z action=editor_command_completed command=edit.redo command_request=6
+2026-11-07T06:48:50.340Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:50.602Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:50.602Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.861Z action=native_event event=7050 view=1 request=0
+2026-11-07T06:48:57.863Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.863Z action=native_event event=3100 view=1 request=0
+2026-11-07T06:48:57.885Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.885Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.885Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.886Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.902Z action=native_event event=3100 view=1 request=0
+2026-11-07T06:48:57.918Z action=native_event event=3100 view=1 request=0
+2026-11-07T06:48:57.924Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.928Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:48:57.928Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:49:04.307Z action=editor_command_accepted command=selection.getText command_request=7
+2026-11-07T06:49:04.350Z action=native_event event=5015 view=1 request=0
+2026-11-07T06:49:04.350Z action=editor_command_completed command=selection.getText command_request=7
+2026-11-07T06:49:19.176Z action=request_accepted event=-1 view=-1 request=8
+2026-11-07T06:49:19.182Z action=native_event event=1012 view=1 request=8
+2026-11-07T06:49:19.182Z action=native_event event=1012 view=1 request=8
+2026-11-07T06:49:19.184Z action=native_event event=5015 view=1 request=8
+2026-11-07T06:49:19.711Z action=native_event event=1013 view=1 request=8
+2026-11-07T06:49:19.711Z action=native_event event=3002 view=1 request=8
+2026-11-07T06:49:19.711Z action=operation_completed event=-1 view=-1 request=8
+2026-11-07T06:49:19.718Z action=native_event event=1013 view=1 request=0
+2026-11-07T06:49:19.718Z action=native_event event=1012 view=1 request=0
+2026-11-07T06:49:56.548Z action=request_accepted event=-1 view=-1 request=9
+2026-11-07T06:49:56.548Z action=native_event event=2001 view=1 request=9
+2026-11-07T06:49:56.568Z action=native_event event=8000 view=1 request=9
+2026-11-07T06:49:56.568Z action=operation_completed event=-1 view=-1 request=9
+2026-11-07T06:49:57.121Z action=message_loop_returned event=-1 view=-1 request=0
+2026-11-07T06:49:57.216Z action=shutdown_completed event=-1 view=-1 request=0
+2026-11-07T06:49:57.222Z action=shutdown_completed event=-1 view=-1 request=0

@@ -1,0 +1,42 @@
+{
+  "name": "dep-v8-third_party_jinja2",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\jinja2",
+  "pin": "11b6b3e5971d760bd2d310f77643f55a818a6d25",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:05.002782+00:00",
+  "head": "11b6b3e5971d760bd2d310f77643f55a818a6d25",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/chromium/src/third_party/jinja2.git",
+  "patch": {
+    "path": "patches/dep-v8-third_party_jinja2.patch",
+    "size": 401,
+    "sha256": "36a95ca138a5671105aed54a04226c38632afdc1d806212649f35069be35b34e"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_jinja2.txt",
+    "size": 41,
+    "sha256": "127a71566a59086c3360461c9d1d72448d8001ac04abe6ad2f93e688023d0c42"
+  },
+  "changed_files": [
+    {
+      "path": "tests.py",
+      "state": "file",
+      "size": 4241,
+      "sha256": "869be3fbbf497c96205879982e0084f9df1521cd2982d59a088c507aca7fa04a"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:05.398061+00:00"
+}

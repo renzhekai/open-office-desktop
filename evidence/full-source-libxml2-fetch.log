@@ -1,0 +1,8 @@
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "init", "--initial-branch=source-build", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2"]
+Initialized empty Git repository in D:/open office/build/full-source/DesktopEditors/core/Common/3dParty/libxml/libxml2/.git/
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "-C", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2", "remote", "add", "origin", "https://github.com/GNOME/libxml2.git"]
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "-C", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2", "fetch", "--depth=1", "origin", "39b66eb2089f491eacf8e22a7965a235f7f5735e"]
+From https://github.com/GNOME/libxml2
+ * branch            39b66eb2089f491eacf8e22a7965a235f7f5735e -> FETCH_HEAD
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "-C", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2", "checkout", "--detach", "39b66eb2089f491eacf8e22a7965a235f7f5735e"]
+HEAD is now at 39b66eb xmlreader: Copy DTD in xmlTextReaderDumpCopy

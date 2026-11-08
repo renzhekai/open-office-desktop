@@ -1,0 +1,108 @@
+{
+  "module": "engine",
+  "label": "pass1",
+  "recipe": "DesktopEditor/xmlsec/src/wasm/hash/hash.json",
+  "recipe_sha256": "3b45807493cd39cd7a2eb8afa80c4af9d7c3de52bf4626c9c9957ad88bfb3312",
+  "started_utc": "2026-11-04T04:58:22.482537+00:00",
+  "emscripten": "3.1.48",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "jobs": 20,
+  "output_dir": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1",
+  "recipe_adaptations": [],
+  "post_process_adaptations": [
+    {
+      "historical": "function getBinaryPromise()",
+      "used": "function getBinaryPromise(",
+      "reason": "Emscripten 3.1.48 glue signature is getBinaryPromise(binaryFile)"
+    },
+    {
+      "historical": "../../../../../../../sdkjs/common/stringserialize.js",
+      "used": "build/full-source/DesktopEditors/sdkjs/common/stringserialize.js",
+      "reason": "the pinned SDKJS checkout (9d21388) is the sibling sdkjs tree of the pinned core"
+    }
+  ],
+  "wasm": {
+    "compiled": 17,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "engine.js": {
+        "bytes": 8494,
+        "sha256": "b9a6414522438195b5dce420b3fb86662b8d75dbcf5e8d6c4c5f371c054dcf37"
+      },
+      "engine.wasm": {
+        "bytes": 64846,
+        "sha256": "41ca94538adf1253d0582a0674e7457fceea7184075b4d41b514f5741751fefc"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\wasm-commands.json"
+  },
+  "template_adaptations": [],
+  "template_marker_counts": {
+    "//module": 1,
+    "//string_utf8": 1,
+    "//desktop_fetch": 1
+  },
+  "asm": {
+    "compiled": 17,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "engine.js": {
+        "bytes": 158502,
+        "sha256": "08603922f0a82f877c3dbf38722b2b4d3b9c4db53818393bc13f0139bad74ca2"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\asm-commands.json"
+  },
+  "template_adaptations_ie": [],
+  "template_marker_counts_ie": {
+    "//module": 1,
+    "//string_utf8": 1,
+    "//desktop_fetch": 1,
+    "//polyfill": 1
+  },
+  "post_process": {
+    "stringserialize": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\common\\stringserialize.js",
+    "stringserialize_sha256": "bdcae1488f501ce1220ec7e0ade3c999060ddbe6044f361f6841c3c4eeb33e77",
+    "window_to_self_replacements": 1,
+    "files": [
+      {
+        "file": "engine.js",
+        "counts": {
+          "license_header": 1,
+          "atpostrun": 1,
+          "getBinaryPromise": 1,
+          "window_this": 0,
+          "base64_marker": 1
+        }
+      },
+      {
+        "file": "engine_ie.js",
+        "counts": {
+          "license_header": 1,
+          "atpostrun": 1,
+          "getBinaryPromise": 1,
+          "window_this": 1,
+          "base64_marker": 1
+        }
+      }
+    ]
+  },
+  "deploy": {
+    "engine.js": {
+      "bytes": 35316,
+      "sha256": "9d53eb977469e06f1848cf958d97d1eb0ded9f6b86336a5edffe271687ba0031"
+    },
+    "engine.wasm": {
+      "bytes": 64846,
+      "sha256": "41ca94538adf1253d0582a0674e7457fceea7184075b4d41b514f5741751fefc"
+    },
+    "engine_ie.js": {
+      "bytes": 198059,
+      "sha256": "e10101711121a9658700bd8be67b6fe01b2a644a4aa741cfc0cc249cbf364afd"
+    }
+  },
+  "status": "built",
+  "finished_utc": "2026-11-04T04:58:28.847395+00:00"
+}

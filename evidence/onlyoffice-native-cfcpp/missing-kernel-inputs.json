@@ -1,0 +1,26 @@
+[
+  {
+    "path": "D:\\open office\\upstream\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2\\parser.c",
+    "exists": false
+  },
+  {
+    "path": "D:\\open office\\upstream\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2\\include\\libxml\\parser.h",
+    "exists": false
+  },
+  {
+    "path": "D:\\open office\\upstream\\DesktopEditors\\core\\Common\\3dParty\\icu\\icu\\include\\unicode\\utypes.h",
+    "exists": false
+  },
+  {
+    "path": "D:\\open office\\upstream\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\icu\\include\\unicode\\utypes.h",
+    "exists": false
+  },
+  {
+    "path": "D:\\open office\\upstream\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icuuc.lib",
+    "exists": false
+  },
+  {
+    "path": "D:\\open office\\upstream\\DesktopEditors\\core\\build\\lib\\win_64\\UnicodeConverter.lib",
+    "exists": false
+  }
+]

@@ -1,0 +1,1777 @@
+{
+  "status": "complete",
+  "started_at_utc": "2026-11-02T11:35:59.088404+00:00",
+  "finished_at_utc": "2026-11-02T11:36:13.266399+00:00",
+  "source_root": "D:\\open office\\build\\full-source\\DesktopEditors",
+  "archive_root": "D:\\open office\\evidence\\full-source-patches-final",
+  "scope": "Tracked changes from pinned HEAD, including staged and unstaged changes. Nested repositories captured independently from explicit receipt inventories.",
+  "git_diff_arguments": [
+    "diff",
+    "--binary",
+    "--full-index",
+    "--no-ext-diff",
+    "--no-textconv",
+    "--ignore-submodules=all",
+    "HEAD",
+    "--"
+  ],
+  "environment": {
+    "GIT_NO_LAZY_FETCH": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "GIT_TERMINAL_PROMPT": "0"
+  },
+  "main_worktree_count": 8,
+  "dependency_clone_count": 37,
+  "tracked_changed_file_count": 41,
+  "nonempty_patch_count": 19,
+  "required_core_v8_pre_targetdeps_present": true,
+  "repositories": [
+    {
+      "name": "dep-graphics-brotli",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\brotli\\brotli",
+      "pin": "a47d7475063eb223c87632eed806c0070e70da29",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:08.681976+00:00",
+      "head": "a47d7475063eb223c87632eed806c0070e70da29",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/google/brotli.git",
+      "patch": {
+        "path": "patches/dep-graphics-brotli.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-graphics-brotli.txt",
+        "size": 41,
+        "sha256": "b036d937c99a747f6403f399389ef1e110245797766e9355b8889e527b0fc00f"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:09.538477+00:00"
+    },
+    {
+      "name": "dep-graphics-harfbuzz",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\harfbuzz\\harfbuzz",
+      "pin": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:08.441973+00:00",
+      "head": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/harfbuzz/harfbuzz.git",
+      "patch": {
+        "path": "patches/dep-graphics-harfbuzz.patch",
+        "size": 2810,
+        "sha256": "105617cf11833a1adcc35cbf0d22e1a82cc3ef434aa9b57af2646d2370efc110"
+      },
+      "head_file": {
+        "path": "heads/dep-graphics-harfbuzz.txt",
+        "size": 41,
+        "sha256": "9846dfbcf9ab887855c6edcc21b0bd9f35b1f8c634a00aafcc6af8298eea3eb4"
+      },
+      "changed_files": [
+        {
+          "path": "src/hb-ft.cc",
+          "state": "file",
+          "size": 45516,
+          "sha256": "58891395182d04a33dc6b4ed3f3f84b6610070921e607f9e33989cc3211d190b"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:11.154442+00:00"
+    },
+    {
+      "name": "dep-graphics-hyphen",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hyphen\\hyphen",
+      "pin": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:09.543323+00:00",
+      "head": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/hunspell/hyphen.git",
+      "patch": {
+        "path": "patches/dep-graphics-hyphen.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-graphics-hyphen.txt",
+        "size": 41,
+        "sha256": "5832c2f0a490e9928d7c4830b08ea8b9b3fff4ba45eaee51c008b202aa349217"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:09.930551+00:00"
+    },
+    {
+      "name": "dep-graphics-katana",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\katana-parser",
+      "pin": "be6df458d4540eee375c513958dcb862a391cdd1",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:08.241702+00:00",
+      "head": "be6df458d4540eee375c513958dcb862a391cdd1",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/jasenhuang/katana-parser.git",
+      "patch": {
+        "path": "patches/dep-graphics-katana.patch",
+        "size": 2757,
+        "sha256": "9e255cda083f6f6dab946a467727ca678a11405a300a2b47f616d43e475a4728"
+      },
+      "head_file": {
+        "path": "heads/dep-graphics-katana.txt",
+        "size": 41,
+        "sha256": "844181d2f4543764da52ca08b823ee1ff9cd9de1403c15fe3ceaa7add4c40e25"
+      },
+      "changed_files": [
+        {
+          "path": "src/foundation.c",
+          "state": "file",
+          "size": 7863,
+          "sha256": "15b82f1076a1564e387c2c70feb2dd36f7d9df608292f58aad21193a1cd7a8e1"
+        },
+        {
+          "path": "src/parser.c",
+          "state": "file",
+          "size": 58600,
+          "sha256": "bce638769a26945afcadcce76fd1173bc5f3198c762f9445a8efe8bc23fc3ccb"
+        },
+        {
+          "path": "src/tokenizer.c",
+          "state": "file",
+          "size": 10330,
+          "sha256": "8260949e43c4256e1561567f53099a5375a072706207332d5ef70d2fb6315fd6"
+        }
+      ],
+      "changed_file_count": 3,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:08.676868+00:00"
+    },
+    {
+      "name": "dep-graphics-libde265",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\libde265",
+      "pin": "7ba65889d3d6d8a0d99b5360b028243ba843be3a",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:09.937900+00:00",
+      "head": "7ba65889d3d6d8a0d99b5360b028243ba843be3a",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/strukturag/libde265.git",
+      "patch": {
+        "path": "patches/dep-graphics-libde265.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-graphics-libde265.txt",
+        "size": 41,
+        "sha256": "e7781c25aa919cbd9be6cad678a0b17f8520d48ae53ea2d05ea632d0034924d0"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:10.382920+00:00"
+    },
+    {
+      "name": "dep-graphics-libheif",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\libheif",
+      "pin": "bf35e9eb25af8f2b7917996ad9ba849d922f8d15",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:10.281136+00:00",
+      "head": "bf35e9eb25af8f2b7917996ad9ba849d922f8d15",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/strukturag/libheif.git",
+      "patch": {
+        "path": "patches/dep-graphics-libheif.patch",
+        "size": 684,
+        "sha256": "9f8fa3538edca772eb83a2d44110e5820b9e6ccced7d3058b2022b0c3887affe"
+      },
+      "head_file": {
+        "path": "heads/dep-graphics-libheif.txt",
+        "size": 41,
+        "sha256": "2de0ed6c05c0118e8cce80e850ae554754c1c944098f3589b2d9645ec61eb01d"
+      },
+      "changed_files": [
+        {
+          "path": "CMakeLists.txt",
+          "state": "file",
+          "size": 17708,
+          "sha256": "e70e12e454daac9f4c04070e849503c67391390024e36b2baf258dec6defabdd"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:10.885010+00:00"
+    },
+    {
+      "name": "dep-graphics-x265",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\x265",
+      "pin": "32e25ffcf810c5fe284901859b369270824c4596",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:09.683757+00:00",
+      "head": "32e25ffcf810c5fe284901859b369270824c4596",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/Multicorewareinc/x265.git",
+      "patch": {
+        "path": "patches/dep-graphics-x265.patch",
+        "size": 609,
+        "sha256": "dc0651c16abfef4e7a8de337881b3790e081f31642999e317934150f04783da6"
+      },
+      "head_file": {
+        "path": "heads/dep-graphics-x265.txt",
+        "size": 41,
+        "sha256": "ccd0304c2e02799ebeb18868ecd1d7c4baef26078459fc3b68169dd09ebc5285"
+      },
+      "changed_files": [
+        {
+          "path": "source/cmake/Version.cmake",
+          "state": "file",
+          "size": 7784,
+          "sha256": "8edc201cc31da5a355de4b4af0e3f8774be4c89923d0a0335a2d1252f31dee5e"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:10.275589+00:00"
+    },
+    {
+      "name": "dep-libxml2",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2",
+      "pin": "39b66eb2089f491eacf8e22a7965a235f7f5735e",
+      "kind": "dependency_clone",
+      "receipt": "evidence/full-source-libxml2-source-result.json",
+      "started_at_utc": "2026-11-02T11:36:03.527151+00:00",
+      "head": "39b66eb2089f491eacf8e22a7965a235f7f5735e",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/GNOME/libxml2.git",
+      "patch": {
+        "path": "patches/dep-libxml2.patch",
+        "size": 2075,
+        "sha256": "0a24769db49d04196b64e664e099f5a3a52740361d361494995fc788217aca07"
+      },
+      "head_file": {
+        "path": "heads/dep-libxml2.txt",
+        "size": 41,
+        "sha256": "23f487b6f314359a936b0fad6a60c027832f872ce269a017957efef7f1ba493a"
+      },
+      "changed_files": [
+        {
+          "path": "error.c",
+          "state": "file",
+          "size": 42904,
+          "sha256": "be306b25d1d1a13fd967ffcfada7b8a107777e5ae685959ec5a41fb666cd5272"
+        },
+        {
+          "path": "globals.c",
+          "state": "file",
+          "size": 30643,
+          "sha256": "e450f2341648cc60c005b941b147e7b52b6a729d93d06127b84e06ad87d02477"
+        },
+        {
+          "path": "include/libxml/parserInternals.h",
+          "state": "file",
+          "size": 14393,
+          "sha256": "ca2c15db7d56bf57a7aaa7679d20dbbcabe794c4be7c7fc290f730bee71f28f5"
+        }
+      ],
+      "changed_file_count": 3,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:05.588871+00:00"
+    },
+    {
+      "name": "dep-remaining-glm",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\glm",
+      "pin": "33b4a621a697a305bc3a7610d290677b96beb181",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:10.963262+00:00",
+      "head": "33b4a621a697a305bc3a7610d290677b96beb181",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/g-truc/glm.git",
+      "patch": {
+        "path": "patches/dep-remaining-glm.patch",
+        "size": 482,
+        "sha256": "f5ceaed9bbbdbcee299e89f6bd6169fa40472e349dfdab40789471aed6e98e7f"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-glm.txt",
+        "size": 41,
+        "sha256": "6fc5276f7a87e1765d4f00c0405f519ddac0c997b52e5b4f477bf7b192a9544d"
+      },
+      "changed_files": [
+        {
+          "path": "glm/detail/func_common.inl",
+          "state": "file",
+          "size": 29695,
+          "sha256": "d6e092261a7e62b6accc8c50802c579ee2f2f7f457be4ea5dbeccc94c617b314"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:11.973277+00:00"
+    },
+    {
+      "name": "dep-remaining-gumbo",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\gumbo-parser",
+      "pin": "aa91b27b02c0c80c482e24348a457ed7c3c088e0",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:10.388897+00:00",
+      "head": "aa91b27b02c0c80c482e24348a457ed7c3c088e0",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/google/gumbo-parser.git",
+      "patch": {
+        "path": "patches/dep-remaining-gumbo.patch",
+        "size": 626,
+        "sha256": "21321a835a840543db7d9105890e3963c50ae2b383c7f28a82c3c8358b2775dc"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-gumbo.txt",
+        "size": 41,
+        "sha256": "7ef4430fd5db975cdd873b445e88744b1e0cb8fefbc7446dc3f2e9dc25910772"
+      },
+      "changed_files": [
+        {
+          "path": "src/tag.c",
+          "state": "file",
+          "size": 2684,
+          "sha256": "193a425a65714b1d2e6b59a97f6aafc5576a46baaab4a476e3dcad943e421773"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:10.957241+00:00"
+    },
+    {
+      "name": "dep-remaining-hunspell",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\hunspell",
+      "pin": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:10.890754+00:00",
+      "head": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/hunspell/hunspell.git",
+      "patch": {
+        "path": "patches/dep-remaining-hunspell.patch",
+        "size": 1858,
+        "sha256": "c50f574a36c3824d699d57a081e03fbdb98dc53fa1446e2b690d3e145572b1e6"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-hunspell.txt",
+        "size": 41,
+        "sha256": "61071b0d3ded66cff4efc189d1ae91c7da059d3315a66401d9d1e5a2d16f8190"
+      },
+      "changed_files": [
+        {
+          "path": "src/hunspell/atypes.hxx",
+          "state": "file",
+          "size": 4085,
+          "sha256": "5b2e8207943de0ce117c212448e52e3a6b31f3b50cc2b96d03c3a2addd650415"
+        },
+        {
+          "path": "src/hunspell/csutil.cxx",
+          "state": "file",
+          "size": 129156,
+          "sha256": "77c802a80f5504a66f0a63c9195d86a000beedfd0fd280fe3a6fbeca3d50fc71"
+        },
+        {
+          "path": "src/hunspell/filemgr.hxx",
+          "state": "file",
+          "size": 4321,
+          "sha256": "3b41be3c6304cd7112e2638aca0dd496c478a6662390f7934e9513ef3a7b4552"
+        }
+      ],
+      "changed_file_count": 3,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:11.574259+00:00"
+    },
+    {
+      "name": "dep-remaining-libetonyek",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek",
+      "pin": "cb396b4a9453a457469b62a740d8fb933c9442c3",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:11.978833+00:00",
+      "head": "cb396b4a9453a457469b62a740d8fb933c9442c3",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/LibreOffice/libetonyek.git",
+      "patch": {
+        "path": "patches/dep-remaining-libetonyek.patch",
+        "size": 542,
+        "sha256": "89307a857f4f4dd16866685facab51a267bc93222656703d9e7531f2e65e595c"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-libetonyek.txt",
+        "size": 41,
+        "sha256": "3848b1c33a64f72ed88c968f2bb0b6ee90a12f1e2f990f72d900b8f1b4be2e3f"
+      },
+      "changed_files": [
+        {
+          "path": "src/lib/IWORKTable.cpp",
+          "state": "file",
+          "size": 34918,
+          "sha256": "e77d3fd358b1da7a1297ef51cc625859043fd164ded486a8b94b58298f288bb0"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:12.602244+00:00"
+    },
+    {
+      "name": "dep-remaining-libodfgen",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libodfgen",
+      "pin": "8ef8c171ebe3c5daebdce80ee422cf7bb96aa3bc",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:11.732106+00:00",
+      "head": "8ef8c171ebe3c5daebdce80ee422cf7bb96aa3bc",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/Distrotech/libodfgen.git",
+      "patch": {
+        "path": "patches/dep-remaining-libodfgen.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-libodfgen.txt",
+        "size": 41,
+        "sha256": "31ff871c9717a2a9a11be59cf103c655568842e400ae0b5efa1c9e001b5e2074"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:12.158912+00:00"
+    },
+    {
+      "name": "dep-remaining-librevenge",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\librevenge",
+      "pin": "becd044b519ab83893ad6398e3cbb499a7f0aaf4",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:11.579303+00:00",
+      "head": "becd044b519ab83893ad6398e3cbb499a7f0aaf4",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/Distrotech/librevenge.git",
+      "patch": {
+        "path": "patches/dep-remaining-librevenge.patch",
+        "size": 2893,
+        "sha256": "bb9b6355860643a9a5e52cffc9c9258aef3e7f167fbea2efce1104f6041a6add"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-librevenge.txt",
+        "size": 41,
+        "sha256": "cd10670efa6bc4b268d6725a4a9991a043fb70e55a693622c4003ff987451a7d"
+      },
+      "changed_files": [
+        {
+          "path": "inc/librevenge-stream/RVNGStreamImplementation.h",
+          "state": "file",
+          "size": 2611,
+          "sha256": "57c1060fa0773a09eb4e979e2123cf248e73e963b18211461244125c872adfcb"
+        },
+        {
+          "path": "src/lib/RVNGDirectoryStream.cpp",
+          "state": "file",
+          "size": 5248,
+          "sha256": "c9d0dfc37e0419d3753ba4285d0369acc854cd0f35452e862f8c9a47c89634b1"
+        },
+        {
+          "path": "src/lib/RVNGStreamImplementation.cpp",
+          "state": "file",
+          "size": 13938,
+          "sha256": "52f496bd85cbe17cd13a8b7f20dc6f712ba9f8d50226f2f0b1718990e800a664"
+        }
+      ],
+      "changed_file_count": 3,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:12.125766+00:00"
+    },
+    {
+      "name": "dep-remaining-md4c",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\md\\md4c",
+      "pin": "481fbfbdf72daab2912380d62bb5f2187d438408",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:12.130944+00:00",
+      "head": "481fbfbdf72daab2912380d62bb5f2187d438408",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/mity/md4c.git",
+      "patch": {
+        "path": "patches/dep-remaining-md4c.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-md4c.txt",
+        "size": 41,
+        "sha256": "0dd16c25708677f7687dcda0cace2ac3c12bbd5ac65c7710c50070b04749acd8"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:12.494722+00:00"
+    },
+    {
+      "name": "dep-remaining-mdds",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\mdds",
+      "pin": "0783158939c6ce4b0b1b89e345ab983ccb0f0ad0",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:11.159468+00:00",
+      "head": "0783158939c6ce4b0b1b89e345ab983ccb0f0ad0",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/kohei-us/mdds.git",
+      "patch": {
+        "path": "patches/dep-remaining-mdds.patch",
+        "size": 539,
+        "sha256": "f42e44fc8db6eff97af8fa52985d87c0f474e03fc15d01c9c8b204dab93dfe66"
+      },
+      "head_file": {
+        "path": "heads/dep-remaining-mdds.txt",
+        "size": 41,
+        "sha256": "1e470543e037e298ce1a2b3bd44b5313c3e0b62925f753ccdd86e998fff5dcf9"
+      },
+      "changed_files": [
+        {
+          "path": "include/mdds/global.hpp",
+          "state": "file",
+          "size": 5238,
+          "sha256": "2e49cb56f8313b8d5408b85e67dfffff18e2151d4d515e0eb293ea3c13df3142"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:11.727053+00:00"
+    },
+    {
+      "name": "dep-socket-asio",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\asio",
+      "pin": "230c0d2ae035c5ce1292233fcab03cea0d341264",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/socket-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:12.499566+00:00",
+      "head": "230c0d2ae035c5ce1292233fcab03cea0d341264",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/chriskohlhoff/asio.git",
+      "patch": {
+        "path": "patches/dep-socket-asio.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-socket-asio.txt",
+        "size": 41,
+        "sha256": "c5a8ed0d38f4f97a7bf0a59d5abe94e4dab2c790711158195b05e96dd5b7208f"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:12.872046+00:00"
+    },
+    {
+      "name": "dep-socket-rapidjson",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\rapidjson",
+      "pin": "a36110e11874bcf35af854940e0ce910c19a8b49",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/socket-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:12.646814+00:00",
+      "head": "a36110e11874bcf35af854940e0ce910c19a8b49",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/miloyip/rapidjson.git",
+      "patch": {
+        "path": "patches/dep-socket-rapidjson.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-socket-rapidjson.txt",
+        "size": 41,
+        "sha256": "729e58e69d60a6059aa5cbcb2fb23e5770ec495c410c072fde3315b0e6770596"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:13.013774+00:00"
+    },
+    {
+      "name": "dep-socket-socketio",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp",
+      "pin": "da779141a7379cc30c870d48295033bc16a23c66",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/socket-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:12.164319+00:00",
+      "head": "da779141a7379cc30c870d48295033bc16a23c66",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/socketio/socket.io-client-cpp.git",
+      "patch": {
+        "path": "patches/dep-socket-socketio.patch",
+        "size": 3009,
+        "sha256": "db169f63d2853cc930d6ba5be0ab54c09e9b01006ef983f48d8d511b02fe3c95"
+      },
+      "head_file": {
+        "path": "heads/dep-socket-socketio.txt",
+        "size": 41,
+        "sha256": "e163b63735e1d90c2aaab0dd2d8dd55dac985f8c73557ce7acc37ea17f68a897"
+      },
+      "changed_files": [
+        {
+          "path": "src/internal/sio_client_impl.cpp",
+          "state": "file",
+          "size": 21862,
+          "sha256": "3ec9c6a68e7dae83af84e492015919694cb9c0a0db87aabf2ea6cfdef09154ec"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:12.641872+00:00"
+    },
+    {
+      "name": "dep-socket-websocketpp",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\websocketpp",
+      "pin": "56123c87598f8b1dd471be83ca841ceae07f95ba",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/socket-dependency-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:12.607090+00:00",
+      "head": "56123c87598f8b1dd471be83ca841ceae07f95ba",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/zaphoyd/websocketpp.git",
+      "patch": {
+        "path": "patches/dep-socket-websocketpp.patch",
+        "size": 1244,
+        "sha256": "9f968eff42f59f0a29df3ba13e55c69cfa740f972e2cd78069a5e169a4285072"
+      },
+      "head_file": {
+        "path": "heads/dep-socket-websocketpp.txt",
+        "size": 41,
+        "sha256": "271b969bf8057c88729861b9830a52366ead91a6808f0d09f62a909c9602dfe8"
+      },
+      "changed_files": [
+        {
+          "path": "websocketpp/impl/connection_impl.hpp",
+          "state": "file",
+          "size": 78598,
+          "sha256": "ade67a820323d423cdccbe021d045d79f6cff4e315755f32e1a4277999ad2899"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:13.046680+00:00"
+    },
+    {
+      "name": "dep-v8",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8",
+      "pin": "a2d8eca22ad478a95ca67bb2421a9a2535113925",
+      "kind": "dependency_clone",
+      "receipt": "evidence/full-source-v8-source-result.json",
+      "started_at_utc": "2026-11-02T11:36:03.295667+00:00",
+      "head": "a2d8eca22ad478a95ca67bb2421a9a2535113925",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/v8/v8.git",
+      "patch": {
+        "path": "patches/dep-v8.patch",
+        "size": 434,
+        "sha256": "9e019e698f399a2cf9d70cc44b56a741f54e19a31bd1fef43a295a72bb4662c1"
+      },
+      "head_file": {
+        "path": "heads/dep-v8.txt",
+        "size": 41,
+        "sha256": "a5664c9d5585ba4cfbb244b257d97eb5d79bf40693c4a059161eeaaaa3fcf95f"
+      },
+      "changed_files": [
+        {
+          "path": "BUILD.gn",
+          "state": "file",
+          "size": 183953,
+          "sha256": "8bfd924a72fd3f2c11e5b0ff2cd5a1d89c37c82ec25fdfd473972db231f334b5"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:03.797724+00:00"
+    },
+    {
+      "name": "dep-v8-base_trace_event_common",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\base\\trace_event\\common",
+      "pin": "eb94f1c7aa96207f469008f29989a43feb2718f8",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:07.351983+00:00",
+      "head": "eb94f1c7aa96207f469008f29989a43feb2718f8",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/src/base/trace_event/common.git",
+      "patch": {
+        "path": "patches/dep-v8-base_trace_event_common.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-base_trace_event_common.txt",
+        "size": 41,
+        "sha256": "a75e5758d9552cd18f986693363f68a614df234f98b811d7453c8d75690d5d0c"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:07.682276+00:00"
+    },
+    {
+      "name": "dep-v8-build",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\build",
+      "pin": "d5995537211ebc4d1bc37f215c25fa3781ba9d6e",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:04.238878+00:00",
+      "head": "d5995537211ebc4d1bc37f215c25fa3781ba9d6e",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/src/build.git",
+      "patch": {
+        "path": "patches/dep-v8-build.patch",
+        "size": 3979,
+        "sha256": "8f5515f1bd7a802bae3e86a2c74f892145316f4e0bcc11245466a3f96fb63fef"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-build.txt",
+        "size": 41,
+        "sha256": "e3c6c2c2609289ef9a37a3c34b0a29fc254e9c8abff3896450d95e3d8304bed7"
+      },
+      "changed_files": [
+        {
+          "path": "config/win/BUILD.gn",
+          "state": "file",
+          "size": 20654,
+          "sha256": "adc439bbfa1a0ec6c4e1420f4534e7026d848eaec8df8b0ac31b5b36ee2d2262"
+        },
+        {
+          "path": "toolchain/win/setup_toolchain.py",
+          "state": "file",
+          "size": 12049,
+          "sha256": "4e4110f6f83a9f9cf8c1f9b3c6f089ad8dfb94bbe5cd80925242c2534682b58f"
+        },
+        {
+          "path": "toolchain/win/tool_wrapper.py",
+          "state": "file",
+          "size": 7167,
+          "sha256": "efb9bfed1c6f5dbafdd4e87cb951dbec8ea8d2e450f92d68063023db6b3c2175"
+        },
+        {
+          "path": "vs_toolchain.py",
+          "state": "file",
+          "size": 23859,
+          "sha256": "4d2cdd9f4134c6a1e72b87bc338582ed931abd80f874ebc472c0894235c8deba"
+        }
+      ],
+      "changed_file_count": 4,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:04.997899+00:00"
+    },
+    {
+      "name": "dep-v8-buildtools",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools",
+      "pin": "235cfe435ca5a9826569ee4ef603e226216bd768",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:03.821816+00:00",
+      "head": "235cfe435ca5a9826569ee4ef603e226216bd768",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/src/buildtools.git",
+      "patch": {
+        "path": "patches/dep-v8-buildtools.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-buildtools.txt",
+        "size": 41,
+        "sha256": "71226721451a82eb1cc956998060a64a60e972bb7b16ba2a4911cef4e517639b"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:04.237197+00:00"
+    },
+    {
+      "name": "dep-v8-buildtools_third_party_libc___trunk",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools\\third_party\\libc++\\trunk",
+      "pin": "d9040c75cfea5928c804ab7c235fed06a63f743a",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:08.172042+00:00",
+      "head": "d9040c75cfea5928c804ab7c235fed06a63f743a",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git",
+      "patch": {
+        "path": "patches/dep-v8-buildtools_third_party_libc___trunk.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-buildtools_third_party_libc___trunk.txt",
+        "size": 41,
+        "sha256": "55e2a6ad66069205109a5604726d5bd99e5d3038e10eb3c3b1a549d554dbabe7"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:09.678456+00:00"
+    },
+    {
+      "name": "dep-v8-buildtools_third_party_libc__abi_trunk",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools\\third_party\\libc++abi\\trunk",
+      "pin": "196ba1aaa8ac285d94f4ea8d9836390a45360533",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:07.978781+00:00",
+      "head": "196ba1aaa8ac285d94f4ea8d9836390a45360533",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git",
+      "patch": {
+        "path": "patches/dep-v8-buildtools_third_party_libc__abi_trunk.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-buildtools_third_party_libc__abi_trunk.txt",
+        "size": 41,
+        "sha256": "e6607f517ad68f1951ed7e3340831723e6d6f5e7d8c35cfa5e10e5f13794c581"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:08.436913+00:00"
+    },
+    {
+      "name": "dep-v8-buildtools_third_party_libunwind_trunk",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools\\third_party\\libunwind\\trunk",
+      "pin": "d999d54f4bca789543a2eb6c995af2d9b5a1f3ed",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:07.841351+00:00",
+      "head": "d999d54f4bca789543a2eb6c995af2d9b5a1f3ed",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git",
+      "patch": {
+        "path": "patches/dep-v8-buildtools_third_party_libunwind_trunk.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-buildtools_third_party_libunwind_trunk.txt",
+        "size": 41,
+        "sha256": "046c049564ce7c3d7fe22bcbc75d824209cb8bfb95e1244a18d831fd68723563"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:08.236967+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_depot_tools",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\depot_tools",
+      "pin": "82b992a1656d7d1cd0ee3cbea8ff609ffdfed380",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:05.065677+00:00",
+      "head": "82b992a1656d7d1cd0ee3cbea8ff609ffdfed380",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/tools/depot_tools.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_depot_tools.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_depot_tools.txt",
+        "size": 41,
+        "sha256": "1c2946d699d08800b84a6b3f2ea3c72f73bbc0f4eba74e6bd7db7d3ba241fd67"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:05.725373+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_googletest_src",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\googletest\\src",
+      "pin": "1b0cdaae57c046c87fb99cb4f69c312a7e794adb",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:07.687957+00:00",
+      "head": "1b0cdaae57c046c87fb99cb4f69c312a7e794adb",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/external/github.com/google/googletest.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_googletest_src.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_googletest_src.txt",
+        "size": 41,
+        "sha256": "61c3bf928afd962d731eb4f27f948a476bb94010dac0603dbb9a859908fd5806"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:08.165268+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_icu",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\icu",
+      "pin": "899e18383fd732b47e6978db2b960a1b2a80179b",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:05.731623+00:00",
+      "head": "899e18383fd732b47e6978db2b960a1b2a80179b",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/deps/icu.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_icu.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_icu.txt",
+        "size": 41,
+        "sha256": "7d5de53f0a2ff7048f37c1e1d219c8a20bfe7f55dc5ed5dc15fb64295d7c26ea"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:07.345300+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_jinja2",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\jinja2",
+      "pin": "11b6b3e5971d760bd2d310f77643f55a818a6d25",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:05.002782+00:00",
+      "head": "11b6b3e5971d760bd2d310f77643f55a818a6d25",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/src/third_party/jinja2.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_jinja2.patch",
+        "size": 401,
+        "sha256": "36a95ca138a5671105aed54a04226c38632afdc1d806212649f35069be35b34e"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_jinja2.txt",
+        "size": 41,
+        "sha256": "127a71566a59086c3360461c9d1d72448d8001ac04abe6ad2f93e688023d0c42"
+      },
+      "changed_files": [
+        {
+          "path": "tests.py",
+          "state": "file",
+          "size": 4241,
+          "sha256": "869be3fbbf497c96205879982e0084f9df1521cd2982d59a088c507aca7fa04a"
+        }
+      ],
+      "changed_file_count": 1,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:05.398061+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_jsoncpp_source",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\jsoncpp\\source",
+      "pin": "9059f5cad030ba11d37818847443a53918c327b1",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:07.536377+00:00",
+      "head": "9059f5cad030ba11d37818847443a53918c327b1",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/external/github.com/open-source-parsers/jsoncpp.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_jsoncpp_source.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_jsoncpp_source.txt",
+        "size": 41,
+        "sha256": "7101c40cd0f9cde7b68a077102ae00c57dcb8f19a8b1525f33337b63b1e3f53a"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:07.973624+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_markupsafe",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\markupsafe",
+      "pin": "0944e71f4b2cb9a871bcbe353f95e889b64a611a",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:04.736060+00:00",
+      "head": "0944e71f4b2cb9a871bcbe353f95e889b64a611a",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/src/third_party/markupsafe.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_markupsafe.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_markupsafe.txt",
+        "size": 41,
+        "sha256": "ffdd977174dbc2d9a1164307b22374926892d3cb8e6f9f501d2c005643a6adae"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:05.060861+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_perfetto",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\perfetto",
+      "pin": "7cdc44f903d3bcfd1d0f67188bfa797a24756868",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:05.595078+00:00",
+      "head": "7cdc44f903d3bcfd1d0f67188bfa797a24756868",
+      "expected_commit_matches": true,
+      "origin": "https://android.googlesource.com/platform/external/perfetto.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_perfetto.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_perfetto.txt",
+        "size": 41,
+        "sha256": "82cbabf9b79205776a948dfeeeb93488cf3aac857754eb6ac2fffdcc33db16c9"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:07.531431+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_protobuf",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\protobuf",
+      "pin": "b68a347f56137b4b1a746e8c7438495a6ac1bd91",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:06.319043+00:00",
+      "head": "b68a347f56137b4b1a746e8c7438495a6ac1bd91",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/external/github.com/google/protobuf",
+      "patch": {
+        "path": "patches/dep-v8-third_party_protobuf.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_protobuf.txt",
+        "size": 41,
+        "sha256": "414e9da7640cd2d3dde1a464e9e635df91234c49a70a179d3fa70a34cf8335e0"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:07.834840+00:00"
+    },
+    {
+      "name": "dep-v8-third_party_zlib",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\zlib",
+      "pin": "2c183c9f93a328bfb3121284da13cf89a0f7e64a",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:05.933585+00:00",
+      "head": "2c183c9f93a328bfb3121284da13cf89a0f7e64a",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/src/third_party/zlib.git",
+      "patch": {
+        "path": "patches/dep-v8-third_party_zlib.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-third_party_zlib.txt",
+        "size": 41,
+        "sha256": "15ed37190eba3ea489e43d8ebccfa3f0e1b710b0333cf9be16ff8d5510d7d76e"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:06.314169+00:00"
+    },
+    {
+      "name": "dep-v8-tools_clang",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\tools\\clang",
+      "pin": "2246bee280e908ac1fd27ab75e7d0021b14d875c",
+      "kind": "dependency_clone",
+      "receipt": "build/full-source/v8-evidence/sources.json",
+      "started_at_utc": "2026-11-02T11:36:05.403757+00:00",
+      "head": "2246bee280e908ac1fd27ab75e7d0021b14d875c",
+      "expected_commit_matches": true,
+      "origin": "https://chromium.googlesource.com/chromium/src/tools/clang.git",
+      "patch": {
+        "path": "patches/dep-v8-tools_clang.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/dep-v8-tools_clang.txt",
+        "size": 41,
+        "sha256": "29be4d84a1c03ee4a572aff40e4593e566a8f8f70c4b47f9a368c8847880e51a"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:05.928316+00:00"
+    },
+    {
+      "name": "main-DesktopEditors",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors",
+      "pin": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:35:59.178385+00:00",
+      "head": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/DesktopEditors.git",
+      "patch": {
+        "path": "patches/main-DesktopEditors.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/main-DesktopEditors.txt",
+        "size": 41,
+        "sha256": "704389453619ea832881c4f3909edb2a83510fb74370d62cc21a05f822d5c60d"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:35:59.852233+00:00"
+    },
+    {
+      "name": "main-build_tools",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\build_tools",
+      "pin": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:36:02.490815+00:00",
+      "head": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/build_tools.git",
+      "patch": {
+        "path": "patches/main-build_tools.patch",
+        "size": 9681,
+        "sha256": "c967a9dc6f63cc2abc0782084bed8749bb35a27bc783b0e4605509245817915e"
+      },
+      "head_file": {
+        "path": "heads/main-build_tools.txt",
+        "size": 41,
+        "sha256": "e151e31bc282b53bbe6997e08014160f0d1f7c7c0838aeb9327e11ee048543af"
+      },
+      "changed_files": [
+        {
+          "path": "configure.py",
+          "state": "file",
+          "size": 7979,
+          "sha256": "4c0cadc60314ac2a7d93399a4e2e74e96e6c901b60aeec97453742f29671a06d"
+        },
+        {
+          "path": "scripts/config.py",
+          "state": "file",
+          "size": 12153,
+          "sha256": "b0d43a06cfadb008785bf8aa226d742b87c8178d1ea312744b82644b34d785aa"
+        },
+        {
+          "path": "scripts/qmake.py",
+          "state": "file",
+          "size": 9847,
+          "sha256": "727b06fc0d900cec5ef7435e0938d1812d2cbc200daf95b11cfcb9f428c870ad"
+        }
+      ],
+      "changed_file_count": 3,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:03.287792+00:00"
+    },
+    {
+      "name": "main-core",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core",
+      "pin": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:35:59.178563+00:00",
+      "head": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/core.git",
+      "patch": {
+        "path": "patches/main-core.patch",
+        "size": 3905,
+        "sha256": "a8712fc1623f25bf466c9c4077e151fd3f9d04943c48c5eef67637a899424a4a"
+      },
+      "head_file": {
+        "path": "heads/main-core.txt",
+        "size": 41,
+        "sha256": "f6d6eb39b6420fa4c17fdcb5c7ee32a092c8a28208208276a4ffddb24ce1e454"
+      },
+      "changed_files": [
+        {
+          "path": "Common/3dParty/boost/boost.pri",
+          "state": "file",
+          "size": 1971,
+          "sha256": "4133ebe750c888bb5b710c289250f61cfbe79dad96246a35c2ba8ece33e16916"
+        },
+        {
+          "path": "Common/3dParty/v8/v8.pri",
+          "state": "file",
+          "size": 2995,
+          "sha256": "20572f5f8949edb2de50f11026d2a1a0a24b97e5e56db2f01902ccf0dc0a0654"
+        },
+        {
+          "path": "DesktopEditor/agg-2.4/include/agg_basics.h",
+          "state": "file",
+          "size": 17401,
+          "sha256": "714e1d975cfa73a39b8a70403e69af77a7213a0b4b54bba8c3bc49fe75f48db6"
+        },
+        {
+          "path": "DesktopEditor/agg-2.4/include/agg_image_accessors.h",
+          "state": "file",
+          "size": 13645,
+          "sha256": "b4158aaa8dc405c4bf6d61f4d0fff3a1944eef7f897446fddf61ec2877f37773"
+        },
+        {
+          "path": "DesktopEditor/agg-2.4/include/agg_trans_affine.h",
+          "state": "file",
+          "size": 19305,
+          "sha256": "d410a7d7a373a786d62f4e89340f94dd32a9ddc5c148aa649730524e208d41d4"
+        }
+      ],
+      "changed_file_count": 5,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:01.866697+00:00"
+    },
+    {
+      "name": "main-desktop-apps",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\desktop-apps",
+      "pin": "332c1905a5361dd4139481827b7ad4f4a9facd85",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:35:59.178662+00:00",
+      "head": "332c1905a5361dd4139481827b7ad4f4a9facd85",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/desktop-apps.git",
+      "patch": {
+        "path": "patches/main-desktop-apps.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/main-desktop-apps.txt",
+        "size": 41,
+        "sha256": "6c609a1fcd58d4ca65961fcfdf924339b4268b51e8825ec453afdfc618cd7d90"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:01.089057+00:00"
+    },
+    {
+      "name": "main-desktop-sdk",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\desktop-sdk",
+      "pin": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:35:59.859689+00:00",
+      "head": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/desktop-sdk.git",
+      "patch": {
+        "path": "patches/main-desktop-sdk.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/main-desktop-sdk.txt",
+        "size": 41,
+        "sha256": "81aabaad650ff6faa1dd3b7859d9d16538be0068ca0eeb6f9688d7c9cb11e576"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:01.890703+00:00"
+    },
+    {
+      "name": "main-dictionaries",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\dictionaries",
+      "pin": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:36:01.093677+00:00",
+      "head": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/dictionaries.git",
+      "patch": {
+        "path": "patches/main-dictionaries.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/main-dictionaries.txt",
+        "size": 41,
+        "sha256": "ead6687bee02b0c7a4c93403986e31dc603b9fe8ea60df0ecac8ecf9c6de3060"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:02.483937+00:00"
+    },
+    {
+      "name": "main-sdkjs",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs",
+      "pin": "9d2138866d929be32f1d107e8b5bfae36156e097",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:36:01.895398+00:00",
+      "head": "9d2138866d929be32f1d107e8b5bfae36156e097",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/sdkjs.git",
+      "patch": {
+        "path": "patches/main-sdkjs.patch",
+        "size": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "head_file": {
+        "path": "heads/main-sdkjs.txt",
+        "size": 41,
+        "sha256": "b3734a9b24c090151487cbeb15043c7305b4eac2db905fa0e00dc5b603c54d9a"
+      },
+      "changed_files": [],
+      "changed_file_count": 0,
+      "empty_patch": true,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:04.730429+00:00"
+    },
+    {
+      "name": "main-web-apps",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps",
+      "pin": "f79972a400c3a696490094961772d1f86fac1b82",
+      "kind": "main_worktree",
+      "receipt": "build/full-source/worktrees.json",
+      "started_at_utc": "2026-11-02T11:36:01.871427+00:00",
+      "head": "f79972a400c3a696490094961772d1f86fac1b82",
+      "expected_commit_matches": true,
+      "origin": "https://github.com/ONLYOFFICE/web-apps.git",
+      "patch": {
+        "path": "patches/main-web-apps.patch",
+        "size": 3482,
+        "sha256": "653f1299381c9a6938b518b998622a1e7bb3d3200439f17a46f3c18ea87f0fc5"
+      },
+      "head_file": {
+        "path": "heads/main-web-apps.txt",
+        "size": 41,
+        "sha256": "702b989407c7170c41add9bcfcc441f987ead221162fac57f04280dcc362e1b2"
+      },
+      "changed_files": [
+        {
+          "path": "build/common.json",
+          "state": "file",
+          "size": 11981,
+          "sha256": "d437ce4473d5ffe25e2e30187428f81d0152790d6b0a927fc5cb478f9a1ae5e6"
+        },
+        {
+          "path": "build/documenteditor.json",
+          "state": "file",
+          "size": 16738,
+          "sha256": "a59c7e4984f39e4f082b621b8269f5eaadc76d98f19df76215983b05ff0be4fc"
+        },
+        {
+          "path": "build/pdfeditor.json",
+          "state": "file",
+          "size": 8979,
+          "sha256": "9d9ead0a055856783d0472d8f4d38566f3f19f55422304af7c9ff6d5ff0d6128"
+        },
+        {
+          "path": "build/presentationeditor.json",
+          "state": "file",
+          "size": 17143,
+          "sha256": "4e226cfb7fc4f030bb5599043c80772d58bbc084055e944e0b3359a832fe9803"
+        },
+        {
+          "path": "build/spreadsheeteditor.json",
+          "state": "file",
+          "size": 17576,
+          "sha256": "4d6fef5f28a235920aeb7e3e362f6826b1b6545f9688d066efafa253dbf07f77"
+        },
+        {
+          "path": "build/visioeditor.json",
+          "state": "file",
+          "size": 15511,
+          "sha256": "6d047fb63d2ccf1b2a94b73350ac801cdcd298047ae0167225ca16a544798411"
+        }
+      ],
+      "changed_file_count": 6,
+      "empty_patch": false,
+      "eol_configuration": {
+        "core.autocrlf": "true",
+        "core.eol": null
+      },
+      "reverse_apply_check": {
+        "exit_code": 0,
+        "stderr": ""
+      },
+      "status": "captured",
+      "stable_during_capture": true,
+      "finished_at_utc": "2026-11-02T11:36:03.521717+00:00"
+    }
+  ],
+  "support_index": "support-index.json",
+  "copied_support_file_count": 75,
+  "failures": [],
+  "not_covered": [
+    "Untracked and ignored files are not exhaustively scanned or included in Git patches.",
+    "Generated SDKJS/web bundles, qmake/GN/Ninja/CMake outputs, node_modules, compiled objects/libraries/executables and runtime stage assets are not bundled.",
+    "Archive-based Boost/ICU/OpenSSL sources are not Git repositories in this capture; existing acquisition/extraction/configuration drivers and receipts are indexed. The selected final OpenSSL configuration is copied separately.",
+    "External dependencies/tools, their complete original archives, CEF resources, fonts and dictionaries remain supplied by existing fixed source/asset manifests and acquisition scripts.",
+    "The owning application repository's own untracked edits are outside the eight upstream worktrees; relevant full_source driver scripts are copied for reference, not represented as an application Git patch.",
+    "Reverse apply checks validate patches against current changed files. No pristine-checkout replay or rebuild was performed for this archive."
+  ]
+}

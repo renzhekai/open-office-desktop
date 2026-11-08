@@ -1,0 +1,33 @@
+{
+  "type": "summarized_observations",
+  "ctest": {
+    "passed": 2,
+    "failed": 0,
+    "suites": 2,
+    "elapsed_seconds": 0.2
+  },
+  "engine_qttest": {
+    "passed_entries": 20,
+    "log": "native-async-engine-tests.txt",
+    "includes_lifecycle_entries": true
+  },
+  "ui_qttest": {
+    "passed_entries": 9,
+    "controlled_test_events_are_not_an_office_engine": true,
+    "log": "native-async-ui-tests.txt",
+    "includes_lifecycle_entries": true
+  },
+  "launch": {
+    "exit_code": 0,
+    "process_id": 14356,
+    "report": "native-async-smoke.json",
+    "screenshot": "native-async-home.png"
+  },
+  "executable": {
+    "path": "build/native/bin/OpenOffice.exe",
+    "sha256": "2587A705BDEC630327BC376B96D94B8DC77DF16BC70E431C8F7A07D5FEE9FD63"
+  },
+  "requirements_sha256": "1E7D43E339DEB30766561FB315E87585EA3BB06C32CB11678F84059D379C19FF",
+  "onlyoffice_integrated": false,
+  "docx_edit_save_reopen": "not_executed"
+}

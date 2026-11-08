@@ -1,0 +1,121 @@
+Microsoft (R) COFF/PE Dumper Version 14.44.35228.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\open office\build\onlyoffice-cfcpp-msvc144\kernel-file-support.dll
+
+File Type: DLL
+
+  Section contains the following exports for kernel-file-support.dll
+
+    00000000 characteristics
+    FFFFFFFF time date stamp
+        0.00 version
+           1 ordinal base
+          94 number of functions
+          94 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00001590 ??0CFileBinary@NSFile@@QEAA@AEBV01@@Z
+          2    1 000015C0 ??0CFileBinary@NSFile@@QEAA@XZ
+          3    2 000017F0 ??1CFileBinary@NSFile@@UEAA@XZ
+          4    3 00001A10 ??4CBase64Converter@NSFile@@QEAAAEAV01@$$QEAV01@@Z
+          5    4 00001A10 ??4CBase64Converter@NSFile@@QEAAAEAV01@AEBV01@@Z
+          6    5 00001A20 ??4CFileBinary@NSFile@@QEAAAEAV01@AEBV01@@Z
+          7    6 00001A10 ??4CUtf8Converter@NSFile@@QEAAAEAV01@$$QEAV01@@Z
+          8    7 00001A10 ??4CUtf8Converter@NSFile@@QEAAAEAV01@AEBV01@@Z
+          9    8 0000A5A0 ??_7CFileBinary@NSFile@@6B@
+         10    9 00007840 ?Base64Decode@NSBase64@@YAHPEBDHPEAEPEAH@Z
+         11    A 00007850 ?Base64Decode@NSBase64@@YAHPEB_WHPEAEPEAH@Z
+         12    B 00007860 ?Base64DecodeGetRequiredLength@NSBase64@@YAHH@Z
+         13    C 00007870 ?Base64Encode@NSBase64@@YAHPEBEHPEAEPEAHK@Z
+         14    D 00007AD0 ?Base64EncodeGetRequiredLength@NSBase64@@YAHHK@Z
+         15    E 00001D80 ?CheckHHHHChar@CUtf8Converter@NSFile@@SAJPEBE@Z
+         16    F 00001E20 ?CheckHHHHChar@CUtf8Converter@NSFile@@SAJPEB_W@Z
+         17   10 00001ED0 ?CloseFile@CFileBinary@NSFile@@UEAAXXZ
+         18   11 00001F00 ?Copy@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z
+         19   12 000025B0 ?CorrectPathW@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV12@@Z
+         20   13 000026E0 ?CreateFile@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         21   14 00002740 ?CreateFileW@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         22   15 00002790 ?CreateTempFile@CFileBinary@NSFile@@QEAA_NXZ
+         23   16 000027C0 ?CreateTempFileWithUniqueName@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z
+         24   17 00002890 ?Decode@CBase64Converter@NSFile@@SA_NPEBDHAEAPEAEAEAH@Z
+         25   18 00007B70 ?Decode@NSBase32@@YA_NPEAEH0@Z
+         26   19 00007CB0 ?DecodeBase64Char@NSBase64@@YAHI@Z
+         27   1A 00007CF0 ?DecodeGetRequiredLength@NSBase32@@YAHH@Z
+         28   1B 00002920 ?Encode@CBase64Converter@NSFile@@SA_NPEBEHAEAPEADAEAHK@Z
+         29   1C 00007D00 ?Encode@NSBase32@@YA_NPEAEH0@Z
+         30   1D 00007E60 ?EncodeGetRequiredLength@NSBase32@@YAHH@Z
+         31   1E 000029C0 ?Exists@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         32   1F 00002A00 ?GetDirectoryName@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z
+         33   20 00002B50 ?GetFileExtention@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z
+         34   21 00002C40 ?GetFileName@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z
+         35   22 00002DA0 ?GetFileNative@CFileBinary@NSFile@@QEAAPEAU_iobuf@@XZ
+         36   23 00002DB0 ?GetFilePosition@CFileBinary@NSFile@@QEAAJXZ
+         37   24 00002DE0 ?GetFileSize@CFileBinary@NSFile@@QEAAJXZ
+         38   25 00002DB0 ?GetPosition@CFileBinary@NSFile@@QEAAKXZ
+         39   26 00002DF0 ?GetProcessDirectory@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ
+         40   27 00002FC0 ?GetProcessPath@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ
+         41   28 00003060 ?GetProgress@CFileBinary@NSFile@@QEAAJXZ
+         42   29 00003090 ?GetTempPath@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ
+         43   2A 000032F0 ?GetTime@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAUtm@@1@Z
+         44   2B 000034A0 ?GetUnicodeFromCharPtr@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@H@Z
+         45   2C 000034D0 ?GetUnicodeFromCharPtr@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBDJH@Z
+         46   2D 000036C0 ?GetUnicodeStringFromUTF8@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEJ@Z
+         47   2E 00003710 ?GetUnicodeStringFromUTF8@CUtf8Converter@NSFile@@SAXPEAEJAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         48   2F 00003720 ?GetUnicodeStringFromUTF8BufferSize@CUtf8Converter@NSFile@@SAJJ@Z
+         49   30 00003730 ?GetUnicodeStringFromUTF8WithHHHH@CUtf8Converter@NSFile@@SAXPEBEJAEAPEA_WAEAJ@Z
+         50   31 00003740 ?GetUnicodeStringFromUTF8WithHHHH_2bytes@CUtf8Converter@NSFile@@SAXPEBEJAEAPEA_WAEAJ@Z
+         51   32 00003A10 ?GetUnicodeStringFromUTF8WithHHHH_4bytes@CUtf8Converter@NSFile@@SAXPEBEJAEAPEA_WAEAJ@Z
+         52   33 000036C0 ?GetUnicodeStringFromUTF8_2bytes@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEJ@Z
+         53   34 00003C30 ?GetUnicodeStringFromUTF8_2bytes@CUtf8Converter@NSFile@@SAXPEAEJAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         54   35 00003F80 ?GetUnicodeStringFromUTF8_4bytes@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEJ@Z
+         55   36 00003FD0 ?GetUnicodeStringFromUTF8_4bytes@CUtf8Converter@NSFile@@SAXPEAEJAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         56   37 00004270 ?GetUtf16SizeFromUnicode@CUtf8Converter@NSFile@@SAJPEB_WJ_N@Z
+         57   38 00004280 ?GetUtf16SizeFromUnicode_4bytes@CUtf8Converter@NSFile@@SAJPEB_WJ_N@Z
+         58   39 000042C0 ?GetUtf16StringFromUnicode_4bytes2@CUtf8Converter@NSFile@@SAXPEB_WJAEAVCStringUtf16@2@@Z
+         59   3A 00004330 ?GetUtf16StringFromUnicode_4bytes@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAH_N@Z
+         60   3B 000043D0 ?GetUtf8StringFromUnicode2@CUtf8Converter@NSFile@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEB_WJ_N@Z
+         61   3C 00004550 ?GetUtf8StringFromUnicode@CUtf8Converter@NSFile@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@@Z
+         62   3D 000046D0 ?GetUtf8StringFromUnicode@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z
+         63   3E 000046F0 ?GetUtf8StringFromUnicode_2bytes@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z
+         64   3F 00004870 ?GetUtf8StringFromUnicode_4bytes@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z
+         65   40 00004950 ?GetWStringFromUTF16@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBVCStringUtf16@2@@Z
+         66   41 000049C0 ?GetWStringFromUTF16@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBGJ@Z
+         67   42 00004AE0 ?IsGlobalTempPathUse@CFileBinary@NSFile@@SA_NXZ
+         68   43 00004AF0 ?Move@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z
+         69   44 00004B80 ?OpenFile@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z
+         70   45 00004C50 ?OpenFileNative@CFileBinary@NSFile@@SAPEAU_iobuf@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z
+         71   46 00004C90 ?OpenTempFile@CFileBinary@NSFile@@SA_NPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAPEAU_iobuf@@PEA_W222@Z
+         72   47 000052B0 ?ReadAllBytes@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAPEAEAEAK@Z
+         73   48 00005450 ?ReadAllTextUtf8@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV34@@Z
+         74   49 00005580 ?ReadAllTextUtf8A@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@@Z
+         75   4A 000056A0 ?ReadFile@CFileBinary@NSFile@@QEAA_NPEAEK@Z
+         76   4B 000056E0 ?ReadFile@CFileBinary@NSFile@@QEAA_NPEAEKAEAK@Z
+         77   4C 00005720 ?Remove@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         78   4D 00005740 ?SaveToFile@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_N@Z
+         79   4E 00005870 ?SeekFile@CFileBinary@NSFile@@QEAA_NHH@Z
+         80   4F 000058A0 ?SetPosition@CFileBinary@NSFile@@QEAA_NH@Z
+         81   50 000058D0 ?SetTempPath@CFileBinary@NSFile@@SAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z
+         82   51 00005900 ?SetTime@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAUtm@@1@Z
+         83   52 00005AF0 ?SizeFile@CFileBinary@NSFile@@QEAAJXZ
+         84   53 00005B60 ?SkipBytes@CFileBinary@NSFile@@QEAA_NK@Z
+         85   54 00005BA0 ?SkipReservedTo@CFileBinary@NSFile@@QEAA_NK@Z
+         86   55 00005BE0 ?TellFile@CFileBinary@NSFile@@QEAAJXZ
+         87   56 00005C00 ?Truncate@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_K@Z
+         88   57 00005CD0 ?WriteFile2@CFileBinary@NSFile@@QEAA_NPEBEK@Z
+         89   58 00005DA0 ?WriteFile@CFileBinary@NSFile@@QEAA_NPEBEK@Z
+         90   59 00005DA0 ?WriteFile@CFileBinary@NSFile@@QEAA_NPEBXK@Z
+         91   5A 00005DD0 ?WriteReserved2@CFileBinary@NSFile@@QEAA_NK@Z
+         92   5B 00005E40 ?WriteReserved@CFileBinary@NSFile@@QEAA_NK@Z
+         93   5C 00005EB0 ?WriteReservedTo@CFileBinary@NSFile@@QEAA_NK@Z
+         94   5D 00005F30 ?WriteStringUTF8@CFileBinary@NSFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z
+
+  Summary
+
+        1000 .data
+        1000 .pdata
+        8000 .rdata
+        1000 .reloc
+        9000 .text

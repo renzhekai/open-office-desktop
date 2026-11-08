@@ -1,0 +1,105 @@
+diff --git a/build/common.json b/build/common.json
+index fd6a4ad848eb9ffc6f6b332140e24cd7e321eb3f..4200004191cb6ef84b512cd9d8f5e16de6b83e2d 100644
+--- a/build/common.json
++++ b/build/common.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "common",
+     "version": "4.3.0",
+-    "build": 39,
++    "build": 40,
+     "homepage": "http://www.onlyoffice.com",
+     "private": true,
+     "sdk": {
+@@ -17,7 +17,7 @@
+                         "src": [
+                             "Images/*",
+                             "Images/placeholders/*",
+-							"Images/content_controls/*",
++                            "Images/content_controls/*",
+                             "Native/*.js",
+                             "libfont/js/fonts.*",
+                             "libfont/wasm/fonts.*"
+diff --git a/build/documenteditor.json b/build/documenteditor.json
+index bc01dba9f9cfe9cdadb8997db83ef846aaabbbd4..d7f6e582154e5eb4a80779994c03bc6b61885970 100644
+--- a/build/documenteditor.json
++++ b/build/documenteditor.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "documenteditor",
+     "version": "4.3.0",
+-    "build": 1150,
++    "build": 1151,
+     "homepage": "http://www.onlyoffice.com",
+     "private": true,
+     "main": {
+@@ -102,7 +102,7 @@
+                 }
+             },
+             "postload": {
+-                "options":{
++                "options": {
+                     "baseUrl": "../apps/",
+                     "optimize": "none",
+                     "name": "../apps/documenteditor/main/app_pack.js",
+diff --git a/build/pdfeditor.json b/build/pdfeditor.json
+index 7bc217443350169382c26e6ee49724c371bab1fc..547750803a76abf6be3f8308a35bda1a0115722c 100644
+--- a/build/pdfeditor.json
++++ b/build/pdfeditor.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "pdfeditor",
+     "version": "4.3.0",
+-    "build": 1152,
++    "build": 1153,
+     "homepage": "http://www.onlyoffice.com",
+     "private": true,
+     "main": {
+diff --git a/build/presentationeditor.json b/build/presentationeditor.json
+index 42500bd1571fb75591f0cdfbac0103b1011f67c3..5ba1167b1155a98b22ff6906072cd235c4255df8 100644
+--- a/build/presentationeditor.json
++++ b/build/presentationeditor.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "presentationeditor",
+     "version": "4.3.0",
+-    "build": 790,
++    "build": 791,
+     "homepage": "http://www.onlyoffice.com",
+     "private": true,
+     "main": {
+diff --git a/build/spreadsheeteditor.json b/build/spreadsheeteditor.json
+index fa4cee469f8baa0abeaee460f6fea6fd7da6bda4..0465f582fa25f3251dadbb853c34bc1d52138870 100644
+--- a/build/spreadsheeteditor.json
++++ b/build/spreadsheeteditor.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "spreadsheeteditor",
+     "version": "4.3.0",
+-    "build": 903,
++    "build": 904,
+     "homepage": "http://www.onlyoffice.com",
+     "private": true,
+     "main": {
+@@ -103,7 +103,7 @@
+                 }
+             },
+             "postload": {
+-                "options":{
++                "options": {
+                     "baseUrl": "../apps/",
+                     "optimize": "none",
+                     "name": "../apps/spreadsheeteditor/main/app_pack.js",
+diff --git a/build/visioeditor.json b/build/visioeditor.json
+index 5ab0e63af7e756f31e80e46293ecb472bb19cf36..6dfcdf5c1776c67422d0440b3f31e3a525f75702 100644
+--- a/build/visioeditor.json
++++ b/build/visioeditor.json
+@@ -1,7 +1,7 @@
+ {
+     "name": "visioeditor",
+     "version": "4.3.0",
+-    "build": 791,
++    "build": 792,
+     "homepage": "http://www.onlyoffice.com",
+     "private": true,
+     "main": {

@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-buildtools_third_party_libunwind_trunk",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools\\third_party\\libunwind\\trunk",
+  "pin": "d999d54f4bca789543a2eb6c995af2d9b5a1f3ed",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:07.841351+00:00",
+  "head": "d999d54f4bca789543a2eb6c995af2d9b5a1f3ed",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git",
+  "patch": {
+    "path": "patches/dep-v8-buildtools_third_party_libunwind_trunk.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-buildtools_third_party_libunwind_trunk.txt",
+    "size": 41,
+    "sha256": "046c049564ce7c3d7fe22bcbc75d824209cb8bfb95e1244a18d831fd68723563"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:08.236967+00:00"
+}

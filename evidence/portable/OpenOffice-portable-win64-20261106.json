@@ -1,0 +1,50 @@
+{
+  "kind": "open-office-portable-zip",
+  "created_utc": "2026-11-06T10:53:31.618627+00:00",
+  "zip": "D:\\open office\\dist\\OpenOffice-portable-win64-20261106.zip",
+  "zip_bytes": 757500827,
+  "zip_sha256": "5874d211c2b1a610fa67a50f30896b542e2fa2840d011943b669d4b563512304",
+  "source_runtime": "D:\\open office\\build\\full-source-run-host-saveas-r2",
+  "source_host_candidate_marker_sha256": "a07a0a884df479fbf9b467fa3e5aaac7fb973f273b80ae415f061a2846980a23",
+  "host_sha256": "54b84083c9dcec96a0a4fa81d5a1635cc24217e4a11c3543f7a2eb4286bf2d27",
+  "files_from_runtime": 20973,
+  "source_bytes": 1590436820,
+  "skipped_top_level": [
+    "openoffice-profile"
+  ],
+  "added": [
+    "OpenOffice/使用说明.txt"
+  ],
+  "crc_and_size_verified": true,
+  "external_requirements": {
+    "vc_runtime": "Microsoft Visual C++ 2015-2022 Redistributable (x64): msvcp140*.dll and vcruntime140*.dll are imported by 69 bundled PE files and are not in the package",
+    "windows": "64-bit Windows 10/11 system DLLs (cryptui, d3d12, dxva2, evr, gdiplus, icuuc, imagehlp, mswsock, winspool.drv and API sets)"
+  },
+  "tested_on_other_machine": false,
+  "launch_check": {
+    "extracted_to": "D:\\open office\\build\\portable-check\\OpenOffice-portable-win64-20261106",
+    "started_utc": "2026-11-06T10:53:38.747391+00:00",
+    "exit_code": 0,
+    "stderr_tail": "",
+    "environment_path": "C:\\Windows\\System32;C:\\Windows",
+    "working_directory": "D:\\open office\\build\\portable-check\\OpenOffice-portable-win64-20261106",
+    "launch_report": {
+      "application": "Open Office",
+      "engine_connected": true,
+      "engine_save_enabled": false,
+      "height": 800,
+      "office_open_edit_save": "engine_initialized_roundtrip_not_verified_by_smoke",
+      "platform_plugin": "windows",
+      "prototype": true,
+      "qt_version": "6.11.1",
+      "select_file_enabled": true,
+      "snapshot_kind": "application QWidget render; native CEF child content requires desktop capture",
+      "snapshot_saved": false,
+      "version": "0.1.0",
+      "width": 1240,
+      "window_rendered": true
+    },
+    "default_profile_created": true,
+    "ok": true
+  }
+}

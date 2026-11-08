@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "at": "2026-11-02T11:09:45.618798+00:00",
+  "backup_path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\out.gn\\win_64\\release\\.ninja_deps.before-localized-prefix-20261102T110945618678",
+  "backup_sha256": "0a94ea2557ec6432588523406ada9ece7eba452ed71a39e4b53f493b9f670fe9",
+  "backup_size": 117184,
+  "reason": "Initial MSVC output was localized; preserve original DB and recompile to populate all actual header dependencies.",
+  "completed_at": "2026-11-02T11:22:23.802929+00:00",
+  "checks": [
+    {
+      "target": "obj/v8_wrappers/wrappers.obj",
+      "header_dependencies": 19
+    },
+    {
+      "target": "obj/v8_libplatform/default-platform.obj",
+      "header_dependencies": 168
+    },
+    {
+      "target": "obj/v8_base_without_compiler_0/api.obj",
+      "header_dependencies": 747
+    }
+  ]
+}

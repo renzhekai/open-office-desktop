@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "source_version": "1.72.0",
+  "msvc": "14.44.35207",
+  "library_toolset_label": "vc143",
+  "runtime": "MD",
+  "configuration": "Release",
+  "outputs": [
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_filesystem-vc143-mt-x64-1_72.lib",
+      "size": 1682710
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_system-vc143-mt-x64-1_72.lib",
+      "size": 1450
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_date_time-vc143-mt-x64-1_72.lib",
+      "size": 746486
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_regex-vc143-mt-x64-1_72.lib",
+      "size": 15145364
+    }
+  ]
+}

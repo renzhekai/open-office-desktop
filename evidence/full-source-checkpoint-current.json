@@ -1,0 +1,23 @@
+{
+  "checked_at_utc": "2026-11-02T11:58:04.121246+00:00",
+  "shell": "working",
+  "pending_approval": false,
+  "static_formats": "all 13 built",
+  "drawing_and_document_dlls": "all built; doctrenderer linked first successful source V8",
+  "tools": "x2t/allfontsgen/allthemesgen/docbuilder/ooxml_crypt/pluginsmanager built",
+  "desktop": "ascdocumentscore/editors_helper/Qt6 wrappers linked successfully",
+  "v8_first_pass": "1701 tasks exit0; 218458654 byte monolith",
+  "v8_current": "final_build_and_JS_Intl_Wasm_smoke_passed_stable",
+  "v8_last_progress": "1137/1682",
+  "v8_log": "D:\\open office\\build\\full-source\\v8-evidence\\ninja-build.log",
+  "v8_log_bytes": 72737083,
+  "source_runtime_assembled": true,
+  "new_core_docx_regression": "passed",
+  "wasm_gap": "5 first-party-containing SDKJS WASM assets copied from pinned source, not recompiled; fixed build recipe/tool version currently absent and under official-source investigation",
+  "next": "Resolve matching first-party WASM generation source/recipes before claiming all assets source-built",
+  "preserved": [
+    "requirements.md",
+    "build/native-engine-run"
+  ],
+  "result": "evidence/full-source-docx-roundtrip-result.json"
+}

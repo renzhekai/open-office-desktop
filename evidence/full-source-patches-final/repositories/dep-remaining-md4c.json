@@ -1,0 +1,31 @@
+{
+  "name": "dep-remaining-md4c",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\md\\md4c",
+  "pin": "481fbfbdf72daab2912380d62bb5f2187d438408",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:12.130944+00:00",
+  "head": "481fbfbdf72daab2912380d62bb5f2187d438408",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/mity/md4c.git",
+  "patch": {
+    "path": "patches/dep-remaining-md4c.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-remaining-md4c.txt",
+    "size": 41,
+    "sha256": "0dd16c25708677f7687dcda0cace2ac3c12bbd5ac65c7710c50070b04749acd8"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:12.494722+00:00"
+}

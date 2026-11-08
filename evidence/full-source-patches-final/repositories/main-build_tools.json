@@ -1,0 +1,54 @@
+{
+  "name": "main-build_tools",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\build_tools",
+  "pin": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+  "kind": "main_worktree",
+  "receipt": "build/full-source/worktrees.json",
+  "started_at_utc": "2026-11-02T11:36:02.490815+00:00",
+  "head": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/ONLYOFFICE/build_tools.git",
+  "patch": {
+    "path": "patches/main-build_tools.patch",
+    "size": 9681,
+    "sha256": "c967a9dc6f63cc2abc0782084bed8749bb35a27bc783b0e4605509245817915e"
+  },
+  "head_file": {
+    "path": "heads/main-build_tools.txt",
+    "size": 41,
+    "sha256": "e151e31bc282b53bbe6997e08014160f0d1f7c7c0838aeb9327e11ee048543af"
+  },
+  "changed_files": [
+    {
+      "path": "configure.py",
+      "state": "file",
+      "size": 7979,
+      "sha256": "4c0cadc60314ac2a7d93399a4e2e74e96e6c901b60aeec97453742f29671a06d"
+    },
+    {
+      "path": "scripts/config.py",
+      "state": "file",
+      "size": 12153,
+      "sha256": "b0d43a06cfadb008785bf8aa226d742b87c8178d1ea312744b82644b34d785aa"
+    },
+    {
+      "path": "scripts/qmake.py",
+      "state": "file",
+      "size": 9847,
+      "sha256": "727b06fc0d900cec5ef7435e0938d1812d2cbc200daf95b11cfcb9f428c870ad"
+    }
+  ],
+  "changed_file_count": 3,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:03.287792+00:00"
+}

@@ -1,0 +1,31 @@
+{
+  "name": "main-dictionaries",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\dictionaries",
+  "pin": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+  "kind": "main_worktree",
+  "receipt": "build/full-source/worktrees.json",
+  "started_at_utc": "2026-11-02T11:36:01.093677+00:00",
+  "head": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/ONLYOFFICE/dictionaries.git",
+  "patch": {
+    "path": "patches/main-dictionaries.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/main-dictionaries.txt",
+    "size": 41,
+    "sha256": "ead6687bee02b0c7a4c93403986e31dc603b9fe8ea60df0ecac8ecf9c6de3060"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:02.483937+00:00"
+}

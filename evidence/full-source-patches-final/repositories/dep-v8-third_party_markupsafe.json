@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-third_party_markupsafe",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\markupsafe",
+  "pin": "0944e71f4b2cb9a871bcbe353f95e889b64a611a",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:04.736060+00:00",
+  "head": "0944e71f4b2cb9a871bcbe353f95e889b64a611a",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/chromium/src/third_party/markupsafe.git",
+  "patch": {
+    "path": "patches/dep-v8-third_party_markupsafe.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_markupsafe.txt",
+    "size": 41,
+    "sha256": "ffdd977174dbc2d9a1164307b22374926892d3cb8e6f9f501d2c005643a6adae"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:05.060861+00:00"
+}

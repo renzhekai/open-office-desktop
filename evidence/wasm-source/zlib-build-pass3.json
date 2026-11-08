@@ -1,0 +1,96 @@
+{
+  "module": "zlib",
+  "label": "pass3",
+  "recipe": "OfficeUtils/js/zlib_image.json",
+  "recipe_sha256": "81d48616d842192e20cc28f2d8854706b4378c4dc311202490d596e7bd43233d",
+  "started_utc": "2026-11-04T04:26:55.936135+00:00",
+  "emscripten": "3.1.48",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "jobs": 20,
+  "output_dir": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass3",
+  "recipe_adaptations": [
+    {
+      "group_folder": "../../DesktopEditor/cximage/CxImage/",
+      "add_files": [
+        "APP14cmyktorgb.cpp"
+      ],
+      "reason": "same as fonts: ximajpg.cpp calls ima_jpeg_cmyk_to_rgb from APP14cmyktorgb.cpp",
+      "official_reference": "DesktopEditor/graphics/pro/raster.pri:268"
+    },
+    {
+      "group_folder": "../../DesktopEditor/raster/Metafile/",
+      "add_files": [
+        "Common/CPath.cpp",
+        "Common/CClip.cpp"
+      ],
+      "reason": "metafile path/clip code moved from Emf/Wmf-specific files into Common/CPath.cpp and Common/CClip.cpp; the libfont.json recipe of the same 075052dd snapshot already lists them",
+      "official_reference": "DesktopEditor/graphics/pro/metafile.pri:72-73"
+    },
+    {
+      "group_folder": "../../DesktopEditor/raster/Metafile/Emf/",
+      "add_files": [
+        "EmfPlusObjects.cpp"
+      ],
+      "remove_files": [
+        "EmfClip.cpp",
+        "EmfPath.cpp"
+      ],
+      "reason": "EmfClip.cpp and EmfPath.cpp do not exist at 075052dd or in the pinned core (stale recipe entries); EmfPlusObjects.cpp is listed by the official build and by libfont.json",
+      "official_reference": "DesktopEditor/graphics/pro/metafile.pri:84"
+    },
+    {
+      "group_folder": "../../DesktopEditor/raster/Metafile/Wmf/",
+      "remove_files": [
+        "WmfClip.cpp"
+      ],
+      "reason": "WmfClip.cpp does not exist at 075052dd or in the pinned core (stale recipe entry)",
+      "official_reference": "DesktopEditor/graphics/pro/metafile.pri SOURCES (no WmfClip.cpp)"
+    },
+    {
+      "group_folder": "../../DesktopEditor/",
+      "add_files": [
+        "graphics/Matrix.cpp"
+      ],
+      "reason": "current metafile code uses Aggplus::CMatrix (wasm-ld undefined symbols, zlib pass1); libfont.json of the same snapshot already compiles graphics/Matrix.cpp",
+      "official_reference": "DesktopEditor/graphics/pro/graphics.pro:77"
+    },
+    {
+      "new_group": {
+        "folder": "../../DesktopEditor/agg-2.4/src/",
+        "files": [
+          "agg_trans_affine.cpp"
+        ]
+      },
+      "reason": "Matrix.cpp is built on agg::trans_affine; libfont.json compiles the same file",
+      "official_reference": "DesktopEditor/graphics/pro/graphics.pro:80"
+    },
+    {
+      "add_defines": [
+        "IMAGE_CHECKER_DISABLE_XML"
+      ],
+      "reason": "only the file-path isSvgFile(fileName) uses CXmlLiteReader (wasm-ld undefined symbols, zlib pass2); the module is built with FILESYSTEM=0 and detects formats from buffers; the source provides this switch with a plain '<svg' scan fallback, and libfont.json of the same snapshot defines it",
+      "official_reference": "DesktopEditor/raster/ImageFileFormatChecker.cpp:42,795; libfont.json define list"
+    }
+  ],
+  "post_process_adaptations": [
+    {
+      "historical": "function getBinaryPromise(){",
+      "used": "function getBinaryPromise(",
+      "reason": "Emscripten 3.1.48 glue signature is getBinaryPromise(binaryFile)"
+    },
+    {
+      "historical": "copy wasm/js/index.html and wasm/js/code.js into deploy",
+      "used": "not copied",
+      "reason": "test pages only; the official SDKJS common/zlib/engine deploy has just zlib.js, zlib.wasm, zlib_ie.js"
+    }
+  ],
+  "wasm": {
+    "compiled": 167,
+    "compile_failures": [],
+    "link_exit": 1,
+    "outputs": {},
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass3\\wasm-commands.json"
+  },
+  "status": "wasm_failed",
+  "finished_utc": "2026-11-04T04:27:03.390624+00:00"
+}

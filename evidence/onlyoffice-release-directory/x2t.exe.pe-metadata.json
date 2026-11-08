@@ -1,0 +1,3350 @@
+{
+  "file": "x2t.exe",
+  "inspection": "PE parsed as bytes from verified runtime; DLL never loaded/executed",
+  "uncompressed_size": 39928816,
+  "sha256": "ae90a0513aa51ce834ab9386ad951c9420c995f59be2adbf3101dd3d18f4a58f",
+  "zip_crc32": "63e4de28",
+  "machine": "0x8664",
+  "pe_timestamp": 1791732759,
+  "linker_version": "14.29",
+  "characteristics": "0x22",
+  "has_delay_import_directory": false,
+  "sections": [
+    {
+      "name": ".text",
+      "rva": 4096,
+      "virtual_size": 29530843,
+      "raw_size": 29531136,
+      "raw_offset": 1024,
+      "characteristics": 1610612768
+    },
+    {
+      "name": ".rdata",
+      "rva": 29536256,
+      "virtual_size": 7417964,
+      "raw_size": 7418368,
+      "raw_offset": 29532160,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".data",
+      "rva": 36958208,
+      "virtual_size": 270592384,
+      "raw_size": 1808896,
+      "raw_offset": 36950528,
+      "characteristics": 3221225536
+    },
+    {
+      "name": ".pdata",
+      "rva": 307552256,
+      "virtual_size": 832956,
+      "raw_size": 833024,
+      "raw_offset": 38759424,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".rsrc",
+      "rva": 308387840,
+      "virtual_size": 1520,
+      "raw_size": 1536,
+      "raw_offset": 39592448,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".reloc",
+      "rva": 308391936,
+      "virtual_size": 325916,
+      "raw_size": 326144,
+      "raw_offset": 39593984,
+      "characteristics": 1107296320
+    }
+  ],
+  "imports": [
+    {
+      "dll": "graphics.dll",
+      "symbols": [
+        {
+          "name": "??0CApplicationFontsWorker@@QEAA@XZ"
+        },
+        {
+          "name": "??1CApplicationFontsWorker@@QEAA@XZ"
+        },
+        {
+          "name": "?Check@CApplicationFontsWorker@@QEAAPEAVIApplicationFonts@NSFonts@@XZ"
+        },
+        {
+          "name": "??0CImageFileFormatChecker@@QEAA@XZ"
+        },
+        {
+          "name": "?isSvmFile@CImageFileFormatChecker@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?DetectFormatByData@CImageFileFormatChecker@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEH@Z"
+        },
+        {
+          "name": "?Create@MetaFile@@YAPEAVIMetaFile@1@PEAVIApplicationFonts@NSFonts@@@Z"
+        },
+        {
+          "name": "?isImageFile@CImageFileFormatChecker@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??0CBgraFrame@@QEAA@XZ"
+        },
+        {
+          "name": "??0CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAA@PEAVIRenderer@@@Z"
+        },
+        {
+          "name": "?get_Width@CBgraFrame@@QEAAHXZ"
+        },
+        {
+          "name": "?get_Height@CBgraFrame@@QEAAHXZ"
+        },
+        {
+          "name": "?OpenFile@CBgraFrame@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@IAEB_N@Z"
+        },
+        {
+          "name": "?ReColorPatternImage@CBgraFrame@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@II@Z"
+        },
+        {
+          "name": "?put_Width@CBgraFrame@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "?put_Height@CBgraFrame@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "?put_Stride@CBgraFrame@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "?put_Data@CBgraFrame@@QEAAXPEAE@Z"
+        },
+        {
+          "name": "?put_Palette@CBgraFrame@@QEAAXPEAEAEBH@Z"
+        },
+        {
+          "name": "?SaveFile@CBgraFrame@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@I@Z"
+        },
+        {
+          "name": "?Decode@CBgraFrame@@QEAA_NPEAEHI@Z"
+        },
+        {
+          "name": "?ConvertToRaster@IOfficeDrawingFile@@UEAAXHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@HHH_NPEAVIFontManager@NSFonts@@H1H@Z"
+        },
+        {
+          "name": "?TransformPoint@CMatrix@Aggplus@@QEBAXAEAN0@Z"
+        },
+        {
+          "name": "?Multiply@CMatrix@Aggplus@@QEAAXPEBV12@W4MatrixOrder@2@@Z"
+        },
+        {
+          "name": "?Reset@CMatrix@Aggplus@@QEAAXXZ"
+        },
+        {
+          "name": "??4CMatrix@Aggplus@@QEAAAEBV01@AEBV01@@Z"
+        },
+        {
+          "name": "?z_Rotation@CMatrix@Aggplus@@QEBANXZ"
+        },
+        {
+          "name": "?Create@NSFontManager@NSFonts@@YAPEAVIFontManager@2@XZ"
+        },
+        {
+          "name": "??0CGraphicsPathSimpleConverter@Aggplus@@QEAA@XZ"
+        },
+        {
+          "name": "??1CGraphicsPathSimpleConverter@Aggplus@@QEAA@XZ"
+        },
+        {
+          "name": "?PathCommandMoveTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNN@Z"
+        },
+        {
+          "name": "?PathCommandLineTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNN@Z"
+        },
+        {
+          "name": "?PathCommandLinesTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NPEANJ@Z"
+        },
+        {
+          "name": "?PathCommandCurveTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNNNNNN@Z"
+        },
+        {
+          "name": "?PathCommandCurvesTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NPEANJ@Z"
+        },
+        {
+          "name": "?PathCommandArcTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNNNNNN@Z"
+        },
+        {
+          "name": "?PathCommandClose@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NXZ"
+        },
+        {
+          "name": "?PathCommandEnd@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NXZ"
+        },
+        {
+          "name": "?PathCommandStart@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NXZ"
+        },
+        {
+          "name": "?PathCommandGetCurrentPoint@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NPEAN0@Z"
+        },
+        {
+          "name": "?PathCommandText@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAVIFontManager@NSFonts@@NNNNN@Z"
+        },
+        {
+          "name": "?get_Stride@CBgraFrame@@QEAAHXZ"
+        },
+        {
+          "name": "?get_Data@CBgraFrame@@QEAAPEAEXZ"
+        },
+        {
+          "name": "?SetElements@CMatrix@Aggplus@@QEAAXAEBN00000@Z"
+        },
+        {
+          "name": "?SetRenderer@CGraphicsPathSimpleConverter@Aggplus@@QEAAXPEAVIRenderer@@@Z"
+        },
+        {
+          "name": "??0CImageFileFormatChecker@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?Resize@CBgraFrame@@QEAA_NAEBJ0_N@Z"
+        },
+        {
+          "name": "?ConvertToPixels@IOfficeDrawingFile@@UEAAPEAEHHH_NPEAVIFontManager@NSFonts@@H0H@Z"
+        },
+        {
+          "name": "??4IOfficeDrawingFile@@QEAAAEAV0@AEBV0@@Z"
+        },
+        {
+          "name": "??0IOfficeDrawingFile@@QEAA@AEBV0@@Z"
+        },
+        {
+          "name": "?SetTempDirectory@IMetafileToRenderter@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?SetMediaDirectory@IMetafileToRenderter@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?SetInternalMediaDirectory@IMetafileToRenderter@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?SetPainter@IOfficeDrawingFile@@UEAAXPEAVIOfficeDrawingFilePainter@@@Z"
+        },
+        {
+          "name": "?SetSavePage@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "?GetSavePage@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAHXZ"
+        },
+        {
+          "name": "?SetRasterH@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "?SetRasterW@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "??1CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@UEAA@XZ"
+        },
+        {
+          "name": "?GetHeight@CImage@Aggplus@@QEBAKXZ"
+        },
+        {
+          "name": "?SetSaveType@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "?ConvertBuffer@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAA_NPEAEJ@Z"
+        },
+        {
+          "name": "?GetWidth@CImage@Aggplus@@QEBAKXZ"
+        },
+        {
+          "name": "?SetRasterFormat@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAXAEBH@Z"
+        },
+        {
+          "name": "?GetRasterFormat@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAHXZ"
+        },
+        {
+          "name": "?SetApplication@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAXPEAVIApplicationFonts@NSFonts@@@Z"
+        },
+        {
+          "name": "??0CMatrix@Aggplus@@QEAA@NNNNNN@Z"
+        },
+        {
+          "name": "??1CImage@Aggplus@@UEAA@XZ"
+        },
+        {
+          "name": "?SetFileName@CMetafileToRenderterRaster@NSOnlineOfficeBinToPdf@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??0CImage@Aggplus@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1CMatrix@Aggplus@@QEAA@XZ"
+        },
+        {
+          "name": "?GetElements@CMatrix@Aggplus@@QEBA?AW4Status@2@PEAN@Z"
+        },
+        {
+          "name": "?Rotate@CMatrix@Aggplus@@QEAAXNW4MatrixOrder@2@@Z"
+        },
+        {
+          "name": "?Translate@CMatrix@Aggplus@@QEAAXNNW4MatrixOrder@2@@Z"
+        },
+        {
+          "name": "??0CMatrix@Aggplus@@QEAA@XZ"
+        },
+        {
+          "name": "?Scale@CMatrix@Aggplus@@QEAAXNNW4MatrixOrder@2@@Z"
+        },
+        {
+          "name": "??1CBgraFrame@@QEAA@XZ"
+        },
+        {
+          "name": "?SetThemesDirectory@IMetafileToRenderter@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?Create@NSApplication@NSFonts@@YAPEAVIApplicationFonts@2@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "kernel.dll",
+      "symbols": [
+        {
+          "name": "?GetUtf8StringFromUnicode2@CUtf8Converter@NSFile@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEB_WJ_N@Z"
+        },
+        {
+          "name": "?GetUnicodeFromCharPtr@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBDJH@Z"
+        },
+        {
+          "name": "?Base64Decode@NSBase64@@YAHPEBDHPEAEPEAH@Z"
+        },
+        {
+          "name": "?Base64DecodeGetRequiredLength@NSBase64@@YAHH@Z"
+        },
+        {
+          "name": "?GetDirectoryName@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?GetFilesSize@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0AEA_K1@Z"
+        },
+        {
+          "name": "?CompressFileOrDirectory@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_NHF1@Z"
+        },
+        {
+          "name": "?AddInt@CStringBuilder@NSStringUtils@@QEAAXH@Z"
+        },
+        {
+          "name": "?GetData@CStringBuilder@NSStringUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?CreateFile@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?WriteEncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?WriteString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?WriteString@CStringBuilder@NSStringUtils@@QEAAXPEB_W_K@Z"
+        },
+        {
+          "name": "??1CStringBuilder@NSStringUtils@@UEAA@XZ"
+        },
+        {
+          "name": "??0CStringBuilder@NSStringUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?GetFolderPath@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?Exists@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetFiles2@NSDirectory@@YAXV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@3@_N@Z"
+        },
+        {
+          "name": "?GetFileName@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?GetFileExtention@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?Copy@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?ReadFile@CFileBinary@NSFile@@QEAA_NPEAEK@Z"
+        },
+        {
+          "name": "?WriteFile@CFileBinary@NSFile@@QEAA_NPEBEK@Z"
+        },
+        {
+          "name": "?WriteStringUTF8@CFileBinary@NSFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?ReadAllTextUtf8@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV34@@Z"
+        },
+        {
+          "name": "?SaveToFile@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_N@Z"
+        },
+        {
+          "name": "?Exists@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?Remove@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?Move@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?SetTempPath@CFileBinary@NSFile@@SAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetTempPath@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?IsGlobalTempPathUse@CFileBinary@NSFile@@SA_NXZ"
+        },
+        {
+          "name": "?CreateTempFileWithUniqueName@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z"
+        },
+        {
+          "name": "?GetDirectoryName@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?GetFiles@NSDirectory@@YA?AV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@3@_N@Z"
+        },
+        {
+          "name": "?CreateDirectory@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?DeleteDirectory@NSDirectory@@YAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?CreateDirectoryWithUniqueName@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?GetFilesCount@NSDirectory@@YAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEB_N@Z"
+        },
+        {
+          "name": "?GetFileName@NSSystemPath@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?NormalizePath@NSSystemPath@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV23@AEB_N@Z"
+        },
+        {
+          "name": "?FromStringA@CXmlLiteReader@XmlUtils@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        },
+        {
+          "name": "??0CXmlNode@XmlUtils@@QEAA@XZ"
+        },
+        {
+          "name": "??0CXmlNode@XmlUtils@@QEAA@AEBV01@@Z"
+        },
+        {
+          "name": "??1CXmlNode@XmlUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?FromXmlFile@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?LoadFileFromArchive@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAPEAEAEAK@Z"
+        },
+        {
+          "name": "?IsArchive@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??0COfficeUtils@@QEAA@PEAP6AXJJPEAF@Z@Z"
+        },
+        {
+          "name": "?GetNameNoNS@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?FromXmlStringA@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        },
+        {
+          "name": "?FromXmlString@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?IsValid@CXmlNode@XmlUtils@@QEBA_NXZ"
+        },
+        {
+          "name": "?GetName@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetTextIfExist@CXmlNode@XmlUtils@@QEAA_NAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetAttribute@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_WAEBV34@@Z"
+        },
+        {
+          "name": "?ReadNextNode@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "?FromFile@CXmlLiteReader@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1CXmlLiteReader@XmlUtils@@UEAA@XZ"
+        },
+        {
+          "name": "??0CXmlLiteReader@XmlUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?ReadAllBytes@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAPEAEAEAK@Z"
+        },
+        {
+          "name": "?ReadFile@CFileBinary@NSFile@@QEAA_NPEAEKAEAK@Z"
+        },
+        {
+          "name": "?SeekFile@CFileBinary@NSFile@@QEAA_NHH@Z"
+        },
+        {
+          "name": "?OpenFile@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?GetFileSize@CFileBinary@NSFile@@QEAAJXZ"
+        },
+        {
+          "name": "?CloseFile@CFileBinary@NSFile@@UEAAXXZ"
+        },
+        {
+          "name": "??1CFileBinary@NSFile@@UEAA@XZ"
+        },
+        {
+          "name": "??0CFileBinary@NSFile@@QEAA@XZ"
+        },
+        {
+          "name": "?GetWStringFromUTF16@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBGJ@Z"
+        },
+        {
+          "name": "?GetUtf8StringFromUnicode@CUtf8Converter@NSFile@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@@Z"
+        },
+        {
+          "name": "?GetUnicodeStringFromUTF8@CUtf8Converter@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEJ@Z"
+        },
+        {
+          "name": "?CorrectPathW@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV12@@Z"
+        },
+        {
+          "name": "?CreateFileW@CFileBinary@NSFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?ReadNode@CXmlNode@XmlUtils@@QEAA?AV12@PEB_W@Z"
+        },
+        {
+          "name": "?GetChilds@CXmlNode@XmlUtils@@QEAA_NAEAV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@std@@@Z"
+        },
+        {
+          "name": "?GetNode@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV12@@Z"
+        },
+        {
+          "name": "?GetNodes@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@4@@Z"
+        },
+        {
+          "name": "?GetAttributeIfExist@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV34@@Z"
+        },
+        {
+          "name": "?Load@NSProcessEnv@@YAXAEAVCXmlNode@XmlUtils@@@Z"
+        },
+        {
+          "name": "?IsPresent@NSProcessEnv@@YA_NPEBD@Z"
+        },
+        {
+          "name": "?GetBoolValue@NSProcessEnv@@YA_NPEBD@Z"
+        },
+        {
+          "name": "?ExtractToDirectory@COfficeUtils@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEA_WF_N2@Z"
+        },
+        {
+          "name": "?GetEnvVariableA@NSSystemUtils@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@3@@Z"
+        },
+        {
+          "name": "??0CZipBuffer@@QEAA@XZ"
+        },
+        {
+          "name": "??1CZipBuffer@@QEAA@XZ"
+        },
+        {
+          "name": "?close@CZipBuffer@@QEAAXXZ"
+        },
+        {
+          "name": "?move@CZipBuffer@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z"
+        },
+        {
+          "name": "?save@CZipBuffer@@QEAAXAEAPEAEAEAK@Z"
+        },
+        {
+          "name": "?getFile@CZipBuffer@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEAPEAEAEAK@Z"
+        },
+        {
+          "name": "?addFile@CZipBuffer@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEAEK@Z"
+        },
+        {
+          "name": "?removeFile@CZipBuffer@@QEAA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        },
+        {
+          "name": "?GetEnvVariable@NSSystemUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?Encode@CBase64Converter@NSFile@@SA_NPEBEHAEAPEADAEAHK@Z"
+        },
+        {
+          "name": "??0CXmlWriter@XmlUtils@@QEAA@XZ"
+        },
+        {
+          "name": "??1CXmlWriter@XmlUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?GetXmlString@CXmlWriter@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?WriteString@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?WriteNodeBegin@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?WriteNodeEnd@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N1@Z"
+        },
+        {
+          "name": "?WriteAttribute@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?WriteAttribute@CXmlWriter@XmlUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@@Z"
+        },
+        {
+          "name": "??0CStringUTF32@NSStringUtils@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1CStringUTF32@NSStringUtils@@UEAA@XZ"
+        },
+        {
+          "name": "?length@CStringUTF32@NSStringUtils@@QEBA_KXZ"
+        },
+        {
+          "name": "??ACStringUTF32@NSStringUtils@@QEAAAEAI_K@Z"
+        },
+        {
+          "name": "?Compress@COfficeUtils@@QEAAJPEAEPEAK0KF@Z"
+        },
+        {
+          "name": "?SizeFile@CFileBinary@NSFile@@QEAAJXZ"
+        },
+        {
+          "name": "?Decode@CBase64Converter@NSFile@@SA_NPEBDHAEAPEAEAEAH@Z"
+        },
+        {
+          "name": "?GetDirectories@NSDirectory@@YA?AV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@3@@Z"
+        },
+        {
+          "name": "?GetTempPath@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?Uncompress@COfficeUtils@@QEAAJPEAEPEAK0K@Z"
+        },
+        {
+          "name": "?FromString@CXmlLiteReader@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetName@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetNameNoNS@XmlUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?FromFile@CXmlLiteReader@XmlUtils@@QEAA_NPEB_W@Z"
+        },
+        {
+          "name": "?ReadNextSiblingNode2@CXmlLiteReader@XmlUtils@@QEAA_NH@Z"
+        },
+        {
+          "name": "?GetDepth@CXmlLiteReader@XmlUtils@@QEAAHXZ"
+        },
+        {
+          "name": "?IsEmptyNode@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "?GetText@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetAttributesCount@CXmlLiteReader@XmlUtils@@QEAAHXZ"
+        },
+        {
+          "name": "?MoveToFirstAttribute@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "?MoveToNextAttribute@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "?MoveToElement@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "?GetNamespacePrefix@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetNodeType@CXmlLiteReader@XmlUtils@@QEAA?AW4XmlNodeType@2@XZ"
+        },
+        {
+          "name": "?IsDefaultAttribute@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "??0CRITICAL_SECTION_SMART@NSCriticalSection@@QEAA@XZ"
+        },
+        {
+          "name": "??1CRITICAL_SECTION_SMART@NSCriticalSection@@QEAA@XZ"
+        },
+        {
+          "name": "?Enter@CRITICAL_SECTION_SMART@NSCriticalSection@@QEAAXXZ"
+        },
+        {
+          "name": "?Leave@CRITICAL_SECTION_SMART@NSCriticalSection@@QEAAXXZ"
+        },
+        {
+          "name": "?CreateTempFileWithUniqueName@NSDirectory@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@V23@@Z"
+        },
+        {
+          "name": "?IsValid@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "?GetAttributeOrValue@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z"
+        },
+        {
+          "name": "?Decompress@NSZip@@YA_NPEBEAEBKPEAEAEAK@Z"
+        },
+        {
+          "name": "?GetPosition@CFileBinary@NSFile@@QEAAKXZ"
+        },
+        {
+          "name": "?SetPosition@CFileBinary@NSFile@@QEAA_NH@Z"
+        },
+        {
+          "name": "?WriteFile@CFileBinary@NSFile@@QEAA_NPEBXK@Z"
+        },
+        {
+          "name": "?GetNameA@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        },
+        {
+          "name": "?AddSize@CStringBuilder@NSStringUtils@@UEAAX_K@Z"
+        },
+        {
+          "name": "?ReadNextSiblingNode@CXmlLiteReader@XmlUtils@@QEAA_NH@Z"
+        },
+        {
+          "name": "?GetUtf32FromUnicode@CConverter@NSStringExt@@SAPEAIAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAI@Z"
+        },
+        {
+          "name": "??0CStringUTF32@NSStringUtils@@QEAA@PEBIAEB_K@Z"
+        },
+        {
+          "name": "?ToStdWString@CStringUTF32@NSStringUtils@@QEBA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetUnicodeStringFromUTF8@CUtf8Converter@NSFile@@SAXPEAEJAEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?WriteString@CStringBuilderA@NSStringUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        },
+        {
+          "name": "??0CStringBuilderA@NSStringUtils@@QEAA@XZ"
+        },
+        {
+          "name": "??1CStringBuilderA@NSStringUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?GetText2A@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        },
+        {
+          "name": "?GetInnerXml@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?CreateDirectories@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?MoveToStart@CXmlLiteReader@XmlUtils@@QEAA_NXZ"
+        },
+        {
+          "name": "?GetUtf8StringFromUnicode@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z"
+        },
+        {
+          "name": "?GetData@CStringBuilderA@NSStringUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        },
+        {
+          "name": "?GetCurSize@CStringBuilder@NSStringUtils@@QEAA_KXZ"
+        },
+        {
+          "name": "?Write@CStringBuilder@NSStringUtils@@QEAAXAEAV12@AEB_K@Z"
+        },
+        {
+          "name": "?GetSize@CStringBuilder@NSStringUtils@@QEAA_KXZ"
+        },
+        {
+          "name": "?Clear@CStringBuilder@NSStringUtils@@QEAAXXZ"
+        },
+        {
+          "name": "?ReadTillEnd@CXmlLiteReader@XmlUtils@@QEAA_NH@Z"
+        },
+        {
+          "name": "?GetFileNative@CFileBinary@NSFile@@QEAAPEAU_iobuf@@XZ"
+        },
+        {
+          "name": "?CreateTempFile@CFileBinary@NSFile@@QEAA_NXZ"
+        },
+        {
+          "name": "?SetCurSize@CStringBuilder@NSStringUtils@@QEAAX_K@Z"
+        },
+        {
+          "name": "??0CStreamWriter@NSFile@@QEAA@_K@Z"
+        },
+        {
+          "name": "?CloseFile@CStreamWriter@NSFile@@UEAAXXZ"
+        },
+        {
+          "name": "??1CStreamWriter@NSFile@@UEAA@XZ"
+        },
+        {
+          "name": "?Read@CXmlLiteReader@XmlUtils@@QEAA_NAEAW4XmlNodeType@2@@Z"
+        },
+        {
+          "name": "?AddCharSafe@CStringBuilder@NSStringUtils@@QEAAXAEB_W@Z"
+        },
+        {
+          "name": "?GetBuffer@CStringBuilder@NSStringUtils@@QEAAPEA_WXZ"
+        },
+        {
+          "name": "?WriteHexByte@CStringBuilder@NSStringUtils@@QEAAXAEBE@Z"
+        },
+        {
+          "name": "?AddCharNoCheck@CStringBuilder@NSStringUtils@@QEAAXAEB_W@Z"
+        },
+        {
+          "name": "?AddIntNoCheck@CStringBuilder@NSStringUtils@@QEAAXH@Z"
+        },
+        {
+          "name": "?GetNameChar@CXmlLiteReader@XmlUtils@@QEAAPEBDXZ"
+        },
+        {
+          "name": "?GetText2@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetTextExt@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z"
+        },
+        {
+          "name": "?GetXml@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z"
+        },
+        {
+          "name": "?ReadAttributeBase@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z"
+        },
+        {
+          "name": "?GetAttributesCount@CXmlNode@XmlUtils@@QEAAHXZ"
+        },
+        {
+          "name": "?GetAllAttributes@CXmlNode@XmlUtils@@QEAAXAEAV?$list@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@0@Z"
+        },
+        {
+          "name": "?ReadNode@CXmlNode@XmlUtils@@QEAA?AV12@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?ReadNodeNoNS@CXmlNode@XmlUtils@@QEAA?AV12@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetAttributeBase@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_WAEBV34@@Z"
+        },
+        {
+          "name": "?GetAttributeInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z"
+        },
+        {
+          "name": "?ReadAttributeInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z"
+        },
+        {
+          "name": "??4CXmlNode@XmlUtils@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "name": "?GetNameNoNS@XmlUtils@@YAPEBDPEBD@Z"
+        },
+        {
+          "name": "?GetNamespace@XmlUtils@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        },
+        {
+          "name": "?GetText@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?ReadAttribute@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@@Z"
+        },
+        {
+          "name": "?GetAllAttributes@CXmlNode@XmlUtils@@QEAAXAEAV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@0@Z"
+        },
+        {
+          "name": "?GetNodes@CXmlNode@XmlUtils@@QEAA?AV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@@Z"
+        },
+        {
+          "name": "?SetAttributeInt@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z"
+        },
+        {
+          "name": "?ReadValueString@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z"
+        },
+        {
+          "name": "?ReadValueInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z"
+        },
+        {
+          "name": "?WriteEncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        },
+        {
+          "name": "?WriteUtf8EncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z"
+        },
+        {
+          "name": "?ClearNoAttack@CStringBuilder@NSStringUtils@@QEAAXXZ"
+        },
+        {
+          "name": "?WriteStringNoSafe@CStringBuilder@NSStringUtils@@QEAAXPEB_W_K@Z"
+        },
+        {
+          "name": "?AddSpaceNoCheck@CStringBuilder@NSStringUtils@@QEAAXXZ"
+        },
+        {
+          "name": "?WriteBefore@CStringBuilder@NSStringUtils@@QEAAXAEAV12@@Z"
+        },
+        {
+          "name": "?Base64Decode@NSBase64@@YAHPEB_WHPEAEPEAH@Z"
+        },
+        {
+          "name": "?WriteEncodeXmlStringHHHH@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?AddUInt@CStringBuilder@NSStringUtils@@QEAAXI@Z"
+        },
+        {
+          "name": "?AddInt64@CStringBuilder@NSStringUtils@@QEAAX_J@Z"
+        },
+        {
+          "name": "?AddDouble@CStringBuilder@NSStringUtils@@QEAAXNH@Z"
+        },
+        {
+          "name": "?StartNode@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?StartNodeWithNS@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?StartAttributes@CStringBuilder@NSStringUtils@@QEAAXXZ"
+        },
+        {
+          "name": "?EndAttributes@CStringBuilder@NSStringUtils@@QEAAXXZ"
+        },
+        {
+          "name": "?EndAttributesAndNode@CStringBuilder@NSStringUtils@@QEAAXXZ"
+        },
+        {
+          "name": "?EndNode@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?EndNodeWithNS@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?WriteNodeEnd@CStringBuilder@NSStringUtils@@QEAAXV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N1@Z"
+        },
+        {
+          "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@H@Z"
+        },
+        {
+          "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@I@Z"
+        },
+        {
+          "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@N@Z"
+        },
+        {
+          "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?WriteAttribute@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W@Z"
+        },
+        {
+          "name": "?WriteAttributeEncodeXml@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?FromStringA@CXmlLiteReader@XmlUtils@@QEAA_NPEBDH@Z"
+        },
+        {
+          "name": "?GetTextA@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        },
+        {
+          "name": "?GetTextChar@CXmlLiteReader@XmlUtils@@QEAAPEBDXZ"
+        },
+        {
+          "name": "?GetAttributeTextWithHHHH@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetText3@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetTextWithHHHH@CXmlLiteReader@XmlUtils@@QEAAX_NAEAPEA_WAEAJ2@Z"
+        },
+        {
+          "name": "?GetOuterXml@CXmlLiteReader@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?GetTextA@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ"
+        },
+        {
+          "name": "?GetUnicodeStringFromUTF8WithHHHH@CUtf8Converter@NSFile@@SAXPEBEJAEAPEA_WAEAJ@Z"
+        },
+        {
+          "name": "?GetUnicodeStringFromUTF8BufferSize@CUtf8Converter@NSFile@@SAJJ@Z"
+        },
+        {
+          "name": "?GetUtf16SizeFromUnicode@CUtf8Converter@NSFile@@SAJPEB_WJ_N@Z"
+        },
+        {
+          "name": "?ReadAllTextUtf8A@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@@Z"
+        },
+        {
+          "name": "?IsArchive@COfficeUtils@@QEAAJPEAE_K@Z"
+        },
+        {
+          "name": "?LoadFileFromArchive@COfficeUtils@@QEAAJPEAE_KAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAPEAEAEAK@Z"
+        },
+        {
+          "name": "?GetFilePosition@CFileBinary@NSFile@@QEAAJXZ"
+        },
+        {
+          "name": "?WriteEncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXPEB_WH@Z"
+        }
+      ]
+    },
+    {
+      "dll": "UnicodeConverter.dll",
+      "symbols": [
+        {
+          "name": "?fromUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@PEBD@Z"
+        },
+        {
+          "name": "?fromUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEB_WAEBIPEBD@Z"
+        },
+        {
+          "name": "?toUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBDAEBIH_N@Z"
+        },
+        {
+          "name": "?toUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBDAEBI0_N@Z"
+        },
+        {
+          "name": "??1CUnicodeConverter@NSUnicodeConverter@@QEAA@XZ"
+        },
+        {
+          "name": "??0CUnicodeConverter@NSUnicodeConverter@@QEAA@XZ"
+        },
+        {
+          "name": "?toUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@PEBD_N@Z"
+        },
+        {
+          "name": "?toUnicode@CUnicodeConverter@NSUnicodeConverter@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@H_N@Z"
+        }
+      ]
+    },
+    {
+      "dll": "kernel_network.dll",
+      "symbols": [
+        {
+          "name": "?SetFilePath@CFileDownloader@NSFileTransport@NSNetwork@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?DownloadSync@CFileDownloader@NSFileTransport@NSNetwork@@QEAA_NXZ"
+        },
+        {
+          "name": "??1CFileDownloader@NSFileTransport@NSNetwork@@UEAA@XZ"
+        },
+        {
+          "name": "??0CFileDownloader@NSFileTransport@NSNetwork@@QEAA@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?GetFilePath@CFileDownloader@NSFileTransport@NSNetwork@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "Fb2File.dll",
+      "symbols": [
+        {
+          "name": "?SetTmpDirectory@CFb2File@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1CFb2File@@QEAA@XZ"
+        },
+        {
+          "name": "??0CFb2File@@QEAA@XZ"
+        },
+        {
+          "name": "?Open@CFb2File@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAUCFb2Params@@@Z"
+        },
+        {
+          "name": "?FromHtml@CFb2File@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@00@Z"
+        }
+      ]
+    },
+    {
+      "dll": "PdfFile.dll",
+      "symbols": [
+        {
+          "name": "?OnlineWordToPdf@CPdfFile@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAVCConvertFromBinParams@@@Z"
+        },
+        {
+          "name": "?OnlineWordToPdfFromBinary@CPdfFile@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAVCConvertFromBinParams@@@Z"
+        },
+        {
+          "name": "?AddToPdfFromBinary@CPdfFile@@QEAAJPEAEIPEAVCConvertFromBinParams@@@Z"
+        },
+        {
+          "name": "?get_Type@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?NewPage@CPdfFile@@UEAAJXZ"
+        },
+        {
+          "name": "?get_Height@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_Height@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?get_Width@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_Width@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?get_DpiX@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?get_DpiY@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?get_PenColor@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_PenColor@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_PenAlpha@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_PenAlpha@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_PenSize@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_PenSize@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?get_PenDashStyle@CPdfFile@@UEAAJPEAE@Z"
+        },
+        {
+          "name": "?put_PenDashStyle@CPdfFile@@UEAAJAEBE@Z"
+        },
+        {
+          "name": "?get_PenLineStartCap@CPdfFile@@UEAAJPEAE@Z"
+        },
+        {
+          "name": "?put_PenLineStartCap@CPdfFile@@UEAAJAEBE@Z"
+        },
+        {
+          "name": "?get_PenLineEndCap@CPdfFile@@UEAAJPEAE@Z"
+        },
+        {
+          "name": "?put_PenLineEndCap@CPdfFile@@UEAAJAEBE@Z"
+        },
+        {
+          "name": "?get_PenLineJoin@CPdfFile@@UEAAJPEAE@Z"
+        },
+        {
+          "name": "?put_PenLineJoin@CPdfFile@@UEAAJAEBE@Z"
+        },
+        {
+          "name": "?get_PenDashOffset@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_PenDashOffset@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?get_PenAlign@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_PenAlign@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_PenMiterLimit@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_PenMiterLimit@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?PenDashPattern@CPdfFile@@UEAAJPEANJ@Z"
+        },
+        {
+          "name": "?get_BrushType@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_BrushType@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_BrushColor1@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_BrushColor1@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_BrushAlpha1@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_BrushAlpha1@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_BrushColor2@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_BrushColor2@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_BrushAlpha2@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_BrushAlpha2@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_BrushTexturePath@CPdfFile@@UEAAJPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?put_BrushTexturePath@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?get_BrushTextureMode@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_BrushTextureMode@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_BrushTextureAlpha@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_BrushTextureAlpha@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_BrushLinearAngle@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_BrushLinearAngle@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?BrushRect@CPdfFile@@UEAAJAEBHAEBN111@Z"
+        },
+        {
+          "name": "?BrushBounds@CPdfFile@@UEAAJAEBN000@Z"
+        },
+        {
+          "name": "?put_BrushGradientColors@CPdfFile@@UEAAJPEAJPEANJ@Z"
+        },
+        {
+          "name": "?get_BrushTextureImage@CPdfFile@@UEAAJPEAPEAVCImage@Aggplus@@@Z"
+        },
+        {
+          "name": "?put_BrushTextureImage@CPdfFile@@UEAAJPEAVCImage@Aggplus@@@Z"
+        },
+        {
+          "name": "?get_BrushTransform@CPdfFile@@UEAAJAEAVCMatrix@Aggplus@@@Z"
+        },
+        {
+          "name": "?put_BrushTransform@CPdfFile@@UEAAJAEBVCMatrix@Aggplus@@@Z"
+        },
+        {
+          "name": "?get_BrushOffset@CPdfFile@@UEBAJAEAN0@Z"
+        },
+        {
+          "name": "?put_BrushOffset@CPdfFile@@UEAAJAEBN0@Z"
+        },
+        {
+          "name": "?get_BrushScale@CPdfFile@@UEBAJAEA_NAEAN1@Z"
+        },
+        {
+          "name": "?SetDocumentInfo@CPdfFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@000@Z"
+        },
+        {
+          "name": "?get_FontName@CPdfFile@@UEAAJPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?put_FontName@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?get_FontPath@CPdfFile@@UEAAJPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?put_FontPath@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?get_FontSize@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_FontSize@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?get_FontStyle@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_FontStyle@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?get_FontStringGID@CPdfFile@@UEAAJPEAH@Z"
+        },
+        {
+          "name": "?put_FontStringGID@CPdfFile@@UEAAJAEBH@Z"
+        },
+        {
+          "name": "?get_FontCharSpace@CPdfFile@@UEAAJPEAN@Z"
+        },
+        {
+          "name": "?put_FontCharSpace@CPdfFile@@UEAAJAEBN@Z"
+        },
+        {
+          "name": "?get_FontFaceIndex@CPdfFile@@UEAAJPEAH@Z"
+        },
+        {
+          "name": "?put_FontFaceIndex@CPdfFile@@UEAAJAEBH@Z"
+        },
+        {
+          "name": "?CommandDrawTextCHAR@CPdfFile@@UEAAJAEBJAEBN111@Z"
+        },
+        {
+          "name": "?CommandDrawTextExCHAR@CPdfFile@@UEAAJAEBJ0AEBN111@Z"
+        },
+        {
+          "name": "?CommandDrawText@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN111@Z"
+        },
+        {
+          "name": "?CommandDrawTextEx@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBIIAEBN222@Z"
+        },
+        {
+          "name": "?CommandDrawTextCHAR2@CPdfFile@@UEAAJPEAIAEBI1AEBN222@Z"
+        },
+        {
+          "name": "?BeginCommand@CPdfFile@@UEAAJAEBK@Z"
+        },
+        {
+          "name": "?EndCommand@CPdfFile@@UEAAJAEBK@Z"
+        },
+        {
+          "name": "?PathCommandMoveTo@CPdfFile@@UEAAJAEBN0@Z"
+        },
+        {
+          "name": "?PathCommandLineTo@CPdfFile@@UEAAJAEBN0@Z"
+        },
+        {
+          "name": "?PathCommandLinesTo@CPdfFile@@UEAAJPEANAEBH@Z"
+        },
+        {
+          "name": "?PathCommandCurveTo@CPdfFile@@UEAAJAEBN00000@Z"
+        },
+        {
+          "name": "?PathCommandCurvesTo@CPdfFile@@UEAAJPEANAEBH@Z"
+        },
+        {
+          "name": "?PathCommandArcTo@CPdfFile@@UEAAJAEBN00000@Z"
+        },
+        {
+          "name": "?PathCommandClose@CPdfFile@@UEAAJXZ"
+        },
+        {
+          "name": "?PathCommandEnd@CPdfFile@@UEAAJXZ"
+        },
+        {
+          "name": "?DrawPath@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?PathCommandStart@CPdfFile@@UEAAJXZ"
+        },
+        {
+          "name": "?PathCommandGetCurrentPoint@CPdfFile@@UEAAJPEAN0@Z"
+        },
+        {
+          "name": "?PathCommandTextCHAR@CPdfFile@@UEAAJAEBJAEBN111@Z"
+        },
+        {
+          "name": "?PathCommandTextExCHAR@CPdfFile@@UEAAJAEBJ0AEBN111@Z"
+        },
+        {
+          "name": "?PathCommandText@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN111@Z"
+        },
+        {
+          "name": "?PathCommandTextEx@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBIIAEBN222@Z"
+        },
+        {
+          "name": "?DrawImage@CPdfFile@@UEAAJPEAVIGrObject@@AEBN111@Z"
+        },
+        {
+          "name": "?DrawImageFromFile@CPdfFile@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN111AEBE@Z"
+        },
+        {
+          "name": "?SetTransform@CPdfFile@@UEAAJAEBN00000@Z"
+        },
+        {
+          "name": "?GetTransform@CPdfFile@@UEAAJPEAN00000@Z"
+        },
+        {
+          "name": "?ResetTransform@CPdfFile@@UEAAJXZ"
+        },
+        {
+          "name": "?get_ClipMode@CPdfFile@@UEAAJPEAJ@Z"
+        },
+        {
+          "name": "?put_ClipMode@CPdfFile@@UEAAJAEBJ@Z"
+        },
+        {
+          "name": "?CommandLong@CPdfFile@@UEAAJAEBJ0@Z"
+        },
+        {
+          "name": "?CommandDouble@CPdfFile@@UEAAJAEBJAEBN@Z"
+        },
+        {
+          "name": "?CommandString@CPdfFile@@UEAAJAEBJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?IsSupportAdvancedCommand@CPdfFile@@UEAAJAEBW4AdvancedCommandType@IAdvancedCommand@@@Z"
+        },
+        {
+          "name": "?AdvancedCommand@CPdfFile@@UEAAJPEAVIAdvancedCommand@@@Z"
+        },
+        {
+          "name": "?FinalizeSignature@CPdfFile@@QEAA_NPEAEK@Z"
+        },
+        {
+          "name": "?GetFonts@CPdfFile@@UEAAPEAVIApplicationFonts@NSFonts@@XZ"
+        },
+        {
+          "name": "?LoadFromMemory@CPdfFile@@UEAA_NPEAEKAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W2@Z"
+        },
+        {
+          "name": "?LoadFromFile@CPdfFile@@UEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEB_W1@Z"
+        },
+        {
+          "name": "?GetMetaData@CPdfFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAPEAEAEAK@Z"
+        },
+        {
+          "name": "?SetCMapFolder@CPdfFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetError@CPdfFile@@QEAAHXZ"
+        },
+        {
+          "name": "?ChangePassword@CPdfFile@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?PrintPages@CPdfFile@@QEAA_NAEBV?$vector@_NV?$allocator@_N@std@@@std@@H@Z"
+        },
+        {
+          "name": "?EditPage@CPdfFile@@QEAA_NH@Z"
+        },
+        {
+          "name": "?EditPdf@CPdfFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?Close@CPdfFile@@UEAAXXZ"
+        },
+        {
+          "name": "??1CPdfFile@@UEAA@XZ"
+        },
+        {
+          "name": "??0CPdfFile@@QEAA@PEAVIApplicationFonts@NSFonts@@@Z"
+        },
+        {
+          "name": "?AddMetaData@CPdfFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAEK@Z"
+        },
+        {
+          "name": "?PrepareSignature@CPdfFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?Sign@CPdfFile@@QEAAXAEBN000AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAVCPDFSignatureInfo@@@Z"
+        },
+        {
+          "name": "?SetDocumentID@CPdfFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?SetPassword@CPdfFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?SaveToFile@CPdfFile@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?CreatePdf@CPdfFile@@QEAAX_N@Z"
+        },
+        {
+          "name": "?SetPainter@CPdfFile@@UEAAXPEAVIOfficeDrawingFilePainter@@@Z"
+        },
+        {
+          "name": "?GetLinks@CPdfFile@@UEAAPEAEH@Z"
+        },
+        {
+          "name": "?GetStructure@CPdfFile@@UEAAPEAEXZ"
+        },
+        {
+          "name": "?GetInfo@CPdfFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?DrawPageOnRenderer@CPdfFile@@UEAAXPEAVIRenderer@@HPEA_NPEAUCOfficeDrawingPageParams@@@Z"
+        },
+        {
+          "name": "?GetPageInfo@CPdfFile@@UEAAXHPEAN000@Z"
+        },
+        {
+          "name": "?GetPagesCount@CPdfFile@@UEAAHXZ"
+        },
+        {
+          "name": "?SetTempDirectory@CPdfFile@@UEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetTempDirectory@CPdfFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?put_BrushScale@CPdfFile@@UEAAJ_NAEBN1@Z"
+        },
+        {
+          "name": "?GetType@CPdfFile@@UEAA?AW4OfficeDrawingFileType@@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "HtmlFile2.dll",
+      "symbols": [
+        {
+          "name": "??0CHtmlFile2@@QEAA@XZ"
+        },
+        {
+          "name": "?ConvertHTML2OOXML@CHtmlFile2@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAUTHTMLParameters@HTML@@@Z"
+        },
+        {
+          "name": "?ConvertHTML2OOXML@CHtmlFile2@@QEAAJAEBV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@3@PEAUTHTMLParameters@HTML@@@Z"
+        },
+        {
+          "name": "?ConvertMHT2OOXML@CHtmlFile2@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAUTHTMLParameters@HTML@@@Z"
+        },
+        {
+          "name": "?ConvertHTML2Markdown@CHtmlFile2@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEAUTMarkdownParameters@HTML@@@Z"
+        },
+        {
+          "name": "?SetTempDirectory@CHtmlFile2@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1CHtmlFile2@@QEAA@XZ"
+        },
+        {
+          "name": "?ConvertMdFileToHtml@Md@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        }
+      ]
+    },
+    {
+      "dll": "EpubFile.dll",
+      "symbols": [
+        {
+          "name": "?Convert@CEpubFile@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_N@Z"
+        },
+        {
+          "name": "?SetTempDirectory@CEpubFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1CEpubFile@@QEAA@XZ"
+        },
+        {
+          "name": "??0CEpubFile@@QEAA@XZ"
+        },
+        {
+          "name": "?FromHtml@CEpubFile@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@00@Z"
+        }
+      ]
+    },
+    {
+      "dll": "XpsFile.dll",
+      "symbols": [
+        {
+          "name": "??0CXpsFile@@QEAA@PEAVIApplicationFonts@NSFonts@@@Z"
+        },
+        {
+          "name": "?LoadFromMemory@CXpsFile@@UEAA_NPEAEKAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W2@Z"
+        },
+        {
+          "name": "?Close@CXpsFile@@UEAAXXZ"
+        },
+        {
+          "name": "?GetStructure@CXpsFile@@UEAAPEAEXZ"
+        },
+        {
+          "name": "?LoadFromFile@CXpsFile@@UEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEB_W1@Z"
+        },
+        {
+          "name": "??1CXpsFile@@UEAA@XZ"
+        },
+        {
+          "name": "?GetInfo@CXpsFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?DrawPageOnRenderer@CXpsFile@@UEAAXPEAVIRenderer@@HPEA_NPEAUCOfficeDrawingPageParams@@@Z"
+        },
+        {
+          "name": "?GetPageInfo@CXpsFile@@UEAAXHPEAN000@Z"
+        },
+        {
+          "name": "?GetPagesCount@CXpsFile@@UEAAHXZ"
+        },
+        {
+          "name": "?SetTempDirectory@CXpsFile@@UEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetTempDirectory@CXpsFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetType@CXpsFile@@UEAA?AW4OfficeDrawingFileType@@XZ"
+        },
+        {
+          "name": "?GetFonts@CXpsFile@@UEAAPEAVIApplicationFonts@NSFonts@@XZ"
+        },
+        {
+          "name": "?GetLinks@CXpsFile@@UEAAPEAEH@Z"
+        }
+      ]
+    },
+    {
+      "dll": "OFDFile.dll",
+      "symbols": [
+        {
+          "name": "?LoadFromFile@COFDFile@@UEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEB_W1@Z"
+        },
+        {
+          "name": "?LoadFromMemory@COFDFile@@UEAA_NPEAEKAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W2@Z"
+        },
+        {
+          "name": "?Close@COFDFile@@UEAAXXZ"
+        },
+        {
+          "name": "?GetFonts@COFDFile@@UEAAPEAVIApplicationFonts@NSFonts@@XZ"
+        },
+        {
+          "name": "?GetType@COFDFile@@UEAA?AW4OfficeDrawingFileType@@XZ"
+        },
+        {
+          "name": "?GetTempDirectory@COFDFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "??1COFDFile@@UEAA@XZ"
+        },
+        {
+          "name": "?GetPagesCount@COFDFile@@UEAAHXZ"
+        },
+        {
+          "name": "?GetPageInfo@COFDFile@@UEAAXHPEAN000@Z"
+        },
+        {
+          "name": "?DrawPageOnRenderer@COFDFile@@UEAAXPEAVIRenderer@@HPEA_NPEAUCOfficeDrawingPageParams@@@Z"
+        },
+        {
+          "name": "?GetInfo@COFDFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetStructure@COFDFile@@UEAAPEAEXZ"
+        },
+        {
+          "name": "?GetLinks@COFDFile@@UEAAPEAEH@Z"
+        },
+        {
+          "name": "?SetPainter@COFDFile@@UEAAXPEAVIOfficeDrawingFilePainter@@@Z"
+        },
+        {
+          "name": "?SetTempDirectory@COFDFile@@UEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??0COFDFile@@QEAA@PEAVIApplicationFonts@NSFonts@@@Z"
+        }
+      ]
+    },
+    {
+      "dll": "DjVuFile.dll",
+      "symbols": [
+        {
+          "name": "?DrawPageOnRenderer@CDjVuFile@@UEAAXPEAVIRenderer@@HPEA_NPEAUCOfficeDrawingPageParams@@@Z"
+        },
+        {
+          "name": "?GetInfo@CDjVuFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetStructure@CDjVuFile@@UEAAPEAEXZ"
+        },
+        {
+          "name": "?GetType@CDjVuFile@@UEAA?AW4OfficeDrawingFileType@@XZ"
+        },
+        {
+          "name": "?GetPageInfo@CDjVuFile@@UEAAXHPEAN000@Z"
+        },
+        {
+          "name": "?GetPagesCount@CDjVuFile@@UEAAHXZ"
+        },
+        {
+          "name": "?SetTempDirectory@CDjVuFile@@UEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetTempDirectory@CDjVuFile@@UEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetFonts@CDjVuFile@@UEAAPEAVIApplicationFonts@NSFonts@@XZ"
+        },
+        {
+          "name": "?Close@CDjVuFile@@UEAAXXZ"
+        },
+        {
+          "name": "?ConvertToPixels@CDjVuFile@@UEAAPEAEHHH_NPEAVIFontManager@NSFonts@@H0H@Z"
+        },
+        {
+          "name": "?LoadFromMemory@CDjVuFile@@UEAA_NPEAEKAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEB_W2@Z"
+        },
+        {
+          "name": "?LoadFromFile@CDjVuFile@@UEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0PEB_W1@Z"
+        },
+        {
+          "name": "??1CDjVuFile@@UEAA@XZ"
+        },
+        {
+          "name": "??0CDjVuFile@@QEAA@PEAVIApplicationFonts@NSFonts@@@Z"
+        },
+        {
+          "name": "?GetLinks@CDjVuFile@@UEAAPEAEH@Z"
+        }
+      ]
+    },
+    {
+      "dll": "doctrenderer.dll",
+      "symbols": [
+        {
+          "name": "?Initialize@CDocBuilder@NSDoctRenderer@@SAXPEB_W@Z"
+        },
+        {
+          "name": "?CreateSnapshots@CDoctrenderer@NSDoctRenderer@@QEAAXXZ"
+        },
+        {
+          "name": "?CreateCache@CDoctrenderer@NSDoctRenderer@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?SetAdditionalParam@CDoctrenderer@NSDoctRenderer@@QEAAXAEBW4AdditionalParamType@2@PEAX@Z"
+        },
+        {
+          "name": "?GetImagesInChanges@CDoctrenderer@NSDoctRenderer@@QEAA?AV?$vector@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@V?$allocator@V?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@2@@std@@XZ"
+        },
+        {
+          "name": "?Execute@CDoctrenderer@NSDoctRenderer@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEAV34@@Z"
+        },
+        {
+          "name": "?Dispose@CDocBuilder@NSDoctRenderer@@SAXXZ"
+        },
+        {
+          "name": "??1CDoctrenderer@NSDoctRenderer@@QEAA@XZ"
+        },
+        {
+          "name": "??0CDoctrenderer@NSDoctRenderer@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        }
+      ]
+    },
+    {
+      "dll": "DocxRenderer.dll",
+      "symbols": [
+        {
+          "name": "?Convert@CDocxRenderer@@QEAAHPEAVIOfficeDrawingFile@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?SetTempFolder@CDocxRenderer@@QEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?SetTextAssociationType@CDocxRenderer@@QEAAJAEBW4TextAssociationType@NSDocxRenderer@@@Z"
+        },
+        {
+          "name": "??0CDocxRenderer@@QEAA@PEAVIApplicationFonts@NSFonts@@@Z"
+        },
+        {
+          "name": "??1CDocxRenderer@@UEAA@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "IWorkFile.dll",
+      "symbols": [
+        {
+          "name": "??1CIWorkFile@@QEAA@XZ"
+        },
+        {
+          "name": "?GetType@CIWorkFile@@QEBA?AW4IWorkFileType@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?Convert2Odf@CIWorkFile@@QEBAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?SetTmpDirectory@CIWorkFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??0CIWorkFile@@QEAA@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "HWPFile.dll",
+      "symbols": [
+        {
+          "name": "?OpenHWPML@CHWPFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??0CHWPFile@@QEAA@XZ"
+        },
+        {
+          "name": "?ConvertToOOXML_Dir@CHWPFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1CHWPFile@@QEAA@XZ"
+        },
+        {
+          "name": "?OpenHWP@CHWPFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?OpenHWPX@CHWPFile@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0@Z"
+        },
+        {
+          "name": "?SetTempDirectory@CHWPFile@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        }
+      ]
+    },
+    {
+      "dll": "StarMathConverter.dll",
+      "symbols": [
+        {
+          "name": "?SetBaseItalic@CStarMathConverter@StarMath@@QEAAX_N@Z"
+        },
+        {
+          "name": "?SetBaseAlignment@CStarMathConverter@StarMath@@QEAAXAEBI@Z"
+        },
+        {
+          "name": "?SetBaseSize@CStarMathConverter@StarMath@@QEAAXAEBI@Z"
+        },
+        {
+          "name": "?SetBaseFont@CStarMathConverter@StarMath@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?SetBaseBold@CStarMathConverter@StarMath@@QEAAX_N@Z"
+        },
+        {
+          "name": "?GetFormulaSize@CStarMathConverter@StarMath@@QEAA?AV?$queue@UTFormulaSize@StarMath@@V?$deque@UTFormulaSize@StarMath@@V?$allocator@UTFormulaSize@StarMath@@@std@@@std@@@std@@XZ"
+        },
+        {
+          "name": "??0CStarMathConverter@StarMath@@QEAA@XZ"
+        },
+        {
+          "name": "?ConvertStarMathToOOXml@CStarMathConverter@StarMath@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@AEBI@Z"
+        },
+        {
+          "name": "??1CStarMathConverter@StarMath@@QEAA@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "ooxmlsignature.dll",
+      "symbols": [
+        {
+          "name": "??0COOXMLSigner@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAVICertificate@@@Z"
+        },
+        {
+          "name": "??1COOXMLSigner@@QEAA@XZ"
+        },
+        {
+          "name": "?Sign@COOXMLSigner@@QEAAHXZ"
+        },
+        {
+          "name": "?FromFiles@NSCertificate@@YAPEAVICertificate@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@4@01@Z"
+        }
+      ]
+    },
+    {
+      "dll": "ADVAPI32.dll",
+      "symbols": [
+        {
+          "name": "CryptReleaseContext"
+        },
+        {
+          "name": "CryptGenRandom"
+        },
+        {
+          "name": "CryptAcquireContextA"
+        }
+      ]
+    },
+    {
+      "dll": "MSVCP140.dll",
+      "symbols": [
+        {
+          "name": "??5?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@AEAG@Z"
+        },
+        {
+          "name": "?write@?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV12@PEB_W_J@Z"
+        },
+        {
+          "name": "?_Throw_C_error@std@@YAXH@Z"
+        },
+        {
+          "name": "_Mtx_unlock"
+        },
+        {
+          "name": "_Mtx_lock"
+        },
+        {
+          "name": "_Mtx_destroy_in_situ"
+        },
+        {
+          "name": "_Mtx_init_in_situ"
+        },
+        {
+          "name": "?seekg@?$basic_istream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@V?$fpos@U_Mbstatet@@@2@@Z"
+        },
+        {
+          "name": "?seekp@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@V?$fpos@U_Mbstatet@@@2@@Z"
+        },
+        {
+          "name": "?clear@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?id@?$codecvt@DDU_Mbstatet@@@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?id@?$codecvt@_WDU_Mbstatet@@@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?_Fiopen@std@@YAPEAU_iobuf@@PEB_WHH@Z"
+        },
+        {
+          "name": "?tellg@?$basic_istream@DU?$char_traits@D@std@@@std@@QEAA?AV?$fpos@U_Mbstatet@@@2@XZ"
+        },
+        {
+          "name": "?seekg@?$basic_istream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@_JH@Z"
+        },
+        {
+          "name": "?read@?$basic_istream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@PEAD_J@Z"
+        },
+        {
+          "name": "?write@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@PEBD_J@Z"
+        },
+        {
+          "name": "?_Init@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAXXZ"
+        },
+        {
+          "name": "?getloc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEBA?AVlocale@2@XZ"
+        },
+        {
+          "name": "?_Getcat@?$codecvt@DDU_Mbstatet@@@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "?unshift@?$codecvt@DDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEAD1AEAPEAD@Z"
+        },
+        {
+          "name": "?out@?$codecvt@DDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEBD1AEAPEBDPEAD3AEAPEAD@Z"
+        },
+        {
+          "name": "?in@?$codecvt@DDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEBD1AEAPEBDPEAD3AEAPEAD@Z"
+        },
+        {
+          "name": "??1?$codecvt@_WDU_Mbstatet@@@std@@MEAA@XZ"
+        },
+        {
+          "name": "??0?$codecvt@_WDU_Mbstatet@@@std@@QEAA@_K@Z"
+        },
+        {
+          "name": "?out@?$codecvt@_WDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEB_W1AEAPEB_WPEAD3AEAPEAD@Z"
+        },
+        {
+          "name": "?always_noconv@codecvt_base@std@@QEBA_NXZ"
+        },
+        {
+          "name": "_Query_perf_frequency"
+        },
+        {
+          "name": "_Query_perf_counter"
+        },
+        {
+          "name": "?id@?$collate@_W@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?_Xregex_error@std@@YAXW4error_type@regex_constants@1@@Z"
+        },
+        {
+          "name": "?tolower@?$ctype@_W@std@@QEBAPEB_WPEA_WPEB_W@Z"
+        },
+        {
+          "name": "?_Getcoll@_Locinfo@std@@QEBA?AU_Collvec@@XZ"
+        },
+        {
+          "name": "_Wcsxfrm"
+        },
+        {
+          "name": "_Wcscoll"
+        },
+        {
+          "name": "?id@?$time_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?_Getcat@?$time_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "?put@?$time_put@_WV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@std@@@std@@QEBA?AV?$ostreambuf_iterator@_WU?$char_traits@_W@std@@@2@V32@AEAVios_base@2@_WPEBUtm@@PEB_W4@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@_J@Z"
+        },
+        {
+          "name": "?setg@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEAAXPEA_W00@Z"
+        },
+        {
+          "name": "?flags@ios_base@std@@QEAAHH@Z"
+        },
+        {
+          "name": "?_Addfac@_Locimp@locale@std@@AEAAXPEAVfacet@23@_K@Z"
+        },
+        {
+          "name": "?narrow@?$ctype@_W@std@@QEBAPEB_WPEB_W0DPEAD@Z"
+        },
+        {
+          "name": "?id@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?id@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?id@?$numpunct@D@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?id@?$ctype@D@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEA_N@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEA_K@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEA_J@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAPEAX@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAO@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAN@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAM@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAK@Z"
+        },
+        {
+          "name": "?unshift@?$codecvt@_WDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEAD1AEAPEAD@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAI@Z"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAG@Z"
+        },
+        {
+          "name": "?_Ipfx@?$basic_istream@DU?$char_traits@D@std@@@std@@QEAA_N_N@Z"
+        },
+        {
+          "name": "??1?$basic_istream@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_istream@DU?$char_traits@D@std@@@std@@QEAA@PEAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z"
+        },
+        {
+          "name": "?_Getcat@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "?put@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@QEBA?AV?$ostreambuf_iterator@DU?$char_traits@D@std@@@2@V32@AEAVios_base@2@DPEBUtm@@PEBD3@Z"
+        },
+        {
+          "name": "?imbue@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAA?AVlocale@2@AEBV32@@Z"
+        },
+        {
+          "name": "??0?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@QEAA@_K@Z"
+        },
+        {
+          "name": "??1?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEAA@XZ"
+        },
+        {
+          "name": "?_Getcat@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "?sgetc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAHXZ"
+        },
+        {
+          "name": "?sbumpc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAHXZ"
+        },
+        {
+          "name": "?imbue@ios_base@std@@QEAA?AVlocale@2@AEBV32@@Z"
+        },
+        {
+          "name": "?_Getcat@?$ctype@D@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "?tolower@?$ctype@D@std@@QEBADD@Z"
+        },
+        {
+          "name": "?_Locimp_Addfac@_Locimp@locale@std@@CAXPEAV123@PEAVfacet@23@_K@Z"
+        },
+        {
+          "name": "?_New_Locimp@_Locimp@locale@std@@CAPEAV123@AEBV123@@Z"
+        },
+        {
+          "name": "?_Syserror_map@std@@YAPEBDH@Z"
+        },
+        {
+          "name": "??1?$basic_iostream@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_iostream@DU?$char_traits@D@std@@@std@@QEAA@PEAV?$basic_streambuf@DU?$char_traits@D@std@@@1@@Z"
+        },
+        {
+          "name": "?narrow@?$ctype@_W@std@@QEBAD_WD@Z"
+        },
+        {
+          "name": "?setw@std@@YA?AU?$_Smanip@_J@1@_J@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@K@Z"
+        },
+        {
+          "name": "?_Getcat@?$codecvt@_WDU_Mbstatet@@@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "??5?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@AEAM@Z"
+        },
+        {
+          "name": "??5?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@P6AAEAV01@AEAV01@@Z@Z"
+        },
+        {
+          "name": "?_Ipfx@?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAA_N_N@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@M@Z"
+        },
+        {
+          "name": "?snextc@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@QEAAGXZ"
+        },
+        {
+          "name": "?sgetc@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@QEAAGXZ"
+        },
+        {
+          "name": "?sbumpc@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@QEAAGXZ"
+        },
+        {
+          "name": "?xsputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JPEBD_J@Z"
+        },
+        {
+          "name": "?xsgetn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JPEAD_J@Z"
+        },
+        {
+          "name": "?uflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAHXZ"
+        },
+        {
+          "name": "?sync@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAHXZ"
+        },
+        {
+          "name": "?showmanyc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAA_JXZ"
+        },
+        {
+          "name": "?setbuf@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAPEAV12@PEAD_J@Z"
+        },
+        {
+          "name": "?imbue@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MEAAXAEBVlocale@2@@Z"
+        },
+        {
+          "name": "?_Unlock@?$basic_streambuf@DU?$char_traits@D@std@@@std@@UEAAXXZ"
+        },
+        {
+          "name": "?_Lock@?$basic_streambuf@DU?$char_traits@D@std@@@std@@UEAAXXZ"
+        },
+        {
+          "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@H@Z"
+        },
+        {
+          "name": "??1?$basic_ostream@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAA@PEAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z"
+        },
+        {
+          "name": "??0?$basic_ios@DU?$char_traits@D@std@@@std@@IEAA@XZ"
+        },
+        {
+          "name": "??1?$basic_ios@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "?epptr@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEBAPEA_WXZ"
+        },
+        {
+          "name": "?egptr@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEBAPEA_WXZ"
+        },
+        {
+          "name": "?pptr@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEBAPEA_WXZ"
+        },
+        {
+          "name": "?pbase@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEBAPEA_WXZ"
+        },
+        {
+          "name": "?gptr@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEBAPEA_WXZ"
+        },
+        {
+          "name": "?eback@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEBAPEA_WXZ"
+        },
+        {
+          "name": "?_Pninc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAAPEADXZ"
+        },
+        {
+          "name": "??1?$basic_streambuf@DU?$char_traits@D@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_streambuf@DU?$char_traits@D@std@@@std@@IEAA@XZ"
+        },
+        {
+          "name": "?wcout@std@@3V?$basic_ostream@_WU?$char_traits@_W@std@@@1@A"
+        },
+        {
+          "name": "?id@?$numpunct@_W@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?underflow@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAAGXZ"
+        },
+        {
+          "name": "?pbackfail@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAAGG@Z"
+        },
+        {
+          "name": "?overflow@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAAGG@Z"
+        },
+        {
+          "name": "?_Incref@facet@locale@std@@UEAAXXZ"
+        },
+        {
+          "name": "?_Decref@facet@locale@std@@UEAAPEAV_Facet_base@3@XZ"
+        },
+        {
+          "name": "?setprecision@std@@YA?AU?$_Smanip@_J@1@_J@Z"
+        },
+        {
+          "name": "?_Random_device@std@@YAIXZ"
+        },
+        {
+          "name": "??_D?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAXXZ"
+        },
+        {
+          "name": "?get@?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAGXZ"
+        },
+        {
+          "name": "??5?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@AEAN@Z"
+        },
+        {
+          "name": "??5?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@AEAI@Z"
+        },
+        {
+          "name": "??5?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@AEAH@Z"
+        },
+        {
+          "name": "??5?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@P6AAEAVios_base@1@AEAV21@@Z@Z"
+        },
+        {
+          "name": "??1?$basic_istream@_WU?$char_traits@_W@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_istream@_WU?$char_traits@_W@std@@@std@@QEAA@PEAV?$basic_streambuf@_WU?$char_traits@_W@std@@@1@_N@Z"
+        },
+        {
+          "name": "??_D?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAXXZ"
+        },
+        {
+          "name": "?tellp@?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAA?AV?$fpos@U_Mbstatet@@@2@XZ"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@PEAV?$basic_streambuf@_WU?$char_traits@_W@std@@@1@@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@N@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@_K@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@J@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@P6AAEAVios_base@1@AEAV21@@Z@Z"
+        },
+        {
+          "name": "??1?$basic_ostream@_WU?$char_traits@_W@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAA@PEAV?$basic_streambuf@_WU?$char_traits@_W@std@@@1@_N@Z"
+        },
+        {
+          "name": "?imbue@?$basic_ios@_WU?$char_traits@_W@std@@@std@@QEAA?AVlocale@2@AEBV32@@Z"
+        },
+        {
+          "name": "?clear@?$basic_ios@_WU?$char_traits@_W@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?in_avail@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@QEAA_JXZ"
+        },
+        {
+          "name": "?getloc@ios_base@std@@QEBA?AVlocale@2@XZ"
+        },
+        {
+          "name": "?precision@ios_base@std@@QEAA_J_J@Z"
+        },
+        {
+          "name": "?setf@ios_base@std@@QEAAHHH@Z"
+        },
+        {
+          "name": "?exceptions@ios_base@std@@QEAAXH@Z"
+        },
+        {
+          "name": "?widen@?$ctype@_W@std@@QEBA_WD@Z"
+        },
+        {
+          "name": "?toupper@?$ctype@_W@std@@QEBA_W_W@Z"
+        },
+        {
+          "name": "?tolower@?$ctype@_W@std@@QEBA_W_W@Z"
+        },
+        {
+          "name": "?classic@locale@std@@SAAEBV12@XZ"
+        },
+        {
+          "name": "??1facet@locale@std@@MEAA@XZ"
+        },
+        {
+          "name": "??0facet@locale@std@@IEAA@_K@Z"
+        },
+        {
+          "name": "?c_str@?$_Yarn@D@std@@QEBAPEBDXZ"
+        },
+        {
+          "name": "?_Gettrue@_Locinfo@std@@QEBAPEBDXZ"
+        },
+        {
+          "name": "?_Getfalse@_Locinfo@std@@QEBAPEBDXZ"
+        },
+        {
+          "name": "??0_Locinfo@std@@QEAA@PEBD@Z"
+        },
+        {
+          "name": "?uncaught_exceptions@std@@YAHXZ"
+        },
+        {
+          "name": "?is@?$ctype@_W@std@@QEBA_NF_W@Z"
+        },
+        {
+          "name": "?id@?$ctype@_W@std@@2V0locale@2@A"
+        },
+        {
+          "name": "?_Getcat@?$ctype@_W@std@@SA_KPEAPEBVfacet@locale@2@PEBV42@@Z"
+        },
+        {
+          "name": "?widen@?$ctype@_W@std@@QEBAPEBDPEBD0PEA_W@Z"
+        },
+        {
+          "name": "?_Getgloballocale@locale@std@@CAPEAV_Locimp@12@XZ"
+        },
+        {
+          "name": "?_Init@locale@std@@CAPEAV_Locimp@12@_N@Z"
+        },
+        {
+          "name": "?_Makeloc@_Locimp@locale@std@@CAPEAV123@AEBV_Locinfo@3@HPEAV123@PEBV23@@Z"
+        },
+        {
+          "name": "?_New_Locimp@_Locimp@locale@std@@CAPEAV123@_N@Z"
+        },
+        {
+          "name": "??Bid@locale@std@@QEAA_KXZ"
+        },
+        {
+          "name": "??4?$_Yarn@D@std@@QEAAAEAV01@PEBD@Z"
+        },
+        {
+          "name": "?_Getname@_Locinfo@std@@QEBAPEBDXZ"
+        },
+        {
+          "name": "??1_Locinfo@std@@QEAA@XZ"
+        },
+        {
+          "name": "??0_Locinfo@std@@QEAA@HPEBD@Z"
+        },
+        {
+          "name": "?_Xruntime_error@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "??1_Lockit@std@@QEAA@XZ"
+        },
+        {
+          "name": "??0_Lockit@std@@QEAA@H@Z"
+        },
+        {
+          "name": "?xsputn@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAA_JPEB_W_J@Z"
+        },
+        {
+          "name": "?xsgetn@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAA_JPEA_W_J@Z"
+        },
+        {
+          "name": "?uflow@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAAGXZ"
+        },
+        {
+          "name": "?sync@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAAHXZ"
+        },
+        {
+          "name": "?showmanyc@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAA_JXZ"
+        },
+        {
+          "name": "?setbuf@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAAPEAV12@PEA_W_J@Z"
+        },
+        {
+          "name": "?imbue@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAAXAEBVlocale@2@@Z"
+        },
+        {
+          "name": "?_Unlock@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@UEAAXXZ"
+        },
+        {
+          "name": "?_Lock@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@UEAAXXZ"
+        },
+        {
+          "name": "??1?$basic_iostream@_WU?$char_traits@_W@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_iostream@_WU?$char_traits@_W@std@@@std@@QEAA@PEAV?$basic_streambuf@_WU?$char_traits@_W@std@@@1@@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@I@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@H@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@G@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@F@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@_N@Z"
+        },
+        {
+          "name": "??0?$basic_ios@_WU?$char_traits@_W@std@@@std@@IEAA@XZ"
+        },
+        {
+          "name": "??1?$basic_ios@_WU?$char_traits@_W@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "?_Pninc@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEAAPEA_WXZ"
+        },
+        {
+          "name": "??1?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@UEAA@XZ"
+        },
+        {
+          "name": "??0?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEAA@XZ"
+        },
+        {
+          "name": "?cout@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A"
+        },
+        {
+          "name": "?cerr@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A"
+        },
+        {
+          "name": "?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@XZ"
+        },
+        {
+          "name": "?put@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@D@Z"
+        },
+        {
+          "name": "?getloc@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@QEBA?AVlocale@2@XZ"
+        },
+        {
+          "name": "?in@?$codecvt@_WDU_Mbstatet@@@std@@QEBAHAEAU_Mbstatet@@PEBD1AEAPEBDPEA_W3AEAPEA_W@Z"
+        },
+        {
+          "name": "?_Xbad_function_call@std@@YAXXZ"
+        },
+        {
+          "name": "?_Xinvalid_argument@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "?wcerr@std@@3V?$basic_ostream@_WU?$char_traits@_W@std@@@1@A"
+        },
+        {
+          "name": "?flush@?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV12@XZ"
+        },
+        {
+          "name": "?put@?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV12@_W@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAAEAV01@P6AAEAV01@AEAV01@@Z@Z"
+        },
+        {
+          "name": "?_Osfx@?$basic_ostream@_WU?$char_traits@_W@std@@@std@@QEAAXXZ"
+        },
+        {
+          "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@P6AAEAV01@AEAV01@@Z@Z"
+        },
+        {
+          "name": "?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAXXZ"
+        },
+        {
+          "name": "?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBADD@Z"
+        },
+        {
+          "name": "?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAA_JPEBD_J@Z"
+        },
+        {
+          "name": "?sputc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAHD@Z"
+        },
+        {
+          "name": "?widen@?$basic_ios@_WU?$char_traits@_W@std@@@std@@QEBA_WD@Z"
+        },
+        {
+          "name": "?setstate@?$basic_ios@_WU?$char_traits@_W@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?sputn@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@QEAA_JPEB_W_J@Z"
+        },
+        {
+          "name": "?_Init@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@IEAAXXZ"
+        },
+        {
+          "name": "?seekp@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@_JH@Z"
+        },
+        {
+          "name": "?set_new_handler@std@@YAP6AXXZP6AXXZ@Z"
+        },
+        {
+          "name": "?setf@ios_base@std@@QEAAHH@Z"
+        },
+        {
+          "name": "?sputc@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@QEAAG_W@Z"
+        },
+        {
+          "name": "?_Getcvt@_Locinfo@std@@QEBA?AU_Cvtvec@@XZ"
+        },
+        {
+          "name": "_Mbrtowc"
+        },
+        {
+          "name": "?_Xlength_error@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "?_Xout_of_range@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "?uncaught_exception@std@@YA_NXZ"
+        },
+        {
+          "name": "?do_get@?$num_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MEBA?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AEAVios_base@2@AEAHAEAJ@Z"
+        },
+        {
+          "name": "?_Xbad_alloc@std@@YAXXZ"
+        }
+      ]
+    },
+    {
+      "dll": "bcrypt.dll",
+      "symbols": [
+        {
+          "name": "BCryptGenRandom"
+        }
+      ]
+    },
+    {
+      "dll": "gdiplus.dll",
+      "symbols": [
+        {
+          "name": "GdipGetImageVerticalResolution"
+        },
+        {
+          "name": "GdipGetImageHorizontalResolution"
+        },
+        {
+          "name": "GdipCreateFromHDC"
+        },
+        {
+          "name": "GdipDeleteGraphics"
+        },
+        {
+          "name": "GdipGetImageHeight"
+        },
+        {
+          "name": "GdipGetImageWidth"
+        },
+        {
+          "name": "GdipDisposeImage"
+        },
+        {
+          "name": "GdipGetDpiY"
+        },
+        {
+          "name": "GdipCloneImage"
+        },
+        {
+          "name": "GdiplusShutdown"
+        },
+        {
+          "name": "GdipCreateFontFamilyFromName"
+        },
+        {
+          "name": "GdipDeleteFontFamily"
+        },
+        {
+          "name": "GdiplusStartup"
+        },
+        {
+          "name": "GdipGetGenericFontFamilySansSerif"
+        },
+        {
+          "name": "GdipCreateFont"
+        },
+        {
+          "name": "GdipDeleteFont"
+        },
+        {
+          "name": "GdipMeasureString"
+        },
+        {
+          "name": "GdipCreateBitmapFromFile"
+        },
+        {
+          "name": "GdipGetDpiX"
+        },
+        {
+          "name": "GdipAlloc"
+        },
+        {
+          "name": "GdipFree"
+        }
+      ]
+    },
+    {
+      "dll": "GDI32.dll",
+      "symbols": [
+        {
+          "name": "TranslateCharsetInfo"
+        }
+      ]
+    },
+    {
+      "dll": "SHLWAPI.dll",
+      "symbols": [
+        {
+          "name": "PathIsDirectoryW"
+        }
+      ]
+    },
+    {
+      "dll": "ole32.dll",
+      "symbols": [
+        {
+          "name": "StringFromCLSID"
+        },
+        {
+          "name": "CoCreateGuid"
+        },
+        {
+          "name": "CLSIDFromProgID"
+        },
+        {
+          "name": "CoTaskMemFree"
+        },
+        {
+          "name": "StringFromGUID2"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "symbols": [
+        {
+          "name": "LoadStringW"
+        },
+        {
+          "name": "GetWindowDC"
+        },
+        {
+          "name": "GetSysColor"
+        }
+      ]
+    },
+    {
+      "dll": "KERNEL32.dll",
+      "symbols": [
+        {
+          "name": "DeleteCriticalSection"
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount"
+        },
+        {
+          "name": "LeaveCriticalSection"
+        },
+        {
+          "name": "EnterCriticalSection"
+        },
+        {
+          "name": "Sleep"
+        },
+        {
+          "name": "GetUserDefaultLCID"
+        },
+        {
+          "name": "LCMapStringW"
+        },
+        {
+          "name": "GetStringTypeExW"
+        },
+        {
+          "name": "LoadLibraryA"
+        },
+        {
+          "name": "FreeLibrary"
+        },
+        {
+          "name": "GetThreadTimes"
+        },
+        {
+          "name": "GetCurrentThread"
+        },
+        {
+          "name": "QueryPerformanceFrequency"
+        },
+        {
+          "name": "QueryPerformanceCounter"
+        },
+        {
+          "name": "SetLastError"
+        },
+        {
+          "name": "ResetEvent"
+        },
+        {
+          "name": "GetLocaleInfoW"
+        },
+        {
+          "name": "SetInformationJobObject"
+        },
+        {
+          "name": "AssignProcessToJobObject"
+        },
+        {
+          "name": "CreateJobObjectW"
+        },
+        {
+          "name": "GetSystemInfo"
+        },
+        {
+          "name": "GetCurrentProcess"
+        },
+        {
+          "name": "CloseHandle"
+        },
+        {
+          "name": "RtlCaptureContext"
+        },
+        {
+          "name": "RtlLookupFunctionEntry"
+        },
+        {
+          "name": "RtlVirtualUnwind"
+        },
+        {
+          "name": "UnhandledExceptionFilter"
+        },
+        {
+          "name": "SetUnhandledExceptionFilter"
+        },
+        {
+          "name": "TerminateProcess"
+        },
+        {
+          "name": "IsProcessorFeaturePresent"
+        },
+        {
+          "name": "IsDebuggerPresent"
+        },
+        {
+          "name": "GetCurrentProcessId"
+        },
+        {
+          "name": "SetEvent"
+        },
+        {
+          "name": "WaitForSingleObjectEx"
+        },
+        {
+          "name": "CreateEventW"
+        },
+        {
+          "name": "GetModuleHandleW"
+        },
+        {
+          "name": "GetProcAddress"
+        },
+        {
+          "name": "GetLastError"
+        },
+        {
+          "name": "GetSystemTimeAsFileTime"
+        },
+        {
+          "name": "InitializeSListHead"
+        },
+        {
+          "name": "GetCurrentThreadId"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140.dll",
+      "symbols": [
+        {
+          "name": "__current_exception"
+        },
+        {
+          "name": "__current_exception_context"
+        },
+        {
+          "name": "__C_specific_handler"
+        },
+        {
+          "name": "strchr"
+        },
+        {
+          "name": "__std_type_info_name"
+        },
+        {
+          "name": "strstr"
+        },
+        {
+          "name": "__std_exception_copy"
+        },
+        {
+          "name": "__std_exception_destroy"
+        },
+        {
+          "name": "_CxxThrowException"
+        },
+        {
+          "name": "__RTtypeid"
+        },
+        {
+          "name": "memchr"
+        },
+        {
+          "name": "memcmp"
+        },
+        {
+          "name": "memcpy"
+        },
+        {
+          "name": "memmove"
+        },
+        {
+          "name": "memset"
+        },
+        {
+          "name": "__std_terminate"
+        },
+        {
+          "name": "_purecall"
+        },
+        {
+          "name": "__std_type_info_compare"
+        },
+        {
+          "name": "__RTDynamicCast"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140_1.dll",
+      "symbols": [
+        {
+          "name": "__CxxFrameHandler4"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-runtime-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_initialize_wide_environment"
+        },
+        {
+          "name": "_set_app_type"
+        },
+        {
+          "name": "_seh_filter_exe"
+        },
+        {
+          "name": "_cexit"
+        },
+        {
+          "name": "_get_initial_wide_environment"
+        },
+        {
+          "name": "_crt_atexit"
+        },
+        {
+          "name": "_register_onexit_function"
+        },
+        {
+          "name": "_initialize_onexit_table"
+        },
+        {
+          "name": "terminate"
+        },
+        {
+          "name": "_initterm"
+        },
+        {
+          "name": "_initterm_e"
+        },
+        {
+          "name": "exit"
+        },
+        {
+          "name": "_exit"
+        },
+        {
+          "name": "_register_thread_local_exe_atexit_callback"
+        },
+        {
+          "name": "_c_exit"
+        },
+        {
+          "name": "__p___wargv"
+        },
+        {
+          "name": "__p___argc"
+        },
+        {
+          "name": "_invalid_parameter_noinfo_noreturn"
+        },
+        {
+          "name": "_errno"
+        },
+        {
+          "name": "_invalid_parameter_noinfo"
+        },
+        {
+          "name": "_configure_wide_argv"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-string-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "iswdigit"
+        },
+        {
+          "name": "ispunct"
+        },
+        {
+          "name": "strcmp"
+        },
+        {
+          "name": "isdigit"
+        },
+        {
+          "name": "toupper"
+        },
+        {
+          "name": "towupper"
+        },
+        {
+          "name": "towlower"
+        },
+        {
+          "name": "strncmp"
+        },
+        {
+          "name": "isspace"
+        },
+        {
+          "name": "tolower"
+        },
+        {
+          "name": "iswspace"
+        },
+        {
+          "name": "iswalpha"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-heap-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "free"
+        },
+        {
+          "name": "_set_new_mode"
+        },
+        {
+          "name": "_callnewh"
+        },
+        {
+          "name": "realloc"
+        },
+        {
+          "name": "malloc"
+        },
+        {
+          "name": "calloc"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-convert-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "strtol"
+        },
+        {
+          "name": "atoi"
+        },
+        {
+          "name": "strtoul"
+        },
+        {
+          "name": "wcstol"
+        },
+        {
+          "name": "_gcvt"
+        },
+        {
+          "name": "_itow_s"
+        },
+        {
+          "name": "wcstod"
+        },
+        {
+          "name": "wcstoull"
+        },
+        {
+          "name": "_itoa_s"
+        },
+        {
+          "name": "wcstoll"
+        },
+        {
+          "name": "wcstoul"
+        },
+        {
+          "name": "wcstold"
+        },
+        {
+          "name": "atof"
+        },
+        {
+          "name": "atol"
+        },
+        {
+          "name": "_wtof"
+        },
+        {
+          "name": "_wtoi"
+        },
+        {
+          "name": "_wtol"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-math-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "floor"
+        },
+        {
+          "name": "tan"
+        },
+        {
+          "name": "fmod"
+        },
+        {
+          "name": "cos"
+        },
+        {
+          "name": "sin"
+        },
+        {
+          "name": "sqrt"
+        },
+        {
+          "name": "ceil"
+        },
+        {
+          "name": "round"
+        },
+        {
+          "name": "atan2"
+        },
+        {
+          "name": "atan"
+        },
+        {
+          "name": "asin"
+        },
+        {
+          "name": "ceilf"
+        },
+        {
+          "name": "pow"
+        },
+        {
+          "name": "_dclass"
+        },
+        {
+          "name": "__setusermatherr"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-stdio-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "fputwc"
+        },
+        {
+          "name": "ungetwc"
+        },
+        {
+          "name": "__stdio_common_vswprintf"
+        },
+        {
+          "name": "fgetwc"
+        },
+        {
+          "name": "__stdio_common_vswprintf_s"
+        },
+        {
+          "name": "__stdio_common_vswscanf"
+        },
+        {
+          "name": "fread"
+        },
+        {
+          "name": "ftell"
+        },
+        {
+          "name": "__p__commode"
+        },
+        {
+          "name": "rewind"
+        },
+        {
+          "name": "_set_fmode"
+        },
+        {
+          "name": "ungetc"
+        },
+        {
+          "name": "setvbuf"
+        },
+        {
+          "name": "fwrite"
+        },
+        {
+          "name": "_fseeki64"
+        },
+        {
+          "name": "fsetpos"
+        },
+        {
+          "name": "fputc"
+        },
+        {
+          "name": "fgetpos"
+        },
+        {
+          "name": "fgetc"
+        },
+        {
+          "name": "fflush"
+        },
+        {
+          "name": "fclose"
+        },
+        {
+          "name": "_get_stream_buffer_pointers"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-locale-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_configthreadlocale"
+        },
+        {
+          "name": "localeconv"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-utility-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "rand"
+        },
+        {
+          "name": "srand"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-time-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_mktime64"
+        },
+        {
+          "name": "_time64"
+        },
+        {
+          "name": "_localtime64"
+        },
+        {
+          "name": "clock"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_unlock_file"
+        },
+        {
+          "name": "_lock_file"
+        }
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "name": "??0CDjVuFile@@QEAA@AEBV0@@Z",
+      "ordinal": 1,
+      "rva": 878160,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0COFDFile@@QEAA@AEBV0@@Z",
+      "ordinal": 2,
+      "rva": 878224,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CPdfFile@@QEAA@AEBV0@@Z",
+      "ordinal": 3,
+      "rva": 878288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CXpsFile@@QEAA@AEBV0@@Z",
+      "ordinal": 4,
+      "rva": 878816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CDjVuFile@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 5,
+      "rva": 884768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4COFDFile@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 6,
+      "rva": 884768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CPdfFile@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 7,
+      "rva": 884816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CXpsFile@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 8,
+      "rva": 884768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??_7CDjVuFile@@6B@",
+      "ordinal": 9,
+      "rva": 29588040,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7COFDFile@@6B@",
+      "ordinal": 10,
+      "rva": 29589440,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CPdfFile@@6BIOfficeDrawingFile@@@",
+      "ordinal": 11,
+      "rva": 29588184,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CPdfFile@@6BIRenderer@@@",
+      "ordinal": 12,
+      "rva": 29588328,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CXpsFile@@6B@",
+      "ordinal": 13,
+      "rva": 29589296,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    }
+  ],
+  "source_relative_path": "converter/x2t.exe",
+  "full_archive_sha256_verified": "54979d04f1cdca56deb0c62e0356355a45f392cdb54f04f6b7e436b1f44c3605"
+}

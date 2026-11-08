@@ -1,0 +1,114 @@
+{
+  "buildtools": {
+    "path": "buildtools",
+    "url": "https://chromium.googlesource.com/chromium/src/buildtools.git",
+    "commit": "235cfe435ca5a9826569ee4ef603e226216bd768",
+    "status": "checked_out",
+    "at": "2026-11-02T10:41:55.000583+00:00"
+  },
+  "build": {
+    "path": "build",
+    "url": "https://chromium.googlesource.com/chromium/src/build.git",
+    "commit": "d5995537211ebc4d1bc37f215c25fa3781ba9d6e",
+    "status": "checked_out",
+    "at": "2026-11-02T10:41:56.307737+00:00"
+  },
+  "third_party/markupsafe": {
+    "path": "third_party/markupsafe",
+    "url": "https://chromium.googlesource.com/chromium/src/third_party/markupsafe.git",
+    "commit": "0944e71f4b2cb9a871bcbe353f95e889b64a611a",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:00.040917+00:00"
+  },
+  "third_party/jinja2": {
+    "path": "third_party/jinja2",
+    "url": "https://chromium.googlesource.com/chromium/src/third_party/jinja2.git",
+    "commit": "11b6b3e5971d760bd2d310f77643f55a818a6d25",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:00.326815+00:00"
+  },
+  "third_party/depot_tools": {
+    "path": "third_party/depot_tools",
+    "url": "https://chromium.googlesource.com/chromium/tools/depot_tools.git",
+    "commit": "82b992a1656d7d1cd0ee3cbea8ff609ffdfed380",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:02.563148+00:00"
+  },
+  "tools/clang": {
+    "path": "tools/clang",
+    "url": "https://chromium.googlesource.com/chromium/src/tools/clang.git",
+    "commit": "2246bee280e908ac1fd27ab75e7d0021b14d875c",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:23.561204+00:00"
+  },
+  "third_party/perfetto": {
+    "path": "third_party/perfetto",
+    "url": "https://android.googlesource.com/platform/external/perfetto.git",
+    "commit": "7cdc44f903d3bcfd1d0f67188bfa797a24756868",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:29.024124+00:00"
+  },
+  "third_party/icu": {
+    "path": "third_party/icu",
+    "url": "https://chromium.googlesource.com/chromium/deps/icu.git",
+    "commit": "899e18383fd732b47e6978db2b960a1b2a80179b",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:32.562662+00:00"
+  },
+  "third_party/zlib": {
+    "path": "third_party/zlib",
+    "url": "https://chromium.googlesource.com/chromium/src/third_party/zlib.git",
+    "commit": "2c183c9f93a328bfb3121284da13cf89a0f7e64a",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:33.661277+00:00"
+  },
+  "third_party/protobuf": {
+    "path": "third_party/protobuf",
+    "url": "https://chromium.googlesource.com/external/github.com/google/protobuf",
+    "commit": "b68a347f56137b4b1a746e8c7438495a6ac1bd91",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:35.874474+00:00"
+  },
+  "base/trace_event/common": {
+    "path": "base/trace_event/common",
+    "url": "https://chromium.googlesource.com/chromium/src/base/trace_event/common.git",
+    "commit": "eb94f1c7aa96207f469008f29989a43feb2718f8",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:39.170744+00:00"
+  },
+  "third_party/jsoncpp/source": {
+    "path": "third_party/jsoncpp/source",
+    "url": "https://chromium.googlesource.com/external/github.com/open-source-parsers/jsoncpp.git",
+    "commit": "9059f5cad030ba11d37818847443a53918c327b1",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:39.866543+00:00"
+  },
+  "third_party/googletest/src": {
+    "path": "third_party/googletest/src",
+    "url": "https://chromium.googlesource.com/external/github.com/google/googletest.git",
+    "commit": "1b0cdaae57c046c87fb99cb4f69c312a7e794adb",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:41.192290+00:00"
+  },
+  "buildtools/third_party/libunwind/trunk": {
+    "path": "buildtools/third_party/libunwind/trunk",
+    "url": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git",
+    "commit": "d999d54f4bca789543a2eb6c995af2d9b5a1f3ed",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:44.420993+00:00"
+  },
+  "buildtools/third_party/libc++abi/trunk": {
+    "path": "buildtools/third_party/libc++abi/trunk",
+    "url": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git",
+    "commit": "196ba1aaa8ac285d94f4ea8d9836390a45360533",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:45.902078+00:00"
+  },
+  "buildtools/third_party/libc++/trunk": {
+    "path": "buildtools/third_party/libc++/trunk",
+    "url": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git",
+    "commit": "d9040c75cfea5928c804ab7c235fed06a63f743a",
+    "status": "checked_out",
+    "at": "2026-11-02T10:42:51.739000+00:00"
+  }
+}

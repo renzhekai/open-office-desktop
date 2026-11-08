@@ -1,0 +1,67 @@
+{
+  "repositories": [
+    {
+      "name": "DesktopEditors",
+      "path": "D:\\open office\\upstream\\DesktopEditors",
+      "commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "tracked_file_count": 18,
+      "tracked_status": []
+    },
+    {
+      "name": "build_tools",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+      "commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "tracked_file_count": 157,
+      "tracked_status": [
+        " M configure.py",
+        " M scripts/config.py",
+        " M scripts/qmake.py"
+      ]
+    },
+    {
+      "name": "core",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\core",
+      "commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+      "tracked_file_count": 21117,
+      "tracked_status": []
+    },
+    {
+      "name": "desktop-apps",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\desktop-apps",
+      "commit": "332c1905a5361dd4139481827b7ad4f4a9facd85",
+      "tracked_file_count": 3375,
+      "tracked_status": []
+    },
+    {
+      "name": "desktop-sdk",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\desktop-sdk",
+      "commit": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11",
+      "tracked_file_count": 6583,
+      "tracked_status": []
+    },
+    {
+      "name": "dictionaries",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\dictionaries",
+      "commit": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+      "tracked_file_count": 319,
+      "tracked_status": []
+    },
+    {
+      "name": "web-apps",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\web-apps",
+      "commit": "f79972a400c3a696490094961772d1f86fac1b82",
+      "tracked_file_count": 33000,
+      "tracked_status": []
+    },
+    {
+      "name": "sdkjs",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\sdkjs",
+      "commit": "9d2138866d929be32f1d107e8b5bfae36156e097",
+      "tracked_file_count": 1097,
+      "tracked_status": []
+    }
+  ],
+  "editor_integrated": false,
+  "full_build_dependencies_verified": false,
+  "checked_at_utc": "2026-11-01T09:19:33.0737784Z"
+}

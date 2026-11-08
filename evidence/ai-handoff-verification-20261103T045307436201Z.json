@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-11-03T04:53:07.436201+00:00",
+  "verified_utc": "2026-11-03T04:53:07.451550+00:00",
+  "document": {
+    "path": "D:\\open office\\Open_Office_AI接手文档.md",
+    "bytes": 43285,
+    "sha256": "67136086804c69e72bb2f7c814e65b86932b0c75bb15abe607437f4c41f48e19"
+  },
+  "requirements": {
+    "path": "D:\\open office\\requirements.md",
+    "bytes": 14275,
+    "lines": 212,
+    "sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+    "encoding": "utf-8",
+    "crlf_count": 0,
+    "lf_count": 212
+  },
+  "appendix": {
+    "offset_bytes": 28964,
+    "length_bytes": 14275,
+    "sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff"
+  },
+  "checks": {
+    "saved_file_matches_generated_bytes": true,
+    "appendix_matches_read_requirements_bytes": true,
+    "appendix_matches_current_requirements_bytes": true,
+    "requirements_unchanged": true,
+    "utf8_decodes_without_replacement": true,
+    "no_unresolved_timestamp_placeholder": true,
+    "all_evidence_inputs_present": true
+  },
+  "all_checks_passed": true,
+  "source_inputs": [
+    {
+      "path": "requirements.md",
+      "bytes": 14275,
+      "sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+      "read_utc": "2026-11-03T04:53:07.436971+00:00"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4767,
+      "sha256": "0d557e140330782aad10b8cfe1a36b2ac48dd7216bab93eda202b8ce64edeea0",
+      "read_utc": "2026-11-03T04:53:07.437114+00:00"
+    },
+    {
+      "path": "TASK.md",
+      "bytes": 8789,
+      "sha256": "e846a975888f2adfd9255841adb345098d4298db75f74acf33045726a4f7af5c",
+      "read_utc": "2026-11-03T04:53:07.437239+00:00"
+    },
+    {
+      "path": "sources.lock.json",
+      "bytes": 3799,
+      "sha256": "e2bddfeef79cf14bdd9b71ad467d537567c77f404dff5ba5ae80725489e2f069",
+      "read_utc": "2026-11-03T04:53:07.437401+00:00"
+    },
+    {
+      "path": "docs/feasibility/STATUS.md",
+      "bytes": 11897,
+      "sha256": "d32c4119c0e30172a51f5d81f3bae02ad5593fedad42f7df1c41656fd1a74e23",
+      "read_utc": "2026-11-03T04:53:07.437646+00:00"
+    },
+    {
+      "path": "docs/feasibility/full-source-progress.md",
+      "bytes": 4319,
+      "sha256": "7a6732dac8f2c473fe583490774f7eb8d788af19cd57f18ad7e568ba70195e17",
+      "read_utc": "2026-11-03T04:53:07.437931+00:00"
+    },
+    {
+      "path": "docs/feasibility/full-source-runtime-staging.md",
+      "bytes": 4275,
+      "sha256": "c0243bdb805cf27353d8caa6c382930c73091c56dcee1f2d891f809374047fb0",
+      "read_utc": "2026-11-03T04:53:07.438103+00:00"
+    },
+    {
+      "path": "docs/feasibility/full-source-wasm-provenance.md",
+      "bytes": 14684,
+      "sha256": "435fbb325aae8573ae0a978e2f7dfc8573325cdd660bd32b53600e3cab294779",
+      "read_utc": "2026-11-03T04:53:07.438228+00:00"
+    },
+    {
+      "path": "docs/feasibility/licensing-and-features.md",
+      "bytes": 6017,
+      "sha256": "207d92e4e0373df1975c0bfd57ec147d03632a62f8878bf58f8ed9cd4905ffd4",
+      "read_utc": "2026-11-03T04:53:07.438466+00:00"
+    },
+    {
+      "path": "docs/feasibility/editor-interfaces.md",
+      "bytes": 11301,
+      "sha256": "ad3822570df3b9d52b9831d9f269ee49a527da908f51e22a20ae8e8ee0146f57",
+      "read_utc": "2026-11-03T04:53:07.438602+00:00"
+    },
+    {
+      "path": "evidence/full-source-build-status.json",
+      "bytes": 3180,
+      "sha256": "8a818db708adf3e89525b22c933124553b5d7c0103d3207b2958c8a456a50074",
+      "read_utc": "2026-11-03T04:53:07.438742+00:00"
+    },
+    {
+      "path": "evidence/full-source-checkpoint-current.json",
+      "bytes": 1224,
+      "sha256": "77b5163711d67624bd7d49a730505c31fa3824d06101f8fac5122d21aeebc311",
+      "read_utc": "2026-11-03T04:53:07.438870+00:00"
+    },
+    {
+      "path": "evidence/full-source-docx-roundtrip-result.json",
+      "bytes": 7137,
+      "sha256": "2accb6546e11b009d4fa32aa543c49932318d6345dd9ec932259576da70d909e",
+      "read_utc": "2026-11-03T04:53:07.439003+00:00"
+    },
+    {
+      "path": "evidence/full-source-docx-saved-semantics.json",
+      "bytes": 1484,
+      "sha256": "0ebc548868ddf71928afe3ade3d0e55c418e329492006ee64c579dd8a2692b0c",
+      "read_utc": "2026-11-03T04:53:07.439125+00:00"
+    },
+    {
+      "path": "evidence/full-source-runtime-probe-pass1.json",
+      "bytes": 59429,
+      "sha256": "51e63b3d71abaab50c933d7d1c0f2f938b0622f44099260db9275236f900f19f",
+      "read_utc": "2026-11-03T04:53:07.439275+00:00"
+    },
+    {
+      "path": "evidence/full-source-wasm-provenance.json",
+      "bytes": 150735,
+      "sha256": "6a241d06deb5498997991a9ee24a4f55c1e47de8213a1de6b7d533a85f8f5067",
+      "read_utc": "2026-11-03T04:53:07.439587+00:00"
+    },
+    {
+      "path": "evidence/full-source-wasm-upstream-recheck.json",
+      "bytes": 2145,
+      "sha256": "d8d01c9f962f1c06a26d4a6f872952e6814322e2227feb3191e86b30dc36b4c2",
+      "read_utc": "2026-11-03T04:53:07.439708+00:00"
+    },
+    {
+      "path": "evidence/full-source-patches-final/README.md",
+      "bytes": 3682,
+      "sha256": "bf5e9354452245fa7e77c525d5e969f2e552191fe979eb49c2593e9810f19f39",
+      "read_utc": "2026-11-03T04:53:07.439836+00:00"
+    },
+    {
+      "path": "evidence/full-source-patches-final/manifest.json",
+      "bytes": 67691,
+      "sha256": "a45b5db26c0535f19cbba727f09d90112aa9fab1083c15de974c4104f3e6e192",
+      "read_utc": "2026-11-03T04:53:07.440005+00:00"
+    },
+    {
+      "path": "evidence/full-source-gui/default-home/result.json",
+      "bytes": 643,
+      "sha256": "06423c20808102c7556bd849f667f7dc1ce06fcd9afdc25cb8bb756038f62e32",
+      "read_utc": "2026-11-03T04:53:07.440125+00:00"
+    },
+    {
+      "path": "evidence/full-source-gui/final-process-check.json",
+      "bytes": 103,
+      "sha256": "47aefd4ff9dfe1bc106b16026be4cf48f0bd2187f065371566e59adf8e3944be",
+      "read_utc": "2026-11-03T04:53:07.440238+00:00"
+    },
+    {
+      "path": "app/engine/office_engine.h",
+      "bytes": 3409,
+      "sha256": "4b4b55a2d15760fff67147f68e0591431642afd5dcb1d43b42a716cb8df4478d",
+      "read_utc": "2026-11-03T04:53:07.440363+00:00"
+    },
+    {
+      "path": "scripts/verify_full_source_docx_sample.py",
+      "bytes": 1505,
+      "sha256": "a2e919671149bfb31e2af7ce2a9793cb786e6b49cd4ce13f20065fb2fc73b0ea",
+      "read_utc": "2026-11-03T04:53:07.440496+00:00"
+    }
+  ],
+  "scope": "Documentation only; no build, application launch, source modification, installation, cleanup, or Library writeback."
+}

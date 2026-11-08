@@ -1,0 +1,9 @@
+{
+  "package": "gn/gn/windows-amd64",
+  "version": "git_revision:595e3be7c8381d4eeefce62a63ec12bae9ce5140",
+  "version_output": "1877 (595e3be7)",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools\\win\\gn.exe",
+  "size": 2419200,
+  "sha256": "948fc082d3af849528de18dbc2b78d701513b5384ebcb630da3545979b4bf907",
+  "cipd_receipt": "D:\\open office\\build\\full-source\\v8-evidence\\gn-cipd.json"
+}

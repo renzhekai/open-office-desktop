@@ -1,0 +1,42 @@
+{
+  "name": "dep-graphics-harfbuzz",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\harfbuzz\\harfbuzz",
+  "pin": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:08.441973+00:00",
+  "head": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/harfbuzz/harfbuzz.git",
+  "patch": {
+    "path": "patches/dep-graphics-harfbuzz.patch",
+    "size": 2810,
+    "sha256": "105617cf11833a1adcc35cbf0d22e1a82cc3ef434aa9b57af2646d2370efc110"
+  },
+  "head_file": {
+    "path": "heads/dep-graphics-harfbuzz.txt",
+    "size": 41,
+    "sha256": "9846dfbcf9ab887855c6edcc21b0bd9f35b1f8c634a00aafcc6af8298eea3eb4"
+  },
+  "changed_files": [
+    {
+      "path": "src/hb-ft.cc",
+      "state": "file",
+      "size": 45516,
+      "sha256": "58891395182d04a33dc6b4ed3f3f84b6610070921e607f9e33989cc3211d190b"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:11.154442+00:00"
+}

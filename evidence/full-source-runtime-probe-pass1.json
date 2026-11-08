@@ -1,0 +1,1615 @@
+{
+  "schema_version": 1,
+  "run_id": "c742bd4721064041baa2229f3d21e97c",
+  "started_at_utc": "2026-11-02T11:38:38.124098+00:00",
+  "status": "loader_passed_functional_regression_not_run",
+  "manifest": "D:\\open office\\build\\full-source-run\\openoffice-full-source-stage.json",
+  "runtime": "D:\\open office\\build\\full-source-run",
+  "loader_passed": true,
+  "functional_regression_executed": false,
+  "docx_roundtrip_verified": false,
+  "scope": "DLL loading and origin audit only; Python bootstrap DLLs are explicitly separate from tested engine DLLs",
+  "manifest_sha256": "f9def13e1a016375dbd1efc41d4b91889757f8efecceedbeda60951fcee97cf0",
+  "application_state": "engine-only/incomplete-app",
+  "validated_dll_count": 76,
+  "target_count": 21,
+  "load_attempts": [
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\UnicodeConverter.dll",
+      "expected_sha256": "024a9cc234dbabde437c6895e11a4f2cb3227ccc905fcad76323ad0207b58edc",
+      "imports": [
+        "icuuc74.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:41.116178+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\UnicodeConverter.dll",
+      "sha256": "024a9cc234dbabde437c6895e11a4f2cb3227ccc905fcad76323ad0207b58edc"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\kernel.dll",
+      "expected_sha256": "54cea0f52d217ba9ebb5bb8b20c5721b79a16a42a2bb293b4a802f78a538aa8f",
+      "imports": [
+        "bcrypt.dll",
+        "UnicodeConverter.dll",
+        "RPCRT4.dll",
+        "SHELL32.dll",
+        "ole32.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:42.282023+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\kernel.dll",
+      "sha256": "54cea0f52d217ba9ebb5bb8b20c5721b79a16a42a2bb293b4a802f78a538aa8f"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\graphics.dll",
+      "expected_sha256": "5c8cff1e4b449a2f1ad65189c7e63a899f0cc9b39adbad8e8a480e6b422c1fa9",
+      "imports": [
+        "UnicodeConverter.dll",
+        "kernel.dll",
+        "ADVAPI32.dll",
+        "SHELL32.dll",
+        "MSVCP140.dll",
+        "WS2_32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:43.090455+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\graphics.dll",
+      "sha256": "5c8cff1e4b449a2f1ad65189c7e63a899f0cc9b39adbad8e8a480e6b422c1fa9"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\kernel_network.dll",
+      "expected_sha256": "6e2827b23873e40a1979fb3b5f4980b18de6564bd835484cac9b8b6dc9decbb5",
+      "imports": [
+        "urlmon.dll",
+        "kernel.dll",
+        "MSVCP140.dll",
+        "WS2_32.dll",
+        "MSWSOCK.dll",
+        "ole32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:44.011474+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\kernel_network.dll",
+      "sha256": "6e2827b23873e40a1979fb3b5f4980b18de6564bd835484cac9b8b6dc9decbb5"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\PdfFile.dll",
+      "expected_sha256": "177bed9a39812a8ea23a6c4f5d3d59a953839aa549253a25d1f70327d0de9271",
+      "imports": [
+        "graphics.dll",
+        "kernel.dll",
+        "UnicodeConverter.dll",
+        "kernel_network.dll",
+        "ADVAPI32.dll",
+        "ole32.dll",
+        "MSVCP140.dll",
+        "bcrypt.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:45.592574+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\PdfFile.dll",
+      "sha256": "177bed9a39812a8ea23a6c4f5d3d59a953839aa549253a25d1f70327d0de9271"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\XpsFile.dll",
+      "expected_sha256": "62f9afed4b0fd7653a26b281698a1758b9c4d160f7131234b4d6a38d812402fb",
+      "imports": [
+        "graphics.dll",
+        "kernel.dll",
+        "PdfFile.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:47.219654+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\XpsFile.dll",
+      "sha256": "62f9afed4b0fd7653a26b281698a1758b9c4d160f7131234b4d6a38d812402fb"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\DjVuFile.dll",
+      "expected_sha256": "db4248c6653b913d45985ad3d3f8a9f1726947eb85e4db790185c665da07d3c9",
+      "imports": [
+        "graphics.dll",
+        "kernel.dll",
+        "PdfFile.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:48.757943+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\DjVuFile.dll",
+      "sha256": "db4248c6653b913d45985ad3d3f8a9f1726947eb85e4db790185c665da07d3c9"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\OFDFile.dll",
+      "expected_sha256": "c513e84a5295e859c7ad3f0607ca76333c6373ebda5857e95f3e260e00e38e57",
+      "imports": [
+        "graphics.dll",
+        "kernel.dll",
+        "PdfFile.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:50.532118+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\OFDFile.dll",
+      "sha256": "c513e84a5295e859c7ad3f0607ca76333c6373ebda5857e95f3e260e00e38e57"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\hunspell.dll",
+      "expected_sha256": "52ad05dc4baf6096e10e5ff7624dd123ed1879df0e6a255644ad9257ffd0f4b2",
+      "imports": [
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:52.192001+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\hunspell.dll",
+      "sha256": "52ad05dc4baf6096e10e5ff7624dd123ed1879df0e6a255644ad9257ffd0f4b2"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\ooxmlsignature.dll",
+      "expected_sha256": "279ac5d60b6db251a87c03230f67e72a74abbe4e1650c4965513a4e07feccb40",
+      "imports": [
+        "kernel.dll",
+        "CRYPT32.dll",
+        "CRYPTUI.dll",
+        "ADVAPI32.dll",
+        "MSVCP140.dll",
+        "bcrypt.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "WS2_32.dll",
+        "USER32.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:53.103428+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\ooxmlsignature.dll",
+      "sha256": "279ac5d60b6db251a87c03230f67e72a74abbe4e1650c4965513a4e07feccb40"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\DocxRenderer.dll",
+      "expected_sha256": "83dd0c25f0abe1108278725355e4b4fb37e37305af7e4569682038ce68fd264d",
+      "imports": [
+        "kernel.dll",
+        "graphics.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140_1.dll",
+        "VCRUNTIME140.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:54.892178+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\DocxRenderer.dll",
+      "sha256": "83dd0c25f0abe1108278725355e4b4fb37e37305af7e4569682038ce68fd264d"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\doctrenderer.dll",
+      "expected_sha256": "dff5546d1936bc31d80d4801201af9b5633762599f82413eeb1d1ee2682300bc",
+      "imports": [
+        "graphics.dll",
+        "kernel.dll",
+        "kernel_network.dll",
+        "WINMM.dll",
+        "ADVAPI32.dll",
+        "dbghelp.dll",
+        "PdfFile.dll",
+        "XpsFile.dll",
+        "DjVuFile.dll",
+        "OFDFile.dll",
+        "DocxRenderer.dll",
+        "MSVCP140.dll",
+        "WS2_32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:56.646683+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\doctrenderer.dll",
+      "sha256": "dff5546d1936bc31d80d4801201af9b5633762599f82413eeb1d1ee2682300bc"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\ascdocumentscore.dll",
+      "expected_sha256": "179902f6d61dad4b786ad07198f66759d2708e3781de43a0c339249561460a66",
+      "imports": [
+        "icuuc74.dll",
+        "libcef.dll",
+        "KERNEL32.dll",
+        "GDI32.dll",
+        "COMDLG32.dll",
+        "ADVAPI32.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "CRYPT32.dll",
+        "graphics.dll",
+        "kernel.dll",
+        "kernel_network.dll",
+        "PdfFile.dll",
+        "XpsFile.dll",
+        "DjVuFile.dll",
+        "OFDFile.dll",
+        "hunspell.dll",
+        "ooxmlsignature.dll",
+        "doctrenderer.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:38:58.420960+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\ascdocumentscore.dll",
+      "sha256": "179902f6d61dad4b786ad07198f66759d2708e3781de43a0c339249561460a66"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\HtmlFile2.dll",
+      "expected_sha256": "70081f0b686233f8fa58359bd45e03ea61deb13cc939bc6a7d67521497c43b3a",
+      "imports": [
+        "kernel.dll",
+        "UnicodeConverter.dll",
+        "graphics.dll",
+        "kernel_network.dll",
+        "MSVCP140.dll",
+        "USER32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:01.217335+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\HtmlFile2.dll",
+      "sha256": "70081f0b686233f8fa58359bd45e03ea61deb13cc939bc6a7d67521497c43b3a"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\EpubFile.dll",
+      "expected_sha256": "68ddd1c54bf5e6bffcf6ed73537be02f42c68cd1e2f4dcfe32a628a9be9cce99",
+      "imports": [
+        "kernel.dll",
+        "HtmlFile2.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:03.335053+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\EpubFile.dll",
+      "sha256": "68ddd1c54bf5e6bffcf6ed73537be02f42c68cd1e2f4dcfe32a628a9be9cce99"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\Fb2File.dll",
+      "expected_sha256": "9a679a957eb3e760a2cb5147f46578e7a6df175dbc15c005bb96d214fc5e14f8",
+      "imports": [
+        "kernel.dll",
+        "UnicodeConverter.dll",
+        "graphics.dll",
+        "MSVCP140.dll",
+        "USER32.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:06.029004+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\Fb2File.dll",
+      "sha256": "9a679a957eb3e760a2cb5147f46578e7a6df175dbc15c005bb96d214fc5e14f8"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\StarMathConverter.dll",
+      "expected_sha256": "39932cd54c00231f75a3b9593f0094f9c03c42dd8e9ab92a71f9cf52f11d2706",
+      "imports": [
+        "kernel.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:08.776460+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\StarMathConverter.dll",
+      "sha256": "39932cd54c00231f75a3b9593f0094f9c03c42dd8e9ab92a71f9cf52f11d2706"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\HWPFile.dll",
+      "expected_sha256": "1c22da2fda67ea3e137e74f7549d02e629afb085bb455461bd417fe4804186e4",
+      "imports": [
+        "kernel.dll",
+        "graphics.dll",
+        "StarMathConverter.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:10.998326+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\HWPFile.dll",
+      "sha256": "1c22da2fda67ea3e137e74f7549d02e629afb085bb455461bd417fe4804186e4"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\IWorkFile.dll",
+      "expected_sha256": "efbf0c42ca756f917a0f653a61bddeacfda670f3b8b497c2ba487148eafcece0",
+      "imports": [
+        "kernel.dll",
+        "bcrypt.dll",
+        "MSVCP140.dll",
+        "KERNEL32.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:13.890159+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\IWorkFile.dll",
+      "sha256": "efbf0c42ca756f917a0f653a61bddeacfda670f3b8b497c2ba487148eafcece0"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\openoffice_qt6_videoplayer.dll",
+      "expected_sha256": "05528c1ac01220958707c00b0d49166228e8c6cbecd3fec078e2587745a6ffd6",
+      "imports": [
+        "Qt6MultimediaWidgets.dll",
+        "kernel.dll",
+        "Qt6Widgets.dll",
+        "Qt6Multimedia.dll",
+        "Qt6Gui.dll",
+        "Qt6Core.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "KERNEL32.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:16.838282+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\openoffice_qt6_videoplayer.dll",
+      "sha256": "05528c1ac01220958707c00b0d49166228e8c6cbecd3fec078e2587745a6ffd6"
+    },
+    {
+      "requested_path": "D:\\open office\\build\\full-source-run\\openoffice_qt6_documentscore.dll",
+      "expected_sha256": "ac790d21ef2a3ec50b2d10c790482446b6c7eed2bfe27af7cc7c170a179fe980",
+      "imports": [
+        "kernel.dll",
+        "graphics.dll",
+        "ascdocumentscore.dll",
+        "openoffice_qt6_videoplayer.dll",
+        "USER32.dll",
+        "Qt6PrintSupport.dll",
+        "Qt6Widgets.dll",
+        "Qt6Gui.dll",
+        "Qt6Core.dll",
+        "MSVCP140.dll",
+        "VCRUNTIME140.dll",
+        "VCRUNTIME140_1.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "KERNEL32.dll"
+      ],
+      "started_at_utc": "2026-11-02T11:39:20.089208+00:00",
+      "loaded": true,
+      "actual_path": "D:\\open office\\build\\full-source-run\\openoffice_qt6_documentscore.dll",
+      "sha256": "ac790d21ef2a3ec50b2d10c790482446b6c7eed2bfe27af7cc7c170a179fe980"
+    }
+  ],
+  "loaded_modules": [
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "name": "python.exe",
+      "baseline": true,
+      "sha256": "3adbbf2af609e206e3ca18cd55fc7c4b52f5c8bb8218dd99fd5a9e50d7a193cd",
+      "bytes": 106208,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Windows\\System32\\ntdll.dll",
+      "name": "ntdll.dll",
+      "baseline": true,
+      "sha256": "651ac9041af8e6b5ebd331d53163244c0a27d36d1433f0f15cac1f28c5f2e82c",
+      "bytes": 2558392,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\kernel32.dll",
+      "name": "kernel32.dll",
+      "baseline": true,
+      "sha256": "e132eba4166256e2f414b91fe7d5386590bc5ea8626aee5af9c9738383cf2ae1",
+      "bytes": 861992,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\KernelBase.dll",
+      "name": "KernelBase.dll",
+      "baseline": true,
+      "sha256": "5c29b73622ce0976e1ada566f31f2197ba0f8beaea89c3ec033366126172c3d0",
+      "bytes": 4254784,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\ucrtbase.dll",
+      "name": "ucrtbase.dll",
+      "baseline": true,
+      "sha256": "dedb7611e1abc1ff3852dcac3d4c93a048d729e25b061973b9969f22698f14ca",
+      "bytes": 1399656,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\vcruntime140.dll",
+      "name": "vcruntime140.dll",
+      "baseline": true,
+      "sha256": "052ad6a20d375957e82aa6a3c441ea548d89be0981516ca7eb306e063d5027f4",
+      "bytes": 120400,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\python314.dll",
+      "name": "python314.dll",
+      "baseline": true,
+      "sha256": "18310593c50ad109fc5c95db1fd5c92ecec9e1bfc66c976df9fc11dd62616d5a",
+      "bytes": 6776544,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Windows\\System32\\ws2_32.dll",
+      "name": "ws2_32.dll",
+      "baseline": true,
+      "sha256": "b123b00c46c415d7baeaada58c29c3e6920895db836ee4c0cfee49d738af60ad",
+      "bytes": 553608,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\rpcrt4.dll",
+      "name": "rpcrt4.dll",
+      "baseline": true,
+      "sha256": "c060f02c11fb19c9c8a30b5077a87cdb17d4be40f08070a539ec73eb53402775",
+      "bytes": 1182976,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\advapi32.dll",
+      "name": "advapi32.dll",
+      "baseline": true,
+      "sha256": "b864e1468a01a44f1901e03c05c1029e71655dd9abddd6d840bcfff5e7227d44",
+      "bytes": 795272,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\version.dll",
+      "name": "version.dll",
+      "baseline": true,
+      "sha256": "cea99f212af557a9613150c5509631403ed0f05f5d9a06ac42039bd59b40e39a",
+      "bytes": 55192,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\msvcrt.dll",
+      "name": "msvcrt.dll",
+      "baseline": true,
+      "sha256": "fc1447db4e4814cbcb002179a8003a41f383fc417879f628727043cab8c25093",
+      "bytes": 716104,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\bcrypt.dll",
+      "name": "bcrypt.dll",
+      "baseline": true,
+      "sha256": "d0fc7863d7b034da33f34dc82b96a8604572598a217668a43fc9eca3a8e2a8e1",
+      "bytes": 195128,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\sechost.dll",
+      "name": "sechost.dll",
+      "baseline": true,
+      "sha256": "b4a345ad9af0635f50e27eea8ae0ff37255dca90e6d5991bdbc4806fb02aaa72",
+      "bytes": 716104,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\bcryptprimitives.dll",
+      "name": "bcryptprimitives.dll",
+      "baseline": true,
+      "sha256": "f0dba794068893c9616b0b54bef1be8f904be89eb2cb09b575d3d7fb1b5000f8",
+      "bytes": 732800,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\python3.dll",
+      "name": "python3.dll",
+      "baseline": true,
+      "sha256": "f3d0cd260a46a9617a8b1d4d5e8703278478c22a910165bffb4e4ddf6562d93f",
+      "bytes": 73952,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\_ctypes.pyd",
+      "name": "_ctypes.pyd",
+      "baseline": true,
+      "sha256": "fd4847b99cd504a66bdc4739f15181b562774e6736bb88775880b073276dede1",
+      "bytes": 142560,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Windows\\System32\\ole32.dll",
+      "name": "ole32.dll",
+      "baseline": true,
+      "sha256": "1053ffb858cddbe29eaaa6a5b0836b88c7cd11fbd58605288600e507c06db443",
+      "bytes": 1720576,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\msvcp_win.dll",
+      "name": "msvcp_win.dll",
+      "baseline": true,
+      "sha256": "b9dacd83201e59bb74e5282d8f0dcc8c428525409b4bc458a39eb8d2a9373a9a",
+      "bytes": 657784,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\gdi32.dll",
+      "name": "gdi32.dll",
+      "baseline": true,
+      "sha256": "772c73e294a4c5f5e0d4146288af95287a85c074d3aee3fa9f320dc010d7dbfe",
+      "bytes": 187456,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\libffi-8.dll",
+      "name": "libffi-8.dll",
+      "baseline": true,
+      "sha256": "eff52743773eb550fcc6ce3efc37c85724502233b6b002a35496d828bd7b280a",
+      "bytes": 39696,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Windows\\System32\\win32u.dll",
+      "name": "win32u.dll",
+      "baseline": true,
+      "sha256": "d46a695db805e808efa63d1095ce3e1b6be9c0155dad405d444530efc1ed0362",
+      "bytes": 182632,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\gdi32full.dll",
+      "name": "gdi32full.dll",
+      "baseline": true,
+      "sha256": "52de3e02898e9c0e243d08d5c51d54871e9bce90de883eff7df29a30fc8aeac9",
+      "bytes": 1245368,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\user32.dll",
+      "name": "user32.dll",
+      "baseline": true,
+      "sha256": "f285937030bcb325cad39ee5be4818f6666241229adeadea4ff1ae469dfd7ef3",
+      "bytes": 1974768,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\combase.dll",
+      "name": "combase.dll",
+      "baseline": true,
+      "sha256": "087f72ecc0c979a3b784ab319285ab64d053dfc0c274df5b28fd40cf204a234f",
+      "bytes": 3783712,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\oleaut32.dll",
+      "name": "oleaut32.dll",
+      "baseline": true,
+      "sha256": "e3fcdbbf040fd1e3c3504876cf060ac3908c134ac81b3d0c57f0f735769280ea",
+      "bytes": 916120,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\imm32.dll",
+      "name": "imm32.dll",
+      "baseline": true,
+      "sha256": "7e45f12c1c555e2407c5ca082bd925b34655278fde4dbfac53a0468cc1e77411",
+      "bytes": 212288,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\_hashlib.pyd",
+      "name": "_hashlib.pyd",
+      "baseline": true,
+      "sha256": "9bc6ffcd2ab4ac87c4035f18b432e888d0d4a36795c97bf3f28ddf32cc34e40f",
+      "bytes": 69344,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\libcrypto-3.dll",
+      "name": "libcrypto-3.dll",
+      "baseline": true,
+      "sha256": "8b27ebae75cc99f20075322446af36c9ffcb4e3b400a77d712ef43f007f47f7d",
+      "bytes": 5235960,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\_uuid.pyd",
+      "name": "_uuid.pyd",
+      "baseline": true,
+      "sha256": "635d6c46bbf6b86dd30a802bd1c6e214dabccb44d1452c52f0b557ae5bcc6f68",
+      "bytes": 28384,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\_bz2.pyd",
+      "name": "_bz2.pyd",
+      "baseline": true,
+      "sha256": "ef5277eb670219274e7d1e92190ddf7f4bb94d4922ca1c1a12efadfd2c4c66f6",
+      "bytes": 88288,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\_lzma.pyd",
+      "name": "_lzma.pyd",
+      "baseline": true,
+      "sha256": "39e5bc3624a26c9f6ad2e2df412543b0bd697a1d75338b44fe99763358d6d8cb",
+      "bytes": 160992,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\DLLs\\_zstd.pyd",
+      "name": "_zstd.pyd",
+      "baseline": true,
+      "sha256": "54e6acfbc1cb27c9afea0e133cadac68b89869ff1a14eb0c678d40eb9c655347",
+      "bytes": 503520,
+      "origin": "python_probe_baseline_only"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\UnicodeConverter.dll",
+      "name": "UnicodeConverter.dll",
+      "baseline": false,
+      "sha256": "024a9cc234dbabde437c6895e11a4f2cb3227ccc905fcad76323ad0207b58edc",
+      "bytes": 33280,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "C:\\Windows\\System32\\msvcp140.dll",
+      "name": "msvcp140.dll",
+      "baseline": false,
+      "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+      "bytes": 643512,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\vcruntime140_1.dll",
+      "name": "vcruntime140_1.dll",
+      "baseline": false,
+      "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+      "bytes": 50112,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\icuuc74.dll",
+      "name": "icuuc74.dll",
+      "baseline": false,
+      "sha256": "b260e105c64000a588bc1731acfc3d3364b7c0ffab877d3d45ec7c6ab8a140d0",
+      "bytes": 2340864,
+      "origin": "source_built_icu"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\icudt74.dll",
+      "name": "icudt74.dll",
+      "baseline": false,
+      "sha256": "9e9492b120f561e6ca0220beff943c10a6c237a7b83271d0b27e76c8dc78ca24",
+      "bytes": 30786048,
+      "origin": "source_built_icu"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\kernel.dll",
+      "name": "kernel.dll",
+      "baseline": false,
+      "sha256": "54cea0f52d217ba9ebb5bb8b20c5721b79a16a42a2bb293b4a802f78a538aa8f",
+      "bytes": 1044480,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "C:\\Windows\\System32\\shell32.dll",
+      "name": "shell32.dll",
+      "baseline": false,
+      "sha256": "c55a5f3b6ef059871fe2a0c8d82f086e0998d1154023e3ecf49698b97f9341f6",
+      "bytes": 8101864,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\graphics.dll",
+      "name": "graphics.dll",
+      "baseline": false,
+      "sha256": "5c8cff1e4b449a2f1ad65189c7e63a899f0cc9b39adbad8e8a480e6b422c1fa9",
+      "bytes": 9308160,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\kernel_network.dll",
+      "name": "kernel_network.dll",
+      "baseline": false,
+      "sha256": "6e2827b23873e40a1979fb3b5f4980b18de6564bd835484cac9b8b6dc9decbb5",
+      "bytes": 118784,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "C:\\Windows\\System32\\mswsock.dll",
+      "name": "mswsock.dll",
+      "baseline": false,
+      "sha256": "b4b75a9e5bfaa236a06f78c96f9655529a83d80b6558a84fdd4128d5cf46381c",
+      "bytes": 465976,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\urlmon.dll",
+      "name": "urlmon.dll",
+      "baseline": false,
+      "sha256": "ed9262ab87744cf701e2cdd6a3714c3d1bdd30a1985f0d97a76c4bd35b03e239",
+      "bytes": 1932648,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\windows.storage.dll",
+      "name": "windows.storage.dll",
+      "baseline": false,
+      "sha256": "a0d41fcfd66f4fbba8dbb84776c7d344f66969ce8b6edac19b3ac1dd737a628a",
+      "bytes": 9248064,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\iertutil.dll",
+      "name": "iertutil.dll",
+      "baseline": false,
+      "sha256": "bb005953b1d8a44c36394662bd16425dacced13e9716b1f3e14b4108e285542a",
+      "bytes": 2954256,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\srvcli.dll",
+      "name": "srvcli.dll",
+      "baseline": false,
+      "sha256": "6170dddf6a03b2b3e9520e301fb3a06fae7fb4c617b2c7d7cceb2160e829fd4d",
+      "bytes": 146080,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\netutils.dll",
+      "name": "netutils.dll",
+      "baseline": false,
+      "sha256": "71e1eb4a3027cf348d71bfdfebf0ede76d05d521293250d627417f7c2d9478d8",
+      "bytes": 63336,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\PdfFile.dll",
+      "name": "PdfFile.dll",
+      "baseline": false,
+      "sha256": "177bed9a39812a8ea23a6c4f5d3d59a953839aa549253a25d1f70327d0de9271",
+      "bytes": 5270528,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\XpsFile.dll",
+      "name": "XpsFile.dll",
+      "baseline": false,
+      "sha256": "62f9afed4b0fd7653a26b281698a1758b9c4d160f7131234b4d6a38d812402fb",
+      "bytes": 232448,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\DjVuFile.dll",
+      "name": "DjVuFile.dll",
+      "baseline": false,
+      "sha256": "db4248c6653b913d45985ad3d3f8a9f1726947eb85e4db790185c665da07d3c9",
+      "bytes": 659456,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\OFDFile.dll",
+      "name": "OFDFile.dll",
+      "baseline": false,
+      "sha256": "c513e84a5295e859c7ad3f0607ca76333c6373ebda5857e95f3e260e00e38e57",
+      "bytes": 229376,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\hunspell.dll",
+      "name": "hunspell.dll",
+      "baseline": false,
+      "sha256": "52ad05dc4baf6096e10e5ff7624dd123ed1879df0e6a255644ad9257ffd0f4b2",
+      "bytes": 496128,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\ooxmlsignature.dll",
+      "name": "ooxmlsignature.dll",
+      "baseline": false,
+      "sha256": "279ac5d60b6db251a87c03230f67e72a74abbe4e1650c4965513a4e07feccb40",
+      "bytes": 1833472,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "C:\\Windows\\System32\\crypt32.dll",
+      "name": "crypt32.dll",
+      "baseline": false,
+      "sha256": "71da5f9806f7aaf9e081c1df28b13182d2643b7f3534173f868ba65287612bbb",
+      "bytes": 1587168,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\cryptui.dll",
+      "name": "cryptui.dll",
+      "baseline": false,
+      "sha256": "74ebac857ac17e3bbf528b55d67d46101c5b7012b3f59a84800ff373be14ec3b",
+      "bytes": 393216,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\DocxRenderer.dll",
+      "name": "DocxRenderer.dll",
+      "baseline": false,
+      "sha256": "83dd0c25f0abe1108278725355e4b4fb37e37305af7e4569682038ce68fd264d",
+      "bytes": 426496,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\doctrenderer.dll",
+      "name": "doctrenderer.dll",
+      "baseline": false,
+      "sha256": "dff5546d1936bc31d80d4801201af9b5633762599f82413eeb1d1ee2682300bc",
+      "bytes": 15227392,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "C:\\Windows\\System32\\winmm.dll",
+      "name": "winmm.dll",
+      "baseline": false,
+      "sha256": "b9035da2ee058fe565ecb3c0064f46f2d09bde01f29e423ffe6b33e15c773f04",
+      "bytes": 240912,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dbghelp.dll",
+      "name": "dbghelp.dll",
+      "baseline": false,
+      "sha256": "2d2ec94891162a61d86789133623b47d64d74c15d6be99473b25ad7a6468cf39",
+      "bytes": 2317640,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\ascdocumentscore.dll",
+      "name": "ascdocumentscore.dll",
+      "baseline": false,
+      "sha256": "179902f6d61dad4b786ad07198f66759d2708e3781de43a0c339249561460a66",
+      "bytes": 3292160,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "C:\\Windows\\System32\\comdlg32.dll",
+      "name": "comdlg32.dll",
+      "baseline": false,
+      "sha256": "7d87ea4e567e74005a7a0ffbb11707265962a24aeb73f909ba7f3d004b5925bf",
+      "bytes": 983040,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\libcef.dll",
+      "name": "libcef.dll",
+      "baseline": false,
+      "sha256": "1ab56c8c52437346fb5c06d81cc1a78103c53aca5d14d8e846217511fdd4cd78",
+      "bytes": 194887168,
+      "origin": "official_prebuilt_cef"
+    },
+    {
+      "path": "C:\\Windows\\System32\\SHCore.dll",
+      "name": "SHCore.dll",
+      "baseline": false,
+      "sha256": "60fa3face0cfeccd442ef8c10f0d98f7991998784d21c8f7b77fc1048b222c95",
+      "bytes": 1032832,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\shlwapi.dll",
+      "name": "shlwapi.dll",
+      "baseline": false,
+      "sha256": "77b883ae848e1209b17ded14e6558656651f84d47cd656d1d3c118cc5409ed5b",
+      "bytes": 440968,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\wintrust.dll",
+      "name": "wintrust.dll",
+      "baseline": false,
+      "sha256": "a24ff2ace63b7facf6f62cd024a596083342eebc6a8d3748ff98938b6de93a0e",
+      "bytes": 557672,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\WinSxS\\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.9711_none_3e07b8b0e334e825\\comctl32.dll",
+      "name": "comctl32.dll",
+      "baseline": false,
+      "sha256": "645e27c04538e8079b0db62cef14b6353dd83a1b09a68a7d6c1b69e83cfd65e3",
+      "bytes": 2698616,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IPHLPAPI.DLL",
+      "name": "IPHLPAPI.DLL",
+      "baseline": false,
+      "sha256": "8521026d021cc5193a7cd7c0256bd14c7ab39738d22c019e6d544b37deee12c0",
+      "bytes": 220528,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dxgi.dll",
+      "name": "dxgi.dll",
+      "baseline": false,
+      "sha256": "4225e13f27a4f3a4a4738e64a57fa0949d8589f317fc6f8ec194b3a4d394a528",
+      "bytes": 1316248,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\propsys.dll",
+      "name": "propsys.dll",
+      "baseline": false,
+      "sha256": "1d9e7fc09a540c6b23d239f2dceeb0a57a7a1f51e1c90ad28401ecb202f4b39b",
+      "bytes": 1037056,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\UIAutomationCore.dll",
+      "name": "UIAutomationCore.dll",
+      "baseline": false,
+      "sha256": "be5037bf46e61566d3e5a83a6c628cebe9035771e4ae741a7b9aa27b5696d989",
+      "bytes": 4300800,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\oleacc.dll",
+      "name": "oleacc.dll",
+      "baseline": false,
+      "sha256": "f250765d7f61f7c5aeb5e8bb3b5fa737f148fd444783357e52aef21000def46f",
+      "bytes": 475136,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\userenv.dll",
+      "name": "userenv.dll",
+      "baseline": false,
+      "sha256": "aeb1a6a15397bee7a0ebc67b8188f751e10089c0adadfd86146496c5faae914c",
+      "bytes": 236768,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\netapi32.dll",
+      "name": "netapi32.dll",
+      "baseline": false,
+      "sha256": "d5b12248b116177329bf72cb517d515637cf2476dff1c159a0e1e7d28420be09",
+      "bytes": 117160,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\secur32.dll",
+      "name": "secur32.dll",
+      "baseline": false,
+      "sha256": "4050dfd0d4e04e8d013cb16c09d90c2177e2b7e4f102f5931187b2bd0c9d14fc",
+      "bytes": 53248,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\wtsapi32.dll",
+      "name": "wtsapi32.dll",
+      "baseline": false,
+      "sha256": "9bc998a7b2e3eca0941bf7b5449049b3aa0ef67a840baf78a7b04dbc323595c4",
+      "bytes": 195056,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\hid.dll",
+      "name": "hid.dll",
+      "baseline": false,
+      "sha256": "e8043b16f4d7fd2b815ffd1638d2def7be4c0e0e324fe2dcee3b262bdce0d2ac",
+      "bytes": 61440,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\chrome_elf.dll",
+      "name": "chrome_elf.dll",
+      "baseline": false,
+      "sha256": "35d11ae410257938e4b346f613ed259fe62d1218f0736fdc0ded35f49444d0c3",
+      "bytes": 1411584,
+      "origin": "official_prebuilt_cef"
+    },
+    {
+      "path": "C:\\Windows\\System32\\winhttp.dll",
+      "name": "winhttp.dll",
+      "baseline": false,
+      "sha256": "2509edaea64d4ed9e9993b80fa370f431f37117401ef77cf367533a31b82c180",
+      "bytes": 1253704,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\DWrite.dll",
+      "name": "DWrite.dll",
+      "baseline": false,
+      "sha256": "45b8d6534fd6cd884bfc38a62c007da0d9d5f29324bcb1f31cbf0528bc2e7eae",
+      "bytes": 2498560,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dwmapi.dll",
+      "name": "dwmapi.dll",
+      "baseline": false,
+      "sha256": "733c4dbf3e3fc521199ae57a5adc0b780d8c63d3de96676670cbf6d27cfed5e2",
+      "bytes": 195056,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\uxtheme.dll",
+      "name": "uxtheme.dll",
+      "baseline": false,
+      "sha256": "e5087142f87989c7430d82a65616817a2515a79fa582549ba48a1dd6ac1b7200",
+      "bytes": 675840,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\winspool.drv",
+      "name": "winspool.drv",
+      "baseline": false,
+      "sha256": "6caa63fb1b2498b4be7897e73eb201551093a8dcd41d93e871ff7324d4e5c53d",
+      "bytes": 712704,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\ncrypt.dll",
+      "name": "ncrypt.dll",
+      "baseline": false,
+      "sha256": "c8a48feb20b83ed24ad3ff32a1f60528fece29ef797a58a1d346b9e2908a9420",
+      "bytes": 220096,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\usp10.dll",
+      "name": "usp10.dll",
+      "baseline": false,
+      "sha256": "23d73fc8824016734847593c0f7767e26d59f99984d8131d45913390d5b7d62b",
+      "bytes": 102400,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\d3d9.dll",
+      "name": "d3d9.dll",
+      "baseline": false,
+      "sha256": "9c2343d50ab0e219d6526be5c419b2c5dc62e88c30444c936927001e3bdc89e6",
+      "bytes": 1799712,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dxva2.dll",
+      "name": "dxva2.dll",
+      "baseline": false,
+      "sha256": "0a0846008c9f1ac3b54b05a12f02bd7aaa669e4844e63c5278f524a42a738b1d",
+      "bytes": 211704,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\wevtapi.dll",
+      "name": "wevtapi.dll",
+      "baseline": false,
+      "sha256": "2a2bf3861e24ea3c7938cb8ea8cb8bb6f79124b9bc194ef8cc21703010751125",
+      "bytes": 386808,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\credui.dll",
+      "name": "credui.dll",
+      "baseline": false,
+      "sha256": "358f9dcbea3874fa8b00a97a03436edfd0754c2bf00f81d4894b87826d9bbccf",
+      "bytes": 114688,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dhcpcsvc.dll",
+      "name": "dhcpcsvc.dll",
+      "baseline": false,
+      "sha256": "3c5b7c41e5b09fccbd303e308b16347f25b3c9399a2cfad0ed96a86cbbdb3729",
+      "bytes": 171408,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\esent.dll",
+      "name": "esent.dll",
+      "baseline": false,
+      "sha256": "eb7b3aa955580b31925b8b9a98615832d576ae66b0c810a6404086b9e22fd88b",
+      "bytes": 4313088,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\wininet.dll",
+      "name": "wininet.dll",
+      "baseline": false,
+      "sha256": "b0adf047f72d40f9e6869a61051f3485a36128cabfcf287d18459781f724b5da",
+      "bytes": 2750048,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\powrprof.dll",
+      "name": "powrprof.dll",
+      "baseline": false,
+      "sha256": "096b3c77ad7fece122be0362c72530b1edc024fe7107d1d40d8bcd8fa5428a0e",
+      "bytes": 398160,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\sspicli.dll",
+      "name": "sspicli.dll",
+      "baseline": false,
+      "sha256": "5aa8f7bbcc7a8a422d14612d9ca1f8a50acd6030eb4bff204a205fec76f27a59",
+      "bytes": 324272,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\cfgmgr32.dll",
+      "name": "cfgmgr32.dll",
+      "baseline": false,
+      "sha256": "fea3f02ba1a9ac87f7ec53932a5821d3d894d70c828a441c8767059efa53f5c5",
+      "bytes": 357640,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dsrole.dll",
+      "name": "dsrole.dll",
+      "baseline": false,
+      "sha256": "17c809fcf3959378c9be6b44f37806d2446e080ed1a121062ffbe876dd688dff",
+      "bytes": 55184,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\DXCore.dll",
+      "name": "DXCore.dll",
+      "baseline": false,
+      "sha256": "df9b1da21162c1dba8399c755805b66d2bfde06e55313c73b1360bbed2e2f71d",
+      "bytes": 290888,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\wkscli.dll",
+      "name": "wkscli.dll",
+      "baseline": false,
+      "sha256": "9207aa4d33ed79d9a5199185514ecae5c4e85b4bcef633268875898dba5a3367",
+      "bytes": 121280,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\samcli.dll",
+      "name": "samcli.dll",
+      "baseline": false,
+      "sha256": "8d46c6074f31a1ffd4c3003944bb302fb2e32468cac70af7dedae4726b1db31c",
+      "bytes": 110592,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\umpdc.dll",
+      "name": "umpdc.dll",
+      "baseline": false,
+      "sha256": "b3407a812c7f34ac6b5beefb2a78e8f2d7c4376f7c7012f880aab4fe07235e4e",
+      "bytes": 96552,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\msasn1.dll",
+      "name": "msasn1.dll",
+      "baseline": false,
+      "sha256": "a28902ae7ad6ff2d1b904f73c7ca22dbbf11a36cee70b5b22dd605364dd0fa2e",
+      "bytes": 99216,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\cryptbase.dll",
+      "name": "cryptbase.dll",
+      "baseline": false,
+      "sha256": "09c2d3e0f1c3d86f4a69496acf6d0c0901715ee2f02f20afc10d6dc9e639b03f",
+      "bytes": 70096,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\ntasn1.dll",
+      "name": "ntasn1.dll",
+      "baseline": false,
+      "sha256": "04a37b3d847944b0086c330195d3ffa84c6178125684740254d4a964551977e5",
+      "bytes": 270056,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\HtmlFile2.dll",
+      "name": "HtmlFile2.dll",
+      "baseline": false,
+      "sha256": "70081f0b686233f8fa58359bd45e03ea61deb13cc939bc6a7d67521497c43b3a",
+      "bytes": 1775104,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\EpubFile.dll",
+      "name": "EpubFile.dll",
+      "baseline": false,
+      "sha256": "68ddd1c54bf5e6bffcf6ed73537be02f42c68cd1e2f4dcfe32a628a9be9cce99",
+      "bytes": 113152,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Fb2File.dll",
+      "name": "Fb2File.dll",
+      "baseline": false,
+      "sha256": "9a679a957eb3e760a2cb5147f46578e7a6df175dbc15c005bb96d214fc5e14f8",
+      "bytes": 863232,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\StarMathConverter.dll",
+      "name": "StarMathConverter.dll",
+      "baseline": false,
+      "sha256": "39932cd54c00231f75a3b9593f0094f9c03c42dd8e9ab92a71f9cf52f11d2706",
+      "bytes": 203264,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\HWPFile.dll",
+      "name": "HWPFile.dll",
+      "baseline": false,
+      "sha256": "1c22da2fda67ea3e137e74f7549d02e629afb085bb455461bd417fe4804186e4",
+      "bytes": 1236992,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\IWorkFile.dll",
+      "name": "IWorkFile.dll",
+      "baseline": false,
+      "sha256": "efbf0c42ca756f917a0f653a61bddeacfda670f3b8b497c2ba487148eafcece0",
+      "bytes": 2812928,
+      "origin": "source_built_native_core"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\openoffice_qt6_videoplayer.dll",
+      "name": "openoffice_qt6_videoplayer.dll",
+      "baseline": false,
+      "sha256": "05528c1ac01220958707c00b0d49166228e8c6cbecd3fec078e2587745a6ffd6",
+      "bytes": 232960,
+      "origin": "source_built_qt_wrapper"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Qt6MultimediaWidgets.dll",
+      "name": "Qt6MultimediaWidgets.dll",
+      "baseline": false,
+      "sha256": "183ddb6934d153366747022fbdce761306cf2f153909d44a7288915cdea52564",
+      "bytes": 62264,
+      "origin": "installed_qt_6_11_1"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Qt6Multimedia.dll",
+      "name": "Qt6Multimedia.dll",
+      "baseline": false,
+      "sha256": "653ae2dff699ae91dc6d2b412ee3e7b2b02a02d6b0f4ff5c212cba5c1e54f763",
+      "bytes": 1283896,
+      "origin": "installed_qt_6_11_1"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Qt6Widgets.dll",
+      "name": "Qt6Widgets.dll",
+      "baseline": false,
+      "sha256": "4d603bff620ae0830d15c25a787f9f10ed3f972d998f1f17c9c4f83937280399",
+      "bytes": 6594360,
+      "origin": "installed_qt_6_11_1"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Qt6Gui.dll",
+      "name": "Qt6Gui.dll",
+      "baseline": false,
+      "sha256": "8fceee959a670372aaa5763287c2ef7924cd9ecdbe2c29cf4b6c12a63079c503",
+      "bytes": 9589560,
+      "origin": "installed_qt_6_11_1"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Qt6Core.dll",
+      "name": "Qt6Core.dll",
+      "baseline": false,
+      "sha256": "fae4778a42e93adc82b831c879c886a05147e9cc26760808d21116be5547259b",
+      "bytes": 10480440,
+      "origin": "installed_qt_6_11_1"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Qt6Network.dll",
+      "name": "Qt6Network.dll",
+      "baseline": false,
+      "sha256": "0232076731e386b6cc353bdf743d5fb17e95a3493c2d02afac984db87ed47b96",
+      "bytes": 1771320,
+      "origin": "installed_qt_6_11_1"
+    },
+    {
+      "path": "C:\\Windows\\System32\\avrt.dll",
+      "name": "avrt.dll",
+      "baseline": false,
+      "sha256": "8fc53d3d44d744aede6d5cc2b8afd5edc1c7292e81330755de1a9fda3506255c",
+      "bytes": 55256,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\msvcp140_1.dll",
+      "name": "msvcp140_1.dll",
+      "baseline": false,
+      "sha256": "206c931bf90fdad8816de3b5e2ef80b2bcaa9406c89ecc05fe6fddffe251e982",
+      "bytes": 35768,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\d3d11.dll",
+      "name": "d3d11.dll",
+      "baseline": false,
+      "sha256": "c9aee071495039e820cd0be0afdeb927b9ad32edc1d0dae460b6d64064b524f6",
+      "bytes": 2537488,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\msvcp140_2.dll",
+      "name": "msvcp140_2.dll",
+      "baseline": false,
+      "sha256": "d50d7883f20d1dc6191768d3746f52dd9cac89c346ffaed5be1f110c2f34a838",
+      "bytes": 274872,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\D3D12.dll",
+      "name": "D3D12.dll",
+      "baseline": false,
+      "sha256": "0963513f3291a67ea56985a6e8b7ed8088a1e858803be6dc3373faa07460ce02",
+      "bytes": 157520,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\mpr.dll",
+      "name": "mpr.dll",
+      "baseline": false,
+      "sha256": "8bb319c8c8255e915c05c03eccc24981cf9653025d2f720fb7fffdd4d524309c",
+      "bytes": 146080,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\authz.dll",
+      "name": "authz.dll",
+      "baseline": false,
+      "sha256": "59dbbee701b9010e6120886ef21c03a21363e75b87fa4ca3a91a60e25b855db9",
+      "bytes": 327680,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dnsapi.dll",
+      "name": "dnsapi.dll",
+      "baseline": false,
+      "sha256": "c7e1006f7bcbdff6d3668d10b9756a9734c53ccc47783f8908f68b60d0341bbb",
+      "bytes": 1445488,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\dsparse.dll",
+      "name": "dsparse.dll",
+      "baseline": false,
+      "sha256": "c78ac36d970b6fa79206a161d4ded0886879c4df80791dd22650a8a7afd9c2eb",
+      "bytes": 53248,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\icuuc.dll",
+      "name": "icuuc.dll",
+      "baseline": false,
+      "sha256": "59d134ddc15ae0594f0a328979f8201662fc82634ddb7c537b156e7cf871f5eb",
+      "bytes": 36864,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\icu.dll",
+      "name": "icu.dll",
+      "baseline": false,
+      "sha256": "218ee9bff41e8e9ffe8032ccd5ddf9c651d2dd72dde7643bac03865b9ddb163f",
+      "bytes": 2800032,
+      "origin": "windows_system"
+    },
+    {
+      "path": "C:\\Windows\\System32\\nsi.dll",
+      "name": "nsi.dll",
+      "baseline": false,
+      "sha256": "c98f7e9c1e7c08c7877d47b6205220afc661321d06b9a43f98c3c158628f8d91",
+      "bytes": 61728,
+      "origin": "windows_system"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\openoffice_qt6_documentscore.dll",
+      "name": "openoffice_qt6_documentscore.dll",
+      "baseline": false,
+      "sha256": "ac790d21ef2a3ec50b2d10c790482446b6c7eed2bfe27af7cc7c170a179fe980",
+      "bytes": 139776,
+      "origin": "source_built_qt_wrapper"
+    },
+    {
+      "path": "D:\\open office\\build\\full-source-run\\Qt6PrintSupport.dll",
+      "name": "Qt6PrintSupport.dll",
+      "baseline": false,
+      "sha256": "67d942932865466dc8950e4f5fba831bb26ac7ed34498dac6226775b1cd8add9",
+      "bytes": 407352,
+      "origin": "installed_qt_6_11_1"
+    }
+  ],
+  "search_directories": [
+    "D:\\open office\\build\\full-source-run",
+    "D:\\Qt\\6.11.1\\msvc2022_64\\bin",
+    "C:\\Windows\\System32",
+    "C:\\Windows\\WinSxS"
+  ],
+  "python_baseline_roots": [
+    "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314",
+    "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314"
+  ],
+  "origin_violations": [],
+  "completed_at_utc": "2026-11-02T11:39:23.562480+00:00",
+  "worker_exit_code": 0,
+  "worker_stdout": "{\"status\": \"loader_passed_functional_regression_not_run\", \"loader_passed\": true, \"report\": \"D:\\\\open office\\\\evidence\\\\full-source-runtime-probe-pass1.json\"}\r\n",
+  "worker_stderr": "",
+  "controller_completed_at_utc": "2026-11-02T11:39:23.595400+00:00"
+}

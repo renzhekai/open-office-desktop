@@ -1,0 +1,18 @@
+[
+  {
+    "path": "libxml2/include/libxml/parserInternals.h",
+    "sha256": "27dc3b9d774b92da4ff4baf7ccfa40634ff4fd66eff5cc1cda0ecaf7d9fc8fea"
+  },
+  {
+    "path": "libxml2/include/libxml/parserInternals.h",
+    "sha256": "ca2c15db7d56bf57a7aaa7679d20dbbcabe794c4be7c7fc290f730bee71f28f5"
+  },
+  {
+    "path": "libxml2/globals.c",
+    "sha256": "e450f2341648cc60c005b941b147e7b52b6a729d93d06127b84e06ad87d02477"
+  },
+  {
+    "path": "libxml2/error.c",
+    "sha256": "be306b25d1d1a13fd967ffcfada7b8a107777e5ae685959ec5a41fb666cd5272"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-third_party_jsoncpp_source",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\jsoncpp\\source",
+  "pin": "9059f5cad030ba11d37818847443a53918c327b1",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:07.536377+00:00",
+  "head": "9059f5cad030ba11d37818847443a53918c327b1",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/external/github.com/open-source-parsers/jsoncpp.git",
+  "patch": {
+    "path": "patches/dep-v8-third_party_jsoncpp_source.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_jsoncpp_source.txt",
+    "size": 41,
+    "sha256": "7101c40cd0f9cde7b68a077102ae00c57dcb8f19a8b1525f33337b63b1e3f53a"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:07.973624+00:00"
+}

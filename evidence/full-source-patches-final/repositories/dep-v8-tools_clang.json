@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-tools_clang",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\tools\\clang",
+  "pin": "2246bee280e908ac1fd27ab75e7d0021b14d875c",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:05.403757+00:00",
+  "head": "2246bee280e908ac1fd27ab75e7d0021b14d875c",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/chromium/src/tools/clang.git",
+  "patch": {
+    "path": "patches/dep-v8-tools_clang.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-tools_clang.txt",
+    "size": 41,
+    "sha256": "29be4d84a1c03ee4a572aff40e4593e566a8f8f70c4b47f9a368c8847880e51a"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:05.928316+00:00"
+}

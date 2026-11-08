@@ -1,0 +1,15 @@
+# Kept out of git (tens of GB, all reproducible or downloadable):
+# build outputs and staged runtimes, installers, ONLYOFFICE sources and downloaded tools.
+/build/
+/dist/
+/upstream/
+/dependencies/
+/.library-handoff-*/
+
+# Evidence over 5 MB stays local: downloads cut short and very large logs or inventories.
+/evidence/source-download-partial-*/
+/evidence/full-source-runtime-engine-stage.json
+/evidence/full-source-runtime-host-stage.json
+/evidence/full-source-runtime-inventory-initial.json
+/evidence/full-source-web-spreadsheeteditor.log
+/evidence/onlyoffice-native-cfcpp/archive-headers.txt

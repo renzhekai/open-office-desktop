@@ -1,0 +1,31 @@
+{
+  "name": "dep-socket-asio",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\asio",
+  "pin": "230c0d2ae035c5ce1292233fcab03cea0d341264",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/socket-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:12.499566+00:00",
+  "head": "230c0d2ae035c5ce1292233fcab03cea0d341264",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/chriskohlhoff/asio.git",
+  "patch": {
+    "path": "patches/dep-socket-asio.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-socket-asio.txt",
+    "size": 41,
+    "sha256": "c5a8ed0d38f4f97a7bf0a59d5abe94e4dab2c790711158195b05e96dd5b7208f"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:12.872046+00:00"
+}

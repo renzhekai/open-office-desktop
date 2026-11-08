@@ -1,0 +1,99 @@
+{
+  "recorded_utc": "2026-11-04T10:32:36.211720+00:00",
+  "scope": "WMF -> SVG (Raster_Encode format 24) differences found by zlib-functional-pass2; four-way comparison",
+  "inputs": "2 ONLYOFFICE core MathEquation example WMFs + 2 Microsoft Office clipart WMFs (read-only)",
+  "results": {
+    "image1.wmf": {
+      "official_zlib_2022": {
+        "size": 2567,
+        "sha256": "33c159109aab6b01a9efdb798602adb55b251f3ef6636c7796f1a7076dc0a59a"
+      },
+      "rebuilt_zlib_2026_source": {
+        "size": 2776,
+        "sha256": "2343c0b5aafaefa8ef291ee47a4b22392ceb84267c87f7438eac020522e27473"
+      },
+      "official_fonts_2025_12": {
+        "size": 3224,
+        "sha256": "b129b5da7034f8f38d4ce5dfd5287c37ab30d7e21543753386a09acf8d07db51"
+      },
+      "rebuilt_fonts_2026_source": {
+        "size": 2776,
+        "sha256": "2343c0b5aafaefa8ef291ee47a4b22392ceb84267c87f7438eac020522e27473"
+      },
+      "rebuilt_zlib_equals_rebuilt_fonts": true
+    },
+    "image10.wmf": {
+      "official_zlib_2022": {
+        "size": 1576,
+        "sha256": "f37fbb76b0cb85c42fadfab29d61228c1b0fb2a16d51543db2c38f7d64c3a0a1"
+      },
+      "rebuilt_zlib_2026_source": {
+        "threw": "null function or function signature mismatch"
+      },
+      "official_fonts_2025_12": {
+        "size": 1966,
+        "sha256": "81f99625dbcb254f9f302e59224dbfa91c630dbb57c66e3d4e252f6fe48eec46"
+      },
+      "rebuilt_fonts_2026_source": {
+        "size": 1774,
+        "sha256": "37230ab844947ee553cf7172d64e633e150cfb629dfb0fd44b658c2c40d6ed81"
+      },
+      "rebuilt_zlib_equals_rebuilt_fonts": false
+    },
+    "AN00010_.WMF": {
+      "official_zlib_2022": {
+        "size": 17910,
+        "sha256": "71dcf393475db768855939e8125c89a9021524125a614598035e589c9b0c09f6"
+      },
+      "rebuilt_zlib_2026_source": {
+        "size": 8250,
+        "sha256": "631a58c82923276ef05139cbc0a3e05054b45eea2ba46a97324e2a8ec76b48e7"
+      },
+      "official_fonts_2025_12": {
+        "size": 9210,
+        "sha256": "ce1f68388f0dfe9828c6df014d81cb48c60bc2b7f9847af1e6350395de6dc0ad"
+      },
+      "rebuilt_fonts_2026_source": {
+        "size": 8250,
+        "sha256": "631a58c82923276ef05139cbc0a3e05054b45eea2ba46a97324e2a8ec76b48e7"
+      },
+      "rebuilt_zlib_equals_rebuilt_fonts": true
+    },
+    "AN00790_.WMF": {
+      "official_zlib_2022": {
+        "size": 33038,
+        "sha256": "85150a8202f59cf9a7423c6997ab4e74d5b11ad06dfb0109d260d792ddd4d6b0"
+      },
+      "rebuilt_zlib_2026_source": {
+        "size": 17210,
+        "sha256": "1a042d7ea1c7a5076642fb475690a7ff22f29d08b933ddfa30e5b49a2f1ea476"
+      },
+      "official_fonts_2025_12": {
+        "size": 19322,
+        "sha256": "440697f64cedf44ddf84b346b202fef939bc92e0a081dc5ac248c98b16922e62"
+      },
+      "rebuilt_fonts_2026_source": {
+        "size": 17210,
+        "sha256": "1a042d7ea1c7a5076642fb475690a7ff22f29d08b933ddfa30e5b49a2f1ea476"
+      },
+      "rebuilt_zlib_equals_rebuilt_fonts": true
+    }
+  },
+  "finding_source_drift": "For image1.wmf, AN00010_.WMF and AN00790_.WMF the rebuilt zlib output is byte-identical to the rebuilt fonts output (same 2026 core source), while the official zlib (2022) and the official fonts (2025-12) each differ: the SVG writer changed between source versions. Not a rebuild defect.",
+  "finding_null_font_manager": {
+    "symptom": "rebuilt zlib traps on image10.wmf with 'null function or function signature mismatch'",
+    "stack_from_diag_build": [
+      "MetaFile::CInterpretatorSvgBase::WriteText",
+      "MetaFile::CWmfInterpretatorSvg::HANDLE_META_EXTTEXTOUT",
+      "MetaFile::CWmfParser::PlayFile",
+      "MetaFile::CMetaFile::ConvertToSvg",
+      "Raster_Encode"
+    ],
+    "diag_build": "evidence/wasm-source/zlib-build-diag-funcs.json (--profiling-funcs, not a deliverable)",
+    "root_cause": "graphics/pro/js/qt/raster/raster.cpp Raster_Encode calls MetaFile::Create(NULL); CMetaFile then has m_pFontManager == NULL (raster/Metafile/MetaFile.cpp constructor); CInterpretatorSvgBase.cpp:336 (WMF) and CEmfInterpretatorSvg.cpp:1255 (EMF) call m_pParser->GetFontManager()->GetFontInfoByParams() without a null check: a virtual call through a null pointer (undefined behaviour). In wasm it reads a function index from low memory: the rebuilt zlib traps, the rebuilt fonts engine happens to call some function and emits output, so that output is not trustworthy either.",
+    "present_since": "already at 075052dd (CInterpretatorSvgBase.cpp:298, CEmfInterpretatorSvg.cpp:1220); upstream file history shows later edits up to 2026-10-07 without adding the check",
+    "affects": "WMF/EMF images that contain text, converted to SVG inside the WASM engines (fonts and zlib) with no application fonts",
+    "status": "upstream source defect inherited by the rebuild; not patched; fix requires a first-party patch decision by the user"
+  },
+  "other_zlib_results": "zip read/write identical to official and verified by Python zipfile; PNG/GIF/JPEG decode/encode identical including identical C++ throws when re-encoding GIF/JPEG to PNG (both builds)"
+}

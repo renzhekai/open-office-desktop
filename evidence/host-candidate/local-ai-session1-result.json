@@ -1,0 +1,99 @@
+{
+  "checked_at_utc": "2026-11-08T03:17:35.485748+00:00",
+  "session": "local-ai-session1",
+  "runtime": "D:\\open office\\build\\full-source-run-local-ai",
+  "entry_sha256": "3eb9a92a19a087cb3fb55b69655ce362e55f721d1f76d67909087356093b5a0e",
+  "native_events_sha256": "d93959639fe7e399bdac825b640e0fc351c4fa92608b50d389790bbf511ae016",
+  "journal_sha256": "3084995e2a7f6bcec61c803fbdc3df935611292bbb99cedbf151ca5483436c9f",
+  "document": "D:\\open office\\fixtures\\results\\local-ai-sample.docx",
+  "document_sha256": "a5b0090a6178869843c51a2de6012832a090713adb7f5875c6cb7aeb7ce79e64",
+  "checks": [
+    {
+      "check": "process_exit_zero",
+      "ok": true,
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "editor_commands_reported_back",
+      "ok": true,
+      "detail": {
+        "accepted": [
+          "text.insert"
+        ],
+        "completed": [
+          "text.insert"
+        ],
+        "failed": []
+      }
+    },
+    {
+      "check": "no_document_operation_failed",
+      "ok": true,
+      "detail": {
+        "failures": []
+      }
+    },
+    {
+      "check": "journal_records_each_command",
+      "ok": true,
+      "detail": {
+        "entries": [
+          {
+            "code": "inserted",
+            "command": "text.insert",
+            "ok": true,
+            "source": "assistant",
+            "time": "2026-11-08T03:15:46.800Z"
+          },
+          {
+            "code": "saved",
+            "command": "document.save",
+            "ok": true,
+            "source": "user",
+            "time": "2026-11-08T03:17:09.586Z"
+          }
+        ],
+        "from_assistant": [
+          "text.insert"
+        ]
+      }
+    },
+    {
+      "check": "logs_never_contain_document_text",
+      "ok": true,
+      "detail": {
+        "journal_bytes": 212,
+        "events_bytes": 5363
+      }
+    },
+    {
+      "check": "saved_document_has_inserted_paragraph",
+      "ok": true,
+      "detail": {
+        "marker": "你好，本地 AI 助手",
+        "original": [
+          "Open Office 兼容性样本",
+          "中文与 English 123；标点：，。！？",
+          "普通文字 + 粗斜体",
+          "项目",
+          "数量",
+          "办公套件",
+          "3"
+        ],
+        "found": [
+          "Open Office 兼容性样本",
+          "中文与 English 123；标点：，。！？",
+          "普通文字 + 粗斜体",
+          "项目",
+          "数量",
+          "办公套件",
+          "3",
+          "你好，本地 AI 助手"
+        ]
+      }
+    }
+  ],
+  "all_ok": true
+}

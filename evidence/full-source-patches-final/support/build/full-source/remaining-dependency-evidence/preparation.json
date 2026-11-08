@@ -1,0 +1,147 @@
+{
+  "prepared_at_utc": "2026-11-02T10:45:15.565165+00:00",
+  "patches": [
+    {
+      "source": "gumbo",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\gumbo-parser\\src\\tag.c",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\fetch.py",
+      "recipe_sha256": "ad98a9d136c53a46557d77cd449d2b027e22e4b4267b93753a1c84b39e1079e3",
+      "occurrences": 1,
+      "before_sha256": "7717744e40016f937776f2f7536a39961da4005981471c22e30601dc183335dd",
+      "after_sha256": "193a425a65714b1d2e6b59a97f6aafc5576a46baaab4a476e3dcad943e421773"
+    },
+    {
+      "source": "hunspell",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\hunspell\\src\\hunspell\\filemgr.hxx",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\before.py",
+      "recipe_sha256": "713cf54986ef23df92ce40f4f96b28abc5bc4aa3eedf135d9963c53080ac63e5",
+      "occurrences": 1,
+      "before_sha256": "d8d9afd50dfc4f92f8d70a1d4667cee8c352de84b50a47e0a002d414a106f5d5",
+      "after_sha256": "9d65ecae6f2c7be8a0249b5cbc62a36f40db1e127a1f8cf10a93f837f36779ad"
+    },
+    {
+      "source": "hunspell",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\hunspell\\src\\hunspell\\filemgr.hxx",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\before.py",
+      "recipe_sha256": "713cf54986ef23df92ce40f4f96b28abc5bc4aa3eedf135d9963c53080ac63e5",
+      "occurrences": 1,
+      "before_sha256": "9d65ecae6f2c7be8a0249b5cbc62a36f40db1e127a1f8cf10a93f837f36779ad",
+      "after_sha256": "3b41be3c6304cd7112e2638aca0dd496c478a6662390f7934e9513ef3a7b4552"
+    },
+    {
+      "source": "hunspell",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\hunspell\\src\\hunspell\\csutil.cxx",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\before.py",
+      "recipe_sha256": "713cf54986ef23df92ce40f4f96b28abc5bc4aa3eedf135d9963c53080ac63e5",
+      "occurrences": 1,
+      "before_sha256": "8e411ac816350eb2ac2ea0a412d62a66fe93eccfd8708fd9c25facab9870c752",
+      "after_sha256": "77c802a80f5504a66f0a63c9195d86a000beedfd0fd280fe3a6fbeca3d50fc71"
+    },
+    {
+      "source": "hunspell",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\hunspell\\src\\hunspell\\atypes.hxx",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\before.py",
+      "recipe_sha256": "713cf54986ef23df92ce40f4f96b28abc5bc4aa3eedf135d9963c53080ac63e5",
+      "occurrences": 1,
+      "before_sha256": "6d514561bbb3a2cb46f7d8662693ec648df8b5ad2863915a33122fc224be8503",
+      "after_sha256": "5b2e8207943de0ce117c212448e52e3a6b31f3b50cc2b96d03c3a2addd650415"
+    },
+    {
+      "source": "glm",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\glm\\glm\\detail\\func_common.inl",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\fetch.py",
+      "recipe_sha256": "81aaebef3238b0f7560541d25808acd5b203b98afc4f310798bcf59b3a1ae3ce",
+      "occurrences": 1,
+      "before_sha256": "715faf9c92f9b916776d3a838f6a92479c32b0dfb28f8c3d086b6a7efc505b11",
+      "after_sha256": "d6e092261a7e62b6accc8c50802c579ee2f2f7f457be4ea5dbeccc94c617b314"
+    },
+    {
+      "source": "mdds",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\mdds\\include\\mdds\\global.hpp",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\fetch.py",
+      "recipe_sha256": "81aaebef3238b0f7560541d25808acd5b203b98afc4f310798bcf59b3a1ae3ce",
+      "occurrences": 1,
+      "before_sha256": "eb9580a4f71101d81ba9110caf10e3401f7eb1d39cb2abf0e6c4bdab4305c8c1",
+      "after_sha256": "2e49cb56f8313b8d5408b85e67dfffff18e2151d4d515e0eb293ea3c13df3142"
+    },
+    {
+      "source": "librevenge",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\librevenge\\src\\lib\\RVNGDirectoryStream.cpp",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\fetch.py",
+      "recipe_sha256": "81aaebef3238b0f7560541d25808acd5b203b98afc4f310798bcf59b3a1ae3ce",
+      "occurrences": 1,
+      "before_sha256": "44b20fe3d40755b8a26cb8139c50950a8a41cc833487b2d16e705f1eeb83e9a1",
+      "after_sha256": "c9d0dfc37e0419d3753ba4285d0369acc854cd0f35452e862f8c9a47c89634b1"
+    },
+    {
+      "source": "librevenge",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\librevenge\\inc\\librevenge-stream\\RVNGStreamImplementation.h",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\fetch.py",
+      "recipe_sha256": "81aaebef3238b0f7560541d25808acd5b203b98afc4f310798bcf59b3a1ae3ce",
+      "occurrences": 1,
+      "before_sha256": "c5199bbd53d69c34654e12a05a4bd8c4718301d9713d8350ae4af4de12426046",
+      "after_sha256": "57c1060fa0773a09eb4e979e2123cf248e73e963b18211461244125c872adfcb"
+    },
+    {
+      "source": "librevenge",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\librevenge\\src\\lib\\RVNGStreamImplementation.cpp",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\fetch.py",
+      "recipe_sha256": "81aaebef3238b0f7560541d25808acd5b203b98afc4f310798bcf59b3a1ae3ce",
+      "occurrences": 1,
+      "before_sha256": "f909063406f5af5b6977751da8d4040d84bad503090baa7439c55edd4875c1b8",
+      "after_sha256": "37d411c48c3899f443d5d612734d6168996549769f66a3364f6cd9984a9dbed8"
+    },
+    {
+      "source": "librevenge",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\librevenge\\src\\lib\\RVNGStreamImplementation.cpp",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\fetch.py",
+      "recipe_sha256": "81aaebef3238b0f7560541d25808acd5b203b98afc4f310798bcf59b3a1ae3ce",
+      "occurrences": 1,
+      "before_sha256": "37d411c48c3899f443d5d612734d6168996549769f66a3364f6cd9984a9dbed8",
+      "after_sha256": "52f496bd85cbe17cd13a8b7f20dc6f712ba9f8d50226f2f0b1718990e800a664"
+    },
+    {
+      "source": "libetonyek",
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek\\src\\lib\\IWORKTable.cpp",
+      "recipe": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\fetch.py",
+      "recipe_sha256": "81aaebef3238b0f7560541d25808acd5b203b98afc4f310798bcf59b3a1ae3ce",
+      "occurrences": 1,
+      "before_sha256": "b5f05a82059c0aa001b75354367f30c2d5d5bd4efdf645ca230b49acb9756a5b",
+      "after_sha256": "e77d3fd358b1da7a1297ef51cc625859043fd164ded486a8b94b58298f288bb0"
+    }
+  ],
+  "token_headers": [
+    {
+      "source": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\headers\\IWORKToken.inc",
+      "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek\\src\\lib\\IWORKToken.inc",
+      "sha256": "87e91538cf92f98b6cbd704810831e51dd66e80e898b5afc0f63fee2f7c6cd81",
+      "provenance": "ONLYOFFICE tracked gperf output; upstream iwork.make(False) copies this file"
+    },
+    {
+      "source": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\headers\\KEY1Token.inc",
+      "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek\\src\\lib\\KEY1Token.inc",
+      "sha256": "185e029f22b128542e285a95ebeff1ee32107f504cf18654233de8473595e352",
+      "provenance": "ONLYOFFICE tracked gperf output; upstream iwork.make(False) copies this file"
+    },
+    {
+      "source": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\headers\\KEY2Token.inc",
+      "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek\\src\\lib\\KEY2Token.inc",
+      "sha256": "2cd009b6141861bd4ed9ba2ceb6c005fa5decfe2802b248a6184e4f07478c425",
+      "provenance": "ONLYOFFICE tracked gperf output; upstream iwork.make(False) copies this file"
+    },
+    {
+      "source": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\headers\\NUM1Token.inc",
+      "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek\\src\\lib\\NUM1Token.inc",
+      "sha256": "f9c93b1edc27ca344a6df8c2c4762d9f69be2adbd0fb05b94bdd6bc0c5f996e2",
+      "provenance": "ONLYOFFICE tracked gperf output; upstream iwork.make(False) copies this file"
+    },
+    {
+      "source": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\headers\\PAG1Token.inc",
+      "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek\\src\\lib\\PAG1Token.inc",
+      "sha256": "b89944fb2fec904915230ec2195ea7b8c299c9aed827a40d6dc8060a760cedc6",
+      "provenance": "ONLYOFFICE tracked gperf output; upstream iwork.make(False) copies this file"
+    }
+  ],
+  "gperf_executed": false,
+  "unrelated_dependencies_modified": false
+}

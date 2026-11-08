@@ -1,0 +1,30 @@
+{
+  "kind": "open-office-host-candidate-runtime",
+  "created_utc": "2026-11-07T07:01:34.709720+00:00",
+  "source_runtime": "D:\\open office\\build\\full-source-run-wasm-candidate",
+  "source_wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "note": "openoffice-full-source-stage.json and openoffice-wasm-candidate.json are copied unchanged and describe the source runtime; this file lists the only difference",
+  "skipped_top_level": [
+    "openoffice-profile"
+  ],
+  "files_copied": 20972,
+  "files_verified_identical": 20971,
+  "host": {
+    "path": "OpenOffice.exe",
+    "previous_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+    "sha256": "bdefa20439143e0009ed51115225c3362460031a75d4e9303fdb2cb6e67ec37d",
+    "bytes": 428032,
+    "built_from": "D:\\open office\\build\\full-source-host\\bin\\OpenOffice.exe",
+    "build_label": "assistant-ball-3",
+    "build_log_sha256": "80fd68907e714fc50171e0c045afb40925775a862253694cce0dfe3a692b96be",
+    "ctest_log_sha256": "44eb43ee60354cb3e4ac38baba9e3578ba741475f9ea1ff139dc35dadc427c40",
+    "test_results_sha256": {
+      "engine-contract-results.txt": "ae2458d82d1ac5f9c477b3094ff0241ff9055b8675d34e5a0edecdc96278bf05",
+      "native-ui-results.txt": "77beef6bf7d6df6c74535e09e7fb4e8593ea5f859219bd02d777c3ae8910f2e2",
+      "assistant-results.txt": "8721da9ebd605b0aa975fb01e6e37708d13b390daba4b51ef837e017ab909de9"
+    }
+  },
+  "gui_regression_verified": false,
+  "target": "D:\\open office\\build\\full-source-run-assistant-ball-r3",
+  "marker_sha256": "638a4ddf59ab024149d9ef6b2cd78c999533609ad8f8ce496bd1de895b40d05e"
+}

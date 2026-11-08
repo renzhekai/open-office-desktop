@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-01",
+  "requirements_sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+  "desktop_editors": {
+    "repository": "https://github.com/ONLYOFFICE/DesktopEditors.git",
+    "tag": "v10.0.0",
+    "commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+    "release_page": "https://github.com/ONLYOFFICE/DesktopEditors/releases/tag/v10.0.0",
+    "source_downloaded": true,
+    "superproject_downloaded": true,
+    "local_path": "upstream/DesktopEditors",
+    "submodules_complete": true,
+    "built_locally": false,
+    "windows_x64_baseline": {
+      "url": "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v10.0.0/DesktopEditors_x64.zip",
+      "sha256": "54979d04f1cdca56deb0c62e0356355a45f392cdb54f04f6b7e436b1f44c3605",
+      "checksum_source": "Official GitHub release asset listing; verify downloaded bytes before extraction",
+      "downloaded": true,
+      "local_archive": "dependencies/onlyoffice-v10.0.0/DesktopEditors_x64.zip",
+      "sha256_verified": true,
+      "used_as_native_build_dependency": true,
+      "verification_evidence": "evidence/onlyoffice-release-directory/runtime-verification.json",
+      "executed": true,
+      "execution_scope": "Native engine DLLs, CEF helper and converter embedded by our own Qt6 host; official DesktopEditors.exe was not launched.",
+      "official_product_exe_executed": false,
+      "native_docx_roundtrip_verified": true,
+      "execution_evidence": "evidence/native-docx-roundtrip-result.json"
+    }
+  },
+  "build_tools": {
+    "repository": "https://github.com/ONLYOFFICE/build_tools.git",
+    "commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+    "commit_evidence": "https://github.com/ONLYOFFICE/build_tools/commit/43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda.patch",
+    "source_downloaded": true,
+    "local_path": "upstream/DesktopEditors/build_tools",
+    "status": "downloaded_at_locked_commit; compatibility with DesktopEditors v10.0.0 dependency graph not yet validated"
+  },
+  "component_commits": {
+    "core": {
+      "commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+      "evidence": "Local DesktopEditors git ls-tree HEAD",
+      "source_downloaded": true
+    },
+    "desktop-apps": {
+      "commit": "332c1905a5361dd4139481827b7ad4f4a9facd85",
+      "evidence": "Local DesktopEditors git ls-tree HEAD",
+      "source_downloaded": true
+    },
+    "desktop-sdk": {
+      "commit": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11",
+      "evidence": "Local DesktopEditors git ls-tree HEAD; detached checkout completed with header files present",
+      "source_downloaded": true
+    },
+    "dictionaries": {
+      "commit": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+      "evidence": "Local DesktopEditors git ls-tree HEAD",
+      "source_downloaded": true
+    },
+    "web-apps": {
+      "commit": "f79972a400c3a696490094961772d1f86fac1b82",
+      "evidence": "Local checkout and commit object verified; evidence/onlyoffice-source-checkout-verified.json",
+      "source_downloaded": true
+    },
+    "sdkjs": {
+      "commit": "9d2138866d929be32f1d107e8b5bfae36156e097",
+      "evidence": "https://github.com/ONLYOFFICE/DesktopEditors/commit/daf8c6948148827201b2907ac1134d222fbfa7b4.patch",
+      "source_downloaded": true
+    }
+  },
+  "notes": [
+    "DesktopEditors, all six pinned submodules and build_tools checked out locally; see evidence/onlyoffice-source-checkout-verified.json.",
+    "This locks the candidate desktop release, not a complete build dependency graph.",
+    "Runtime ZIP launch and local source compilation are separate gates.",
+    "Do not execute upstream build scripts before reviewing installation and system configuration effects."
+  ]
+}

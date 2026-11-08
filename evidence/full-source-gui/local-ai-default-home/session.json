@@ -1,0 +1,26 @@
+{
+  "started_at_utc": "2026-11-08T03:33:26.602033+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-local-ai\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\local-ai-default-home",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\local-ai-default-home\\launch-report.json",
+    "--exit-after-ms",
+    "9000"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\local-ai-default-home",
+  "profile_existed_before": false,
+  "entry_sha256": "3eb9a92a19a087cb3fb55b69655ce362e55f721d1f76d67909087356093b5a0e",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-local-ai",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "host_candidate_marker_sha256": "df6707859311b711b5f5117d2a5af92242cb2a8ccf295e2c582e844bf5d1a864",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 31868,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-08T03:33:37.577864+00:00",
+  "native_events_sha256": "b8a9f6fa2f2761136bc63c17d0799aab85ff24aeeb89b1c8d4da7c96d1b04bfa"
+}

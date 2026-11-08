@@ -1,0 +1,146 @@
+{
+  "status": "prepared",
+  "at_utc": "2026-11-02T10:34:10.194961+00:00",
+  "upstream_recipe": "build_tools/scripts/core_common/modules/socket_io.py",
+  "patches": [
+    {
+      "name": "websocketpp",
+      "patch_file": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\patches\\websocketpp.patch",
+      "patch_sha256": "34fdd2cf2b01002721f17f700466112c9374d3fae187946bcbad7f61c4a83417",
+      "before_sha256": "ba2d1f51eb6799fee6fa07c0a0c3b5c45e7a24adbe033baf6446d5a9752062e9",
+      "after_sha256": "ade67a820323d423cdccbe021d045d79f6cff4e315755f32e1a4277999ad2899"
+    },
+    {
+      "name": "sio_client_impl_fail",
+      "patch_file": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\patches\\sio_client_impl_fail.patch",
+      "patch_sha256": "6f03e49e30db5055e7c71995830acd585a0f35305c9e3d68137725a55852c59f",
+      "before_sha256": "1a6972e49a10a30b03f2ddb74e437023fbeb8a5ad17ccd0a3a42420b3ac3dfd3",
+      "anchor_adjustment": "Upstream patch old block refers to sio_no_tls; pristine src uses sio. Match namespace only; replacement remains exactly upstream.",
+      "after_sha256": "275c0ea3c5a5b988495e774a2d4e9f306920d4b1b8605d97e057868e26f295e2"
+    },
+    {
+      "name": "sio_client_impl_open",
+      "patch_file": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\patches\\sio_client_impl_open.patch",
+      "patch_sha256": "05b0b66e0c17454399af6265081cb7fc09fa37b1c54568bb3c4aad0ea64c4d0f",
+      "before_sha256": "275c0ea3c5a5b988495e774a2d4e9f306920d4b1b8605d97e057868e26f295e2",
+      "after_sha256": "82d0857d21b7c775b3d87e43c7c6a034d91b3fe66a5e65259544016849211c4c"
+    },
+    {
+      "name": "sio_client_impl_close_timeout",
+      "patch_file": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\patches\\sio_client_impl_close_timeout.patch",
+      "patch_sha256": "7ea267bdb3aaac29116ffae3b41ee0dda21b48230eca078d891b1dd34052ff13",
+      "before_sha256": "82d0857d21b7c775b3d87e43c7c6a034d91b3fe66a5e65259544016849211c4c",
+      "after_sha256": "e2d03f8308ff23b74f59fc0d6461631793361d6eadab1cd1a1cafd7bf73b1e97"
+    },
+    {
+      "name": "sio_client_impl_encode",
+      "patch_file": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\patches\\sio_client_impl_encode.patch",
+      "patch_sha256": "0a5795ae9b9a5658ab296ebcfbca8941f270e3cffc0bd92862d2fdd048b40fb7",
+      "before_sha256": "e2d03f8308ff23b74f59fc0d6461631793361d6eadab1cd1a1cafd7bf73b1e97",
+      "after_sha256": "0d6819b4f6f4dde3eb562c6bf0d2a11e9323f65d2d8f1076e96928d494f0dfd1"
+    }
+  ],
+  "files": [
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\internal\\sio_client_impl.cpp",
+      "sha256": "3ec9c6a68e7dae83af84e492015919694cb9c0a0db87aabf2ea6cfdef09154ec",
+      "size": 21862
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\internal\\sio_client_impl.h",
+      "sha256": "0c2cfbb1650c4cf715141e31de42854ac51b2ab40320074000e8f8ca8ac63d12",
+      "size": 7385
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\internal\\sio_packet.cpp",
+      "sha256": "ef9044ff285d281cdb04e3b1752077a1a37f40ff234823773629adc8480eb224",
+      "size": 14911
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\internal\\sio_packet.h",
+      "sha256": "7a8cc9f01e299363608aae68755c8032d30e72621ef9de7f49ca0e6a2b31cb07",
+      "size": 3032
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\sio_client.cpp",
+      "sha256": "fa9ca4bcd7c243075f68bf252c94cd47785c1ef2f0523f455679195fefbe2910",
+      "size": 3849
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\sio_client.h",
+      "sha256": "468e56e37e5397fb815aeecfd63861a52934aa43ef290b482a17c6832c2a237c",
+      "size": 3180
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\sio_message.h",
+      "sha256": "d54f7f80357ee948a39fe1a9bdce529fb84d96a94a5ff100aae13a960568deec",
+      "size": 13477
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\sio_socket.cpp",
+      "sha256": "c9684e884b734c0884880b3b10080e114b86be64a05076ed29a874d3fc1ff234",
+      "size": 17077
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src\\sio_socket.h",
+      "sha256": "c49f6ff870abe75665d28ebbf65abaa523ee8d8afc4f39097f77f78546fd5b0a",
+      "size": 2890
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\websocketpp\\websocketpp\\impl\\connection_impl.hpp",
+      "sha256": "ade67a820323d423cdccbe021d045d79f6cff4e315755f32e1a4277999ad2899",
+      "size": 78598
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\internal\\sio_client_impl.cpp",
+      "sha256": "0955a0475680ec543cbaa3465bf4feecd66ec3d5d2d972172f9b3202be97451a",
+      "size": 21951
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\internal\\sio_client_impl.h",
+      "sha256": "87ea7e94bee99cf04d94a4c89e44b3cb9bbc636141d09920c29d79b25020f7df",
+      "size": 7438
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\internal\\sio_packet.cpp",
+      "sha256": "93701f96367d11315c5f9636f0f1949ddd92df0ad494e090c08ae46b6c161fbc",
+      "size": 14918
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\internal\\sio_packet.h",
+      "sha256": "ebefd99b85b121e425312e795a2717a55e1fe7c9512dac25f6ee8d2b88dc3b9d",
+      "size": 3053
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\sio_client.cpp",
+      "sha256": "21b47ac367dd2f111ef9dca978c8d8ca9994341bcc1f887c2d36113d82166869",
+      "size": 3856
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\sio_client.h",
+      "sha256": "53e000e28bbeaa74ee17196c6d1915fba5cefaa24f773f6136478490d86bc23f",
+      "size": 3208
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\sio_message.h",
+      "sha256": "3e3709ff559e458e73ace9f014e95c0d4c5d549d1ce195839e3844c25c77e509",
+      "size": 13498
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\sio_socket.cpp",
+      "sha256": "f29b48c1c947c000b245750f0669bec5f2031cb44631a6896d70b58a79ee40c2",
+      "size": 17119
+    },
+    {
+      "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\src_no_tls\\sio_socket.h",
+      "sha256": "13913541708b7be84e5ed8cbd36fa3996b4eb218bd8136d60eac16ca43794447",
+      "size": 2918
+    }
+  ],
+  "required_headers": [
+    "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\asio\\asio\\include\\asio.hpp",
+    "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\rapidjson\\include\\rapidjson\\document.h",
+    "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\websocketpp\\websocketpp\\client.hpp"
+  ],
+  "no_tls_source_count": 9
+}

@@ -1,0 +1,199 @@
+{
+  "module": "zlib",
+  "label": "pass7",
+  "recipe": "OfficeUtils/js/zlib_image.json",
+  "recipe_sha256": "81d48616d842192e20cc28f2d8854706b4378c4dc311202490d596e7bd43233d",
+  "started_utc": "2026-11-04T09:52:43.241130+00:00",
+  "emscripten": "3.1.48",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "jobs": 20,
+  "output_dir": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass7",
+  "recipe_adaptations": [
+    {
+      "group_folder": "../../DesktopEditor/cximage/CxImage/",
+      "add_files": [
+        "APP14cmyktorgb.cpp"
+      ],
+      "reason": "same as fonts: ximajpg.cpp calls ima_jpeg_cmyk_to_rgb from APP14cmyktorgb.cpp",
+      "official_reference": "DesktopEditor/graphics/pro/raster.pri:268"
+    },
+    {
+      "group_folder": "../../DesktopEditor/raster/Metafile/",
+      "add_files": [
+        "Common/CPath.cpp",
+        "Common/CClip.cpp"
+      ],
+      "reason": "metafile path/clip code moved from Emf/Wmf-specific files into Common/CPath.cpp and Common/CClip.cpp; the libfont.json recipe of the same 075052dd snapshot already lists them",
+      "official_reference": "DesktopEditor/graphics/pro/metafile.pri:72-73"
+    },
+    {
+      "group_folder": "../../DesktopEditor/raster/Metafile/Emf/",
+      "add_files": [
+        "EmfPlusObjects.cpp"
+      ],
+      "remove_files": [
+        "EmfClip.cpp",
+        "EmfPath.cpp"
+      ],
+      "reason": "EmfClip.cpp and EmfPath.cpp do not exist at 075052dd or in the pinned core (stale recipe entries); EmfPlusObjects.cpp is listed by the official build and by libfont.json",
+      "official_reference": "DesktopEditor/graphics/pro/metafile.pri:84"
+    },
+    {
+      "group_folder": "../../DesktopEditor/raster/Metafile/Wmf/",
+      "remove_files": [
+        "WmfClip.cpp"
+      ],
+      "reason": "WmfClip.cpp does not exist at 075052dd or in the pinned core (stale recipe entry)",
+      "official_reference": "DesktopEditor/graphics/pro/metafile.pri SOURCES (no WmfClip.cpp)"
+    },
+    {
+      "group_folder": "../../DesktopEditor/",
+      "add_files": [
+        "graphics/Matrix.cpp"
+      ],
+      "reason": "current metafile code uses Aggplus::CMatrix (wasm-ld undefined symbols, zlib pass1); libfont.json of the same snapshot already compiles graphics/Matrix.cpp",
+      "official_reference": "DesktopEditor/graphics/pro/graphics.pro:77"
+    },
+    {
+      "group_folder": "../../DesktopEditor/",
+      "add_files": [
+        "raster/PICT/PICFile.cpp"
+      ],
+      "reason": "BgraFrame.cpp in the pinned core decodes PICT through CPictFile (wasm-ld undefined symbols, zlib pass3); libfont.json of the same snapshot compiles PICT/PICFile.cpp",
+      "official_reference": "DesktopEditor/graphics/pro/raster.pri:319"
+    },
+    {
+      "group_folder": "../../DesktopEditor/",
+      "add_files": [
+        "graphics/GraphicsPath.cpp"
+      ],
+      "reason": "current metafile code uses Aggplus::CGraphicsPath (wasm-ld undefined symbols, zlib pass4); libfont.json of the same snapshot compiles graphics/GraphicsPath.cpp",
+      "official_reference": "DesktopEditor/graphics/pro/graphics.pro:90"
+    },
+    {
+      "new_group": {
+        "folder": "../../DesktopEditor/agg-2.4/src/",
+        "files": [
+          "agg_trans_affine.cpp",
+          "agg_bezier_arc.cpp"
+        ]
+      },
+      "reason": "Matrix.cpp and GraphicsPath.cpp are built on agg::trans_affine and agg::bezier_arc; libfont.json compiles the same two files",
+      "official_reference": "DesktopEditor/graphics/pro/graphics.pro:80,111"
+    },
+    {
+      "add_defines": [
+        "IMAGE_CHECKER_DISABLE_XML"
+      ],
+      "reason": "only the file-path isSvgFile(fileName) uses CXmlLiteReader (wasm-ld undefined symbols, zlib pass2); the module is built with FILESYSTEM=0 and detects formats from buffers; the source provides this switch with a plain '<svg' scan fallback, and libfont.json of the same snapshot defines it",
+      "official_reference": "DesktopEditor/raster/ImageFileFormatChecker.cpp:42,795; libfont.json define list"
+    },
+    {
+      "add_flags": [
+        "-s STACK_SIZE=5MB"
+      ],
+      "reason": "the recipe sets no stack size and the official zlib.wasm (2022-08) was built with the old 5MB default; restored for the same runtime conditions as the official build",
+      "official_reference": "emscripten/ChangeLog.md 3.1.27 (2022-11-29): default STACK_SIZE reduced from 5MB to 64KB; -sSTACK_SIZE=5MB restores the previous behaviour"
+    }
+  ],
+  "diagnostic_extra_flags": [],
+  "post_process_adaptations": [
+    {
+      "historical": "function getBinaryPromise(){",
+      "used": "function getBinaryPromise(",
+      "reason": "Emscripten 3.1.48 glue signature is getBinaryPromise(binaryFile)"
+    },
+    {
+      "historical": "copy wasm/js/index.html and wasm/js/code.js into deploy",
+      "used": "not copied",
+      "reason": "test pages only; the official SDKJS common/zlib/engine deploy has just zlib.js, zlib.wasm, zlib_ie.js"
+    }
+  ],
+  "wasm": {
+    "compiled": 170,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "zlib.js": {
+        "bytes": 26640,
+        "sha256": "665ca5b5a942180bfd5384df64b28c4c0735f0ee5c58de4acf3e9aca82bf28f0"
+      },
+      "zlib.wasm": {
+        "bytes": 1917250,
+        "sha256": "5293ec6ce71b4c00b9c961a089389e514bb8f3d630eb488d67dc7ea4d06fb64c"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass7\\wasm-commands.json"
+  },
+  "template_adaptations": [],
+  "template_marker_counts": {
+    "//module": 1,
+    "//string_utf8": 1,
+    "//desktop_fetch": 1
+  },
+  "asm": {
+    "compiled": 170,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "zlib.js": {
+        "bytes": 3561172,
+        "sha256": "72705bac93ff8c71baead2b5f5b11eb46786bd765ff205ac0059f8dadf8586ef"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass7\\asm-commands.json"
+  },
+  "template_adaptations_ie": [],
+  "template_marker_counts_ie": {
+    "//module": 1,
+    "//string_utf8": 1,
+    "//desktop_fetch": 1,
+    "//polyfill": 0
+  },
+  "post_process": [
+    {
+      "file": "zlib.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1
+      },
+      "replacement": "__ATPOSTRUN__=[function(){self.onZlibEngineInit();}];"
+    },
+    {
+      "file": "zlib.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    },
+    {
+      "file": "zlib_ie.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1
+      },
+      "replacement": "__ATPOSTRUN__=[function(){self.onZlibEngineInit();}];"
+    },
+    {
+      "file": "zlib_ie.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    }
+  ],
+  "deploy": {
+    "zlib.js": {
+      "bytes": 42991,
+      "sha256": "1d007e0bc304d8ce9be62f9974c284a9b4bf39ef55c7e7e891fe7ad98cb20c14"
+    },
+    "zlib.wasm": {
+      "bytes": 1917250,
+      "sha256": "5293ec6ce71b4c00b9c961a089389e514bb8f3d630eb488d67dc7ea4d06fb64c"
+    },
+    "zlib_ie.js": {
+      "bytes": 3577522,
+      "sha256": "bff06022fbac773ca8182045abbc4805fd5794161213c2034aa4ff8df2c670f5"
+    }
+  },
+  "status": "built",
+  "finished_utc": "2026-11-04T09:53:20.459773+00:00"
+}

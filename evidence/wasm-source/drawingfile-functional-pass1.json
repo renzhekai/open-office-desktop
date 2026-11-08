@@ -1,0 +1,108 @@
+{
+  "module": "drawingfile",
+  "label": "pass1",
+  "started_utc": "2026-11-05T04:38:32.757096+00:00",
+  "official_dir": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\pdf\\src\\engine",
+  "rebuilt_dir": "D:\\open office\\build\\wasm-source\\out\\drawingfile\\pass6\\deploy",
+  "inputs": {
+    "D:\\open office\\build\\wasm-source\\test\\pdf-inputs\\document.pdf": {
+      "bytes": 659697,
+      "sha256": "c59f836c792426b7620ddad3d86feaa14e683ac46769f211eae970fd6fa149c8"
+    },
+    "D:\\open office\\build\\wasm-source\\test\\pdf-inputs\\form.pdf": {
+      "bytes": 117405,
+      "sha256": "0a74046abb48721802facd1699c291f592177e24aa7f5fe080e3f984e4e3240a"
+    },
+    "D:\\open office\\build\\full-source-run\\fonts\\OpenSans-Regular.ttf": {
+      "bytes": 217360,
+      "sha256": "e64e508b2aa2880f907e470c4550980ec4c0694d103a43f36150ac3f93189bee"
+    },
+    "C:\\Windows\\Web\\4K\\Wallpaper\\Windows\\img0_1920x1200.jpg": {
+      "bytes": 542091,
+      "sha256": "7f78c8efdc6462b80722160290bb24da278a6ad5e12836e5fbbafe2782b5f515"
+    }
+  },
+  "harness": {
+    "path": "D:\\open office\\scripts\\wasm_engine_harness.cjs",
+    "sha256": "1db2ea94f8c1502fdef8d505a5a369574daf90c21636b3cf49d404b43dd2f27b"
+  },
+  "node": "v24.15.0",
+  "variants": {
+    "wasm": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\pdf\\src\\engine\\drawingfile.js",
+          "engine_sha256": "c27e605cb9fdce36d30a0de78ac727cc0db88afd881b96dbee449c2021e2538b",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\drawingfile\\pass6\\deploy\\drawingfile.js",
+          "engine_sha256": "dd40b42b16fca65d28c72ee062da5b70055eec34c32f20cbc45a28b6fad06935",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": false,
+      "differences": [
+        ".documents[1].pages[0].forms_ap.sha256"
+      ],
+      "independent": {
+        "official": {
+          "documents_open_without_error": true,
+          "split_and_build_reopen_as_pdf": true,
+          "font_storage_set_and_clear": true,
+          "image_storage_set_and_clear": true,
+          "pages_rendered": 6
+        },
+        "rebuilt": {
+          "documents_open_without_error": true,
+          "split_and_build_reopen_as_pdf": true,
+          "font_storage_set_and_clear": true,
+          "image_storage_set_and_clear": true,
+          "pages_rendered": 6
+        }
+      },
+      "passed": false
+    },
+    "asmjs": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\pdf\\src\\engine\\drawingfile_ie.js",
+          "engine_sha256": "2a30ef1e9102f447e0db8efe08b31eb04257aae4d1395f071261c021083e1533",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\drawingfile\\pass6\\deploy\\drawingfile_ie.js",
+          "engine_sha256": "97b3ef37b42661975291d809bf70a0358d7d440749c4f9ee141f683b39cd814d",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": false,
+      "differences": [
+        ".documents[1].pages[0].forms_ap.sha256"
+      ],
+      "independent": {
+        "official": {
+          "documents_open_without_error": true,
+          "split_and_build_reopen_as_pdf": true,
+          "font_storage_set_and_clear": true,
+          "image_storage_set_and_clear": true,
+          "pages_rendered": 6
+        },
+        "rebuilt": {
+          "documents_open_without_error": true,
+          "split_and_build_reopen_as_pdf": true,
+          "font_storage_set_and_clear": true,
+          "image_storage_set_and_clear": true,
+          "pages_rendered": 6
+        }
+      },
+      "passed": false
+    }
+  },
+  "all_passed": false,
+  "finished_utc": "2026-11-05T04:38:35.860268+00:00"
+}

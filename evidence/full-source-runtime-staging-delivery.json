@@ -1,0 +1,14 @@
+{
+  "script_sha256": "88b459bcdc467edd8c26a564c940dd024b425239a0e0ece05de5f9edeae7b772",
+  "script_syntax": "passed",
+  "cmake_explicit_import_override_present": true,
+  "runtime_target_exists": false,
+  "gui_or_converter_launched": false,
+  "full_resource_hash_inventory_repeated": false,
+  "requirements_sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+  "fallback_entry_sha256": "75f5a57dc9ac46919af8933a7b2e23b3c021e78cda315ca4d46ef60d05e1dcc7",
+  "inventory": "evidence/full-source-runtime-inventory-initial.json",
+  "qt_and_import_validation": "evidence/full-source-runtime-validation-final.json",
+  "path_validation": "evidence/full-source-runtime-path-validation.json",
+  "qt_initial_dry_run_effect": "Created only two empty directories at full-source-run/qt6-plugins, no files; verified empty and removed before subsequent no-cleanup constraint. Current simulation uses existing desktop-build-evidence; no subsequent cleanup."
+}

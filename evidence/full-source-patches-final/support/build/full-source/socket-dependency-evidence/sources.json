@@ -1,0 +1,35 @@
+{
+  "socketio": {
+    "repository": "https://github.com/socketio/socket.io-client-cpp.git",
+    "commit": "da779141a7379cc30c870d48295033bc16a23c66",
+    "directory": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp",
+    "checked_out_commit": "da779141a7379cc30c870d48295033bc16a23c66",
+    "status": "checked_out",
+    "checked_at_utc": "2026-11-02T10:31:43.195608+00:00"
+  },
+  "asio": {
+    "repository": "https://github.com/chriskohlhoff/asio.git",
+    "commit": "230c0d2ae035c5ce1292233fcab03cea0d341264",
+    "directory": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\asio",
+    "checked_out_commit": "230c0d2ae035c5ce1292233fcab03cea0d341264",
+    "status": "checked_out",
+    "checked_at_utc": "2026-11-02T10:32:09.167485+00:00"
+  },
+  "websocketpp": {
+    "repository": "https://github.com/zaphoyd/websocketpp.git",
+    "commit": "56123c87598f8b1dd471be83ca841ceae07f95ba",
+    "directory": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\websocketpp",
+    "checked_out_commit": "56123c87598f8b1dd471be83ca841ceae07f95ba",
+    "status": "checked_out",
+    "checked_at_utc": "2026-11-02T10:32:15.275209+00:00"
+  },
+  "rapidjson": {
+    "repository": "https://github.com/miloyip/rapidjson.git",
+    "commit": "a36110e11874bcf35af854940e0ce910c19a8b49",
+    "directory": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\rapidjson",
+    "checked_out_commit": "a36110e11874bcf35af854940e0ce910c19a8b49",
+    "status": "checked_out",
+    "checked_at_utc": "2026-11-02T10:32:20.983349+00:00",
+    "commit_source": "socketio commit gitlink lib/rapidjson"
+  }
+}

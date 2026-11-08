@@ -1,0 +1,9 @@
+CHECKOUT DesktopEditors daf8c6948148827201b2907ac1134d222fbfa7b4
+CHECKOUT core ed63e94de814ff1d4ea28cddfaba6939bc9df9ed
+CHECKOUT desktop-apps 332c1905a5361dd4139481827b7ad4f4a9facd85
+CHECKOUT desktop-sdk ae6cf2a039355183c512fc314f7a9bd1a05a6a11
+CHECKOUT dictionaries d3223bbb777883db66ac3cd249f71c6ebdc992c7
+CHECKOUT web-apps f79972a400c3a696490094961772d1f86fac1b82
+CHECKOUT sdkjs 9d2138866d929be32f1d107e8b5bfae36156e097
+CHECKOUT build_tools 43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda
+READY D:\open office\build\full-source\DesktopEditors

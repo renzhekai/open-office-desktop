@@ -1,0 +1,177 @@
+{
+  "label": "pass1",
+  "checked_at_utc": "2026-11-03T09:50:05.398788+00:00",
+  "emscripten_install": "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "em_config_text": "# Project-local Emscripten config written by scripts/wasm_toolchain.py\nLLVM_ROOT = r'D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\bin'\nBINARYEN_ROOT = r'D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install'\nNODE_JS = r'C:\\Program Files\\nodejs\\node.exe'\nJS_ENGINES = [NODE_JS]\n",
+  "em_cache": "D:\\open office\\build\\wasm-source\\toolchain\\cache",
+  "python": {
+    "path": "D:\\open office\\dependencies\\v8-tools\\python-3.11.8\\python.exe",
+    "version": "Python 3.11.8"
+  },
+  "node": {
+    "path": "C:\\Program Files\\nodejs\\node.exe",
+    "version": "v24.15.0"
+  },
+  "system_path_changed": false,
+  "checks": {
+    "emcc_version": true,
+    "wasm_c": true,
+    "wasm_cpp_exceptions": true,
+    "asmjs_wasm2js": true,
+    "closure_native": true
+  },
+  "all_passed": true,
+  "outputs": {
+    "hello.c": {
+      "bytes": 130,
+      "sha256": "598b9163feb05d909d4089c5c8d7cc5ec25dc96d05c50a24ef4ea81e32168667"
+    },
+    "hello.js": {
+      "bytes": 11838,
+      "sha256": "fead37288964fde4ff11726d94cf9baa8cf476788423f204ab7cf73dd791b517"
+    },
+    "hello.wasm": {
+      "bytes": 6570,
+      "sha256": "b4c38fba0d476fad5fd3a5d33691e70110838681de604c843cccd3b741fe7f42"
+    },
+    "exc.js": {
+      "bytes": 17064,
+      "sha256": "42591e1539037165e70a61823b7f30670dc60f40d8d54aa77bc31aedc6a694fc"
+    },
+    "exc.wasm": {
+      "bytes": 21911,
+      "sha256": "89e411a6f13edbc93e9a236f89b267be5107c26a8cc4d25fa9ae05906c80b3a7"
+    },
+    "hello_asm.js": {
+      "bytes": 26922,
+      "sha256": "27a048888f5da0769c590d5e7bc95e00d951762822f59ac8d7c295af6adff469"
+    },
+    "hello_asm.js.mem": {
+      "bytes": 593,
+      "sha256": "ca667204435e60236df90bff450b0ff84431c81f30846c358797308c6c28fda7"
+    }
+  },
+  "log": [
+    {
+      "cmd": [
+        "D:\\open office\\dependencies\\v8-tools\\python-3.11.8\\python.exe",
+        "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\emcc.py",
+        "--version"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.48-git (e967e20b4727956a30592165a3c1cde5c67fa0a8)\nCopyright (C) 2014 the Emscripten authors (see AUTHORS.txt)\nThis is free and open source software under the MIT license.\nThere is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "D:\\open office\\dependencies\\v8-tools\\python-3.11.8\\python.exe",
+        "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\emcc.py",
+        "-O2",
+        "-s",
+        "WASM=1",
+        "hello.c",
+        "-o",
+        "hello.js"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libsockets-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1>goto FOUND_MYDIR \n",
+      "stderr": "shared:INFO: (Emscripten: Running sanity checks)\ncache:INFO: generating system headers: sysroot_install.stamp... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot_install.stamp\" for subsequent builds)\ncache:INFO:  - ok\ncache:INFO: generating system asset: symbol_lists/12e712c1fffbb1d92fab4ff0ea7fb8b419882ba5.json... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\symbol_lists\\12e712c1fffbb1d92fab4ff0ea7fb8b419882ba5.json\" for subsequent builds)\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libGL.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libGL.a\" for subsequent builds)\nsystem_libs:INFO: compiled 3 inputs in 0.55s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libal.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libal.a\" for subsequent builds)\nsystem_libs:INFO: compiled 1 inputs in 0.32s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libhtml5.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libhtml5.a\" for subsequent builds)\nsystem_libs:INFO: compiled 5 inputs in 0.40s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libstubs.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libstubs.a\" for subsequent builds)\nsystem_libs:INFO: compiled 2 inputs in 0.39s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libnoexit.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libnoexit.a\" for subsequent builds)\nsystem_libs:INFO: compiled 1 inputs in 0.27s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libc.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libc.a\" for subsequent builds)\nsystem_libs:INFO: compiled 1024 inputs in 7.76s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libdlmalloc.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libdlmalloc.a\" for subsequent builds)\nsystem_libs:INFO: compiled 1 inputs in 0.50s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libcompiler_rt.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libcompiler_rt.a\" for subsequent builds)\nsystem_libs:INFO: compiled 175 inputs in 2.68s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libc++-noexcept.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libc++-noexcept.a\" for subsequent builds)\nsystem_libs:INFO: compiled 49 inputs in 6.05s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libc++abi-noexcept.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libc++abi-noexcept.a\" for subsequent builds)\nsystem_libs:INFO: compiled 16 inputs in 1.85s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libsockets.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libsockets.a\" for subsequent builds)\nsystem_libs:INFO: compiled 21 inputs in 0.62s\ncache:INFO:  - ok\n"
+    },
+    {
+      "cmd": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "hello.js"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "hello wasm 42\n",
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "D:\\open office\\dependencies\\v8-tools\\python-3.11.8\\python.exe",
+        "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\em++.py",
+        "-O2",
+        "-fexceptions",
+        "-s",
+        "WASM=1",
+        "exceptions.cpp",
+        "-o",
+        "exc.js"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "cies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\cache\\build\\libc++abi-tmp>goto FOUND_MYDIR \n\nD:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1>set MYDIR=D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\ \n\nD:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1>goto FOUND_MYDIR \n",
+      "stderr": "cache:INFO: generating system asset: symbol_lists/63fa6a7209c0dbb99b5971d1e77218df42b0ad2c.json... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\symbol_lists\\63fa6a7209c0dbb99b5971d1e77218df42b0ad2c.json\" for subsequent builds)\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libc++.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libc++.a\" for subsequent builds)\nsystem_libs:INFO: compiled 49 inputs in 5.16s\ncache:INFO:  - ok\ncache:INFO: generating system library: sysroot\\lib\\wasm32-emscripten\\libc++abi.a... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\sysroot\\lib\\wasm32-emscripten\\libc++abi.a\" for subsequent builds)\nsystem_libs:INFO: compiled 16 inputs in 1.86s\ncache:INFO:  - ok\n"
+    },
+    {
+      "cmd": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "exc.js"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "caught 7\n",
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "D:\\open office\\dependencies\\v8-tools\\python-3.11.8\\python.exe",
+        "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\emcc.py",
+        "-O2",
+        "-s",
+        "WASM=0",
+        "hello.c",
+        "-o",
+        "hello_asm.js"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "",
+      "stderr": "cache:INFO: generating system asset: symbol_lists/6b173e6b166ad19298325ab1059cfdda0deb9881.json... (this will be cached in \"D:\\open office\\build\\wasm-source\\toolchain\\cache\\symbol_lists\\6b173e6b166ad19298325ab1059cfdda0deb9881.json\" for subsequent builds)\ncache:INFO:  - ok\n"
+    },
+    {
+      "cmd": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "hello_asm.js"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "hello wasm 42\n",
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\node_modules\\google-closure-compiler-windows\\compiler.exe",
+        "--version"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "Closure Compiler (http://github.com/google/closure-compiler)\nVersion: v20230502\n",
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "--version"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "v24.15.0\n",
+      "stderr": ""
+    },
+    {
+      "cmd": [
+        "D:\\open office\\dependencies\\v8-tools\\python-3.11.8\\python.exe",
+        "--version"
+      ],
+      "cwd": "D:\\open office\\build\\wasm-source\\toolchain\\smoke-pass1",
+      "exit": 0,
+      "stdout": "Python 3.11.8\n",
+      "stderr": ""
+    }
+  ]
+}

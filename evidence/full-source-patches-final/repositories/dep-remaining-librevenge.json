@@ -1,0 +1,54 @@
+{
+  "name": "dep-remaining-librevenge",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\librevenge",
+  "pin": "becd044b519ab83893ad6398e3cbb499a7f0aaf4",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:11.579303+00:00",
+  "head": "becd044b519ab83893ad6398e3cbb499a7f0aaf4",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/Distrotech/librevenge.git",
+  "patch": {
+    "path": "patches/dep-remaining-librevenge.patch",
+    "size": 2893,
+    "sha256": "bb9b6355860643a9a5e52cffc9c9258aef3e7f167fbea2efce1104f6041a6add"
+  },
+  "head_file": {
+    "path": "heads/dep-remaining-librevenge.txt",
+    "size": 41,
+    "sha256": "cd10670efa6bc4b268d6725a4a9991a043fb70e55a693622c4003ff987451a7d"
+  },
+  "changed_files": [
+    {
+      "path": "inc/librevenge-stream/RVNGStreamImplementation.h",
+      "state": "file",
+      "size": 2611,
+      "sha256": "57c1060fa0773a09eb4e979e2123cf248e73e963b18211461244125c872adfcb"
+    },
+    {
+      "path": "src/lib/RVNGDirectoryStream.cpp",
+      "state": "file",
+      "size": 5248,
+      "sha256": "c9d0dfc37e0419d3753ba4285d0369acc854cd0f35452e862f8c9a47c89634b1"
+    },
+    {
+      "path": "src/lib/RVNGStreamImplementation.cpp",
+      "state": "file",
+      "size": 13938,
+      "sha256": "52f496bd85cbe17cd13a8b7f20dc6f712ba9f8d50226f2f0b1718990e800a664"
+    }
+  ],
+  "changed_file_count": 3,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:12.125766+00:00"
+}

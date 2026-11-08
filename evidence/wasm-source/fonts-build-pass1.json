@@ -1,0 +1,20 @@
+{
+  "module": "fonts",
+  "label": "pass1",
+  "recipe": "DesktopEditor/fontengine/js/libfont.json",
+  "recipe_sha256": "2007f73f090c5c2582aa47a032f933ce1898495a416a2c6ebf53bbf06a4b1ef3",
+  "started_utc": "2026-11-03T09:53:22.508410+00:00",
+  "emscripten": "3.1.48",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "jobs": 20,
+  "output_dir": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass1",
+  "wasm": {
+    "compiled": 297,
+    "compile_failures": [],
+    "link_exit": 1,
+    "outputs": {},
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass1\\wasm-commands.json"
+  },
+  "status": "wasm_failed",
+  "finished_utc": "2026-11-03T09:54:04.358572+00:00"
+}

@@ -1,0 +1,163 @@
+{
+  "checked_at_utc": "2026-11-01T10:29:03.404760+00:00",
+  "root": "D:\\open office\\upstream\\DesktopEditors",
+  "tag": "v10.0.0",
+  "tag_commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+  "repositories": [
+    {
+      "name": "DesktopEditors",
+      "path": "D:\\open office\\upstream\\DesktopEditors",
+      "origin": "https://github.com/ONLYOFFICE/DesktopEditors.git",
+      "expected_commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "actual_commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "commit_matches": true,
+      "tracked_regular_file_count": 12,
+      "missing_tracked_files": [],
+      "gitlinks": [
+        {
+          "path": "core",
+          "commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed"
+        },
+        {
+          "path": "desktop-apps",
+          "commit": "332c1905a5361dd4139481827b7ad4f4a9facd85"
+        },
+        {
+          "path": "desktop-sdk",
+          "commit": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11"
+        },
+        {
+          "path": "dictionaries",
+          "commit": "d3223bbb777883db66ac3cd249f71c6ebdc992c7"
+        },
+        {
+          "path": "sdkjs",
+          "commit": "9d2138866d929be32f1d107e8b5bfae36156e097"
+        },
+        {
+          "path": "web-apps",
+          "commit": "f79972a400c3a696490094961772d1f86fac1b82"
+        }
+      ],
+      "tracked_status": [],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": ""
+    },
+    {
+      "name": "core",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\core",
+      "origin": "https://github.com/ONLYOFFICE/core.git",
+      "expected_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+      "actual_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+      "commit_matches": true,
+      "tracked_regular_file_count": 21117,
+      "missing_tracked_files": [],
+      "gitlinks": [],
+      "tracked_status": [],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": ""
+    },
+    {
+      "name": "desktop-apps",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\desktop-apps",
+      "origin": "https://github.com/ONLYOFFICE/desktop-apps.git",
+      "expected_commit": "332c1905a5361dd4139481827b7ad4f4a9facd85",
+      "actual_commit": "332c1905a5361dd4139481827b7ad4f4a9facd85",
+      "commit_matches": true,
+      "tracked_regular_file_count": 3375,
+      "missing_tracked_files": [],
+      "gitlinks": [],
+      "tracked_status": [],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": ""
+    },
+    {
+      "name": "desktop-sdk",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\desktop-sdk",
+      "origin": "https://github.com/ONLYOFFICE/desktop-sdk.git",
+      "expected_commit": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11",
+      "actual_commit": "ae6cf2a039355183c512fc314f7a9bd1a05a6a11",
+      "commit_matches": true,
+      "tracked_regular_file_count": 6583,
+      "missing_tracked_files": [],
+      "gitlinks": [],
+      "tracked_status": [],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": ""
+    },
+    {
+      "name": "dictionaries",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\dictionaries",
+      "origin": "https://github.com/ONLYOFFICE/dictionaries.git",
+      "expected_commit": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+      "actual_commit": "d3223bbb777883db66ac3cd249f71c6ebdc992c7",
+      "commit_matches": true,
+      "tracked_regular_file_count": 319,
+      "missing_tracked_files": [],
+      "gitlinks": [],
+      "tracked_status": [],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": ""
+    },
+    {
+      "name": "web-apps",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\web-apps",
+      "origin": "https://github.com/ONLYOFFICE/web-apps.git",
+      "expected_commit": "f79972a400c3a696490094961772d1f86fac1b82",
+      "actual_commit": "f79972a400c3a696490094961772d1f86fac1b82",
+      "commit_matches": true,
+      "tracked_regular_file_count": 33000,
+      "missing_tracked_files": [],
+      "gitlinks": [],
+      "tracked_status": [],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": ""
+    },
+    {
+      "name": "sdkjs",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\sdkjs",
+      "origin": "https://github.com/ONLYOFFICE/sdkjs.git",
+      "expected_commit": "9d2138866d929be32f1d107e8b5bfae36156e097",
+      "actual_commit": "9d2138866d929be32f1d107e8b5bfae36156e097",
+      "commit_matches": true,
+      "tracked_regular_file_count": 1097,
+      "missing_tracked_files": [],
+      "gitlinks": [],
+      "tracked_status": [],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": ""
+    },
+    {
+      "name": "build_tools",
+      "path": "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+      "origin": "https://github.com/ONLYOFFICE/build_tools.git",
+      "expected_commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "actual_commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "commit_matches": true,
+      "tracked_regular_file_count": 157,
+      "missing_tracked_files": [],
+      "gitlinks": [],
+      "tracked_status": [
+        " M configure.py",
+        " M scripts/config.py",
+        " M scripts/qmake.py"
+      ],
+      "object_connectivity_exit_code": 0,
+      "object_connectivity_output": "",
+      "local_changes_note": "Only configure.py, scripts/config.py and scripts/qmake.py: existing Windows toolchain compatibility patch, independently checked against docs/feasibility/build-tools-windows-toolchain.patch. No new source edits in this verification."
+    }
+  ],
+  "network_download_performed": false,
+  "scope": "Main repository, six pinned submodules and build_tools checkouts; not all external build dependencies or complete Git history.",
+  "root_gitlinks_match_lock": {
+    "core": true,
+    "desktop-apps": true,
+    "desktop-sdk": true,
+    "dictionaries": true,
+    "sdkjs": true,
+    "web-apps": true
+  },
+  "passed": true,
+  "current_program_uses_prebuilt_native_core": true,
+  "complete_native_engine_source_build_verified": false
+}

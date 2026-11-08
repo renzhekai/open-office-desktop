@@ -1,0 +1,248 @@
+{
+  "label": "pass5",
+  "started_utc": "2026-11-03T10:29:46.963829+00:00",
+  "official_dir": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\libfont\\engine",
+  "rebuilt_dir": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy",
+  "inputs": {
+    "D:\\open office\\build\\full-source-run\\fonts\\OpenSans-Regular.ttf": {
+      "bytes": 217360,
+      "sha256": "e64e508b2aa2880f907e470c4550980ec4c0694d103a43f36150ac3f93189bee"
+    },
+    "D:\\open office\\build\\full-source-run\\fonts\\crosextra\\Carlito-Regular.ttf": {
+      "bytes": 635996,
+      "sha256": "b4ff23ba370cc95a3c349336b73f9c28514a1371210f89832efc85c4b1ea7131"
+    },
+    "D:\\open office\\build\\full-source-run\\fonts\\caladea\\caladea-regular.ttf": {
+      "bytes": 58964,
+      "sha256": "d2f6cad33f191e65b68bd74e6d4f7708080a41b32db635866109df3090265d91"
+    },
+    "D:\\open office\\build\\full-source-run\\fonts\\asana\\ASANA.ttc": {
+      "bytes": 772896,
+      "sha256": "ed3a472cb8d77c777656d499be3d3f30fae8463676bc274469ebb6cbea3d6ab6"
+    },
+    "C:\\Windows\\Fonts\\arial.ttf": {
+      "bytes": 1045720,
+      "sha256": "b3658eadae55e682b5f69eb64c439c1ecc8f196c0bb8d4756d145d13bc86476a"
+    },
+    "C:\\Windows\\Fonts\\NotoSansSC-VF.ttf": {
+      "bytes": 17773244,
+      "sha256": "763146584cf0710223441356b4395e279021b0806c196614377a7a0174ae074a"
+    },
+    "D:\\open office\\build\\full-source-run\\editors\\web-apps\\apps\\common\\main\\resources\\help\\images\\symbols.png": {
+      "bytes": 56102,
+      "sha256": "65dc595950b88f5a111b285d178f19c1ca879d24057ec70182801da0a4dc3d36"
+    },
+    "D:\\open office\\build\\full-source-run\\editors\\web-apps\\apps\\common\\main\\resources\\help\\fr\\images\\charteditor.png": {
+      "bytes": 32472,
+      "sha256": "c2de8858483dca59dd1663f1d51a68470202ada58abca0fd14b1adf9eb994976"
+    },
+    "D:\\open office\\build\\full-source-run\\editors\\web-apps\\apps\\documenteditor\\main\\resources\\help\\fr\\images\\cellvalueformula.gif": {
+      "bytes": 15207950,
+      "sha256": "522d1f7e01dd6d8615ead2b8254e557fcd2257296cf20ffdb18fcf4cf0550b5a"
+    },
+    "C:\\Windows\\Web\\4K\\Wallpaper\\Windows\\img0_1920x1200.jpg": {
+      "bytes": 542091,
+      "sha256": "7f78c8efdc6462b80722160290bb24da278a6ad5e12836e5fbbafe2782b5f515"
+    },
+    "D:\\open office\\fixtures\\generated\\text-table.docx": {
+      "bytes": 2063,
+      "sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\en_US\\hyph_en_US.dic": {
+      "bytes": 117544,
+      "sha256": "ad944a3f64f831eed0c0616ebcd035d2d7edec1526bd39c09fb84c8d11b87114"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\de_DE\\hyph_de_DE.dic": {
+      "bytes": 1186716,
+      "sha256": "af2912f89f753b7143346be64d63d6d368877a104dc53777de2ebbc2e2e121b4"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\ru_RU\\hyph_ru_RU.dic": {
+      "bytes": 39290,
+      "sha256": "a0920c3b2eb2431794c5da31f78f1b4fa7d0c34d21614305763ad1de30e7709c"
+    }
+  },
+  "harness": {
+    "path": "D:\\open office\\scripts\\wasm_fonts_harness.cjs",
+    "sha256": "45e8d0b018b63571ec1f222f4e815ca855cf120d2927df5fc686f888bac7a4b1"
+  },
+  "node": "v24.15.0",
+  "variants": {
+    "wasm": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\libfont\\engine\\fonts.js",
+          "engine_sha256": "c80354b6e8431d37c0661fc67b92de8d4df8d5ee058cce0348a7a3df57220cc9",
+          "exit": 0,
+          "stderr": "",
+          "result": "D:\\open office\\build\\wasm-source\\test\\fonts\\pass5\\wasm-official-result.json"
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts.js",
+          "engine_sha256": "83c4b18faa5414a31e3e938a6d7ec0c138a46fdfbb5db2ec10fa47517a9ac9de",
+          "exit": 0,
+          "stderr": "",
+          "result": "D:\\open office\\build\\wasm-source\\test\\fonts\\pass5\\wasm-rebuilt-result.json"
+        }
+      },
+      "comparison": {
+        "freetype": {
+          "equal": true,
+          "first_difference": null
+        },
+        "harfbuzz": {
+          "equal": true,
+          "first_difference": null
+        },
+        "raster": {
+          "equal": true,
+          "first_difference": null
+        },
+        "hyphen": {
+          "equal": true,
+          "first_difference": null
+        },
+        "zlib_read": {
+          "equal": true,
+          "first_difference": null
+        }
+      },
+      "official_created_zip": {
+        "python_zipfile_crc": true,
+        "names": [
+          "deep/nested/path/data.txt",
+          "docProps/空文件.txt",
+          "media/random.bin",
+          "word/document.xml"
+        ],
+        "utf8_name_flag_set": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "content_matches_inputs": true,
+        "reread_matches_inputs": true
+      },
+      "rebuilt_created_zip": {
+        "python_zipfile_crc": true,
+        "names": [
+          "deep/nested/path/data.txt",
+          "docProps/空文件.txt",
+          "media/random.bin",
+          "word/document.xml"
+        ],
+        "utf8_name_flag_set": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "content_matches_inputs": true,
+        "reread_matches_inputs": true
+      },
+      "coverage": {
+        "fonts_opened": 6,
+        "glyph_loads": 3628,
+        "shaping_runs": 5,
+        "shaped_glyphs": 78,
+        "images": 4,
+        "images_decoded": 4,
+        "zip_fixture_entries": 5,
+        "hyphen_dictionaries_loaded": 3,
+        "hyphenated_words": 13
+      },
+      "passed": true
+    },
+    "asmjs": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\libfont\\engine\\fonts_ie.js",
+          "engine_sha256": "26bbbc354974cd9b424ac9fe8c6456541781fecea5de2cb2fe7c7231415aa70c",
+          "exit": 0,
+          "stderr": "",
+          "result": "D:\\open office\\build\\wasm-source\\test\\fonts\\pass5\\asmjs-official-result.json"
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts_ie.js",
+          "engine_sha256": "e7c93f92e5328c93889a1fa12d8988d840531259f4c984de8517e1a4bfa2bba6",
+          "exit": 0,
+          "stderr": "",
+          "result": "D:\\open office\\build\\wasm-source\\test\\fonts\\pass5\\asmjs-rebuilt-result.json"
+        }
+      },
+      "comparison": {
+        "freetype": {
+          "equal": true,
+          "first_difference": null
+        },
+        "harfbuzz": {
+          "equal": true,
+          "first_difference": null
+        },
+        "raster": {
+          "equal": true,
+          "first_difference": null
+        },
+        "hyphen": {
+          "equal": true,
+          "first_difference": null
+        },
+        "zlib_read": {
+          "equal": true,
+          "first_difference": null
+        }
+      },
+      "official_created_zip": {
+        "python_zipfile_crc": true,
+        "names": [
+          "deep/nested/path/data.txt",
+          "docProps/空文件.txt",
+          "media/random.bin",
+          "word/document.xml"
+        ],
+        "utf8_name_flag_set": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "content_matches_inputs": true,
+        "reread_matches_inputs": true
+      },
+      "rebuilt_created_zip": {
+        "python_zipfile_crc": true,
+        "names": [
+          "deep/nested/path/data.txt",
+          "docProps/空文件.txt",
+          "media/random.bin",
+          "word/document.xml"
+        ],
+        "utf8_name_flag_set": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "content_matches_inputs": true,
+        "reread_matches_inputs": true
+      },
+      "coverage": {
+        "fonts_opened": 6,
+        "glyph_loads": 3628,
+        "shaping_runs": 5,
+        "shaped_glyphs": 78,
+        "images": 4,
+        "images_decoded": 4,
+        "zip_fixture_entries": 5,
+        "hyphen_dictionaries_loaded": 3,
+        "hyphenated_words": 13
+      },
+      "passed": true
+    }
+  },
+  "engine_reread_excludes_empty_entries": [
+    "docProps/空文件.txt"
+  ],
+  "all_passed": true,
+  "finished_utc": "2026-11-03T10:37:47.584039+00:00"
+}

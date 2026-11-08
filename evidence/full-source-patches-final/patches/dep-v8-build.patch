@@ -1,0 +1,81 @@
+diff --git a/config/win/BUILD.gn b/config/win/BUILD.gn
+index 51437c66cd4e1a97c44effb706b49e835e5be82c..337224444043484b1e98129138087a071085321a 100644
+--- a/config/win/BUILD.gn
++++ b/config/win/BUILD.gn
+@@ -486,7 +486,7 @@ config("default_crt") {
+       configs = [ ":dynamic_crt" ]
+     } else {
+       # Desktop Windows: static CRT.
+-      configs = [ ":static_crt" ]
++      configs = [ ":dynamic_crt" ]  # ONLYOFFICE /MD ABI
+     }
+   }
+ }
+diff --git a/toolchain/win/setup_toolchain.py b/toolchain/win/setup_toolchain.py
+index 47309866ca790e6753d20cdd097cce9ee2b3f57b..4f2bbd1920276b2c4a06756d513ae52d46439a8c 100644
+--- a/toolchain/win/setup_toolchain.py
++++ b/toolchain/win/setup_toolchain.py
+@@ -173,7 +173,8 @@ def _LoadToolchainEnv(cpu, sdk_dir, target_store):
+     # Explicitly specifying the SDK version to build with to avoid accidentally
+     # building with a new and untested SDK. This should stay in sync with the
+     # packaged toolchain in build/vs_toolchain.py.
+-    args.append('10.0.19041.0')
++    args.append(os.environ['OO_V8_SDK_VERSION'])
++    args.append('-vcvars_ver=' + os.environ['OO_V8_MSVC_TOOLS'])
+     variables = _LoadEnvFromBat(args)
+   return _ExtractImportantEnvironment(variables)
+ 
+diff --git a/toolchain/win/tool_wrapper.py b/toolchain/win/tool_wrapper.py
+index 5c1fb98108d56b9ad5e5f3d49f9e3747dbd51c7d..e6e67a98042559bb49f80a2c409e8dce430bfe24 100644
+--- a/toolchain/win/tool_wrapper.py
++++ b/toolchain/win/tool_wrapper.py
+@@ -141,6 +141,7 @@ class WinTool(object):
+     # Read output one line at a time as it shows up to avoid OOM failures when
+     # GBs of output is produced.
+     for line in link.stdout:
++      line = line.decode('utf-8', errors='replace')
+       if (not line.startswith('   Creating library ') and
+           not line.startswith('Generating code') and
+           not line.startswith('Finished generating code')):
+diff --git a/vs_toolchain.py b/vs_toolchain.py
+index 6bc24a921272bef7ee13f393aa40058e3951628c..d6e9481af1546f448810a5d76fc44e8b7b7274ee 100755
+--- a/vs_toolchain.py
++++ b/vs_toolchain.py
+@@ -25,12 +25,14 @@ json_data_file = os.path.join(script_dir, 'win_toolchain.json')
+ 
+ # VS versions are listed in descending order of priority (highest first).
+ MSVS_VERSIONS = collections.OrderedDict([
++  ('2026', '18.0'),
+   ('2019', '16.0'),
+   ('2017', '15.0'),
+ ])
+ 
+ # List of preferred VC toolset version based on MSVS
+ MSVC_TOOLSET_VERSION = {
++   '2026' : 'VC143',  # Explicitly using installed MSVC 14.44
+    '2019' : 'VC142',
+    '2017' : 'VC141',
+ }
+@@ -332,6 +334,11 @@ def FindVCComponentRoot(component):
+   assert ('GYP_MSVS_OVERRIDE_PATH' in os.environ)
+   vc_component_msvc_root = os.path.join(os.environ['GYP_MSVS_OVERRIDE_PATH'],
+       'VC', component, 'MSVC')
++  if component == 'Tools' and os.environ.get('OO_V8_MSVC_TOOLS'):
++    pinned_tools = os.path.join(vc_component_msvc_root, os.environ['OO_V8_MSVC_TOOLS'])
++    if not os.path.isdir(pinned_tools):
++      raise RuntimeError('Pinned MSVC tools directory missing')
++    return pinned_tools
+   vc_component_msvc_contents = os.listdir(vc_component_msvc_root)
+   # Select the most recent toolchain if there are several.
+   _SortByHighestVersionNumberFirst(vc_component_msvc_contents)
+@@ -410,8 +417,8 @@ def _CopyDebugger(target_dir, target_cpu):
+   debug_files = [('dbghelp.dll', False), ('dbgcore.dll', True)]
+   # The UCRT is not a redistributable component on arm64.
+   if target_cpu != 'arm64':
+-    debug_files.extend([('api-ms-win-downlevel-kernel32-l2-1-0.dll', False),
+-                        ('api-ms-win-eventing-provider-l1-1-0.dll', False)])
++    debug_files.extend([('api-ms-win-downlevel-kernel32-l2-1-0.dll', sys.getwindowsversion().major >= 10),
++                        ('api-ms-win-eventing-provider-l1-1-0.dll', sys.getwindowsversion().major >= 10)])
+   for debug_file, is_optional in debug_files:
+     full_path = os.path.join(win_sdk_dir, 'Debuggers', target_cpu, debug_file)
+     if not os.path.exists(full_path):

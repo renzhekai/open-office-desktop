@@ -1,0 +1,14 @@
+diff --git a/source/cmake/Version.cmake b/source/cmake/Version.cmake
+index 3bbf42fd208de98b19e5ec018b7437e775a775e2..6027105acd26aef469299aafc239272fd28b99f6 100644
+--- a/source/cmake/Version.cmake
++++ b/source/cmake/Version.cmake
+@@ -53,7 +53,8 @@ if(GIT_FOUND)
+     message(STATUS "GIT_EXECUTABLE ${GIT_EXECUTABLE}")
+     if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../.git)
+         set(GIT_ARCHETYPE "0")
+-    elseif(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../x265Version.txt)
++    endif()
++    if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../x265Version.txt)
+         set(GIT_ARCHETYPE "1")
+     endif()
+ endif(GIT_FOUND)

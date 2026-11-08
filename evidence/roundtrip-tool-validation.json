@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "purpose": "Record already completed roundtrip harness validation; not an ONLYOFFICE runtime or source-build result.",
+  "working_directory": "D:\\open office",
+  "shell": "PowerShell",
+  "recording_method": "Commands and observations transcribed from prior tool results. Summary fields are explicitly marked. Original stdout byte streams were not saved, and no tests were rerun to create this record.",
+  "raw_log_file_available": false,
+  "engine_executed": false,
+  "source_build_executed": false,
+  "test_run": {
+    "evidence_kind": "summary",
+    "tool_chunk_id": "92b905",
+    "shell_command": "[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); python -B -X utf8 -m unittest discover -s tests -p test_roundtrip.py -v -f",
+    "tool_exit_code": 0,
+    "tool_wall_time_seconds": 1.8082478979999999,
+    "reported_test_count": 16,
+    "reported_test_duration_seconds": 0.812,
+    "reported_result": "OK",
+    "summary": "All 16 harness tests passed: generated fixture semantics, overwrite protection, missing input/output handling, rejecting input-as-output, copied-file provenance warning, operator declaration limits, invalid evidence, lost text/formula detection, numeric/cache normalization, text run and namespace normalization, changed shape detection, corrupt ZIP, broken relationship and duplicate ZIP entry rejection.",
+    "limitation": "These are unit tests of the inspection tool, using temporary test files. No actual application was run."
+  },
+  "generation_run": {
+    "evidence_kind": "summary",
+    "tool_chunk_id": "ad1c56",
+    "shell_command": "[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); python -B scripts/roundtrip.py generate",
+    "tool_exit_code": 0,
+    "reported_status": "fixtures_generated",
+    "reported_engine_executed": false,
+    "generated_files": [
+      "fixtures/generated/text-table.docx",
+      "fixtures/generated/values-formula.xlsx",
+      "fixtures/generated/text-shape.pptx"
+    ],
+    "summary": "All three minimal fixtures were generated and inspected by the package/XML smoke checker. Their snapshots contained the intended Chinese/English text, document table, spreadsheet values and SUM formula, and presentation text/preset shapes.",
+    "limitation": "Package/XML smoke checks only; not XSD validation or an editor open/save test."
+  },
+  "comparison_without_editor_outputs": {
+    "evidence_kind": "structured_transcription_of_tool_output",
+    "tool_chunk_id": "820824",
+    "shell_command": "[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); python -B scripts/roundtrip.py compare",
+    "tool_wrapper_exit_code": 1,
+    "wrapper_note": "This shell invocation returned 1 at the wrapper level. The separate verification below captured the native Python exit code as 2 and explicitly propagated it.",
+    "reported_json": {
+      "status": "not_executed",
+      "checked_at_utc": "2026-11-01T07:44:40.253063+00:00",
+      "results": [
+        {
+          "file": "text-table.docx",
+          "input": "fixtures\\generated\\text-table.docx",
+          "output": "fixtures\\roundtrip\\text-table.docx",
+          "status": "not_executed",
+          "reason": "No editor-saved output exists"
+        },
+        {
+          "file": "values-formula.xlsx",
+          "input": "fixtures\\generated\\values-formula.xlsx",
+          "output": "fixtures\\roundtrip\\values-formula.xlsx",
+          "status": "not_executed",
+          "reason": "No editor-saved output exists"
+        },
+        {
+          "file": "text-shape.pptx",
+          "input": "fixtures\\generated\\text-shape.pptx",
+          "output": "fixtures\\roundtrip\\text-shape.pptx",
+          "status": "not_executed",
+          "reason": "No editor-saved output exists"
+        }
+      ],
+      "runtime_evidence": {
+        "status": "not_provided",
+        "engine_execution_verified": false
+      },
+      "visual_fidelity": "not_tested",
+      "source_build": "not_tested",
+      "scope": "Minimal text/table/cell/formula/slide/preset-shape checks only; no full OOXML conformance, style or layout guarantee."
+    }
+  },
+  "native_exit_verification": {
+    "evidence_kind": "structured_transcription_of_tool_output",
+    "tool_chunk_id": "385eb0",
+    "shell_command": "[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); $roundtripReportText = & python -B scripts/roundtrip.py compare; $roundtripExitCode = $LASTEXITCODE; $roundtripReport = ($roundtripReportText -join \"`n\") | ConvertFrom-Json; [PSCustomObject]@{NativePythonExitCode=$roundtripExitCode;Status=$roundtripReport.status;FileStatuses=@($roundtripReport.results.status)} | ConvertTo-Json; exit $roundtripExitCode",
+    "tool_exit_code": 2,
+    "reported_json": {
+      "NativePythonExitCode": 2,
+      "Status": "not_executed",
+      "FileStatuses": [
+        "not_executed",
+        "not_executed",
+        "not_executed"
+      ]
+    }
+  },
+  "earlier_test_setup_issue": {
+    "evidence_kind": "summary",
+    "tool_chunk_id": "f61e21",
+    "shell_command": "[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false); python -B -m unittest discover -s tests -p test_roundtrip.py -v",
+    "tool_exit_code": 1,
+    "summary": "The first test invocation failed during setup/cleanup because the Windows sandbox TEMP directory denied access to child paths. This was not an OOXML comparison failure. Tests were changed to allocate fresh temporary directories under the authorized workspace tests directory, with resolved-path containment checked before cleanup. The successful test_run above is the subsequent result.",
+    "status": "resolved_for_workspace_test_execution"
+  },
+  "remaining_validation": [
+    "Run a verified ONLYOFFICE Desktop Editors binary.",
+    "Open, save to separate output files, close and reopen all three fixtures.",
+    "Capture actual application/version/run and screenshot evidence.",
+    "Check formula recalculation and visual layout separately.",
+    "Run semantic comparison on actual editor-saved outputs.",
+    "Extend the corpus before making broad compatibility claims."
+  ]
+}

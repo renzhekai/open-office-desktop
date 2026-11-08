@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3189f2c39a7bfed31249e56c4e5654ff80bf3c36..4d7eeb0afd820a8962ffbee694985d30acdff013 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -453,7 +453,7 @@ endif()
+ 
+ # check if Doxygen is installed
+ find_package(Doxygen)
+-if (DOXYGEN_FOUND)
++if (FALSE)
+     # set input and output files
+     set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/libheif/Doxyfile.in)
+     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+@@ -470,7 +470,7 @@ if (DOXYGEN_FOUND)
+         VERBATIM )
+ else (DOXYGEN_FOUND)
+   message("Doxygen tool needs to be installed to generate the API documentation")
+-endif (DOXYGEN_FOUND)
++endif (FALSE)
+ 
+ # --- Testing
+ 

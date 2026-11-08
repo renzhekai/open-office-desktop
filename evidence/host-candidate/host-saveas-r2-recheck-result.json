@@ -1,0 +1,164 @@
+{
+  "checked_at_utc": "2026-11-06T10:35:45.507338+00:00",
+  "session": "host-saveas-r2-recheck",
+  "runtime": "D:\\open office\\build\\full-source-run-host-saveas-r2",
+  "entry_sha256": "54b84083c9dcec96a0a4fa81d5a1635cc24217e4a11c3543f7a2eb4286bf2d27",
+  "native_events_sha256": "2f9d1a4e1455387140db2e160800dad0dda77d4a3128d1b847515a3b32019081",
+  "prefix": "host-saveas-r2",
+  "same_path_marker": "原路径保存验证",
+  "close_discarded": "关闭时放弃",
+  "steps_performed_via_desktop_control": [
+    "新建文档 -> 文档1.docx，输入第一段",
+    "顶部保存 -> 系统保存对话框 -> host-saveas-r2-new.docx",
+    "输入第二段 -> 另存为 -> host-saveas-r2-copy.docx",
+    "开始 -> 选择本地文件 host-saveas-r2-open-source.docx -> 打开所选文件（当前文档已保存，无提示）",
+    "新起一段输入“原路径保存验证” -> 顶部保存（原路径）",
+    "在该文档里输入“放弃的修改” -> 新建文档 -> 提示选择不保存 -> 文档2.docx",
+    "文档2 输入文字 -> 编辑器内 Ctrl+S -> 对话框取消 -> 再次 Ctrl+S -> host-saveas-r2-editor.docx",
+    "未修改时点顶部保存 -> 立即提示无需再次写入",
+    "输入“关闭时放弃” -> 窗口关闭按钮 -> 提示选择不保存 -> 退出"
+  ],
+  "files": {
+    "host-saveas-r2-new.docx": {
+      "sha256": "21ad832bb2c979c66b88cbbc531e9652db28dc399b15fd61e8342dc68adbaa7d",
+      "paragraphs": [
+        "新建文档验证 2026-11-06"
+      ]
+    },
+    "host-saveas-r2-copy.docx": {
+      "sha256": "56e078f6c80cd68c2e251fc8db89d14edadcbc0858badb1aed608ede4af2f0dd",
+      "paragraphs": [
+        "新建文档验证 2026-11-06",
+        "另存为验证 第二段"
+      ]
+    },
+    "host-saveas-r2-editor.docx": {
+      "sha256": "1518f59ce486c73cfcac8e7f56194125e3a8081e19e6d586aea1a57d8570d5ec",
+      "paragraphs": [
+        "编辑器内保存验证"
+      ]
+    },
+    "host-saveas-r2-open-source.docx": {
+      "sha256": "fece2b2e21f343f05da37c04727569922172be74cd01ca43871caee6dd7712d4",
+      "fixture_sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795",
+      "paragraphs": [
+        "Open Office 兼容性样本",
+        "中文与 English 123；标点：，。！？",
+        "普通文字 + 粗斜体",
+        "原路径保存验证",
+        "项目",
+        "数量",
+        "办公套件",
+        "3"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "check": "process_exit_zero",
+      "ok": true,
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "host-saveas-r2-new.docx_paragraphs",
+      "ok": true,
+      "detail": {
+        "expected": [
+          "新建文档验证 2026-11-06"
+        ],
+        "found": [
+          "新建文档验证 2026-11-06"
+        ]
+      }
+    },
+    {
+      "check": "host-saveas-r2-copy.docx_paragraphs",
+      "ok": true,
+      "detail": {
+        "expected": [
+          "新建文档验证 2026-11-06",
+          "另存为验证 第二段"
+        ],
+        "found": [
+          "新建文档验证 2026-11-06",
+          "另存为验证 第二段"
+        ]
+      }
+    },
+    {
+      "check": "host-saveas-r2-editor.docx_paragraphs",
+      "ok": true,
+      "detail": {
+        "expected": [
+          "编辑器内保存验证"
+        ],
+        "found": [
+          "编辑器内保存验证"
+        ]
+      }
+    },
+    {
+      "check": "opened_document_saved_in_place_then_discard_kept_out",
+      "ok": true,
+      "detail": {
+        "marker": "原路径保存验证",
+        "original_paragraphs": [
+          "Open Office 兼容性样本",
+          "中文与 English 123；标点：，。！？",
+          "普通文字 + 粗斜体",
+          "项目",
+          "数量",
+          "办公套件",
+          "3"
+        ],
+        "found": [
+          "Open Office 兼容性样本",
+          "中文与 English 123；标点：，。！？",
+          "普通文字 + 粗斜体",
+          "原路径保存验证",
+          "项目",
+          "数量",
+          "办公套件",
+          "3"
+        ]
+      }
+    },
+    {
+      "check": "replacement_views_retired_and_destroyed",
+      "ok": true,
+      "detail": {
+        "views_created": [
+          1,
+          2,
+          3
+        ],
+        "retired": [
+          1,
+          2
+        ],
+        "destroyed": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "check": "editor_initiated_save_dialog_answered",
+      "ok": true,
+      "detail": {
+        "requested": 2,
+        "cancelled": 1
+      }
+    },
+    {
+      "check": "no_failed_or_timed_out_operation",
+      "ok": true,
+      "detail": {
+        "failed": []
+      }
+    }
+  ],
+  "all_ok": true
+}

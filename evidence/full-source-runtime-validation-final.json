@@ -1,0 +1,9 @@
+{
+  "qt_mapping_count": 27,
+  "qt_dry_run_created_runtime": false,
+  "native_import_policy": "converter only checks its own directory and system; host/Qt plugin checks same directory and runtime root",
+  "native_import_check_errors": [],
+  "script_sha256": "bb5d024c5d0086998ff05970468aceed0cdd026617dcf9e773696c196b059195",
+  "full_resource_hash_inventory_repeated": false,
+  "initial_report": "evidence/full-source-runtime-inventory-initial.json"
+}

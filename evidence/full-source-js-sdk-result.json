@@ -1,0 +1,22 @@
+{
+  "started_at_utc": "2026-11-02T04:29:21.579557+00:00",
+  "cwd": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\build",
+  "command": [
+    "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "-u",
+    "build.py",
+    "--desktop",
+    "--beta=false",
+    "--no-minimize"
+  ],
+  "commit": "9d2138866d929be32f1d107e8b5bfae36156e097",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "status": "passed",
+  "minification": false,
+  "forms_addon_present": false,
+  "pid": 40412,
+  "exit_code": 0,
+  "finished_at_utc": "2026-11-02T04:29:36.805151+00:00",
+  "file_count": 419,
+  "manifest": "evidence/full-source-js-sdk-manifest.json"
+}

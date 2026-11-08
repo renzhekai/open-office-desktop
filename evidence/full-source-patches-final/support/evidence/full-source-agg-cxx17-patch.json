@@ -1,0 +1,20 @@
+{
+  "reason": "C++17 removed register storage specifier",
+  "headers": [
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\DesktopEditor\\agg-2.4\\include\\agg_basics.h",
+      "changed_this_run": false,
+      "sha256": "714e1d975cfa73a39b8a70403e69af77a7213a0b4b54bba8c3bc49fe75f48db6"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\DesktopEditor\\agg-2.4\\include\\agg_image_accessors.h",
+      "changed_this_run": true,
+      "sha256": "b4158aaa8dc405c4bf6d61f4d0fff3a1944eef7f897446fddf61ec2877f37773"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\DesktopEditor\\agg-2.4\\include\\agg_trans_affine.h",
+      "changed_this_run": true,
+      "sha256": "d410a7d7a373a786d62f4e89340f94dd32a9ddc5c148aa649730524e208d41d4"
+    }
+  ]
+}

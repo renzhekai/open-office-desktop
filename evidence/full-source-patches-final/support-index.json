@@ -1,0 +1,602 @@
+[
+  {
+    "path": "support/sources.lock.json",
+    "size": 3799,
+    "sha256": "e2bddfeef79cf14bdd9b71ad467d537567c77f404dff5ba5ae80725489e2f069",
+    "source": "sources.lock.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/worktrees.json",
+    "size": 1980,
+    "sha256": "1954771e87a4754db7bc76f7ca30448937615ce62cd5b4e6a154c6ece07c017d",
+    "source": "build/full-source/worktrees.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/initial-toolchain-patch.json",
+    "size": 171,
+    "sha256": "0f9a326d8431bb32978d1267ce751a08ee2208e033dcce7ca9a4fe94e262f1a8",
+    "source": "build/full-source/initial-toolchain-patch.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/docs/feasibility/build-tools-windows-toolchain.patch",
+    "size": 9483,
+    "sha256": "5c9c5d4079a4da1c9e9a21eb1a65f3b564eb7388bed6098e2b88d243d8dbdea4",
+    "source": "docs/feasibility/build-tools-windows-toolchain.patch",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-v8-source-result.json",
+    "size": 393,
+    "sha256": "c8fbd37acf4f3ab0f77095db63d61a8a16939fc8698c8d32c66bea731376b608",
+    "source": "evidence/full-source-v8-source-result.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-libxml2-source-result.json",
+    "size": 392,
+    "sha256": "aced21598eec09110f8c182452ed503e19d92c3150d30f73137a088bb4b22b92",
+    "source": "evidence/full-source-libxml2-source-result.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-openssl-crt-patch.json",
+    "size": 276,
+    "sha256": "46bb6b93a0fde5fb243b6f4fedce63a0310db851a009448753f16ab51c3adbfc",
+    "source": "evidence/full-source-openssl-crt-patch.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-libxml-patches.json",
+    "size": 557,
+    "sha256": "fdf90c71c8134e8b898e8a6bc1cbdf37025cfe76eabe2f10c3046f2a24272c6c",
+    "source": "evidence/full-source-libxml-patches.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-agg-cxx17-patch.json",
+    "size": 813,
+    "sha256": "3413bb3ed4252518d010a77ae0f08fd8d853d7ec3c1620899adfa9771d93bc77",
+    "source": "evidence/full-source-agg-cxx17-patch.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-archive-extraction.json",
+    "size": 1365,
+    "sha256": "73eab28c0cd90fe86d27497319e42e8263c102105de9a3db684c025cbecd06d3",
+    "source": "evidence/full-source-archive-extraction.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-web-build-manifest.json",
+    "size": 3936591,
+    "sha256": "5ae27848dcc6ad9d40fe0c75bcae4a3753040e4700373c0f8526f9a2a7df9461",
+    "source": "evidence/full-source-web-build-manifest.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-js-sdk-manifest.json",
+    "size": 100932,
+    "sha256": "2c58b7809a982e243013e6693f76d89b6e31e9d525e7e4e7797c925094049c60",
+    "source": "evidence/full-source-js-sdk-manifest.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/evidence/full-source-portable-perl.json",
+    "size": 592,
+    "sha256": "1d75889284e13630ab1b17352e99225de109b0584e39c5202358252c135aa754",
+    "source": "evidence/full-source-portable-perl.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/graphics-dependency-evidence/sources.json",
+    "size": 3042,
+    "sha256": "f895dcaa56945e204dbfe23689b28931b9753e59f43fcba166c2a0500ae84381",
+    "source": "build/full-source/graphics-dependency-evidence/sources.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/graphics-dependency-evidence/source-preparation.json",
+    "size": 3009,
+    "sha256": "567d124bd6b8fa9a4f365f5cc86110d9ce9f94600ae231e2e29407f75fbff7ff",
+    "source": "build/full-source/graphics-dependency-evidence/source-preparation.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/remaining-dependency-evidence/sources.json",
+    "size": 3086,
+    "sha256": "f38589af8ef3039f5f1d1c61c254f8a4b06d06a8d70f0dcff2db1112020374c5",
+    "source": "build/full-source/remaining-dependency-evidence/sources.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/remaining-dependency-evidence/preparation.json",
+    "size": 9717,
+    "sha256": "258790b9136c84d04684cab399ca77a173a59bb43b89f7c23f6e78d47c115a78",
+    "source": "build/full-source/remaining-dependency-evidence/preparation.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/socket-dependency-evidence/sources.json",
+    "size": 1856,
+    "sha256": "c0a9f29dd9e127536f3a63b4c94994a05d53b4ee7408afef1aced2c59d1e9fec",
+    "source": "build/full-source/socket-dependency-evidence/sources.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/socket-dependency-evidence/preparation.json",
+    "size": 8503,
+    "sha256": "30b8361a723282b77efaeed0c903f31707a55429e3cb256c99d037182a00cb4b",
+    "source": "build/full-source/socket-dependency-evidence/preparation.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/sources.json",
+    "size": 4750,
+    "sha256": "2561bd1593e37623ea94c38c13f7b6079672986f1d4e86f14127c17053cba785",
+    "source": "build/full-source/v8-evidence/sources.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/patches.json",
+    "size": 5821,
+    "sha256": "1ba8ab66c56eb59953e77d4341493d6d6b57e8e05f66b542df5767c49afc06f7",
+    "source": "build/full-source/v8-evidence/patches.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/tools.json",
+    "size": 6870,
+    "sha256": "9a7a4ae141af0fe7e8c143f886c33711d1e2bda9fd505c17f148efae96fb1d56",
+    "source": "build/full-source/v8-evidence/tools.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/gn.json",
+    "size": 464,
+    "sha256": "3787199cef741205ced11fdf31b51cde022ad196db0272594e7f5dce4b6a774f",
+    "source": "build/full-source/v8-evidence/gn.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/gn-cipd.json",
+    "size": 165,
+    "sha256": "e63db1b84a26c8942555e00093f9fc7a33edb9e1fb1f873c8d0669d3f13303a6",
+    "source": "build/full-source/v8-evidence/gn-cipd.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/deps-audit.json",
+    "size": 17535,
+    "sha256": "c01d059c116a99d70cfd83059a300515d431fee8680824f560f4b6e98ffa898b",
+    "source": "build/full-source/v8-evidence/deps-audit.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/dependency-prefix.json",
+    "size": 422,
+    "sha256": "d65e5b7a1a60dc8891180462acebbe56231ca8a0bfdbccd06cb7789411b034a2",
+    "source": "build/full-source/v8-evidence/dependency-prefix.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/dependency-prefix-application.json",
+    "size": 520,
+    "sha256": "4d46e6ee4039a919a3c03136848717f62d36985fa5d680665ed47be03b588de1",
+    "source": "build/full-source/v8-evidence/dependency-prefix-application.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/dependency-rebuild.json",
+    "size": 897,
+    "sha256": "e4b385a801e09b91fc0f2ce51e78129ff208151ba7c976f21663f086d06228f1",
+    "source": "build/full-source/v8-evidence/dependency-rebuild.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/build-result.json",
+    "size": 935,
+    "sha256": "8c4c602e779ed51b37db84bb026b10d4cdddaee1ad20e4e6d6ae53005df608ca",
+    "source": "build/full-source/v8-evidence/build-result.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/monolith-smoke.json",
+    "size": 2641,
+    "sha256": "b3c8e944ee6851bfd3201a6c7f8c5f7537c5565aa4b36dfcf2c90d7f815637af",
+    "source": "build/full-source/v8-evidence/monolith-smoke.json",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/build/full-source/v8-evidence/README.md",
+    "size": 4774,
+    "sha256": "c5590ad9882524d29008ac96a677895dce415b0567d8d95ea8051090ca0f9be4",
+    "source": "build/full-source/v8-evidence/README.md",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/build_full_source_boost.cmd",
+    "size": 1671,
+    "sha256": "fdb10478c8aa506fe45d96bbaa165340d963b2fee6bff6ff931ce1252681075c",
+    "source": "scripts/build_full_source_boost.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/build_full_source_core.cmd",
+    "size": 4856,
+    "sha256": "ff8148448947c55823cb923aab41ee1a440f6df1bfa0c7007a437b70de6fb10d",
+    "source": "scripts/build_full_source_core.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/build_full_source_host.cmd",
+    "size": 1888,
+    "sha256": "e205153b88e1a938c2d1efc2912261e2f15ef09b27fa18a0bba09946146c7a66",
+    "source": "scripts/build_full_source_host.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/build_full_source_icu.cmd",
+    "size": 1256,
+    "sha256": "7f4da6b1049dda753171ab8503ee25040f884cf515ddb17b4ebdcffc00841f60",
+    "source": "scripts/build_full_source_icu.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/build_full_source_openssl.cmd",
+    "size": 1907,
+    "sha256": "2f0dceba4fd1608751682d718153a8563de2b5fd542022bb7e7a2feb56322c26",
+    "source": "scripts/build_full_source_openssl.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/build_full_source_web.py",
+    "size": 3405,
+    "sha256": "bfd63f5f6247528408dbc08c24ff4c333b2cae559cd6eae3ae68e314448bbe31",
+    "source": "scripts/build_full_source_web.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/configure_full_source_boost.py",
+    "size": 3611,
+    "sha256": "68ef14187ae02af4768f387dad3d8a7b5fb8236a9378e98dd01636beba9198a2",
+    "source": "scripts/configure_full_source_boost.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/configure_full_source_openssl.py",
+    "size": 853,
+    "sha256": "ac149f539c04cd605e706e19516b3aec75a2bdc42b55c69e737312fbb3ab7254",
+    "source": "scripts/configure_full_source_openssl.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/extract_full_source_archives.py",
+    "size": 3785,
+    "sha256": "39f53b0ecab5d02ed77caa5b7757bc04765e5300ff4ccb1ec2e5ad03dccb5567",
+    "source": "scripts/extract_full_source_archives.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/fetch_full_source_archives.py",
+    "size": 3932,
+    "sha256": "17df4993768bf047338a5644d7d6ed0598820a3fbb9e0a7a1b225d3cb32528db",
+    "source": "scripts/fetch_full_source_archives.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/fetch_full_source_git.py",
+    "size": 2926,
+    "sha256": "f00e8a61274567afa61ace8832ea204146235968cb03dc7b0702c194071db4a6",
+    "source": "scripts/fetch_full_source_git.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_desktop_native.cmd",
+    "size": 2185,
+    "sha256": "d3a770fb18974be3b31d52e7a4a523731f82920ac01edc1fcf1d931d58d51f33",
+    "source": "scripts/full_source_desktop_native.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_desktop_stage_cef.py",
+    "size": 4649,
+    "sha256": "b3be8b27b8075d5bfe3f2c0af6522bb03cf20ea93ca303dd6baa8033dd7d5126",
+    "source": "scripts/full_source_desktop_stage_cef.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_desktop_wrappers.cmd",
+    "size": 295,
+    "sha256": "87c1d16cd5ad4f91f5b16b4cf4c3c0edd360a9c1f7552d473d0b414457ee1534",
+    "source": "scripts/full_source_desktop_wrappers.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_desktop_wrappers.py",
+    "size": 3881,
+    "sha256": "5981c1cca0075ac11de10f76ca04702e9e8d0d533ce18131acd32c479462f2a0",
+    "source": "scripts/full_source_desktop_wrappers.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_graphics_dependencies.py",
+    "size": 9725,
+    "sha256": "99c472855a6ad097465f1bca08004e5c4cc71d1621ee6dc6472491c811cd9ece",
+    "source": "scripts/full_source_graphics_dependencies.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_graphics_heif_build.cmd",
+    "size": 298,
+    "sha256": "c5bdb7fb2fc27f85c1d17a582875b92cd97602e0aed184c504a046526639a5b9",
+    "source": "scripts/full_source_graphics_heif_build.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_graphics_heif_build.py",
+    "size": 6917,
+    "sha256": "f3290120859e19fa022f9c3a33c1cfbff1e1eea942c69f906c387369de055782",
+    "source": "scripts/full_source_graphics_heif_build.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_graphics_heif_smoke.cpp",
+    "size": 11410,
+    "sha256": "b6bbeec48c92d0d509c50f9475adcd2b3ee828505a3bdfcd50833b2687cec21b",
+    "source": "scripts/full_source_graphics_heif_smoke.cpp",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_heif_validation.cmd",
+    "size": 294,
+    "sha256": "c1308124f5ddee3a30db01f055c0097d92992ebc05e1ea745102c7039b5c035e",
+    "source": "scripts/full_source_heif_validation.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_heif_validation.py",
+    "size": 1712,
+    "sha256": "1bab9a9d9627471b8ebc4d908b8b680744d8cc98e14e1ebe3c52edfc783d6945",
+    "source": "scripts/full_source_heif_validation.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_leaf_build.cmd",
+    "size": 2383,
+    "sha256": "611dcd9c21eb2435c74d0d9dc03e679b95c257cd73179c967b0905a12c3cc0b7",
+    "source": "scripts/full_source_leaf_build.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_remaining_dependencies.py",
+    "size": 21974,
+    "sha256": "ed3a6b57a6a42db3ea786d1ec7a0076288613dbfa15ec8cfd1fc22f3bfc6b47f",
+    "source": "scripts/full_source_remaining_dependencies.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_socket_dependencies.py",
+    "size": 15251,
+    "sha256": "e5753e3440d3e47a0abc1d9209971f9175f9a5a7429799a121b669fd61c8c85e",
+    "source": "scripts/full_source_socket_dependencies.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_v8.py",
+    "size": 34870,
+    "sha256": "b0e221149b2c12742c7e10ebafdad60d22955f5af1c687d8af5f606850354161",
+    "source": "scripts/full_source_v8.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/full_source_web_grunt.cjs",
+    "size": 1068,
+    "sha256": "883e6d963ec4a4e06efb9a8426a749ade14c9148e0e8c4ba4ad61d4eaebcfc92",
+    "source": "scripts/full_source_web_grunt.cjs",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/patch_full_source_agg_cxx17.py",
+    "size": 1660,
+    "sha256": "ab5067a36a49a453928995d8a5c850002277627a9d89543bea0762e3617f2c13",
+    "source": "scripts/patch_full_source_agg_cxx17.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/prepare_full_source_workspace.py",
+    "size": 3369,
+    "sha256": "12222509218c21d0ba11c56eb4a6cb403bd9c37e39f409ff63ffc04cc7fb4d4a",
+    "source": "scripts/prepare_full_source_workspace.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/probe_full_source_openssl.cmd",
+    "size": 721,
+    "sha256": "f86036511110e95b1a2cc22fe07aeeacd95a659febfe631cf46c0e5c3fa4e0a0",
+    "source": "scripts/probe_full_source_openssl.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/probe_full_source_runtime.py",
+    "size": 17824,
+    "sha256": "cd28489fd47de843536bb461b87eeb2cd3e4a9fdea70362dd629af720156b138",
+    "source": "scripts/probe_full_source_runtime.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/rebuild_full_source_icu_data.cmd",
+    "size": 797,
+    "sha256": "f92b1b0d4c12f79fc6af281e3b632862305df661c1055ce1b40342cda42ec844",
+    "source": "scripts/rebuild_full_source_icu_data.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/replay_full_source_libxml_patches.py",
+    "size": 2235,
+    "sha256": "49a1783f6658a2b93ff8ebe9382ce08194cc87821db00fe3bca53478f746edef",
+    "source": "scripts/replay_full_source_libxml_patches.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/run_full_source_gui_session.py",
+    "size": 3959,
+    "sha256": "bd31562b0bb4363f46e6f905a1290572a6979a3cc839f36360b55e87bed10fa9",
+    "source": "scripts/run_full_source_gui_session.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/run_full_source_modules.py",
+    "size": 2456,
+    "sha256": "15fdfb0b8637a7b5c90121e411134d1a69f47f81e212fec4513c420845d8f0b0",
+    "source": "scripts/run_full_source_modules.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/smoke_full_source_allfonts.py",
+    "size": 2752,
+    "sha256": "0413025c09ebae43b691d69aacd45819f7412c07c5d91970b68ca12ab966a9b8",
+    "source": "scripts/smoke_full_source_allfonts.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/smoke_full_source_kernel.cpp",
+    "size": 397,
+    "sha256": "61d96b47209b3e4ae9cb7f806bb53bfef62e8cb4e45a1aafeb13dea206d6d4e2",
+    "source": "scripts/smoke_full_source_kernel.cpp",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/smoke_full_source_openssl.c",
+    "size": 766,
+    "sha256": "9c64d636dba4ee9d5e489237f924cadd83aaf85dd24add39d2accdf3a394094e",
+    "source": "scripts/smoke_full_source_openssl.c",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/stage_full_source_runtime.py",
+    "size": 32854,
+    "sha256": "88b459bcdc467edd8c26a564c940dd024b425239a0e0ece05de5f9edeae7b772",
+    "source": "scripts/stage_full_source_runtime.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/test_full_source_kernel.cmd",
+    "size": 925,
+    "sha256": "71652c7e222956bd23ee4766021b3732eee13a078522553ed53762c9b62d9822",
+    "source": "scripts/test_full_source_kernel.cmd",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/verify_full_source_docx_sample.py",
+    "size": 1505,
+    "sha256": "a2e919671149bfb31e2af7ce2a9793cb786e6b49cd4ce13f20065fb2fc73b0ea",
+    "source": "scripts/verify_full_source_docx_sample.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "support/scripts/verify_full_source_icu.py",
+    "size": 2911,
+    "sha256": "a0d2f0b065a15d90e3107ce3c43af4669d20f188bf4bf8e9361abf76deb93b0b",
+    "source": "scripts/verify_full_source_icu.py",
+    "status": "copied",
+    "source_stable_during_copy": true
+  },
+  {
+    "path": "supplemental/build/full-source/DesktopEditors/core/Common/3dParty/v8_89/v8/src/base/platform/wrappers.cc",
+    "size": 40,
+    "sha256": "8f305ef379a369d9b289fcd3c7656d9c2a9eff6b5a58a318c1ffca759f4d90ed",
+    "source": "build/full-source/DesktopEditors/core/Common/3dParty/v8_89/v8/src/base/platform/wrappers.cc",
+    "status": "copied",
+    "role": "selected_non_git_or_generated_source_input"
+  },
+  {
+    "path": "supplemental/build/full-source/DesktopEditors/core/Common/3dParty/v8_89/v8/build/config/gclient_args.gni",
+    "size": 74,
+    "sha256": "7ce183e66892508d98ec7b22cb99c71640c32acf2ec9e1f300cb68d8341a9d10",
+    "source": "build/full-source/DesktopEditors/core/Common/3dParty/v8_89/v8/build/config/gclient_args.gni",
+    "status": "copied",
+    "role": "selected_non_git_or_generated_source_input"
+  },
+  {
+    "path": "supplemental/build/full-source/DesktopEditors/core/Common/3dParty/openssl/openssl/Configurations/10-main.conf",
+    "size": 81707,
+    "sha256": "98130b9e9f957edf713977a07158f98303bc96e50a00221a15999458a47a3faf",
+    "source": "build/full-source/DesktopEditors/core/Common/3dParty/openssl/openssl/Configurations/10-main.conf",
+    "status": "copied",
+    "role": "selected_non_git_or_generated_source_input"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "at_utc": "2026-11-02T11:38:21.687394+00:00",
+  "manifest_sha256": "a45b5db26c0535f19cbba727f09d90112aa9fab1083c15de974c4104f3e6e192",
+  "checked_patch_head_and_support_files": 165,
+  "main_worktrees": 8,
+  "dependency_clones": 37,
+  "nonempty_patches": 19,
+  "tracked_changed_files": 41,
+  "all_reverse_apply_checks_passed": true,
+  "all_heads_match_receipt_pins": true,
+  "all_repository_snapshots_stable_during_capture": true,
+  "core_v8_pre_targetdeps_confirmed": true,
+  "source_replay_performed": false,
+  "rebuild_performed": false
+}

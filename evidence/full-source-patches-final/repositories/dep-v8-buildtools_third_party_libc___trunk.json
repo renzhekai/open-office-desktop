@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-buildtools_third_party_libc___trunk",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\buildtools\\third_party\\libc++\\trunk",
+  "pin": "d9040c75cfea5928c804ab7c235fed06a63f743a",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:08.172042+00:00",
+  "head": "d9040c75cfea5928c804ab7c235fed06a63f743a",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git",
+  "patch": {
+    "path": "patches/dep-v8-buildtools_third_party_libc___trunk.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-buildtools_third_party_libc___trunk.txt",
+    "size": 41,
+    "sha256": "55e2a6ad66069205109a5604726d5bd99e5d3038e10eb3c3b1a549d554dbabe7"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:09.678456+00:00"
+}

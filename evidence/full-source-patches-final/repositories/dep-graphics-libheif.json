@@ -1,0 +1,42 @@
+{
+  "name": "dep-graphics-libheif",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\libheif",
+  "pin": "bf35e9eb25af8f2b7917996ad9ba849d922f8d15",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:10.281136+00:00",
+  "head": "bf35e9eb25af8f2b7917996ad9ba849d922f8d15",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/strukturag/libheif.git",
+  "patch": {
+    "path": "patches/dep-graphics-libheif.patch",
+    "size": 684,
+    "sha256": "9f8fa3538edca772eb83a2d44110e5820b9e6ccced7d3058b2022b0c3887affe"
+  },
+  "head_file": {
+    "path": "heads/dep-graphics-libheif.txt",
+    "size": 41,
+    "sha256": "2de0ed6c05c0118e8cce80e850ae554754c1c944098f3589b2d9645ec61eb01d"
+  },
+  "changed_files": [
+    {
+      "path": "CMakeLists.txt",
+      "state": "file",
+      "size": 17708,
+      "sha256": "e70e12e454daac9f4c04070e849503c67391390024e36b2baf258dec6defabdd"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:10.885010+00:00"
+}

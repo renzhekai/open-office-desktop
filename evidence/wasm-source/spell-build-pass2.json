@@ -1,0 +1,141 @@
+{
+  "module": "spell",
+  "label": "pass2",
+  "recipe": "Common/3dParty/hunspell/hunspell.json",
+  "recipe_sha256": "f88338b1d7e5b2c0424435129b734f596043a5eee8c25bb00a3621de85c753ec",
+  "started_utc": "2026-11-04T09:52:27.545619+00:00",
+  "emscripten": "3.1.48",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "jobs": 20,
+  "output_dir": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2",
+  "recipe_adaptations": [
+    {
+      "add_flags": [
+        "-s STACK_SIZE=5MB"
+      ],
+      "reason": "the recipe sets no stack size and the official spell.wasm (2021-05) was built with the old 5MB default; with 64KB Spellchecker_Load overflows the stack (spell pass1 crash, confirmed by the STACK_OVERFLOW_CHECK=2 diagnostic build diag-stackcheck)",
+      "official_reference": "emscripten/ChangeLog.md 3.1.27 (2022-11-29): default STACK_SIZE reduced from 5MB to 64KB; -sSTACK_SIZE=5MB restores the previous behaviour"
+    }
+  ],
+  "diagnostic_extra_flags": [],
+  "post_process_adaptations": [
+    {
+      "historical": "function getBinaryPromise(){",
+      "used": "function getBinaryPromise(",
+      "reason": "Emscripten 3.1.48 glue signature is getBinaryPromise(binaryFile)"
+    },
+    {
+      "historical": "copy wasm/js/code.js to deploy/spell.js and wasm/js/index.html to deploy",
+      "used": "not copied",
+      "reason": "test page/client outside the official SDKJS common/spell/spell deploy"
+    },
+    {
+      "historical": "asm.js variant with --memory-init-file 0 (embed_mem_file)",
+      "used": "same",
+      "reason": "the official 2021 spell_ie.js loads a separate spell.js.mem; the rebuilt one embeds it, so deploying it must not keep the stale official spell.js.mem"
+    }
+  ],
+  "wasm": {
+    "compiled": 11,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "spell.js": {
+        "bytes": 20158,
+        "sha256": "d086b57ed536576ff2128d71ed98bd088324a2d2ba5833e45d86ab97a66c8e20"
+      },
+      "spell.wasm": {
+        "bytes": 524422,
+        "sha256": "c4f8620ec7353f5120df662fa427215fa16ff32db6fe4b58dc186ccda49c7d1e"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\wasm-commands.json"
+  },
+  "template_adaptations": [
+    {
+      "old": "return getBinaryPromise2();",
+      "new": "return getBinaryPromise2.apply(undefined, arguments);",
+      "matches": 1,
+      "reason": "3.1.48 getBinaryPromise2(binaryFile) needs the file name the glue passes to getBinaryPromise; the old no-argument forwarder would fetch(undefined)",
+      "reference": "Common/js/desktop_fetch.js:48 (upstream already forwards arguments this way)"
+    }
+  ],
+  "template_marker_counts": {
+    "//module": 1,
+    "//string_utf8": 0,
+    "//desktop_fetch": 0
+  },
+  "asm": {
+    "compiled": 11,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "spell.js": {
+        "bytes": 989278,
+        "sha256": "6e70a2ac2619959433856779f195e6b86c1406e265615f79e1188b9aa0cb4e27"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\asm-commands.json"
+  },
+  "template_adaptations_ie": [
+    {
+      "old": "return getBinaryPromise2();",
+      "new": "return getBinaryPromise2.apply(undefined, arguments);",
+      "matches": 1,
+      "reason": "3.1.48 getBinaryPromise2(binaryFile) needs the file name the glue passes to getBinaryPromise; the old no-argument forwarder would fetch(undefined)",
+      "reference": "Common/js/desktop_fetch.js:48 (upstream already forwards arguments this way)"
+    }
+  ],
+  "template_marker_counts_ie": {
+    "//module": 1,
+    "//string_utf8": 0,
+    "//desktop_fetch": 0,
+    "//polyfill": 1
+  },
+  "post_process": [
+    {
+      "file": "spell.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1
+      },
+      "replacement": "__ATPOSTRUN__=[function(){self.onEngineInit();}];"
+    },
+    {
+      "file": "spell.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    },
+    {
+      "file": "spell_ie.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1
+      },
+      "replacement": "__ATPOSTRUN__=[function(){self.onEngineInit();}];"
+    },
+    {
+      "file": "spell_ie.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    }
+  ],
+  "deploy": {
+    "spell.js": {
+      "bytes": 34754,
+      "sha256": "5ae2086229793ef54b1c87a995045ac730529d80be43983f9c6df20fdc7dc924"
+    },
+    "spell.wasm": {
+      "bytes": 524422,
+      "sha256": "c4f8620ec7353f5120df662fa427215fa16ff32db6fe4b58dc186ccda49c7d1e"
+    },
+    "spell_ie.js": {
+      "bytes": 1016622,
+      "sha256": "3bdc2f6d2e8c51a93163cededf74c54499b7e56c47fcefdb5f25cdbe87996e7e"
+    }
+  },
+  "status": "built",
+  "finished_utc": "2026-11-04T09:52:43.064472+00:00"
+}

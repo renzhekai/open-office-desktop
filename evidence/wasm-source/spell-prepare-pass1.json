@@ -1,0 +1,106 @@
+{
+  "module": "spell",
+  "label": "pass1",
+  "started_utc": "2026-11-04T04:47:25.055156+00:00",
+  "core": "D:\\open office\\build\\wasm-source\\core",
+  "core_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "history_commit": "075052dd3f41373affa533317d6734a0d34e0897",
+  "historical_scripts_executed": false,
+  "tracked_changes_before": [
+    "DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "history_files_added": [
+    {
+      "path": "Common/3dParty/hunspell/hunspell.json",
+      "sha256": "f88338b1d7e5b2c0424435129b734f596043a5eee8c25bb00a3621de85c753ec"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/js/code.js",
+      "sha256": "bbfd17eda6311e4bf1088224e5847d5f236e09f22404d65e39d9c27f4b67c078"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/js/index.html",
+      "sha256": "5630a8c017e6a1436eaddc2f1d6bee9ce262a7a5f2e72ce9cf949595692cb1a7"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/js/spell.js",
+      "sha256": "f46ac3b5fefd99b7a399b200141f21ffd9bbf2d44aafaa17f7dd887dfcbd702a"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/src/base.cpp",
+      "sha256": "6d043c890ea989d937571febe729cfd7e6d6e23e4e7ed96aa572e36f5a0eba1f"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/src/base.h",
+      "sha256": "77af420f948d7f121500609bb8b77c3e1d28f6e3cc8d00108a482c955ddeadef"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/src/engine.h",
+      "sha256": "6119f1ac59e182ec92acbcd0672b59ab4b8d86cc2ea8d7fc46ed0ef68f92cab4"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/src/filemgr_wrapper.cxx",
+      "sha256": "451dcbd01be2e8882cd8b9e61f7fb4a576ad74d8613e58c653e226757014b242"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/src/filemgr_wrapper_new.cxx",
+      "sha256": "799698d7465dab62cae7d7d7b5314319551b160d64065d025bda12a47d264301"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/src/main.cpp",
+      "sha256": "6a159718590e6014d8db3cd0a4b79cf99bec40485b4e255704d439d4ae596f60"
+    },
+    {
+      "path": "Common/3dParty/hunspell/wasm/src/string_buffer_stream.h",
+      "sha256": "4db16b619db5181daf6fccf49b1038d2d36f6b34a505dc9f1ee11ccfb3c5bef5"
+    }
+  ],
+  "history_files_already_present": [
+    "Common/js/.gitignore",
+    "Common/js/common.py",
+    "Common/js/desktop_fetch.js",
+    "Common/js/logging.h",
+    "Common/js/make.py",
+    "Common/js/min.py",
+    "Common/js/polyfill.js",
+    "Common/js/README.md",
+    "Common/js/string_utf8.js"
+  ],
+  "history_files_kept_current": [
+    "Common/3dParty/hunspell/.gitignore",
+    "Common/3dParty/hunspell/autogen/generate.py",
+    "Common/3dParty/hunspell/autogen/records.h",
+    "Common/3dParty/hunspell/before.py",
+    "Common/3dParty/hunspell/HEAD",
+    "Common/3dParty/hunspell/qt/hunspell.pri",
+    "Common/3dParty/hunspell/qt/hunspell.pro",
+    "Common/3dParty/hunspell/test/main.cpp",
+    "Common/3dParty/hunspell/test/test.pro"
+  ],
+  "third_party_copies": [
+    {
+      "path": "Common/3dParty/hunspell/hunspell",
+      "commit": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+      "pin": "core Common/3dParty/hunspell/HEAD",
+      "modified_files": [
+        "src/hunspell/atypes.hxx",
+        "src/hunspell/csutil.cxx",
+        "src/hunspell/filemgr.hxx"
+      ],
+      "edits_equal_historical_before_py": [
+        "src/hunspell/atypes.hxx",
+        "src/hunspell/csutil.cxx",
+        "src/hunspell/filemgr.hxx"
+      ],
+      "state": "copied",
+      "files": 660,
+      "tree_sha256": "b12bb7723f008738e33da616bbd128d26a55e00d5f1bd125284e7d510652cd81"
+    }
+  ],
+  "edits": [],
+  "edits_already_applied": [],
+  "tracked_changes_after": [
+    " M DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "finished_utc": "2026-11-04T04:47:29.603689+00:00"
+}

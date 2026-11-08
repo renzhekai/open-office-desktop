@@ -1,0 +1,54 @@
+{
+  "name": "dep-remaining-hunspell",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hunspell\\hunspell",
+  "pin": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:10.890754+00:00",
+  "head": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/hunspell/hunspell.git",
+  "patch": {
+    "path": "patches/dep-remaining-hunspell.patch",
+    "size": 1858,
+    "sha256": "c50f574a36c3824d699d57a081e03fbdb98dc53fa1446e2b690d3e145572b1e6"
+  },
+  "head_file": {
+    "path": "heads/dep-remaining-hunspell.txt",
+    "size": 41,
+    "sha256": "61071b0d3ded66cff4efc189d1ae91c7da059d3315a66401d9d1e5a2d16f8190"
+  },
+  "changed_files": [
+    {
+      "path": "src/hunspell/atypes.hxx",
+      "state": "file",
+      "size": 4085,
+      "sha256": "5b2e8207943de0ce117c212448e52e3a6b31f3b50cc2b96d03c3a2addd650415"
+    },
+    {
+      "path": "src/hunspell/csutil.cxx",
+      "state": "file",
+      "size": 129156,
+      "sha256": "77c802a80f5504a66f0a63c9195d86a000beedfd0fd280fe3a6fbeca3d50fc71"
+    },
+    {
+      "path": "src/hunspell/filemgr.hxx",
+      "state": "file",
+      "size": 4321,
+      "sha256": "3b41be3c6304cd7112e2638aca0dd496c478a6662390f7934e9513ef3a7b4552"
+    }
+  ],
+  "changed_file_count": 3,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:11.574259+00:00"
+}

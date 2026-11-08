@@ -1,0 +1,24 @@
+{
+  "started_at_utc": "2026-11-06T09:54:10.965258+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-host-saveas-r2\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\host-saveas-r2-prompts",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\host-saveas-r2-prompts\\launch-report.json"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\host-saveas-r2-prompts",
+  "profile_existed_before": false,
+  "entry_sha256": "54b84083c9dcec96a0a4fa81d5a1635cc24217e4a11c3543f7a2eb4286bf2d27",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-host-saveas-r2",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "host_candidate_marker_sha256": "a07a0a884df479fbf9b467fa3e5aaac7fb973f273b80ae415f061a2846980a23",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 48160,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-06T09:59:23.366420+00:00",
+  "native_events_sha256": "e5435ed59f153e6747e268d713ee5633aac6c4b3c7c690925d79c01abaf7bf57"
+}

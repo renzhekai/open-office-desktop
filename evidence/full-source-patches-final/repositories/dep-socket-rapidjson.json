@@ -1,0 +1,31 @@
+{
+  "name": "dep-socket-rapidjson",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp\\lib\\rapidjson",
+  "pin": "a36110e11874bcf35af854940e0ce910c19a8b49",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/socket-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:12.646814+00:00",
+  "head": "a36110e11874bcf35af854940e0ce910c19a8b49",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/miloyip/rapidjson.git",
+  "patch": {
+    "path": "patches/dep-socket-rapidjson.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-socket-rapidjson.txt",
+    "size": 41,
+    "sha256": "729e58e69d60a6059aa5cbcb2fb23e5770ec495c410c072fde3315b0e6770596"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:13.013774+00:00"
+}

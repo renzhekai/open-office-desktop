@@ -1,0 +1,141 @@
+{
+  "checked_at_utc": "2026-11-06T09:48:36.488756+00:00",
+  "session": "host-saveas-session1",
+  "runtime": "D:\\open office\\build\\full-source-run-host-saveas",
+  "entry_sha256": "9119d2026c2e76a3224e97c05307b075787db9981f01eca9fa177b8dfde8ed4f",
+  "native_events_sha256": "a4f0fd9b34fc2abf65b0279efd70db89a59736e45596907d835ef22ee2c8cbd6",
+  "steps_performed_via_desktop_control": [
+    "新建文档 -> 文档1.docx，输入第一段",
+    "顶部保存 -> 系统保存对话框 -> host-saveas-new.docx",
+    "输入第二段 -> 另存为 -> host-saveas-copy.docx",
+    "开始 -> 选择本地文件 host-saveas-open-source.docx -> 打开所选文件（当前文档已保存，无提示）",
+    "在该文档末尾输入“放弃的修改” -> 新建文档 -> 提示选择 Discard -> 文档2.docx",
+    "文档2 输入文字 -> 编辑器内 Ctrl+S -> 对话框取消 -> 再次 Ctrl+S -> host-saveas-editor.docx",
+    "未修改时点顶部保存 -> 立即提示无需再次写入",
+    "窗口关闭按钮退出"
+  ],
+  "files": {
+    "host-saveas-new.docx": {
+      "sha256": "d6957859b262fd48b17fcf7941e940ec545796fbf0b447fa336c92eaf460c31b",
+      "paragraphs": [
+        "新建文档验证 2026-11-06"
+      ]
+    },
+    "host-saveas-copy.docx": {
+      "sha256": "dffffe515b32bf34b502cf599e3229b4345f63a3807907d36930857662c9bb79",
+      "paragraphs": [
+        "新建文档验证 2026-11-06",
+        "另存为验证 第二段"
+      ]
+    },
+    "host-saveas-editor.docx": {
+      "sha256": "b15a422ceabfbdf326bea44d22901aa96373238585b88af6332819ad54fe872f",
+      "paragraphs": [
+        "编辑器内保存验证"
+      ]
+    },
+    "host-saveas-open-source.docx": {
+      "sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795",
+      "fixture_sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795",
+      "paragraphs": [
+        "Open Office 兼容性样本",
+        "中文与 English 123；标点：，。！？",
+        "普通文字 + 粗斜体",
+        "项目",
+        "数量",
+        "办公套件",
+        "3"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "check": "process_exit_zero",
+      "ok": true,
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "host-saveas-new.docx_paragraphs",
+      "ok": true,
+      "detail": {
+        "expected": [
+          "新建文档验证 2026-11-06"
+        ],
+        "found": [
+          "新建文档验证 2026-11-06"
+        ]
+      }
+    },
+    {
+      "check": "host-saveas-copy.docx_paragraphs",
+      "ok": true,
+      "detail": {
+        "expected": [
+          "新建文档验证 2026-11-06",
+          "另存为验证 第二段"
+        ],
+        "found": [
+          "新建文档验证 2026-11-06",
+          "另存为验证 第二段"
+        ]
+      }
+    },
+    {
+      "check": "host-saveas-editor.docx_paragraphs",
+      "ok": true,
+      "detail": {
+        "expected": [
+          "编辑器内保存验证"
+        ],
+        "found": [
+          "编辑器内保存验证"
+        ]
+      }
+    },
+    {
+      "check": "replaced_document_unchanged_after_discard",
+      "ok": true,
+      "detail": {
+        "sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795",
+        "fixture_sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795"
+      }
+    },
+    {
+      "check": "replacement_views_retired_and_destroyed",
+      "ok": true,
+      "detail": {
+        "views_created": [
+          1,
+          2,
+          3
+        ],
+        "retired": [
+          1,
+          2
+        ],
+        "destroyed": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "check": "editor_initiated_save_dialog_answered",
+      "ok": true,
+      "detail": {
+        "requested": 2,
+        "cancelled": 1
+      }
+    },
+    {
+      "check": "no_failed_or_timed_out_operation",
+      "ok": true,
+      "detail": {
+        "failed": []
+      }
+    }
+  ],
+  "all_ok": true
+}

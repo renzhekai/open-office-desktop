@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-11-02T09:54:07.4098152Z",
+  "cwd": "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+  "command": "npm ci --ignore-scripts --include=dev --include=optional --no-audit --no-fund --fetch-retries=5 --fetch-timeout=60000 --fetch-retry-mintimeout=2000 --fetch-retry-maxtimeout=15000 --cache D:\\open office\\dependencies\\npm-cache",
+  "scripts_disabled": true,
+  "exit_code": 0,
+  "finished_at_utc": "2026-11-02T09:54:20.2851796Z"
+}

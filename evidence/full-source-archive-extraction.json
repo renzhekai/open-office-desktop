@@ -1,0 +1,26 @@
+{
+  "boost": {
+    "status": "extracted",
+    "archive": "D:\\open office\\dependencies\\full-source\\boost_1_72_0.tar.bz2",
+    "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\boost_1_72_0",
+    "archive_member_count": 70853,
+    "verified_hash": "59c9b274bc451cf91a9ba1dd2c7fdcaf5d60b1b3aa83f2c9fa143417cc660722",
+    "completed_at_utc": "2026-11-02T10:02:14.703883+00:00"
+  },
+  "icu4c": {
+    "status": "extracted",
+    "archive": "D:\\open office\\dependencies\\full-source\\icu4c-74_2-src.tgz",
+    "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\icu",
+    "archive_member_count": 2801,
+    "verified_hash": "e6c7876c0f3d756f3a6969cad9a8909e535eeaac352f3a721338b9cbd56864bf7414469d29ec843462997815d2ca9d0dab06d38c37cdd4d8feb28ad04d8781b0",
+    "completed_at_utc": "2026-11-02T10:02:21.510581+00:00"
+  },
+  "openssl": {
+    "status": "extracted",
+    "archive": "D:\\open office\\dependencies\\full-source\\openssl-1.1.1f.tar.gz",
+    "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\openssl\\openssl",
+    "archive_member_count": 3213,
+    "verified_hash": "186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35",
+    "completed_at_utc": "2026-11-02T10:02:29.077520+00:00"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "qt_version": "6.11.1",
+  "path": "D:\\Qt\\6.11.1\\msvc2022_64",
+  "provision_method": "verified_official_archives_manual_sdk",
+  "maintenance_tool_registered": false,
+  "license_prompt_accepted": false,
+  "existing_mingw_modified": false,
+  "runtime_and_compile_validation": {
+    "status": "passed_for_sdk_probe_and_native_host_build",
+    "qmake_version": "6.11.1",
+    "qmake_query": "evidence/qt-msvc-qmake-query.txt",
+    "sdk_runtime_report": "build/qt-sdk-msvc/runtime-release.stdout.json",
+    "sdk_execution_report": "build/qt-sdk-msvc/execution-summary-release.json",
+    "native_host_build_log": "evidence/native-msvc-build.log",
+    "onlyoffice_editing_verified_by_this_probe": false
+  },
+  "archives": [
+    {
+      "module": "qtbase",
+      "sha256": "7f97edc3937fec7383eb865e010ed5128155bf9c80a563abca450860f3e9bef5",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist"
+    },
+    {
+      "module": "qtsvg",
+      "sha256": "1d75ccf1f1a8fc78612c2c78bc2448f8f68949096d38ff9afe21980e0cb3d9b5",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist"
+    },
+    {
+      "module": "qtdeclarative",
+      "sha256": "fc716b905581922ee8254740ae0017fcdc90b58138109ce0d9a927c099412f44",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist"
+    },
+    {
+      "module": "qtdoc",
+      "sha256": "311977f28a6df54c923884ce4d2e08bf246bc937d768976ad9f532060e23d286",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist"
+    },
+    {
+      "module": "qttools",
+      "sha256": "748f455851e0d81cd0e65232f6110840eda2bb980c4a4abf7e58ce97c2ff0f71",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist"
+    },
+    {
+      "module": "qttranslations",
+      "sha256": "2da76e41de1ed46542b8648e5d92b18f916817fac1d76121a209d72a0123093c",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist"
+    },
+    {
+      "module": "d3dcompiler_47-x64.7z",
+      "sha256": "60a197f75dbac55661bc4697809d8422c2ab6acea68a917339bc262e6e46c0c8",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529d3dcompiler_47-x64.7z.mirrorlist"
+    },
+    {
+      "module": "opengl32sw-64-mesa_11_2_2-signed_sha256.7z",
+      "sha256": "dde9302fbc8535cedf2fd75fa1826d6ac01e6fde230c976cd8ec05fe695b9db3",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529opengl32sw-64-mesa_11_2_2-signed_sha256.7z.mirrorlist"
+    },
+    {
+      "module": "qtmultimedia",
+      "sha256": "e7255e7ed621c6e4fc5af9f5a1614b45260a960f03bcb4b1f37f8e910f6c8fd9",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.addons.qtmultimedia.win64_msvc2022_64/6.11.1-0-202605090529qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "status": "checked_out",
+  "source_only": true,
+  "url": "https://github.com/GNOME/libxml2.git",
+  "commit": "39b66eb2089f491eacf8e22a7965a235f7f5735e",
+  "destination": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2",
+  "started_at_utc": "2026-11-02T10:15:37.416206+00:00",
+  "finished_at_utc": "2026-11-02T10:15:43.771611+00:00"
+}

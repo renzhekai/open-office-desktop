@@ -1,0 +1,462 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-01T09:04:23.821152+00:00",
+  "status": "inputs_missing_or_issues_found",
+  "lock_file": "D:\\open office\\sources.lock.json",
+  "roots": {
+    "desktop_editors": {
+      "path": "D:\\open office\\upstream\\DesktopEditors",
+      "kind": "desktop_editors",
+      "exists": true,
+      "expected_commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "revision_verified": true,
+      "presence": {
+        "meaning": "File/directory presence only; names and suffixes do not establish format, ABI, compatibility or integration.",
+        "scope": "D:\\open office\\upstream\\DesktopEditors",
+        "categories": {
+          "exe": {
+            "count": 16,
+            "sample_paths": [
+              "build_tools\\tools\\win\\7z\\7z.exe",
+              "build_tools\\tools\\win\\curl\\curl.exe",
+              "build_tools\\tools\\win\\vswhere\\vswhere.exe",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\vlc-cache-gen.exe",
+              "core\\Common\\3dParty\\libvlc\\build\\win_64\\lib\\vlc-cache-gen.exe",
+              "core\\Common\\3dParty\\libvlc\\build\\win_arm64\\lib\\vlc-cache-gen.exe",
+              "core\\Test\\Applications\\Base64\\bin\\Debug\\Base64.exe",
+              "core\\Test\\Applications\\Base64\\bin\\Debug\\Base64.vshost.exe",
+              "core\\Test\\Applications\\PdfSorter\\FontEngineTester\\bin\\Debug\\FontEngineTester.exe",
+              "core\\Test\\Applications\\PdfSorter\\FontEngineTester\\bin\\Release\\FontEngineTester.exe",
+              "core\\Test\\Applications\\PdfSorter\\FontEngineTester\\obj\\Debug\\FontEngineTester.exe",
+              "core\\Test\\Applications\\PdfSorter\\FontEngineTester\\obj\\Release\\FontEngineTester.exe",
+              "core\\Test\\Applications\\TeamlabDocControlService\\TeamlabDocControlService\\bin\\Release\\TeamlabDocControlService.exe",
+              "core\\Test\\Applications\\TestPresentationEditor\\PresentationEditor\\bin\\Debug\\WindowsApplication1.vshost.exe",
+              "core\\Test\\Applications\\TestPresentationEditor\\PresentationEditor\\bin\\Release\\WindowsApplication1.exe",
+              "core\\Test\\Applications\\TestPresentationEditor\\PresentationEditor\\obj\\Release\\WindowsApplication1.exe"
+            ]
+          },
+          "dll": {
+            "count": 824,
+            "sample_paths": [
+              "build_tools\\tools\\win\\7z\\7z.dll",
+              "build_tools\\tools\\win\\curl\\libcurl.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\libvlc.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\libvlccore.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libaccess_concat_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libaccess_imem_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libaccess_mms_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libaccess_wasapi_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libattachment_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libdshow_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libdtv_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libfilesystem_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libftp_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libhttp_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libhttps_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libidummy_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libimem_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\librist_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\librtp_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libsatip_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libscreen_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libsdp_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libshm_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libsmb_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libtcp_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libtimecode_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libudp_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\access\\libvdr_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\audio_filter\\libaudio_format_plugin.dll",
+              "core\\Common\\3dParty\\libvlc\\build\\win_32\\lib\\plugins\\audio_filter\\libaudiobargraph_a_plugin.dll"
+            ]
+          },
+          "library": {
+            "count": 586,
+            "sample_paths": [
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\libva-drm.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\libva-glx.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\libva-wayland.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\libva-x11.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\libva.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\libvlc.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\libvlccore.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\libvlc_pulse.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\libvlc_vdpau.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\libvlc_xcb_events.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libaccess_alsa_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libaccess_concat_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libaccess_imem_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libaccess_jack_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libaccess_mms_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libattachment_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libavio_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libdtv_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libfilesystem_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libftp_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libhttp_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libhttps_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libidummy_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libimem_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libpulsesrc_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\librist_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\librtp_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libsatip_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libsdp_plugin.so",
+              "core\\Common\\3dParty\\libvlc\\build\\linux_64\\lib\\vlc\\plugins\\access\\libshm_plugin.so"
+            ]
+          },
+          "editor_resource_candidates": {
+            "count": 835,
+            "sample_paths": [
+              "desktop-apps\\macos\\ONLYOFFICE\\Images.xcassets\\Colors\\Editors\\Contents.json",
+              "desktop-apps\\macos\\ONLYOFFICE\\Images.xcassets\\Colors\\Editors\\brand-DrawEditor.colorset\\Contents.json",
+              "desktop-apps\\macos\\ONLYOFFICE\\Images.xcassets\\Colors\\Editors\\brand-PdfEditor.colorset\\Contents.json",
+              "desktop-apps\\macos\\ONLYOFFICE\\Images.xcassets\\Colors\\Editors\\brend-DocumentEditor.colorset\\Contents.json",
+              "desktop-apps\\macos\\ONLYOFFICE\\Images.xcassets\\Colors\\Editors\\brend-PresentationEditor.colorset\\Contents.json",
+              "desktop-apps\\macos\\ONLYOFFICE\\Images.xcassets\\Colors\\Editors\\brend-SpreadsheetEditor.colorset\\Contents.json",
+              "sdkjs\\cell\\api.js",
+              "sdkjs\\cell\\apiBuilder.js",
+              "sdkjs\\cell\\apiDefines.js",
+              "sdkjs\\cell\\api_plugins.js",
+              "sdkjs\\cell\\fromToJSON.js",
+              "sdkjs\\cell\\plugin-events.js",
+              "sdkjs\\cell\\Local\\api.js",
+              "sdkjs\\cell\\css\\main-mobile.css",
+              "sdkjs\\cell\\css\\main.css",
+              "sdkjs\\cell\\document\\empty.js",
+              "sdkjs\\cell\\graphics\\DrawingContext.js",
+              "sdkjs\\cell\\graphics\\pdfprinter.js",
+              "sdkjs\\cell\\model\\CellComment.js",
+              "sdkjs\\cell\\model\\CellInfo.js",
+              "sdkjs\\cell\\model\\CellIterators.js",
+              "sdkjs\\cell\\model\\CollaborativeEditing.js",
+              "sdkjs\\cell\\model\\ConditionalFormatting.js",
+              "sdkjs\\cell\\model\\DataValidation.js",
+              "sdkjs\\cell\\model\\HeaderFooter.js",
+              "sdkjs\\cell\\model\\History.js",
+              "sdkjs\\cell\\model\\NamedSheetViews.js",
+              "sdkjs\\cell\\model\\PivotTables.js",
+              "sdkjs\\cell\\model\\RowIteratorAdaptive.js",
+              "sdkjs\\cell\\model\\Serialize.js"
+            ]
+          }
+        },
+        "known_runtime_names": {
+          "DesktopEditors.exe": [],
+          "x2t.exe": [],
+          "libcef.dll": [],
+          "ascdocumentscore.dll": [],
+          "qtascdocumentscore.dll": []
+        },
+        "files_examined": 32230,
+        "entry_limit": 100000,
+        "depth_limit": 10,
+        "sample_limit_per_category": 30,
+        "excluded_directory_names": [
+          ".git",
+          ".venv",
+          "__pycache__",
+          "node_modules",
+          "venv"
+        ],
+        "skipped_links_or_reparse_points": [],
+        "depth_limited_paths": [
+          "core\\DesktopEditor\\raster\\Jp2\\openjpeg\\openjpeg-2.4.0\\src\\bin\\jpip\\opj_viewer\\src",
+          "core\\DesktopEditor\\raster\\Jp2\\openjpeg\\openjpeg-2.4.0\\src\\bin\\jpip\\opj_viewer_xerces\\dist",
+          "core\\DesktopEditor\\raster\\Jp2\\openjpeg\\openjpeg-2.4.0\\src\\bin\\jpip\\opj_viewer_xerces\\src",
+          "core\\DesktopEditor\\raster\\Jp2\\openjpeg\\openjpeg-2.4.0\\src\\bin\\wx\\OPJViewer\\about",
+          "core\\DesktopEditor\\raster\\Jp2\\openjpeg\\openjpeg-2.4.0\\src\\bin\\wx\\OPJViewer\\source",
+          "core\\DesktopEditor\\raster\\Jp2\\openjpeg\\openjpeg-2.4.0\\wrapping\\java\\openjp2\\java-sources\\org",
+          "core\\X2tConverter\\build\\Android\\libx2t\\src\\main\\java\\lib\\x2t\\data",
+          "core\\X2tConverter\\build\\Android\\libx2t\\src\\main\\java\\lib\\x2t\\utils",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle Test App.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\Resources",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle Test App.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\Updater.app",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle Test App.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\XPCServices",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle Test App.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\_CodeSignature",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\Base.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\SUStatus.nib",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\ca.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\cs.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\da.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\de.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\el.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\es.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\fa.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\fi.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\fr.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\he.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\hr.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\is.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\it.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\ja.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\ko.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\nb.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\nl.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\pl.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\pt_BR.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\pt_PT.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\ro.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\ru.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\sk.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\sl.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\sv.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\th.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\tr.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\uk.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\zh_CN.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\Updater.app\\Contents\\Resources\\zh_TW.lproj",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\XPCServices\\org.sparkle-project.Downloader.xpc\\Contents\\MacOS",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\XPCServices\\org.sparkle-project.Downloader.xpc\\Contents\\_CodeSignature",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\XPCServices\\org.sparkle-project.InstallerLauncher.xpc\\Contents\\MacOS",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\Sparkle.framework\\Versions\\B\\XPCServices\\org.sparkle-project.InstallerLauncher.xpc\\Contents\\_CodeSignature",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\sparkle.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\Resources",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\sparkle.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\Updater.app",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\sparkle.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\XPCServices",
+          "desktop-apps\\macos\\Vendor\\Sparkle\\sparkle.app\\Contents\\Frameworks\\Sparkle.framework\\Versions\\B\\_CodeSignature",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\linux\\tests\\cefclient\\resources\\extensions\\set_page_color",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\linux\\tests\\ceftests\\resources\\net\\data",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\mac\\tests\\cefclient\\resources\\extensions\\set_page_color",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\mac\\tests\\cefclient\\resources\\mac\\English.lproj",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\mac\\tests\\ceftests\\resources\\mac\\English.lproj",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\mac\\tests\\ceftests\\resources\\net\\data",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\mac\\tests\\ceftests\\tests\\shared\\browser",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\windows\\tests\\cefclient\\resources\\extensions\\set_page_color",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef\\windows\\tests\\ceftests\\resources\\net\\data",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef_103\\mac\\tests\\cefclient\\resources\\extensions\\set_page_color",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef_103\\mac\\tests\\cefclient\\resources\\mac\\English.lproj",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef_103\\mac\\tests\\ceftests\\resources\\mac\\English.lproj",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef_103\\mac\\tests\\ceftests\\tests\\shared\\browser",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef_107\\linux\\tests\\cefclient\\resources\\extensions\\set_page_color",
+          "desktop-sdk\\ChromiumBasedEditors\\lib\\src\\cef_107\\linux\\tests\\ceftests\\resources\\net\\data"
+        ],
+        "entry_limit_reached": false,
+        "errors": [],
+        "scan_complete_within_policy": false
+      },
+      "required_markers": [
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\README.md",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\LICENSE",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\.gitmodules",
+          "present": true
+        }
+      ],
+      "component_directories": [
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\core",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\desktop-apps",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\desktop-sdk",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\sdkjs",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\web-apps",
+          "present": true
+        }
+      ],
+      "git_checks": [
+        {
+          "command": [
+            "git",
+            "--no-optional-locks",
+            "-c",
+            "core.fsmonitor=false",
+            "-C",
+            "D:\\open office\\upstream\\DesktopEditors",
+            "rev-parse",
+            "--show-toplevel"
+          ],
+          "returncode": 0,
+          "stdout": "D:/open office/upstream/DesktopEditors",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "git",
+            "--no-optional-locks",
+            "-c",
+            "core.fsmonitor=false",
+            "-C",
+            "D:\\open office\\upstream\\DesktopEditors",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 0,
+          "stdout": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+          "stderr": ""
+        }
+      ],
+      "actual_commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "submodules": [],
+      "submodule_status": "not_checked_incomplete_inventory"
+    },
+    "build_tools": {
+      "path": "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+      "kind": "build_tools",
+      "exists": true,
+      "expected_commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "revision_verified": true,
+      "presence": {
+        "meaning": "File/directory presence only; names and suffixes do not establish format, ABI, compatibility or integration.",
+        "scope": "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+        "categories": {
+          "exe": {
+            "count": 3,
+            "sample_paths": [
+              "tools\\win\\7z\\7z.exe",
+              "tools\\win\\curl\\curl.exe",
+              "tools\\win\\vswhere\\vswhere.exe"
+            ]
+          },
+          "dll": {
+            "count": 2,
+            "sample_paths": [
+              "tools\\win\\7z\\7z.dll",
+              "tools\\win\\curl\\libcurl.dll"
+            ]
+          },
+          "library": {
+            "count": 0,
+            "sample_paths": []
+          },
+          "editor_resource_candidates": {
+            "count": 0,
+            "sample_paths": []
+          }
+        },
+        "known_runtime_names": {
+          "DesktopEditors.exe": [],
+          "x2t.exe": [],
+          "libcef.dll": [],
+          "ascdocumentscore.dll": [],
+          "qtascdocumentscore.dll": []
+        },
+        "files_examined": 157,
+        "entry_limit": 100000,
+        "depth_limit": 10,
+        "sample_limit_per_category": 30,
+        "excluded_directory_names": [
+          ".git",
+          ".venv",
+          "__pycache__",
+          "node_modules",
+          "venv"
+        ],
+        "skipped_links_or_reparse_points": [],
+        "depth_limited_paths": [],
+        "entry_limit_reached": false,
+        "errors": [],
+        "scan_complete_within_policy": true
+      },
+      "required_markers": [
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\build_tools\\README.md",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\build_tools\\LICENSE",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\build_tools\\configure.py",
+          "present": true
+        },
+        {
+          "path": "D:\\open office\\upstream\\DesktopEditors\\build_tools\\make.py",
+          "present": true
+        }
+      ],
+      "git_checks": [
+        {
+          "command": [
+            "git",
+            "--no-optional-locks",
+            "-c",
+            "core.fsmonitor=false",
+            "-C",
+            "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+            "rev-parse",
+            "--show-toplevel"
+          ],
+          "returncode": 0,
+          "stdout": "D:/open office/upstream/DesktopEditors/build_tools",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "git",
+            "--no-optional-locks",
+            "-c",
+            "core.fsmonitor=false",
+            "-C",
+            "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+            "rev-parse",
+            "HEAD"
+          ],
+          "returncode": 0,
+          "stdout": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "git",
+            "--no-optional-locks",
+            "-c",
+            "core.fsmonitor=false",
+            "-C",
+            "D:\\open office\\upstream\\DesktopEditors\\build_tools",
+            "submodule",
+            "status",
+            "--recursive"
+          ],
+          "returncode": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ],
+      "actual_commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "submodules": []
+    },
+    "runtime": {
+      "status": "not_requested",
+      "reason": "No --runtime-root supplied; no installed-application or personal-directory search performed"
+    }
+  },
+  "issues": [
+    {
+      "code": "presence_scan_incomplete",
+      "path": "D:\\open office\\upstream\\DesktopEditors",
+      "detail": "See inventory limits, skipped links and errors"
+    },
+    {
+      "code": "recursive_git_check_skipped",
+      "path": "D:\\open office\\upstream\\DesktopEditors",
+      "detail": "Recursive Git traversal was skipped because the inventory could not establish an unlinked, fully inspected directory scope"
+    }
+  ],
+  "integration_status": "not_verified",
+  "roundtrip_status": "not_executed",
+  "upstream_code_executed": false,
+  "download_performed": false,
+  "limitations": [
+    "Only the selected roots are inventoried; no default search outside the two project upstream roots.",
+    "Presence and recorded HEAD/submodule revisions do not verify working-tree modifications, dependency compatibility, ABI, licenses, buildability or editor integration.",
+    "No executable/library/editor resource was loaded, and no upstream build script was run.",
+    "Runtime inventory is optional and only reports filenames; no runtime checksum/version or execution verification is performed."
+  ]
+}

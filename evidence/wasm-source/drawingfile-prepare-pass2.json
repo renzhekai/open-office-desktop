@@ -1,0 +1,191 @@
+{
+  "module": "drawingfile",
+  "label": "pass2",
+  "started_utc": "2026-11-05T04:17:26.546193+00:00",
+  "core": "D:\\open office\\build\\wasm-source\\core",
+  "core_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "history_commit": "075052dd3f41373affa533317d6734a0d34e0897",
+  "historical_scripts_executed": false,
+  "tracked_changes_before": [
+    "DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "history_files_added": [],
+  "history_files_already_present": [
+    "Common/js/.gitignore",
+    "Common/js/common.py",
+    "Common/js/desktop_fetch.js",
+    "Common/js/logging.h",
+    "Common/js/make.py",
+    "Common/js/min.py",
+    "Common/js/polyfill.js",
+    "Common/js/README.md",
+    "Common/js/string_utf8.js",
+    "DesktopEditor/graphics/pro/js/.gitignore",
+    "DesktopEditor/graphics/pro/js/after.py",
+    "DesktopEditor/graphics/pro/js/before.py",
+    "DesktopEditor/graphics/pro/js/deploy.py",
+    "DesktopEditor/graphics/pro/js/drawingfile.json",
+    "DesktopEditor/graphics/pro/js/make.py",
+    "DesktopEditor/graphics/pro/js/qt/nativegraphics.pro",
+    "DesktopEditor/graphics/pro/js/qt/raster/main.cpp",
+    "DesktopEditor/graphics/pro/js/qt/raster/pro_Fonts_empty.cpp",
+    "DesktopEditor/graphics/pro/js/qt/raster/pro_Graphics_empty.cpp",
+    "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+    "DesktopEditor/graphics/pro/js/qt/raster/raster.h",
+    "DesktopEditor/graphics/pro/js/qt/raster/raster.pro",
+    "DesktopEditor/graphics/pro/js/raster_make.py",
+    "DesktopEditor/graphics/pro/js/wasm/js/code_raster.js",
+    "DesktopEditor/graphics/pro/js/wasm/js/drawingfile.js",
+    "DesktopEditor/graphics/pro/js/wasm/js/drawingfile_base.js",
+    "DesktopEditor/graphics/pro/js/wasm/js/drawingfile_native.js",
+    "DesktopEditor/graphics/pro/js/wasm/js/drawingfile_wasm.js",
+    "DesktopEditor/graphics/pro/js/wasm/js/index.html",
+    "DesktopEditor/graphics/pro/js/wasm/js/raster.js",
+    "DesktopEditor/graphics/pro/js/wasm/js/stream.js",
+    "DesktopEditor/graphics/pro/js/wasm/patches/ftgrays1.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/ftgrays2.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/ftgrays3.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/ftobjs1.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/ftobjs2.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/ftsystem.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/sfnt.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/smooth.patch",
+    "DesktopEditor/graphics/pro/js/wasm/patches/ttcmap.patch",
+    "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/drawingfile_test.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.h",
+    "DesktopEditor/graphics/pro/js/wasm/src/metafile.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/pdfwriter.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/raster.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/raster.h"
+  ],
+  "history_files_kept_current": [
+    "DesktopEditor/graphics/pro/js/wasm/src/HTMLRendererText.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/HTMLRendererText.h",
+    "DesktopEditor/graphics/pro/js/wasm/src/serialize.h",
+    "DesktopEditor/graphics/pro/js/wasm/src/Text.h"
+  ],
+  "third_party_copies": [
+    {
+      "path": "Common/3dParty/libxml/libxml2",
+      "commit": "39b66eb2089f491eacf8e22a7965a235f7f5735e",
+      "pin": "core Common/3dParty/libxml/fetch.py",
+      "modified_files": [
+        "error.c",
+        "globals.c",
+        "include/libxml/parserInternals.h"
+      ],
+      "edits_equal_fetch_py": [
+        "error.c",
+        "globals.c",
+        "include/libxml/parserInternals.h"
+      ],
+      "layout_note": "075052dd vendored libxml2 under DesktopEditor/xml/libxml2 with build/qt amalgamations; the pinned core fetches it here and builds the sources listed in libxml.pri",
+      "state": "copied",
+      "files": 3879,
+      "tree_sha256": "afed359c7de0e68a914dd2522bce94a18691492638a2953fdece614bc323adc6"
+    }
+  ],
+  "freetype": {
+    "state": "already_prepared",
+    "copy": "DesktopEditor/graphics/pro/js/freetype-2.10.4"
+  },
+  "icu": {
+    "path": "Common/3dParty/icu/icu/source/common",
+    "tarball": "D:\\open office\\dependencies\\full-source\\icu4c-74_2-src.tgz",
+    "version": "74.2",
+    "pin": "build_tools scripts/core_common/modules/icu.py icu_major=74 icu_minor=2",
+    "state": "prepared",
+    "tarball_sha512": "e6c7876c0f3d756f3a6969cad9a8909e535eeaac352f3a721338b9cbd56864bf7414469d29ec843462997815d2ca9d0dab06d38c37cdd4d8feb28ad04d8781b0",
+    "members": 430,
+    "edits": [
+      {
+        "file": "Common/3dParty/icu/icu/source/common/udata.cpp",
+        "matches": 1,
+        "sha256_before": "39460810476e7179072dd0f9a597c9df082b8b73f6184417b86acfb7563970bd",
+        "sha256_after": "835ec55f6ad701830ebb6692933f22d3519d3772557db9d74c165207d6e9bae6"
+      }
+    ],
+    "tree_sha256": "3a1167e4934efc3cb2224ded8f143722c7264110ea19a4e47016c8b54296d2cc",
+    "files": 429
+  },
+  "pdf_openssl": {
+    "path": "Common/3dParty/openssl/openssl",
+    "tarball": "D:\\open office\\dependencies\\full-source\\openssl-1.1.1f.tar.gz",
+    "why": "PdfFile/lib/xpdf/Decrypt.cc #includes crypto/sha/sha512.c and crypto/mem_clr.c from this tree; the native tree's copy is configured for VC-WIN64A, so a wasm32 (linux-generic32) copy is made",
+    "recipe_include_not_created": "Common/3dParty/openssl/build/linux_64/include (official Linux install dir); the in-tree generated include/openssl/opensslconf.h is used instead",
+    "failed_attempt": "build/wasm-source/failed/drawingfile-prepare-pass1 (sha512.c edit expected once, found 3; ICU and libxml copies from that run were moved there too)",
+    "tarball_sha256": "186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35",
+    "configure": [
+      "Configure",
+      "linux-generic32",
+      "no-shared",
+      "no-asm",
+      "no-threads",
+      "no-dso"
+    ],
+    "configure_exit": 0,
+    "perl": {
+      "path": "C:\\Program Files\\Git\\usr\\bin\\perl.exe",
+      "version": "v5.42.2 cygwin",
+      "perl5lib": "/d/open office/build/wasm-source/toolchain/perl-shim"
+    },
+    "generated": {
+      "include/crypto/bn_conf.h": "ce40004b6989d9a511f027285edc39b6de8a30d2a6559f784d78fe1dc2881abe",
+      "include/crypto/dso_conf.h": "62511d37b808bb3a216b5449de27b774ff1842b1d3872d0baa3c9f6ddefec4b4",
+      "include/openssl/opensslconf.h": "055f65fe7a804df5de493f70212a35ba04b0e10ca349f6d1be8ee40755ada273"
+    },
+    "pre_patches": [],
+    "state": "prepared",
+    "edits": [
+      {
+        "file": "Common/3dParty/openssl/openssl/crypto/sha/sha512.c",
+        "matches": 3,
+        "sha256_before": "4bc230ca6efecf8391b0c7c114d6096f7aeb0dd09bb573d98db2b71df788b855",
+        "sha256_after": "a105ec41f6d9469ec6b5dda0b54908bcdc5ca83cca573794bc10acef9473da68"
+      }
+    ]
+  },
+  "drawingfile_reconstruction": {
+    "historical": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+    "historical_sha256": "0bd2923ec8e5f9c140f10de3604d976776f0d2eb51b7a7bcc419685fbb435a62",
+    "output": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile_reconstructed.cpp",
+    "sha256": "eb3faa2eebb10e10e6a22851fd43a68a96f1383ecb53c61cf6fa7536c34fa8db",
+    "state": "written",
+    "steps": [
+      {
+        "reason": "WASM PdfWriter reads embedded images from the global images storage; the current CDrawingFile provides InitImagesGlobalStorage next to InitFontsGlobalStorage; same lifecycle as the fonts storage",
+        "reference": "DesktopEditor/doctrenderer/drawingfile.h:136; PdfFile/PdfWriter.cpp:141"
+      },
+      {
+        "reason": "release the images storage on Close exactly like the fonts storage",
+        "reference": "DesktopEditor/graphics/pro/pro_Image.cpp SetGlobalImagesMemoryStorage (releases the previous storage)"
+      },
+      {
+        "reason": "_SetImageBinary(path,data,size) and _IsImageBinaryExist(path) are called without a file by the current loader; bodies equal the CDrawingFile members, via the static GetImagesStorage like the historical SetFontBinary/IsFontBinaryExist; _ClearFontsStorage()/_ClearImagesStorage() take no arguments and clear the global storages through the IMemoryStorage::Clear interface",
+        "reference": "drawingfile.h:132-142,682-697; graphics/pro/MemoryStorage.h:87; sdkjs loader imageToMemory/clearFontsStorage"
+      },
+      {
+        "reason": "current loader calls _GetMacros(nativeFile) and reads the returned buffer",
+        "reference": "drawingfile.h:453"
+      },
+      {
+        "reason": "current CDrawingFile::SetScanPageFonts(int*, int) returns BYTE*; the loader passes an Int32 page array and its length and keeps the returned pointer",
+        "reference": "drawingfile.h:550; sdkjs loader CFile.prototype._setScanPageFonts"
+      },
+      {
+        "reason": "loader calls _BuildPdf(nativeFile, changes, changesLen, utf8 password or 0, meta, metaLen); password conversion as in the historical Open wrapper and the native DrawingFileEmbed::BuildPdf",
+        "reference": "drawingfile.h:408; doctrenderer/embed/DrawingFileEmbed.cpp:304-310"
+      }
+    ]
+  },
+  "edits": [],
+  "edits_already_applied": [
+    "DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "tracked_changes_after": [
+    " M DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "finished_utc": "2026-11-05T04:17:37.247197+00:00"
+}

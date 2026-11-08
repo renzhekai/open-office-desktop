@@ -1,0 +1,101 @@
+{
+  "status": "passed",
+  "started_at_utc": "2026-11-02T09:59:18.791149+00:00",
+  "raster_recompression": false,
+  "mobile": false,
+  "forms_addon": false,
+  "steps": [
+    {
+      "name": "common",
+      "command": [
+        "node",
+        "-e",
+        "require(process.argv[1]).tasks(JSON.parse(process.argv[4]), {gruntfile:process.argv[2],base:process.argv[3],desktop:true,verbose:true});",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build\\node_modules\\grunt",
+        "D:\\open office\\scripts\\full_source_web_grunt.cjs",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+        "[\"init-build-common\", \"increment-build\", \"deploy-api\", \"deploy-apps-common\", \"deploy-socketio\", \"deploy-xregexp\", \"deploy-requirejs\", \"deploy-megapixel\", \"deploy-jquery\", \"deploy-underscore\", \"deploy-iscroll\", \"deploy-fetch\", \"deploy-es6-promise\", \"deploy-common-embed\", \"deploy-monaco\"]"
+      ],
+      "status": "passed",
+      "pid": 53680,
+      "exit_code": 0
+    },
+    {
+      "name": "documenteditor",
+      "command": [
+        "node",
+        "-e",
+        "require(process.argv[1]).tasks(JSON.parse(process.argv[4]), {gruntfile:process.argv[2],base:process.argv[3],desktop:true,verbose:true});",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build\\node_modules\\grunt",
+        "D:\\open office\\scripts\\full_source_web_grunt.cjs",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+        "[\"init-build-documenteditor\", \"increment-build\", \"deploy-app-main\"]"
+      ],
+      "status": "passed",
+      "pid": 35624,
+      "exit_code": 0
+    },
+    {
+      "name": "spreadsheeteditor",
+      "command": [
+        "node",
+        "-e",
+        "require(process.argv[1]).tasks(JSON.parse(process.argv[4]), {gruntfile:process.argv[2],base:process.argv[3],desktop:true,verbose:true});",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build\\node_modules\\grunt",
+        "D:\\open office\\scripts\\full_source_web_grunt.cjs",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+        "[\"init-build-spreadsheeteditor\", \"increment-build\", \"deploy-app-main\"]"
+      ],
+      "status": "passed",
+      "pid": 23620,
+      "exit_code": 0
+    },
+    {
+      "name": "presentationeditor",
+      "command": [
+        "node",
+        "-e",
+        "require(process.argv[1]).tasks(JSON.parse(process.argv[4]), {gruntfile:process.argv[2],base:process.argv[3],desktop:true,verbose:true});",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build\\node_modules\\grunt",
+        "D:\\open office\\scripts\\full_source_web_grunt.cjs",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+        "[\"init-build-presentationeditor\", \"increment-build\", \"deploy-app-main\", \"deploy-reporter\"]"
+      ],
+      "status": "passed",
+      "pid": 1460,
+      "exit_code": 0
+    },
+    {
+      "name": "pdfeditor",
+      "command": [
+        "node",
+        "-e",
+        "require(process.argv[1]).tasks(JSON.parse(process.argv[4]), {gruntfile:process.argv[2],base:process.argv[3],desktop:true,verbose:true});",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build\\node_modules\\grunt",
+        "D:\\open office\\scripts\\full_source_web_grunt.cjs",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+        "[\"init-build-pdfeditor\", \"increment-build\", \"deploy-app-main\"]"
+      ],
+      "status": "passed",
+      "pid": 14404,
+      "exit_code": 0
+    },
+    {
+      "name": "visioeditor",
+      "command": [
+        "node",
+        "-e",
+        "require(process.argv[1]).tasks(JSON.parse(process.argv[4]), {gruntfile:process.argv[2],base:process.argv[3],desktop:true,verbose:true});",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build\\node_modules\\grunt",
+        "D:\\open office\\scripts\\full_source_web_grunt.cjs",
+        "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+        "[\"init-build-visioeditor\", \"increment-build\", \"deploy-app-main\"]"
+      ],
+      "status": "passed",
+      "pid": 40120,
+      "exit_code": 0
+    }
+  ],
+  "file_count": 19861,
+  "finished_at_utc": "2026-11-02T10:12:50.262977+00:00"
+}

@@ -1,0 +1,1552 @@
+{
+  "checked_at_utc": "2026-11-02T11:33:53.275531+00:00",
+  "status": "audit_complete_source_build_gaps_confirmed",
+  "scope": "SDKJS deployed WASM and adjacent generated engines; no production source modified",
+  "source_commits": {
+    "core": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+    "sdkjs": "9d2138866d929be32f1d107e8b5bfae36156e097",
+    "build_tools": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda"
+  },
+  "wasm_count": 5,
+  "wasm_total_bytes": 16675319,
+  "related_files": [
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/hash/hash/engine.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/hash/hash/engine.js",
+      "bytes": 42729,
+      "sha256": "a017a4e9a073bb5c12f1671a0d1b2e41f4e37139533f5f34404887bb00a4b9d0",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "fe1d85f48c82a748f13826b3dc7758571e7accd9",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/hash/hash/engine.wasm",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/hash/hash/engine.wasm",
+      "bytes": 65115,
+      "sha256": "8a0cb4c59bf777320f74e9d9b0b2f1623ea1aedcd58896852879a0c7b5b2508d",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "aced592019d986c46dfa7630b8bd241ce0fa8903",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/hash/hash/engine_ie.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/hash/hash/engine_ie.js",
+      "bytes": 190212,
+      "sha256": "fc175dbb2c5bdd69836bff2c618d6f10a39a0f6050fd5cc0023b26c9d522a684",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "196199e9b48a1020b20288e5f66d41ddfab58e1c",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/libfont/engine/fonts.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/libfont/engine/fonts.js",
+      "bytes": 60400,
+      "sha256": "c80354b6e8431d37c0661fc67b92de8d4df8d5ee058cce0348a7a3df57220cc9",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "ef7ff194d2d5f105657c106b2e96388d69ea30d8",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/libfont/engine/fonts.wasm",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/libfont/engine/fonts.wasm",
+      "bytes": 3614021,
+      "sha256": "6b27107256a1df72419ac2b4894c65f9f6f0585ac303b8f3158dc441281e4482",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "9252a999e0116ea76f5ee894c8f75cfed1684f4f",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/libfont/engine/fonts_ie.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/libfont/engine/fonts_ie.js",
+      "bytes": 6899162,
+      "sha256": "26bbbc354974cd9b424ac9fe8c6456541781fecea5de2cb2fe7c7231415aa70c",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "0542d4e055131db28f2e5b5656cced268806c8e9",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/libfont/engine/fonts_native.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/libfont/engine/fonts_native.js",
+      "bytes": 6767,
+      "sha256": "2f6bf14f485980eba7e77f2b03bc5653b8b558dcdd87f063aa98e0869c2c01d9",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "93e0141a71d245ec74fa823daed55a3dfca7d75a",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/spell/spell/spell.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/spell/spell/spell.js",
+      "bytes": 39630,
+      "sha256": "28a2822a20c8377caef20153edf3ddf91182472006a53153f3b9f126630cd4d2",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "a768e2ad609fbd81d938345daf862940ed1973b9",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/spell/spell/spell.js.mem",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/spell/spell/spell.js.mem",
+      "bytes": 147495,
+      "sha256": "89b2b85740f7539cb15cc8de4a3fdfef39d0ddbb24bc39d4248e4c986cb69e17",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "4d358ad7b579112feedd1ab9796440c8349028f2",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/spell/spell/spell.wasm",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/spell/spell/spell.wasm",
+      "bytes": 510644,
+      "sha256": "9c5c4b4a6329db55b52558962e9625b83194e7d6a085b67d05554d3ec2240984",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "4f0d952f96446c09f1a003f489f2ad549c3be15a",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/spell/spell/spell_ie.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/spell/spell/spell_ie.js",
+      "bytes": 789506,
+      "sha256": "8a337d9732132bd911e0480a4fef49635a89f6c27fac611a780aa30824e95f00",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "e4fdac022665510e66af3cda8a265f62bca59ecd",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/zlib/engine/zlib.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/zlib/engine/zlib.js",
+      "bytes": 36819,
+      "sha256": "7423739061097d41a870569756bd19d69303b0479368e43b1612c414b4a3e70e",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "b45974ecd663b58a18104a3765d58641c6e1516e",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/zlib/engine/zlib.wasm",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/zlib/engine/zlib.wasm",
+      "bytes": 1617419,
+      "sha256": "eab72ffc7a4f304fe1d281c7fe1ff271e206bb6154c4de8a472de2c750d232bf",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "773a3a2c73aec38984fbba0947b323fa45ab2c05",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/common/zlib/engine/zlib_ie.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/common/zlib/engine/zlib_ie.js",
+      "bytes": 2950555,
+      "sha256": "92539746013e584e54a3576bb29590d3efd2467c636d3c75ca5e19cb00063d8c",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "fbd5c4ad2246a1c5bee6e4d79da80981134053a0",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/pdf/src/engine/cmap.bin",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/pdf/src/engine/cmap.bin",
+      "bytes": 9397739,
+      "sha256": "5a3179515c55b7f99882ac6cf25357dd0f7623d6c765d864ce80af214df27a03",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "d14fccff7ffdcd9106f5eabf79c62e75a63920cd",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/pdf/src/engine/drawingfile.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/pdf/src/engine/drawingfile.js",
+      "bytes": 115230,
+      "sha256": "c27e605cb9fdce36d30a0de78ac727cc0db88afd881b96dbee449c2021e2538b",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "df5360425efd482cfb1e75151a6f08d110b9ae1d",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/pdf/src/engine/drawingfile.wasm",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/pdf/src/engine/drawingfile.wasm",
+      "bytes": 10868120,
+      "sha256": "8c79a2b610dc9699b48f12d76a245ad75fb72700f17dd63fea9f49d6dc2173cb",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "7e28593803f71789351c94c9f3221a301f6ac4e9",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/pdf/src/engine/drawingfile_ie.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/pdf/src/engine/drawingfile_ie.js",
+      "bytes": 19683016,
+      "sha256": "2a30ef1e9102f447e0db8efe08b31eb04257aae4d1395f071261c021083e1533",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "7dc91902d47ee635be5de0fef7db05cfa65a354d",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/pdf/src/engine/drawingfile_native.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/pdf/src/engine/drawingfile_native.js",
+      "bytes": 47839,
+      "sha256": "a41fe98d2f85a146081319abe809f8da01b139a95be00896eaea87f6733743f5",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "f9282159c32a9108afe1032469050e7757531e48",
+      "built_this_run": false
+    },
+    {
+      "deploy_path": "build/full-source/DesktopEditors/sdkjs/deploy/sdkjs/pdf/src/engine/viewer.js",
+      "source_path": "build/full-source/DesktopEditors/sdkjs/pdf/src/engine/viewer.js",
+      "bytes": 244600,
+      "sha256": "4fca32cf529a72b9c8362da835f71555c6dc219569e3882e2bfb9ab6ebdec832",
+      "source_bytes_identical": true,
+      "source_matches_git_blob": true,
+      "git_blob": "9e2dd8158190879f52a626465df4de064f62d01b",
+      "built_this_run": false
+    }
+  ],
+  "generated_js_engine_count": 10,
+  "spell_ie_memory_file_count": 1,
+  "adjacent_native_bridge_js_count": 2,
+  "adjacent_prebuilt_pdf_viewer_js_count": 1,
+  "cmap_data_file_count": 1,
+  "smartart_data_files": 152,
+  "web_apps_deploy_wasm_count": 0,
+  "fixed_tree_wasm_recipe_found": false,
+  "emscripten_version_verified": null,
+  "wasm_custom_producers_sections_present": false,
+  "pending_approval": false,
+  "tool_install_performed": false,
+  "official_history_queries": [
+    {
+      "label": "refactor",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/commits/2da2866862000c6fd180e159701d5aee95448107",
+      "data": {
+        "sha": "2da2866862000c6fd180e159701d5aee95448107",
+        "message": "Refactoring",
+        "files": [
+          {
+            "name": "Common/3dParty/hunspell/.gitignore",
+            "status": "modified",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/before.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/hunspell.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/js/code.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/js/index.html",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/js/spell.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/src/base.h",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/src/engine.h",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/src/filemgr_wrapper.cxx",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/src/filemgr_wrapper_new.cxx",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/src/main.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hunspell/wasm/src/string_buffer_stream.h",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/hyphen_build/after.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/hyphen_build/hyphen.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/library.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/module.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/src/hyphen.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/test/index.html",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/test/main.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "Common/3dParty/hyphen/js/test/styles.css",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/.gitignore",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/after.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/allfonts/after.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/allfonts/before.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/allfonts/index.html",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/allfonts/liballfont.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/allfonts/module.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/allfonts/src/main.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/before.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/deploy.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/engine/module_js.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/engine/module_native.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/libfont.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/fontengine/js/module.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/.gitignore",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/3rdParty/.gitignore",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/3rdParty/patches/openssl1.patch",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/3rdParty/patches/openssl2.patch",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/after.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/before.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/code.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/engine.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/index.html",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/main.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/make.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/xmlsec.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/all/xmlsec.pro",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/hash/after.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/hash/before.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/hash/hash.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/hash/hash.pro",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/hash/hash_base.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/hash/main.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/LICENSE",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/README.md",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/config.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/index.html",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/after.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/before.py",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/code.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/deploy/engine.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/deploy/engine.wasm",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/deploy/engine_ie.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/engine.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/engine_base.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/index.html",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/main.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/openssl_module.pro",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@1.25x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@1.5x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@1.75x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@2x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@1.25x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@1.5x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@1.75x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@2x.png",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/scripts/code.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/cs-CS.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/de-DE.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/es-ES.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/fr-FR.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/langs.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/ru-RU.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/.gitignore",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/qt/test/main.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/qt/test/test.pro",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/qt/zlib.pro",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/wasm/js/code.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/wasm/js/index.html",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/wasm/js/zlib.js",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/wasm/src/base.cpp",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/wasm/src/base.h",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/zlib.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/zlib_image.json",
+            "status": "removed",
+            "old_name": null
+          },
+          {
+            "name": "OfficeUtils/js/zlib_image_all.json",
+            "status": "removed",
+            "old_name": null
+          }
+        ],
+        "count": 100
+      }
+    },
+    {
+      "label": "old_zip_dir",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/contents/OfficeUtils/js?ref=075052dd3f41373affa533317d6734a0d34e0897",
+      "data": [
+        {
+          "name": ".gitignore",
+          "path": "OfficeUtils/js/.gitignore",
+          "type": "file",
+          "sha": "3fdbe4e53540fc4c7f588de045df1c3db8d44401",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/OfficeUtils/js/.gitignore"
+        },
+        {
+          "name": "qt",
+          "path": "OfficeUtils/js/qt",
+          "type": "dir",
+          "sha": "6b75e3cfbc5abf3da54d2f3e995cbc536bef1aef",
+          "download_url": null
+        },
+        {
+          "name": "wasm",
+          "path": "OfficeUtils/js/wasm",
+          "type": "dir",
+          "sha": "180a0a7c1a07a1bdfc354c0de62d6b264c29b0a1",
+          "download_url": null
+        },
+        {
+          "name": "zlib.json",
+          "path": "OfficeUtils/js/zlib.json",
+          "type": "file",
+          "sha": "7d2336822caf7d89d6bfa5fc4f4bb11794200c84",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/OfficeUtils/js/zlib.json"
+        },
+        {
+          "name": "zlib_image.json",
+          "path": "OfficeUtils/js/zlib_image.json",
+          "type": "file",
+          "sha": "50016e13c87403ec7581a2d4f5e55e7431ba9dc2",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/OfficeUtils/js/zlib_image.json"
+        },
+        {
+          "name": "zlib_image_all.json",
+          "path": "OfficeUtils/js/zlib_image_all.json",
+          "type": "file",
+          "sha": "223a445266dd6bb48417484346b3d23e1c4a083e",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/OfficeUtils/js/zlib_image_all.json"
+        }
+      ]
+    },
+    {
+      "label": "font_history",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/commits?path=DesktopEditor%2Ffontengine%2Fjs&per_page=3",
+      "data": [
+        {
+          "sha": "2da2866862000c6fd180e159701d5aee95448107",
+          "message": "Refactoring",
+          "date": "2026-05-12T18:39:13Z",
+          "parents": [
+            "075052dd3f41373affa533317d6734a0d34e0897"
+          ]
+        },
+        {
+          "sha": "10b2b0d3d0303a9a4337bad97d5bd48861b92855",
+          "message": "standardize comments in English",
+          "date": "2026-04-02T05:10:57Z",
+          "parents": [
+            "b18715ae811aaa5cd9dae2dd9a4b9412d38b8b7b"
+          ]
+        },
+        {
+          "sha": "0da5ad2f4869c4a6439502395370be0c647175d2",
+          "message": "Fix libfont",
+          "date": "2025-12-17T11:19:57Z",
+          "parents": [
+            "8611c5f7813b0b72cbce9234c16c01df0e1fc200"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "old_font_dir",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/contents/DesktopEditor/fontengine/js?ref=075052dd3f41373affa533317d6734a0d34e0897",
+      "data": [
+        {
+          "name": ".gitignore",
+          "path": "DesktopEditor/fontengine/js/.gitignore",
+          "type": "file",
+          "sha": "ad5e6cfb620eb3086a399bd8dd63f039fa120358",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/.gitignore"
+        },
+        {
+          "name": "after.py",
+          "path": "DesktopEditor/fontengine/js/after.py",
+          "type": "file",
+          "sha": "58d95dd8036f1a187ed8eecb2bef27403a120941",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/after.py"
+        },
+        {
+          "name": "allfonts",
+          "path": "DesktopEditor/fontengine/js/allfonts",
+          "type": "dir",
+          "sha": "7b1d86a3675cd6fbfdee003ebf43708c7d14c9f3",
+          "download_url": null
+        },
+        {
+          "name": "before.py",
+          "path": "DesktopEditor/fontengine/js/before.py",
+          "type": "file",
+          "sha": "f03ae534843f232de125c86bfc06e9f2116b3f35",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/before.py"
+        },
+        {
+          "name": "cpp",
+          "path": "DesktopEditor/fontengine/js/cpp",
+          "type": "dir",
+          "sha": "421fc381374df8abca4680a03fee7f682a31d184",
+          "download_url": null
+        },
+        {
+          "name": "deploy.py",
+          "path": "DesktopEditor/fontengine/js/deploy.py",
+          "type": "file",
+          "sha": "4f1d70a43be629ad457c06cac8aafefab00b5aea",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/deploy.py"
+        },
+        {
+          "name": "engine",
+          "path": "DesktopEditor/fontengine/js/engine",
+          "type": "dir",
+          "sha": "aef074bfcddb4aa31ce04e331e7678b6bdad74a3",
+          "download_url": null
+        },
+        {
+          "name": "libfont.json",
+          "path": "DesktopEditor/fontengine/js/libfont.json",
+          "type": "file",
+          "sha": "83a2b561d831cda1feac7aca8d60bb06e12c8e23",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/libfont.json"
+        },
+        {
+          "name": "module.js",
+          "path": "DesktopEditor/fontengine/js/module.js",
+          "type": "file",
+          "sha": "2e40678944bebe345fcbd50c9fd37e0e0fe56e4f",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/module.js"
+        }
+      ]
+    },
+    {
+      "label": "old_graphics_js",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/contents/DesktopEditor/graphics/pro/js?ref=075052dd3f41373affa533317d6734a0d34e0897",
+      "data": [
+        {
+          "path": "DesktopEditor/graphics/pro/js/.gitignore",
+          "type": "file",
+          "sha": "e625b61da7b1614db55119c0d7fb01e701fd2a7c",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/.gitignore"
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/after.py",
+          "type": "file",
+          "sha": "b11b83257d199ed73233e833791e23ff1dea5e79",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/after.py"
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/before.py",
+          "type": "file",
+          "sha": "8f75cc7f3bc54e85851031d6098537c738dc393d",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/before.py"
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/deploy.py",
+          "type": "file",
+          "sha": "5286e2c62c707ad45eef2ad5cc91e153b454c729",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/deploy.py"
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/drawingfile.json",
+          "type": "file",
+          "sha": "ddb71f55e3021d37d3f7e073b795e5b334be004f",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/drawingfile.json"
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/make.py",
+          "type": "file",
+          "sha": "71c7e9d336f13dbecce5a083920280fc6f1d3b88",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/make.py"
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/qt",
+          "type": "dir",
+          "sha": "6ffebfe2c62d034a12b94a643ded966f33a0d42b",
+          "download_url": null
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/raster_make.py",
+          "type": "file",
+          "sha": "3eef0e9c9c24edefe2c05c815bd1fd685db3ecc8",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/raster_make.py"
+        },
+        {
+          "path": "DesktopEditor/graphics/pro/js/wasm",
+          "type": "dir",
+          "sha": "97d9f106fb8ea5844f482148a241016a2a97a3c7",
+          "download_url": null
+        }
+      ]
+    },
+    {
+      "label": "old_build_tools",
+      "url": "https://api.github.com/repos/ONLYOFFICE/build_tools/commits?until=2026-05-12T18%3A39%3A13Z&per_page=1",
+      "data": [
+        {
+          "sha": "d2a4ae3e697afa48ecea40b5a1cd6db724fb5064",
+          "message": "Merge pull request 'Refactor' (#194) from fix/tools into release/v9.4.0\n\nReviewed-on: https://git.onlyoffice.com/ONLYOFFICE/build_tools/pulls/194",
+          "date": "2026-05-11T19:12:58Z",
+          "parents": [
+            "26a0d362d7b319edabfc5934ac6538af33507fcb",
+            "91f25f41d8f4fdbf00d2a5c13ba1da195c34a50c"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "common/libfont/engine/fonts.wasm",
+      "url": "https://api.github.com/repos/ONLYOFFICE/sdkjs/commits?sha=9d2138866d929be32f1d107e8b5bfae36156e097&path=common%2Flibfont%2Fengine%2Ffonts.wasm&per_page=1",
+      "data": [
+        {
+          "sha": "cfc208d80ad7b093a3cc6e988e15e5411685901a",
+          "message": "Update libfont",
+          "date": "2025-12-17T12:04:56Z",
+          "parents": [
+            "41b5291b17258be997be8872e0156a60ede54aa6"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "common/spell/spell/spell.wasm",
+      "url": "https://api.github.com/repos/ONLYOFFICE/sdkjs/commits?sha=9d2138866d929be32f1d107e8b5bfae36156e097&path=common%2Fspell%2Fspell%2Fspell.wasm&per_page=1",
+      "data": [
+        {
+          "sha": "8acfe8a21eb551b9a63ece92fb4c8f112d771084",
+          "message": "Fix/critical6.3.1 (#1958)\n\n* [spellcheck] Fix bug 50471\r\n\r\n* Fix bug 50482",
+          "date": "2021-05-21T17:19:06Z",
+          "parents": [
+            "19a495b876119dfda3235445baa85266eeeeb33d"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "common/hash/hash/engine.wasm",
+      "url": "https://api.github.com/repos/ONLYOFFICE/sdkjs/commits?sha=9d2138866d929be32f1d107e8b5bfae36156e097&path=common%2Fhash%2Fhash%2Fengine.wasm&per_page=1",
+      "data": [
+        {
+          "sha": "1dbcc65201cd87b6b7ac1849dbe11bafae4aaf41",
+          "message": "Rename & refactoring hash module",
+          "date": "2021-11-12T15:24:30Z",
+          "parents": [
+            "416706b8e2349cc2ae088855318cd0c48bc73984"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "common/zlib/engine/zlib.wasm",
+      "url": "https://api.github.com/repos/ONLYOFFICE/sdkjs/commits?sha=9d2138866d929be32f1d107e8b5bfae36156e097&path=common%2Fzlib%2Fengine%2Fzlib.wasm&per_page=1",
+      "data": [
+        {
+          "sha": "0fd923384fea32ae5cb83888307940ab4c824cf3",
+          "message": "Support wmf/emf when the file will be opened on client",
+          "date": "2022-08-10T12:56:59Z",
+          "parents": [
+            "593c2c3fd740d5808e30d91b9766f56138b595e2"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "pdf/src/engine/drawingfile.wasm",
+      "url": "https://api.github.com/repos/ONLYOFFICE/sdkjs/commits?sha=9d2138866d929be32f1d107e8b5bfae36156e097&path=pdf%2Fsrc%2Fengine%2Fdrawingfile.wasm&per_page=1",
+      "data": [
+        {
+          "sha": "05fd481c7bc5154c307ccef9718c47b783ddd6b9",
+          "message": "Update module",
+          "date": "2026-10-08T15:44:42Z",
+          "parents": [
+            "bb665a5060e78552d9421a82fedd8835c56d2543"
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_recipe_reads": [
+    {
+      "path": "DesktopEditor/fontengine/js/libfont.json",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/libfont.json",
+      "sha256": "2007f73f090c5c2582aa47a032f933ce1898495a416a2c6ebf53bbf06a4b1ef3",
+      "text": "{\n\t\"name\": \"fonts\",\n\t\"res_folder\": \"./deploy\",\n\t\"wasm\": true,\n\t\"asm\": true,\n\t\"run_before\": \"before.py\",\n\t\"run_after\": \"after.py\",\n\t\"embed_mem_file\": true,\n\t\"base_js_content\": \"./engine/module_js.js\",\n\n\t\"compiler_flags\": [\n\t\t\"-O3\",\n\t\t\"-fexceptions\",\n\t\t\"-Wno-unused-command-line-argument\",\n\t\t\"-s ALLOW_MEMORY_GROWTH=1\",\n\t\t\"-s FILESYSTEM=0\",\n\t\t\"-s ENVIRONMENT='web'\",\n\t\t\"-s LLD_REPORT_UNDEFINED\"\n\t],\n\t\"exported_functions\": [\n\t\t\"_malloc\",\n\t\t\"_free\",\n\n\t\t\"_ASC_FT_Malloc\",\n\t\t\"_ASC_FT_Free\",\n\t\t\"_ASC_FT_Init\",\n\t\t\"_ASC_FT_Done_FreeType\",\n\t\t\"_ASC_FT_Set_TrueType_HintProp\",\t\t\n\n\t\t\"_ASC_FT_Open_Face\",\n\t\t\"_ASC_FT_Done_Face\",\n\t\t\"_ASC_FT_SetCMapForCharCode\",\n\t\t\"_ASC_FT_GetFaceInfo\",\n\t\t\"_ASC_FT_GetFaceMaxAdvanceX\",\n\t\t\"_ASC_FT_GetKerningX\",\n\t\t\"_ASC_FT_Set_Transform\",\n\t\t\"_ASC_FT_Set_Char_Size\",\n\n\t\t\"_ASC_FT_Load_Glyph\",\n\t\t\"_ASC_FT_Glyph_Get_CBox\",\n\t\t\"_ASC_FT_Get_Glyph_Measure_Params\",\n\t\t\"_ASC_FT_Get_Glyph_Render_Params\",\n\t\t\"_ASC_FT_Get_Glyph_Render_Buffer\",\n\t\t\n\t\t\"_ASC_HB_LanguageFromString\",\n\t\t\"_ASC_HB_ShapeText\",\n\t\t\"_ASC_HB_FontFree\",\n\t\t\n\t\t\"_hyphenCreateApplication\",\n\t\t\"_hyphenDestroyApplication\",\n\t\t\"_hyphenLoadDictionary\",\n\t\t\"_hyphenCheckDictionary\",\n\t\t\"_hyphenWord\",\n\n\t\t\"_Zlib_Malloc\",\n\t\t\"_Zlib_Free\",\n\t\t\"_Zlib_Create\",\n\t\t\"_Zlib_Open\",\n\t\t\"_Zlib_Close\",\n\t\t\"_Zlib_AddFile\",\n\t\t\"_Zlib_RemoveFile\",\n\t\t\"_Zlib_GetPaths\",\n\t\t\"_Zlib_GetFile\",\n\t\t\"_Zlib_Save\",\n\n\t\t\"_Raster_DecodeFile\",\n\t\t\"_Raster_GetDecodedBuffer\",\n\t\t\"_Raster_GetHeight\",\n\t\t\"_Raster_GetWidth\",\n\t\t\"_Raster_GetStride\",\n\t\t\"_Raster_Destroy\",\n\t\t\"_Raster_EncodeImageData\",\n\t\t\"_Raster_Encode\",\n\t\t\"_Raster_GetEncodedBuffer\",\n\t\t\"_Raster_GetEncodedSize\",\n\t\t\"_Raster_DestroyEncodedData\",\n\t\t\"_Image_GetFormat\"\n\t],\n\t\"include_path\": [\n\t\t\"./../../graphics/pro/js/freetype-2.10.4/include\", \n\t\t\"./../../graphics/pro/js/freetype-2.10.4/include/freetype\", \n\t\t\"./../../graphics/pro/js/freetype-2.10.4/include/freetype/internal\", \n\t\t\"./../../graphics/pro/js/wasm/src/lib\",\n\n\t\t\"./../../../Common/3dParty/harfbuzz/harfbuzz/src\",\n\t\t\"./../../../Common/3dParty/brotli/brotli/c/include\",\n\t\t\n\t\t\"./../../../OfficeUtils/src\",\n\t\t\"./../../../OfficeUtils/src/zlib-1.2.11\",\n\n\t\t\"./../../cximage/jasper/include\", \n\t\t\"./../../cximage/jpeg\", \n\t\t\"./../../cximage/png\", \n\t\t\"./../../agg-2.4/include\"\n\t],\n\t\"define\": [\n\t\t\"__linux__\", \"_LINUX\", \"UNIX\", \"_QT\",\n\t\t\"NDEBUG\", \"_LIB\", \"_CRT_SECURE_NO_WARNINGS\",\n\t\t\"FT2_BUILD_LIBRARY\",\n\t\t\"HAVE_FREETYPE\",\n\t\t\"FT_CONFIG_OPTION_SYSTEM_ZLIB\",\n\t\t\"GRAPHICS_NO_USE_DYNAMIC_LIBRARY\",\n\t\t\"HYPHEN_ENGINE_DISABLE_FILESYSTEM\",\n\t\t\"METAFILE_DISABLE_FILESYSTEM\",\n\n\t\t\"HAVE_UNISTD_H\", \"HAVE_FCNTL_H\", \"_ARM_ALIGN_\",\n\t\t\"METAFILE_SUPPORT_WMF_EMF\",\n\t\t\"CXIMAGE_DISABLE_SUPPORT_MNG\",\n\t\t\"CXIMAGE_DISABLE_SUPPORT_ADDITIONS\",\n\t\t\"_tcsnicmp=strncmp\",\n\t\t\"_lseek=lseek\",\n\t\t\"_getcwd=getcwd\",\n\t\t\"NO_CONSOLE_IO\",\n\t\t\"BUILD_ZLIB_AS_SOURCES\",\n\t\t\"IMAGE_CHECKER_DISABLE_XML\",\n\n\t\t\"FT_CONFIG_OPTION_USE_BROTLI\",\n\n\t\t\"BUILDING_WASM_MODULE\"\n\t],\n\t\"compile_files_array\": [\n\t{\n\t\t\"folder\": \"./../../graphics/pro/js/freetype-2.10.4/src\",\n\t\t\"files\": [\n\t\t\t\"base/ftdebug.c\",\n\t\t\t\"autofit/autofit.c\",\n\t\t\t\"bdf/bdf.c\",\n\t\t\t\"cff/cff.c\",\n\t\t\t\"base/ftbase.c\",\n\t\t\t\"base/ftbitmap.c\",\n\t\t\t\"base/ftfstype.c\",\n\t\t\t\"base/ftgasp.c\",\n\t\t\t\"cache/ftcache.c\",\n\t\t\t\"base/ftglyph.c\",\n\t\t\t\"gzip/ftgzip.c\",\n\t\t\t\"base/ftinit.c\",\n\t\t\t\"lzw/ftlzw.c\",\n\t\t\t\"base/ftstroke.c\",\n\t\t\t\"base/ftsystem.c\",\n\t\t\t\"smooth/smooth.cpp\",\n\t\t\t\"base/ftbbox.c\",\n\t\t\t\"base/ftbdf.c\",\n\t\t\t\"base/ftcid.c\",\n\t\t\t\"base/ftmm.c\",\n\t\t\t\"base/ftpfr.c\",\n\t\t\t\"base/ftsynth.c\",\n\t\t\t\"base/fttype1.c\",\n\t\t\t\"base/ftwinfnt.c\",\n\t\t\t\"base/ftgxval.c\",\n\t\t\t\"base/ftotval.c\",\n\t\t\t\"base/ftpatent.c\",\n\t\t\t\"pcf/pcf.c\",\n\t\t\t\"pfr/pfr.c\",\n\t\t\t\"psaux/psaux.c\",\n\t\t\t\"pshinter/pshinter.c\",\n\t\t\t\"psnames/psmodule.c\",\n\t\t\t\"raster/raster.c\",\n\t\t\t\"sfnt/sfnt.cpp\",\n\t\t\t\"truetype/truetype.c\",\n\t\t\t\"type1/type1.c\",\n\t\t\t\"cid/type1cid.c\",\n\t\t\t\"type42/type42.c\",\n\t\t\t\"winfonts/winfnt.c\"\n\t\t]\n\t},\n\t{\n\t\t\"folder\": \"./../../../Common/3dParty/harfbuzz/harfbuzz/src\",\n\t\t\"files\": [\n\t\t\t\"hb-aat-layout.cc\",\n\t\t\t\"hb-aat-map.cc\",\n\t\t\t\"hb-blob.cc\",\n\t\t\t\"hb-buffer-serialize.cc\",\n\t\t\t\"hb-buffer-verify.cc\",\n\t\t\t\"hb-buffer.cc\",\n\t\t\t\"hb-cairo-utils.cc\",\n\t\t\t\"hb-cairo.cc\",\n\t\t\t\"hb-common.cc\",\n\t\t\t\"hb-coretext.cc\",\n\t\t\t\"hb-directwrite.cc\",\n\t\t\t\"hb-draw.cc\",\n\t\t\t\"hb-face-builder.cc\",\n\t\t\t\"hb-face.cc\",\n\t\t\t\"hb-fallback-shape.cc\",\n\t\t\t\"hb-font.cc\",\n\t\t\t\"hb-ft.cc\",\n\t\t\t\"hb-gdi.cc\",\n\t\t\t\"hb-glib.cc\",\n\t\t\t\"hb-gobject-structs.cc\",\n\t\t\t\"hb-graphite2.cc\",\n\t\t\t\"hb-icu.cc\",\n\t\t\t\"hb-map.cc\",\n\t\t\t\"hb-number.cc\",\n\t\t\t\"hb-ot-cff1-table.cc\",\n\t\t\t\"hb-ot-cff2-table.cc\",\n\t\t\t\"hb-ot-color.cc\",\n\t\t\t\"hb-ot-face.cc\",\n\t\t\t\"hb-ot-font.cc\",\n\t\t\t\"hb-ot-layout.cc\",\n\t\t\t\"hb-ot-map.cc\",\n\t\t\t\"hb-ot-math.cc\",\n\t\t\t\"hb-ot-meta.cc\",\n\t\t\t\"hb-ot-metrics.cc\",\n\t\t\t\"hb-ot-name.cc\",\n\t\t\t\"hb-ot-shape-fallback.cc\",\n\t\t\t\"hb-ot-shape-normalize.cc\",\n\t\t\t\"hb-ot-shape.cc\",\n\t\t\t\"hb-ot-shaper-arabic.cc\",\n\t\t\t\"hb-ot-shaper-default.cc\",\n\t\t\t\"hb-ot-shaper-hangul.cc\",\n\t\t\t\"hb-ot-shaper-hebrew.cc\",\n\t\t\t\"hb-ot-shaper-indic-table.cc\",\n\t\t\t\"hb-ot-shaper-indic.cc\",\n\t\t\t\"hb-ot-shaper-khmer.cc\",\n\t\t\t\"hb-ot-shaper-myanmar.cc\",\n\t\t\t\"hb-ot-shaper-syllabic.cc\",\n\t\t\t\"hb-ot-shaper-thai.cc\",\n\t\t\t\"hb-ot-shaper-use.cc\",\n\t\t\t\"hb-ot-shaper-vowel-constraints.cc\",\n\t\t\t\"hb-ot-tag.cc\",\n\t\t\t\"hb-ot-var.cc\",\n\t\t\t\"hb-outline.cc\",\n\t\t\t\"hb-paint-extents.cc\",\n\t\t\t\"hb-paint.cc\",\n\t\t\t\"hb-set.cc\",\n\t\t\t\"hb-shape-plan.cc\",\n\t\t\t\"hb-shape.cc\",\n\t\t\t\"hb-shaper.cc\",\n\t\t\t\"hb-static.cc\",\n\t\t\t\"hb-style.cc\",\n\t\t\t\"hb-subset-cff-common.cc\",\n\t\t\t\"hb-subset-cff1.cc\",\n\t\t\t\"hb-subset-cff2.cc\",\n\t\t\t\"hb-subset-input.cc\",\n\t\t\t\"hb-subset-instancer-solver.cc\",\n\t\t\t\"hb-subset-plan.cc\",\n\t\t\t\"hb-subset-repacker.cc\",\n\t\t\t\"hb-subset.cc\",\n\t\t\t\"hb-ucd.cc\",\n\t\t\t\"hb-unicode.cc\",\n\t\t\t\"hb-uniscribe.cc\",\n\t\t\t\"hb-wasm-api.cc\",\n\t\t\t\"hb-wasm-shape.cc\",\n\t\t\t\"graph/gsubgpos-context.cc\"\n\t\t]\n\t},\n\t{\n\t\t\"folder\": \"../../../OfficeUtils/src/zlib-1.2.11/\",\n\t\t\"files\": [\"adler32.c\", \"crc32.c\", \"deflate.c\", \"infback.c\", \"inffast.c\", \"inflate.c\", \"inftrees.c\", \"trees.c\", \"zutil.c\", \"compress.c\"]\n\t},\t\n\t{\n\t\t\"folder\": \"cpp\",\n\t\t\"files\": [\"text.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"./../../graphics/pro/js/wasm/src/lib\",\n\t\t\"files\": [\"wasm_jmp.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../OfficeUtils/src/zlib-1.2.11/contrib/minizip/\",\n\t\t\"files\": [\"unzip.c\", \"ioapi.c\", \"zip.c\", \"ioapibuf.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../OfficeUtils/js\",\n\t\t\"files\": [\"../src/ZipBuffer.cpp\", \"wasm/src/base.cpp\", \"../src/zlib_addon.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../\",\n\t\t\"files\": [\"graphics/Image.cpp\", \"raster/BgraFrame.cpp\", \"raster/ImageFileFormatChecker.cpp\", \"graphics/Matrix.cpp\", \"graphics/GraphicsPath.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../agg-2.4/src/\",\n\t\t\"files\": [\"agg_trans_affine.cpp\", \"agg_bezier_arc.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../raster/\",\n\t\t\"files\": [\"PICT/PICFile.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../graphics/pro/js/qt/raster\",\n\t\t\"files\": [\"pro_Fonts_empty.cpp\", \"pro_Graphics_empty.cpp\", \"raster.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../cximage/CxImage/\",\n\t\t\"files\": [\"ximaenc.cpp\", \"ximaexif.cpp\", \"ximage.cpp\", \"ximainfo.cpp\", \"ximajpg.cpp\", \"ximalpha.cpp\", \"ximapal.cpp\", \"ximasel.cpp\", \"xmemfile.cpp\", \"ximapng.cpp\", \"ximabmp.cpp\", \"ximatran.cpp\", \"ximatif.cpp\", \"tif_xfile.cpp\", \"ximajas.cpp\", \"ximagif.cpp\", \"ximaico.cpp\", \"ximatga.cpp\", \"ximapcx.cpp\", \"ximawbmp.cpp\", \"ximamng.cpp\", \"ximapsd.cpp\", \"ximaska.cpp\", \"ximaraw.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../cximage/jpeg/\",\n\t\t\"files\": [\"jerror.c\", \"jdmarker.c\", \"jdapimin.c\", \"jdmaster.c\", \"jdapistd.c\", \"jcomapi.c\", \"jutils.c\", \"jdinput.c\", \"jdmainct.c\", \"jmemmgr.c\", \"jquant1.c\", \"jquant2.c\", \"jdmerge.c\", \"jdcolor.c\", \"jdsample.c\", \"jdpostct.c\", \"jddctmgr.c\", \"jdarith.c\", \"jdhuff.c\", \"jdcoefct.c\", \"jmemnobs.c\", \"jidctint.c\", \"jidctfst.c\", \"jidctflt.c\", \"jaricom.c\", \"jcapimin.c\", \"jcparam.c\", \"jcapistd.c\", \"jcinit.c\", \"jcmaster.c\", \"jccolor.c\", \"jcmarker.c\", \"jcsample.c\", \"jcprepct.c\", \"jcdctmgr.c\", \"jcarith.c\", \"jchuff.c\", \"jccoefct.c\", \"jcmainct.c\", \"jfdctint.c\", \"jfdctfst.c\", \"jfdctflt.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../cximage/png/\",\n\t\t\"files\": [\"pngread.c\", \"pngmem.c\", \"pngerror.c\", \"png.c\", \"pngrio.c\", \"pngtrans.c\", \"pngget.c\", \"pngrutil.c\", \"pngrtran.c\", \"pngset.c\", \"pngwrite.c\", \"pngwio.c\", \"pngwutil.c\", \"pngwtran.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../cximage/tiff/\",\n\t\t\"files\": [\"tif_close.c\", \"tif_dir.c\", \"tif_aux.c\", \"tif_getimage.c\", \"tif_strip.c\", \"tif_open.c\", \"tif_tile.c\", \"tif_error.c\", \"tif_read.c\", \"tif_flush.c\", \"tif_dirinfo.c\", \"tif_compress.c\", \"tif_warning.c\", \"tif_swab.c\", \"tif_color.c\", \"tif_dirread.c\", \"tif_write.c\", \"tif_codec.c\", \"tif_luv.c\", \"tif_dirwrite.c\", \"tif_dumpmode.c\", \"tif_fax3.c\", \"tif_ojpeg.c\", \"tif_jpeg.c\", \"tif_next.c\", \"tif_thunder.c\", \"tif_packbits.c\", \"tif_lzw.c\", \"tif_zip.c\", \"tif_fax3sm.c\", \"tif_predict.c\"]\n\t},\t\n\t{\n\t\t\"folder\": \"../../raster/Metafile/\",\n\t\t\"files\": [\n\t\t\t\"MetaFile.cpp\", \n\t\t\t\"Common/MetaFileTypes.cpp\", \n\t\t\t\"Common/MetaFileUtils.cpp\", \n\t\t\t\"Common/CPathConverter.cpp\",\n\t\t\t\"Common/CPath.cpp\",\n\t\t\t\"Common/CClip.cpp\"\n\t\t]\n\t},\n\t{\n\t\t\"folder\": \"../../raster/Metafile/Emf/\",\n\t\t\"files\": [\n\t\t\t\"EmfInterpretator/CEmfInterpretator.cpp\",\n\t\t\t\"EmfInterpretator/CEmfInterpretatorArray.cpp\",\n\t\t\t\"EmfInterpretator/CEmfInterpretatorRender.cpp\",\n\t\t\t\"EmfInterpretator/CEmfInterpretatorSvg.cpp\",\n\t\t\t\"EmfParser/CEmfParser.cpp\",\n\t\t\t\"EmfParser/CEmfParserBase.cpp\",\n\t\t\t\"EmfParser/CEmfPlusParser.cpp\",\n\t\t\t\"EmfObjects.cpp\",\n\t\t\t\"EmfPlusObjects.cpp\",\n\t\t\t\"EmfPlayer.cpp\",\n\t\t\t\"EmfFile.cpp\"\n\t\t]\n\t},\n\t{\n\t\t\"folder\": \"../../raster/Metafile/Wmf/\",\n\t\t\"files\": [\n\t\t\t\"WmfInterpretator/CInterpretatorSvgBase.cpp\",\n\t\t\t\"WmfInterpretator/CWmfInterpretatorSvg.cpp\",\n\t\t\t\"WmfInterpretator/CWmfInterpretatorRender.cpp\",\n\t\t\t\"WmfInterpretator/CWmfInterpretator.cpp\",\n\t\t\t\"WmfParser/CWmfParser.cpp\",\n\t\t\t\"WmfParser/CWmfParserBase.cpp\",\n\t\t\t\"WmfObjects.cpp\",\n\t\t\t\"WmfPlayer.cpp\"\n\t\t]\n\t},\n\t{\n\t\t\"folder\": \"../../common/\",\n\t\t\"files\": [\n\t\t\t\"File.cpp\",\n\t\t\t\"Base64.cpp\",\n\t\t\t\"StringExt.cpp\",\n\t\t\t\"StringBuilder.cpp\",\n\t\t\t\"../xml/src/xmlwriter.cpp\"\n\t\t]\n\t},\n\t{\n\t\t\"folder\": \"./..\",\n\t\t\"files\": [\"TextHyphen.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"./../../../Common/3dParty/hyphen/js/src\",\n\t\t\"files\": [\"hyphen.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"./../../../Common/3dParty/brotli/brotli/c/common\",\n\t\t\"files\": [\n\t\t\t\"constants.c\",\n\t\t\t\"context.c\",\n\t\t\t\"dictionary.c\",\n\t\t\t\"platform.c\",\n\t\t\t\"shared_dictionary.c\",\n\t\t\t\"transform.c\"\n\t\t]\n\t},\n\t{\n\t\t\"folder\": \"./../../../Common/3dParty/brotli/brotli/c/dec\",\n\t\t\"files\": [\n\t\t\t\"bit_reader.c\",\n\t\t\t\"decode.c\",\n\t\t\t\"huffman.c\",\n\t\t\t\"state.c\"\n\t\t]\n\t}\n\t]\n}\n"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/before.py",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/before.py",
+      "sha256": "83e22d96c7f6fcbabc50c834884fbf816fd89960af5f72159c56c0f89b87a25b",
+      "text": "#!/usr/bin/env python\n\nimport sys\nimport os\nsys.path.append(\"../../../../build_tools/scripts\")\nimport base\n\nbase.configure_common_apps()\n\nbase.cmd_in_dir(\"./../../graphics/pro/js\", \"./before.py\")\n"
+    },
+    {
+      "path": "OfficeUtils/js/zlib_image.json",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/OfficeUtils/js/zlib_image.json",
+      "sha256": "81d48616d842192e20cc28f2d8854706b4378c4dc311202490d596e7bd43233d",
+      "text": "{\n\t\"name\": \"zlib\",\n\t\"res_folder\": \"./deploy\",\n\t\"wasm\": true,\n\t\"asm\": true,\n\t\"run_before\": null,\n\t\"run_after\": \"import sys;sys.path.append(\\\"../../../build_tools/scripts\\\");import base;base.configure_common_apps();base.replaceInFile(\\\"./deploy/zlib.js\\\", \\\"__ATPOSTRUN__=[];\\\", \\\"__ATPOSTRUN__=[function(){self.onZlibEngineInit();}];\\\");base.replaceInFile(\\\"./deploy/zlib.js\\\", \\\"function getBinaryPromise(){\\\", \\\"function getBinaryPromise2(){\\\");base.replaceInFile(\\\"./deploy/zlib_ie.js\\\", \\\"__ATPOSTRUN__=[];\\\", \\\"__ATPOSTRUN__=[function(){self.onZlibEngineInit();}];\\\");base.replaceInFile(\\\"./deploy/zlib_ie.js\\\", \\\"function getBinaryPromise(){\\\", \\\"function getBinaryPromise2(){\\\");base.copy_file(\\\"./wasm/js/index.html\\\", \\\"./deploy/index.html\\\");base.copy_file(\\\"./wasm/js/code.js\\\", \\\"./deploy/code.js\\\")\",\n\t\"base_js_content\": \"./wasm/js/zlib.js\",\n\n\t\"compiler_flags\": [\n\t\t\"-O3\",\n\t\t\"-Wno-unused-command-line-argument\",\n\t\t\"-s ALLOW_MEMORY_GROWTH=1\",\n\t\t\"-s FILESYSTEM=0\",\n\t\t\"--memory-init-file 0\",\n\t\t\"-s ENVIRONMENT='web,worker'\"\n\t],\n\t\"exported_functions\": [\n\t\t\"_malloc\",\n\t\t\"_free\",\n\t\t\"_Zlib_Malloc\",\n\t\t\"_Zlib_Free\",\n\t\t\"_Zlib_Create\",\n\t\t\"_Zlib_Open\",\n\t\t\"_Zlib_Close\",\n\t\t\"_Zlib_AddFile\",\n\t\t\"_Zlib_RemoveFile\",\n\t\t\"_Zlib_GetPaths\",\n\t\t\"_Zlib_GetFile\",\n\t\t\"_Zlib_Save\",\n\t\t\"_Raster_DecodeFile\",\n\t\t\"_Raster_GetDecodedBuffer\",\n\t\t\"_Raster_GetHeight\",\n\t\t\"_Raster_GetWidth\",\n\t\t\"_Raster_GetStride\",\n\t\t\"_Raster_Destroy\",\n\t\t\"_Raster_EncodeImageData\",\n\t\t\"_Raster_Encode\",\n\t\t\"_Raster_GetEncodedBuffer\",\n\t\t\"_Raster_GetEncodedSize\",\n\t\t\"_Raster_DestroyEncodedData\",\n\t\t\"_Image_GetFormat\"\n\t],\n\t\"include_path\": [\"../src/zlib-1.2.11\", \"../src\", \"../../DesktopEditor/cximage/jasper/include\", \n\t\t\"../../DesktopEditor/cximage/jpeg\", \"../../DesktopEditor/cximage/png\", \"../../DesktopEditor/agg-2.4/include\"],\n\t\"define\": [\"__linux__\", \"_LINUX\", \"UNIX\", \"_QT\", \"METAFILE_SUPPORT_WMF_EMF\", \"HAVE_UNISTD_H\", \"HAVE_FCNTL_H\", \"_ARM_ALIGN_\", \n\t\t\"CXIMAGE_DISABLE_SUPPORT_MNG\", \"CXIMAGE_DISABLE_SUPPORT_ADDITIONS\",\n\t\t\"_tcsnicmp=strncmp\", \"_lseek=lseek\", \"_getcwd=getcwd\", \"NO_CONSOLE_IO\", \"BUILD_ZLIB_AS_SOURCES\"],\n\t\"compile_files_array\": [\n\t{\n\t\t\"name\": \"m\",\n\t\t\"folder\": \"../src/zlib-1.2.11/contrib/minizip/\",\n\t\t\"files\": [\"unzip.c\", \"ioapi.c\", \"zip.c\", \"ioapibuf.c\"]\n\t},\n\t{\n\t\t\"name\": \"z\",\n\t\t\"folder\": \"../src/zlib-1.2.11/\",\n\t\t\"files\": [\"inflate.c\", \"zutil.c\", \"adler32.c\", \"crc32.c\", \"inftrees.c\", \"inffast.c\", \"deflate.c\", \"trees.c\", \"uncompr.c\", \"compress.c\"]\n\t},\n\t{\n\t\t\"name\": \"s\",\n\t\t\"folder\": \"./\",\n\t\t\"files\": [\"../src/ZipBuffer.cpp\", \"wasm/src/base.cpp\", \"../src/zlib_addon.c\"]\n\t},\n\t{\n\t\t\"name\": \"r\",\n\t\t\"folder\": \"../../DesktopEditor/\",\n\t\t\"files\": [\"graphics/Image.cpp\", \"raster/BgraFrame.cpp\", \"raster/ImageFileFormatChecker.cpp\"]\n\t},\n\t{\n\t\t\"name\": \"ras\",\n\t\t\"folder\": \"../../DesktopEditor/graphics/pro/js/qt/raster\",\n\t\t\"files\": [\"pro_Fonts_empty.cpp\", \"pro_Graphics_empty.cpp\", \"raster.cpp\"]\n\t},\n\t{\n\t\t\"name\": \"ci\",\n\t\t\"folder\": \"../../DesktopEditor/cximage/CxImage/\",\n\t\t\"files\": [\"ximaenc.cpp\", \"ximaexif.cpp\", \"ximage.cpp\", \"ximainfo.cpp\", \"ximajpg.cpp\", \"ximalpha.cpp\", \"ximapal.cpp\", \"ximasel.cpp\", \"xmemfile.cpp\", \"ximapng.cpp\", \"ximabmp.cpp\", \"ximatran.cpp\", \"ximatif.cpp\", \"tif_xfile.cpp\", \"ximajas.cpp\", \"ximagif.cpp\", \"ximaico.cpp\", \"ximatga.cpp\", \"ximapcx.cpp\", \"ximawbmp.cpp\", \"ximamng.cpp\", \"ximapsd.cpp\", \"ximaska.cpp\", \"ximaraw.cpp\"]\n\t},\n\t{\n\t\t\"name\": \"j\",\n\t\t\"folder\": \"../../DesktopEditor/cximage/jpeg/\",\n\t\t\"files\": [\"jerror.c\", \"jdmarker.c\", \"jdapimin.c\", \"jdmaster.c\", \"jdapistd.c\", \"jcomapi.c\", \"jutils.c\", \"jdinput.c\", \"jdmainct.c\", \"jmemmgr.c\", \"jquant1.c\", \"jquant2.c\", \"jdmerge.c\", \"jdcolor.c\", \"jdsample.c\", \"jdpostct.c\", \"jddctmgr.c\", \"jdarith.c\", \"jdhuff.c\", \"jdcoefct.c\", \"jmemnobs.c\", \"jidctint.c\", \"jidctfst.c\", \"jidctflt.c\", \"jaricom.c\", \"jcapimin.c\", \"jcparam.c\", \"jcapistd.c\", \"jcinit.c\", \"jcmaster.c\", \"jccolor.c\", \"jcmarker.c\", \"jcsample.c\", \"jcprepct.c\", \"jcdctmgr.c\", \"jcarith.c\", \"jchuff.c\", \"jccoefct.c\", \"jcmainct.c\", \"jfdctint.c\", \"jfdctfst.c\", \"jfdctflt.c\"]\n\t},\n\t{\n\t\t\"name\": \"pn\",\n\t\t\"folder\": \"../../DesktopEditor/cximage/png/\",\n\t\t\"files\": [\"pngread.c\", \"pngmem.c\", \"pngerror.c\", \"png.c\", \"pngrio.c\", \"pngtrans.c\", \"pngget.c\", \"pngrutil.c\", \"pngrtran.c\", \"pngset.c\", \"pngwrite.c\", \"pngwio.c\", \"pngwutil.c\", \"pngwtran.c\"]\n\t},\n\t{\n\t\t\"name\": \"t\",\n\t\t\"folder\": \"../../DesktopEditor/cximage/tiff/\",\n\t\t\"files\": [\"tif_close.c\", \"tif_dir.c\", \"tif_aux.c\", \"tif_getimage.c\", \"tif_strip.c\", \"tif_open.c\", \"tif_tile.c\", \"tif_error.c\", \"tif_read.c\", \"tif_flush.c\", \"tif_dirinfo.c\", \"tif_compress.c\", \"tif_warning.c\", \"tif_swab.c\", \"tif_color.c\", \"tif_dirread.c\", \"tif_write.c\", \"tif_codec.c\", \"tif_luv.c\", \"tif_dirwrite.c\", \"tif_dumpmode.c\", \"tif_fax3.c\", \"tif_ojpeg.c\", \"tif_jpeg.c\", \"tif_next.c\", \"tif_thunder.c\", \"tif_packbits.c\", \"tif_lzw.c\", \"tif_zip.c\", \"tif_fax3sm.c\", \"tif_predict.c\"]\n\t},\t\n\t{\n\t\t\"name\": \"mm\",\n\t\t\"folder\": \"../../DesktopEditor/raster/Metafile/\",\n\t\t\"files\": [\"MetaFile.cpp\", \"Common/MetaFileTypes.cpp\", \"Common/MetaFileUtils.cpp\", \"Common/CPathConverter.cpp\"]\n\t},\n\t{\n\t\t\"name\": \"emf\",\n\t\t\"folder\": \"../../DesktopEditor/raster/Metafile/Emf/\",\n\t\t\"files\": [\"EmfInterpretator/CEmfInterpretator.cpp\", \"EmfInterpretator/CEmfInterpretatorArray.cpp\", \n\t\t\t\"EmfInterpretator/CEmfInterpretatorRender.cpp\", \"EmfInterpretator/CEmfInterpretatorSvg.cpp\", \n\t\t\t\"EmfParser/CEmfParser.cpp\", \"EmfParser/CEmfParserBase.cpp\", \"EmfParser/CEmfPlusParser.cpp\",\n\t\t\t\"EmfClip.cpp\", \"EmfObjects.cpp\", \"EmfPath.cpp\", \"EmfPlayer.cpp\", \"EmfFile.cpp\"]\n\t},\n\t{\n\t\t\"name\": \"wmf\",\n\t\t\"folder\": \"../../DesktopEditor/raster/Metafile/Wmf/\",\n\t\t\"files\": [\"WmfInterpretator/CInterpretatorSvgBase.cpp\", \"WmfInterpretator/CWmfInterpretatorSvg.cpp\", \n\t\t\t\"WmfInterpretator/CWmfInterpretatorRender.cpp\", \"WmfInterpretator/CWmfInterpretator.cpp\",\n\t\t\t\"WmfParser/CWmfParser.cpp\", \"WmfParser/CWmfParserBase.cpp\",\n\t\t\t\"WmfClip.cpp\", \"WmfObjects.cpp\", \"WmfPlayer.cpp\"]\n\t},\n\t{\n\t\t\"name\": \"co\",\n\t\t\"folder\": \"../../DesktopEditor/common/\",\n\t\t\"files\": [\"File.cpp\", \"Base64.cpp\", \"StringExt.cpp\", \"StringBuilder.cpp\", \"../xml/src/xmlwriter.cpp\"]\n\t}\n\t]\n}\n"
+    },
+    {
+      "path": "Common/3dParty/hunspell/hunspell.json",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/3dParty/hunspell/hunspell.json",
+      "sha256": "f88338b1d7e5b2c0424435129b734f596043a5eee8c25bb00a3621de85c753ec",
+      "text": "{\n\t\"name\": \"spell\",\n\t\"res_folder\": \"./deploy/spell\",\n\t\"wasm\": true,\n\t\"asm\": true,\n\t\"embed_mem_file\": true,\n\t\"run_before\": \"before.py\",\n\t\"run_after\": \"import sys;sys.path.append(\\\"../../../../build_tools/scripts\\\");import base;base.configure_common_apps();base.replaceInFile(\\\"./deploy/spell/spell.js\\\", \\\"__ATPOSTRUN__=[];\\\", \\\"__ATPOSTRUN__=[function(){self.onEngineInit();}];\\\");base.replaceInFile(\\\"./deploy/spell/spell.js\\\", \\\"function getBinaryPromise(){\\\", \\\"function getBinaryPromise2(){\\\");base.replaceInFile(\\\"./deploy/spell/spell_ie.js\\\", \\\"__ATPOSTRUN__=[];\\\", \\\"__ATPOSTRUN__=[function(){self.onEngineInit();}];\\\");base.replaceInFile(\\\"./deploy/spell/spell_ie.js\\\", \\\"function getBinaryPromise(){\\\", \\\"function getBinaryPromise2(){\\\");base.copy_file(\\\"./wasm/js/code.js\\\", \\\"./deploy/spell.js\\\");base.copy_file(\\\"./wasm/js/index.html\\\", \\\"./deploy/index.html\\\")\",\n\t\"base_js_content\": \"./wasm/js/spell.js\",\n\n\t\"compiler_flags\": [\n\t\t\"-O3\",\n\t\t\"-fno-exceptions\",\n\t\t\"-fno-rtti\",\n\t\t\"-Wno-unused-command-line-argument\",\n\t\t\"-s ALLOW_MEMORY_GROWTH=1\",\n\t\t\"-s FILESYSTEM=0\",\n\t\t\"-s ENVIRONMENT='web,worker'\"\n\t],\n\t\"exported_functions\": [\n\t\t\"_malloc\",\n\t\t\"_free\",\n\t\t\"_Spellchecker_Malloc\",\n\t\t\"_Spellchecker_Free\",\n\t\t\"_Spellchecker_Create\",\n\t\t\"_Spellchecker_Destroy\",\n\t\t\"_Spellchecker_AddDictionary\",\n\t\t\"_Spellchecker_RemoveDicrionary\",\n\t\t\"_Spellchecker_Load\",\n\t\t\"_Spellchecker_Spell\",\n\t\t\"_Spellchecker_Suggest\",\n\t\t\"_Spellchecker_RemoveEngine\",\n\t\t\"_Spellchecker_TotalAllocatedMemory\"\n\t],\n\t\"include_path\": [\"./hunspell/src/hunspell\", \"./wasm/src\"],\n\t\"define\": [\"WIN32\", \"NDEBUG\", \"HUNSPELL_STATIC\", \"BUILDING_LIBHUNSPELL\", \"HUNSPELL_WASM_MODULE\"],\n\t\"compile_files_array\": [\n\t{\n\t\t\"name\": \"h\",\n\t\t\"folder\": \"./hunspell/src/hunspell/\",\n\t\t\"files\": [\"affentry.cxx\", \"affixmgr.cxx\", \"csutil.cxx\", \"hashmgr.cxx\", \"hunspell.cxx\", \"hunzip.cxx\", \"phonet.cxx\", \"replist.cxx\", \"suggestmgr.cxx\"]\n\t},\n\t{\n\t\t\"name\": \"s\",\n\t\t\"folder\": \"./wasm/src/\",\n\t\t\"files\": [\"filemgr_wrapper_new.cxx\", \"base.cpp\"]\n\t}\n\t]\n}\n"
+    },
+    {
+      "path": "DesktopEditor/xmlsec/src/wasm/hash/hash.json",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/xmlsec/src/wasm/hash/hash.json",
+      "sha256": "3b45807493cd39cd7a2eb8afa80c4af9d7c3de52bf4626c9c9957ad88bfb3312",
+      "text": "{\n\t\"name\": \"engine\",\n\t\"res_folder\": \"./deploy\",\n\t\"wasm\": true,\n\t\"asm\": true,\n\t\"run_before\": \"before.py\",\n\t\"run_after\": \"after.py\",\n\t\"base_js_content\": \"./hash_base.js\",\n\t\"embed_mem_file\": true,\n\n\t\"compiler_flags\": [\n\t\t\"-O3\",\n\t\t\"-fno-exceptions\",\n\t\t\"-fno-rtti\",\n\t\t\"-Wno-unused-command-line-argument\",\n\t\t\"-s ALLOW_MEMORY_GROWTH=1\",\n\t\t\"-s FILESYSTEM=0\",\n\t\t\"-s ENVIRONMENT='worker'\",\t\t\n\t\t\"-s TOTAL_STACK=1MB\",\n\t\t\"-s TOTAL_MEMORY=2MB\"\n\t],\n\t\n\t\"exported_functions\": [\n\t\t\"_malloc\",\n\t\t\"_free\",\n\t\t\"_hash\",\n\t\t\"_hash2\"\n\t],\n\t\n\t\"include_path\": [\n\t\t\"./\", \"./../3rdParty/openssl/include\"\n\t],\n\t\"define\": [\n\t\t\"WIN32\", \"DNDEBUG\", \"OPENSSL_MD2_ENABLED\"\n\t],\n\t\"compile_files_array\": [\n\t{\n\t\t\"name\": \"a1\",\n\t\t\"folder\": \"./../3rdParty/openssl/crypto/sha/\",\n\t\t\"files\": [\"keccak1600.c\", \"sha1_one.c\", \"sha1dgst.c\", \"sha256.c\", \"sha512.c\"]\n\t},\n\t{\n\t\t\"name\": \"a2\",\n\t\t\"folder\": \"./../3rdParty/openssl/crypto/md2/\",\n\t\t\"files\": [\"md2_dgst.c\", \"md2_one.c\"]\n\t},\n\t{\n\t\t\"name\": \"a3\",\n\t\t\"folder\": \"./../3rdParty/openssl/crypto/md4/\",\n\t\t\"files\": [\"md4_dgst.c\", \"md4_one.c\"]\n\t},\n\t{\n\t\t\"name\": \"a4\",\n\t\t\"folder\": \"./../3rdParty/openssl/crypto/md5/\",\n\t\t\"files\": [\"md5_dgst.c\", \"md5_one.c\"]\n\t},\n\t{\n\t\t\"name\": \"a5\",\n\t\t\"folder\": \"./../3rdParty/openssl/crypto/ripemd/\",\n\t\t\"files\": [\"rmd_dgst.c\", \"rmd_one.c\"]\n\t},\n\t{\n\t\t\"name\": \"a6\",\n\t\t\"folder\": \"./../3rdParty/openssl/crypto/whrlpool/\",\n\t\t\"files\": [\"wp_block.c\", \"wp_dgst.c\"]\n\t},\n\t{\n\t\t\"name\": \"a7\",\n\t\t\"folder\": \"./../3rdParty/openssl/crypto/\",\n\t\t\"files\": [\"mem_clr.c\"]\n\t},\n\t{\n\t\t\"name\": \"m\",\n\t\t\"folder\": \"./\",\n\t\t\"files\": [\"main.cpp\"]\n\t}\n\t]\n}\n"
+    },
+    {
+      "label": "old_wasm_driver",
+      "url": "https://api.github.com/repos/ONLYOFFICE/build_tools/git/trees/26a0d362d7b319edabfc5934ac6538af33507fcb?recursive=1",
+      "data": {
+        "truncated": false,
+        "matches": []
+      }
+    },
+    {
+      "label": "DesktopEditor/graphics/pro/js/make.py",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/make.py",
+      "sha256": "e1e2d6cd40158f700e414d2413db36e4d2ee82daa5db9d7c17d871729c48033f",
+      "text": "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nimport sys\nsys.path.append(\"../../../../../build_tools/scripts\")\nimport base\nimport os\nimport json\n\ndef apply_patch(file, patch):\n  file_content = base.readFile(file)\n  patch_content = base.readFile(patch)\n  index1 = patch_content.find(\"<<<<<<<\")\n  index2 = patch_content.find(\"=======\")\n  index3 = patch_content.find(\">>>>>>>\")\n  file_content_old = patch_content[index1 + 7:index2]\n  file_content_new = \"\\n#if 0\" + file_content_old + \"#else\" + patch_content[index2 + 7:index3] + \"#endif\\n\"\n  base.replaceInFile(file, file_content_old, file_content_new)\n  return\n\nif not base.is_file(\"./raster.o\"):\n  base.cmd(\"python\", [\"raster_make.py\"])\nif not base.is_file(\"./raster.o\"):\n  print(\"raster_make.py error\")\n  exit(0)\n\nbase.configure_common_apps()\n\n# remove previous version\nif base.is_dir(\"./deploy\"):\n  base.delete_dir(\"./deploy\")\nbase.create_dir(\"./deploy\")\nif base.is_dir(\"./o\"):\n  base.delete_dir(\"./o\")\nbase.create_dir(\"./o\")\n\n# fetch emsdk\ncommand_prefix = \"\" if (\"windows\" == base.host_platform()) else \"./\"\nif not base.is_dir(\"emsdk\"):\n  base.cmd(\"git\", [\"clone\", \"https://github.com/emscripten-core/emsdk.git\"])\n  os.chdir(\"emsdk\")\n  base.cmd(command_prefix + \"emsdk\", [\"install\", \"latest\"])\n  base.cmd(command_prefix + \"emsdk\", [\"activate\", \"latest\"])\n  os.chdir(\"../\")\n\nif not base.is_dir(\"xml\"):\n  base.copy_dir(\"../../../xml\", \"./xml\")\n  base.replaceInFile(\"./xml/libxml2/libxml.h\", \"xmlNop(void)\", \"xmlNop(void* context, char* buffer, int len)\")\n  base.replaceInFile(\"./xml/libxml2/xmlIO.c\", \"xmlNop(void)\", \"xmlNop(void* context, char* buffer, int len)\")\n  base.replaceInFile(\"./xml/src/xmllight_private.h\", \"#include \\\"../../common/\", \"#include \\\"../../../../../common/\")\n  base.replaceInFile(\"./xml/include/xmlutils.h\", \"#include \\\"../../common/\", \"#include \\\"../../../../../common/\")\n  \nif not base.is_dir(\"freetype-2.10.4\"):\n  base.copy_dir(\"../../../freetype-2.10.4\", \"./freetype-2.10.4\")\n  # smooth\n  base.copy_file(\"./freetype-2.10.4/src/smooth/ftgrays.c\", \"./freetype-2.10.4/src/smooth/ftgrays.cpp\");\n  apply_patch(\"./freetype-2.10.4/src/smooth/ftgrays.cpp\", \"./wasm/patches/ftgrays1.patch\")\n  apply_patch(\"./freetype-2.10.4/src/smooth/ftgrays.cpp\", \"./wasm/patches/ftgrays2.patch\")\n  apply_patch(\"./freetype-2.10.4/src/smooth/ftgrays.cpp\", \"./wasm/patches/ftgrays3.patch\")\n  base.copy_file(\"./freetype-2.10.4/src/smooth/smooth.c\", \"./freetype-2.10.4/src/smooth/smooth.cpp\");\n  apply_patch(\"./freetype-2.10.4/src/smooth/smooth.cpp\", \"./wasm/patches/smooth.patch\")\n  # ftobjs\n  apply_patch(\"./freetype-2.10.4/src/base/ftobjs.c\", \"./wasm/patches/ftobjs1.patch\")\n  apply_patch(\"./freetype-2.10.4/src/base/ftobjs.c\", \"./wasm/patches/ftobjs2.patch\")\n  # ttcmap\n  base.copy_file(\"./freetype-2.10.4/src/sfnt/ttcmap.c\", \"./freetype-2.10.4/src/sfnt/ttcmap.cpp\");\n  apply_patch(\"./freetype-2.10.4/src/sfnt/ttcmap.cpp\", \"./wasm/patches/ttcmap.patch\")\n  base.copy_file(\"./freetype-2.10.4/src/sfnt/sfnt.c\", \"./freetype-2.10.4/src/sfnt/sfnt.cpp\");\n  apply_patch(\"./freetype-2.10.4/src/sfnt/sfnt.cpp\", \"./wasm/patches/sfnt.patch\")\n\n# compile\ncompiler_flags = [\"-O3\",\n                  # \"-fno-rtti\", cryptopp uses typeid\n                  \"-fexceptions\",\n                  \"-Wno-unused-command-line-argument\",\n                  \"-s WASM=1\",\n                  \"-s ALLOW_MEMORY_GROWTH=1\",\n                  \"-s FILESYSTEM=0\",\n                  \"-s ENVIRONMENT='web'\",\n                  \"-s LLD_REPORT_UNDEFINED\"]\n\nexported_functions = [\"_malloc\",\n                      \"_free\",\n                      \"_GetType\",\n                      \"_Open\",\n                      \"_Close\",\n                      \"_GetErrorCode\",\n                      \"_GetInfo\",\n                      \"_GetPixmap\",\n                      \"_GetGlyphs\",\n                      \"_GetLinks\",\n                      \"_GetStructure\",\n                      \"_InitializeFontsBin\",\n                      \"_InitializeFontsBase64\",\n                      \"_SetFontBinary\",\n                      \"_IsFontBinaryExist\"]\n\ncompile_files_array = []\n\ncompile_files_array.append(\"lib\")\ncompile_files_array.append(\"./\")\ncompile_files_array.append([\"wasm/src/lib/wasm_jmp.cpp\"])\n\ncompile_files_array.append(\"f\")\ncompile_files_array.append(\"freetype-2.10.4/src/\")\ncompile_files_array.append([\"base/ftdebug.c\",\"autofit/autofit.c\",\"bdf/bdf.c\",\"cff/cff.c\",\"base/ftbase.c\",\"base/ftbitmap.c\",\"base/ftfstype.c\",\"base/ftgasp.c\",\"cache/ftcache.c\",\"base/ftglyph.c\",\"gzip/ftgzip.c\",\"base/ftinit.c\",\"lzw/ftlzw.c\",\"base/ftstroke.c\",\"base/ftsystem.c\",\"smooth/smooth.cpp\",\"base/ftbbox.c\",\"base/ftbdf.c\",\"base/ftcid.c\",\"base/ftmm.c\",\"base/ftpfr.c\",\"base/ftsynth.c\",\"base/fttype1.c\",\"base/ftwinfnt.c\",\"base/ftgxval.c\",\"base/ftotval.c\",\"base/ftpatent.c\",\"pcf/pcf.c\",\"pfr/pfr.c\",\"psaux/psaux.c\",\"pshinter/pshinter.c\",\"psnames/psmodule.c\",\"raster/raster.c\",\"sfnt/sfnt.cpp\",\"truetype/truetype.c\",\"type1/type1.c\",\"cid/type1cid.c\",\"type42/type42.c\",\"winfonts/winfnt.c\"])\n\ncompile_files_array.append(\"g\")\ncompile_files_array.append(\"../../\")\ncompile_files_array.append([\"GraphicsRenderer.cpp\", \"pro/pro_Graphics.cpp\", \"pro/pro_Fonts.cpp\", \"pro/pro_Image.cpp\", \"Graphics.cpp\", \"Brush.cpp\", \"BaseThread.cpp\", \"GraphicsPath.cpp\", \"Image.cpp\", \"Matrix.cpp\", \"Clip.cpp\", \"TemporaryCS.cpp\"])\n\ncompile_files_array.append(\"fe\")\ncompile_files_array.append(\"../../../fontengine/\")\ncompile_files_array.append([\"GlyphString.cpp\", \"FontManager.cpp\", \"FontFile.cpp\", \"FontPath.cpp\", \"ApplicationFonts.cpp\"])\n\ncompile_files_array.append(\"a\")\ncompile_files_array.append(\"../../../agg-2.4/src/\")\ncompile_files_array.append([\"agg_arc.cpp\", \"agg_vcgen_stroke.cpp\", \"agg_vcgen_dash.cpp\", \"agg_trans_affine.cpp\", \"agg_curves.cpp\"])\n\ncompile_files_array.append(\"c\")\ncompile_files_array.append(\"../../../common/\")\ncompile_files_array.append([\"File.cpp\", \"Directory.cpp\", \"ByteBuilder.cpp\", \"Base64.cpp\", \"StringExt.cpp\"])\n\ncompile_files_array.append(\"i\")\ncompile_files_array.append(\"../../../../Common/3dParty/icu/icu/source/common/\")\ncompile_files_array.append([\"ucnv.c\", \"ustr_wcs.cpp\", \"ucnv_err.c\", \"ucnv_bld.cpp\", \"ustrtrns.cpp\", \"ucnv_cb.c\", \"udata.cpp\", \"ucnv_io.cpp\", \"uhash.c\", \"udatamem.c\", \"cmemory.c\", \"ustring.cpp\", \"umutex.cpp\", \"putil.cpp\", \"ustr_cnv.cpp\", \"ucnvmbcs.cpp\", \"ucnvlat1.c\", \"ucnv_u16.c\", \"ucnv_u8.c\", \"ucnv_u32.c\", \"ucnv_u7.c\", \"ucln_cmn.cpp\", \"ucnv2022.cpp\", \"ucnv_lmb.c\", \"ucnvhz.c\", \"ucnvscsu.c\", \"ucnvisci.c\", \"ucnvbocu.cpp\", \"ucnv_ct.c\", \"ucnv_cnv.c\", \"stringpiece.cpp\", \"charstr.cpp\", \"umapfile.c\", \"ucmndata.c\", \"ucnv_ext.cpp\", \"uobject.cpp\", \"umath.c\", \"ubidi_props.c\", \"uchar.c\", \"uinvchar.c\", \"usprep.cpp\", \"unistr.cpp\", \"uniset_props.cpp\", \"loadednormalizer2impl.cpp\", \"filterednormalizer2.cpp\", \"utrie2.cpp\", \"normalizer2.cpp\", \"normalizer2impl.cpp\", \"utrie.cpp\", \"ucase.cpp\", \"uniset.cpp\", \"ruleiter.cpp\", \"parsepos.cpp\", \"util.cpp\", \"uprops.cpp\", \"uvector.cpp\", \"unames.cpp\", \"propname.cpp\", \"utrie2_builder.cpp\", \"unifunct.cpp\", \"bmpset.cpp\", \"unisetspan.cpp\", \"unifilt.cpp\", \"patternprops.cpp\", \"utf_impl.c\", \"ustrcase.cpp\", \"cstring.c\", \"bytestrie.cpp\"])\n\ncompile_files_array.append(\"o\")\ncompile_files_array.append(\"../../../../OfficeUtils/src/\")\ncompile_files_array.append([\"OfficeUtils.cpp\", \"ZipBuffer.cpp\", \"ZipUtilsCP.cpp\"])\n\ncompile_files_array.append(\"m\")\ncompile_files_array.append(\"../../../../OfficeUtils/src/zlib-1.2.11/contrib/minizip/\")\ncompile_files_array.append([\"ioapi.c\", \"miniunz.c\", \"minizip.c\", \"mztools.c\", \"unzip.c\", \"zip.c\", \"ioapibuf.c\"])\n\ncompile_files_array.append(\"z\")\ncompile_files_array.append(\"../../../../OfficeUtils/src/zlib-1.2.11/\")\ncompile_files_array.append([\"adler32.c\", \"crc32.c\", \"deflate.c\", \"infback.c\", \"inffast.c\", \"inflate.c\", \"inftrees.c\", \"trees.c\", \"zutil.c\", \"compress.c\"])\n\ncompile_files_array.append(\"x\")\ncompile_files_array.append(\"./\")\ncompile_files_array.append([\"xml/src/xmllight.cpp\", \"xml/src/xmldom.cpp\", \"xml/build/qt/libxml2_all.c\", \"xml/build/qt/libxml2_all2.c\"])\n\ncompile_files_array.append(\"p\")\ncompile_files_array.append(\"../../../../PdfReader/\")\ncompile_files_array.append([\"PdfReader.cpp\", \"Src/Adaptors.cpp\", \"Src/GfxClip.cpp\", \"Src/RendererOutputDev.cpp\", \"lib/fofi/FofiBase.cc\", \"lib/fofi/FofiEncodings.cc\", \"lib/fofi/FofiIdentifier.cc\", \"lib/fofi/FofiTrueType.cc\", \"lib/fofi/FofiType1.cc\", \"lib/fofi/FofiType1C.cc\", \"lib/goo/FixedPoint.cc\", \"lib/goo/gfile.cc\", \"lib/goo/GHash.cc\", \"lib/goo/GList.cc\", \"lib/goo/gmem.cc\", \"lib/goo/gmempp.cc\", \"lib/goo/GString.cc\", \"lib/goo/parseargs.c\", \"lib/goo/Trace.cc\", \"lib/splash/Splash.cc\", \"lib/splash/SplashBitmap.cc\", \"lib/splash/SplashClip.cc\", \"lib/splash/SplashFont.cc\", \"lib/splash/SplashFontEngine.cc\", \"lib/splash/SplashFontFile.cc\", \"lib/splash/SplashFontFileID.cc\", \"lib/splash/SplashFTFont.cc\", \"lib/splash/SplashFTFontEngine.cc\", \"lib/splash/SplashFTFontFile.cc\", \"lib/splash/SplashPath.cc\", \"lib/splash/SplashPattern.cc\", \"lib/splash/SplashScreen.cc\", \"lib/splash/SplashState.cc\", \"lib/splash/SplashXPath.cc\", \"lib/splash/SplashXPathScanner.cc\", \"lib/xpdf/AcroForm.cc\", \"lib/xpdf/Annot.cc\", \"lib/xpdf/Array.cc\", \"lib/xpdf/BuiltinFont.cc\", \"lib/xpdf/BuiltinFontTables.cc\", \"lib/xpdf/Catalog.cc\", \"lib/xpdf/CharCodeToUnicode.cc\", \"lib/xpdf/CMap.cc\", \"lib/xpdf/Decrypt.cc\", \"lib/xpdf/Dict.cc\", \"lib/xpdf/DisplayState.cc\", \"lib/xpdf/Error.cc\", \"lib/xpdf/FontEncodingTables.cc\", \"lib/xpdf/Function.cc\", \"lib/xpdf/Gfx.cc\", \"lib/xpdf/GfxFont.cc\", \"lib/xpdf/GfxState.cc\", \"lib/xpdf/GlobalParams.cc\", \"lib/xpdf/ImageOutputDev.cc\", \"lib/xpdf/JArithmeticDecoder.cc\", \"lib/xpdf/JBIG2Stream.cc\", \"lib/xpdf/JPXStream.cc\", \"lib/xpdf/Lexer.cc\", \"lib/xpdf/Link.cc\", \"lib/xpdf/NameToCharCode.cc\", \"lib/xpdf/Object.cc\", \"lib/xpdf/OptionalContent.cc\", \"lib/xpdf/Outline.cc\", \"lib/xpdf/OutputDev.cc\", \"lib/xpdf/Page.cc\", \"lib/xpdf/Parser.cc\", \"lib/xpdf/PDF417Barcode.cc\", \"lib/xpdf/PDFCore.cc\", \"lib/xpdf/PDFDoc.cc\", \"lib/xpdf/PDFDocEncoding.cc\", \"lib/xpdf/PreScanOutputDev.cc\", \"lib/xpdf/PSOutputDev.cc\", \"lib/xpdf/PSTokenizer.cc\", \"lib/xpdf/SecurityHandler.cc\", \"lib/xpdf/ShadingImage.cc\", \"lib/xpdf/SplashOutputDev.cc\", \"lib/xpdf/Stream.cc\", \"lib/xpdf/TextOutputDev.cc\", \"lib/xpdf/TextString.cc\", \"lib/xpdf/TileCache.cc\", \"lib/xpdf/TileCompositor.cc\", \"lib/xpdf/TileMap.cc\", \"lib/xpdf/UnicodeMap.cc\", \"lib/xpdf/UnicodeRemapping.cc\", \"lib/xpdf/UnicodeTypeTable.cc\", \"lib/xpdf/UTF8.cc\", \"lib/xpdf/WebFont.cc\", \"lib/xpdf/XFAScanner.cc\", \"lib/xpdf/XRef.cc\", \"lib/xpdf/Zoox.cc\"])\n\ncompile_files_array.append(\"x\")\ncompile_files_array.append(\"../../../../XpsFile/\")\ncompile_files_array.append([\"XpsFile.cpp\", \"XpsLib/Document.cpp\", \"XpsLib/XpsPage.cpp\", \"XpsLib/StaticResources.cpp\", \"XpsLib/Utils.cpp\", \"XpsLib/WString.cpp\", \"XpsLib/ContextState.cpp\"])\n\ncompile_files_array.append(\"d\")\ncompile_files_array.append(\"../../../../DjVuFile/libdjvu/\")\ncompile_files_array.append([\"../DjVu.cpp\", \"../DjVuFileImplementation.cpp\", \"Arrays.cpp\", \"BSByteStream.cpp\", \"BSEncodeByteStream.cpp\", \"ByteStream.cpp\", \"DataPool.cpp\", \"debug.cpp\", \"DjVmDir.cpp\", \"DjVmDir0.cpp\", \"DjVmDoc.cpp\", \"DjVmNav.cpp\", \"DjVuAnno.cpp\", \"DjVuDocEditor.cpp\", \"DjVuDocument.cpp\", \"DjVuDumpHelper.cpp\", \"DjVuErrorList.cpp\", \"DjVuFile.cpp\", \"DjVuFileCache.cpp\", \"DjVuGlobal.cpp\", \"DjVuGlobalMemory.cpp\", \"DjVuImage.cpp\", \"DjVuInfo.cpp\", \"DjVuMessageLite.cpp\", \"DjVuNavDir.cpp\", \"DjVuPalette.cpp\", \"DjVuPort.cpp\", \"DjVuText.cpp\", \"DjVuToPS.cpp\", \"GBitmap.cpp\", \"GContainer.cpp\", \"GException.cpp\", \"GIFFManager.cpp\", \"GMapAreas.cpp\", \"GPixmap.cpp\", \"GRect.cpp\", \"GScaler.cpp\", \"GSmartPointer.cpp\", \"DjVuGString.cpp\", \"GThreads.cpp\", \"GUnicode.cpp\", \"IFFByteStream.cpp\", \"IW44EncodeCodec.cpp\", \"IW44Image.cpp\", \"JB2EncodeCodec.cpp\", \"JB2Image.cpp\", \"JPEGDecoder.cpp\", \"MMRDecoder.cpp\", \"MMX.cpp\", \"UnicodeByteStream.cpp\", \"XMLParser.cpp\", \"XMLTags.cpp\", \"ZPCodec.cpp\"])\n\ncompile_files_array.append(\"d\")\ncompile_files_array.append(\"../../../../DjVuFile/wasm/libdjvu/\")\ncompile_files_array.append([\"atomic.cpp\", \"DjVuMessage.cpp\", \"GOS.cpp\", \"GURL.cpp\"])\n\ncompile_files_array.append(\"u\")\ncompile_files_array.append(\"../../../../UnicodeConverter/\")\ncompile_files_array.append([\"UnicodeConverter.cpp\"])\n\ncompiler_flags.append(\"-Iwasm/src/lib -I../../../agg-2.4/include -I../../../cximage/jasper/include -I../../../cximage/jpeg -I../../../cximage/png -Ifreetype-2.10.4/include -Ifreetype-2.10.4/include/freetype -I../../../../OfficeUtils/src/zlib-1.2.11 -I../../../../Common/3dParty/icu/icu/source/common -I../../../xml/libxml2/include -I../../../xml/build/qt -I../../../../OfficeUtils/src/zlib-1.2.11/contrib/minizip -I../../../../PdfReader/lib/goo -I../../../../PdfReader/lib/fofi -I../../../../PdfReader/lib/splash -I../../../../PdfReader/lib\")\ncompiler_flags.append(\"-D__linux__ -D_LINUX -DUNIX -DFT2_BUILD_LIBRARY -DHAVE_FCNTL_H -DFT_CONFIG_OPTION_SYSTEM_ZLIB -DBUILDING_WASM_MODULE -DU_COMMON_IMPLEMENTATION\")\ncompiler_flags.append(\"-Derrno=0 -DTHREADMODEL=0 -DDEBUGLVL=0 -DHAVE_MBSTATE_T -DHAVE_STDINCLUDES -DHAS_WCHAR\")\ncompiler_flags.append(\"-DHAVE_VA_COPY -DLIBXML_READER_ENABLED -DLIBXML_PUSH_ENABLED -DLIBXML_HTML_ENABLED -DLIBXML_XPATH_ENABLED -DLIBXML_OUTPUT_ENABLED -DLIBXML_C14N_ENABLED -DLIBXML_SAX1_ENABLED -DLIBXML_TREE_ENABLED -DLIBXML_XPTR_ENABLED -DIN_LIBXML -DLIBXML_STATIC -DBUILD_ZLIB_AS_SOURCES -DDISABLE_PDF_CONVERTATION -D_ARM_ALIGN_\")\n\n# arguments\narguments = \"\"\nfor item in compiler_flags:\n  arguments += (item + \" \")\n\n# sources\nsources = [\"raster.o\", \"wasm/src/drawingfile.cpp\", \"wasm/src/metafile.cpp\"]\n\n# command\ncompile_files_array_len = len(compile_files_array)\nexternal_file = []\n\nprefix_call = \"\"\nif base.host_platform() == \"windows\":\n  prefix_call = \"call \"\n  external_file.append(\"call emsdk/emsdk_env.bat\")\nelse:\n  external_file.append(\"#!/bin/bash\")\n  external_file.append(\"source ./emsdk/emsdk_env.sh\")\n\nfile_index = 0\nlibs = \"\"\nwhile file_index < compile_files_array_len:\n  objects_dir = compile_files_array[file_index]\n  base_dir = compile_files_array[file_index + 1]\n  files = compile_files_array[file_index + 2]\n  file_index += 3\n  base.create_dir(\"./o/\" + objects_dir)\n  for item in files:\n    file_name = os.path.splitext(os.path.basename(item))[0]\n    external_file.append(prefix_call + \"emcc -o o/\" + objects_dir + \"/\" + file_name + \".o -c \" + arguments + base_dir + item)\n    libs += (\"o/\" + objects_dir + \"/\" + file_name + \".o \")\n\narguments += \"-s EXPORTED_FUNCTIONS=\\\"[\"\nfor item in exported_functions:\n  arguments += (\"'\" + item + \"',\")\narguments = arguments[:-1]\narguments += \"]\\\" \"\n\nfor item in sources:\n  arguments += (item + \" \")\n\nexternal_file.append(prefix_call + \"emcc -o drawingfile.js \" + arguments + libs)\n\nbase.replaceInFile(\"../../../../Common/3dParty/icu/icu/source/common/udata.cpp\", \"\\n{\\n    UDataMemory tData;\", \"\\n{\\n#ifdef BUILDING_WASM_MODULE\\nreturn NULL;\\n#endif\\n    UDataMemory tData;\")\nbase.run_as_bat(external_file)\nbase.replaceInFile(\"../../../../Common/3dParty/icu/icu/source/common/udata.cpp\", \"\\n{\\n#ifdef BUILDING_WASM_MODULE\\nreturn NULL;\\n#endif\\n    UDataMemory tData;\", \"\\n{\\n    UDataMemory tData;\")\n\n# finalize\nbase.replaceInFile(\"./drawingfile.js\", \"function getBinaryPromise()\", \"function getBinaryPromise2()\")\nbase.replaceInFile(\"./drawingfile.js\", \"__ATPOSTRUN__=[];\", \"__ATPOSTRUN__=[function(){window[\\\"AscViewer\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"]();}];\")\nbase.replaceInFile(\"./drawingfile.js\", \"__ATPOSTRUN__ = [];\", \"__ATPOSTRUN__=[function(){window[\\\"AscViewer\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"]();}];\")\nbase.replaceInFile(\"./drawingfile.js\", \"\\\"drawingfile.js.mem\\\"\", \"getMemoryPathIE(\\\"drawingfile.js.mem\\\")\")\n\nmodule_js_content = base.readFile(\"./drawingfile.js\")\nengine_base_js_content = base.readFile(\"./wasm/js/drawingfile_base.js\")\nstring_utf8_content    = base.readFile(\"./../../../../Common/js/string_utf8.js\")\nengine_js_content = engine_base_js_content.replace(\"//module\", module_js_content)\nengine_js_content = engine_js_content.replace(\"//string_utf8\", string_utf8_content)\n\n# write new version\nbase.writeFile(\"./deploy/drawingfile.js\", engine_js_content)\nbase.copy_file(\"./drawingfile.wasm\", \"./deploy/drawingfile.wasm\")\n\n# clear\nbase.delete_file(\"drawingfile.js\")\nbase.delete_file(\"drawingfile.wasm\")\n\n# ie asm version\narguments = arguments.replace(\"WASM=1\", \"WASM=0\")\n\n# command\nexternal_file = []\n\nif base.host_platform() == \"windows\":\n  external_file.append(\"call emsdk/emsdk_env.bat\")\nelse:\n  external_file.append(\"#!/bin/bash\")\n  external_file.append(\"source ./emsdk/emsdk_env.sh\")\n\nexternal_file.append(prefix_call + \"emcc -o drawingfile.js \" + arguments + libs)\nbase.run_as_bat(external_file)\n\n# finalize\nbase.replaceInFile(\"./drawingfile.js\", \"function getBinaryPromise()\", \"function getBinaryPromise2()\")\nbase.replaceInFile(\"./drawingfile.js\", \"__ATPOSTRUN__=[];\", \"__ATPOSTRUN__=[function(){window[\\\"AscViewer\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"]();}];\")\nbase.replaceInFile(\"./drawingfile.js\", \"__ATPOSTRUN__ = [];\", \"__ATPOSTRUN__=[function(){window[\\\"AscViewer\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"] && window[\\\"AscViewer\\\"][\\\"onLoadModule\\\"]();}];\")\nbase.replaceInFile(\"./drawingfile.js\", \"\\\"drawingfile.js.mem\\\"\", \"getMemoryPathIE(\\\"drawingfile.js.mem\\\")\")\n\nmodule_js_content = base.readFile(\"./drawingfile.js\")\nengine_base_js_content = base.readFile(\"./wasm/js/drawingfile_base.js\")\nstring_utf8_content    = base.readFile(\"./../../../../Common/js/string_utf8.js\")\npolyfill_js_content    = base.readFile(\"./../../../../Common/js/polyfill.js\")\nengine_js_content = engine_base_js_content.replace(\"//module\", module_js_content)\nengine_js_content = engine_js_content.replace(\"//string_utf8\", string_utf8_content)\nengine_js_content = engine_js_content.replace(\"//polyfill\",    polyfill_js_content)\n\n# write new version\nbase.writeFile(\"./deploy/drawingfile_ie.js\", engine_js_content)\nbase.copy_file(\"./drawingfile.js.mem\", \"./deploy/drawingfile.js.mem\")\n\n# clear\nbase.delete_file(\"drawingfile.js\")\nbase.delete_file(\"drawingfile.js.mem\")\n# base.delete_dir(\"./o\")\n# base.delete_dir(\"./xml\")\n# base.delete_dir(\"./freetype-2.10.4\")\n# base.delete_file(\"./raster.o\")\n"
+    },
+    {
+      "label": "DesktopEditor/graphics/pro/js/before.py",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/before.py",
+      "sha256": "1c92a49ff55d57ddca0da973e0c9660a9f11c14a9631b09dc297b096b825ab02",
+      "text": "import sys\nsys.path.append(\"../../../../../build_tools/scripts\")\nsys.path.append(\"../../../../Common/js\")\nimport base\nimport common\n\nbase.configure_common_apps()\n\nif not base.is_dir(\"xml\"):\n  base.copy_dir(\"../../../xml\", \"./xml\")\n  base.replaceInFile(\"./xml/libxml2/libxml.h\", \"xmlNop(void)\", \"xmlNop(void* context, char* buffer, int len)\")\n  base.replaceInFile(\"./xml/libxml2/xmlIO.c\", \"xmlNop(void)\", \"xmlNop(void* context, char* buffer, int len)\")\n  base.replaceInFile(\"./xml/src/xmllight_private.h\", \"#include \\\"../../common/\", \"#include \\\"../../../../../common/\")\n  base.replaceInFile(\"./xml/src/xmllight_private.h\", \"#include \\\"../../../UnicodeConverter/\", \"#include \\\"../../../../../../UnicodeConverter/\")\n  base.replaceInFile(\"./xml/include/xmlutils.h\", \"#include \\\"../../common/\", \"#include \\\"../../../../../common/\")\n  base.replaceInFile(\"./xml/libxml2/globals.c\", \"int xmlGetWarningsDefaultValue = 1;\", \"int xmlGetWarningsDefaultValue = 0;\")\n  base.replaceInFile(\"./xml/libxml2/globals.c\", \"static int xmlGetWarningsDefaultValueThrDef = 1;\", \"static int xmlGetWarningsDefaultValueThrDef = 0;\")\n\nif not base.is_dir(\"freetype-2.10.4\"):\n  base.copy_dir(\"../../../freetype-2.10.4\", \"./freetype-2.10.4\")\n  # smooth\n  base.copy_file(\"./freetype-2.10.4/src/smooth/ftgrays.c\", \"./freetype-2.10.4/src/smooth/ftgrays.cpp\")\n  common.apply_patch(\"./freetype-2.10.4/src/smooth/ftgrays.cpp\", \"./wasm/patches/ftgrays1.patch\")\n  common.apply_patch(\"./freetype-2.10.4/src/smooth/ftgrays.cpp\", \"./wasm/patches/ftgrays2.patch\")\n  common.apply_patch(\"./freetype-2.10.4/src/smooth/ftgrays.cpp\", \"./wasm/patches/ftgrays3.patch\")\n  base.copy_file(\"./freetype-2.10.4/src/smooth/smooth.c\", \"./freetype-2.10.4/src/smooth/smooth.cpp\")\n  common.apply_patch(\"./freetype-2.10.4/src/smooth/smooth.cpp\", \"./wasm/patches/smooth.patch\")\n  # ftobjs\n  common.apply_patch(\"./freetype-2.10.4/src/base/ftobjs.c\", \"./wasm/patches/ftobjs1.patch\")\n  common.apply_patch(\"./freetype-2.10.4/src/base/ftobjs.c\", \"./wasm/patches/ftobjs2.patch\")\n  # ttcmap\n  base.copy_file(\"./freetype-2.10.4/src/sfnt/ttcmap.c\", \"./freetype-2.10.4/src/sfnt/ttcmap.cpp\")\n  common.apply_patch(\"./freetype-2.10.4/src/sfnt/ttcmap.cpp\", \"./wasm/patches/ttcmap.patch\")\n  base.copy_file(\"./freetype-2.10.4/src/sfnt/sfnt.c\", \"./freetype-2.10.4/src/sfnt/sfnt.cpp\")\n  common.apply_patch(\"./freetype-2.10.4/src/sfnt/sfnt.cpp\", \"./wasm/patches/sfnt.patch\")\n  common.apply_patch(\"./freetype-2.10.4/builds/unix/ftsystem.c\", \"./wasm/patches/ftsystem.patch\")\n\nbase.replaceInFile(\"../../../../Common/3dParty/icu/icu/source/common/udata.cpp\", \"\\n{\\n    UDataMemory tData;\", \"\\n{\\n#ifdef BUILDING_WASM_MODULE\\nreturn NULL;\\n#endif\\n    UDataMemory tData;\")\nbase.replaceInFile(\"../../../../DesktopEditor/cximage/png/pnglibconf.h\", \"#define PNG_CONSOLE_IO_SUPPORTED\", \"//#define PNG_CONSOLE_IO_SUPPORTED\")\n\nbase.replaceInFile(\"../../../../Common/3dParty/openssl/openssl/crypto/sha/sha512.c\", \"const SHA_LONG64 *W = in;\", \"const SHA_LONG64 *W = (const SHA_LONG64*)in;\")\n"
+    },
+    {
+      "label": "DesktopEditor/graphics/pro/js/drawingfile.json",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/drawingfile.json",
+      "sha256": "a444b2cda1e8f1854b388f1701a0c098d5a54a4821a444730ad88e2d2c0374e8",
+      "text": "{\n\t\"name\": \"drawingfile\",\n\t\"res_folder\": \"./deploy\",\n\t\"wasm\": true,\n\t\"asm\": true,\n\t\"embed_mem_file\": true,\n\t\"run_before\": \"before.py\",\n\t\"run_after\": \"after.py\",\n\t\"base_js_content\": \"./wasm/js/drawingfile_base.js\",\n\t\"replaces\" : {\n\t\t\"stream\" : \"./wasm/js/stream.js\",\n\t\t\"file\" : \"./wasm/js/drawingfile.js\",\n\t\t\"file_internal\" : \"./wasm/js/drawingfile_wasm.js\"\n\t},\n\n\t\"compiler_flags\": [\n\t\t\"-O3\", \n\t\t\"-fexceptions\", \n\t\t\"-Wno-unused-command-line-argument\", \n\t\t\"-Wno-register\",\n\t\t\"-s ALLOW_MEMORY_GROWTH=1\", \n\t\t\"-s FILESYSTEM=0\", \n\t\t\"-s ENVIRONMENT='web'\", \n\t\t\"-s LLD_REPORT_UNDEFINED\"\n\t],\n\t\"exported_functions\": [\n\t\t\"_malloc\",\n\t\t\"_free\",\n\t\t\"_GetType\",\n\t\t\"_Open\",\n\t\t\"_Close\",\n\t\t\"_GetErrorCode\",\n\t\t\"_GetInfo\",\n\t\t\"_GetPixmap\",\n\t\t\"_GetGlyphs\",\n\t\t\"_GetLinks\",\n\t\t\"_GetStructure\",\n\t\t\"_GetInteractiveFormsInfo\",\n\t\t\"_GetInteractiveFormsFonts\",\n\t\t\"_GetInteractiveFormsAP\",\n\t\t\"_GetButtonIcons\",\n\t\t\"_GetAnnotationsInfo\",\n\t\t\"_GetAnnotationsAP\",\n\t\t\"_InitializeFontsBin\",\n\t\t\"_InitializeFontsBase64\",\n\t\t\"_InitializeFontsRanges\",\n\t\t\"_SetFontBinary\",\n\t\t\"_GetFontBinary\",\n\t\t\"_GetGIDByUnicode\",\n\t\t\"_IsFontBinaryExist\",\n\t\t\"_DestroyTextInfo\",\n\t\t\"_IsNeedCMap\",\n\t\t\"_SetCMapData\",\n\t\t\"_SetScanPageFonts\",\n\t\t\"_ScanPage\",\n\t\t\"_SplitPages\",\n\t\t\"_MergePages\",\n\t\t\"_UnmergePages\",\n\t\t\"_RedactPage\",\n\t\t\"_UndoRedact\",\n\t\t\"_CheckOwnerPassword\",\n\t\t\"_CheckPerm\",\n\t\t\"_GetImageBase64\",\n\t\t\"_GetImageBase64Len\",\n\t\t\"_GetImageBase64Ptr\",\n\t\t\"_GetImageBase64Free\"\n\t],\n\t\"include_path\": [\n\t\t\"wasm/src/lib\", \n\t\t\"../../../agg-2.4/include\", \n\t\t\"../../../cximage/jasper/include\", \"../../../cximage/jpeg\", \"../../../cximage/png\", \n\t\t\"freetype-2.10.4/include\", \"freetype-2.10.4/include/freetype\", \t\t\n\t\t\"../../../../OfficeUtils/src/zlib-1.2.11\", \"../../../../OfficeUtils/src/zlib-1.2.11/contrib/minizip\", \"../../../../OfficeUtils/src\", \n\t\t\"../../../../Common/3dParty/icu/icu/source/common\", \n\t\t\"../../../xml/libxml2/include\", \"../../../xml/build/qt\", \t\t\n\t\t\"../../../../PdfFile/lib/goo\", \"../../../../PdfFile/lib/fofi\", \"../../../../PdfFile/lib/splash\", \"../../../../PdfFile/lib\", \n\t\t\"../../../raster/Jp2/openjpeg\", \"../../../raster/Jp2/openjpeg/openjpeg-2.4.0/src/lib/openjp2\", \n\t\t\"../../../../Common/3dParty/openssl/openssl/include\", \n\t\t\"../../../../Common/3dParty/openssl/build/linux_64/include\", \n\t\t\"../../../../DocxRenderer\"\n\t],\n\t\"define\": [\n\t\t\"__linux__\", \"_LINUX\", \"UNIX\", \n\t\t\"FT2_BUILD_LIBRARY\", \"HAVE_FCNTL_H\", \n\t\t\"FT_CONFIG_OPTION_SYSTEM_ZLIB\", \n\t\t\"BUILDING_WASM_MODULE\", \n\t\t\"U_COMMON_IMPLEMENTATION\", \n\t\t\"errno=0\", \"THREADMODEL=0\", \"DEBUGLVL=0\", \n\t\t\"HAVE_MBSTATE_T\", \"HAVE_STDINCLUDES\", \"HAS_WCHAR\", \"HAVE_VA_COPY\", \n\t\t\"LIBXML_READER_ENABLED\", \"LIBXML_PUSH_ENABLED\", \"LIBXML_HTML_ENABLED\", \n\t\t\"LIBXML_XPATH_ENABLED\", \"LIBXML_OUTPUT_ENABLED\", \"LIBXML_C14N_ENABLED\", \n\t\t\"LIBXML_SAX1_ENABLED\", \"LIBXML_TREE_ENABLED\", \"LIBXML_XPTR_ENABLED\", \n\t\t\"XML_ERROR_DISABLE_MODE\", \"IN_LIBXML\", \"LIBXML_STATIC\", \"BUILD_ZLIB_AS_SOURCES\", \n\t\t\"_ARM_ALIGN_\", \n\t\t\"_tcsnicmp=strncmp\", \"_lseek=lseek\", \"_getcwd=getcwd\", \n\t\t\"NO_CONSOLE_IO\", \"USE_EXTERNAL_JPEG2000\", \"USE_JPIP\", \"OPJ_STATIC\", \"FONT_ENGINE_DISABLE_FILESYSTEM\",\n\t\t\"IMAGE_CHECKER_DISABLE_XML\",\n\t\t\"USE_OPENSSL_HASH\",\n\t\t\"DISABLE_FULL_DOCUMENT_CREATION\", \"DISABLE_FILESYSTEM\", \"CRYPTOPP_DISABLE_ASM\", \"DISABLE_TYPE_MISMATCH\"\n\t],\n\t\"compile_files_array\": [\n\t{\n\t\t\"folder\": \"../../../raster/\",\n\t\t\"files\": [\"BgraFrame.cpp\", \"ImageFileFormatChecker.cpp\", \"PICT/PICFile.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/CxImage/\",\n\t\t\"files\": [\"ximaenc.cpp\", \"ximaexif.cpp\", \"ximage.cpp\", \"ximainfo.cpp\", \"ximajpg.cpp\", \"ximalpha.cpp\", \"ximapal.cpp\", \"ximasel.cpp\", \"xmemfile.cpp\", \"ximapng.cpp\", \"ximabmp.cpp\", \"ximatran.cpp\", \"ximatif.cpp\", \"tif_xfile.cpp\", \"ximajas.cpp\", \"ximagif.cpp\", \"ximaico.cpp\", \"ximatga.cpp\", \"ximapcx.cpp\", \"ximawbmp.cpp\", \"ximamng.cpp\", \"ximapsd.cpp\", \"ximaska.cpp\", \"ximaraw.cpp\", \"ximaint.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/jpeg/\",\n\t\t\"files\": [\"jerror.c\", \"jdmarker.c\", \"jdapimin.c\", \"jdmaster.c\", \"jdapistd.c\", \"jcomapi.c\", \"jutils.c\", \"jdinput.c\", \"jdmainct.c\", \"jmemmgr.c\", \"jquant1.c\", \"jquant2.c\", \"jdmerge.c\", \"jdcolor.c\", \"jdsample.c\", \"jdpostct.c\", \"jddctmgr.c\", \"jdarith.c\", \"jdhuff.c\", \"jdcoefct.c\", \"jmemnobs.c\", \"jidctint.c\", \"jidctfst.c\", \"jidctflt.c\", \"jaricom.c\", \"jcapimin.c\", \"jcparam.c\", \"jcapistd.c\", \"jcinit.c\", \"jcmaster.c\", \"jccolor.c\", \"jcmarker.c\", \"jcsample.c\", \"jcprepct.c\", \"jcdctmgr.c\", \"jcarith.c\", \"jchuff.c\", \"jccoefct.c\", \"jcmainct.c\", \"jfdctint.c\", \"jfdctfst.c\", \"jfdctflt.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/png/\",\n\t\t\"files\": [\"pngread.c\", \"pngmem.c\", \"pngerror.c\", \"png.c\", \"pngrio.c\", \"pngtrans.c\", \"pngget.c\", \"pngrutil.c\", \"pngrtran.c\", \"pngset.c\", \"pngwrite.c\", \"pngwio.c\", \"pngwutil.c\", \"pngwtran.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/tiff/\",\n\t\t\"files\": [\"tif_close.c\", \"tif_dir.c\", \"tif_aux.c\", \"tif_getimage.c\", \"tif_strip.c\", \"tif_open.c\", \"tif_tile.c\", \"tif_error.c\", \"tif_read.c\", \"tif_flush.c\", \"tif_dirinfo.c\", \"tif_compress.c\", \"tif_warning.c\", \"tif_swab.c\", \"tif_color.c\", \"tif_dirread.c\", \"tif_write.c\", \"tif_codec.c\", \"tif_luv.c\", \"tif_dirwrite.c\", \"tif_dumpmode.c\", \"tif_fax3.c\", \"tif_ojpeg.c\", \"tif_jpeg.c\", \"tif_next.c\", \"tif_thunder.c\", \"tif_packbits.c\", \"tif_lzw.c\", \"tif_zip.c\", \"tif_fax3sm.c\", \"tif_predict.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/jasper/\",\n\t\t\"files\": [\"base/jas_init.c\", \"base/jas_stream.c\", \"base/jas_malloc.c\", \"base/jas_image.c\", \"base/jas_cm.c\", \"base/jas_seq.c\", \"base/jas_string.c\", \"base/jas_icc.c\", \"base/jas_debug.c\", \"base/jas_iccdata.c\", \"base/jas_tvp.c\", \"base/jas_version.c\", \"mif/mif_cod.c\", \"pnm/pnm_dec.c\", \"pnm/pnm_enc.c\", \"pnm/pnm_cod.c\", \"bmp/bmp_dec.c\", \"bmp/bmp_enc.c\", \"bmp/bmp_cod.c\", \"ras/ras_dec.c\", \"ras/ras_enc.c\", \"jp2/jp2_dec.c\", \"jp2/jp2_enc.c\", \"jp2/jp2_cod.c\", \"jpc/jpc_cs.c\", \"jpc/jpc_enc.c\", \"jpc/jpc_dec.c\", \"jpc/jpc_t1cod.c\", \"jpc/jpc_math.c\", \"jpc/jpc_util.c\", \"jpc/jpc_tsfb.c\", \"jpc/jpc_mct.c\", \"jpc/jpc_t1enc.c\", \"jpc/jpc_t1dec.c\", \"jpc/jpc_bs.c\", \"jpc/jpc_t2cod.c\", \"jpc/jpc_t2enc.c\", \"jpc/jpc_t2dec.c\", \"jpc/jpc_tagtree.c\", \"jpc/jpc_mqenc.c\", \"jpc/jpc_mqdec.c\", \"jpc/jpc_mqcod.c\", \"jpc/jpc_qmfb.c\", \"jpg/jpg_val.c\", \"jpg/jpg_dummy.c\", \"pgx/pgx_dec.c\", \"pgx/pgx_enc.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../raster/Jp2/\",\n\t\t\"files\": [\"J2kFile.cpp\", \"Reader.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/mng/\",\n\t\t\"files\": [\"libmng_hlapi.c\", \"libmng_callback_xs.c\", \"libmng_prop_xs.c\", \"libmng_object_prc.c\", \"libmng_zlib.c\", \"libmng_jpeg.c\", \"libmng_pixels.c\", \"libmng_read.c\", \"libmng_error.c\", \"libmng_display.c\", \"libmng_write.c\", \"libmng_chunk_io.c\", \"libmng_cms.c\", \"libmng_filter.c\", \"libmng_chunk_prc.c\", \"libmng_chunk_xs.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/libpsd/\",\n\t\t\"files\": [\"psd.c\", \"file_header.c\", \"color_mode.c\", \"image_resource.c\", \"blend.c\", \"layer_mask.c\", \"image_data.c\", \"stream.c\", \"psd_system.c\", \"color.c\", \"pattern_fill.c\", \"color_balance.c\", \"channel_image.c\", \"gradient_fill.c\", \"invert.c\", \"posterize.c\", \"brightness_contrast.c\", \"solid_color.c\", \"threshold.c\", \"effects.c\", \"selective_color.c\", \"channel_mixer.c\", \"photo_filter.c\", \"type_tool.c\", \"gradient_map.c\", \"hue_saturation.c\", \"levels.c\", \"curves.c\", \"pattern.c\", \"psd_zip.c\", \"descriptor.c\", \"drop_shadow.c\", \"inner_shadow.c\", \"color_overlay.c\", \"outer_glow.c\", \"inner_glow.c\", \"bevel_emboss.c\", \"satin.c\", \"gradient_overlay.c\", \"stroke.c\", \"pattern_overlay.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../cximage/raw/\",\n\t\t\"files\": [\"libdcr.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../raster/JBig2/source/\",\n\t\t\"files\": [\"JBig2File.cpp\", \"Encoder/jbig2enc.cpp\", \"Encoder/jbig2arith.cpp\", \"Encoder/jbig2sym.cpp\", \"LeptonLib/pixconv.cpp\", \"LeptonLib/writefile.cpp\", \"LeptonLib/scale.cpp\", \"LeptonLib/pix1.cpp\", \"LeptonLib/pix2.cpp\", \"LeptonLib/pix3.cpp\", \"LeptonLib/pix4.cpp\", \"LeptonLib/pix5.cpp\", \"LeptonLib/grayquant.cpp\", \"LeptonLib/grayquantlow.cpp\", \"LeptonLib/seedfill.cpp\", \"LeptonLib/jbclass.cpp\", \"LeptonLib/pixabasic.cpp\", \"LeptonLib/numabasic.cpp\", \"LeptonLib/morphseq.cpp\", \"LeptonLib/binexpandlow.cpp\", \"LeptonLib/ptabasic.cpp\", \"LeptonLib/rop.cpp\", \"LeptonLib/colormap.cpp\", \"LeptonLib/pngiostub.cpp\", \"LeptonLib/lepton_utils.cpp\", \"LeptonLib/scalelow.cpp\", \"LeptonLib/enhance.cpp\", \"LeptonLib/jpegio.cpp\", \"LeptonLib/jpegiostub.cpp\", \"LeptonLib/spixio.cpp\", \"LeptonLib/webpio.cpp\", \"LeptonLib/webpiostub.cpp\", \"LeptonLib/psio2.cpp\", \"LeptonLib/gifio.cpp\", \"LeptonLib/gifiostub.cpp\", \"LeptonLib/pnmio.cpp\", \"LeptonLib/tiffio.cpp\", \"LeptonLib/tiffiostub.cpp\", \"LeptonLib/bmpio.cpp\", \"LeptonLib/binexpand.cpp\", \"LeptonLib/compare.cpp\", \"LeptonLib/boxbasic.cpp\", \"LeptonLib/conncomp.cpp\", \"LeptonLib/pixafunc1.cpp\", \"LeptonLib/boxfunc1.cpp\", \"LeptonLib/ptafunc1.cpp\", \"LeptonLib/binreduce.cpp\", \"LeptonLib/seedfilllow.cpp\", \"LeptonLib/sel1.cpp\", \"LeptonLib/morphapp.cpp\", \"LeptonLib/correlscore.cpp\", \"LeptonLib/sarray.cpp\", \"LeptonLib/morph.cpp\", \"LeptonLib/roplow.cpp\", \"LeptonLib/fpix1.cpp\", \"LeptonLib/stack.cpp\", \"LeptonLib/pixacc.cpp\", \"LeptonLib/pixarith.cpp\", \"LeptonLib/convolve.cpp\", \"LeptonLib/binreducelow.cpp\", \"LeptonLib/convolvelow.cpp\", \"LeptonLib/arithlow.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"./wasm/src/\",\n\t\t\"files\": [\"lib/wasm_jmp.cpp\", \"drawingfile.cpp\", \"metafile.cpp\", \"HTMLRendererText.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"freetype-2.10.4/src/\",\n\t\t\"files\": [\"base/ftdebug.c\",\"autofit/autofit.c\",\"bdf/bdf.c\",\"cff/cff.c\",\"base/ftbase.c\",\"base/ftbitmap.c\",\"base/ftfstype.c\",\"base/ftgasp.c\",\"cache/ftcache.c\",\"base/ftglyph.c\",\"gzip/ftgzip.c\",\"base/ftinit.c\",\"lzw/ftlzw.c\",\"base/ftstroke.c\",\"base/ftsystem.c\",\"smooth/smooth.cpp\",\"base/ftbbox.c\",\"base/ftbdf.c\",\"base/ftcid.c\",\"base/ftmm.c\",\"base/ftpfr.c\",\"base/ftsynth.c\",\"base/fttype1.c\",\"base/ftwinfnt.c\",\"base/ftgxval.c\",\"base/ftotval.c\",\"base/ftpatent.c\",\"pcf/pcf.c\",\"pfr/pfr.c\",\"psaux/psaux.c\",\"pshinter/pshinter.c\",\"psnames/psmodule.c\",\"raster/raster.c\",\"sfnt/sfnt.cpp\",\"truetype/truetype.c\",\"type1/type1.c\",\"cid/type1cid.c\",\"type42/type42.c\",\"winfonts/winfnt.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../\",\n\t\t\"files\": [\"GraphicsRenderer.cpp\", \"pro/pro_Graphics.cpp\", \"pro/pro_Fonts.cpp\", \"pro/pro_Image.cpp\", \"Graphics.cpp\", \"Brush.cpp\", \"BaseThread.cpp\", \"GraphicsPath.cpp\", \"BooleanOperations.cpp\", \"Image.cpp\", \"Matrix.cpp\", \"Clip.cpp\", \"TemporaryCS.cpp\", \"AlphaMask.cpp\", \"GraphicsLayer.cpp\", \"commands/DocInfo.cpp\", \"commands/AnnotField.cpp\", \"commands/FormField.cpp\", \"MetafileToRenderer.cpp\", \"MetafileToRendererReader.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../fontengine/\",\n\t\t\"files\": [\"GlyphString.cpp\", \"FontManager.cpp\", \"FontFile.cpp\", \"FontPath.cpp\", \"ApplicationFonts.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../agg-2.4/src/\",\n\t\t\"files\": [\"agg_arc.cpp\", \"agg_vcgen_stroke.cpp\", \"agg_vcgen_dash.cpp\", \"agg_trans_affine.cpp\", \"agg_curves.cpp\", \"agg_image_filters.cpp\", \"agg_bezier_arc.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../common/\",\n\t\t\"files\": [\"File.cpp\", \"Directory.cpp\", \"ByteBuilder.cpp\", \"Base64.cpp\", \"StringExt.cpp\", \"Path.cpp\", \"SystemUtils.cpp\", \"StringUTF32.cpp\", \"StringBuilder.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../Common/3dParty/icu/icu/source/common/\",\n\t\t\"files\": [\"ustr_wcs.cpp\", \"ustrtrns.cpp\", \"udata.cpp\", \"ucnv_io.cpp\", \"ustring.cpp\", \"umutex.cpp\", \"putil.cpp\", \"ustr_cnv.cpp\", \"ucnvmbcs.cpp\", \"ucln_cmn.cpp\", \"ucnv2022.cpp\", \"ucnvbocu.cpp\", \"stringpiece.cpp\", \"charstr.cpp\", \"ucnv_ext.cpp\", \"uobject.cpp\", \"usprep.cpp\", \"unistr.cpp\", \"uniset_props.cpp\", \"loadednormalizer2impl.cpp\", \"filterednormalizer2.cpp\", \"utrie2.cpp\", \"normalizer2.cpp\", \"normalizer2impl.cpp\", \"utrie.cpp\", \"ucase.cpp\", \"uniset.cpp\", \"ruleiter.cpp\", \"parsepos.cpp\", \"util.cpp\", \"uprops.cpp\", \"uvector.cpp\", \"unames.cpp\", \"propname.cpp\", \"utrie2_builder.cpp\", \"unifunct.cpp\", \"bmpset.cpp\", \"unisetspan.cpp\", \"unifilt.cpp\", \"patternprops.cpp\", \"ustrcase.cpp\", \"bytestrie.cpp\", \"utf_impl.cpp\", \"cmemory.cpp\", \"uhash.cpp\", \"udatamem.cpp\", \"umapfile.cpp\", \"uinvchar.cpp\", \"uchar.cpp\", \"ubidi_props.cpp\", \"characterproperties.cpp\", \"ucptrie.cpp\", \"edits.cpp\", \"umutablecptrie.cpp\", \"bytesinkutil.cpp\", \"emojiprops.cpp\", \"cstring.cpp\", \"ucmndata.cpp\", \"ucnv.cpp\", \"ucnv_u7.cpp\", \"ucnv_u8.cpp\", \"ucnv_u16.cpp\", \"ucnv_u32.cpp\", \"ucnv_err.cpp\", \"ucnv_cnv.cpp\", \"ucnv_lmb.cpp\", \"ucnv_cb.cpp\", \"ucnv_ct.cpp\", \"ucharstrieiterator.cpp\", \"ucnvlat1.cpp\", \"uvectr32.cpp\", \"ucnvhz.cpp\", \"ucnvscsu.cpp\", \"ucnv_bld.cpp\", \"ucnvisci.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../Common/3dParty/cryptopp/\",\n\t\t\"files\": [\"cryptlib.cpp\", \"cpu.cpp\", \"integer.cpp\", \"3way.cpp\", \"adler32.cpp\", \"algebra.cpp\", \"algparam.cpp\", \"allocate.cpp\", \"arc4.cpp\", \"aria.cpp\", \"aria_simd.cpp\", \"ariatab.cpp\", \"asn.cpp\", \"authenc.cpp\", \"base32.cpp\", \"base64.cpp\", \"basecode.cpp\", \"bfinit.cpp\", \"blake2.cpp\", \"blake2s_simd.cpp\", \"blake2b_simd.cpp\", \"blowfish.cpp\", \"blumshub.cpp\", \"camellia.cpp\", \"cast.cpp\", \"casts.cpp\", \"cbcmac.cpp\", \"ccm.cpp\", \"chacha.cpp\", \"chacha_simd.cpp\", \"chacha_avx.cpp\", \"chachapoly.cpp\", \"cham.cpp\", \"cham_simd.cpp\", \"channels.cpp\", \"cmac.cpp\", \"crc.cpp\", \"crc_simd.cpp\", \"darn.cpp\", \"default.cpp\", \"des.cpp\", \"dessp.cpp\", \"dh.cpp\", \"dh2.cpp\", \"dll.cpp\", \"donna_32.cpp\", \"donna_64.cpp\", \"donna_sse.cpp\", \"dsa.cpp\", \"eax.cpp\", \"ec2n.cpp\", \"ecp.cpp\", \"eccrypto.cpp\", \"eprecomp.cpp\", \"elgamal.cpp\", \"emsa2.cpp\", \"eprecomp.cpp\", \"esign.cpp\", \"files.cpp\", \"filters.cpp\", \"fips140.cpp\", \"gcm.cpp\", \"gcm_simd.cpp\", \"gf256.cpp\", \"gf2_32.cpp\", \"gf2n.cpp\", \"gf2n_simd.cpp\", \"gfpcrypt.cpp\", \"gost.cpp\", \"gzip.cpp\", \"hc128.cpp\", \"hc256.cpp\", \"hex.cpp\", \"hight.cpp\", \"hmac.cpp\", \"hrtimer.cpp\", \"ida.cpp\", \"idea.cpp\", \"iterhash.cpp\", \"kalyna.cpp\", \"md5.cpp\", \"randpool.cpp\", \"osrng.cpp\", \"rijndael.cpp\", \"modes.cpp\", \"misc.cpp\", \"rdtables.cpp\", \"sha.cpp\", \"mqueue.cpp\", \"queue.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../OfficeUtils/src/\",\n\t\t\"files\": [\"OfficeUtils.cpp\", \"ZipBuffer.cpp\", \"ZipUtilsCP.cpp\", \"zlib_addon.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../OfficeUtils/src/zlib-1.2.11/contrib/minizip/\",\n\t\t\"files\": [\"ioapi.c\", \"miniunz.c\", \"minizip.c\", \"mztools.c\", \"unzip.c\", \"zip.c\", \"ioapibuf.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../OfficeUtils/src/zlib-1.2.11/\",\n\t\t\"files\": [\"adler32.c\", \"crc32.c\", \"deflate.c\", \"infback.c\", \"inffast.c\", \"inflate.c\", \"inftrees.c\", \"trees.c\", \"zutil.c\", \"compress.c\"]\n\t},\n\t{\n\t\t\"folder\": \"./\",\n\t\t\"files\": [\"xml/src/xmllight.cpp\", \"xml/src/xmldom.cpp\", \"xml/build/qt/libxml2_all.c\", \"xml/build/qt/libxml2_all2.c\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../PdfFile/\",\n\t\t\"files\": [\"PdfFile.cpp\", \"PdfReader.cpp\", \"PdfWriter.cpp\", \"PdfEditor.cpp\", \"OnlineOfficeBinToPdf.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../PdfFile/SrcReader/\",\n\t\t\"files\": [\"Adaptors.cpp\", \"GfxClip.cpp\", \"RendererOutputDev.cpp\", \"JPXStream2.cpp\", \"PdfAnnot.cpp\", \"PdfFont.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../PdfFile/SrcWriter/\",\n\t\t\"files\": [\"AcroForm.cpp\", \"Annotation.cpp\", \"Catalog.cpp\", \"Destination.cpp\", \"Document.cpp\", \"Encrypt.cpp\", \"EncryptDictionary.cpp\", \"Field.cpp\", \"Font.cpp\", \"Font14.cpp\", \"FontCidTT.cpp\", \"FontOTWriter.cpp\", \"FontTT.cpp\", \"FontTTWriter.cpp\", \"GState.cpp\", \"Image.cpp\", \"Info.cpp\", \"Metadata.cpp\", \"Objects.cpp\", \"Outline.cpp\", \"Pages.cpp\", \"Pattern.cpp\", \"ResourcesDictionary.cpp\", \"Shading.cpp\", \"States.cpp\", \"Streams.cpp\", \"Utils.cpp\", \"RedactOutputDev.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../PdfFile/Resources/\",\n\t\t\"files\": [\"BaseFonts.cpp\", \"CMapMemory/cmap_memory.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../PdfFile/lib/\",\n\t\t\"files\": [\"fofi/FoFiBase.cc\", \"fofi/FoFiEncodings.cc\", \"fofi/FoFiIdentifier.cc\", \"fofi/FoFiTrueType.cc\", \"fofi/FoFiType1.cc\", \"fofi/FoFiType1C.cc\", \"goo/FixedPoint.cc\", \"goo/gfile.cc\", \"goo/GHash.cc\", \"goo/GList.cc\", \"goo/gmem.cc\", \"goo/gmempp.cc\", \"goo/GString.cc\", \"goo/parseargs.c\", \"goo/Trace.cc\", \"splash/Splash.cc\", \"splash/SplashBitmap.cc\", \"splash/SplashClip.cc\", \"splash/SplashFont.cc\", \"splash/SplashFontEngine.cc\", \"splash/SplashFontFile.cc\", \"splash/SplashFontFileID.cc\", \"splash/SplashFTFont.cc\", \"splash/SplashFTFontEngine.cc\", \"splash/SplashFTFontFile.cc\", \"splash/SplashPath.cc\", \"splash/SplashPattern.cc\", \"splash/SplashScreen.cc\", \"splash/SplashState.cc\", \"splash/SplashXPath.cc\", \"splash/SplashXPathScanner.cc\", \"xpdf/AcroForm.cc\", \"xpdf/Annot.cc\", \"xpdf/Array.cc\", \"xpdf/BuiltinFont.cc\", \"xpdf/BuiltinFontTables.cc\", \"xpdf/Catalog.cc\", \"xpdf/CharCodeToUnicode.cc\", \"xpdf/CMap.cc\", \"xpdf/Decrypt.cc\", \"xpdf/Dict.cc\", \"xpdf/DisplayState.cc\", \"xpdf/Error.cc\", \"xpdf/FontEncodingTables.cc\", \"xpdf/Function.cc\", \"xpdf/Gfx.cc\", \"xpdf/GfxFont.cc\", \"xpdf/GfxState.cc\", \"xpdf/GlobalParams.cc\", \"xpdf/ImageOutputDev.cc\", \"xpdf/JArithmeticDecoder.cc\", \"xpdf/JBIG2Stream.cc\", \"xpdf/JPXStream.cc\", \"xpdf/Lexer.cc\", \"xpdf/Link.cc\", \"xpdf/NameToCharCode.cc\", \"xpdf/Object.cc\", \"xpdf/OptionalContent.cc\", \"xpdf/Outline.cc\", \"xpdf/OutputDev.cc\", \"xpdf/Page.cc\", \"xpdf/Parser.cc\", \"xpdf/PDF417Barcode.cc\", \"xpdf/PDFCore.cc\", \"xpdf/PDFDoc.cc\", \"xpdf/PDFDocEncoding.cc\", \"xpdf/PreScanOutputDev.cc\", \"xpdf/PSOutputDev.cc\", \"xpdf/PSTokenizer.cc\", \"xpdf/SecurityHandler.cc\", \"xpdf/ShadingImage.cc\", \"xpdf/SplashOutputDev.cc\", \"xpdf/Stream.cc\", \"xpdf/TextOutputDev.cc\", \"xpdf/TextString.cc\", \"xpdf/TileCache.cc\", \"xpdf/TileCompositor.cc\", \"xpdf/TileMap.cc\", \"xpdf/UnicodeMap.cc\", \"xpdf/UnicodeRemapping.cc\", \"xpdf/UnicodeTypeTable.cc\", \"xpdf/UTF8.cc\", \"xpdf/WebFont.cc\", \"xpdf/XFAScanner.cc\", \"xpdf/XRef.cc\", \"xpdf/Zoox.cc\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../raster/Jp2/openjpeg/openjpeg-2.4.0/src/lib/openjp2/\",\n\t\t\"files\": [\"bio.c\", \"cidx_manager.c\", \"cio.c\", \"dwt.c\", \"event.c\", \"function_list.c\", \"image.c\", \"invert.c\", \"j2k.c\", \"jp2.c\", \"mct.c\", \"mqc.c\", \"openjpeg.c\", \"opj_clock.c\", \"opj_malloc.c\", \"phix_manager.c\", \"pi.c\", \"ppix_manager.c\", \"sparse_array.c\", \"t1.c\", \"t2.c\", \"tcd.c\", \"tgt.c\", \"thix_manager.c\", \"thread.c\", \"tpix_manager.c\", \"../../../../opj_bgraframe.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../XpsFile/\",\n\t\t\"files\": [\"XpsFile.cpp\", \"XpsLib/Document.cpp\", \"XpsLib/XpsPage.cpp\", \"XpsLib/StaticResources.cpp\", \"XpsLib/Utils.cpp\", \"XpsLib/WString.cpp\", \"XpsLib/ContextState.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../DjVuFile/libdjvu/\",\n\t\t\"files\": [\"../DjVu.cpp\", \"../DjVuFileImplementation.cpp\", \"Arrays.cpp\", \"BSByteStream.cpp\", \"BSEncodeByteStream.cpp\", \"ByteStream.cpp\", \"DataPool.cpp\", \"debug.cpp\", \"DjVmDir.cpp\", \"DjVmDir0.cpp\", \"DjVmDoc.cpp\", \"DjVmNav.cpp\", \"DjVuAnno.cpp\", \"DjVuDocEditor.cpp\", \"DjVuDocument.cpp\", \"DjVuDumpHelper.cpp\", \"DjVuErrorList.cpp\", \"DjVuFile.cpp\", \"DjVuFileCache.cpp\", \"DjVuGlobal.cpp\", \"DjVuGlobalMemory.cpp\", \"DjVuImage.cpp\", \"DjVuInfo.cpp\", \"DjVuMessageLite.cpp\", \"DjVuNavDir.cpp\", \"DjVuPalette.cpp\", \"DjVuPort.cpp\", \"DjVuText.cpp\", \"DjVuToPS.cpp\", \"GBitmap.cpp\", \"GContainer.cpp\", \"GException.cpp\", \"GIFFManager.cpp\", \"GMapAreas.cpp\", \"GPixmap.cpp\", \"GRect.cpp\", \"GScaler.cpp\", \"GSmartPointer.cpp\", \"GString.cpp\", \"GThreads.cpp\", \"GUnicode.cpp\", \"IFFByteStream.cpp\", \"IW44EncodeCodec.cpp\", \"IW44Image.cpp\", \"JB2EncodeCodec.cpp\", \"JB2Image.cpp\", \"JPEGDecoder.cpp\", \"MMRDecoder.cpp\", \"MMX.cpp\", \"UnicodeByteStream.cpp\", \"XMLParser.cpp\", \"XMLTags.cpp\", \"ZPCodec.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../DjVuFile/wasm/libdjvu/\",\n\t\t\"files\": [\"atomic.cpp\", \"DjVuMessage.cpp\", \"GOS.cpp\", \"GURL.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../\",\n\t\t\"files\": [\"officedrawingfile.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../UnicodeConverter/\",\n\t\t\"files\": [\"UnicodeConverter.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../DocxRenderer/\",\n\t\t\"files\": [\"DocxRenderer.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../DocxRenderer/src/resources\",\n\t\t\"files\": [\"VectorGraphics.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../DocxRenderer/src/logic\",\n\t\t\"files\": [\"styles/FontStyle.cpp\", \"styles/ParagraphStyle.cpp\", \"Page.cpp\", \"Document.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../DocxRenderer/src/logic/managers\",\n\t\t\"files\": [\"FontManager.cpp\", \"FontStyleManager.cpp\", \"ImageManager.cpp\", \"ParagraphStyleManager.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../DocxRenderer/src/logic/elements\",\n\t\t\"files\": [\"BaseItem.cpp\", \"ContText.cpp\", \"Paragraph.cpp\", \"Shape.cpp\", \"TextLine.cpp\", \"Table.cpp\"]\n\t},\n\t{\n\t\t\"folder\": \"../../../../OdfFile/Common\",\n\t\t\"files\": [\"logging.cpp\"]\n\t}\n\t]\n}\n"
+    },
+    {
+      "label": "common_js_dir",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/contents/Common/js?ref=075052dd3f41373affa533317d6734a0d34e0897",
+      "data": [
+        {
+          "path": "Common/js/.gitignore",
+          "type": "file",
+          "sha": "6ba79d486c1b865e15920938ce6eb780bd9bca08",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/.gitignore"
+        },
+        {
+          "path": "Common/js/README.md",
+          "type": "file",
+          "sha": "718b1a19776f63a0c926b7536658aaeacc44de5e",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/README.md"
+        },
+        {
+          "path": "Common/js/common.py",
+          "type": "file",
+          "sha": "908293aacad763999330c8eae5fcb585bd9d930f",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/common.py"
+        },
+        {
+          "path": "Common/js/desktop_fetch.js",
+          "type": "file",
+          "sha": "e5f20e587a56c51d3e4919955a104d7769859d78",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/desktop_fetch.js"
+        },
+        {
+          "path": "Common/js/logging.h",
+          "type": "file",
+          "sha": "101db30593cd7bf6ca49f401993d49a4de2dd4d4",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/logging.h"
+        },
+        {
+          "path": "Common/js/make.py",
+          "type": "file",
+          "sha": "00b52649426a301fe08015995c6895e54961326d",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/make.py"
+        },
+        {
+          "path": "Common/js/min.py",
+          "type": "file",
+          "sha": "39fb4f5bd8b70b4f7b5cbc6b158d17eec0fe27ef",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/min.py"
+        },
+        {
+          "path": "Common/js/polyfill.js",
+          "type": "file",
+          "sha": "0a0b99904b4de850b141ed49fddf6a587497e64c",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/polyfill.js"
+        },
+        {
+          "path": "Common/js/string_utf8.js",
+          "type": "file",
+          "sha": "24fdfc06eb348c73b1a30a7286f4d7dcce9a1809",
+          "download_url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/string_utf8.js"
+        }
+      ]
+    },
+    {
+      "label": "common_js_history",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/commits?path=Common%2Fjs&per_page=3",
+      "data": [
+        {
+          "sha": "b77b3dc7e21e7d33b5fbe6711b7c1cb1a11ae447",
+          "message": "Remove unused files",
+          "date": "2026-05-17T12:35:33Z",
+          "parents": [
+            "c0a9c1a1dce7518171de4eb93edc832eee33e621"
+          ]
+        },
+        {
+          "sha": "c0a9c1a1dce7518171de4eb93edc832eee33e621",
+          "message": "Revert \"Refactoring\"\n\nThis reverts commit a982ff0ce2464c8ed57a3fb47cda3580c11583a0.",
+          "date": "2026-05-16T06:08:57Z",
+          "parents": [
+            "a982ff0ce2464c8ed57a3fb47cda3580c11583a0"
+          ]
+        },
+        {
+          "sha": "a982ff0ce2464c8ed57a3fb47cda3580c11583a0",
+          "message": "Refactoring",
+          "date": "2026-05-15T14:37:26Z",
+          "parents": [
+            "67ae9115c918914f91c7de0b2b79783390d733a0"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "graphics_js_history",
+      "url": "https://api.github.com/repos/ONLYOFFICE/core/commits?path=DesktopEditor%2Fgraphics%2Fpro%2Fjs%2Fdrawingfile.json&per_page=3",
+      "data": [
+        {
+          "sha": "b77b3dc7e21e7d33b5fbe6711b7c1cb1a11ae447",
+          "message": "Remove unused files",
+          "date": "2026-05-17T12:35:33Z",
+          "parents": [
+            "c0a9c1a1dce7518171de4eb93edc832eee33e621"
+          ]
+        },
+        {
+          "sha": "c0a9c1a1dce7518171de4eb93edc832eee33e621",
+          "message": "Revert \"Refactoring\"\n\nThis reverts commit a982ff0ce2464c8ed57a3fb47cda3580c11583a0.",
+          "date": "2026-05-16T06:08:57Z",
+          "parents": [
+            "a982ff0ce2464c8ed57a3fb47cda3580c11583a0"
+          ]
+        },
+        {
+          "sha": "a982ff0ce2464c8ed57a3fb47cda3580c11583a0",
+          "message": "Refactoring",
+          "date": "2026-05-15T14:37:26Z",
+          "parents": [
+            "67ae9115c918914f91c7de0b2b79783390d733a0"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "common.py",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/common.py",
+      "sha256": "28db48ef6e5d5da6ccd7d893b57ede6c54b037b99acd0bca747cc67e404d054a",
+      "text": "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nimport sys\nsys.path.append(\"./../../../build_tools/scripts\")\nimport base\nimport os\n\ndef apply_patch(file, patch):\n  patch_content = base.readFile(patch)\n  index1 = patch_content.find(\"<<<<<<<\")\n  index2 = patch_content.find(\"=======\")\n  index3 = patch_content.find(\">>>>>>>\")\n  file_content_old = patch_content[index1 + 7:index2].strip()\n  file_content_new = patch_content[index2 + 7:index3].strip()\n  #file_content_new = \"\\n#if 0\" + file_content_old + \"#else\" + file_content_new + \"#endif\\n\"\n  base.replaceInFile(file, file_content_old, file_content_new)\n  return\n\ndef clear_dir(dir):\n  if base.is_dir(dir):\n    base.delete_dir(dir)\n  base.create_dir(dir)\n  return\n"
+    },
+    {
+      "label": "common_make",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/make.py",
+      "sha256": "9d77b56401c6f122e8b36a2e54bb4713f87093a315f237cb0bd813a6f25c911f",
+      "text": "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nimport sys\nsys.path.append(\"./../../../build_tools/scripts\")\nimport base\nimport os\nimport json\nimport common\n\nbase.configure_common_apps()\n\n# fetch emsdk\ncommand_prefix = \"\" if (\"windows\" == base.host_platform()) else \"./\"\nif not base.is_dir(\"emsdk\"):\n  base.cmd(\"git\", [\"clone\", \"https://github.com/emscripten-core/emsdk.git\"])\n  os.chdir(\"emsdk\")\n  base.cmd(\"git\", [\"checkout\", \"f677ef915645c09794f0ae88f21d3cba2886459f\"])\n  base.cmd(command_prefix + \"emsdk\", [\"install\", \"latest\"])\n  base.cmd(command_prefix + \"emsdk\", [\"activate\", \"latest\"])\n  os.chdir(\"../\")\n\ndef exec_wasm(data, work, compiler_flags, wasm):\n  cur_dir = os.getcwd()\n  os.chdir(work)\n\n  for include in data[\"include_path\"]:\n    compiler_flags.append(\"-I\" + include)\n  for define in data[\"define\"]:\n    compiler_flags.append(\"-D\" + define)\n    \n  if not wasm:\n    compiler_flags.append(\"-DBUILDING_ASMJS_MODULE\")\n    compiler_flags.append(\"-D_ARM_ALIGN_\")\n\n  compiler_flags.append(\"-Wno-deprecated-non-prototype\")\n  compiler_flags.append(\"-Wno-deprecated-register\")\n  compiler_flags.append(\"-Wno-register\")\n\n  compiler_flags.append(\"-fvisibility=hidden\")\n  #compiler_flags.append(\"-Wl,--no-entry\")\n  #compiler_flags.append(\"-Wl,--strip-all\")\n\n  # arguments\n  arguments = \"\"\n  for item in compiler_flags:\n    arguments += (item + \" \")\n\n  # command\n  run_file = []\n  prefix_call = \"\"\n  if base.host_platform() == \"windows\":\n    prefix_call = \"call \"\n    run_file.append(\"call \" + cur_dir + \"/emsdk/emsdk_env.bat\")\n  else:\n    run_file.append(\"#!/bin/bash\")\n    run_file.append(\"source \" + cur_dir + \"/emsdk/emsdk_env.sh\")\n\n  libs = \"\"\n  cur_folder_index = 0\n  for compile_files in data[\"compile_files_array\"]:\n    compile_files_name_folder = str(cur_folder_index)\n    cur_folder_index += 1\n    compile_files_name_folder_all = \"all_\" + compile_files_name_folder + \".o\"\n    base.create_dir(\"./o/\" + compile_files_name_folder)\n\n    temp_arguments = \"\"\n    if \"include_path\" in compile_files and compile_files[\"include_path\"]:\n      for include in compile_files[\"include_path\"]:\n        temp_arguments += (\"-I\" + include + \" \")\n    if \"define\" in compile_files and compile_files[\"define\"]:\n      for define in compile_files[\"define\"]:\n        temp_arguments += (\"-D\" + define + \" \")\n\n    temp_libs = \"\"\n    for item in compile_files[\"files\"]:\n      file_name = os.path.splitext(os.path.basename(item))[0]\n      if not base.is_file(\"./o/\" + compile_files_name_folder + \"/\" + file_name + \".o\"):\n        run_file.append(prefix_call + \"emcc -o o/\" + compile_files_name_folder + \"/\" + file_name + \".o -c \" + arguments + temp_arguments + os.path.join(compile_files[\"folder\"], item))\n      temp_libs += (\"o/\" + compile_files_name_folder + \"/\" + file_name + \".o \")\n\n    if len(compile_files[\"files\"]) > 10:\n      if not base.is_file(\"./o/\" + compile_files_name_folder + \"/\" + compile_files_name_folder_all):\n        run_file.append(prefix_call + \"emcc -o o/\" + compile_files_name_folder + \"/\" + compile_files_name_folder_all + \" -r \" + arguments + temp_arguments + temp_libs)\n      libs += (\"o/\" + compile_files_name_folder + \"/\" + compile_files_name_folder_all + \" \")\n    else:\n      libs += temp_libs\n\n  arguments += \"-s EXPORTED_FUNCTIONS=\\\"[\"\n  for item in data[\"exported_functions\"]:\n    arguments += (\"'\" + item + \"',\")\n  arguments = arguments[:-1]\n  arguments += \"]\\\" \"\n\n  if \"sources\" in data and data[\"sources\"]:\n    for item in data[\"sources\"]:\n      arguments += (item + \" \")\n\n  run_file.append(prefix_call + \"emcc -o \" + data[\"name\"] + \".js \" + arguments + libs)\n  base.print_info(\"run \" + (\"wasm \" if wasm else \"asm \") + data[\"name\"])\n  base.run_as_bat(run_file)\n\n  # finalize\n  base.print_info(\"end \" + (\"wasm \" if wasm else \"asm \") + data[\"name\"])\n  module_js_content = base.readFile(\"./\" + data[\"name\"] + \".js\")\n  engine_base_js_content = base.readFile(data[\"base_js_content\"])\n  string_utf8_content = base.readFile(cur_dir + \"/string_utf8.js\")\n  desktop_fetch_content = base.readFile(cur_dir + \"/desktop_fetch.js\")\n  polyfill_js_content = base.readFile(cur_dir + \"/polyfill.js\")\n  engine_js_content = engine_base_js_content.replace(\"//module\", module_js_content)\n  engine_js_content = engine_js_content.replace(\"//string_utf8\", string_utf8_content)\n  engine_js_content = engine_js_content.replace(\"//desktop_fetch\", desktop_fetch_content)\n  if not wasm:\n    engine_js_content = engine_js_content.replace(\"//polyfill\", polyfill_js_content)\n\n  if \"replaces\" in data:\n    for item in data[\"replaces\"]:\n      replace_file_content = base.readFile(data[\"replaces\"][item])      \n      engine_js_content = engine_js_content.replace(\"//\" + item, replace_file_content)\n\n  # write new version\n  base.writeFile(data[\"res_folder\"] + \"/\" + data[\"name\"] + (\"\" if wasm else \"_ie\") + \".js\", engine_js_content)\n  base.copy_file(\"./\" + data[\"name\"] + (\".wasm\" if wasm else \".js.mem\"), data[\"res_folder\"] + \"/\" + data[\"name\"] + (\".wasm\" if wasm else \".js.mem\"))\n\n  # clear\n  base.delete_file(\"./\" + data[\"name\"] + \".js\")\n  base.delete_file(\"./\" + data[\"name\"] + (\".wasm\" if wasm else \".js.mem\"))\n\n  os.chdir(cur_dir)\n  return\n\nargv = sys.argv\nargv.pop(0)\nfor param in argv:\n  base.print_info(param)\n  if not base.is_file(param):\n    continue\n  work_dir = os.path.dirname(param) + \"/\"\n  json_data = json.loads(base.readFile(param))\n\n  if json_data[\"run_before\"]:\n    base.print_info(\"before\")\n    if base.is_file(work_dir + json_data[\"run_before\"]):\n      base.cmd_in_dir(work_dir, \"python\", [json_data[\"run_before\"]])\n    else:\n      base.cmd_in_dir(work_dir, \"python\", [\"-c\", json_data[\"run_before\"]])\n\n  # remove previous version\n  common.clear_dir(work_dir + \"/o\")\n  base.create_dir(work_dir + json_data[\"res_folder\"])\n\n  # wasm or asm\n  if json_data[\"wasm\"]:\n    flags = json_data[\"compiler_flags\"][:]\n    flags.append(\"-s WASM=1\")\n    exec_wasm(json_data, work_dir, flags, True)\n    base.delete_dir(work_dir + \"/o\")\n  if json_data[\"asm\"]:\n    flags = json_data[\"compiler_flags\"][:]\n    flags.append(\"-s WASM=0\")\n    flags.append(\"--closure 0\")\n    flags.append(\"-s MIN_IE_VERSION=11\")\n    # do it in min.py\n    #flags.append(\"--closure-args=--language_out=ECMASCRIPT5_STRICT\")\n    if \"embed_mem_file\" in json_data and (json_data[\"embed_mem_file\"]):\n      flags.append(\"--memory-init-file 0\")\n    exec_wasm(json_data, work_dir, flags, False)\n    base.delete_dir(work_dir + \"/o\")\n  if json_data[\"run_after\"]:\n    base.print_info(\"after\")\n    if base.is_file(work_dir + json_data[\"run_after\"]):\n      base.cmd_in_dir(work_dir, \"python\", [json_data[\"run_after\"]])\n    else:\n      base.cmd_in_dir(work_dir, \"python\", [\"-c\", json_data[\"run_after\"]])\n"
+    },
+    {
+      "label": "common_readme",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/README.md",
+      "sha256": "727c3a619e34350560aba3900f71fb287cba4cc936040e04cb72222fcb573882",
+      "text": "### JSON file structure for wasm/asm module\n- `name` — name with which the module will be built\n- `res_folder` — path, relative to the .json file, to the folder where the module will be built\n- `wasm` — whether to build wasm module (*.js and *.wasm)\n- `asm` — whether to build asm module (*_ie.js and *.js.mem)\n- `run_before` — path, relative to the .json file, to .py file that needs to be executed before building the module. Or python in-line code.\n- `run_after` — path, relative to the .json file, to .py file that needs to be executed after building the module. Or python in-line code.\n- `base_js_content` — path, relative to the .json file, to .js file containing //module which will be replaced with the built module\n- `compiler_flags` — array of compilation flags and options\n- `exported_functions` — array of function names that will be called from the module\n- `include_path` — array of paths, relative to the .json file, for include directories\n- `define` — array of defines\n- `compile_files_array` — array of objects containing:\n    - `name` — unique name, relative to other names in compile_files_array array\n\t- `folder` — path, relative to the .json file, to folder with included files\n\t- `files` — array of included file names, located in folder (hierarchy ../ and ./*/ allowed)\n\t- `include_path` — optional array of paths, relative to the .json file, for include directories\n\t- `define` — optional array of defines\n- `sources` — optional array of paths, relative to the .json file, to files that don't require precompilation. For example, .a or .o files.\n"
+    },
+    {
+      "label": "official_wasm_repos",
+      "url": "https://api.github.com/search/repositories?q=org%3AONLYOFFICE%20wasm&per_page=20",
+      "data": {
+        "total_count": 0,
+        "items": []
+      }
+    },
+    {
+      "label": "official_webassembly_repos",
+      "url": "https://api.github.com/search/repositories?q=org%3AONLYOFFICE%20webassembly&per_page=20",
+      "data": {
+        "total_count": 0,
+        "items": []
+      }
+    },
+    {
+      "path": "Common/js/min.py",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/Common/js/min.py",
+      "sha256": "b453ba7c1579cde3df09bc6a7cf356ba28c8fd7596d36bf9c663aa11873d590b",
+      "text": "#!/usr/bin/env python\n\nimport sys\nsys.path.append('../../../build_tools/scripts')\nimport base\nimport os\n\nparams = sys.argv[1:]\n\nfile_path = params[0]\nfile_path_min = file_path + \".min.js\"\n\ncompilation_level = \"WHITESPACE_ONLY\"\n#compilation_level = \"SIMPLE_OPTIMIZATIONS\"\nif (len(params) > 1):\n  compilation_level = params[1]\n\nbase.cmd(\"java\", [\"-jar\", \"../../../sdkjs/build/node_modules/google-closure-compiler-java/compiler.jar\", \n                  \"--compilation_level\", compilation_level,\n                  \"--language_out\", \"ECMASCRIPT5_STRICT\",\n                  \"--js_output_file\", file_path_min,\n                  \"--js\", file_path])\n\nmin_content = base.readFile(\"../license/header.license\") + base.readFile(file_path_min)\n\nbase.delete_file(file_path_min)\nbase.delete_file(file_path)\n\nbase.writeFile(file_path, min_content)\n"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/deploy.py",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/fontengine/js/deploy.py",
+      "sha256": "bc8b21b6505e89c61a4cb7e66f500b4005293a2ed6b813ab600df98ccf1d2463",
+      "text": "#!/usr/bin/env python\n\nimport sys\nsys.path.append(\"../../../../build_tools/scripts\")\nimport base\nimport os\n\nbase.configure_common_apps()\n\nbase.cmd_in_dir(\"./../../../../core/Common/js\", \"make.py\", [\"./../../DesktopEditor/fontengine/js/libfont.json\"])\n\nsrc_dir = \"./deploy/\"\ndst_dir = \"./../../../../sdkjs/common/libfont/engine/\"\n\nbase.delete_file(dst_dir + \"fonts.js\")\nbase.delete_file(dst_dir + \"fonts_ie.js\")\nbase.delete_file(dst_dir + \"fonts_native.js\")\nbase.delete_file(dst_dir + \"fonts.wasm\")\nbase.delete_file(dst_dir + \"../engine.js\")\n\nbase.copy_file(src_dir + \"fonts.js\",                   dst_dir + \"fonts.js\")\nbase.copy_file(src_dir + \"fonts_ie.js\",                dst_dir + \"fonts_ie.js\")\nbase.copy_file(src_dir + \"../engine/module_native.js\", dst_dir + \"fonts_native.js\")\nbase.copy_file(src_dir + \"fonts.wasm\",                 dst_dir + \"fonts.wasm\")\nbase.copy_file(src_dir + \"../module.js\",               dst_dir + \"../engine.js\")\n\nbase.replaceInFileUtf8(dst_dir + \"../engine.js\", \"// BASE FILE FOR GENERATION\", \"// THIS FILE WAS GENERATED AUTOMATICALLY. DO NOT CHANGE IT!\")\n"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/deploy.py",
+      "url": "https://raw.githubusercontent.com/ONLYOFFICE/core/075052dd3f41373affa533317d6734a0d34e0897/DesktopEditor/graphics/pro/js/deploy.py",
+      "sha256": "85ac83a76516915f610d3c5e1c0c072ba9532dfc8167d7075cf4a7a27dd855fe",
+      "text": "#!/usr/bin/env python\n\nimport sys\nsys.path.append(\"../../../../../build_tools/scripts\")\nimport base\nimport os\n\nbase.configure_common_apps()\n\nbase.cmd_in_dir(\"./../../../../../core/Common/js\", sys.executable, [\"make.py\", \"./../../DesktopEditor/graphics/pro/js/drawingfile.json\"])\n\nsrc_dir = \"./deploy/\"\ndst_dir = \"./../../../../../sdkjs/pdf/src/engine/\"\n\nbase.delete_file(dst_dir + \"drawingfile.js\")\nbase.delete_file(dst_dir + \"drawingfile.wasm\")\nbase.delete_file(dst_dir + \"drawingfile_ie.js\")\n\nbase.copy_file(src_dir + \"drawingfile.js\",    dst_dir + \"drawingfile.js\")\nbase.copy_file(src_dir + \"drawingfile.wasm\",  dst_dir + \"drawingfile.wasm\")\nbase.copy_file(src_dir + \"drawingfile_ie.js\", dst_dir + \"drawingfile_ie.js\")\nbase.copy_file(src_dir + \"drawingfile_native.js\", dst_dir + \"drawingfile_native.js\")\n"
+    }
+  ],
+  "historical_recipe_compatibility": [
+    {
+      "recipe": "DesktopEditor/fontengine/js/libfont.json",
+      "current_loader": "common/libfont/engine/fonts.js",
+      "recipe_exports_missing_in_current_loader": [],
+      "current_loader_exports_not_in_historical_recipe": [],
+      "historical_listed_sources_present_in_current_tree": 251,
+      "historical_listed_sources_missing_in_current_tree": [
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftdebug.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/autofit/autofit.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/bdf/bdf.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cff/cff.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbase.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbitmap.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftfstype.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgasp.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cache/ftcache.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftglyph.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/gzip/ftgzip.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftinit.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/lzw/ftlzw.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftstroke.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsystem.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/smooth.cpp",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbbox.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbdf.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftcid.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftmm.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpfr.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsynth.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/fttype1.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftwinfnt.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgxval.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftotval.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpatent.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pcf/pcf.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pfr/pfr.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psaux/psaux.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pshinter/pshinter.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psnames/psmodule.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/raster/raster.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/sfnt.cpp",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/truetype/truetype.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type1/type1.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cid/type1cid.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type42/type42.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/winfonts/winfnt.c",
+        "DesktopEditor/fontengine/js/cpp/text.cpp",
+        "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.cpp",
+        "OfficeUtils/js/wasm/src/base.cpp",
+        "DesktopEditor/graphics/pro/js/qt/raster/pro_Fonts_empty.cpp",
+        "DesktopEditor/graphics/pro/js/qt/raster/pro_Graphics_empty.cpp",
+        "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+        "Common/3dParty/hyphen/js/src/hyphen.cpp"
+      ]
+    },
+    {
+      "recipe": "OfficeUtils/js/zlib_image.json",
+      "current_loader": "common/zlib/engine/zlib.js",
+      "recipe_exports_missing_in_current_loader": [],
+      "current_loader_exports_not_in_historical_recipe": [],
+      "historical_listed_sources_present_in_current_tree": 157,
+      "historical_listed_sources_missing_in_current_tree": [
+        "OfficeUtils/js/wasm/src/base.cpp",
+        "DesktopEditor/graphics/pro/js/qt/raster/pro_Fonts_empty.cpp",
+        "DesktopEditor/graphics/pro/js/qt/raster/pro_Graphics_empty.cpp",
+        "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+        "DesktopEditor/raster/Metafile/Emf/EmfClip.cpp",
+        "DesktopEditor/raster/Metafile/Emf/EmfPath.cpp",
+        "DesktopEditor/raster/Metafile/Wmf/WmfClip.cpp"
+      ]
+    },
+    {
+      "recipe": "Common/3dParty/hunspell/hunspell.json",
+      "current_loader": "common/spell/spell/spell.js",
+      "recipe_exports_missing_in_current_loader": [],
+      "current_loader_exports_not_in_historical_recipe": [],
+      "historical_listed_sources_present_in_current_tree": 9,
+      "historical_listed_sources_missing_in_current_tree": [
+        "Common/3dParty/hunspell/wasm/src/filemgr_wrapper_new.cxx",
+        "Common/3dParty/hunspell/wasm/src/base.cpp"
+      ]
+    },
+    {
+      "recipe": "DesktopEditor/xmlsec/src/wasm/hash/hash.json",
+      "current_loader": "common/hash/hash/engine.js",
+      "recipe_exports_missing_in_current_loader": [],
+      "current_loader_exports_not_in_historical_recipe": [],
+      "historical_listed_sources_present_in_current_tree": 0,
+      "historical_listed_sources_missing_in_current_tree": [
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/keccak1600.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha1_one.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha1dgst.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha256.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha512.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md2/md2_dgst.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md2/md2_one.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md4/md4_dgst.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md4/md4_one.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md5/md5_dgst.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md5/md5_one.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/ripemd/rmd_dgst.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/ripemd/rmd_one.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/whrlpool/wp_block.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/whrlpool/wp_dgst.c",
+        "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/mem_clr.c",
+        "DesktopEditor/xmlsec/src/wasm/hash/main.cpp"
+      ]
+    },
+    {
+      "recipe": "DesktopEditor/graphics/pro/js/drawingfile.json",
+      "current_loader": "pdf/src/engine/drawingfile.js",
+      "recipe_exports_missing_in_current_loader": [],
+      "current_loader_exports_not_in_historical_recipe": [
+        "_BuildPdf",
+        "_ClearFontsStorage",
+        "_ClearImagesStorage",
+        "_GetMacros",
+        "_IsImageBinaryExist",
+        "_SetImageBinary"
+      ],
+      "historical_listed_sources_present_in_current_tree": 749,
+      "historical_listed_sources_missing_in_current_tree": [
+        "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.cpp",
+        "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+        "DesktopEditor/graphics/pro/js/wasm/src/metafile.cpp",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftdebug.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/autofit/autofit.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/bdf/bdf.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cff/cff.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbase.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbitmap.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftfstype.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgasp.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cache/ftcache.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftglyph.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/gzip/ftgzip.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftinit.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/lzw/ftlzw.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftstroke.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsystem.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/smooth.cpp",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbbox.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbdf.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftcid.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftmm.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpfr.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsynth.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/fttype1.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftwinfnt.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgxval.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftotval.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpatent.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pcf/pcf.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pfr/pfr.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psaux/psaux.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pshinter/pshinter.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psnames/psmodule.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/raster/raster.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/sfnt.cpp",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/truetype/truetype.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type1/type1.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cid/type1cid.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type42/type42.c",
+        "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/winfonts/winfnt.c",
+        "DesktopEditor/graphics/pro/js/xml/src/xmllight.cpp",
+        "DesktopEditor/graphics/pro/js/xml/src/xmldom.cpp",
+        "DesktopEditor/graphics/pro/js/xml/build/qt/libxml2_all.c",
+        "DesktopEditor/graphics/pro/js/xml/build/qt/libxml2_all2.c"
+      ]
+    }
+  ],
+  "emscripten_version_verified_scope": "Actual compiler of deployed binaries remains unknown. Historical Common/js recipe resolves to 3.1.48; see historical_toolchain.",
+  "historical_toolchain": {
+    "core_recipe_commit": "075052dd3f41373affa533317d6734a0d34e0897",
+    "driver": "Common/js/make.py",
+    "emsdk_repository": "https://github.com/emscripten-core/emsdk.git",
+    "emsdk_commit": "f677ef915645c09794f0ae88f21d3cba2886459f",
+    "driver_install_argument": "latest",
+    "pinned_manifest_alias_resolution": "3.1.48",
+    "emscripten_release_hash": "694434b6d47c5f6eff2c8fbd9eeb016c977ae9dc",
+    "alias_source": "https://raw.githubusercontent.com/emscripten-core/emsdk/f677ef915645c09794f0ae88f21d3cba2886459f/emscripten-releases-tags.json",
+    "dependency_source": "https://raw.githubusercontent.com/emscripten-core/emsdk/f677ef915645c09794f0ae88f21d3cba2886459f/emsdk_manifest.json",
+    "resolution_source": "https://raw.githubusercontent.com/emscripten-core/emsdk/f677ef915645c09794f0ae88f21d3cba2886459f/emsdk.py",
+    "resolution_evidence": "emsdk.py load_releases_info reads the checked-out local tags JSON; expand_sdk_name resolves aliases through it. No update command is present in ONLYOFFICE Common/js/make.py.",
+    "windows_dependencies": [
+      {
+        "tool": "Emscripten/LLVM/Binaryen release bundle",
+        "version": "3.1.48",
+        "manifest_derived_download_url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/win/694434b6d47c5f6eff2c8fbd9eeb016c977ae9dc/wasm-binaries.zip"
+      },
+      {
+        "tool": "Node.js",
+        "version": "16.20.0",
+        "manifest_derived_download_url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/node-v16.20.0-win-x64.zip"
+      },
+      {
+        "tool": "Python (nuget x64 package)",
+        "version": "3.9.2",
+        "manifest_derived_download_url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/python-3.9.2-4-amd64+pywin32.zip"
+      },
+      {
+        "tool": "portable Java runtime",
+        "version": "8.152",
+        "manifest_derived_download_url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/portable_jre_8_update_152_64bit.zip"
+      }
+    ],
+    "download_urls_verified_by": "Official pinned manifest and emsdk.py URL prefix; package bodies not downloaded or checked.",
+    "standalone_graphics_make_py": "Historical DesktopEditor/graphics/pro/js/make.py does not pin emsdk; however its deploy.py calls Common/js/make.py with drawingfile.json, which has the pin above.",
+    "closure_minifier": {
+      "script": "Common/js/min.py",
+      "path": "sdkjs/build/node_modules/google-closure-compiler-java/compiler.jar",
+      "version_verified": null,
+      "note": "Exact historical JAR version not pinned by this script; current fixed sdkjs/build has no package.json/package-lock.json at those paths. No new compiler JAR downloaded."
+    },
+    "actual_deployed_binary_compiler_verified": false,
+    "installed_or_executed": false,
+    "earlier_partial_conclusion_corrected": "Looking only at install latest missed the immediately preceding emsdk checkout. Historical JSON driver is pinned indirectly to Emscripten 3.1.48."
+  },
+  "module_classification": [
+    {
+      "module": "hash",
+      "ownership": "mixed_first_party_and_third_party",
+      "first_party": "hash/hash2 wrappers and browser worker integration",
+      "third_party": "OpenSSL hash implementations",
+      "docx_desktop_use": "Feature-dependent browser worker path unless NATIVE_EDITOR_ENJINE; not proven loaded during minimal DOCX regression."
+    },
+    {
+      "module": "fonts",
+      "ownership": "mixed_first_party_and_third_party",
+      "first_party": "ASC_FT/ASC_HB wrappers, ZIP/Raster/Hyphen bridge APIs",
+      "third_party": "FreeType, HarfBuzz, Brotli, Hyphen, zlib/image codecs",
+      "docx_desktop_use": "Normal CEF word frontend calls AscFonts.load and uses fonts.js + fonts.wasm when WebAssembly exists; ascdesktop://fonts/ explicitly supported. Source-level route, not a new runtime capture."
+    },
+    {
+      "module": "spell",
+      "ownership": "mixed_first_party_and_third_party",
+      "first_party": "Spellchecker wrappers and browser worker integration",
+      "third_party": "Hunspell",
+      "docx_desktop_use": "Usual AscDesktopEditor path uses native SpellCheck; copied wasm primarily supports browser worker path."
+    },
+    {
+      "module": "zlib",
+      "ownership": "mixed_first_party_and_third_party",
+      "first_party": "ZipBuffer/Zlib/Raster wrappers, WMF/EMF handling",
+      "third_party": "zlib/minizip, CxImage/JPEG/PNG/TIFF",
+      "docx_desktop_use": "Feature-dependent loader; separate zlib_load initial call is commented out since font engine also exports ZIP/Raster. Not proven always loaded."
+    },
+    {
+      "module": "drawingfile",
+      "ownership": "mixed_first_party_and_third_party",
+      "first_party": "PDF/DocxRenderer/XPS/rendering/editing/forms/redaction/split/merge bridges",
+      "third_party": "Xpdf, DjVu, FreeType, ICU, CryptoPP and image codecs",
+      "docx_desktop_use": "PDF frontend path, not required for plain DOCX frontend; native converter has drawingfile_native.js bridge."
+    }
+  ],
+  "claim_boundary": {
+    "all_first_party_engine_assets_source_built": false,
+    "wasm_and_generated_asmjs_source_built": false,
+    "standard_fixed_desktop_build": "sdkjs/build/build.py performs JS concatenation and copies OTHER_FILES engine directories; build_tools build_js/deploy_desktop copies output into editors/sdkjs.",
+    "native_build_independent": "Native C++ conversion/rendering rebuild does not regenerate browser WebAssembly/asm.js assets.",
+    "permitted_wording_after_native_validation": "Windows native core/converter compiled from source; frontend JS concatenated from source; five WASM modules and adjacent generated JS retained from fixed official sdkjs assets.",
+    "actual_runtime_asset_loading_traced_in_this_audit": false,
+    "scope_limit": "Targeted SDKJS engine asset and web WASM/binary-extension audit; not a whole-repository authorship audit or runtime instrumentation."
+  },
+  "additional_prebuilt_js_boundary": {
+    "path": "common/Drawings/Format/path-boolean-min.js",
+    "bytes": 70495,
+    "note": "Copied pre-minified first-party JS bearing Ascensio header/jscomp output; current concatenation is not regeneration from its original development source."
+  },
+  "remaining_gaps": [
+    "Recover/adapt removed first-party WASM wrappers, templates, before/after patches and common generator without silently mixing incompatible release APIs.",
+    "Current drawingfile.js exposes six APIs absent from recovered May 2026 drawingfile.json. An exact matched current recipe/source provenance has not been found.",
+    "Other four historical export sets match current generated loaders, which demonstrates interface coverage only, not matching source revisions or reproducible binary identity.",
+    "Five deployed WASMs, ten generated loader/asm.js files and spell IE memory remain copied assets, not outputs of this build.",
+    "Historical Emscripten 3.1.48 tool bundle is identified but has not been authorized/installed by this audit. Exact actual asset compiler and historical Closure JAR identity remain unverified."
+  ],
+  "audit_actions": {
+    "modified_files": [
+      "docs/feasibility/full-source-wasm-provenance.md",
+      "evidence/full-source-wasm-provenance.json"
+    ],
+    "production_source_changed": false,
+    "new_tools_downloaded_or_executed": false,
+    "compilation_started": false,
+    "fallback_runtime_changed": false,
+    "requirements_changed": false,
+    "pending_approval": false,
+    "denied_action": null,
+    "nonblocking_network_issue": "One optional direct urllib snapshot of emsdk metadata timed out before writing; the same three pinned official pages were successfully read with web tooling. No package download attempted."
+  }
+}

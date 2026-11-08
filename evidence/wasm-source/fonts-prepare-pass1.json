@@ -1,0 +1,506 @@
+{
+  "module": "fonts",
+  "label": "pass1",
+  "started_utc": "2026-11-03T09:51:09.680710+00:00",
+  "core": "D:\\open office\\build\\wasm-source\\core",
+  "core_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "history_commit": "075052dd3f41373affa533317d6734a0d34e0897",
+  "historical_scripts_executed": false,
+  "history_files_added": [
+    {
+      "path": "Common/js/.gitignore",
+      "sha256": "4c835f163f28e9dd7eb9387ed3f92ca30475af7bcaeaf04c6a6c71edc781c158"
+    },
+    {
+      "path": "Common/js/common.py",
+      "sha256": "28db48ef6e5d5da6ccd7d893b57ede6c54b037b99acd0bca747cc67e404d054a"
+    },
+    {
+      "path": "Common/js/desktop_fetch.js",
+      "sha256": "4e004f0e7b9e90732523ca9bcb46c30f01a0826ccc3c86533722d3d1136d3db5"
+    },
+    {
+      "path": "Common/js/logging.h",
+      "sha256": "1c0feefbc3f560837e22aaf2f306d45450268449a4fecf3e4e83bc3a2648ec15"
+    },
+    {
+      "path": "Common/js/make.py",
+      "sha256": "9d77b56401c6f122e8b36a2e54bb4713f87093a315f237cb0bd813a6f25c911f"
+    },
+    {
+      "path": "Common/js/min.py",
+      "sha256": "b453ba7c1579cde3df09bc6a7cf356ba28c8fd7596d36bf9c663aa11873d590b"
+    },
+    {
+      "path": "Common/js/polyfill.js",
+      "sha256": "ffd4e9c44978532e5a21823e9f71671e2ecb337db8ff255ee0e899e3712228db"
+    },
+    {
+      "path": "Common/js/README.md",
+      "sha256": "727c3a619e34350560aba3900f71fb287cba4cc936040e04cb72222fcb573882"
+    },
+    {
+      "path": "Common/js/string_utf8.js",
+      "sha256": "eb304f1cea7f4a3b6b2fba88ca5bc9497a375b1d3c6cb2e6e69397dd80a9ae56"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/.gitignore",
+      "sha256": "b3a25cf23dc78efdb79cf29f6cb7595ef62623ada31bd732667cc85a8b2909fc"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/after.py",
+      "sha256": "cf832c519b3767c32649cf07630266941f50c4bc5f6ff304373f7c77a88904a5"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/allfonts/after.py",
+      "sha256": "ae0e812cb10500dcf62568dc24071d9bd89ebc90cff7e5b4f49a150b1beba127"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/allfonts/before.py",
+      "sha256": "babce7013b2b53fb23667425f7be5afae1ea0bc1634d186c984344710fb38b12"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/allfonts/index.html",
+      "sha256": "4a2ef83b88b40d4731f5faffe66ae64b5d73981a565231b5c2e08e004d8f31e9"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/allfonts/liballfont.json",
+      "sha256": "9eab03dfc8907f79f9b53517503a17ad336736606b09e23fa3d191c3d3ef2303"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/allfonts/module.js",
+      "sha256": "666ae2d5d446abfb972adc679bfd4b401ad2ebda58c2880e9f9056fbd8d1c9c5"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/allfonts/src/main.cpp",
+      "sha256": "653bf67881bc73f151a7b1acb312427810f1070ad4e652af7d4a14640bbeffef"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/before.py",
+      "sha256": "83e22d96c7f6fcbabc50c834884fbf816fd89960af5f72159c56c0f89b87a25b"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/cpp/text.cpp",
+      "sha256": "4dae00a0194b456592557966fb05fc88c8d18ddaea4ca344e99a2bef5dcbb711"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/deploy.py",
+      "sha256": "bc8b21b6505e89c61a4cb7e66f500b4005293a2ed6b813ab600df98ccf1d2463"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/engine/module_js.js",
+      "sha256": "6f32650f4921387f848bb6aafb98b278f4891ad889f610ac294d8a6f44317cac"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/engine/module_native.js",
+      "sha256": "8fbd452b0bf5342c010d1abbabf16213798ce6ffe3ce09da2a146a8940ab2e48"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/libfont.json",
+      "sha256": "2007f73f090c5c2582aa47a032f933ce1898495a416a2c6ebf53bbf06a4b1ef3"
+    },
+    {
+      "path": "DesktopEditor/fontengine/js/module.js",
+      "sha256": "4c8cd25991c9a269b8b63d3725d1b641aa1bfb3d0b5ad1e610cf828dd5772972"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/.gitignore",
+      "sha256": "c0e6baa40ea9f0b61d13bd325901c6ea39f91b97e3d8414508cc0ceffd2a4c4b"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/after.py",
+      "sha256": "31f28c28d2367266ae79af950cbb1f9fc7187e5b7b70edb157d4eeb4da2f8281"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/before.py",
+      "sha256": "1c92a49ff55d57ddca0da973e0c9660a9f11c14a9631b09dc297b096b825ab02"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/deploy.py",
+      "sha256": "85ac83a76516915f610d3c5e1c0c072ba9532dfc8167d7075cf4a7a27dd855fe"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/drawingfile.json",
+      "sha256": "a444b2cda1e8f1854b388f1701a0c098d5a54a4821a444730ad88e2d2c0374e8"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/make.py",
+      "sha256": "e1e2d6cd40158f700e414d2413db36e4d2ee82daa5db9d7c17d871729c48033f"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/qt/nativegraphics.pro",
+      "sha256": "5d82a53d60b1a82300b2c0b0d7be98ae60fad2b9046a331bae2c1e421690084a"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/qt/raster/main.cpp",
+      "sha256": "7b3b44b3d0e09ef000c95806f8531fb095029a062ff0a3bae368cb46955867f1"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/qt/raster/pro_Fonts_empty.cpp",
+      "sha256": "f409581e9672bdbec2c149f16e3087aa07335d6c7836462b1c18dd0c82c1c884"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/qt/raster/pro_Graphics_empty.cpp",
+      "sha256": "132e8a3a9260914299a5c68952640bf3a8bc7173f28a115364b60fc354e070fa"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+      "sha256": "45997e7b4ec1edd060d3097065876cc38a738b92bc68ae575fd687dab0aa3977"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/qt/raster/raster.h",
+      "sha256": "da1965c1c71592be2fe7c54f1ce4947e48ba39208842bf469e0a1fd4d8621fbb"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/qt/raster/raster.pro",
+      "sha256": "d7cf2865260721721065d08656e9f7a71b6cf458d40a676406e503a52d3bf266"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/raster_make.py",
+      "sha256": "18c3f88dc2da87d538992f7898827c129a66d630527507d00c924a62ba73054b"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/code_raster.js",
+      "sha256": "ade2e6c4e3b7d0aa188dce5a4265634584a6a7511bd34ed876b8b73cb2aed7de"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/drawingfile.js",
+      "sha256": "87dfe953c15da3e370ecd005499e616df747748b64444ff7b229e0c921b762f9"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/drawingfile_base.js",
+      "sha256": "b24b8d3899bdfc55df4c1e3746d5c0d92e32e72e4fe3db5af35dae148f6303f1"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/drawingfile_native.js",
+      "sha256": "26d29092e288f45db6e61d3333997883788c154e9d83cee2ba792f59510a48c0"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/drawingfile_wasm.js",
+      "sha256": "b636dc8876bd04cdab8cdf0b6726866146bd69a752ae31aedd59a8e46e23782b"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/index.html",
+      "sha256": "69ce87faec24eb33312f11be881623bbebf7daecc5844e741eee600d665f57f6"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/raster.js",
+      "sha256": "cff1f76419224bd8804eebc818fa5c70520b73800277d3f5763d2fe7612d5358"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/js/stream.js",
+      "sha256": "16001d3ca97dbc02066d24f2d64c12f647f9a2541bc7724e64a8aa752294c093"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/ftgrays1.patch",
+      "sha256": "447f7c97cb18e0c101fa33a2a39bc1d7d3e2baeb234de188f9ebde977eefc907"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/ftgrays2.patch",
+      "sha256": "7f6f7bf81409ee2fceae18d456b1bfb79001a8f07891f41b62267490f97bbed9"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/ftgrays3.patch",
+      "sha256": "0fa548f1ea5a2641bb69431f837fec536454fa310098cb0bfb28a710ee05a7c8"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/ftobjs1.patch",
+      "sha256": "9ee93d3a82c5079d43f6a123e7b1e5111682bdd1c4163450b493822f83a3cb54"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/ftobjs2.patch",
+      "sha256": "0d150974049cdb5c8998a5f4df3a74b45c18fb7ddd0ec705b8fa69a5b57d5e8e"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/ftsystem.patch",
+      "sha256": "290cf84ed124b87d77573bf50a921be7dbac8cdd96169ba31cc52cd4777c14ca"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/sfnt.patch",
+      "sha256": "e43de46a0ae3d65c823be403ebfd338c77fb14176cb86221e007f85dab672f17"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/smooth.patch",
+      "sha256": "68df8fc4e04b109aa1d54e1f39af2820162d2256e9c06736920c6287d60ba73d"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/patches/ttcmap.patch",
+      "sha256": "ea1ef6adac0d0b7a438b74f72aa31c71249211241ba6c697eb965864d755e977"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+      "sha256": "0bd2923ec8e5f9c140f10de3604d976776f0d2eb51b7a7bcc419685fbb435a62"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile_test.cpp",
+      "sha256": "5e95459de8dad83d9cdcab022b9c7c616876af552a94daba9a916296792d49df"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.cpp",
+      "sha256": "b9183210055c9af58b68fb1d351c517924f88443b98d07313583c5b855820254"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.h",
+      "sha256": "4bf48fb358aa1064200485b0943a5fd0d4dcf2822ad2f788477878442c0b6f32"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/metafile.cpp",
+      "sha256": "52a7d866b1bc3f4757829427546c9016a01089016aa67ec377079bcffad75245"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/pdfwriter.cpp",
+      "sha256": "7cebd43bef184ba1262adbfcbf4cbca8f205f974941c445b1e83f69674d4d6a4"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/raster.cpp",
+      "sha256": "074ffa108433a70d0840771403791f2d51f957a5f3c44d6c01c638d2d36beebc"
+    },
+    {
+      "path": "DesktopEditor/graphics/pro/js/wasm/src/raster.h",
+      "sha256": "0d9cac80386c72abc26993a27b1e58bd9649aae1d556dcd1f8e9a8fffcf196d6"
+    },
+    {
+      "path": "OfficeUtils/js/.gitignore",
+      "sha256": "ddf89959f4d795633f055050c2aa34acbfcc6e495f8ede39eb0b78dd8d75e155"
+    },
+    {
+      "path": "OfficeUtils/js/qt/test/main.cpp",
+      "sha256": "a3762d6bfb2f83c349a403b1384a816316a702c45f110bf38eefbbf7ed733cb1"
+    },
+    {
+      "path": "OfficeUtils/js/qt/test/test.pro",
+      "sha256": "170505394c46ed8d607f1691f4014822ae7ac714257c84841af16c8bf1dff500"
+    },
+    {
+      "path": "OfficeUtils/js/qt/zlib.pro",
+      "sha256": "2e372768f2e12b3421f38b4b602cc66749261a023019f870815155305c4d8490"
+    },
+    {
+      "path": "OfficeUtils/js/wasm/js/code.js",
+      "sha256": "b4cdcf9b39268c555f6f4c019a82bde6b806777772546bb61ff9b63c53fe0380"
+    },
+    {
+      "path": "OfficeUtils/js/wasm/js/index.html",
+      "sha256": "dece6a999ddffc72dcc2b19fdd413c451bb5ffb9dce3de858ae658ec27a47b08"
+    },
+    {
+      "path": "OfficeUtils/js/wasm/js/zlib.js",
+      "sha256": "da032bd6c739eda1255413029fbf565bc04746c563d3bce1f539baa361297f5c"
+    },
+    {
+      "path": "OfficeUtils/js/wasm/src/base.cpp",
+      "sha256": "c3dc3d0bd1bbc6534ab2863416437c85d41c5a05895563251674caa732e5034b"
+    },
+    {
+      "path": "OfficeUtils/js/wasm/src/base.h",
+      "sha256": "23b79935f7ad32ff737010cc105342b5c3ad3d7db5994ff3f89ba10f05250a57"
+    },
+    {
+      "path": "OfficeUtils/js/zlib.json",
+      "sha256": "24394b275f6d008bd6447c4a9edde7c789f1e39cd33ceda7edea9a36c99bef32"
+    },
+    {
+      "path": "OfficeUtils/js/zlib_image.json",
+      "sha256": "81d48616d842192e20cc28f2d8854706b4378c4dc311202490d596e7bd43233d"
+    },
+    {
+      "path": "OfficeUtils/js/zlib_image_all.json",
+      "sha256": "b6995bd359077f0b0586a2c7152a5f4dcaaebd0b2c73d05b0e5a1f523a6f96ec"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/hyphen_build/after.py",
+      "sha256": "9d88376e14fd2c940e5aef98cedae2de8a5ef93c1d6060ee0e8c5527f037a10c"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/hyphen_build/hyphen.json",
+      "sha256": "47fac0660e0e5980403c1b369dd868e18dba0469cc888935819cb8fd3660ce39"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/library.js",
+      "sha256": "ccd1149e8097584c6b1f2d1317ff06dc3e34e797f2f0b86d4156460617b5dda1"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/module.js",
+      "sha256": "23ad969a0dcccf210fd47d6b9d01ee88828049946090f10844a918dc7c4ebec3"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/src/hyphen.cpp",
+      "sha256": "e7e63120453bde6b1f449bce68c583c29beb0667ee2104eda34abd562becf973"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/test/index.html",
+      "sha256": "887124fc78d148e82d992b8ef32b1f857744efe7972f248b4ff2eee1eadfe1bb"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/test/main.js",
+      "sha256": "9a4c8c036f2fb6f317cf80e4ee0bc8b4b495d726407323d9a6f4ced0596af4e7"
+    },
+    {
+      "path": "Common/3dParty/hyphen/js/test/styles.css",
+      "sha256": "e5f36b6dacba45e39ce67cfc3f9d0310198c4a5af3ab57acb4e62588044e89b9"
+    }
+  ],
+  "history_files_kept_current": [
+    "DesktopEditor/graphics/pro/js/wasm/src/HTMLRendererText.cpp",
+    "DesktopEditor/graphics/pro/js/wasm/src/HTMLRendererText.h",
+    "DesktopEditor/graphics/pro/js/wasm/src/serialize.h",
+    "DesktopEditor/graphics/pro/js/wasm/src/Text.h"
+  ],
+  "third_party_copies": [
+    {
+      "path": "Common/3dParty/harfbuzz/harfbuzz",
+      "commit": "894a1f72ee93a1fd8dc1d9218cb3fd8f048be29a",
+      "pin": "core Common/3dParty/harfbuzz/make.py",
+      "modified_files": [
+        "src/hb-ft.cc"
+      ],
+      "files": 3512,
+      "tree_sha256": "074b7a7eee530c435d9a021ecfdf706d0f86f06fd959e41bbe7aeefe09d05bb4"
+    },
+    {
+      "path": "Common/3dParty/brotli/brotli",
+      "commit": "a47d7475063eb223c87632eed806c0070e70da29",
+      "pin": "core Common/3dParty/brotli/make.py",
+      "modified_files": [],
+      "files": 384,
+      "tree_sha256": "2eb5d54cd6eddb8e82dad205dc3aa5b80f39643a49b12d043f1c07ef8d2d939e"
+    },
+    {
+      "path": "Common/3dParty/hyphen/hyphen",
+      "commit": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe",
+      "pin": "not pinned: build_tools core_common/modules/hyphen.py clones default branch; same checkout as native build",
+      "modified_files": [],
+      "files": 201,
+      "tree_sha256": "0405d6995f600ebfa809cd62ce48dee88be524fa197096bd7cf2c01d06152eb6"
+    }
+  ],
+  "freetype": {
+    "source": "DesktopEditor/freetype-2.10.4",
+    "copy": "DesktopEditor/graphics/pro/js/freetype-2.10.4",
+    "steps": [
+      {
+        "copied_from": "src/smooth/ftgrays.c",
+        "target": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/ftgrays.cpp",
+        "patches": [
+          "ftgrays1",
+          "ftgrays2",
+          "ftgrays3"
+        ],
+        "applied": [
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/ftgrays.cpp",
+            "matches": 1,
+            "sha256_before": "f2167dbeb853f75a1da110523faceab0d6b0cd9cc1cc6a576f6395a08e08d9f5",
+            "sha256_after": "d07592bb8b8992caa0dfe91946aa6073f33e254350dda6c2c622a29a11e9c44a"
+          },
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/ftgrays.cpp",
+            "matches": 1,
+            "sha256_before": "d07592bb8b8992caa0dfe91946aa6073f33e254350dda6c2c622a29a11e9c44a",
+            "sha256_after": "ebff4af73c3804106c7750fa92e2c7413b2cd4b529f72df29a3313307601b5c1"
+          },
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/ftgrays.cpp",
+            "matches": 1,
+            "sha256_before": "ebff4af73c3804106c7750fa92e2c7413b2cd4b529f72df29a3313307601b5c1",
+            "sha256_after": "ea762aeb6721b2e4af683d2f38792540a88df6d895ee35f396ea689e85cdb665"
+          }
+        ]
+      },
+      {
+        "copied_from": "src/smooth/smooth.c",
+        "target": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/smooth.cpp",
+        "patches": [
+          "smooth"
+        ],
+        "applied": [
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/smooth.cpp",
+            "matches": 1,
+            "sha256_before": "ac1110202cbe085b5cb964afad4070cccafe01afaa0422ba3b6d98e3a7d7252c",
+            "sha256_after": "e2e5e13f0f58fbaaf87181202095376a9f396548af53838e6894b254fb7c0296"
+          }
+        ]
+      },
+      {
+        "copied_from": null,
+        "target": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftobjs.c",
+        "patches": [
+          "ftobjs1",
+          "ftobjs2"
+        ],
+        "applied": [
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftobjs.c",
+            "matches": 1,
+            "sha256_before": "3e29882de7eaa5213a60686480a72f6b5153181a69c46c4db0751af5b4358b14",
+            "sha256_after": "deb7889cbf7d6689d186c7d9cf75fca392b1af49c54abbf404cb1c578dacefe6"
+          },
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftobjs.c",
+            "matches": 1,
+            "sha256_before": "deb7889cbf7d6689d186c7d9cf75fca392b1af49c54abbf404cb1c578dacefe6",
+            "sha256_after": "57bdfc3b14f8e2e7bd844828e25041e00c2e0dd75d5644362d853b17362cb5c4"
+          }
+        ]
+      },
+      {
+        "copied_from": "src/sfnt/ttcmap.c",
+        "target": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/ttcmap.cpp",
+        "patches": [
+          "ttcmap"
+        ],
+        "applied": [
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/ttcmap.cpp",
+            "matches": 1,
+            "sha256_before": "84f9906a07c1c512f98b1f76da827a110935cba0047b8f1ec98380ae262bff91",
+            "sha256_after": "dfa39ff93d260be657ddc9c23a0cfff6a495de02e5a6f03284194825d70ff3c3"
+          }
+        ]
+      },
+      {
+        "copied_from": "src/sfnt/sfnt.c",
+        "target": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/sfnt.cpp",
+        "patches": [
+          "sfnt"
+        ],
+        "applied": [
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/sfnt.cpp",
+            "matches": 1,
+            "sha256_before": "8d293a2d6497dd3d0de16d8fee2a95f50dbaa9f0faadef3534adca6abf36f79a",
+            "sha256_after": "499e1e6e0adc91993b88a0245b131cca5756e48c9803fadc4a8564fb1feec5c4"
+          }
+        ]
+      },
+      {
+        "copied_from": null,
+        "target": "DesktopEditor/graphics/pro/js/freetype-2.10.4/builds/unix/ftsystem.c",
+        "patches": [
+          "ftsystem"
+        ],
+        "applied": [
+          {
+            "file": "DesktopEditor/graphics/pro/js/freetype-2.10.4/builds/unix/ftsystem.c",
+            "matches": 1,
+            "sha256_before": "c7287fecf09bf6241d8e7d1fde33f9f5fc9e9f3fa551fe4a8f77aa3a8f0c6076",
+            "sha256_after": "1d33cc281fdb7d930059f7280bafdba087d09e54a412eec947ddbbd63ee6144b"
+          }
+        ]
+      }
+    ]
+  },
+  "edits": [
+    {
+      "file": "DesktopEditor/cximage/png/pnglibconf.h",
+      "matches": 1,
+      "sha256_before": "06132e7a44e4d67834ae52fc60268afc70ce653384ba9265b3aa7a7f8ee3288e",
+      "sha256_after": "797f875275514d121a4a85875adaad0f0a79769caadf5e005e9f39dadb096b6d"
+    }
+  ],
+  "tracked_changes_after": [
+    " M DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "finished_utc": "2026-11-03T09:51:40.638177+00:00"
+}

@@ -1,0 +1,120 @@
+{
+  "module": "spell",
+  "label": "pass2",
+  "started_utc": "2026-11-04T09:53:28.887785+00:00",
+  "official_dir": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\spell\\spell",
+  "rebuilt_dir": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\deploy",
+  "inputs": {
+    "D:\\open office\\build\\full-source-run\\dictionaries\\en_US\\en_US.aff": {
+      "bytes": 3414,
+      "sha256": "3be60c620fbc0cc273aba783b4e58c7252150ca3cc10a9337fe376558e2d4075"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\en_US\\en_US.dic": {
+      "bytes": 601331,
+      "sha256": "9ec9599fad97c4161bc5c8ab8da5b9df42b824114daf4c9b3fd5df42fb4e706b"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\de_DE\\de_DE.aff": {
+      "bytes": 20034,
+      "sha256": "647888cbdf836267398a12bf5945d812db4f4f47aa528c106dfdbbcec137bfb4"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\de_DE\\de_DE.dic": {
+      "bytes": 4678151,
+      "sha256": "f954d0fce3275f24b2bc1519338c21e2933243a75d2cc30d243714239cb14ee3"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\ru_RU\\ru_RU.aff": {
+      "bytes": 72869,
+      "sha256": "5fc30a382a960313b806b1723dfab46fed00d6ea276fb6b907c3bb89af9c9934"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\ru_RU\\ru_RU.dic": {
+      "bytes": 3619461,
+      "sha256": "ed3fdbe6cb797af0ba83bfa1b156fc62bacd327ea9d026cd25ac689065b77466"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\fr_FR\\fr_FR.aff": {
+      "bytes": 207608,
+      "sha256": "341e586945102677552498e450d84afca55e6f2ff6d4825de796f0c5f757754b"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\fr_FR\\fr_FR.dic": {
+      "bytes": 1311235,
+      "sha256": "7ed58e37db7ecf4e0bdbc9871fed87929bf43373098243c4991a7a228c462e7d"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\es_ES\\es_ES.aff": {
+      "bytes": 173920,
+      "sha256": "f56fb80b2e5fd44461be4097511d795270b58a10737c57ec2f9ca9e638cbd7b6"
+    },
+    "D:\\open office\\build\\full-source-run\\dictionaries\\es_ES\\es_ES.dic": {
+      "bytes": 760402,
+      "sha256": "ea62d4a46220c7a79ce157e9e5e15f2c0fd4d4a3316b4e90040b9688827a9ba7"
+    }
+  },
+  "harness": {
+    "path": "D:\\open office\\scripts\\wasm_engine_harness.cjs",
+    "sha256": "43be36284d380cea84031d9d225ce3195125ac32aa33d4ef4f936c703d43482c"
+  },
+  "node": "v24.15.0",
+  "variants": {
+    "wasm": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\spell\\spell\\spell.js",
+          "engine_sha256": "28a2822a20c8377caef20153edf3ddf91182472006a53153f3b9f126630cd4d2",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\deploy\\spell.js",
+          "engine_sha256": "5ae2086229793ef54b1c87a995045ac730529d80be43983f9c6df20fdc7dc924",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": true,
+      "differences": [],
+      "independent": {
+        "official": {
+          "known_words_classified_as_expected": true,
+          "unexpected_classifications": [],
+          "misspellings_with_suggestions": 12
+        },
+        "rebuilt": {
+          "known_words_classified_as_expected": true,
+          "unexpected_classifications": [],
+          "misspellings_with_suggestions": 12
+        }
+      },
+      "passed": true
+    },
+    "asmjs": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\spell\\spell\\spell_ie.js",
+          "engine_sha256": "8a337d9732132bd911e0480a4fef49635a89f6c27fac611a780aa30824e95f00",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\deploy\\spell_ie.js",
+          "engine_sha256": "3bdc2f6d2e8c51a93163cededf74c54499b7e56c47fcefdb5f25cdbe87996e7e",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": true,
+      "differences": [],
+      "independent": {
+        "official": {
+          "known_words_classified_as_expected": true,
+          "unexpected_classifications": [],
+          "misspellings_with_suggestions": 12
+        },
+        "rebuilt": {
+          "known_words_classified_as_expected": true,
+          "unexpected_classifications": [],
+          "misspellings_with_suggestions": 12
+        }
+      },
+      "passed": true
+    }
+  },
+  "all_passed": true,
+  "finished_utc": "2026-11-04T09:53:34.448036+00:00"
+}

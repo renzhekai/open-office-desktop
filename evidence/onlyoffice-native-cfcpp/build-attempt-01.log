@@ -1,0 +1,44 @@
+
+D:\open office>setlocal DisableDelayedExpansion 
+
+D:\open office>set "TEMP=D:\open office\build\onlyoffice-cfcpp-msvc144\tmp" 
+
+D:\open office>set "TMP=D:\open office\build\onlyoffice-cfcpp-msvc144\tmp" 
+
+D:\open office>call "D:\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvarsall.bat" x64 10.0.26100.0 -vcvars_ver=14.44.35207 
+**********************************************************************
+** Visual Studio 2026 Developer Command Prompt v18.7.3
+** Copyright (c) 2026 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+MSVC_TOOLS=14.44.35207
+WINDOWS_SDK=10.0.26100.0\
+D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe
+D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\lib.exe
+编译器扫描遍数:
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\cl.exe:        版本 19.44.35228.0
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\c1.dll:        版本 19.44.35228.0
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\c1xx.dll:      版本 19.44.35228.0
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\c2.dll:        版本 19.44.35228.0
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\c1xx.dll:      版本 19.44.35228.0
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\link.exe:      版本 14.44.35228.0
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\mspdb140.dll:  版本 14.44.35228.0
+ D:\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\bin\HostX64\x64\2052\clui.dll: 版本 19.44.35228.0
+
+rbtree.cpp
+fstream_utils.cpp
+stream_utils.cpp
+cfitem.cpp
+cfstorage.cpp
+cfstream.cpp
+compoundfile.cpp
+directoryentry.cpp
+header.cpp
+sector.cpp
+sectorcollection.cpp
+streamrw.cpp
+streamview.cpp
+正在生成代码...
+smoke.cpp
+CompoundFileLib.lib(compoundfile.obj) : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) public: static void __cdecl NSFile::CUtf8Converter::GetUtf8StringFromUnicode(wchar_t const *,long,unsigned char * &,long &,bool)" (__imp_?GetUtf8StringFromUnicode@CUtf8Converter@NSFile@@SAXPEB_WJAEAPEAEAEAJ_N@Z)，函数 "private: void __cdecl CFCPP::CompoundFile_impl::SetFileName(class std::basic_string<wchar_t,struct std::char_traits<wchar_t>,class std::allocator<wchar_t> >)" (?SetFileName@CompoundFile_impl@CFCPP@@AEAAXV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z) 中引用了该符号
+D:\open office\build\onlyoffice-cfcpp-msvc144\cfcpp-smoke.exe : fatal error LNK1120: 1 个无法解析的外部命令

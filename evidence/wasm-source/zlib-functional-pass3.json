@@ -1,0 +1,156 @@
+{
+  "module": "zlib",
+  "label": "pass3",
+  "started_utc": "2026-11-05T04:47:11.614910+00:00",
+  "official_dir": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\zlib\\engine",
+  "rebuilt_dir": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass8\\deploy",
+  "inputs": {
+    "D:\\open office\\fixtures\\generated\\text-table.docx": {
+      "bytes": 2063,
+      "sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795"
+    },
+    "D:\\open office\\fixtures\\generated\\values-formula.xlsx": {
+      "bytes": 2360,
+      "sha256": "19d565804b426f8f509d9c249ab91957552841d1bd68f446505ba21853f264fe"
+    },
+    "D:\\open office\\fixtures\\generated\\text-shape.pptx": {
+      "bytes": 4852,
+      "sha256": "eb2d4d36791d7b53482bf60c2aa5de968807ab68b166418050488619eeffd223"
+    },
+    "D:\\open office\\fixtures\\results\\full-source-docx-roundtrip.docx": {
+      "bytes": 25872,
+      "sha256": "93b5853848245249f92862f7b632077af6177f13cbc98bb0a2991a93c051dfbe"
+    },
+    "D:\\open office\\build\\full-source-run\\editors\\web-apps\\apps\\common\\main\\resources\\help\\images\\symbols.png": {
+      "bytes": 56102,
+      "sha256": "65dc595950b88f5a111b285d178f19c1ca879d24057ec70182801da0a4dc3d36"
+    },
+    "D:\\open office\\build\\full-source-run\\editors\\web-apps\\apps\\common\\main\\resources\\help\\fr\\images\\charteditor.png": {
+      "bytes": 32472,
+      "sha256": "c2de8858483dca59dd1663f1d51a68470202ada58abca0fd14b1adf9eb994976"
+    },
+    "D:\\open office\\build\\full-source-run\\editors\\web-apps\\apps\\documenteditor\\main\\resources\\help\\fr\\images\\cellvalueformula.gif": {
+      "bytes": 15207950,
+      "sha256": "522d1f7e01dd6d8615ead2b8254e557fcd2257296cf20ffdb18fcf4cf0550b5a"
+    },
+    "C:\\Windows\\Web\\4K\\Wallpaper\\Windows\\img0_1920x1200.jpg": {
+      "bytes": 542091,
+      "sha256": "7f78c8efdc6462b80722160290bb24da278a6ad5e12836e5fbbafe2782b5f515"
+    },
+    "D:\\open office\\build\\full-source\\DesktopEditors\\core\\OOXML\\Binary\\MathEquation\\Examples\\image1.wmf": {
+      "bytes": 488,
+      "sha256": "8d10cf06cc5772990c03fc78e09e4d63123e4bc0ac0af12c7427e84fe53e880e"
+    },
+    "D:\\open office\\build\\full-source\\DesktopEditors\\core\\OOXML\\Binary\\MathEquation\\Examples\\image10.wmf": {
+      "bytes": 528,
+      "sha256": "c73f6c1c0a873df4f807d8fdd58391501dfb0e7308a709827f0b436161813124"
+    },
+    "C:\\Program Files\\Microsoft Office\\root\\CLIPART\\PUB60COR\\AN00010_.WMF": {
+      "bytes": 3026,
+      "sha256": "24af793e442261819ce9724b856dff7bce374664e028130c1526e0e503313e86"
+    },
+    "C:\\Program Files\\Microsoft Office\\root\\CLIPART\\PUB60COR\\AN00790_.WMF": {
+      "bytes": 5684,
+      "sha256": "792ffb9746ed028b2891379dfb3b52a3e8a1da3a4c7f7552f28bab6a934dc94b"
+    }
+  },
+  "harness": {
+    "path": "D:\\open office\\scripts\\wasm_engine_harness.cjs",
+    "sha256": "95c022027104fd09152150e2556c414c2f21ab08c6bc8d7ab5aa7ea400e41f45"
+  },
+  "node": "v24.15.0",
+  "variants": {
+    "wasm": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\zlib\\engine\\zlib.js",
+          "engine_sha256": "7423739061097d41a870569756bd19d69303b0479368e43b1612c414b4a3e70e",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass8\\deploy\\zlib.js",
+          "engine_sha256": "d5fa1fa62fc1d7c170cd9ee8d149e990e685ce6bcadf3dd969b2e01cadfa3e06",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": false,
+      "differences": [
+        ".raster[2].encode_4",
+        ".raster[3].encode_4",
+        ".raster[4].encode_24.sha256",
+        ".raster[4].encode_24.size",
+        ".raster[5].encode_24.sha256",
+        ".raster[5].encode_24.size",
+        ".raster[6].encode_24.sha256",
+        ".raster[6].encode_24.size",
+        ".raster[7].encode_24.sha256",
+        ".raster[7].encode_24.size",
+        ".reloads_after_throw"
+      ],
+      "independent": {
+        "official": {
+          "created_zip_crc": true,
+          "created_zip_content": true,
+          "created_reread_matches_inputs": true,
+          "fixtures_match_python_zipfile": true
+        },
+        "rebuilt": {
+          "created_zip_crc": true,
+          "created_zip_content": true,
+          "created_reread_matches_inputs": true,
+          "fixtures_match_python_zipfile": true
+        }
+      },
+      "passed": false
+    },
+    "asmjs": {
+      "runs": {
+        "official": {
+          "engine": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs\\common\\zlib\\engine\\zlib_ie.js",
+          "engine_sha256": "92539746013e584e54a3576bb29590d3efd2467c636d3c75ca5e19cb00063d8c",
+          "exit": 0,
+          "stderr": ""
+        },
+        "rebuilt": {
+          "engine": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass8\\deploy\\zlib_ie.js",
+          "engine_sha256": "114211e971d0f266b544100f7257607dff2a94ba152baff59c07ebe03f954098",
+          "exit": 0,
+          "stderr": ""
+        }
+      },
+      "equal_to_official": false,
+      "differences": [
+        ".raster[2].encode_4",
+        ".raster[3].encode_4",
+        ".raster[4].encode_24.sha256",
+        ".raster[4].encode_24.size",
+        ".raster[5].encode_24.sha256",
+        ".raster[5].encode_24.size",
+        ".raster[6].encode_24.sha256",
+        ".raster[6].encode_24.size",
+        ".raster[7].encode_24.sha256",
+        ".raster[7].encode_24.size",
+        ".reloads_after_throw"
+      ],
+      "independent": {
+        "official": {
+          "created_zip_crc": true,
+          "created_zip_content": true,
+          "created_reread_matches_inputs": true,
+          "fixtures_match_python_zipfile": true
+        },
+        "rebuilt": {
+          "created_zip_crc": true,
+          "created_zip_content": true,
+          "created_reread_matches_inputs": true,
+          "fixtures_match_python_zipfile": true
+        }
+      },
+      "passed": false
+    }
+  },
+  "all_passed": false,
+  "finished_utc": "2026-11-05T04:47:18.504424+00:00"
+}

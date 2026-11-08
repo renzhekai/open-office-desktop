@@ -1,0 +1,80 @@
+diff --git a/src/internal/sio_client_impl.cpp b/src/internal/sio_client_impl.cpp
+index 02cceada57174451ddac79134968bfe535623307..4734acbb9fed85d15f089b736019612358035905 100644
+--- a/src/internal/sio_client_impl.cpp
++++ b/src/internal/sio_client_impl.cpp
+@@ -66,6 +66,8 @@ namespace sio
+         m_packet_mgr.set_decode_callback(std::bind(&client_impl::on_decode,this,_1));
+ 
+         m_packet_mgr.set_encode_callback(std::bind(&client_impl::on_encode,this,_1,_2));
++
++        m_client.set_close_handshake_timeout(1);
+     }
+     
+     client_impl::~client_impl()
+@@ -396,15 +398,16 @@ namespace sio
+ 
+     void client_impl::on_fail(connection_hdl)
+     {
+-        if (m_con_state == con_closing) {
++        con_state con_state_old = m_con_state;
++        m_con.reset();
++        m_con_state = con_closed;
++        this->sockets_invoke_void(&sio::socket::on_disconnect);
++
++        if (con_state_old == con_closing) {
+             LOG("Connection failed while closing." << endl);
+             this->close();
+             return;
+         }
+-
+-        m_con.reset();
+-        m_con_state = con_closed;
+-        this->sockets_invoke_void(&sio::socket::on_disconnect);
+         LOG("Connection failed." << endl);
+         if(m_reconn_made<m_reconn_attempts && !m_abort_retries)
+         {
+@@ -424,16 +427,17 @@ namespace sio
+     
+     void client_impl::on_open(connection_hdl con)
+     {
+-        if (m_con_state == con_closing) {
+-            LOG("Connection opened while closing." << endl);
+-            this->close();
+-            return;
+-        }
+-
++        con_state con_state_old = m_con_state;
+         LOG("Connected." << endl);
+         m_con_state = con_opened;
+         m_con = con;
+         m_reconn_made = 0;
++
++        if (con_state_old == con_closing) {
++            LOG("Connection opened while closing." << endl);
++            this->close();
++            return;
++        }
+         this->sockets_invoke_void(&sio::socket::on_open);
+         this->socket("");
+         if(m_open_listener)m_open_listener();
+@@ -613,7 +617,11 @@ failed:
+         }
+ 
+         asio::error_code ec;
++#if defined(PING_TIMEOUT_INTERVAL)
++        m_ping_timeout_timer->expires_from_now(milliseconds(PING_TIMEOUT_INTERVAL), ec);
++#else
+         m_ping_timeout_timer->expires_from_now(milliseconds(m_ping_interval + m_ping_timeout), ec);
++#endif
+         m_ping_timeout_timer->async_wait(std::bind(&client_impl::timeout_ping, this, std::placeholders::_1));
+     }
+     
+@@ -647,7 +655,7 @@ failed:
+         ss << std::hex;
+         // Percent-encode (RFC3986) non-alphanumeric characters.
+         for(const char c : query){
+-            if((c >= 'a' && c <= 'z') || (c>= 'A' && c<= 'Z') || (c >= '0' && c<= '9')){
++            if((c >= 'a' && c <= 'z') || (c>= 'A' && c<= 'Z') || (c >= '0' && c<= '9') || ('-' == c) || ('_' == c) || ('.' == c) || ('~' == c)){
+                 ss << c;
+             } else {
+                 ss << '%' << std::uppercase << std::setw(2) << int((unsigned char) c) << std::nouppercase;

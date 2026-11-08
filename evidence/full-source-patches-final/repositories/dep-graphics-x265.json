@@ -1,0 +1,42 @@
+{
+  "name": "dep-graphics-x265",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\x265",
+  "pin": "32e25ffcf810c5fe284901859b369270824c4596",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:09.683757+00:00",
+  "head": "32e25ffcf810c5fe284901859b369270824c4596",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/Multicorewareinc/x265.git",
+  "patch": {
+    "path": "patches/dep-graphics-x265.patch",
+    "size": 609,
+    "sha256": "dc0651c16abfef4e7a8de337881b3790e081f31642999e317934150f04783da6"
+  },
+  "head_file": {
+    "path": "heads/dep-graphics-x265.txt",
+    "size": 41,
+    "sha256": "ccd0304c2e02799ebeb18868ecd1d7c4baef26078459fc3b68169dd09ebc5285"
+  },
+  "changed_files": [
+    {
+      "path": "source/cmake/Version.cmake",
+      "state": "file",
+      "size": 7784,
+      "sha256": "8edc201cc31da5a355de4b4af0e3f8774be4c89923d0a0335a2d1252f31dee5e"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:10.275589+00:00"
+}

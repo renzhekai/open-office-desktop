@@ -1,0 +1,32 @@
+{
+  "checked_at_utc": "2026-11-02",
+  "scope": "read-only recheck of upstream WASM wrapper/recipe availability; no tools installed, nothing compiled, no production source modified",
+  "upstream_core_master_head": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "pinned_core_equals_upstream_master": true,
+  "upstream_master_graphics_pro_js_wasm_src": ["HTMLRendererText.cpp", "HTMLRendererText.h", "Text.h", "serialize.h"],
+  "wrapper_removed_by": "b77b3dc7e21e7d33b5fbe6711b7c1cb1a11ae447 (2026-05-17, 'Remove unused files', 48 files incl. Common/js generator and 39 under DesktopEditor/graphics/pro/js)",
+  "historical_wrapper": {
+    "commit": "075052dd3f41373affa533317d6734a0d34e0897",
+    "path": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+    "bytes": 6886,
+    "nature": "thin extern-C export layer over CDrawingFile from DesktopEditor/doctrenderer/drawingfile.h"
+  },
+  "sdkjs_drawingfile_update": "05fd481c7bc5154c307ccef9718c47b783ddd6b9 (2026-10-08, 'Update module', binary-only: drawingfile.wasm + drawingfile_ie.js)",
+  "pdf_new_exports_in_pinned_public_source": {
+    "_BuildPdf": "CDrawingFile::BuildPdf in DesktopEditor/doctrenderer/drawingfile.h",
+    "_SetImageBinary": "CDrawingFile::SetImageBinary in DesktopEditor/doctrenderer/drawingfile.h",
+    "_IsImageBinaryExist": "CDrawingFile::IsImageBinaryExist in DesktopEditor/doctrenderer/drawingfile.h",
+    "_GetMacros": "CDrawingFile::GetMacros in DesktopEditor/doctrenderer/drawingfile.h",
+    "_ClearFontsStorage": "not found in pinned core (excluding Common/3dParty)",
+    "_ClearImagesStorage": "not found in pinned core (excluding Common/3dParty)"
+  },
+  "build_tools_separate_wasm_repo": "none in scripts/base.py repository list",
+  "emsdk_3_1_48_download_bytes": {
+    "wasm-binaries.zip (694434b6d47c5f6eff2c8fbd9eeb016c977ae9dc)": 441957173,
+    "node-v16.20.0-win-x64.zip": 28623474,
+    "python-3.9.2-4-amd64+pywin32.zip": 14413267,
+    "portable_jre_8_update_152_64bit.zip": 69241499
+  },
+  "d_drive_free": "45G",
+  "pending_user_decision": "authorize project-local emsdk 3.1.48 download for reconstructed WASM builds, or keep documented boundary"
+}

@@ -1,0 +1,24 @@
+{
+  "observed_date": "2026-11-01",
+  "qmake": {
+    "command": "D:\\Qt\\6.11.1\\mingw_64\\bin\\qmake.exe -v",
+    "exit_code": 0,
+    "output": "QMake version 3.1\nUsing Qt version 6.11.1 in D:/Qt/6.11.1/mingw_64/lib"
+  },
+  "ninja": {
+    "command": "D:\\Qt\\Tools\\Ninja\\ninja.exe --version",
+    "exit_code": 0,
+    "output": "1.12.1"
+  },
+  "os_architecture": {
+    "source": ".NET RuntimeInformation.OSArchitecture",
+    "value": "X64"
+  },
+  "onlyoffice_detection": {
+    "standard_install_directories_found": [],
+    "hkcu_hklm_uninstall_entries_matching_onlyoffice": [],
+    "processes_named_DesktopEditors_or_ONLYOFFICE": [],
+    "limitation": "Targeted installation and process inventory; not an exhaustive scan of user disks."
+  },
+  "build_status": "not_run"
+}

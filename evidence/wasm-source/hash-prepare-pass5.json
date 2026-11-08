@@ -1,0 +1,138 @@
+{
+  "module": "hash",
+  "label": "pass5",
+  "started_utc": "2026-11-04T04:53:30.042414+00:00",
+  "core": "D:\\open office\\build\\wasm-source\\core",
+  "core_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "history_commit": "075052dd3f41373affa533317d6734a0d34e0897",
+  "historical_scripts_executed": false,
+  "tracked_changes_before": [
+    "DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "history_files_added": [],
+  "history_files_already_present": [
+    "Common/js/.gitignore",
+    "Common/js/common.py",
+    "Common/js/desktop_fetch.js",
+    "Common/js/logging.h",
+    "Common/js/make.py",
+    "Common/js/min.py",
+    "Common/js/polyfill.js",
+    "Common/js/README.md",
+    "Common/js/string_utf8.js",
+    "DesktopEditor/xmlsec/src/wasm/.gitignore",
+    "DesktopEditor/xmlsec/src/wasm/3rdParty/.gitignore",
+    "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl.py",
+    "DesktopEditor/xmlsec/src/wasm/3rdParty/patches/openssl1.patch",
+    "DesktopEditor/xmlsec/src/wasm/3rdParty/patches/openssl2.patch",
+    "DesktopEditor/xmlsec/src/wasm/all/after.py",
+    "DesktopEditor/xmlsec/src/wasm/all/before.py",
+    "DesktopEditor/xmlsec/src/wasm/all/code.js",
+    "DesktopEditor/xmlsec/src/wasm/all/engine.js",
+    "DesktopEditor/xmlsec/src/wasm/all/index.html",
+    "DesktopEditor/xmlsec/src/wasm/all/main.cpp",
+    "DesktopEditor/xmlsec/src/wasm/all/make.py",
+    "DesktopEditor/xmlsec/src/wasm/all/xmlsec.json",
+    "DesktopEditor/xmlsec/src/wasm/all/xmlsec.pro",
+    "DesktopEditor/xmlsec/src/wasm/hash/after.py",
+    "DesktopEditor/xmlsec/src/wasm/hash/before.py",
+    "DesktopEditor/xmlsec/src/wasm/hash/hash.json",
+    "DesktopEditor/xmlsec/src/wasm/hash/hash.pro",
+    "DesktopEditor/xmlsec/src/wasm/hash/hash_base.js",
+    "DesktopEditor/xmlsec/src/wasm/hash/main.cpp",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/config.json",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/index.html",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/LICENSE",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/after.py",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/before.py",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/code.js",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/deploy/engine.js",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/deploy/engine.wasm",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/deploy/engine_ie.js",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/engine.json",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/engine_base.js",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/index.html",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/main.cpp",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/module/openssl_module.pro",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/README.md",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@1.25x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@1.5x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@1.75x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/dark/icon@2x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@1.25x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@1.5x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@1.75x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/resources/light/icon@2x.png",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/scripts/code.js",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/cs-CS.json",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/de-DE.json",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/es-ES.json",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/fr-FR.json",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/langs.json",
+    "DesktopEditor/xmlsec/src/wasm/oform_plugin/translations/ru-RU.json"
+  ],
+  "history_files_kept_current": [],
+  "third_party_copies": [],
+  "openssl": {
+    "path": "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl",
+    "tarball": "D:\\open office\\dependencies\\full-source\\openssl-1.1.1f.tar.gz",
+    "configure": [
+      "Configure",
+      "linux-generic32",
+      "no-shared",
+      "no-asm",
+      "no-threads",
+      "no-dso"
+    ],
+    "historical_script": "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl.py (exits on Windows; not executed)",
+    "skipped": {
+      "apps/progs.h copy": "only used by OpenSSL command-line apps, which the hash recipe does not compile; the native tree has no such file"
+    },
+    "state": "prepared",
+    "tarball_sha256": "186c6bfe6ecfba7a5b48c47f8a1673d0f3b0e5ba2e25602dd23b629975da3f35",
+    "perl": {
+      "path": "C:\\Program Files\\Git\\usr\\bin\\perl.exe",
+      "version": "v5.42.2 cygwin",
+      "why": "Git for Windows MSYS Perl (already installed); native Strawberry Perl is rejected by OpenSSL Configure for Unix targets",
+      "pod_usage_shim": {
+        "path": "D:\\open office\\build\\wasm-source\\toolchain\\perl-shim\\Pod\\Usage.pm",
+        "sha256": "228e19b3267b00f932cfc2763a7624ea7c288267d543accef4d23990148df86e"
+      },
+      "failed_attempts": [
+        "build/wasm-source/failed/hash-openssl-prepare-pass1",
+        "build/wasm-source/failed/hash-openssl-prepare-pass2",
+        "build/wasm-source/failed/hash-openssl-prepare-pass3",
+        "build/wasm-source/failed/hash-openssl-prepare-pass4"
+      ],
+      "perl5lib": "/d/open office/build/wasm-source/toolchain/perl-shim"
+    },
+    "configure_exit": 0,
+    "generated_before_patch": {
+      "include/crypto/bn_conf.h": "ce40004b6989d9a511f027285edc39b6de8a30d2a6559f784d78fe1dc2881abe",
+      "include/crypto/dso_conf.h": "62511d37b808bb3a216b5449de27b774ff1842b1d3872d0baa3c9f6ddefec4b4",
+      "include/openssl/opensslconf.h": "055f65fe7a804df5de493f70212a35ba04b0e10ca349f6d1be8ee40755ada273"
+    },
+    "applied": [
+      {
+        "file": "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/rand/rand_lib.c",
+        "matches": 1,
+        "sha256_before": "968bc07f9f0dbd4c94b6f84f572b71f3a68a7d902a5db0f483a995af4564e78c",
+        "sha256_after": "910defdc4f5a910eedc825a5739cd3fec1531bfc69dd97145ebcdf112fa71c4d"
+      },
+      {
+        "file": "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/include/openssl/opensslconf.h",
+        "matches": 1,
+        "sha256_before": "055f65fe7a804df5de493f70212a35ba04b0e10ca349f6d1be8ee40755ada273",
+        "sha256_after": "348d120e289d4285e3455d4d1a6ee33d94200fe9cba92e4452b9fc8f76ef31b1"
+      }
+    ]
+  },
+  "edits": [],
+  "edits_already_applied": [],
+  "tracked_changes_after": [
+    " M DesktopEditor/cximage/png/pnglibconf.h"
+  ],
+  "finished_utc": "2026-11-04T04:53:38.137876+00:00"
+}

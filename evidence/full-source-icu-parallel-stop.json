@@ -1,0 +1,25 @@
+{
+  "reason": "MSBuild parallel worker startup made no compile progress; retry single node",
+  "parent": 27536,
+  "worker_ids": [
+    14340,
+    24824,
+    42880,
+    39472,
+    27592,
+    35808,
+    38296,
+    18636,
+    42712,
+    7852,
+    27452,
+    49648,
+    45528,
+    49704,
+    39060,
+    20284,
+    15700,
+    19916
+  ],
+  "checked_at_utc": "2026-11-02T10:08:06.6706895Z"
+}

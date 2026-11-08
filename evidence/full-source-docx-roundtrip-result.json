@@ -1,0 +1,128 @@
+{
+  "result": "passed_native_core_docx_roundtrip",
+  "checked_at_utc": "2026-11-02T11:55:18.904449+00:00",
+  "entry_point": "D:\\open office\\build\\full-source-run\\OpenOffice.exe",
+  "entry_point_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+  "implementation": {
+    "own_host": "C++17 / Qt 6.11.1 Widgets / MSVC 14.44.35207",
+    "native_engine_source_build": true,
+    "native_converter_source_build": true,
+    "v8_source_build_and_runtime_smoke": true,
+    "qt_wrappers_source_build": true,
+    "all_first_party_engine_assets_source_built": false,
+    "prebuilt_third_party_dependencies": [
+      "CEF 109.1.18 / 5414",
+      "installed Qt 6.11.1 and Microsoft VC runtime"
+    ],
+    "unrebuilt_first_party_containing_assets": "5 WASM, 10 generated JS/asm.js, spell.js.mem and documented pre-generated JS assets from pinned SDKJS",
+    "official_DesktopEditors_exe_launched": false
+  },
+  "actions_observed": [
+    "Own OpenOffice host embedded real CEF editor and received document-ready.",
+    "Typed Chinese marker in the real document UI and inserted a paragraph break.",
+    "Clicked own host Save button; UI confirmed save complete and unsaved marker cleared.",
+    "Independently verified OOXML: exactly one marker paragraph added; original paragraphs and 2x2 table preserved.",
+    "Closed first window via its titlebar close button; native destroy/message-loop/shutdown events and exit 0 recorded.",
+    "Reopened saved DOCX in a different process and fresh profile; visually confirmed Chinese marker, original text and table.",
+    "Second process closed through normal QWidget/native close handshake using its test timer and exited 0.",
+    "No source-runtime processes remained after reopen test; separate default-home startup also exited 0."
+  ],
+  "marker": "自产原生核心编辑保存验证 2026-11-02",
+  "saved_file": {
+    "path": "D:\\open office\\fixtures\\results\\full-source-docx-roundtrip.docx",
+    "sha256": "93b5853848245249f92862f7b632077af6177f13cbc98bb0a2991a93c051dfbe",
+    "bytes": 25872
+  },
+  "first_run": {
+    "started_at_utc": "2026-11-02T11:43:50.964843+00:00",
+    "command": [
+      "D:\\open office\\build\\full-source-run\\OpenOffice.exe",
+      "--engine-profile",
+      "D:\\open office\\build\\full-source-profiles\\docx-first",
+      "--smoke-report",
+      "D:\\open office\\evidence\\full-source-gui\\docx-first\\launch-report.json",
+      "--open",
+      "D:\\open office\\fixtures\\results\\full-source-docx-roundtrip.docx"
+    ],
+    "profile": "D:\\open office\\build\\full-source-profiles\\docx-first",
+    "profile_existed_before": false,
+    "entry_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+    "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+    "status": "exited",
+    "document_actions_verified": false,
+    "roundtrip_verified": false,
+    "pid": 30100,
+    "exit_code": 0,
+    "exited_at_utc": "2026-11-02T11:48:55.125777+00:00",
+    "native_events_sha256": "fb18c10f76985dbeceb38c1c56156ec1851fb465158332a6b47c9a81b9bd1ffb"
+  },
+  "reopen_run": {
+    "started_at_utc": "2026-11-02T11:49:41.567669+00:00",
+    "command": [
+      "D:\\open office\\build\\full-source-run\\OpenOffice.exe",
+      "--engine-profile",
+      "D:\\open office\\build\\full-source-profiles\\docx-reopen",
+      "--smoke-report",
+      "D:\\open office\\evidence\\full-source-gui\\docx-reopen\\launch-report.json",
+      "--open",
+      "D:\\open office\\fixtures\\results\\full-source-docx-roundtrip.docx",
+      "--exit-after-ms",
+      "60000"
+    ],
+    "profile": "D:\\open office\\build\\full-source-profiles\\docx-reopen",
+    "profile_existed_before": false,
+    "entry_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+    "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+    "status": "exited",
+    "document_actions_verified": false,
+    "roundtrip_verified": false,
+    "pid": 25184,
+    "exit_code": 0,
+    "exited_at_utc": "2026-11-02T11:50:44.091433+00:00",
+    "native_events_sha256": "7defe3125cd2cdd55a3c52386619073d8dd5ffe7f708ec86d2358b423e1a14b8"
+  },
+  "semantic_verification": "evidence/full-source-docx-saved-semantics.json",
+  "loader_probe": {
+    "report": "evidence/full-source-runtime-probe-pass1.json",
+    "validated_dlls": 76,
+    "actual_load_targets": 21
+  },
+  "live_process_module_paths": "evidence/full-source-gui/docx-first/loaded-module-paths.json",
+  "source_stage_manifest": "build/full-source-run/openoffice-full-source-stage.json",
+  "source_stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "source_stage_files": 20970,
+  "build_validation": {
+    "ctest_suites_passed": 2,
+    "ctest_suites_failed": 0,
+    "engine_QtTest_entries_passed": 20,
+    "UI_QtTest_entries_passed": 17,
+    "qt_test_counts_include_init_and_cleanup": true,
+    "ctest_log": "build/full-source/host-evidence/initial/ctest.log"
+  },
+  "default_home": "evidence/full-source-gui/default-home/result.json",
+  "visual_evidence": "Actual CUA screenshots in this task showed opened, edited/saved, and reopened native CEF document. No separate document screenshot file is claimed. evidence/full-source-gui/default-home/home.png is own QWidget home rendering only.",
+  "patch_archive": "evidence/full-source-patches-final/README.md",
+  "remaining_blocker": {
+    "action": "Rebuild all SDKJS first-party-containing WASM/generated engine assets matching pinned v10 source",
+    "target": "5 WASM modules plus adjacent generated JS/asm.js and memory files",
+    "status": "pending_matching_source_recipe_not_approval",
+    "reason": "Pinned current core/build_tools omit the generation wrappers/recipes; recovered official historical PDF recipe lacks six current exported APIs. Matching historical export lists for other modules do not prove implementation version.",
+    "evidence": [
+      "docs/feasibility/full-source-wasm-provenance.md",
+      "evidence/full-source-wasm-provenance.json"
+    ],
+    "new_emscripten_tools_installed": false
+  },
+  "known_limits": [
+    "One existing DOCX per host process; reopen app for another document.",
+    "New, Save As, XLSX/PPTX/PDF UI, print, multimedia and broad layout fidelity were not accepted in this regression.",
+    "This machine only; no clean-machine installer/distribution verification.",
+    "No AI added.",
+    "This result is native source-core verification, not all first-party engine asset source reconstruction."
+  ],
+  "pending_approval": false,
+  "requirements_sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+  "fallback_entry_sha256": "75f5a57dc9ac46919af8933a7b2e23b3c021e78cda315ca4d46ef60d05e1dcc7",
+  "docx_roundtrip_verified": true,
+  "launcher_scope_note": "Nested session flags record the launcher scope only; this acceptance result additionally incorporates actual CUA editing/reopening observations and OOXML inspection."
+}

@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-third_party_icu",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\icu",
+  "pin": "899e18383fd732b47e6978db2b960a1b2a80179b",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:05.731623+00:00",
+  "head": "899e18383fd732b47e6978db2b960a1b2a80179b",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/chromium/deps/icu.git",
+  "patch": {
+    "path": "patches/dep-v8-third_party_icu.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_icu.txt",
+    "size": 41,
+    "sha256": "7d5de53f0a2ff7048f37c1e1d219c8a20bfe7f55dc5ed5dc15fb64295d7c26ea"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:07.345300+00:00"
+}

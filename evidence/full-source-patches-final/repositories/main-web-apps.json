@@ -1,0 +1,72 @@
+{
+  "name": "main-web-apps",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps",
+  "pin": "f79972a400c3a696490094961772d1f86fac1b82",
+  "kind": "main_worktree",
+  "receipt": "build/full-source/worktrees.json",
+  "started_at_utc": "2026-11-02T11:36:01.871427+00:00",
+  "head": "f79972a400c3a696490094961772d1f86fac1b82",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/ONLYOFFICE/web-apps.git",
+  "patch": {
+    "path": "patches/main-web-apps.patch",
+    "size": 3482,
+    "sha256": "653f1299381c9a6938b518b998622a1e7bb3d3200439f17a46f3c18ea87f0fc5"
+  },
+  "head_file": {
+    "path": "heads/main-web-apps.txt",
+    "size": 41,
+    "sha256": "702b989407c7170c41add9bcfcc441f987ead221162fac57f04280dcc362e1b2"
+  },
+  "changed_files": [
+    {
+      "path": "build/common.json",
+      "state": "file",
+      "size": 11981,
+      "sha256": "d437ce4473d5ffe25e2e30187428f81d0152790d6b0a927fc5cb478f9a1ae5e6"
+    },
+    {
+      "path": "build/documenteditor.json",
+      "state": "file",
+      "size": 16738,
+      "sha256": "a59c7e4984f39e4f082b621b8269f5eaadc76d98f19df76215983b05ff0be4fc"
+    },
+    {
+      "path": "build/pdfeditor.json",
+      "state": "file",
+      "size": 8979,
+      "sha256": "9d9ead0a055856783d0472d8f4d38566f3f19f55422304af7c9ff6d5ff0d6128"
+    },
+    {
+      "path": "build/presentationeditor.json",
+      "state": "file",
+      "size": 17143,
+      "sha256": "4e226cfb7fc4f030bb5599043c80772d58bbc084055e944e0b3359a832fe9803"
+    },
+    {
+      "path": "build/spreadsheeteditor.json",
+      "state": "file",
+      "size": 17576,
+      "sha256": "4d6fef5f28a235920aeb7e3e362f6826b1b6545f9688d066efafa253dbf07f77"
+    },
+    {
+      "path": "build/visioeditor.json",
+      "state": "file",
+      "size": 15511,
+      "sha256": "6d047fb63d2ccf1b2a94b73350ac801cdcd298047ae0167225ca16a544798411"
+    }
+  ],
+  "changed_file_count": 6,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:03.521717+00:00"
+}

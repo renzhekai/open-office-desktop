@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-third_party_depot_tools",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\depot_tools",
+  "pin": "82b992a1656d7d1cd0ee3cbea8ff609ffdfed380",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:05.065677+00:00",
+  "head": "82b992a1656d7d1cd0ee3cbea8ff609ffdfed380",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/chromium/tools/depot_tools.git",
+  "patch": {
+    "path": "patches/dep-v8-third_party_depot_tools.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_depot_tools.txt",
+    "size": 41,
+    "sha256": "1c2946d699d08800b84a6b3f2ea3c72f73bbc0f4eba74e6bd7db7d3ba241fd67"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:05.725373+00:00"
+}

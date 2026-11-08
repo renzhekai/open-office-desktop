@@ -1,0 +1,16 @@
+{
+    "application": "Open Office",
+    "engine_connected": true,
+    "engine_save_enabled": false,
+    "height": 800,
+    "office_open_edit_save": "engine_initialized_roundtrip_not_verified_by_smoke",
+    "platform_plugin": "windows",
+    "prototype": true,
+    "qt_version": "6.11.1",
+    "select_file_enabled": true,
+    "snapshot_kind": "application QWidget render; native CEF child content requires desktop capture",
+    "snapshot_saved": true,
+    "version": "0.1.0",
+    "width": 1240,
+    "window_rendered": true
+}

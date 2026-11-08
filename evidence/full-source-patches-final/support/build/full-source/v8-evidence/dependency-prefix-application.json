@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-02T11:23:09.214935+00:00",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\out.gn\\win_64\\release\\toolchain.ninja",
+  "before_sha256": "7b93bc2d06544080150318cefd5b6c22afeecad4bb0555de2c41bcfe3339914b",
+  "after_sha256": "a99abccda04992c5879b9e1d7b3e94e471d764b8a3be9cdc3d1a50eb41be6666",
+  "rules": [
+    "cc",
+    "cxx"
+  ],
+  "prefix_hex": "d7a2d2e23a20b0fcbaaccec4bcfe3a",
+  "encoding": "cp936",
+  "resource_rule_unchanged": true
+}

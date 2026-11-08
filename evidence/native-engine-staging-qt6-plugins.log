@@ -1,0 +1,115 @@
+Adding local dependencyD:/open office/build/native-engine-run/ascdocumentscore.dll
+Adding local dependencyD:/open office/build/native-engine-run/openoffice_qt6_documentscore.dll
+Adding local dependencyD:/open office/build/native-engine-run/kernel.dll
+Adding local dependencyD:/open office/build/native-engine-run/graphics.dll
+Adding local dependencyD:/open office/build/native-engine-run/openoffice_qt6_videoplayer.dll
+Adding local dependencyD:/open office/build/native-engine-run/icuuc74.dll
+Adding local dependencyD:/open office/build/native-engine-run/libcef.dll
+Adding local dependencyD:/open office/build/native-engine-run/kernel_network.dll
+Adding local dependencyD:/open office/build/native-engine-run/PdfFile.dll
+Adding local dependencyD:/open office/build/native-engine-run/XpsFile.dll
+Adding local dependencyD:/open office/build/native-engine-run/DjVuFile.dll
+Adding local dependencyD:/open office/build/native-engine-run/OFDFile.dll
+Adding local dependencyD:/open office/build/native-engine-run/hunspell.dll
+Adding local dependencyD:/open office/build/native-engine-run/ooxmlsignature.dll
+Adding local dependencyD:/open office/build/native-engine-run/doctrenderer.dll
+Adding local dependencyD:/open office/build/native-engine-run/UnicodeConverter.dll
+Adding local dependencyD:/open office/build/native-engine-run/icudt74.dll
+Adding local dependencyD:/open office/build/native-engine-run/chrome_elf.dll
+Adding local dependencyD:/open office/build/native-engine-run/DocxRenderer.dll
+D:\open office\build\native-engine-run\OpenOffice.exe 64 bit, release executable
+Adding in plugin type generic for module: Qt6Gui
+Adding in plugin type iconengines for module: Qt6Gui
+Adding Qt6Svg for qsvgicon.dll from plugin type: iconengines
+Adding in plugin type imageformats for module: Qt6Gui
+Adding in plugin type multimedia for module: Qt6Multimedia
+Adding in plugin type networkinformation for module: Qt6Network
+Adding in plugin type platforms for module: Qt6Gui
+Adding in plugin type styles for module: Qt6Widgets
+Adding in plugin type tls for module: Qt6Network
+Skipping plugin qopensslbackend.dll. Use -force-openssl or specify -openssl-root if you want to use it.
+Performing additional pass of finding Qt plugins due to updated Qt module list: Qt6Core Qt6Gui Qt6Multimedia Qt6MultimediaWidgets Qt6Network Qt6PrintSupport Qt6Svg Qt6Widgets
+Adding in plugin type generic for module: Qt6Gui
+Adding in plugin type iconengines for module: Qt6Gui
+Adding in plugin type imageformats for module: Qt6Gui
+Adding in plugin type multimedia for module: Qt6Multimedia
+Adding in plugin type networkinformation for module: Qt6Network
+Adding in plugin type platforms for module: Qt6Gui
+Adding in plugin type styles for module: Qt6Widgets
+Adding in plugin type tls for module: Qt6Network
+Skipping plugin qopensslbackend.dll. Use -force-openssl or specify -openssl-root if you want to use it.
+Direct dependencies: Qt6Core Qt6Gui Qt6Multimedia Qt6MultimediaWidgets Qt6Network Qt6PrintSupport Qt6Widgets
+All dependencies   : Qt6Core Qt6Gui Qt6Multimedia Qt6MultimediaWidgets Qt6Network Qt6PrintSupport Qt6Widgets
+To be deployed     : Qt6Core Qt6Gui Qt6Multimedia Qt6MultimediaWidgets Qt6Network Qt6PrintSupport Qt6Svg Qt6Widgets
+Warning: Cannot find any version of the dxcompiler.dll and dxil.dll. This is not a problem unless Direct3D 12 and certain features are used by the application.
+Skipping system library C:/Windows/system32/icuuc.dll
+Qt6Core.dll is up to date.
+Qt6Gui.dll is up to date.
+Qt6Multimedia.dll is up to date.
+Qt6MultimediaWidgets.dll is up to date.
+Qt6Network.dll is up to date.
+Qt6PrintSupport.dll is up to date.
+Qt6Svg.dll is up to date.
+Qt6Widgets.dll is up to date.
+opengl32sw.dll is up to date.
+D3Dcompiler_47.dll is up to date.
+avcodec-61.dll is up to date.
+avformat-61.dll is up to date.
+avutil-59.dll is up to date.
+swresample-5.dll is up to date.
+swscale-8.dll is up to date.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/generic.
+Updating qtuiotouchplugin.dll.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/iconengines.
+Updating qsvgicon.dll.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/imageformats.
+Updating qgif.dll.
+Updating qico.dll.
+Updating qjpeg.dll.
+Updating qsvg.dll.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/multimedia.
+Updating ffmpegmediaplugin.dll.
+Updating windowsmediaplugin.dll.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/networkinformation.
+Updating qnetworklistmanager.dll.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/platforms.
+Updating qwindows.dll.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/styles.
+Updating qmodernwindowsstyle.dll.
+Creating directory D:/open office/build/native-engine-run/qt6-plugins/tls.
+Updating qcertonlybackend.dll.
+Updating qschannelbackend.dll.
+{
+  "purpose": "Local development build; native editor round trip requires separate validation",
+  "entry_point": "D:\\open office\\build\\native-engine-run\\OpenOffice.exe",
+  "official_archive_sha256": "54979d04f1cdca56deb0c62e0356355a45f392cdb54f04f6b7e436b1f44c3605",
+  "engine_origin": "official_prebuilt_v10.0.0",
+  "qt_wrapper_origin": "locally_compiled_pinned_source_with_qt6",
+  "compiler_runtime": "uses the existing installed Microsoft VC runtime; no installer run",
+  "converter_dlls_copied_to_root": [
+    "DjVuFile.dll",
+    "doctrenderer.dll",
+    "DocxRenderer.dll",
+    "EpubFile.dll",
+    "Fb2File.dll",
+    "graphics.dll",
+    "HtmlFile2.dll",
+    "HWPFile.dll",
+    "icudt74.dll",
+    "icuuc74.dll",
+    "IWorkFile.dll",
+    "kernel.dll",
+    "kernel_network.dll",
+    "OFDFile.dll",
+    "ooxmlsignature.dll",
+    "PdfFile.dll",
+    "StarMathConverter.dll",
+    "UnicodeConverter.dll",
+    "XpsFile.dll"
+  ],
+  "own_binary_sha256": {
+    "OpenOffice.exe": "8b523a4210c76b4279c02cae2db3f6a3717514b28af308c3cf4151e612e7d4e2",
+    "openoffice_qt6_documentscore.dll": "d7d21a5025a855ccc83a7f4771c1f741800cd202d01755d5e9c5cdea686711e4",
+    "openoffice_qt6_videoplayer.dll": "23560dba1ad8556f257a232fe79651e720143bb8000348b43faa919aa10c795c"
+  }
+}

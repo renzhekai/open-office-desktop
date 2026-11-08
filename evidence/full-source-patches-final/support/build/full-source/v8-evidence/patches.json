@@ -1,0 +1,121 @@
+[
+  {
+    "path": "build/config/win/BUILD.gn",
+    "label": "ONLYOFFICE dynamic CRT",
+    "before_sha256": "2840781e6e78c63dfbfee639c15c063bbf28f00e9042a04471dc1c403b70a850",
+    "after_sha256": "adc439bbfa1a0ec6c4e1420f4534e7026d848eaec8df8b0ac31b5b36ee2d2262",
+    "at": "2026-11-02T10:47:30.553563+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Recognize existing VS2026 installation",
+    "before_sha256": "632e1beeea25e30335e26eebf025612076952b4c895d22e701f08fc94d26cca8",
+    "after_sha256": "75f50e39360098bf09d7bfea3f9d7bc3ddda677a9d78c2ee7c8e3daf1c22cc50",
+    "at": "2026-11-02T10:47:30.574756+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Selected existing v143 toolset",
+    "before_sha256": "75f50e39360098bf09d7bfea3f9d7bc3ddda677a9d78c2ee7c8e3daf1c22cc50",
+    "after_sha256": "79bb9f9abb61a95d4c522703b7f333724bdf7bdd97030802bb03f330bbecd710",
+    "at": "2026-11-02T10:47:30.599755+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Prevent selecting installed newer 14.51",
+    "before_sha256": "79bb9f9abb61a95d4c522703b7f333724bdf7bdd97030802bb03f330bbecd710",
+    "after_sha256": "f94ea7505e176e5f4b6d1d6099213eafe3bdc4bae1427536e3d81d8f9f2a4271",
+    "at": "2026-11-02T10:47:30.622705+00:00"
+  },
+  {
+    "path": "build/toolchain/win/setup_toolchain.py",
+    "label": "Explicit existing SDK and MSVC selection",
+    "before_sha256": "588f8b3157add3f3d54669aa353896a5b72c228ece931b8b3aa3b03dd3206761",
+    "after_sha256": "4e4110f6f83a9f9cf8c1f9b3c6f089ad8dfb94bbe5cd80925242c2534682b58f",
+    "at": "2026-11-02T10:47:30.643553+00:00"
+  },
+  {
+    "path": "build/toolchain/win/tool_wrapper.py",
+    "label": "ONLYOFFICE Python3 link output decoding",
+    "before_sha256": "6c91e072e4db43f94dd21f3aa339fe6a9de51d8acd5dd22dbb146d57dc545876",
+    "after_sha256": "efb9bfed1c6f5dbafdd4e87cb951dbec8ea8d2e450f92d68063023db6b3c2175",
+    "at": "2026-11-02T10:47:30.665073+00:00"
+  },
+  {
+    "path": "third_party/jinja2/tests.py",
+    "label": "ONLYOFFICE Python3.11 Jinja compatibility",
+    "before_sha256": "88940bc1b6a966bf842aab931bf7d53957701d450a7f7497f5e3648d00c5f285",
+    "after_sha256": "869be3fbbf497c96205879982e0084f9df1521cd2982d59a088c507aca7fa04a",
+    "at": "2026-11-02T10:47:30.693174+00:00"
+  },
+  {
+    "path": "BUILD.gn",
+    "label": "Express ONLYOFFICE nonempty wrappers object in GN instead of editing generated Ninja",
+    "before_sha256": "6213cd8766942ef4ea9cf5bdfba223fe9bf4d7b78a7adb7ee82ea1fd0b47c674",
+    "after_sha256": "8bfd924a72fd3f2c11e5b0ff2cd5a1d89c37c82ec25fdfd473972db231f334b5",
+    "at": "2026-11-02T10:47:30.717459+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Recognize existing VS2026 installation",
+    "before_sha256": "f94ea7505e176e5f4b6d1d6099213eafe3bdc4bae1427536e3d81d8f9f2a4271",
+    "after_sha256": "ba765535867166d44a5656d10a7725a07a2f2510ac0c4c67bb3a07a578a9dc2c",
+    "at": "2026-11-02T10:50:07.509768+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Selected existing v143 toolset",
+    "before_sha256": "ba765535867166d44a5656d10a7725a07a2f2510ac0c4c67bb3a07a578a9dc2c",
+    "after_sha256": "69f3577d504c907946a57943ef7d9fb05dff7c11079c06dada3f61e4f4aa81f8",
+    "at": "2026-11-02T10:50:07.533955+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Windows10+ API-set contracts resolve without separate legacy shim files; SDK dbghelp actual LoadLibrary verified",
+    "before_sha256": "69f3577d504c907946a57943ef7d9fb05dff7c11079c06dada3f61e4f4aa81f8",
+    "after_sha256": "f199049857c84c642b5dfafee414fab86ddeac97576e009297d9032b6f323111",
+    "at": "2026-11-02T10:50:07.560412+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Prevent selecting installed newer 14.51",
+    "before_sha256": "f199049857c84c642b5dfafee414fab86ddeac97576e009297d9032b6f323111",
+    "after_sha256": "7f53704e57c69df68818b26e1b1b87a5e1a371a535a3a450a5510346168e032b",
+    "at": "2026-11-02T10:50:07.585656+00:00"
+  },
+  {
+    "path": "build/toolchain/win/tool_wrapper.py",
+    "label": "ONLYOFFICE Python3 link output decoding",
+    "before_sha256": "efb9bfed1c6f5dbafdd4e87cb951dbec8ea8d2e450f92d68063023db6b3c2175",
+    "after_sha256": "9f823dafc29da75e3765c268722acd36e5def5c89f52a1ed206f5508be466256",
+    "at": "2026-11-02T10:50:07.610555+00:00"
+  },
+  {
+    "path": "BUILD.gn",
+    "label": "Express ONLYOFFICE nonempty wrappers object in GN instead of editing generated Ninja",
+    "before_sha256": "8bfd924a72fd3f2c11e5b0ff2cd5a1d89c37c82ec25fdfd473972db231f334b5",
+    "after_sha256": "4d3f84f9a52e942bf09b59b4ef8e4b58db8256d6543744384ce2c5658f631310",
+    "at": "2026-11-02T10:50:07.633265+00:00"
+  },
+  {
+    "path": "BUILD.gn",
+    "label": "Collapse exact duplicate owned preparation blocks",
+    "before_sha256": "4d3f84f9a52e942bf09b59b4ef8e4b58db8256d6543744384ce2c5658f631310",
+    "after_sha256": "8bfd924a72fd3f2c11e5b0ff2cd5a1d89c37c82ec25fdfd473972db231f334b5",
+    "at": "2026-11-02T10:51:28.324185+00:00"
+  },
+  {
+    "path": "build/vs_toolchain.py",
+    "label": "Collapse exact duplicate owned preparation blocks",
+    "before_sha256": "7f53704e57c69df68818b26e1b1b87a5e1a371a535a3a450a5510346168e032b",
+    "after_sha256": "4d2cdd9f4134c6a1e72b87bc338582ed931abd80f874ebc472c0894235c8deba",
+    "at": "2026-11-02T10:51:28.344370+00:00"
+  },
+  {
+    "path": "build/toolchain/win/tool_wrapper.py",
+    "label": "Collapse exact duplicate owned preparation blocks",
+    "before_sha256": "9f823dafc29da75e3765c268722acd36e5def5c89f52a1ed206f5508be466256",
+    "after_sha256": "efb9bfed1c6f5dbafdd4e87cb951dbec8ea8d2e450f92d68063023db6b3c2175",
+    "at": "2026-11-02T10:51:28.363419+00:00"
+  }
+]

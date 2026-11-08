@@ -1,0 +1,31 @@
+{
+  "name": "dep-graphics-libde265",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\libde265",
+  "pin": "7ba65889d3d6d8a0d99b5360b028243ba843be3a",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:09.937900+00:00",
+  "head": "7ba65889d3d6d8a0d99b5360b028243ba843be3a",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/strukturag/libde265.git",
+  "patch": {
+    "path": "patches/dep-graphics-libde265.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-graphics-libde265.txt",
+    "size": 41,
+    "sha256": "e7781c25aa919cbd9be6cad678a0b17f8520d48ae53ea2d05ea632d0034924d0"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:10.382920+00:00"
+}

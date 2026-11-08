@@ -1,0 +1,2649 @@
+{
+  "file": "videoplayer.dll",
+  "inspection": "PE parsed as bytes from verified runtime; DLL never loaded/executed",
+  "uncompressed_size": 211952,
+  "sha256": "0946c86a397e2cd5e53f70a9c5590404c4868ba3b867b355abe983f91d048d7d",
+  "zip_crc32": "fd57fe95",
+  "machine": "0x8664",
+  "pe_timestamp": 1791732803,
+  "linker_version": "14.29",
+  "characteristics": "0x2022",
+  "has_delay_import_directory": false,
+  "sections": [
+    {
+      "name": ".text",
+      "rva": 4096,
+      "virtual_size": 69865,
+      "raw_size": 70144,
+      "raw_offset": 1024,
+      "characteristics": 1610612768
+    },
+    {
+      "name": ".rdata",
+      "rva": 77824,
+      "virtual_size": 118460,
+      "raw_size": 118784,
+      "raw_offset": 71168,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".data",
+      "rva": 196608,
+      "virtual_size": 7248,
+      "raw_size": 5632,
+      "raw_offset": 189952,
+      "characteristics": 3221225536
+    },
+    {
+      "name": ".pdata",
+      "rva": 204800,
+      "virtual_size": 4488,
+      "raw_size": 4608,
+      "raw_offset": 195584,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".rsrc",
+      "rva": 212992,
+      "virtual_size": 808,
+      "raw_size": 1024,
+      "raw_offset": 200192,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".reloc",
+      "rva": 217088,
+      "virtual_size": 1708,
+      "raw_size": 2048,
+      "raw_offset": 201216,
+      "characteristics": 1107296320
+    }
+  ],
+  "imports": [
+    {
+      "dll": "kernel.dll",
+      "symbols": [
+        {
+          "name": "??0CTemporaryCS@@QEAA@PEAVCRITICAL_SECTION@NSCriticalSection@@@Z"
+        },
+        {
+          "name": "?Leave@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ"
+        },
+        {
+          "name": "?Enter@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ"
+        },
+        {
+          "name": "?DeleteCriticalSection@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ"
+        },
+        {
+          "name": "??1CTemporaryCS@@QEAA@XZ"
+        },
+        {
+          "name": "?SaveToFile@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@0_N@Z"
+        },
+        {
+          "name": "?CreateDirectories@NSDirectory@@YA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??0CStringBuilder@NSStringUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?InitializeCriticalSection@CRITICAL_SECTION@NSCriticalSection@@QEAAXXZ"
+        },
+        {
+          "name": "??1CRITICAL_SECTION@NSCriticalSection@@QEAA@XZ"
+        },
+        {
+          "name": "??1CStringBuilder@NSStringUtils@@UEAA@XZ"
+        },
+        {
+          "name": "?WriteString@CStringBuilder@NSStringUtils@@QEAAXPEB_W_K@Z"
+        },
+        {
+          "name": "?WriteEncodeXmlString@CStringBuilder@NSStringUtils@@QEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?GetData@CStringBuilder@NSStringUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?AddInt@CStringBuilder@NSStringUtils@@QEAAXH@Z"
+        },
+        {
+          "name": "??0CXmlNode@XmlUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?FromXmlFile@CXmlNode@XmlUtils@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@_N@Z"
+        },
+        {
+          "name": "?GetText@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?GetNodes@CXmlNode@XmlUtils@@QEAA?AV?$vector@VCXmlNode@XmlUtils@@V?$allocator@VCXmlNode@XmlUtils@@@std@@@std@@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@4@@Z"
+        },
+        {
+          "name": "?ReadValueString@CXmlNode@XmlUtils@@QEAA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z"
+        },
+        {
+          "name": "?ReadValueInt@CXmlNode@XmlUtils@@QEAAHAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBH@Z"
+        },
+        {
+          "name": "??0CRITICAL_SECTION@NSCriticalSection@@QEAA@XZ"
+        },
+        {
+          "name": "??1CXmlNode@XmlUtils@@QEAA@XZ"
+        },
+        {
+          "name": "?GetFileName@NSFile@@YA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV23@@Z"
+        }
+      ]
+    },
+    {
+      "dll": "libvlc.dll",
+      "symbols": [
+        {
+          "name": "libvlc_audio_set_volume"
+        },
+        {
+          "name": "libvlc_event_attach"
+        },
+        {
+          "name": "libvlc_media_event_manager"
+        },
+        {
+          "name": "libvlc_media_get_duration"
+        },
+        {
+          "name": "libvlc_media_new_location"
+        },
+        {
+          "name": "libvlc_media_parse_with_options"
+        },
+        {
+          "name": "libvlc_media_player_event_manager"
+        },
+        {
+          "name": "libvlc_media_player_get_position"
+        },
+        {
+          "name": "libvlc_media_player_get_state"
+        },
+        {
+          "name": "libvlc_media_player_get_time"
+        },
+        {
+          "name": "libvlc_media_player_has_vout"
+        },
+        {
+          "name": "libvlc_media_player_is_playing"
+        },
+        {
+          "name": "libvlc_media_player_new"
+        },
+        {
+          "name": "libvlc_media_player_pause"
+        },
+        {
+          "name": "libvlc_media_player_play"
+        },
+        {
+          "name": "libvlc_media_player_release"
+        },
+        {
+          "name": "libvlc_media_player_set_hwnd"
+        },
+        {
+          "name": "libvlc_media_player_set_media"
+        },
+        {
+          "name": "libvlc_media_player_set_position"
+        },
+        {
+          "name": "libvlc_media_player_set_time"
+        },
+        {
+          "name": "libvlc_media_player_stop"
+        },
+        {
+          "name": "libvlc_media_release"
+        },
+        {
+          "name": "libvlc_new"
+        },
+        {
+          "name": "libvlc_release"
+        },
+        {
+          "name": "libvlc_video_set_key_input"
+        },
+        {
+          "name": "libvlc_video_set_mouse_input"
+        }
+      ]
+    },
+    {
+      "dll": "Qt5Widgets.dll",
+      "symbols": [
+        {
+          "name": "?verticalScrollbarAction@QTableView@@MEAAXH@Z"
+        },
+        {
+          "name": "?verticalScrollbarValueChanged@QAbstractItemView@@MEAAXH@Z"
+        },
+        {
+          "name": "?viewOptions@QTableView@@MEBA?AVQStyleOptionViewItem@@XZ"
+        },
+        {
+          "name": "?viewportEvent@QAbstractItemView@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?viewportSizeHint@QTableView@@MEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?visualRect@QTableView@@UEBA?AVQRect@@AEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?visualRegionForSelection@QTableView@@MEBA?AVQRegion@@AEBVQItemSelection@@@Z"
+        },
+        {
+          "name": "?wheelEvent@QAbstractScrollArea@@MEAAXPEAVQWheelEvent@@@Z"
+        },
+        {
+          "name": "?setSizePolicy@QWidget@@QEAAXW4Policy@QSizePolicy@@0@Z"
+        },
+        {
+          "name": "?setMask@QWidget@@QEAAXAEBVQBitmap@@@Z"
+        },
+        {
+          "name": "?winId@QWidget@@QEBA_KXZ"
+        },
+        {
+          "name": "?staticMetaObject@QPushButton@@2UQMetaObject@@B"
+        },
+        {
+          "name": "?qt_metacast@QPushButton@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QPushButton@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?staticMetaObject@QLabel@@2UQMetaObject@@B"
+        },
+        {
+          "name": "?qt_metacast@QLabel@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QLabel@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?staticMetaObject@QSlider@@2UQMetaObject@@B"
+        },
+        {
+          "name": "?qt_metacast@QSlider@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QSlider@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?staticMetaObject@QWidget@@2UQMetaObject@@B"
+        },
+        {
+          "name": "?size@QWidget@@QEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?updateGeometries@QTableView@@MEAAXXZ"
+        },
+        {
+          "name": "?updateEditorGeometries@QAbstractItemView@@MEAAXXZ"
+        },
+        {
+          "name": "?updateEditorData@QAbstractItemView@@MEAAXXZ"
+        },
+        {
+          "name": "?timerEvent@QTableView@@MEAAXPEAVQTimerEvent@@@Z"
+        },
+        {
+          "name": "?startDrag@QAbstractItemView@@MEAAXV?$QFlags@W4DropAction@Qt@@@@@Z"
+        },
+        {
+          "name": "?sizeHintForColumn@QTableView@@MEBAHH@Z"
+        },
+        {
+          "name": "?setStyleSheet@QWidget@@QEAAXAEBVQString@@@Z"
+        },
+        {
+          "name": "?sizeHint@QAbstractScrollArea@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?setupViewport@QAbstractScrollArea@@UEAAXPEAVQWidget@@@Z"
+        },
+        {
+          "name": "?setSelectionModel@QTableView@@UEAAXPEAVQItemSelectionModel@@@Z"
+        },
+        {
+          "name": "?setSelection@QTableView@@MEAAXAEBVQRect@@V?$QFlags@W4SelectionFlag@QItemSelectionModel@@@@@Z"
+        },
+        {
+          "name": "?setRootIndex@QTableView@@UEAAXAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?setModel@QTableView@@UEAAXPEAVQAbstractItemModel@@@Z"
+        },
+        {
+          "name": "?selectionCommand@QAbstractItemView@@MEBA?AV?$QFlags@W4SelectionFlag@QItemSelectionModel@@@@AEBVQModelIndex@@PEBVQEvent@@@Z"
+        },
+        {
+          "name": "?selectionChanged@QTableView@@MEAAXAEBVQItemSelection@@0@Z"
+        },
+        {
+          "name": "?selectedIndexes@QTableView@@MEBA?AV?$QList@VQModelIndex@@@@XZ"
+        },
+        {
+          "name": "?selectAll@QAbstractItemView@@UEAAXXZ"
+        },
+        {
+          "name": "?scrollTo@QTableView@@UEAAXAEBVQModelIndex@@W4ScrollHint@QAbstractItemView@@@Z"
+        },
+        {
+          "name": "?scrollContentsBy@QTableView@@MEAAXHH@Z"
+        },
+        {
+          "name": "?rowsInserted@QAbstractItemView@@MEAAXAEBVQModelIndex@@HH@Z"
+        },
+        {
+          "name": "?rowsAboutToBeRemoved@QAbstractItemView@@MEAAXAEBVQModelIndex@@HH@Z"
+        },
+        {
+          "name": "?resizeEvent@QAbstractItemView@@MEAAXPEAVQResizeEvent@@@Z"
+        },
+        {
+          "name": "?reset@QAbstractItemView@@UEAAXXZ"
+        },
+        {
+          "name": "?qt_metacast@QTableView@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacast@QShortcut@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QTableView@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?qt_metacall@QShortcut@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?paintEvent@QTableView@@MEAAXPEAVQPaintEvent@@@Z"
+        },
+        {
+          "name": "?moveCursor@QTableView@@MEAA?AVQModelIndex@@W4CursorAction@QAbstractItemView@@V?$QFlags@W4KeyboardModifier@Qt@@@@@Z"
+        },
+        {
+          "name": "?mouseReleaseEvent@QAbstractItemView@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mousePressEvent@QAbstractItemView@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseMoveEvent@QAbstractItemView@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseDoubleClickEvent@QAbstractItemView@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?minimumSizeHint@QAbstractScrollArea@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?metaObject@QTableView@@UEBAPEBUQMetaObject@@XZ"
+        },
+        {
+          "name": "?metaObject@QShortcut@@UEBAPEBUQMetaObject@@XZ"
+        },
+        {
+          "name": "?keyboardSearch@QAbstractItemView@@UEAAXAEBVQString@@@Z"
+        },
+        {
+          "name": "?keyPressEvent@QAbstractItemView@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?isIndexHidden@QTableView@@MEBA_NAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?inputMethodQuery@QAbstractItemView@@UEBA?AVQVariant@@W4InputMethodQuery@Qt@@@Z"
+        },
+        {
+          "name": "?inputMethodEvent@QAbstractItemView@@MEAAXPEAVQInputMethodEvent@@@Z"
+        },
+        {
+          "name": "?indexAt@QTableView@@UEBA?AVQModelIndex@@AEBVQPoint@@@Z"
+        },
+        {
+          "name": "?horizontalScrollbarValueChanged@QAbstractItemView@@MEAAXH@Z"
+        },
+        {
+          "name": "?horizontalScrollbarAction@QTableView@@MEAAXH@Z"
+        },
+        {
+          "name": "?horizontalOffset@QTableView@@MEBAHXZ"
+        },
+        {
+          "name": "?focusOutEvent@QAbstractItemView@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?focusNextPrevChild@QAbstractItemView@@MEAA_N_N@Z"
+        },
+        {
+          "name": "?focusInEvent@QAbstractItemView@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?eventFilter@QAbstractItemView@@MEAA_NPEAVQObject@@PEAVQEvent@@@Z"
+        },
+        {
+          "name": "?event@QShortcut@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?event@QAbstractItemView@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?editorDestroyed@QAbstractItemView@@MEAAXPEAVQObject@@@Z"
+        },
+        {
+          "name": "?edit@QAbstractItemView@@MEAA_NAEBVQModelIndex@@W4EditTrigger@1@PEAVQEvent@@@Z"
+        },
+        {
+          "name": "?dropEvent@QAbstractItemView@@MEAAXPEAVQDropEvent@@@Z"
+        },
+        {
+          "name": "?dragMoveEvent@QAbstractItemView@@MEAAXPEAVQDragMoveEvent@@@Z"
+        },
+        {
+          "name": "?dragLeaveEvent@QAbstractItemView@@MEAAXPEAVQDragLeaveEvent@@@Z"
+        },
+        {
+          "name": "?dragEnterEvent@QAbstractItemView@@MEAAXPEAVQDragEnterEvent@@@Z"
+        },
+        {
+          "name": "?doItemsLayout@QTableView@@UEAAXXZ"
+        },
+        {
+          "name": "?dataChanged@QAbstractItemView@@MEAAXAEBVQModelIndex@@0AEBV?$QVector@H@@@Z"
+        },
+        {
+          "name": "?currentChanged@QTableView@@MEAAXAEBVQModelIndex@@0@Z"
+        },
+        {
+          "name": "?contextMenuEvent@QAbstractScrollArea@@MEAAXPEAVQContextMenuEvent@@@Z"
+        },
+        {
+          "name": "?commitData@QAbstractItemView@@MEAAXPEAVQWidget@@@Z"
+        },
+        {
+          "name": "?closeEditor@QAbstractItemView@@MEAAXPEAVQWidget@@W4EndEditHint@QAbstractItemDelegate@@@Z"
+        },
+        {
+          "name": "?changeEvent@QFrame@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "??1QShortcut@@UEAA@XZ"
+        },
+        {
+          "name": "??0QShortcut@@QEAA@AEBVQKeySequence@@PEAVQWidget@@PEBD2W4ShortcutContext@Qt@@@Z"
+        },
+        {
+          "name": "?getOpenFileNames@QFileDialog@@SA?AVQStringList@@PEAVQWidget@@AEBVQString@@11PEAV4@V?$QFlags@W4Option@QFileDialog@@@@@Z"
+        },
+        {
+          "name": "?setDefaultSectionSize@QHeaderView@@QEAAXH@Z"
+        },
+        {
+          "name": "?setStretchLastSection@QHeaderView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setSectionResizeMode@QHeaderView@@QEAAXW4ResizeMode@1@@Z"
+        },
+        {
+          "name": "?setShowGrid@QTableView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setColumnWidth@QTableView@@QEAAXHH@Z"
+        },
+        {
+          "name": "?verticalHeader@QTableView@@QEBAPEAVQHeaderView@@XZ"
+        },
+        {
+          "name": "?horizontalHeader@QTableView@@QEBAPEAVQHeaderView@@XZ"
+        },
+        {
+          "name": "??1QTableView@@UEAA@XZ"
+        },
+        {
+          "name": "??0QTableView@@QEAA@PEAVQWidget@@@Z"
+        },
+        {
+          "name": "?activated@QAbstractItemView@@QEAAXAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?setCurrentIndex@QAbstractItemView@@QEAAXAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?setDefaultDropAction@QAbstractItemView@@QEAAXW4DropAction@Qt@@@Z"
+        },
+        {
+          "name": "?setDragDropMode@QAbstractItemView@@QEAAXW4DragDropMode@1@@Z"
+        },
+        {
+          "name": "?setDragDropOverwriteMode@QAbstractItemView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setDragEnabled@QAbstractItemView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setDropIndicatorShown@QAbstractItemView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setEditTriggers@QAbstractItemView@@QEAAXV?$QFlags@W4EditTrigger@QAbstractItemView@@@@@Z"
+        },
+        {
+          "name": "?currentIndex@QAbstractItemView@@QEBA?AVQModelIndex@@XZ"
+        },
+        {
+          "name": "?setSelectionBehavior@QAbstractItemView@@QEAAXW4SelectionBehavior@1@@Z"
+        },
+        {
+          "name": "?setSelectionMode@QAbstractItemView@@QEAAXW4SelectionMode@1@@Z"
+        },
+        {
+          "name": "?selectionModel@QAbstractItemView@@QEBAPEAVQItemSelectionModel@@XZ"
+        },
+        {
+          "name": "?model@QAbstractItemView@@QEBAPEAVQAbstractItemModel@@XZ"
+        },
+        {
+          "name": "?verticalScrollBar@QAbstractScrollArea@@QEBAPEAVQScrollBar@@XZ"
+        },
+        {
+          "name": "?verticalOffset@QTableView@@MEBAHXZ"
+        },
+        {
+          "name": "?wheelEvent@QAbstractSlider@@MEAAXPEAVQWheelEvent@@@Z"
+        },
+        {
+          "name": "?timerEvent@QAbstractSlider@@MEAAXPEAVQTimerEvent@@@Z"
+        },
+        {
+          "name": "?sliderChange@QAbstractSlider@@MEAAXW4SliderChange@1@@Z"
+        },
+        {
+          "name": "?sizeHint@QSlider@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?paintEvent@QSlider@@MEAAXPEAVQPaintEvent@@@Z"
+        },
+        {
+          "name": "?mouseReleaseEvent@QSlider@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseMoveEvent@QSlider@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?minimumSizeHint@QSlider@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?keyPressEvent@QAbstractSlider@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?event@QSlider@@UEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?changeEvent@QAbstractSlider@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "??1QStyleOptionSlider@@QEAA@XZ"
+        },
+        {
+          "name": "??0QStyleOptionSlider@@QEAA@XZ"
+        },
+        {
+          "name": "?initStyleOption@QSlider@@IEBAXPEAVQStyleOptionSlider@@@Z"
+        },
+        {
+          "name": "?mousePressEvent@QSlider@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "??1QSlider@@UEAA@XZ"
+        },
+        {
+          "name": "??0QSlider@@QEAA@PEAVQWidget@@@Z"
+        },
+        {
+          "name": "?invertedAppearance@QAbstractSlider@@QEBA_NXZ"
+        },
+        {
+          "name": "?maximum@QAbstractSlider@@QEBAHXZ"
+        },
+        {
+          "name": "?minimum@QAbstractSlider@@QEBAHXZ"
+        },
+        {
+          "name": "?orientation@QAbstractSlider@@QEBA?AW4Orientation@Qt@@XZ"
+        },
+        {
+          "name": "?parentWidget@QWidget@@QEBAPEAV1@XZ"
+        },
+        {
+          "name": "?setAcceptDrops@QWidget@@QEAAX_N@Z"
+        },
+        {
+          "name": "?raise@QWidget@@QEAAXXZ"
+        },
+        {
+          "name": "?hide@QWidget@@QEAAXXZ"
+        },
+        {
+          "name": "?show@QWidget@@QEAAXXZ"
+        },
+        {
+          "name": "?setFocus@QWidget@@QEAAXW4FocusReason@Qt@@@Z"
+        },
+        {
+          "name": "?setCursor@QWidget@@QEAAXAEBVQCursor@@@Z"
+        },
+        {
+          "name": "?height@QWidget@@QEBAHXZ"
+        },
+        {
+          "name": "?sizeHint@QWidget@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?qt_metacast@QWidget@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QWidget@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?paintEvent@QWidget@@MEAAXPEAVQPaintEvent@@@Z"
+        },
+        {
+          "name": "?mouseReleaseEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mousePressEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseMoveEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?minimumSizeHint@QWidget@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?metaObject@QWidget@@UEBAPEBUQMetaObject@@XZ"
+        },
+        {
+          "name": "?keyPressEvent@QWidget@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?focusOutEvent@QWidget@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?focusInEvent@QWidget@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?event@QWidget@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?changeEvent@QWidget@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?init@QStyleOption@@QEAAXPEBVQWidget@@@Z"
+        },
+        {
+          "name": "??1QStyleOption@@QEAA@XZ"
+        },
+        {
+          "name": "??0QStyleOption@@QEAA@HH@Z"
+        },
+        {
+          "name": "?setOrientation@QAbstractSlider@@QEAAXW4Orientation@Qt@@@Z"
+        },
+        {
+          "name": "?setValue@QAbstractSlider@@QEAAXH@Z"
+        },
+        {
+          "name": "?setSingleStep@QAbstractSlider@@QEAAXH@Z"
+        },
+        {
+          "name": "?setMaximum@QAbstractSlider@@QEAAXH@Z"
+        },
+        {
+          "name": "?setMinimum@QAbstractSlider@@QEAAXH@Z"
+        },
+        {
+          "name": "?setAttribute@QWidget@@QEAAXW4WidgetAttribute@Qt@@_N@Z"
+        },
+        {
+          "name": "?setGeometry@QWidget@@QEAAXHHHH@Z"
+        },
+        {
+          "name": "?move@QWidget@@QEAAXAEBVQPoint@@@Z"
+        },
+        {
+          "name": "?setHidden@QWidget@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setShortcutEnabled@QWidget@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?width@QWidget@@QEBAHXZ"
+        },
+        {
+          "name": "?y@QWidget@@QEBAHXZ"
+        },
+        {
+          "name": "?x@QWidget@@QEBAHXZ"
+        },
+        {
+          "name": "?style@QWidget@@QEBAPEAVQStyle@@XZ"
+        },
+        {
+          "name": "??1QWidget@@UEAA@XZ"
+        },
+        {
+          "name": "??0QWidget@@QEAA@PEAV0@V?$QFlags@W4WindowType@Qt@@@@@Z"
+        },
+        {
+          "name": "?sizeHint@QLabel@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?paintEvent@QLabel@@MEAAXPEAVQPaintEvent@@@Z"
+        },
+        {
+          "name": "?mouseReleaseEvent@QLabel@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mousePressEvent@QLabel@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseMoveEvent@QLabel@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?minimumSizeHint@QLabel@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?keyReleaseEvent@QWidget@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?keyPressEvent@QLabel@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?heightForWidth@QLabel@@UEBAHH@Z"
+        },
+        {
+          "name": "?focusOutEvent@QLabel@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?focusNextPrevChild@QLabel@@MEAA_N_N@Z"
+        },
+        {
+          "name": "?focusInEvent@QLabel@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?event@QLabel@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?contextMenuEvent@QLabel@@MEAAXPEAVQContextMenuEvent@@@Z"
+        },
+        {
+          "name": "?changeEvent@QLabel@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?setText@QLabel@@QEAAXAEBVQString@@@Z"
+        },
+        {
+          "name": "?setAlignment@QLabel@@QEAAXV?$QFlags@W4AlignmentFlag@Qt@@@@@Z"
+        },
+        {
+          "name": "??1QLabel@@UEAA@XZ"
+        },
+        {
+          "name": "??0QLabel@@QEAA@PEAVQWidget@@V?$QFlags@W4WindowType@Qt@@@@@Z"
+        },
+        {
+          "name": "?setFont@QWidget@@QEAAXAEBVQFont@@@Z"
+        },
+        {
+          "name": "?wheelEvent@QWidget@@MEAAXPEAVQWheelEvent@@@Z"
+        },
+        {
+          "name": "?timerEvent@QAbstractButton@@MEAAXPEAVQTimerEvent@@@Z"
+        },
+        {
+          "name": "?tabletEvent@QWidget@@MEAAXPEAVQTabletEvent@@@Z"
+        },
+        {
+          "name": "?sizeHint@QPushButton@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?showEvent@QWidget@@MEAAXPEAVQShowEvent@@@Z"
+        },
+        {
+          "name": "?sharedPainter@QWidget@@MEBAPEAVQPainter@@XZ"
+        },
+        {
+          "name": "?setVisible@QWidget@@UEAAX_N@Z"
+        },
+        {
+          "name": "?redirected@QWidget@@MEBAPEAVQPaintDevice@@PEAVQPoint@@@Z"
+        },
+        {
+          "name": "?paintEvent@QPushButton@@MEAAXPEAVQPaintEvent@@@Z"
+        },
+        {
+          "name": "?paintEngine@QWidget@@UEBAPEAVQPaintEngine@@XZ"
+        },
+        {
+          "name": "?nextCheckState@QAbstractButton@@MEAAXXZ"
+        },
+        {
+          "name": "?nativeEvent@QWidget@@MEAA_NAEBVQByteArray@@PEAXPEAJ@Z"
+        },
+        {
+          "name": "?moveEvent@QWidget@@MEAAXPEAVQMoveEvent@@@Z"
+        },
+        {
+          "name": "?mouseReleaseEvent@QAbstractButton@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mousePressEvent@QAbstractButton@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseMoveEvent@QAbstractButton@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseDoubleClickEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?minimumSizeHint@QPushButton@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?metric@QWidget@@MEBAHW4PaintDeviceMetric@QPaintDevice@@@Z"
+        },
+        {
+          "name": "?leaveEvent@QWidget@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?keyReleaseEvent@QAbstractButton@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?keyPressEvent@QPushButton@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?inputMethodQuery@QWidget@@UEBA?AVQVariant@@W4InputMethodQuery@Qt@@@Z"
+        },
+        {
+          "name": "?inputMethodEvent@QWidget@@MEAAXPEAVQInputMethodEvent@@@Z"
+        },
+        {
+          "name": "?initPainter@QWidget@@MEBAXPEAVQPainter@@@Z"
+        },
+        {
+          "name": "?hitButton@QPushButton@@MEBA_NAEBVQPoint@@@Z"
+        },
+        {
+          "name": "?hideEvent@QWidget@@MEAAXPEAVQHideEvent@@@Z"
+        },
+        {
+          "name": "?heightForWidth@QWidget@@UEBAHH@Z"
+        },
+        {
+          "name": "?hasHeightForWidth@QWidget@@UEBA_NXZ"
+        },
+        {
+          "name": "?focusOutEvent@QPushButton@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?focusNextPrevChild@QWidget@@MEAA_N_N@Z"
+        },
+        {
+          "name": "?focusInEvent@QPushButton@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?enterEvent@QWidget@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?dropEvent@QWidget@@MEAAXPEAVQDropEvent@@@Z"
+        },
+        {
+          "name": "?dragMoveEvent@QWidget@@MEAAXPEAVQDragMoveEvent@@@Z"
+        },
+        {
+          "name": "?dragLeaveEvent@QWidget@@MEAAXPEAVQDragLeaveEvent@@@Z"
+        },
+        {
+          "name": "?dragEnterEvent@QWidget@@MEAAXPEAVQDragEnterEvent@@@Z"
+        },
+        {
+          "name": "?devType@QWidget@@UEBAHXZ"
+        },
+        {
+          "name": "?contextMenuEvent@QWidget@@MEAAXPEAVQContextMenuEvent@@@Z"
+        },
+        {
+          "name": "?closeEvent@QWidget@@MEAAXPEAVQCloseEvent@@@Z"
+        },
+        {
+          "name": "?checkStateSet@QAbstractButton@@MEAAXXZ"
+        },
+        {
+          "name": "?changeEvent@QAbstractButton@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?actionEvent@QWidget@@MEAAXPEAVQActionEvent@@@Z"
+        },
+        {
+          "name": "?event@QPushButton@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "??1QPushButton@@UEAA@XZ"
+        },
+        {
+          "name": "??0QPushButton@@QEAA@PEAVQWidget@@@Z"
+        },
+        {
+          "name": "?setIconSize@QAbstractButton@@QEAAXAEBVQSize@@@Z"
+        },
+        {
+          "name": "?setIcon@QAbstractButton@@QEAAXAEBVQIcon@@@Z"
+        },
+        {
+          "name": "?resizeEvent@QWidget@@MEAAXPEAVQResizeEvent@@@Z"
+        },
+        {
+          "name": "?sizeHintForRow@QTableView@@MEBAHH@Z"
+        }
+      ]
+    },
+    {
+      "dll": "Qt5Gui.dll",
+      "symbols": [
+        {
+          "name": "??4QFont@@QEAAAEAV0@$$QEAV0@@Z"
+        },
+        {
+          "name": "??1QBitmap@@UEAA@XZ"
+        },
+        {
+          "name": "?drawRoundedRect@QPainter@@QEAAXHHHHNNW4SizeMode@Qt@@@Z"
+        },
+        {
+          "name": "?setBrush@QPainter@@QEAAXAEBVQBrush@@@Z"
+        },
+        {
+          "name": "?setPen@QPainter@@QEAAXW4PenStyle@Qt@@@Z"
+        },
+        {
+          "name": "?mask@QPixmap@@QEBA?AVQBitmap@@XZ"
+        },
+        {
+          "name": "?fill@QPixmap@@QEAAXAEBVQColor@@@Z"
+        },
+        {
+          "name": "??1QPixmap@@UEAA@XZ"
+        },
+        {
+          "name": "??0QPixmap@@QEAA@HH@Z"
+        },
+        {
+          "name": "?name@QColor@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "??0QColor@@QEAA@W4GlobalColor@Qt@@@Z"
+        },
+        {
+          "name": "?write@QStandardItem@@UEBAXAEAVQDataStream@@@Z"
+        },
+        {
+          "name": "?type@QStandardItem@@UEBAHXZ"
+        },
+        {
+          "name": "?supportedDropActions@QStandardItemModel@@UEBA?AV?$QFlags@W4DropAction@Qt@@@@XZ"
+        },
+        {
+          "name": "?sort@QStandardItemModel@@UEAAXHW4SortOrder@Qt@@@Z"
+        },
+        {
+          "name": "?sibling@QStandardItemModel@@UEBA?AVQModelIndex@@HHAEBV2@@Z"
+        },
+        {
+          "name": "?setItemData@QStandardItemModel@@UEAA_NAEBVQModelIndex@@AEBV?$QMap@HVQVariant@@@@@Z"
+        },
+        {
+          "name": "?setHeaderData@QStandardItemModel@@UEAA_NHW4Orientation@Qt@@AEBVQVariant@@H@Z"
+        },
+        {
+          "name": "?setData@QStandardItemModel@@UEAA_NAEBVQModelIndex@@AEBVQVariant@@H@Z"
+        },
+        {
+          "name": "?setData@QStandardItem@@UEAAXAEBVQVariant@@H@Z"
+        },
+        {
+          "name": "?rowCount@QStandardItemModel@@UEBAHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?removeRows@QStandardItemModel@@UEAA_NHHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?removeColumns@QStandardItemModel@@UEAA_NHHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?read@QStandardItem@@UEAAXAEAVQDataStream@@@Z"
+        },
+        {
+          "name": "?qt_metacast@QStandardItemModel@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QStandardItemModel@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?parent@QStandardItemModel@@UEBA?AVQModelIndex@@AEBV2@@Z"
+        },
+        {
+          "name": "?mimeTypes@QStandardItemModel@@UEBA?AVQStringList@@XZ"
+        },
+        {
+          "name": "?mimeData@QStandardItemModel@@UEBAPEAVQMimeData@@AEBV?$QList@VQModelIndex@@@@@Z"
+        },
+        {
+          "name": "?metaObject@QStandardItemModel@@UEBAPEBUQMetaObject@@XZ"
+        },
+        {
+          "name": "?itemData@QStandardItemModel@@UEBA?AV?$QMap@HVQVariant@@@@AEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?insertRows@QStandardItemModel@@UEAA_NHHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?insertColumns@QStandardItemModel@@UEAA_NHHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?index@QStandardItemModel@@UEBA?AVQModelIndex@@HHAEBV2@@Z"
+        },
+        {
+          "name": "?headerData@QStandardItemModel@@UEBA?AVQVariant@@HW4Orientation@Qt@@H@Z"
+        },
+        {
+          "name": "?hasChildren@QStandardItemModel@@UEBA_NAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?flags@QStandardItemModel@@UEBA?AV?$QFlags@W4ItemFlag@Qt@@@@AEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?dropMimeData@QStandardItemModel@@UEAA_NPEBVQMimeData@@W4DropAction@Qt@@HHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?data@QStandardItemModel@@UEBA?AVQVariant@@AEBVQModelIndex@@H@Z"
+        },
+        {
+          "name": "?data@QStandardItem@@UEBA?AVQVariant@@H@Z"
+        },
+        {
+          "name": "?columnCount@QStandardItemModel@@UEBAHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?clone@QStandardItem@@UEBAPEAV1@XZ"
+        },
+        {
+          "name": "??MQStandardItem@@UEBA_NAEBV0@@Z"
+        },
+        {
+          "name": "?appendRow@QStandardItemModel@@QEAAXAEBV?$QList@PEAVQStandardItem@@@@@Z"
+        },
+        {
+          "name": "?setColumnCount@QStandardItemModel@@QEAAXH@Z"
+        },
+        {
+          "name": "?item@QStandardItemModel@@QEBAPEAVQStandardItem@@HH@Z"
+        },
+        {
+          "name": "?clear@QStandardItemModel@@QEAAXXZ"
+        },
+        {
+          "name": "??1QStandardItemModel@@UEAA@XZ"
+        },
+        {
+          "name": "??0QStandardItemModel@@QEAA@PEAVQObject@@@Z"
+        },
+        {
+          "name": "?setDropEnabled@QStandardItem@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setAccessibleText@QStandardItem@@QEAAXAEBVQString@@@Z"
+        },
+        {
+          "name": "?accessibleText@QStandardItem@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "?setForeground@QStandardItem@@QEAAXAEBVQBrush@@@Z"
+        },
+        {
+          "name": "?setTextAlignment@QStandardItem@@QEAAXV?$QFlags@W4AlignmentFlag@Qt@@@@@Z"
+        },
+        {
+          "name": "?setFont@QStandardItem@@QEAAXAEBVQFont@@@Z"
+        },
+        {
+          "name": "?font@QStandardItem@@QEBA?AVQFont@@XZ"
+        },
+        {
+          "name": "?setText@QStandardItem@@QEAAXAEBVQString@@@Z"
+        },
+        {
+          "name": "??1QStandardItem@@UEAA@XZ"
+        },
+        {
+          "name": "??0QStandardItem@@QEAA@AEBVQString@@@Z"
+        },
+        {
+          "name": "??1QKeySequence@@QEAA@XZ"
+        },
+        {
+          "name": "??0QKeySequence@@QEAA@W4StandardKey@0@@Z"
+        },
+        {
+          "name": "?setStrikeOut@QFont@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setUnderline@QFont@@QEAAX_N@Z"
+        },
+        {
+          "name": "?weight@QFont@@QEBAHXZ"
+        },
+        {
+          "name": "??0QFont@@QEAA@AEBVQString@@HH_N@Z"
+        },
+        {
+          "name": "??1QBrush@@QEAA@XZ"
+        },
+        {
+          "name": "??0QBrush@@QEAA@AEBVQColor@@W4BrushStyle@Qt@@@Z"
+        },
+        {
+          "name": "?y@QMouseEvent@@QEBAHXZ"
+        },
+        {
+          "name": "?x@QMouseEvent@@QEBAHXZ"
+        },
+        {
+          "name": "?pos@QMouseEvent@@QEBA?AVQPoint@@XZ"
+        },
+        {
+          "name": "?modifiers@QKeyEvent@@QEBA?AV?$QFlags@W4KeyboardModifier@Qt@@@@XZ"
+        },
+        {
+          "name": "??1QCursor@@QEAA@XZ"
+        },
+        {
+          "name": "??0QCursor@@QEAA@W4CursorShape@Qt@@@Z"
+        },
+        {
+          "name": "??0QColor@@QEAA@HHHH@Z"
+        },
+        {
+          "name": "??1QPainter@@QEAA@XZ"
+        },
+        {
+          "name": "??0QPainter@@QEAA@PEAVQPaintDevice@@@Z"
+        },
+        {
+          "name": "??0QColor@@QEAA@AEBVQString@@@Z"
+        },
+        {
+          "name": "?horizontalAdvance@QFontMetrics@@QEBAHAEBVQString@@H@Z"
+        },
+        {
+          "name": "??1QFontMetrics@@QEAA@XZ"
+        },
+        {
+          "name": "??0QFontMetrics@@QEAA@AEBVQFont@@@Z"
+        },
+        {
+          "name": "??4QFont@@QEAAAEAV0@AEBV0@@Z"
+        },
+        {
+          "name": "?setPixelSize@QFont@@QEAAXH@Z"
+        },
+        {
+          "name": "?pixelSize@QFont@@QEBAHXZ"
+        },
+        {
+          "name": "??1QFont@@QEAA@XZ"
+        },
+        {
+          "name": "?pointSize@QFont@@QEBAHXZ"
+        },
+        {
+          "name": "??0QFont@@QEAA@AEBV0@@Z"
+        },
+        {
+          "name": "??0QFont@@QEAA@XZ"
+        },
+        {
+          "name": "?addFile@QIcon@@QEAAXAEBVQString@@AEBVQSize@@W4Mode@1@W4State@1@@Z"
+        },
+        {
+          "name": "??1QIcon@@QEAA@XZ"
+        },
+        {
+          "name": "??0QIcon@@QEAA@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "Qt5Core.dll",
+      "symbols": [
+        {
+          "name": "?staticMetaObject@QObject@@2UQMetaObject@@B"
+        },
+        {
+          "name": "?qt_metacast@QObject@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QObject@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?tr@QMetaObject@@QEBA?AVQString@@PEBD0H@Z"
+        },
+        {
+          "name": "?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z"
+        },
+        {
+          "name": "?dynamicMetaObject@QObjectData@@QEBAPEAUQMetaObject@@XZ"
+        },
+        {
+          "name": "?qUnregisterResourceData@@YA_NHPEBE00@Z"
+        },
+        {
+          "name": "?qRegisterResourceData@@YA_NHPEBE00@Z"
+        },
+        {
+          "name": "?fromLocalFile@QUrl@@SA?AV1@AEBVQString@@@Z"
+        },
+        {
+          "name": "??1QObject@@UEAA@XZ"
+        },
+        {
+          "name": "??0QObject@@QEAA@PEAV0@@Z"
+        },
+        {
+          "name": "?toUtf8@QString@@QEHAA?AVQByteArray@@XZ"
+        },
+        {
+          "name": "?constData@QByteArray@@QEBAPEBDXZ"
+        },
+        {
+          "name": "?toDouble@QVariant@@QEBANPEA_N@Z"
+        },
+        {
+          "name": "??0QVariant@@QEAA@N@Z"
+        },
+        {
+          "name": "?property@QObject@@QEBA?AVQVariant@@PEBD@Z"
+        },
+        {
+          "name": "?setProperty@QObject@@QEAA_NPEBDAEBVQVariant@@@Z"
+        },
+        {
+          "name": "?children@QObject@@QEBAAEBV?$QList@PEAVQObject@@@@XZ"
+        },
+        {
+          "name": "?shared_null@QMapDataBase@@2U1@B"
+        },
+        {
+          "name": "?supportedDragActions@QAbstractItemModel@@UEBA?AV?$QFlags@W4DropAction@Qt@@@@XZ"
+        },
+        {
+          "name": "?submit@QAbstractItemModel@@UEAA_NXZ"
+        },
+        {
+          "name": "?span@QAbstractItemModel@@UEBA?AVQSize@@AEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?roleNames@QAbstractItemModel@@UEBA?AV?$QHash@HVQByteArray@@@@XZ"
+        },
+        {
+          "name": "?revert@QAbstractItemModel@@UEAAXXZ"
+        },
+        {
+          "name": "?moveRows@QAbstractItemModel@@UEAA_NAEBVQModelIndex@@HH0H@Z"
+        },
+        {
+          "name": "?moveColumns@QAbstractItemModel@@UEAA_NAEBVQModelIndex@@HH0H@Z"
+        },
+        {
+          "name": "?match@QAbstractItemModel@@UEBA?AV?$QList@VQModelIndex@@@@AEBVQModelIndex@@HAEBVQVariant@@HV?$QFlags@W4MatchFlag@Qt@@@@@Z"
+        },
+        {
+          "name": "?fetchMore@QAbstractItemModel@@UEAAXAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?event@QObject@@UEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?canFetchMore@QAbstractItemModel@@UEBA_NAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?canDropMimeData@QAbstractItemModel@@UEBA_NPEBVQMimeData@@W4DropAction@Qt@@HHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?buddy@QAbstractItemModel@@UEBA?AVQModelIndex@@AEBV2@@Z"
+        },
+        {
+          "name": "?writableLocation@QStandardPaths@@SA?AVQString@@W4StandardLocation@1@@Z"
+        },
+        {
+          "name": "?absolutePath@QFileInfo@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "?fileName@QFileInfo@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "?absoluteFilePath@QFileInfo@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "?currentIndex@QItemSelectionModel@@QEBA?AVQModelIndex@@XZ"
+        },
+        {
+          "name": "?removeRow@QAbstractItemModel@@QEAA_NHAEBVQModelIndex@@@Z"
+        },
+        {
+          "name": "?row@QModelIndex@@QEBAHXZ"
+        },
+        {
+          "name": "??0QModelIndex@@QEAA@XZ"
+        },
+        {
+          "name": "?freeData@QMapDataBase@@SAXPEAU1@@Z"
+        },
+        {
+          "name": "?createData@QMapDataBase@@SAPEAU1@XZ"
+        },
+        {
+          "name": "?freeTree@QMapDataBase@@QEAAXPEAUQMapNodeBase@@H@Z"
+        },
+        {
+          "name": "?createNode@QMapDataBase@@QEAAPEAUQMapNodeBase@@HHPEAU2@_N@Z"
+        },
+        {
+          "name": "?recalcMostLeftNode@QMapDataBase@@QEAAXXZ"
+        },
+        {
+          "name": "?freeNodeAndRebalance@QMapDataBase@@QEAAXPEAUQMapNodeBase@@@Z"
+        },
+        {
+          "name": "?isEmpty@QListData@@QEBA_NXZ"
+        },
+        {
+          "name": "??M@YA_NAEBVQString@@0@Z"
+        },
+        {
+          "name": "?replace@QString@@QEAAAEAV1@VQChar@@0W4CaseSensitivity@Qt@@@Z"
+        },
+        {
+          "name": "?toLower@QString@@QEGBA?AV1@XZ"
+        },
+        {
+          "name": "??0QChar@@QEAA@H@Z"
+        },
+        {
+          "name": "?contains@QRect@@QEBA_NAEBVQPoint@@_N@Z"
+        },
+        {
+          "name": "?height@QRect@@QEBAHXZ"
+        },
+        {
+          "name": "?width@QRect@@QEBAHXZ"
+        },
+        {
+          "name": "?argToQString@QtPrivate@@YA?AVQString@@VQStringView@@_KPEAPEBUArgBase@1@@Z"
+        },
+        {
+          "name": "?data@QString@@QEBAPEBVQChar@@XZ"
+        },
+        {
+          "name": "??4QString@@QEAAAEAV0@$$QEAV0@@Z"
+        },
+        {
+          "name": "?shared_null@QHashData@@2U1@B"
+        },
+        {
+          "name": "?shared_null@QListData@@2UData@1@B"
+        },
+        {
+          "name": "?updateState@QPropertyAnimation@@MEAAXW4State@QAbstractAnimation@@0@Z"
+        },
+        {
+          "name": "?updateDirection@QAbstractAnimation@@MEAAXW4Direction@1@@Z"
+        },
+        {
+          "name": "?updateCurrentValue@QPropertyAnimation@@MEAAXAEBVQVariant@@@Z"
+        },
+        {
+          "name": "?updateCurrentTime@QVariantAnimation@@MEAAXH@Z"
+        },
+        {
+          "name": "?qt_metacast@QPropertyAnimation@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QPropertyAnimation@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?metaObject@QPropertyAnimation@@UEBAPEBUQMetaObject@@XZ"
+        },
+        {
+          "name": "?interpolated@QVariantAnimation@@MEBA?AVQVariant@@AEBV2@0N@Z"
+        },
+        {
+          "name": "?event@QPropertyAnimation@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?duration@QVariantAnimation@@UEBAHXZ"
+        },
+        {
+          "name": "?singleShotImpl@QTimer@@CAXHW4TimerType@Qt@@PEBVQObject@@PEAVQSlotObjectBase@QtPrivate@@@Z"
+        },
+        {
+          "name": "?defaultTypeFor@QTimer@@CA?AW4TimerType@Qt@@H@Z"
+        },
+        {
+          "name": "?start@QTimer@@QEAAXH@Z"
+        },
+        {
+          "name": "??1QTimer@@UEAA@XZ"
+        },
+        {
+          "name": "??0QTimer@@QEAA@PEAVQObject@@@Z"
+        },
+        {
+          "name": "?urls@QMimeData@@QEBA?AV?$QList@VQUrl@@@@XZ"
+        },
+        {
+          "name": "??1QPropertyAnimation@@UEAA@XZ"
+        },
+        {
+          "name": "??0QPropertyAnimation@@QEAA@PEAVQObject@@AEBVQByteArray@@0@Z"
+        },
+        {
+          "name": "?setDuration@QVariantAnimation@@QEAAXH@Z"
+        },
+        {
+          "name": "?setEndValue@QVariantAnimation@@QEAAXAEBVQVariant@@@Z"
+        },
+        {
+          "name": "?start@QAbstractAnimation@@QEAAXW4DeletionPolicy@1@@Z"
+        },
+        {
+          "name": "?toLocalFile@QUrl@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "?toString@QUrl@@QEBA?AVQString@@V?$QUrlTwoFlags@W4UrlFormattingOption@QUrl@@W4ComponentFormattingOption@2@@@@Z"
+        },
+        {
+          "name": "??1QUrl@@QEAA@XZ"
+        },
+        {
+          "name": "??0QUrl@@QEAA@AEBV0@@Z"
+        },
+        {
+          "name": "??0QVariant@@QEAA@AEBVQRect@@@Z"
+        },
+        {
+          "name": "??0QVariant@@QEAA@AEBVQPoint@@@Z"
+        },
+        {
+          "name": "??1QVariant@@QEAA@XZ"
+        },
+        {
+          "name": "?suffix@QFileInfo@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "?free_helper@QHashData@@QEAAXP6AXPEAUNode@1@@Z@Z"
+        },
+        {
+          "name": "?rehash@QHashData@@QEAAXH@Z"
+        },
+        {
+          "name": "?detach_helper@QHashData@@QEAAPEAU1@P6AXPEAUNode@1@PEAX@ZP6AX0@ZHH@Z"
+        },
+        {
+          "name": "?allocateNode@QHashData@@QEAAPEAXH@Z"
+        },
+        {
+          "name": "??0QRect@@QEAA@HHHH@Z"
+        },
+        {
+          "name": "?height@QSize@@QEBAHXZ"
+        },
+        {
+          "name": "?deleteLater@QObject@@QEAAXXZ"
+        },
+        {
+          "name": "?end@QListData@@QEBAPEAPEAXXZ"
+        },
+        {
+          "name": "?begin@QListData@@QEBAPEAPEAXXZ"
+        },
+        {
+          "name": "?at@QListData@@QEBAPEAPEAXH@Z"
+        },
+        {
+          "name": "?size@QListData@@QEBAHXZ"
+        },
+        {
+          "name": "?append@QListData@@QEAAPEAPEAXXZ"
+        },
+        {
+          "name": "?dispose@QListData@@SAXPEAUData@1@@Z"
+        },
+        {
+          "name": "?dispose@QListData@@QEAAXXZ"
+        },
+        {
+          "name": "?detach_grow@QListData@@QEAAPEAUData@1@PEAHH@Z"
+        },
+        {
+          "name": "?detach@QListData@@QEAAPEAUData@1@H@Z"
+        },
+        {
+          "name": "?qHash@@YAIAEBVQString@@I@Z"
+        },
+        {
+          "name": "?toStdWString@QString@@QEBA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        },
+        {
+          "name": "?fromStdWString@QString@@SA?AV1@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??8QString@@QEBA_NPEBD@Z"
+        },
+        {
+          "name": "??8@YA_NAEBVQString@@0@Z"
+        },
+        {
+          "name": "?toLower@QString@@QEHAA?AV1@XZ"
+        },
+        {
+          "name": "??1QByteArray@@QEAA@XZ"
+        },
+        {
+          "name": "??0QByteArray@@QEAA@PEBDH@Z"
+        },
+        {
+          "name": "?stop@QTimer@@QEAAXXZ"
+        },
+        {
+          "name": "?connect@QObject@@SA?AVConnection@QMetaObject@@PEBV1@PEBD01W4ConnectionType@Qt@@@Z"
+        },
+        {
+          "name": "?installEventFilter@QObject@@QEAAXPEAV1@@Z"
+        },
+        {
+          "name": "??1Connection@QMetaObject@@QEAA@XZ"
+        },
+        {
+          "name": "?timerEvent@QObject@@MEAAXPEAVQTimerEvent@@@Z"
+        },
+        {
+          "name": "?number@QString@@SA?AV1@IH@Z"
+        },
+        {
+          "name": "?eventFilter@QObject@@UEAA_NPEAV1@PEAVQEvent@@@Z"
+        },
+        {
+          "name": "?disconnectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z"
+        },
+        {
+          "name": "?customEvent@QObject@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?connectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z"
+        },
+        {
+          "name": "?childEvent@QObject@@MEAAXPEAVQChildEvent@@@Z"
+        },
+        {
+          "name": "?exists@QFileInfo@@QEBA_NXZ"
+        },
+        {
+          "name": "??1QFileInfo@@QEAA@XZ"
+        },
+        {
+          "name": "??0QFileInfo@@QEAA@AEBVQString@@@Z"
+        },
+        {
+          "name": "?fromAscii_helper@QString@@CAPEAU?$QTypedArrayData@G@@PEBDH@Z"
+        },
+        {
+          "name": "??YQString@@QEAAAEAV0@PEBD@Z"
+        },
+        {
+          "name": "??4QString@@QEAAAEAV0@PEBD@Z"
+        },
+        {
+          "name": "?number@QString@@SA?AV1@HH@Z"
+        },
+        {
+          "name": "?fromUtf8@QString@@SA?AV1@PEBDH@Z"
+        },
+        {
+          "name": "?append@QString@@QEAAAEAV1@AEBV1@@Z"
+        },
+        {
+          "name": "??4QString@@QEAAAEAV0@AEBV0@@Z"
+        },
+        {
+          "name": "??1QString@@QEAA@XZ"
+        },
+        {
+          "name": "??0QString@@QEAA@AEBV0@@Z"
+        },
+        {
+          "name": "??0QString@@QEAA@XZ"
+        },
+        {
+          "name": "?windowsVersion@QSysInfo@@SA?AW4WinVersion@1@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "MSVCP140.dll",
+      "symbols": [
+        {
+          "name": "?cerr@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A"
+        },
+        {
+          "name": "?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@XZ"
+        },
+        {
+          "name": "?put@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@D@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@P6AAEAV01@AEAV01@@Z@Z"
+        },
+        {
+          "name": "?_Xlength_error@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "_Mtx_init_in_situ"
+        },
+        {
+          "name": "_Mtx_destroy_in_situ"
+        },
+        {
+          "name": "_Mtx_lock"
+        },
+        {
+          "name": "_Mtx_unlock"
+        },
+        {
+          "name": "?_Throw_C_error@std@@YAXH@Z"
+        },
+        {
+          "name": "?_Xbad_function_call@std@@YAXXZ"
+        },
+        {
+          "name": "?uncaught_exception@std@@YA_NXZ"
+        },
+        {
+          "name": "?sputc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAHD@Z"
+        },
+        {
+          "name": "?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAA_JPEBD_J@Z"
+        },
+        {
+          "name": "?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBADD@Z"
+        },
+        {
+          "name": "?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAXXZ"
+        }
+      ]
+    },
+    {
+      "dll": "KERNEL32.dll",
+      "symbols": [
+        {
+          "name": "IsDebuggerPresent"
+        },
+        {
+          "name": "EnterCriticalSection"
+        },
+        {
+          "name": "LeaveCriticalSection"
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount"
+        },
+        {
+          "name": "DeleteCriticalSection"
+        },
+        {
+          "name": "SetEvent"
+        },
+        {
+          "name": "ResetEvent"
+        },
+        {
+          "name": "WaitForSingleObjectEx"
+        },
+        {
+          "name": "CreateEventW"
+        },
+        {
+          "name": "GetModuleHandleW"
+        },
+        {
+          "name": "GetProcAddress"
+        },
+        {
+          "name": "RtlCaptureContext"
+        },
+        {
+          "name": "RtlLookupFunctionEntry"
+        },
+        {
+          "name": "RtlVirtualUnwind"
+        },
+        {
+          "name": "UnhandledExceptionFilter"
+        },
+        {
+          "name": "GetCurrentProcess"
+        },
+        {
+          "name": "SetUnhandledExceptionFilter"
+        },
+        {
+          "name": "SetErrorMode"
+        },
+        {
+          "name": "TerminateProcess"
+        },
+        {
+          "name": "InitializeSListHead"
+        },
+        {
+          "name": "DisableThreadLibraryCalls"
+        },
+        {
+          "name": "GetSystemTimeAsFileTime"
+        },
+        {
+          "name": "GetCurrentThreadId"
+        },
+        {
+          "name": "GetCurrentProcessId"
+        },
+        {
+          "name": "QueryPerformanceCounter"
+        },
+        {
+          "name": "IsProcessorFeaturePresent"
+        },
+        {
+          "name": "CloseHandle"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140_1.dll",
+      "symbols": [
+        {
+          "name": "__CxxFrameHandler4"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140.dll",
+      "symbols": [
+        {
+          "name": "__std_type_info_destroy_list"
+        },
+        {
+          "name": "__std_terminate"
+        },
+        {
+          "name": "_CxxThrowException"
+        },
+        {
+          "name": "__std_exception_copy"
+        },
+        {
+          "name": "__std_exception_destroy"
+        },
+        {
+          "name": "memcpy"
+        },
+        {
+          "name": "memmove"
+        },
+        {
+          "name": "memset"
+        },
+        {
+          "name": "__current_exception"
+        },
+        {
+          "name": "__current_exception_context"
+        },
+        {
+          "name": "__C_specific_handler"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-runtime-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "exit"
+        },
+        {
+          "name": "_invalid_parameter_noinfo_noreturn"
+        },
+        {
+          "name": "terminate"
+        },
+        {
+          "name": "_seh_filter_dll"
+        },
+        {
+          "name": "_configure_narrow_argv"
+        },
+        {
+          "name": "_initialize_narrow_environment"
+        },
+        {
+          "name": "_initialize_onexit_table"
+        },
+        {
+          "name": "_register_onexit_function"
+        },
+        {
+          "name": "_execute_onexit_table"
+        },
+        {
+          "name": "_crt_atexit"
+        },
+        {
+          "name": "_cexit"
+        },
+        {
+          "name": "_initterm"
+        },
+        {
+          "name": "_initterm_e"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-stdio-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "__stdio_common_vsprintf"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-heap-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "malloc"
+        },
+        {
+          "name": "free"
+        },
+        {
+          "name": "_callnewh"
+        }
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "name": "??0QAscVideoView@@QEAA@PEAVQWidget@@_N@Z",
+      "ordinal": 1,
+      "rva": 17104,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QFooterPanel@@QEAA@PEAVQWidget@@PEAVQAscVideoView@@@Z",
+      "ordinal": 2,
+      "rva": 10032,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QAscVideoView@@UEAA@XZ",
+      "ordinal": 3,
+      "rva": 18992,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QFooterPanel@@UEAA@XZ",
+      "ordinal": 4,
+      "rva": 12528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??_7QAscVideoView@@6BQObject@@@",
+      "ordinal": 5,
+      "rva": 85816,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QAscVideoView@@6BQPaintDevice@@@",
+      "ordinal": 6,
+      "rva": 86208,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QFooterPanel@@6BQObject@@@",
+      "ordinal": 7,
+      "rva": 84696,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QFooterPanel@@6BQPaintDevice@@@",
+      "ordinal": 8,
+      "rva": 85064,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "?AddFilesToPlaylist@QAscVideoView@@QEAAXAEAVQStringList@@_N@Z",
+      "ordinal": 9,
+      "rva": 19456,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ApplySkin@QFooterPanel@@QEAAXW4Type@CFooterSkin@@@Z",
+      "ordinal": 10,
+      "rva": 12864,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ChangeSeek@QAscVideoView@@QEAAXH@Z",
+      "ordinal": 11,
+      "rva": 19472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ChangeVolume@QAscVideoView@@QEAAXH@Z",
+      "ordinal": 12,
+      "rva": 19504,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Footer@QAscVideoView@@QEAAPEAVQFooterPanel@@XZ",
+      "ordinal": 13,
+      "rva": 19552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Fullscreen@QAscVideoView@@QEAAXXZ",
+      "ordinal": 14,
+      "rva": 19568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetDPI@QWidgetUtils@@YANPEAVQWidget@@@Z",
+      "ordinal": 15,
+      "rva": 51328,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetHeight@QFooterPanel@@QEAAHXZ",
+      "ordinal": 16,
+      "rva": 13280,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetMaxWidth@QFooterPanel@@QEAAHXZ",
+      "ordinal": 17,
+      "rva": 13296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetMinWidth@QFooterPanel@@QEAAHXZ",
+      "ordinal": 18,
+      "rva": 13312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?LoadPlaylist@QAscVideoView@@QEAAXXZ",
+      "ordinal": 19,
+      "rva": 19632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Pause@QAscVideoView@@QEAAXXZ",
+      "ordinal": 20,
+      "rva": 19680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Play@QAscVideoView@@QEAAXXZ",
+      "ordinal": 21,
+      "rva": 19696,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?RemoveFromPresentation@QAscVideoView@@QEAAXXZ",
+      "ordinal": 22,
+      "rva": 19712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SavePlayListAddons@QAscVideoView@@QEAAXAEBVQString@@@Z",
+      "ordinal": 23,
+      "rva": 19856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SavePlaylist@QAscVideoView@@QEAAXXZ",
+      "ordinal": 24,
+      "rva": 19888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ScaleDPI@QWidgetUtils@@YAHAEBHAEBN@Z",
+      "ordinal": 25,
+      "rva": 51424,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ScaleDPI@QWidgetUtils@@YAHPEAVQWidget@@AEBH@Z",
+      "ordinal": 26,
+      "rva": 51456,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetBackground@QWidgetUtils@@YAXPEAVQWidget@@AEBVQColor@@@Z",
+      "ordinal": 27,
+      "rva": 51584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetDPI@QWidgetUtils@@YAXPEAVQWidget@@AEBN@Z",
+      "ordinal": 28,
+      "rva": 51824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetFullscreenIcon@QFooterPanel@@AEAAX_N@Z",
+      "ordinal": 29,
+      "rva": 13328,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetPlayPauseIcon@QFooterPanel@@AEAAX_N@Z",
+      "ordinal": 30,
+      "rva": 13504,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetProperty@QWidgetUtils@@YAXPEAVQObject@@PEBDAEBVQVariant@@@Z",
+      "ordinal": 31,
+      "rva": 52032,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetRoundedCorners@QFooterPanel@@QEAAX_N@Z",
+      "ordinal": 32,
+      "rva": 13680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetVerbosityLevel@NSBaseVideoLibrary@@YAXH@Z",
+      "ordinal": 33,
+      "rva": 4592,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Stop@QAscVideoView@@QEAAXXZ",
+      "ordinal": 34,
+      "rva": 19904,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ToggleFooter@QAscVideoView@@QEAAXN@Z",
+      "ordinal": 35,
+      "rva": 19952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ToggleMute@QAscVideoView@@QEAAXXZ",
+      "ordinal": 36,
+      "rva": 20304,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?TogglePause@QAscVideoView@@QEAAXXZ",
+      "ordinal": 37,
+      "rva": 20432,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?TogglePlaylist@QAscVideoView@@QEAAXN@Z",
+      "ordinal": 38,
+      "rva": 20464,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?UpdateFullscreenIcon@QAscVideoView@@QEAAXXZ",
+      "ordinal": 39,
+      "rva": 20720,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?UpdatePlayPauseIcon@QAscVideoView@@QEAAXXZ",
+      "ordinal": 40,
+      "rva": 20768,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?VolumeControls@QFooterPanel@@QEAAPEAVQWidget@@XZ",
+      "ordinal": 41,
+      "rva": 13712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?dragEnterEvent@QAscVideoView@@UEAAXPEAVQDragEnterEvent@@@Z",
+      "ordinal": 42,
+      "rva": 21600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?dropEvent@QAscVideoView@@UEAAXPEAVQDropEvent@@@Z",
+      "ordinal": 43,
+      "rva": 22096,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?eventFilter@QAscVideoView@@UEAA_NPEAVQObject@@PEAVQEvent@@@Z",
+      "ordinal": 44,
+      "rva": 22544,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?getMainWindow@QAscVideoView@@UEAAPEAVQWidget@@XZ",
+      "ordinal": 45,
+      "rva": 22880,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?getMainWindowFullScreen@QAscVideoView@@UEAA_NXZ",
+      "ordinal": 46,
+      "rva": 22896,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?keyPressEvent@QAscVideoView@@UEAAXPEAVQKeyEvent@@@Z",
+      "ordinal": 47,
+      "rva": 24208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?metaObject@QAscVideoView@@UEBAPEBUQMetaObject@@XZ",
+      "ordinal": 48,
+      "rva": 57712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?metaObject@QFooterPanel@@UEBAPEBUQMetaObject@@XZ",
+      "ordinal": 49,
+      "rva": 58528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?mouseMoveEvent@QFooterPanel@@UEAAXPEAVQMouseEvent@@@Z",
+      "ordinal": 50,
+      "rva": 13728,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?mousePressEvent@QAscVideoView@@UEAAXPEAVQMouseEvent@@@Z",
+      "ordinal": 51,
+      "rva": 24640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?moveEvent@QFooterPanel@@UEAAXPEAVQMoveEvent@@@Z",
+      "ordinal": 52,
+      "rva": 13840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onFullscreenBtnClicked@QFooterPanel@@QEAAXXZ",
+      "ordinal": 53,
+      "rva": 14080,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onKeyDown@QAscVideoView@@QEAAXHV?$QFlags@W4KeyboardModifier@Qt@@@@@Z",
+      "ordinal": 54,
+      "rva": 57744,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onPlayPauseBtnClicked@QFooterPanel@@QEAAXXZ",
+      "ordinal": 55,
+      "rva": 14096,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onPlaylistBtnClicked@QFooterPanel@@QEAAXXZ",
+      "ordinal": 56,
+      "rva": 14112,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onRewindBackBtnClicked@QFooterPanel@@QEAAXXZ",
+      "ordinal": 57,
+      "rva": 14144,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onRewindForwardBtnClicked@QFooterPanel@@QEAAXXZ",
+      "ordinal": 58,
+      "rva": 14176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onSeekChanged@QFooterPanel@@QEAAXH@Z",
+      "ordinal": 59,
+      "rva": 14208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onVolumeBtnClicked@QFooterPanel@@QEAAXXZ",
+      "ordinal": 60,
+      "rva": 14224,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onVolumeChanged@QFooterPanel@@QEAAXH@Z",
+      "ordinal": 61,
+      "rva": 14256,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?paintEvent@QAscVideoView@@UEAAXPEAVQPaintEvent@@@Z",
+      "ordinal": 62,
+      "rva": 14592,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?paintEvent@QFooterPanel@@UEAAXPEAVQPaintEvent@@@Z",
+      "ordinal": 63,
+      "rva": 14592,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacall@QAscVideoView@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 64,
+      "rva": 57840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacall@QFooterPanel@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 65,
+      "rva": 58560,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacast@QAscVideoView@@UEAAPEAXPEBD@Z",
+      "ordinal": 66,
+      "rva": 57952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacast@QFooterPanel@@UEAAPEAXPEBD@Z",
+      "ordinal": 67,
+      "rva": 58672,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_static_metacall@QAscVideoView@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 68,
+      "rva": 58032,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_static_metacall@QFooterPanel@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 69,
+      "rva": 58752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?resizeEvent@QAscVideoView@@UEAAXPEAVQResizeEvent@@@Z",
+      "ordinal": 70,
+      "rva": 25232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?resizeEvent@QFooterPanel@@UEAAXPEAVQResizeEvent@@@Z",
+      "ordinal": 71,
+      "rva": 14752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setFullScreenUsed@QAscVideoView@@QEAAX_N@Z",
+      "ordinal": 72,
+      "rva": 25712,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setMainWindowFullScreen@QAscVideoView@@UEAAX_N@Z",
+      "ordinal": 73,
+      "rva": 25760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setMedia@QAscVideoView@@QEAAXVQString@@_N@Z",
+      "ordinal": 74,
+      "rva": 25776,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setPlayListUsed@QAscVideoView@@QEAAX_N@Z",
+      "ordinal": 75,
+      "rva": 25984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setStyleOptions@QFooterPanel@@QEAAXAEBUCFooterStyleOptions@@@Z",
+      "ordinal": 76,
+      "rva": 15488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setTimeOnLabel@QFooterPanel@@QEAAX_J@Z",
+      "ordinal": 77,
+      "rva": 15568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slotCursorTimerOverflowed@QAscVideoView@@QEAAXXZ",
+      "ordinal": 78,
+      "rva": 26032,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slotFooterAnimationFinished@QAscVideoView@@QEAAXXZ",
+      "ordinal": 79,
+      "rva": 26112,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slotFooterTimerOverflowed@QAscVideoView@@QEAAXXZ",
+      "ordinal": 80,
+      "rva": 26208,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slotOpenFile@QAscVideoView@@QEAAXVQString@@_N@Z",
+      "ordinal": 81,
+      "rva": 26256,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slotPlayerPosChanged@QAscVideoView@@QEAAXH@Z",
+      "ordinal": 82,
+      "rva": 26688,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slotPlayerStateChanged@QAscVideoView@@QEAAXW4State@QMediaPlayer@@@Z",
+      "ordinal": 83,
+      "rva": 26752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slotVideoAvailableChanged@QAscVideoView@@QEAAX_N@Z",
+      "ordinal": 84,
+      "rva": 26912,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?staticMetaObject@QAscVideoView@@2UQMetaObject@@B",
+      "ordinal": 85,
+      "rva": 198968,
+      "forwarder": null,
+      "section": ".data",
+      "executable_section": false
+    },
+    {
+      "name": "?staticMetaObject@QFooterPanel@@2UQMetaObject@@B",
+      "ordinal": 86,
+      "rva": 199480,
+      "forwarder": null,
+      "section": ".data",
+      "executable_section": false
+    },
+    {
+      "name": "?titleChanged@QAscVideoView@@QEAAXAEBVQString@@@Z",
+      "ordinal": 87,
+      "rva": 58480,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?tr@QAscVideoView@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 88,
+      "rva": 4608,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?tr@QFooterPanel@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 89,
+      "rva": 4656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?trUtf8@QAscVideoView@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 90,
+      "rva": 4608,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?trUtf8@QFooterPanel@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 91,
+      "rva": 4656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?updateStyle@QFooterPanel@@QEAAXXZ",
+      "ordinal": 92,
+      "rva": 15584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    }
+  ],
+  "source_relative_path": "videoplayer.dll",
+  "full_archive_sha256_verified": "54979d04f1cdca56deb0c62e0356355a45f392cdb54f04f6b7e436b1f44c3605"
+}

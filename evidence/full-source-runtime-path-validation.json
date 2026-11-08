@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "check": "reject_destination",
+      "value": "../escape",
+      "passed": true
+    },
+    {
+      "check": "reject_destination",
+      "value": "C:/outside",
+      "passed": true
+    },
+    {
+      "check": "reject_destination",
+      "value": "/absolute",
+      "passed": true
+    },
+    {
+      "check": "reject_destination",
+      "value": "foo/../bar",
+      "passed": true
+    },
+    {
+      "check": "reject_destination",
+      "value": "a.dll:evil",
+      "passed": true
+    },
+    {
+      "check": "reject_destination",
+      "value": "CON",
+      "passed": true
+    },
+    {
+      "check": "reject_destination",
+      "value": "foo.",
+      "passed": true
+    },
+    {
+      "check": "reject_destination",
+      "value": "",
+      "passed": true
+    },
+    {
+      "check": "reject_fallback_native_source",
+      "value": "D:\\open office\\build\\native-engine-run\\kernel.dll",
+      "passed": true
+    },
+    {
+      "check": "reject_fallback_native_source",
+      "value": "D:\\open office\\dependencies\\onlyoffice-v10.0.0\\runtime\\converter\\x2t.exe",
+      "passed": true
+    },
+    {
+      "check": "reject_archive_payload",
+      "value": "converter/kernel.dll",
+      "passed": true
+    },
+    {
+      "check": "reject_archive_payload",
+      "value": "ascdocumentscore.dll",
+      "passed": true
+    },
+    {
+      "check": "reject_archive_payload",
+      "value": "converter/x2t.exe",
+      "passed": true
+    },
+    {
+      "check": "reject_archive_payload",
+      "value": "fonts/pretend.exe",
+      "passed": true
+    },
+    {
+      "check": "reject_archive_payload",
+      "value": "editors/sdkjs/word/sdk-all.js",
+      "passed": true
+    }
+  ],
+  "runtime_target_exists": true,
+  "requirements_sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+  "fallback_entry_sha256": "75f5a57dc9ac46919af8933a7b2e23b3c021e78cda315ca4d46ef60d05e1dcc7"
+}

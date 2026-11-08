@@ -1,0 +1,294 @@
+{
+  "file": "editors_helper.exe",
+  "inspection": "PE parsed as bytes from verified runtime; DLL never loaded/executed",
+  "uncompressed_size": 24048,
+  "sha256": "9a6fdadee1e9561d089adfa9da3f4d2b49ccec1957841077ba7dc92db9789b43",
+  "zip_crc32": "c46bfe0f",
+  "machine": "0x8664",
+  "pe_timestamp": 1791732988,
+  "linker_version": "14.29",
+  "characteristics": "0x22",
+  "has_delay_import_directory": false,
+  "sections": [
+    {
+      "name": ".text",
+      "rva": 4096,
+      "virtual_size": 4788,
+      "raw_size": 5120,
+      "raw_offset": 1024,
+      "characteristics": 1610612768
+    },
+    {
+      "name": ".rdata",
+      "rva": 12288,
+      "virtual_size": 5566,
+      "raw_size": 5632,
+      "raw_offset": 6144,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".data",
+      "rva": 20480,
+      "virtual_size": 1768,
+      "raw_size": 512,
+      "raw_offset": 11776,
+      "characteristics": 3221225536
+    },
+    {
+      "name": ".pdata",
+      "rva": 24576,
+      "virtual_size": 528,
+      "raw_size": 1024,
+      "raw_offset": 12288,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".rsrc",
+      "rva": 28672,
+      "virtual_size": 1448,
+      "raw_size": 1536,
+      "raw_offset": 13312,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".reloc",
+      "rva": 32768,
+      "virtual_size": 84,
+      "raw_size": 512,
+      "raw_offset": 14848,
+      "characteristics": 1107296320
+    }
+  ],
+  "imports": [
+    {
+      "dll": "ascdocumentscore.dll",
+      "symbols": [
+        {
+          "name": "?Init_CEF@CApplicationCEF@@QEAAHPEAVCAscApplicationManager@@HQEAPEAD@Z"
+        },
+        {
+          "name": "??1CAscApplicationManager@@UEAA@XZ"
+        },
+        {
+          "name": "??0CAscApplicationManager@@QEAA@XZ"
+        },
+        {
+          "name": "?Core_SetProcessDpiAwareness@@YAHXZ"
+        },
+        {
+          "name": "??1CApplicationCEF@@UEAA@XZ"
+        },
+        {
+          "name": "??0CApplicationCEF@@QEAA@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "KERNEL32.dll",
+      "symbols": [
+        {
+          "name": "GetSystemTimeAsFileTime"
+        },
+        {
+          "name": "GetCommandLineW"
+        },
+        {
+          "name": "GetModuleHandleW"
+        },
+        {
+          "name": "GetStartupInfoW"
+        },
+        {
+          "name": "IsDebuggerPresent"
+        },
+        {
+          "name": "InitializeSListHead"
+        },
+        {
+          "name": "WideCharToMultiByte"
+        },
+        {
+          "name": "SetProcessShutdownParameters"
+        },
+        {
+          "name": "RtlCaptureContext"
+        },
+        {
+          "name": "RtlLookupFunctionEntry"
+        },
+        {
+          "name": "RtlVirtualUnwind"
+        },
+        {
+          "name": "UnhandledExceptionFilter"
+        },
+        {
+          "name": "SetUnhandledExceptionFilter"
+        },
+        {
+          "name": "GetCurrentProcess"
+        },
+        {
+          "name": "TerminateProcess"
+        },
+        {
+          "name": "IsProcessorFeaturePresent"
+        },
+        {
+          "name": "QueryPerformanceCounter"
+        },
+        {
+          "name": "GetCurrentProcessId"
+        },
+        {
+          "name": "GetCurrentThreadId"
+        },
+        {
+          "name": "LocalFree"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140_1.dll",
+      "symbols": [
+        {
+          "name": "__CxxFrameHandler4"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140.dll",
+      "symbols": [
+        {
+          "name": "_CxxThrowException"
+        },
+        {
+          "name": "__std_exception_destroy"
+        },
+        {
+          "name": "__std_exception_copy"
+        },
+        {
+          "name": "__C_specific_handler"
+        },
+        {
+          "name": "__current_exception"
+        },
+        {
+          "name": "__current_exception_context"
+        },
+        {
+          "name": "memset"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-runtime-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_initialize_narrow_environment"
+        },
+        {
+          "name": "_cexit"
+        },
+        {
+          "name": "_c_exit"
+        },
+        {
+          "name": "_register_thread_local_exe_atexit_callback"
+        },
+        {
+          "name": "_initterm_e"
+        },
+        {
+          "name": "_configure_narrow_argv"
+        },
+        {
+          "name": "_initterm"
+        },
+        {
+          "name": "_exit"
+        },
+        {
+          "name": "_initialize_onexit_table"
+        },
+        {
+          "name": "_register_onexit_function"
+        },
+        {
+          "name": "_crt_atexit"
+        },
+        {
+          "name": "terminate"
+        },
+        {
+          "name": "_set_app_type"
+        },
+        {
+          "name": "_seh_filter_exe"
+        },
+        {
+          "name": "exit"
+        },
+        {
+          "name": "_get_narrow_winmain_command_line"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-math-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "__setusermatherr"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-stdio-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "__p__commode"
+        },
+        {
+          "name": "_set_fmode"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-locale-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "_configthreadlocale"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-heap-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "malloc"
+        },
+        {
+          "name": "_set_new_mode"
+        },
+        {
+          "name": "_callnewh"
+        },
+        {
+          "name": "free"
+        }
+      ]
+    },
+    {
+      "dll": "SHELL32.dll",
+      "symbols": [
+        {
+          "name": "CommandLineToArgvW"
+        }
+      ]
+    }
+  ],
+  "exports": [],
+  "source_relative_path": "editors_helper.exe",
+  "full_archive_sha256_verified": "54979d04f1cdca56deb0c62e0356355a45f392cdb54f04f6b7e436b1f44c3605"
+}

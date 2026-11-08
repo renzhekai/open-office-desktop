@@ -1,0 +1,26 @@
+{
+  "started_at_utc": "2026-11-07T12:04:42.609083+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-assistant-ball-r7\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\assistant-ball-r7-session",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\assistant-ball-r7-session\\launch-report.json",
+    "--open",
+    "D:\\open office\\fixtures\\results\\assistant-ball-r7-sample.docx"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\assistant-ball-r7-session",
+  "profile_existed_before": false,
+  "entry_sha256": "039299d6d2051e7a925fd37a5e6e88664950a2acd1e046e0b910c91e92ed6557",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-assistant-ball-r7",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "host_candidate_marker_sha256": "03af35accf510e8b0b272be37b8de101945e8eaed14b10a93985f68cacabaf76",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 44476,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-07T12:08:01.315079+00:00",
+  "native_events_sha256": "f1935ebaa81453e2eed1c3c82b376229fcd2975f4c624ec8dcbd2d2bd2652cbd"
+}

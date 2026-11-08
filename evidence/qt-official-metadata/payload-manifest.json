@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "qtVersion": "6.11.1",
+  "packageVersion": "6.11.1-0-202605090529",
+  "repository": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/",
+  "verificationDate": "2026-11-01",
+  "sdkTarget": "D:\\Qt\\6.11.1\\msvc2022_64",
+  "totalPayloadBytes": 287643078,
+  "declaredUncompressedBytes": 2743295083,
+  "notes": [
+    "Size and SHA256 verified from official download.qt.io mirrorlist pages.",
+    "This is the nine archive payload closure of the two named components, not a claim of MaintenanceTool's complete planned transaction.",
+    "Archive destinations are from official Updates.xml Extract operations; validate member names before extracting.",
+    "Do not modify components.xml to register a manual SDK; no installer registration is claimed.",
+    "No payload downloaded or SDK installed by this research agent."
+  ],
+  "archives": [
+    {
+      "module": "qtbase",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "size": 39469569,
+      "sha256": "7f97edc3937fec7383eb865e010ed5128155bf9c80a563abca450860f3e9bef5",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.sha1",
+      "extractRelativeToSdk": ".",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "qtsvg",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "size": 689094,
+      "sha256": "1d75ccf1f1a8fc78612c2c78bc2448f8f68949096d38ff9afe21980e0cb3d9b5",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.sha1",
+      "extractRelativeToSdk": ".",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "qtdeclarative",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "size": 166957267,
+      "sha256": "fc716b905581922ee8254740ae0017fcdc90b58138109ce0d9a927c099412f44",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.sha1",
+      "extractRelativeToSdk": ".",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "qtdoc",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "size": 1858329,
+      "sha256": "311977f28a6df54c923884ce4d2e08bf246bc937d768976ad9f532060e23d286",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.sha1",
+      "extractRelativeToSdk": ".",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "qttools",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "size": 27133575,
+      "sha256": "748f455851e0d81cd0e65232f6110840eda2bb980c4a4abf7e58ce97c2ff0f71",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.sha1",
+      "extractRelativeToSdk": ".",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "qttranslations",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "size": 1946027,
+      "sha256": "2da76e41de1ed46542b8648e5d92b18f916817fac1d76121a209d72a0123093c",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.sha1",
+      "extractRelativeToSdk": ".",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "d3dcompiler_47-x64.7z",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529d3dcompiler_47-x64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529d3dcompiler_47-x64.7z",
+      "size": 1380117,
+      "sha256": "60a197f75dbac55661bc4697809d8422c2ab6acea68a917339bc262e6e46c0c8",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529d3dcompiler_47-x64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529d3dcompiler_47-x64.7z.sha1",
+      "extractRelativeToSdk": "bin",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "opengl32sw-64-mesa_11_2_2-signed_sha256.7z",
+      "packageId": "qt.qt6.6111.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529opengl32sw-64-mesa_11_2_2-signed_sha256.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529opengl32sw-64-mesa_11_2_2-signed_sha256.7z",
+      "size": 5474526,
+      "sha256": "dde9302fbc8535cedf2fd75fa1826d6ac01e6fde230c976cd8ec05fe695b9db3",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529opengl32sw-64-mesa_11_2_2-signed_sha256.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.win64_msvc2022_64/6.11.1-0-202605090529opengl32sw-64-mesa_11_2_2-signed_sha256.7z.sha1",
+      "extractRelativeToSdk": "bin",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    },
+    {
+      "module": "qtmultimedia",
+      "packageId": "qt.qt6.6111.addons.qtmultimedia.win64_msvc2022_64",
+      "filename": "6.11.1-0-202605090529qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.addons.qtmultimedia.win64_msvc2022_64/6.11.1-0-202605090529qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z",
+      "size": 42734574,
+      "sha256": "e7255e7ed621c6e4fc5af9f5a1614b45260a960f03bcb4b1f37f8e910f6c8fd9",
+      "source": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.addons.qtmultimedia.win64_msvc2022_64/6.11.1-0-202605090529qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.mirrorlist",
+      "sha1Url": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_msvc2022_64/qt.qt6.6111.addons.qtmultimedia.win64_msvc2022_64/6.11.1-0-202605090529qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z.sha1",
+      "extractRelativeToSdk": ".",
+      "status": "official_metadata_verified_payload_not_downloaded_by_research_agent"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "kind": "open-office-wasm-candidate-runtime",
+  "created_utc": "2026-11-05T04:58:26.216301+00:00",
+  "source_runtime": "D:\\open office\\build\\full-source-run",
+  "source_stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "note": "openoffice-full-source-stage.json is copied unchanged and describes the source runtime; this file lists the only differences",
+  "skipped_top_level": [
+    "openoffice-profile"
+  ],
+  "files_copied": 20972,
+  "files_verified_identical": 20956,
+  "replaced": [
+    {
+      "path": "editors/sdkjs/common/libfont/engine/fonts.js",
+      "official_sha256": "c80354b6e8431d37c0661fc67b92de8d4df8d5ee058cce0348a7a3df57220cc9",
+      "rebuilt_sha256": "83c4b18faa5414a31e3e938a6d7ec0c138a46fdfbb5db2ec10fa47517a9ac9de",
+      "bytes": 60227,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts.js",
+      "build_evidence": "fonts-build-pass2.json",
+      "test_evidence": "fonts-functional-pass5.json"
+    },
+    {
+      "path": "editors/sdkjs/common/libfont/engine/fonts_ie.js",
+      "official_sha256": "26bbbc354974cd9b424ac9fe8c6456541781fecea5de2cb2fe7c7231415aa70c",
+      "rebuilt_sha256": "e7c93f92e5328c93889a1fa12d8988d840531259f4c984de8517e1a4bfa2bba6",
+      "bytes": 6878154,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts_ie.js",
+      "build_evidence": "fonts-build-pass2.json",
+      "test_evidence": "fonts-functional-pass5.json"
+    },
+    {
+      "path": "editors/sdkjs/common/libfont/engine/fonts.wasm",
+      "official_sha256": "6b27107256a1df72419ac2b4894c65f9f6f0585ac303b8f3158dc441281e4482",
+      "rebuilt_sha256": "57f20fedb547c3bc856b31bc678f2dfaa4177efd30f83c93f2031ca5ebaeb9e5",
+      "bytes": 3641996,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts.wasm",
+      "build_evidence": "fonts-build-pass2.json",
+      "test_evidence": "fonts-functional-pass5.json"
+    },
+    {
+      "path": "editors/sdkjs/common/zlib/engine/zlib.js",
+      "official_sha256": "7423739061097d41a870569756bd19d69303b0479368e43b1612c414b4a3e70e",
+      "rebuilt_sha256": "d5fa1fa62fc1d7c170cd9ee8d149e990e685ce6bcadf3dd969b2e01cadfa3e06",
+      "bytes": 42991,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass8\\deploy\\zlib.js",
+      "build_evidence": "zlib-build-pass8.json",
+      "test_evidence": "zlib-functional-pass3.json"
+    },
+    {
+      "path": "editors/sdkjs/common/zlib/engine/zlib_ie.js",
+      "official_sha256": "92539746013e584e54a3576bb29590d3efd2467c636d3c75ca5e19cb00063d8c",
+      "rebuilt_sha256": "114211e971d0f266b544100f7257607dff2a94ba152baff59c07ebe03f954098",
+      "bytes": 3573871,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass8\\deploy\\zlib_ie.js",
+      "build_evidence": "zlib-build-pass8.json",
+      "test_evidence": "zlib-functional-pass3.json"
+    },
+    {
+      "path": "editors/sdkjs/common/zlib/engine/zlib.wasm",
+      "official_sha256": "eab72ffc7a4f304fe1d281c7fe1ff271e206bb6154c4de8a472de2c750d232bf",
+      "rebuilt_sha256": "62347f6a3f7d13ead0a0e53960eb08de4eb33a7ab592290caacc960440277c24",
+      "bytes": 1915468,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\zlib\\pass8\\deploy\\zlib.wasm",
+      "build_evidence": "zlib-build-pass8.json",
+      "test_evidence": "zlib-functional-pass3.json"
+    },
+    {
+      "path": "editors/sdkjs/common/spell/spell/spell.js",
+      "official_sha256": "28a2822a20c8377caef20153edf3ddf91182472006a53153f3b9f126630cd4d2",
+      "rebuilt_sha256": "5ae2086229793ef54b1c87a995045ac730529d80be43983f9c6df20fdc7dc924",
+      "bytes": 34754,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\deploy\\spell.js",
+      "build_evidence": "spell-build-pass2.json",
+      "test_evidence": "spell-functional-pass2.json"
+    },
+    {
+      "path": "editors/sdkjs/common/spell/spell/spell_ie.js",
+      "official_sha256": "8a337d9732132bd911e0480a4fef49635a89f6c27fac611a780aa30824e95f00",
+      "rebuilt_sha256": "3bdc2f6d2e8c51a93163cededf74c54499b7e56c47fcefdb5f25cdbe87996e7e",
+      "bytes": 1016622,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\deploy\\spell_ie.js",
+      "build_evidence": "spell-build-pass2.json",
+      "test_evidence": "spell-functional-pass2.json"
+    },
+    {
+      "path": "editors/sdkjs/common/spell/spell/spell.wasm",
+      "official_sha256": "9c5c4b4a6329db55b52558962e9625b83194e7d6a085b67d05554d3ec2240984",
+      "rebuilt_sha256": "c4f8620ec7353f5120df662fa427215fa16ff32db6fe4b58dc186ccda49c7d1e",
+      "bytes": 524422,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\spell\\pass2\\deploy\\spell.wasm",
+      "build_evidence": "spell-build-pass2.json",
+      "test_evidence": "spell-functional-pass2.json"
+    },
+    {
+      "path": "editors/sdkjs/common/hash/hash/engine.js",
+      "official_sha256": "a017a4e9a073bb5c12f1671a0d1b2e41f4e37139533f5f34404887bb00a4b9d0",
+      "rebuilt_sha256": "9d53eb977469e06f1848cf958d97d1eb0ded9f6b86336a5edffe271687ba0031",
+      "bytes": 35316,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\deploy\\engine.js",
+      "build_evidence": "engine-build-pass1.json",
+      "test_evidence": "hash-functional-pass1.json"
+    },
+    {
+      "path": "editors/sdkjs/common/hash/hash/engine_ie.js",
+      "official_sha256": "fc175dbb2c5bdd69836bff2c618d6f10a39a0f6050fd5cc0023b26c9d522a684",
+      "rebuilt_sha256": "e10101711121a9658700bd8be67b6fe01b2a644a4aa741cfc0cc249cbf364afd",
+      "bytes": 198059,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\deploy\\engine_ie.js",
+      "build_evidence": "engine-build-pass1.json",
+      "test_evidence": "hash-functional-pass1.json"
+    },
+    {
+      "path": "editors/sdkjs/common/hash/hash/engine.wasm",
+      "official_sha256": "8a0cb4c59bf777320f74e9d9b0b2f1623ea1aedcd58896852879a0c7b5b2508d",
+      "rebuilt_sha256": "41ca94538adf1253d0582a0674e7457fceea7184075b4d41b514f5741751fefc",
+      "bytes": 64846,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\engine\\pass1\\deploy\\engine.wasm",
+      "build_evidence": "engine-build-pass1.json",
+      "test_evidence": "hash-functional-pass1.json"
+    },
+    {
+      "path": "editors/sdkjs/pdf/src/engine/drawingfile.js",
+      "official_sha256": "c27e605cb9fdce36d30a0de78ac727cc0db88afd881b96dbee449c2021e2538b",
+      "rebuilt_sha256": "dd40b42b16fca65d28c72ee062da5b70055eec34c32f20cbc45a28b6fad06935",
+      "bytes": 115294,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\drawingfile\\pass6\\deploy\\drawingfile.js",
+      "build_evidence": "drawingfile-build-pass6.json",
+      "test_evidence": "drawingfile-functional-pass2.json"
+    },
+    {
+      "path": "editors/sdkjs/pdf/src/engine/drawingfile_ie.js",
+      "official_sha256": "2a30ef1e9102f447e0db8efe08b31eb04257aae4d1395f071261c021083e1533",
+      "rebuilt_sha256": "97b3ef37b42661975291d809bf70a0358d7d440749c4f9ee141f683b39cd814d",
+      "bytes": 18989147,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\drawingfile\\pass6\\deploy\\drawingfile_ie.js",
+      "build_evidence": "drawingfile-build-pass6.json",
+      "test_evidence": "drawingfile-functional-pass2.json"
+    },
+    {
+      "path": "editors/sdkjs/pdf/src/engine/drawingfile.wasm",
+      "official_sha256": "8c79a2b610dc9699b48f12d76a245ad75fb72700f17dd63fea9f49d6dc2173cb",
+      "rebuilt_sha256": "8fc02ba2d7b8ad01605912809ca0e06463ba769072d23c42a85453ab8cc43d77",
+      "bytes": 10611404,
+      "rebuilt_from": "D:\\open office\\build\\wasm-source\\out\\drawingfile\\pass6\\deploy\\drawingfile.wasm",
+      "build_evidence": "drawingfile-build-pass6.json",
+      "test_evidence": "drawingfile-functional-pass2.json"
+    }
+  ],
+  "removed": [
+    {
+      "path": "editors/sdkjs/common/spell/spell/spell.js.mem",
+      "official_sha256": "89b2b85740f7539cb15cc8de4a3fdfef39d0ddbb24bc39d4248e4c986cb69e17",
+      "reason": "memory file of the official 2021 asm.js build; the rebuilt spell_ie.js embeds its memory (--memory-init-file 0) and does not reference it"
+    }
+  ],
+  "kept_official": {
+    "common/libfont/engine/fonts_native.js": "native bridge JS generated from a template, not part of the WASM rebuild",
+    "pdf/src/engine/drawingfile_native.js": "native bridge JS without Emscripten glue; current template source is not public"
+  },
+  "docx_roundtrip_verified": false,
+  "target": "D:\\open office\\build\\full-source-run-wasm-candidate",
+  "marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26"
+}

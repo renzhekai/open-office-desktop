@@ -1,0 +1,54 @@
+{
+  "name": "dep-libxml2",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\libxml\\libxml2",
+  "pin": "39b66eb2089f491eacf8e22a7965a235f7f5735e",
+  "kind": "dependency_clone",
+  "receipt": "evidence/full-source-libxml2-source-result.json",
+  "started_at_utc": "2026-11-02T11:36:03.527151+00:00",
+  "head": "39b66eb2089f491eacf8e22a7965a235f7f5735e",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/GNOME/libxml2.git",
+  "patch": {
+    "path": "patches/dep-libxml2.patch",
+    "size": 2075,
+    "sha256": "0a24769db49d04196b64e664e099f5a3a52740361d361494995fc788217aca07"
+  },
+  "head_file": {
+    "path": "heads/dep-libxml2.txt",
+    "size": 41,
+    "sha256": "23f487b6f314359a936b0fad6a60c027832f872ce269a017957efef7f1ba493a"
+  },
+  "changed_files": [
+    {
+      "path": "error.c",
+      "state": "file",
+      "size": 42904,
+      "sha256": "be306b25d1d1a13fd967ffcfada7b8a107777e5ae685959ec5a41fb666cd5272"
+    },
+    {
+      "path": "globals.c",
+      "state": "file",
+      "size": 30643,
+      "sha256": "e450f2341648cc60c005b941b147e7b52b6a729d93d06127b84e06ad87d02477"
+    },
+    {
+      "path": "include/libxml/parserInternals.h",
+      "state": "file",
+      "size": 14393,
+      "sha256": "ca2c15db7d56bf57a7aaa7679d20dbbcabe794c4be7c7fc290f730bee71f28f5"
+    }
+  ],
+  "changed_file_count": 3,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:05.588871+00:00"
+}

@@ -1,0 +1,24 @@
+********* Start testing of EngineContractTest *********
+Config: Using QtTest library 6.11.1, Qt 6.11.1 (x86_64-little_endian-llp64 shared (dynamic) release build; by GCC 13.1.0), windows 11
+PASS   : EngineContractTest::initTestCase()
+PASS   : EngineContractTest::unavailableEngineAdvertisesNoCapabilities()
+PASS   : EngineContractTest::openRefusesWithoutChangingAnExistingDocument()
+PASS   : EngineContractTest::openRefusesMissingAndEmptyPaths()
+PASS   : EngineContractTest::saveDoesNotCreateAnyFileOrDirectory()
+PASS   : EngineContractTest::saveDoesNotOverwriteExistingDocument()
+PASS   : EngineContractTest::createRejectsEveryKind(text)
+PASS   : EngineContractTest::createRejectsEveryKind(spreadsheet)
+PASS   : EngineContractTest::createRejectsEveryKind(presentation)
+PASS   : EngineContractTest::createRejectsEveryKind(pdf)
+PASS   : EngineContractTest::createRejectsEveryKind(unknown)
+PASS   : EngineContractTest::unavailableEngineDoesNotCreateAFakeEditor()
+PASS   : EngineContractTest::rejectedRequestsEmitNoCompletionOrStateChanges()
+PASS   : EngineContractTest::classifyExistingFilesByCaseInsensitiveExtension(docx)
+PASS   : EngineContractTest::classifyExistingFilesByCaseInsensitiveExtension(xlsx)
+PASS   : EngineContractTest::classifyExistingFilesByCaseInsensitiveExtension(pptx)
+PASS   : EngineContractTest::classifyExistingFilesByCaseInsensitiveExtension(pdf)
+PASS   : EngineContractTest::classifyExistingFilesByCaseInsensitiveExtension(unknown)
+PASS   : EngineContractTest::classificationRejectsMissingPathsAndDirectories()
+PASS   : EngineContractTest::cleanupTestCase()
+Totals: 20 passed, 0 failed, 0 skipped, 0 blacklisted, 39ms
+********* Finished testing of EngineContractTest *********

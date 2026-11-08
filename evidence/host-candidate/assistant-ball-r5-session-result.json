@@ -1,0 +1,130 @@
+{
+  "checked_at_utc": "2026-11-07T11:43:09.773975+00:00",
+  "session": "assistant-ball-r5-session",
+  "runtime": "D:\\open office\\build\\full-source-run-assistant-ball-r5",
+  "entry_sha256": "ca6cda5fdd741ef7e8d3a0a536833e3ac5033b804ab63c7b66647a1c4c69af85",
+  "native_events_sha256": "3255c4f09397db60e7e0938c016f90aec76f3910dc2eeb0a735204c9c523de39",
+  "journal_sha256": "d9592bab37432830948d026df998e98897289cf61a9a722c5411cbc387106eba",
+  "document": "D:\\open office\\fixtures\\results\\assistant-ball-r5-sample.docx",
+  "document_sha256": "cbe555ed60b078b632588fcc5a8ba9bd136e40a4dda670711852ae611c85e4eb",
+  "checks": [
+    {
+      "check": "process_exit_zero",
+      "ok": true,
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "editor_commands_reported_back",
+      "ok": true,
+      "detail": {
+        "accepted": [
+          "text.insert",
+          "edit.undo",
+          "edit.redo",
+          "selection.getText"
+        ],
+        "completed": [
+          "text.insert",
+          "edit.undo",
+          "edit.redo",
+          "selection.getText"
+        ],
+        "failed": []
+      }
+    },
+    {
+      "check": "no_document_operation_failed",
+      "ok": true,
+      "detail": {
+        "failures": []
+      }
+    },
+    {
+      "check": "journal_records_each_command",
+      "ok": true,
+      "detail": {
+        "entries": [
+          {
+            "code": "inserted",
+            "command": "text.insert",
+            "ok": true,
+            "source": "user",
+            "time": "2026-11-07T11:41:47.270Z"
+          },
+          {
+            "code": "undone",
+            "command": "edit.undo",
+            "ok": true,
+            "source": "user",
+            "time": "2026-11-07T11:41:55.350Z"
+          },
+          {
+            "code": "redone",
+            "command": "edit.redo",
+            "ok": true,
+            "source": "user",
+            "time": "2026-11-07T11:42:04.043Z"
+          },
+          {
+            "code": "ok",
+            "command": "selection.getText",
+            "ok": true,
+            "source": "user",
+            "time": "2026-11-07T11:42:20.154Z"
+          },
+          {
+            "code": "status",
+            "command": "document.status",
+            "ok": true,
+            "source": "user",
+            "time": "2026-11-07T11:42:28.484Z"
+          },
+          {
+            "code": "saved",
+            "command": "document.save",
+            "ok": true,
+            "source": "user",
+            "time": "2026-11-07T11:42:35.976Z"
+          }
+        ]
+      }
+    },
+    {
+      "check": "logs_never_contain_document_text",
+      "ok": true,
+      "detail": {
+        "journal_bytes": 617,
+        "events_bytes": 7613
+      }
+    },
+    {
+      "check": "saved_document_has_inserted_paragraph",
+      "ok": true,
+      "detail": {
+        "marker": "你好，悬浮球助手",
+        "original": [
+          "Open Office 兼容性样本",
+          "中文与 English 123；标点：，。！？",
+          "普通文字 + 粗斜体",
+          "项目",
+          "数量",
+          "办公套件",
+          "3"
+        ],
+        "found": [
+          "Open Office 兼容性样本",
+          "中文与 English 123；标点：，。！？",
+          "普通文字 + 粗斜体",
+          "你好，悬浮球助手",
+          "项目",
+          "数量",
+          "办公套件",
+          "3"
+        ]
+      }
+    }
+  ],
+  "all_ok": true
+}

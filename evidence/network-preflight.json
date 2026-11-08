@@ -1,0 +1,13 @@
+{
+  "observed_date": "2026-11-01",
+  "command": "git ls-remote https://github.com/ONLYOFFICE/DesktopEditors.git refs/tags/v10.0.0 refs/tags/v10.0.0^{}",
+  "working_directory": "D:\\open office",
+  "execution_context": "normal restricted sandbox; no elevation",
+  "exit_code": 1,
+  "stderr": "fatal: unable to access 'https://github.com/ONLYOFFICE/DesktopEditors.git/': Could not resolve host: github.com",
+  "files_downloaded": false,
+  "outcome": "failed_before_remote_metadata_retrieval",
+  "approval_state": "User confirmation requested for narrowly scoped official source and ZIP downloads; no escalation executed yet",
+  "approval_review_denied": false,
+  "independent_web_research": "Official pages remain readable through the web research tool. This is not evidence that a local clone or application download succeeded."
+}

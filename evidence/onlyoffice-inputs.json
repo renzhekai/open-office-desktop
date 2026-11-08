@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-01T08:19:26.225782+00:00",
+  "status": "inputs_missing_or_issues_found",
+  "lock_file": "D:\\open office\\sources.lock.json",
+  "roots": {
+    "desktop_editors": {
+      "path": "D:\\open office\\upstream\\DesktopEditors",
+      "kind": "desktop_editors",
+      "exists": false,
+      "expected_commit": "daf8c6948148827201b2907ac1134d222fbfa7b4",
+      "revision_verified": false
+    },
+    "build_tools": {
+      "path": "D:\\open office\\upstream\\build_tools",
+      "kind": "build_tools",
+      "exists": false,
+      "expected_commit": "43a46b1016f48cfec1bb86f84f3cb9f2a60ecfda",
+      "revision_verified": false
+    },
+    "runtime": {
+      "status": "not_requested",
+      "reason": "No --runtime-root supplied; no installed-application or personal-directory search performed"
+    }
+  },
+  "issues": [
+    {
+      "code": "missing_root",
+      "path": "D:\\open office\\upstream\\DesktopEditors",
+      "detail": "The selected local input directory does not exist"
+    },
+    {
+      "code": "missing_root",
+      "path": "D:\\open office\\upstream\\build_tools",
+      "detail": "The selected local input directory does not exist"
+    }
+  ],
+  "integration_status": "not_verified",
+  "roundtrip_status": "not_executed",
+  "upstream_code_executed": false,
+  "download_performed": false,
+  "limitations": [
+    "Only the selected roots are inventoried; no default search outside the two project upstream roots.",
+    "Presence and recorded HEAD/submodule revisions do not verify working-tree modifications, dependency compatibility, ABI, licenses, buildability or editor integration.",
+    "No executable/library/editor resource was loaded, and no upstream build script was run.",
+    "Runtime inventory is optional and only reports filenames; no runtime checksum/version or execution verification is performed."
+  ]
+}

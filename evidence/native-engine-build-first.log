@@ -1,0 +1,56 @@
+**********************************************************************
+** Visual Studio 2026 Developer Command Prompt v18.7.3
+** Copyright (c) 2026 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+-- The CXX compiler identification is MSVC 19.44.35228.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - not found
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+-- Configuring done (2.2s)
+-- Generating done (0.2s)
+-- Build files have been written to: D:/open office/build/native-engine
+[1/21] Automatic MOC for target office_engine
+[2/21] Building CXX object CMakeFiles\office_engine.dir\office_engine_autogen\mocs_compilation.cpp.obj
+[3/21] Building CXX object CMakeFiles\office_engine.dir\app\engine\office_engine.cpp.obj
+[4/21] Building CXX object CMakeFiles\office_engine.dir\app\engine\onlyoffice_engine_adapter_native.cpp.obj
+[5/21] Linking CXX static library office_engine.lib
+[6/21] Automatic MOC for target office_ui
+[7/21] Building CXX object CMakeFiles\office_ui.dir\office_ui_autogen\mocs_compilation.cpp.obj
+[8/21] Automatic MOC for target engine_contract_test
+[9/21] Building CXX object CMakeFiles\engine_contract_test.dir\engine_contract_test_autogen\mocs_compilation.cpp.obj
+[10/21] Building CXX object CMakeFiles\office_ui.dir\app\ui\main_window.cpp.obj
+[11/21] Linking CXX static library office_ui.lib
+[12/21] Automatic MOC for target OpenOffice
+[13/21] Building CXX object CMakeFiles\OpenOffice.dir\OpenOffice_autogen\mocs_compilation.cpp.obj
+[14/21] Automatic MOC for target native_ui_test
+[15/21] Building CXX object CMakeFiles\native_ui_test.dir\native_ui_test_autogen\mocs_compilation.cpp.obj
+[16/21] Building CXX object CMakeFiles\engine_contract_test.dir\tests\native\engine_contract_test.cpp.obj
+[17/21] Linking CXX executable bin\engine_contract_test.exe
+[18/21] Building CXX object CMakeFiles\OpenOffice.dir\app\main.cpp.obj
+[19/21] Linking CXX executable bin\OpenOffice.exe
+[20/21] Building CXX object CMakeFiles\native_ui_test.dir\tests\native\native_ui_test.cpp.obj
+[21/21] Linking CXX executable bin\native_ui_test.exe
+Internal ctest changing into directory: D:/open office/build/native-engine
+Test project D:/open office/build/native-engine
+    Start 1: engine_contract
+1/2 Test #1: engine_contract ..................   Passed    0.32 sec
+    Start 2: native_ui
+2/2 Test #2: native_ui ........................   Passed    5.20 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   5.53 sec

@@ -1,0 +1,31 @@
+{
+  "name": "main-sdkjs",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs",
+  "pin": "9d2138866d929be32f1d107e8b5bfae36156e097",
+  "kind": "main_worktree",
+  "receipt": "build/full-source/worktrees.json",
+  "started_at_utc": "2026-11-02T11:36:01.895398+00:00",
+  "head": "9d2138866d929be32f1d107e8b5bfae36156e097",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/ONLYOFFICE/sdkjs.git",
+  "patch": {
+    "path": "patches/main-sdkjs.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/main-sdkjs.txt",
+    "size": 41,
+    "sha256": "b3734a9b24c090151487cbeb15043c7305b4eac2db905fa0e00dc5b603c54d9a"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:04.730429+00:00"
+}

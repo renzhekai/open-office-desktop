@@ -1,0 +1,31 @@
+{
+  "name": "dep-v8-third_party_googletest_src",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\third_party\\googletest\\src",
+  "pin": "1b0cdaae57c046c87fb99cb4f69c312a7e794adb",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:07.687957+00:00",
+  "head": "1b0cdaae57c046c87fb99cb4f69c312a7e794adb",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/external/github.com/google/googletest.git",
+  "patch": {
+    "path": "patches/dep-v8-third_party_googletest_src.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-third_party_googletest_src.txt",
+    "size": 41,
+    "sha256": "61c3bf928afd962d731eb4f27f948a476bb94010dac0603dbb9a859908fd5806"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:08.165268+00:00"
+}

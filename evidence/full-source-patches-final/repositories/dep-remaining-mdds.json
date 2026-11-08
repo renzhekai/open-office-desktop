@@ -1,0 +1,42 @@
+{
+  "name": "dep-remaining-mdds",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\mdds",
+  "pin": "0783158939c6ce4b0b1b89e345ab983ccb0f0ad0",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:11.159468+00:00",
+  "head": "0783158939c6ce4b0b1b89e345ab983ccb0f0ad0",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/kohei-us/mdds.git",
+  "patch": {
+    "path": "patches/dep-remaining-mdds.patch",
+    "size": 539,
+    "sha256": "f42e44fc8db6eff97af8fa52985d87c0f474e03fc15d01c9c8b204dab93dfe66"
+  },
+  "head_file": {
+    "path": "heads/dep-remaining-mdds.txt",
+    "size": 41,
+    "sha256": "1e470543e037e298ce1a2b3bd44b5313c3e0b62925f753ccdd86e998fff5dcf9"
+  },
+  "changed_files": [
+    {
+      "path": "include/mdds/global.hpp",
+      "state": "file",
+      "size": 5238,
+      "sha256": "2e49cb56f8313b8d5408b85e67dfffff18e2151d4d515e0eb293ea3c13df3142"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:11.727053+00:00"
+}

@@ -1,0 +1,139 @@
+{
+  "kind": "open-office-installer",
+  "created_utc": "2026-11-08T03:45:15.354775+00:00",
+  "setup": "D:\\open office\\dist\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64.exe",
+  "setup_bytes": 594635602,
+  "setup_sha256": "aa91dbeba5dbd7eda1796a8669c5d3005a15e6b798b45b81dc3f7ea18afc2656",
+  "setup_signed": false,
+  "compile_seconds": 183,
+  "compiler": {
+    "path": "D:\\open office\\dependencies\\innosetup-6.7.4\\install\\ISCC.exe",
+    "version": "0.0.0.0",
+    "signature": {
+      "status": "Valid",
+      "subject": "CN=Pyrsys B.V., O=Pyrsys B.V., S=Noord-Holland, C=NL"
+    }
+  },
+  "source_runtime": "D:\\open office\\build\\full-source-run-local-ai",
+  "source_host_candidate_marker_sha256": "df6707859311b711b5f5117d2a5af92242cb2a8ccf295e2c582e844bf5d1a864",
+  "host_sha256": "3eb9a92a19a087cb3fb55b69655ce362e55f721d1f76d67909087356093b5a0e",
+  "runtime_files": 20973,
+  "crt_dir": "D:\\Microsoft Visual Studio\\18\\Community\\VC\\Redist\\MSVC\\14.51.36231\\x64\\Microsoft.VC145.CRT",
+  "crt_files": {
+    "msvcp140.dll": {
+      "sha256": "7c26614e1d733892c2deac7e245ce115504b1d80592dd0a01b08e3e5a55f89ca",
+      "version": "14.51.36247.0",
+      "signature": {
+        "status": "Valid",
+        "subject": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      }
+    },
+    "msvcp140_1.dll": {
+      "sha256": "206c931bf90fdad8816de3b5e2ef80b2bcaa9406c89ecc05fe6fddffe251e982",
+      "version": "14.51.36247.0",
+      "signature": {
+        "status": "Valid",
+        "subject": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      }
+    },
+    "msvcp140_2.dll": {
+      "sha256": "d50d7883f20d1dc6191768d3746f52dd9cac89c346ffaed5be1f110c2f34a838",
+      "version": "14.51.36247.0",
+      "signature": {
+        "status": "Valid",
+        "subject": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      }
+    },
+    "vcruntime140.dll": {
+      "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7",
+      "version": "14.51.36247.0",
+      "signature": {
+        "status": "Valid",
+        "subject": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      }
+    },
+    "vcruntime140_1.dll": {
+      "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e",
+      "version": "14.51.36247.0",
+      "signature": {
+        "status": "Valid",
+        "subject": "CN=Microsoft Windows Software Compatibility Publisher, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+      }
+    }
+  },
+  "crt_destinations": [
+    "{app}",
+    "{app}\\converter"
+  ],
+  "crt_license": "Visual Studio Distributable Code: files in VC\\Redist may be distributed unmodified with the program (https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution)",
+  "script_sha256": {
+    "OpenOffice.iss": "fc4ae9a52be0bf2fff269658fde2e0dc182aee32768a870dd48471c7194cdc0d",
+    "ChineseSimplified.isl": "2eb3ee87db29335ab96050b98845c21d033826aaec1b8567156c0c7f3b86bedc",
+    "安装前说明.txt": "05715b9927ff859682129eacb15536f2bf1474e71a8249eef37d57433dc6a9cb"
+  },
+  "iscc_log": "D:\\open office\\evidence\\installer\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64-iscc.log",
+  "tested_on_other_machine": false,
+  "install_test": {
+    "folder": "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64",
+    "install_exit_code": 0,
+    "install_seconds": 44,
+    "uninstall_entry_seen_after_seconds": 44,
+    "uninstall_entry_after_install": {
+      "InstallLocation": "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\",
+      "DisplayName": "Open Office（开发版）",
+      "DisplayIcon": "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\OpenOffice.exe",
+      "UninstallString": "\"D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\unins000.exe\"",
+      "QuietUninstallString": "\"D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\unins000.exe\" /SILENT",
+      "DisplayVersion": "0.1.0",
+      "Publisher": "Open Office Project",
+      "NoModify": "0x1",
+      "NoRepair": "0x1",
+      "InstallDate": "20261107",
+      "MajorVersion": "0x0",
+      "MinorVersion": "0x1",
+      "VersionMajor": "0x0",
+      "VersionMinor": "0x1",
+      "EstimatedSize": "0x17ce11"
+    },
+    "installed_files": 20985,
+    "file_mismatches": [],
+    "extra_files": [
+      "unins000.dat",
+      "unins000.exe"
+    ],
+    "launch": {
+      "exit_code": 0,
+      "report": {
+        "application": "Open Office",
+        "engine_connected": true,
+        "engine_save_enabled": false,
+        "height": 800,
+        "office_open_edit_save": "engine_initialized_roundtrip_not_verified_by_smoke",
+        "platform_plugin": "windows",
+        "prototype": true,
+        "qt_version": "6.11.1",
+        "select_file_enabled": true,
+        "snapshot_kind": "application QWidget render; native CEF child content requires desktop capture",
+        "snapshot_saved": false,
+        "version": "0.1.0",
+        "width": 1240,
+        "window_rendered": true
+      },
+      "crt_modules_loaded": [
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\MSVCP140.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\VCRUNTIME140_1.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\VCRUNTIME140.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\MSVCP140_1.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261107-2-win64\\app\\MSVCP140_2.dll"
+      ],
+      "crt_loaded_from_app": true,
+      "default_profile_created": true
+    },
+    "uninstall": {
+      "entry_removed": true,
+      "remaining_files": 37,
+      "remaining_outside_profile": []
+    },
+    "ok": true
+  }
+}

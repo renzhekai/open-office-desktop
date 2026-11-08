@@ -1,0 +1,2519 @@
+{
+  "source_commit": "9d2138866d929be32f1d107e8b5bfae36156e097",
+  "files": [
+    {
+      "path": "cell/sdk-all-min.js",
+      "bytes": 3218090,
+      "sha256": "813ed768928813c6ebde6c66fd5d066c2a8143b09dfc44dcc97109bbed5a0fe4",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "cell/sdk-all.js",
+      "bytes": 35069221,
+      "sha256": "258f6acfeba883353f6428f547172ccb3cfdc02ffdc2051941fe059064d70bf3",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "slide/sdk-all-min.js",
+      "bytes": 3220148,
+      "sha256": "9574581bd9890991329bd38d9d3f2f3ba7f441f405438df6ad6c4c569df9ec40",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "slide/sdk-all.js",
+      "bytes": 30832543,
+      "sha256": "43a6115f369871a43679c8bfbc5fde062db53cdf9e73067e0e1629c4060703e7",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "visio/sdk-all-min.js",
+      "bytes": 2773287,
+      "sha256": "df844f67a76f563e4a2181abff4a6492790ddeff15eb11d1a962c4ee65393e3e",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "visio/sdk-all.js",
+      "bytes": 25377129,
+      "sha256": "da50ae3bcc0dd87982766e914f1e12e0d389f8ebf7d43cd340fa44341c0cc537",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "word/sdk-all-min.js",
+      "bytes": 3697047,
+      "sha256": "dd3a471785c4def8a657ad54e7df7c96418d90333684af616cd7d33663a1cf3b",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "word/sdk-all.js",
+      "bytes": 30876872,
+      "sha256": "519df0f233e7e7ad2bd9943901a3cac92dbb24db528d9693db95491bca9d7894",
+      "origin": "source_concatenated_js"
+    },
+    {
+      "path": "slide/themes/src/01_blank.pptx",
+      "bytes": 34820,
+      "sha256": "dad5227502dc93b4e498a54ac15b270df4a342bb506bba4a79956239187c0f2f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/02_basic.pptx",
+      "bytes": 43858,
+      "sha256": "bfd7a391d4b764267c2bd6cf687424a4153409acc56ffad16d139e8840c4d187",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/03_classic.pptx",
+      "bytes": 818680,
+      "sha256": "88362ec4a9a1fb55d15c09f2f74441e3369197b672ed61ab355c3dab31120ac7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/04_official.pptx",
+      "bytes": 36352,
+      "sha256": "45b08eb8cf12d4dd891bdddb976f639b6040c8040ec40299cd4b38414fd7a74f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/05_green leaf.pptx",
+      "bytes": 68836,
+      "sha256": "33eca0fde9d10294e608d8093d51e31c4636974b2417b04916caad4f881a6a77",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/06_lines.pptx",
+      "bytes": 84499,
+      "sha256": "8018b61c46fd2796356a604d5fce2945fe21684332bfae95e4b0abae43914d6e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/07_office.pptx",
+      "bytes": 39911,
+      "sha256": "a00cf578f9a6e2f0c07300d3e64bbae3a526c1184fe90f58f367de2d08daa201",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/08_safari.pptx",
+      "bytes": 882338,
+      "sha256": "119cdfb4e3bee3450bdcb22630b9d919b9622448bbf1b3aa23a4786f94606535",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/09_dotted.pptx",
+      "bytes": 83024,
+      "sha256": "83e9068dd003208842760116ace580621c139a8c48208ef88c6fc6150877d5f8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/10_corner.pptx",
+      "bytes": 37164,
+      "sha256": "a6963c760af66219e9ebd8b22b7e3ed0cfcda4fb9fd35dfc68f45ef1f66eadc6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/11_tort.pptx",
+      "bytes": 35906,
+      "sha256": "fbf585d7e21132d8814b955ffe8cdc4e28365eb026de9b4fff05206216a0b4b0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/12_agreement.pptx",
+      "bytes": 362946,
+      "sha256": "8a1ba19a07eccf8f0c0927f3eb69bd21eaecb6bbb3673ca3f8e15227644dbc2e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/13_alliance.pptx",
+      "bytes": 2313103,
+      "sha256": "cb7ed72aef8e500d799f02331507bdcfbb40868db5f437b3b1064307151acc42",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/14_alphabet.pptx",
+      "bytes": 63077,
+      "sha256": "d733cca7b1e648af51a9b49ad4a26201d211ab7bb273ae55bc4f340a2b0ef080",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/15_central accent.pptx",
+      "bytes": 72780,
+      "sha256": "75ab57bf2be16dd20946bad3c80d4fbd0a2017a8c8f3abcffab1bfa2c2de4651",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/16_crystalline.pptx",
+      "bytes": 195179,
+      "sha256": "2586740fcfa6460d829be745d260ad18b4d656ec6dfec4c9d94ede8e4793e134",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/17_development.pptx",
+      "bytes": 123543,
+      "sha256": "86ccacb6f5fa0b7feb2659b35903af3298453a17ec302d3d543fc77f7ec968f7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/18_fluorite.pptx",
+      "bytes": 939670,
+      "sha256": "d18e61346bf8700c2bae658bcf9365f09f7f4df9d6483d2b0603cfe62d6e1348",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/19_galaxy.pptx",
+      "bytes": 1967274,
+      "sha256": "488c9e94f239a3f812df5d64c26ca76e032362f1877879ea528d43bc89049d7d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/20_geometry.pptx",
+      "bytes": 466424,
+      "sha256": "c094616f2efed5f72ba988250747ce86fff19d4cb98210cc2eb7663cc3d1b73f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/21_gradient echo.pptx",
+      "bytes": 188365,
+      "sha256": "6249008a3797bb2e0742d53995c317b36fd0247e97f204cf8b58926a30112c6a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/22_leisurely.pptx",
+      "bytes": 41504,
+      "sha256": "901316f3048b2c407e3d1a2793998ea6272e0ae7328bf42a2f08f3aa8e383f5c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/23_luminescentia.pptx",
+      "bytes": 39149,
+      "sha256": "51cefebec67738c5030cb65ec5c12d2633add2a303553e6e67d65efc01186571",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/24_memory book.pptx",
+      "bytes": 596967,
+      "sha256": "62d97f7bb5921a7f812c7196daf367db80591a8f717433d781f9e82da6dfa5d1",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/25_nexus.pptx",
+      "bytes": 91824,
+      "sha256": "e762e2307175966271fef497749b7ee685c3821e462c375bc5ede826d3263a81",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/26_prisma.pptx",
+      "bytes": 39047,
+      "sha256": "1f4993a099f3f8514535e99bf23fd1f9d75f74c5e8712482d15b3848ed184b5c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/27_retro game.pptx",
+      "bytes": 86144,
+      "sha256": "301e1c2772b4a3dfebca5fd2861fbf748bfd1962094d38ae547b9da56ca9bdd0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/28_shades of aurora.pptx",
+      "bytes": 35594,
+      "sha256": "da18cf644677fc2185b8904aa2142fcd3ff03e8a4ac43b8bbdc33416c4c8d12e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/29_silent flow.pptx",
+      "bytes": 71445,
+      "sha256": "f1930f3e062a2af02fbcb273a3b4d9923930c1a8239aeb98b1e6ee90399fac79",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/30_spaces and faces.pptx",
+      "bytes": 990495,
+      "sha256": "54d6505f4234773ec5c8c77cf1f967833b6f289371db9d1d3374803a6e21deb8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/31_the project.pptx",
+      "bytes": 447266,
+      "sha256": "54e82e3b6a327a8b9d2605f7c271f64d2cc9ea123805992fca74bdca1ea3ae85",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/32_the strategy.pptx",
+      "bytes": 1813879,
+      "sha256": "2d4c2f001cc9f63f1c421add6ac0a7e9e188ce307ee3b9e8654331ca49071c59",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/33_thesis.pptx",
+      "bytes": 389818,
+      "sha256": "ceba0ecb916cc217c5cf3f72d6d563034341e902e043ce83a42dca9cb3030d2d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/34_urban.pptx",
+      "bytes": 1038461,
+      "sha256": "6c54dbacfebbb3344ce0a902d764b81bc5a389b39b7259bdefee912ce7e56416",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/35_watercolor light.pptx",
+      "bytes": 813903,
+      "sha256": "d19fa215a0d9fb72f9ea55ee7a9d36d7fccc2f7b1239103c2659a200246af5e6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "slide/themes/src/36_wild nature.pptx",
+      "bytes": 633016,
+      "sha256": "2e43d0ce62b43bb482564f8e90dc484fc71e22a39619750ad2a11a66224ef3b0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/engine/cmap.bin",
+      "bytes": 9397739,
+      "sha256": "5a3179515c55b7f99882ac6cf25357dd0f7623d6c765d864ce80af214df27a03",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/engine/drawingfile.js",
+      "bytes": 115230,
+      "sha256": "c27e605cb9fdce36d30a0de78ac727cc0db88afd881b96dbee449c2021e2538b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/engine/drawingfile.wasm",
+      "bytes": 10868120,
+      "sha256": "8c79a2b610dc9699b48f12d76a245ad75fb72700f17dd63fea9f49d6dc2173cb",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/engine/drawingfile_ie.js",
+      "bytes": 19683016,
+      "sha256": "2a30ef1e9102f447e0db8efe08b31eb04257aae4d1395f071261c021083e1533",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/engine/drawingfile_native.js",
+      "bytes": 47839,
+      "sha256": "a41fe98d2f85a146081319abe809f8da01b139a95be00896eaea87f6733743f5",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/engine/viewer.js",
+      "bytes": 244600,
+      "sha256": "4fca32cf529a72b9c8362da835f71555c6dc219569e3882e2bfb9ab6ebdec832",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/de-DE.json",
+      "bytes": 81555,
+      "sha256": "d4849d8dec037bfcb195ceabc9e78bb976bc67cbda3b1c11d428a1a14f96a78a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/en-EN.json",
+      "bytes": 81479,
+      "sha256": "a4739149568dd64a4143c68e97d16863348984dfcda8d98911d2e34fa21ad4e7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/es-ES.json",
+      "bytes": 81517,
+      "sha256": "f32759fe7e15117fd33df891dff87820cd650623a80d6551253ac388b035d252",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/fr-FR.json",
+      "bytes": 81522,
+      "sha256": "91312a752d865274d1e4b03556dbf6a4390b309f7946d3a96edbd52510f3822f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/it-IT.json",
+      "bytes": 81512,
+      "sha256": "92757a183a39ed8883181eac8a28098c969699c8b4d6d2099dc331bc2ac1acea",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/ja-JA.json",
+      "bytes": 81566,
+      "sha256": "db1c546af90e53c602129b075eaec9b08b9f78d2f89f51ae250740682f28eec8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/pt-BR.json",
+      "bytes": 81531,
+      "sha256": "62b992bfed59ee6030e99fb1dfd493860f5f4e6bc8a9bb2c1d0ff19788a15845",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/ru-RU.json",
+      "bytes": 81877,
+      "sha256": "3446b761b4e2d95ffde6181ab120a09f071b63c3d5f39871d3a1b630d49477e1",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "pdf/src/annotations/stamps/zh-CN.json",
+      "bytes": 81527,
+      "sha256": "475f5dcc1719f3bb3ca5f9107621083ee51e272e2fa5e984aff2abf30e6c4c15",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Charts/ChartStyles.js",
+      "bytes": 1584641,
+      "sha256": "59c5f4ace2362aac36daea65758ffbe4e9c0976ae1f56a121a1b538bf857b18f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Native/jquery_native.js",
+      "bytes": 248950,
+      "sha256": "bc31a0817a78bf1a00758366e835c3685e6ba70befcbe92d790841343e634552",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Native/native.js",
+      "bytes": 10488,
+      "sha256": "c75d481ece7d02e20daa16d066e9f2380e7415a736bee7556b51838b25a3b0bc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Native/native_graphics.js",
+      "bytes": 21045,
+      "sha256": "f1b699485b84a45c2f8c84e512d826b7cb80c00c3da2a49a7dd3d97b91b7180f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/serviceworker/document_editor_service_worker.js",
+      "bytes": 20859,
+      "sha256": "23761a699b7d524cd24fca1cb2816f90c8a3ec44fea2016203d46243cbd9f1af",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/zlib/engine/zlib.js",
+      "bytes": 36819,
+      "sha256": "7423739061097d41a870569756bd19d69303b0479368e43b1612c414b4a3e70e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/zlib/engine/zlib.wasm",
+      "bytes": 1617419,
+      "sha256": "eab72ffc7a4f304fe1d281c7fe1ff271e206bb6154c4de8a472de2c750d232bf",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/zlib/engine/zlib_ie.js",
+      "bytes": 2950555,
+      "sha256": "92539746013e584e54a3576bb29590d3efd2467c636d3c75ca5e19cb00063d8c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/spell/spell/spell.js",
+      "bytes": 39630,
+      "sha256": "28a2822a20c8377caef20153edf3ddf91182472006a53153f3b9f126630cd4d2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/spell/spell/spell.js.mem",
+      "bytes": 147495,
+      "sha256": "89b2b85740f7539cb15cc8de4a3fdfef39d0ddbb24bc39d4248e4c986cb69e17",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/spell/spell/spell.wasm",
+      "bytes": 510644,
+      "sha256": "9c5c4b4a6329db55b52558962e9625b83194e7d6a085b67d05554d3ec2240984",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/spell/spell/spell_ie.js",
+      "bytes": 789506,
+      "sha256": "8a337d9732132bd911e0480a4fef49635a89f6c27fac611a780aa30824e95f00",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Accented_Picture.bin",
+      "bytes": 50922,
+      "sha256": "3590b9033aa8459b034bcf9f9200bfa36bea593c6350b78274cdd590187b058a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Accent_Process.bin",
+      "bytes": 47163,
+      "sha256": "d18d7b57fc8e3dcce6320cd734b4f49bacbb40a5dccff1d4b7e1cdf05a33a946",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Alternating_Flow.bin",
+      "bytes": 62141,
+      "sha256": "770e43c18daf73c85ce1ba56b2fc22fc74482d528aae4cb5502320c99cb5645c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Alternating_Hexagons.bin",
+      "bytes": 51672,
+      "sha256": "d0572345aa57964972a5b954c3c87f750067392b2e4edc46681876baa74ef837",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Alternating_Picture_Blocks.bin",
+      "bytes": 34508,
+      "sha256": "c8c1a0c2b8b846ffd4466928af0bea22faf1481fffa472f70da1d2c7d9110d74",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Alternating_Picture_Circles.bin",
+      "bytes": 50946,
+      "sha256": "498c8ce94599f81e17ff8cc76e1271cfbb1ba214cdca16419095c6f2c3980227",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Architecture_Layout.bin",
+      "bytes": 52164,
+      "sha256": "96f4b5e57e6c980e5b746190864ebd56f44f0737ecfaad1b35be326c62b024db",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Arrow_Ribbon.bin",
+      "bytes": 27764,
+      "sha256": "2c26991e796154006aa39f6d6821417fc18f875b747893e3407b9d7c21cb426e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Ascending_Picture_Accent_Process.bin",
+      "bytes": 156670,
+      "sha256": "7ce4f69f88cf1bb603cb777fe1370d146bc34d7d53694b0b90307a2272666025",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Balance.bin",
+      "bytes": 101681,
+      "sha256": "b8805954eb3e400bc3226dc74e20e7ac0d44ded69f58794089f49fa56de7b070",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Bending_Process.bin",
+      "bytes": 41801,
+      "sha256": "f7187315c1dbd33577c0e175606d6390a95cde58a1eb4317b7dd4d581ebe2d38",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Block_List.bin",
+      "bytes": 35478,
+      "sha256": "272f111609abfac54f3c08d6b69b36f72a3a6ac81037523e32365e6505f54dc9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Chevron_Process.bin",
+      "bytes": 31598,
+      "sha256": "7994a0e33e82dc00878aeeb1fddbc7ca3228f50f59d762b77510a2564fbfadbd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Cycle.bin",
+      "bytes": 44365,
+      "sha256": "0c5c9b39b41a0fcb525675da673a22a194285e72befa515ed75e5001e7513551",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Matrix.bin",
+      "bytes": 32995,
+      "sha256": "ca4c87ba78ffadd0dffd351ce11d4f1c7700316c75473845c17cd932d1fb7d93",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Pie.bin",
+      "bytes": 60351,
+      "sha256": "325e729df5c616f968d9c7188aa95b0194a4add5f9dc0422bf1fa7dec9009a4c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Process.bin",
+      "bytes": 32387,
+      "sha256": "f50d35c022a186c7666549c0ce6ccebc2309c6b2bb611e29e24719d8b28353b0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Pyramid.bin",
+      "bytes": 35054,
+      "sha256": "f04a4d121c04b6cafdd49fc0623f3a3e7c063c1c4ac682c640082dd68d3b5de8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Radial.bin",
+      "bytes": 42846,
+      "sha256": "c23944c0d14d951879e7863ecdb7018d3686836dee60e99d3eaac5b1ce8c6f8b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Target.bin",
+      "bytes": 57838,
+      "sha256": "beff2666a7e7c8b3ede1936f0238e507c3b32920685eb20cc5b0887b99fcb594",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Timeline.bin",
+      "bytes": 38437,
+      "sha256": "b36a3bd0f9acbbd3db8f1ae1cdc3fcb31d0f433f60013ca01213ec362313c2ab",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Basic_Venn.bin",
+      "bytes": 47496,
+      "sha256": "ecf0eaed3c4e7267a39bea500555a1d7a19e10896cb08696e762f7007c90a3c6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Bending_Picture_Accent_List.bin",
+      "bytes": 41791,
+      "sha256": "981cd29a38626a6e3356321f2efccb4da3a35759ab065f8fea3ab3dcb91d95c1",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Bending_Picture_Blocks.bin",
+      "bytes": 34784,
+      "sha256": "6d93e8d2b12b2c627fdaf0e81715bdbf47499b07c5f9075e6b5643f716508562",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Bending_Picture_Caption.bin",
+      "bytes": 30502,
+      "sha256": "c2edd25a4ee139fbfa3b8cba4ee7c9fae9b47d4d541e4e5f32ad2098cd70d502",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Bending_Picture_Caption_List.bin",
+      "bytes": 35445,
+      "sha256": "67200e991889359791530612eb696aa4ade96071642e76aa8d80f5a3fc62f20e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Bending_Picture_Semi-Transparent_Text.bin",
+      "bytes": 34772,
+      "sha256": "c3e4ee24530ab887755432ce00e000f216a19a0f9bb253313ff6e72a240de872",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Block_Cycle.bin",
+      "bytes": 42207,
+      "sha256": "c253361c22dd8e483efaaff7444a5cba592bf8d18f259f1b34ba6324c97b9e12",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Bubble_Picture_List.bin",
+      "bytes": 101357,
+      "sha256": "2c6b32fefd3ec82476f88820b4e461d2e3b39ba4004ccf1bad7c43b57c1d121e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Captioned_Pictures.bin",
+      "bytes": 48024,
+      "sha256": "5967010679bf75a2b5f1986c685ab42bf33ed3500529f3037049ed13428fa143",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Chevron_Accent_Process.bin",
+      "bytes": 34304,
+      "sha256": "d7d48d1f019be51bf6adc1ed221e1e75e4403a5311acda05e9db6110996cef23",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Chevron_List.bin",
+      "bytes": 51074,
+      "sha256": "d73cf09740fa4ee2a989f621a6d8f627639261139d0d08d93f4f87e44ad9c494",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Circle_Accent_Timeline.bin",
+      "bytes": 64201,
+      "sha256": "330e4bb4f20dfb882b51fe3a29e3116a29a0b805d09aa69fadbe8614cd34ff96",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Circle_Arrow_Process.bin",
+      "bytes": 91896,
+      "sha256": "e30fbd23c49ed693f2a1f886504b68fb12f92c1dd6011b601262d9b5fdae0328",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Circle_Picture_Hierarchy.bin",
+      "bytes": 63340,
+      "sha256": "9e11348db464141bee51993281e78e0ba7dedde0a37d6156a552851b101c7c9d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Circle_Process.bin",
+      "bytes": 214166,
+      "sha256": "94c8a6b419ba745c06b1f40f75356397e11aecc2ac780babc944142b687d80b9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Circle_Relationship.bin",
+      "bytes": 57202,
+      "sha256": "81d77086c183d6ad1c2e1f4c9acb10202f2b779761de311219ace32b2012d169",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Circular_Bending_Process.bin",
+      "bytes": 62035,
+      "sha256": "125661c9e82883438959692a4c845fe735b29dff454c663561775d09a2999a4f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Circular_Picture_Callout.bin",
+      "bytes": 89275,
+      "sha256": "ed17dc44e9b25b0c78c0c37e736c1f985d80d03f3031a67b1550561a6adfce64",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Closed_Chevron_Process.bin",
+      "bytes": 31021,
+      "sha256": "1539f5988da25e04fd6a2edcf9a7df497029b8711d8dd7baf1ab2aa8fd52ad4d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Continuous_Arrow_Process.bin",
+      "bytes": 43505,
+      "sha256": "e538274db1a11e26e558b795d0541542a6e599baa438d8eb6cd110b0e3d7ae76",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Continuous_Block_Process.bin",
+      "bytes": 30775,
+      "sha256": "7756d536690fc11b13cccded30dc71ed7a324a33d8455cc39119cbb9b39a336e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Continuous_Cycle.bin",
+      "bytes": 38696,
+      "sha256": "282946ff482a7fb853693f193e5a51edf17bd3d07375139ac75ee2b13a222612",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Continuous_Picture_List.bin",
+      "bytes": 41220,
+      "sha256": "bde06111de040a4f250ba4a2783d2db3a59aed74a13ecc79f0eb1f52a1a51dd9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Converging_Arrows.bin",
+      "bytes": 27019,
+      "sha256": "cb8dc7c5f6abff9f5c0101f4a8044717fd490178fe029132f0eb65b2481127e4",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Converging_Radial.bin",
+      "bytes": 36089,
+      "sha256": "e166cb7cc2401e2f7a57e4dcc6a900c24affe0fc799f0373e104bb8ff9276e44",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Converging_Text.bin",
+      "bytes": 147145,
+      "sha256": "bd867f8251070a44d154dc74c5c9620e008c4931006a3405567df1311a9592d5",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Counterbalance_Arrows.bin",
+      "bytes": 31451,
+      "sha256": "6e4473bdd405ff92c76a6d9321cd712d23a05575ac8ca1c00da8f98a3fd03a71",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Cycle_Matrix.bin",
+      "bytes": 62526,
+      "sha256": "06db087f1fe0b82af57a42910fd4d29f58b25031f158a745f7bc5614da2c0ef2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Descending_Block_List.bin",
+      "bytes": 120254,
+      "sha256": "717078aabd1daa352fd47d5f0ade5121560d5cfb0fe9163f1010c8231e0999ba",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Descending_Process.bin",
+      "bytes": 51667,
+      "sha256": "d5c91214aa97cbf1445e444805efec055961d9059a1bed5950e3cf4a2c796cfd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Detailed_Process.bin",
+      "bytes": 51710,
+      "sha256": "243c0d8cf6610810962d0c87a81d177923a3b3e045d6082d03019d51bb0ae434",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Diverging_Arrows.bin",
+      "bytes": 26750,
+      "sha256": "244a219ade679cc577d2aba5e8da8f40fa5838c716e988871dcccad27b609842",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Diverging_Radial_.bin",
+      "bytes": 43479,
+      "sha256": "42996acadb84f261c8a152c6aa49ec3cfa68bdbc38389c06009eae5c67e81836",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Equation.bin",
+      "bytes": 32766,
+      "sha256": "f3559cdf248433adeec24405ff53f9d441ed851b7d0ff100726eb4e21f7efbbc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Framed_Text_Picture.bin",
+      "bytes": 30648,
+      "sha256": "eca75d9454261fd29b1f7ccf13bb62ba666ef5fe2a528e0f8f2e690d12e611dd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Funnel.bin",
+      "bytes": 36562,
+      "sha256": "365d3f15fd21a64f8feb495e00eeb2b3e913587a22d12de48d3ca8c5aaf26cf8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Gear.bin",
+      "bytes": 46270,
+      "sha256": "123d4a040eef7e669f83de476be092d5c26582e5fd99b7319e09083278f2def8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Grid_Matrix.bin",
+      "bytes": 32990,
+      "sha256": "3784880e324f66c38411525b790c1697d430fcf21ef608fa6759dca80e6954f0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Grouped_List.bin",
+      "bytes": 54981,
+      "sha256": "0a559823ac888dc94f3a3a71ebc7b026ac663c6cf6c23f28e534316581ffb57e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Half_Circle_Organization_Chart.bin",
+      "bytes": 87845,
+      "sha256": "42917c015d027c37b0325611d14063220871fca9c5de7feb4f555ff128856f74",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Hexagon_Cluster.bin",
+      "bytes": 106458,
+      "sha256": "47fd81ce5d3232cfa51699052ea3dafef866db88aa32912e8d12a57f5eb30630",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Hexagon_Radial.bin",
+      "bytes": 71082,
+      "sha256": "a7209df922a17485edad63998e1cbe22ea414af775dcae65784e4b20edce3d28",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Hierarchy.bin",
+      "bytes": 62888,
+      "sha256": "987ab9272b8f797f16a652a8817ed15ce8d8789ba2fd9b06483d0f472049b40a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Hierarchy_List.bin",
+      "bytes": 48422,
+      "sha256": "bfc393154c5c3b5d9d6a978bd89b72a0c53b9e3075a9053a761c19e6c6d5dd80",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Horizontal_Bullet_List.bin",
+      "bytes": 44238,
+      "sha256": "58eb6a9f1e8f1420fd9c643c43a5194566628e17e3a100767fe850e5e2f994dc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Horizontal_Hierarchy.bin",
+      "bytes": 56204,
+      "sha256": "38558e056a0aeb31ea2b215685e612b38e755bd35b0d308a7f7be3d27c27e37f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Horizontal_Labeled_Hierarchy.bin",
+      "bytes": 78295,
+      "sha256": "13a42f5b6d9034b47914ebe8bc46656d37d6acbe6257204f70cb269e5fa936c2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Horizontal_Multi-Level_Hierarchy.bin",
+      "bytes": 46447,
+      "sha256": "d551ae851d7190a8e211f033e98bc35ebd8ad41cfd44039a8f2b64dc3875bfc2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Horizontal_Organization_Chart.bin",
+      "bytes": 75498,
+      "sha256": "d391d0645803d54aae26fd90295c0bb72ecf874fb061a7f4a3105bcc6f480933",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Horizontal_Picture_List.bin",
+      "bytes": 37876,
+      "sha256": "4b5e06981f312316006339740dbcea601b43250be8c6f05cfcf3222240f482c0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Increasing_Arrows_Process.bin",
+      "bytes": 73205,
+      "sha256": "2b0a0df547bcbcc9204c188586fd341e2473934f8f53e3641467f2a7955fd9e1",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Increasing_Circle_Process.bin",
+      "bytes": 49106,
+      "sha256": "241065012cd1d8cc102a592546b7744eea4348e8b5f5a92e41d81318a5ae3d57",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Interconnected_Block_Process.bin",
+      "bytes": 99354,
+      "sha256": "34e491cc0dccb43bd30e0a75fe28800bdc43e3fec084ad420c7ec4787cd6aa99",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Interconnected_Rings.bin",
+      "bytes": 38840,
+      "sha256": "aa506373005a6a13bb9ad94542463e48e765d3c5baf66b05d021d9fe1b6621cd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Inverted_Pyramid.bin",
+      "bytes": 35050,
+      "sha256": "19d49e8ef057040e2b08e565ad11e5620af38d192caac0855778bb76dbfc9973",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Labeled_Hierarchy.bin",
+      "bytes": 72077,
+      "sha256": "9e018a479477965415eb67dfbe186d9fa2bb292f7c9d98106dc6788c223950dc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Linear_Venn.bin",
+      "bytes": 32298,
+      "sha256": "14b6154e3f2cc28311db60909eccd1c8c9ae868359fa992bdeba5340e84c4f5f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Lined_List.bin",
+      "bytes": 47194,
+      "sha256": "0be41cbceff1161e773e9df38ed896f7c6a65e4f8151162476c9787f6b765678",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Multidirectional_Cycle.bin",
+      "bytes": 35469,
+      "sha256": "46947fecd2d430c9ad3981bf4d7c54175d47391d131d47e079644103fd002601",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Name_and_Title_Organization_Chart.bin",
+      "bytes": 83629,
+      "sha256": "7164b8b1609bb16e7c67b2cf24e031e41a3c43665b7b816a9106d8e1ba0fd02e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Nested_Target.bin",
+      "bytes": 64637,
+      "sha256": "f97c87cf6cee6ddd988141f3da7f66a9f8b8f38f11c037c4062e7cd20afc01f7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Nondirectional_Cycle.bin",
+      "bytes": 42250,
+      "sha256": "dfb23397ff5ec7695605d1985a9339cc7fca2206a1899773238beeaf2e63cc81",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Opposing_Arrows.bin",
+      "bytes": 30885,
+      "sha256": "92cd433c0ccef6d1ea8a72ec9418a118d9598708326915a4779d3fcdc466f9d6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Opposing_Ideas.bin",
+      "bytes": 43605,
+      "sha256": "6f5a067e669f9f9ed2676a37ff7822ea5f76696e8ee3d61d4c8ee8eb974ed5e7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Organization_Chart.bin",
+      "bytes": 72937,
+      "sha256": "f1a975a5f79f8dfbba2d71ef4b939085e5effe0260a06d7eb66defd429f2fac3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Phased_Process.bin",
+      "bytes": 82015,
+      "sha256": "ee39c53b74c77fd75959bdde51de28b3c7d3bcf320b14e968e9fca7af22d3768",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Accent_Blocks.bin",
+      "bytes": 35606,
+      "sha256": "d11d5dd5810e79abcd959d56a9ab933807c72eaf3b3a6b549d8a5d115ce23621",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Accent_List.bin",
+      "bytes": 48565,
+      "sha256": "9bb6ac532c43cf52c35fa331406515d0516f50c8f196aed942ae6b0f2a6eface",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Accent_Process.bin",
+      "bytes": 48063,
+      "sha256": "dff17784155dabc53a7ddda2bbef6642ab1604d809e7ed89a2109bee3ea3878d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Caption_List.bin",
+      "bytes": 39140,
+      "sha256": "eb5ad85b41c97fcf2c11f352eecd04088668b52e296b4b646a34f387955e67fc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Frame.bin",
+      "bytes": 37553,
+      "sha256": "7f7490dcaa717f6b51a24c6bedd4c588ff27237f787c23b910c1a492806dc04e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Grid.bin",
+      "bytes": 39711,
+      "sha256": "5b7120c44aedcf275d172470c669b6030a01e62f88ba8b6bf7bedc627a629115",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Lineup.bin",
+      "bytes": 37444,
+      "sha256": "105a894b20f713a91c1fa5cc0525c3165aea4b18626fb5d552538821ca7a3ab8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Organization_Chart.bin",
+      "bytes": 81773,
+      "sha256": "237e2dec7362c58f24f016629887ec0980e532b50d3011099d3940a8ee9f67c7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Picture_Strips.bin",
+      "bytes": 34769,
+      "sha256": "a57b05159606af6bb57bb151ce07329c11043173d826d6075e9a9e248fb880a8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Pie_Process.bin",
+      "bytes": 56452,
+      "sha256": "8be3450d9a9c390fa0eb1a4effa4e7398ea19b7ca9545515db319baa9349d933",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Plus_and_Minus.bin",
+      "bytes": 31331,
+      "sha256": "9172486d2869fb02317eaa02d8e4e0ec2a4e95e069f311d514179151d395063d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Process_Arrows.bin",
+      "bytes": 52625,
+      "sha256": "8f29c9315acd2d3d62e9fbeea1c43245c2712159cbd0860d77818c7e1a6b17cb",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Process_List.bin",
+      "bytes": 43457,
+      "sha256": "2a7585f07ba6c138a3365bfcc0fde596b64f0c8d5ece29959571a013add05cbe",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Pyramid_List.bin",
+      "bytes": 31051,
+      "sha256": "a8508b989da934c4429c64560ac326143e6f9be3b5ea89afd6f140e5b36a4c8e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Radial_Cluster.bin",
+      "bytes": 98926,
+      "sha256": "77a7b0cd4c52a71165870265cf86fd8d878c7f61b01254cb55ab3b5652c1f3fd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Radial_Cycle.bin",
+      "bytes": 44899,
+      "sha256": "2eacf8c46bbbb13062bf120613920d2a5fe22bce7c00e74481f41987469328a1",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Radial_List.bin",
+      "bytes": 51028,
+      "sha256": "771953b86461fb20c22033f8cb1f4198e02ec3199a95353d8f77daf14fa03aaa",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Radial_Picture_List.bin",
+      "bytes": 51662,
+      "sha256": "f1e1630935054bfa04bba78b35543516410645bb8ee0c447d540076f89477ac7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Radial_Venn.bin",
+      "bytes": 34570,
+      "sha256": "26e60ba9d562c3cc89edbd9def7960f8cd3026268e70725783dacf72a8a71654",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Random_to_Result_Process.bin",
+      "bytes": 58502,
+      "sha256": "4989b8f3268c6782d207df6c0880f4602195714ce664c4818d5db121254fcd59",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Repeating_Bending_Process.bin",
+      "bytes": 42245,
+      "sha256": "4548d757f2f2141acb44dc248de0b12c6e938605c7c7a47275198c2db805f2a9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Reverse_List.bin",
+      "bytes": 32660,
+      "sha256": "98fce422ccee4bb85af1a6b7a10bab042528ccaa9ccd1f285cbf82cbaf7c7e93",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Segmented_Cycle.bin",
+      "bytes": 74062,
+      "sha256": "2162cfed3214ff1062e1f666edee0d64ca0a86ad072137647bd0542f4f9ed23f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Segmented_Process.bin",
+      "bytes": 54140,
+      "sha256": "d2d8ca2d41f8559243eab361945f43aad4278d781cd0e7d18b47730d4f8a1c9c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Segmented_Pyramid.bin",
+      "bytes": 35904,
+      "sha256": "0a9cd96aa55fb6e0f3e256f94e1ffd8cab14cb2d79237701d5a989951119ac41",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Snapshot_Picture_List.bin",
+      "bytes": 31973,
+      "sha256": "8aadb922e37b36dbdecd90a8acc86da7d59a2168f31806817f3ceabc028ec4ef",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Spiral_Picture.bin",
+      "bytes": 87108,
+      "sha256": "a923378b9e39acf0c132ca61a938a573dcbc2a6b9094cb19cc0bb8b3ea0457ae",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Square_Accent_List.bin",
+      "bytes": 59522,
+      "sha256": "7afdcd6661658bace01126b20923fbf5c434be0366d9219b4364dc816ee53a9d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Stacked_List.bin",
+      "bytes": 51234,
+      "sha256": "0b6b7dfd82a70822aa5f16f534c8dbae3d77562db0a7d0c8c31d80fe44c1bc36",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Stacked_Venn.bin",
+      "bytes": 49333,
+      "sha256": "b6cb676fcb5d0bb9acdc9b7f5b9f5841fa9583be9c1b38d18b85947ce271699b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Staggered_Process.bin",
+      "bytes": 65500,
+      "sha256": "0fe93a1a49f20c6dab5fe3ce871cd000816bf3a340443c5432e784f9d8e6dfd6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Step_Down_Process.bin",
+      "bytes": 44016,
+      "sha256": "1a3b38b4d238e0e67b9799e6641086710a52f92e002e23c1ab9d7f36f4927183",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Step_Up_Process.bin",
+      "bytes": 38680,
+      "sha256": "fed70328a52acc5214c62428c34cfbfffc9716954efb8e1c036376b206b8dbfc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Sub-Step_Process.bin",
+      "bytes": 68400,
+      "sha256": "159781b1b48a74d8657d261dab8fe6d32685a59532370e6d7b1775267c84d0d8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Tabbed_Arc.bin",
+      "bytes": 27862,
+      "sha256": "bd972a133c3bb9ceb4292e47f2208320fb135d8450d23da0c92e564240ed1e99",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Table_Hierarchy.bin",
+      "bytes": 51619,
+      "sha256": "01ad9467ed4f08b107987e88253594032497032f60d24874f4a8470ff9db6965",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Table_List.bin",
+      "bytes": 32765,
+      "sha256": "ba1a7f0381b3cbd6d9190bc6cf7c6eafec261e4c1240ccca0bbd608682e312ad",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Tab_List.bin",
+      "bytes": 50709,
+      "sha256": "9992a1b9112d42be506aa141d79aa915829773cb3cc2b0125d43715b9fca23c8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Target_List.bin",
+      "bytes": 139497,
+      "sha256": "a1cfaa6aeffa196e1434b1f1678566f3427071eceebca331704d09223f768010",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Text_Cycle.bin",
+      "bytes": 42016,
+      "sha256": "9a81992c2cfca0902309ac6da7aec327a7c878db64ad2308c16bb2187cb5318f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Theme_Picture_Accent.bin",
+      "bytes": 77558,
+      "sha256": "626641c77a348930902fb7f5f5ad62a9f44387312818a520279b9f828f72736f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Theme_Picture_Alternating_Accent.bin",
+      "bytes": 55433,
+      "sha256": "779614df18705901ad3fc51c0f3a3667e10db3bc5e138ccbfaa0cabbbb3b6763",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Theme_Picture_Grid.bin",
+      "bytes": 57241,
+      "sha256": "4510fab353db703bd37575cd90df3cfe14bee06c52b6ebd11e3374f74ee40ae1",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Titled_Matrix.bin",
+      "bytes": 42723,
+      "sha256": "fa6c798b0d5162d1bef629cdb629aab7f71755ec9d39ac26e13f3ba7242ec843",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Titled_Picture_Accent_List.bin",
+      "bytes": 35332,
+      "sha256": "7a897b959451300243b0cb2eaa353671756b508a23848ce9d100d3ba337c9859",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Titled_Picture_Blocks.bin",
+      "bytes": 43566,
+      "sha256": "31b34eff2eb5e5303070428d35949e69ff1a8e5c23a29d827f6f610a83fb6c21",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Title_Picture_Lineup.bin",
+      "bytes": 45377,
+      "sha256": "c063f761517bcb6eb7114313eb5b66fde5c7253e963beed97ab2e886a74fcd43",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Trapezoid_List.bin",
+      "bytes": 39675,
+      "sha256": "1b580a97d6cbc60830e82bad562eb536cd442744acb5d645914b8fcf8f6c2714",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Upward_Arrow.bin",
+      "bytes": 60809,
+      "sha256": "2bdd6737e0d00df06e7957be908742fe21ccaa14371924096186846bde682924",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Varying_Width_List.bin",
+      "bytes": 28217,
+      "sha256": "693965db25cf8b96a094eb7b16a720098937dde2b723d32cf50a4ba848395ec7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Accent_List.bin",
+      "bytes": 64041,
+      "sha256": "afe7572e59e3ba82a863af0eb12ef31dd2b4a12fca9ebf4fe4a0c3421c77ca28",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Arrow_List.bin",
+      "bytes": 36788,
+      "sha256": "9ea4c2509baa7a291313e328458906a631edf7ae824e0b6254efb2388ce1ec8a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Bending_Process.bin",
+      "bytes": 63421,
+      "sha256": "0dbc0155c3b8438773a6b02d59867569d386da1e3fd28c2de8866e7b3b1c8f48",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Block_List.bin",
+      "bytes": 44691,
+      "sha256": "aad4996c6ea5494ea2e65c916d1699ef8d0ddb2799370fa60cdecd4c5aabfa68",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Box_List.bin",
+      "bytes": 40434,
+      "sha256": "2f5864f03b83213180cf328dc3f41c3f9e9a24a7122a7205e4a5f055dc003268",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Bracket_List.bin",
+      "bytes": 35524,
+      "sha256": "616c9d2e60e608f47d477192d135fec45777138748283bcd8aefae0c2e2e26bf",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Bullet_List.bin",
+      "bytes": 31228,
+      "sha256": "1c9521ba3068af140c0c37f0570a536785b56300d225f2ebf470f646a5b06b4b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Chevron_List.bin",
+      "bytes": 46142,
+      "sha256": "c53a8008dbd3b4378f3b1fd34e3842bacb16873da18705c854fda060ff872deb",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Circle_List.bin",
+      "bytes": 50384,
+      "sha256": "42f8569e2f28445a643bbca59e5c49e458b2f6b1af038347f7dcb8cdb7b03749",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Curved_List.bin",
+      "bytes": 75496,
+      "sha256": "ba36e8a5e3730094234be756f1f7a617dcee4de8fc50c251e2b57dadd984d27c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Equation.bin",
+      "bytes": 35590,
+      "sha256": "f397e6ff08b79edc8bbca85033d5a0241a2f88fae435b258fd26468bedcdfd42",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Picture_Accent_List.bin",
+      "bytes": 33756,
+      "sha256": "3c343add4acdebe6625332b3061afbf3440aad70840bcf52bb445067ee2b8097",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Picture_List.bin",
+      "bytes": 49412,
+      "sha256": "d9931de00b44d678d8fe1adec4270b9286a60e7dea97d5b1f364c0f88162c786",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtData/Vertical_Process.bin",
+      "bytes": 32397,
+      "sha256": "dda2e06f6986bff9d02eba02c3b238c3f5f22fea30b35fef1e7bbf2758eb5c80",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/SmartArts/SmartArtDrawing/SmartArtDrawings.bin",
+      "bytes": 1035932,
+      "sha256": "6c7487c2613f1a522f94eef50cbe111d0b47fba206f10161d7b48e7ca58d8c7c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/libfont/engine/fonts.js",
+      "bytes": 60400,
+      "sha256": "c80354b6e8431d37c0661fc67b92de8d4df8d5ee058cce0348a7a3df57220cc9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/libfont/engine/fonts.wasm",
+      "bytes": 3614021,
+      "sha256": "6b27107256a1df72419ac2b4894c65f9f6f0585ac303b8f3158dc441281e4482",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/libfont/engine/fonts_ie.js",
+      "bytes": 6899162,
+      "sha256": "26bbbc354974cd9b424ac9fe8c6456541781fecea5de2cb2fe7c7231415aa70c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/libfont/engine/fonts_native.js",
+      "bytes": 6767,
+      "sha256": "2f6bf14f485980eba7e77f2b03bc5653b8b558dcdd87f063aa98e0869c2c01d9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img.png",
+      "bytes": 165,
+      "sha256": "7afc3246721d3bd4b9c452869fec9051ef022bdeef25d4b001440176891835d3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img@1.25x.png",
+      "bytes": 187,
+      "sha256": "34e052c73b626c62f8d11d6a05882ae5d161600a7f48343714df24a29dd0d87d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img@1.5x.png",
+      "bytes": 194,
+      "sha256": "0244a70fd665bbf4152346037138c120ec4ce5167d06bd020a789f35ab92722f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img@1.75x.png",
+      "bytes": 240,
+      "sha256": "a896bf4d9e552ef7e2d6ba785d428a40b122eae275b9a3e7aa9717a407c118b9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img@2x.png",
+      "bytes": 266,
+      "sha256": "3bf5862fd5af94249b075fe75f6313f7f805312cd19e82514a76a27a49f22a0b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img_active.png",
+      "bytes": 147,
+      "sha256": "a3735d3b569d871d6ef04187437340b66c384edc3890fe0060d72fbf400dfc11",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img_active@1.25x.png",
+      "bytes": 165,
+      "sha256": "2472a91a627a5fe406abea56d5731b3e1f6a38114c4514a0c2101833004cbd3b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img_active@1.5x.png",
+      "bytes": 176,
+      "sha256": "f8635a68adff9d37307ae4815dd5f4afb9109a0c97b94b30e1d229691dcd584a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img_active@1.75x.png",
+      "bytes": 220,
+      "sha256": "0fab3a73d1ba4c5cb08ccf16dbc02d76151dbc02d0715c6e7f2aecd1dabaa69d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/img_active@2x.png",
+      "bytes": 235,
+      "sha256": "ae0b448134ee846820683aa8b180308ff0885c6113afc75af001d94f3c199f12",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/signature.png",
+      "bytes": 403,
+      "sha256": "b137f32b3fe5ff2f7953e129cd21534c98d34241197d72e2976dbb753c91d08d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/signature@1.25x.png",
+      "bytes": 494,
+      "sha256": "1a9f590497806ca74b754afb416ef44434b276139609ea84b84fb9b100060262",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/signature@1.5x.png",
+      "bytes": 519,
+      "sha256": "1989be4e6504cd36e60329063a982e836d85fbe136cd6fd45b972a9f6c9b0de9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/signature@1.75x.png",
+      "bytes": 608,
+      "sha256": "0be38b407ca1c9bd61747707912a02d881ae6d4fdd7b915882934ed1aa7a12a1",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/signature@2x.png",
+      "bytes": 711,
+      "sha256": "b04c38c33cc8c43952a40d593f836caee772aabea32bc3c57b8c8d049db2b0dc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc.png",
+      "bytes": 213,
+      "sha256": "fc5dbc6a67c5ec1bedf6313ce6c0fd10bc57bc33fd8702fd705418bec91b6541",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc@1.25x.png",
+      "bytes": 241,
+      "sha256": "9b31e97dd7231cc809a6e45e7229b11d93d1c61e82f12dc25c659a51496aa70f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc@1.5x.png",
+      "bytes": 261,
+      "sha256": "f21f0871405d94ef414b727e8f543a2102e9f62611984e2081df7cf83a3cae50",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc@1.75x.png",
+      "bytes": 315,
+      "sha256": "a3eaf6691b6b6dfe9be5e12ab5395aca76bd7afb4e4a749b816947b96e804e5e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc@2x.png",
+      "bytes": 358,
+      "sha256": "3c67c9a131a9bf14fbca67727fb122f80d4370bf016cb2c2997e1ef1b6e49605",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc_active.png",
+      "bytes": 186,
+      "sha256": "753160296321d3d64d8cb4cd6ed8fde38e0ec017e54e791565c6f02df67be3ff",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc_active@1.25x.png",
+      "bytes": 212,
+      "sha256": "973aebfebdbb13217563f978e93d95007c34e58e56cfc068d80124bfda86e27f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc_active@1.5x.png",
+      "bytes": 224,
+      "sha256": "073f6c9716be6aa412504fe0612caff486f9c9a0a899b75f311248b92bd2e907",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc_active@1.75x.png",
+      "bytes": 269,
+      "sha256": "d58b9682a1385eebfd53c6fe4679f90d38438fddb8754556c3d77091dc14599e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/content_controls/toc_active@2x.png",
+      "bytes": 298,
+      "sha256": "53ee80b0ceaf3e7c1f4b91bd1d02f4203a373a775cca248f5dac50345bfe8251",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/eyedropper.cur",
+      "bytes": 766,
+      "sha256": "d426ac128fa1ce36a8a1c091e709952c8862ea2c1a8ffe09306cbdb60530924e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/eyedropper.png",
+      "bytes": 238,
+      "sha256": "f12e9b7af53990b3037975dc8acccf69c0fa4efc1dfe9af76875d8656153a479",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/eyedropper.svg",
+      "bytes": 748,
+      "sha256": "f208702b162553be6577bed04c98b8b3f691e823b9e68aef683a6cda26d81508",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/eyedropper_2x.cur",
+      "bytes": 4286,
+      "sha256": "377b87564d2d25236b8e62801f608297c9b526d61c6d98357face2aa57ac127a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/eyedropper_2x.png",
+      "bytes": 310,
+      "sha256": "99f1af89fe5f1e7da352e3c81c0317fa3bc35d4a4e22b0dc34e7b74e8e2bbc7d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grab.cur",
+      "bytes": 4286,
+      "sha256": "a0825f1e15730bee9f2ef139e2ba32403f7772f20ee04191ab92325af0a2f15a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grab.png",
+      "bytes": 297,
+      "sha256": "451adc826e5c051b114edd24c27adcce7735c943a8fd098c5c3cf925d2815d28",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grab.svg",
+      "bytes": 2860,
+      "sha256": "c2914c85a4d222535640281ff5555d8d59c3709e83217e0ef3a8781f3110fb91",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grabbing.cur",
+      "bytes": 4286,
+      "sha256": "02182f885230cd21cda72e9a8c2af24fbdb310116bb89960e3d8324daca54481",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grabbing.png",
+      "bytes": 271,
+      "sha256": "e563e0ae6bf4c423516d8058b54aa3a1a0b4e39857f19c5b2be2c3dfaf79e65b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grabbing.svg",
+      "bytes": 2756,
+      "sha256": "98dba4f70075587e9ee5dd86d5fa80de7a9f1d6be12cd63dfdde88d0553a6e65",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grabbing_2x.cur",
+      "bytes": 4286,
+      "sha256": "cb219a76f36f4470a70c4f2baedf3f6f2a1021de3aa3f1f0db1bbb48f6887d3b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grabbing_2x.png",
+      "bytes": 436,
+      "sha256": "800b2b70d3dc20bbc6e49c41fb30862389e736f89763956269b5001d10a6b3d6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grab_2x.cur",
+      "bytes": 4286,
+      "sha256": "a8772cdb1f1bc7b1fa83336f22a3621541365847403ea09b7be0abe92388d823",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/grab_2x.png",
+      "bytes": 504,
+      "sha256": "80c3feba4cc6f075ff1b72c6ed95b77111019666d8cd4b693624b82cd23fc7a2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/marker-format.cur",
+      "bytes": 1278,
+      "sha256": "2fc0516421a86591e841b9ad7f1b97a84f582c8425dd342bf21ea628c910b160",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/marker-format.png",
+      "bytes": 132,
+      "sha256": "da8363ed51e0ed6046d33837356530770efa1959e98a27c0cfccbb07f6aef2ad",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/marker-format.svg",
+      "bytes": 705,
+      "sha256": "f0d3fdc98beff32514f69522fce600bce7425fa650d2dab4058b0e58ed559347",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/marker-format_2x.cur",
+      "bytes": 4926,
+      "sha256": "504631bcbf03c6e59a4bfa2cab6ae7a43ed3bb0e3e170d7a1deb080bb70fd917",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/marker-format_2x.png",
+      "bytes": 161,
+      "sha256": "6421b6226d6261e178d860ff79ae7a0c12376016296cf4d340154b3c6a0d27f0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-horizontally.cur",
+      "bytes": 1582,
+      "sha256": "ef95cdc957ac03da47793264d16ed3bf7bed302ef669025be71bbe66a15eb534",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-horizontally.png",
+      "bytes": 140,
+      "sha256": "f3f0c52f90f6c97771c4ae07999fead57474923a3ab960cc00a230f101f8a7d8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-horizontally.svg",
+      "bytes": 2921,
+      "sha256": "bf0daac5df448018f202c7e052d840b4573d4a12bc04e21bdecaece7d054e826",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-horizontally_2x.cur",
+      "bytes": 6142,
+      "sha256": "aaf0914e5eccb3ae4e0036857b196ee52ffa1410a467bed00a97b0a8098afc4d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-horizontally_2x.png",
+      "bytes": 195,
+      "sha256": "dbeca74bec46a9752385292b42fd69283c8297382b551ae6bc52e657a1d319bb",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-vertically.cur",
+      "bytes": 1582,
+      "sha256": "29739da956f6ba0698c906a6094a1a29129ee33bf970b275b9bdd072b4206507",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-vertically.png",
+      "bytes": 138,
+      "sha256": "aa268474bdbe347012b06acb009bc7b98a9fc421853999bf3399e8d20d6781d7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-vertically.svg",
+      "bytes": 2994,
+      "sha256": "cd326eede88e9e52fbe446df54888d01b2279646ac31b37b881094ef896adfd7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-vertically_2x.cur",
+      "bytes": 6142,
+      "sha256": "9552a54bf6d4c770e092f788a991c5b14fd27717a13914c7b0ca9bb604a6924f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/move-border-vertically_2x.png",
+      "bytes": 179,
+      "sha256": "3c7a724aa707dceb95aa12e0c3682c74f45383b7cd08589e0dd534cd4f3fd03d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus-copy.cur",
+      "bytes": 198,
+      "sha256": "dc216431cd702b2a942a84c88bd8386a8aaefc2f637045b15a64962900c6bb7a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus-copy.png",
+      "bytes": 249,
+      "sha256": "c7d5551634d0cb723eb33e3ed454300aba9903d932d4c37bb1edeb660a04c188",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus-copy.svg",
+      "bytes": 666,
+      "sha256": "c2e3d4268635f0f20d3eaca4e7310024dc17fe5521cdf10aac5589e45330dea6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus-copy_2x.cur",
+      "bytes": 582,
+      "sha256": "bda7b1ea38ed5a901fe180b817bfe77234b6f2642d58a4d688ab81e4676bd0d5",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus-copy_2x.png",
+      "bytes": 294,
+      "sha256": "cce6c5c1c4b93ca94522b5f79d4e4135f4c92af3a1d53534ca7000df6ec485da",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus.cur",
+      "bytes": 902,
+      "sha256": "e1998c6a60e452a0866912400323416a074073efe67a41ec3195733e5cdcdb85",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus.png",
+      "bytes": 176,
+      "sha256": "80b721281a44244ce3479e3cbc8ad8627a4eebf67ccb683314d2b2170038f1d3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus.svg",
+      "bytes": 332,
+      "sha256": "264c30440013e5c2a14bd2432dd1b010979f546e19d1b0437e8a69fbcba0b440",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus_2x.cur",
+      "bytes": 3310,
+      "sha256": "1c59652c5e82f3666fdd361060c8d1559ec06ceefd2d6262d3648ca28fce089a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/plus_2x.png",
+      "bytes": 201,
+      "sha256": "76a0000e8ba80334c8213645bf608807df8f68e6b377594bca5117c757ef4bf3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-cell.cur",
+      "bytes": 502,
+      "sha256": "28c1abcfe748e3ebe1b934cf90bb04b1ca0fdf1c0bcaf5c44a5abdfe2ff2c360",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-cell.png",
+      "bytes": 110,
+      "sha256": "6133733f14b0cc61fe1b52ac5ba5b3c4f830b17042484c52f7f00bfd481779ed",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-cell.svg",
+      "bytes": 657,
+      "sha256": "97cd975c2086f61e0abdfdf122d6c10040176a9d3e2f225f8a8b6d2350d97c74",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-cell_2x.cur",
+      "bytes": 1742,
+      "sha256": "80c9e5b3b705cb542611b667c6b03673a7d8fbecab9487b1adfe7ac815ab9542",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-cell_2x.png",
+      "bytes": 149,
+      "sha256": "bdf295433f115eabf37af5fa7a9066e486fccfd39c8b310c082e9064ed2fbe13",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-column.cur",
+      "bytes": 542,
+      "sha256": "cd62c4b02845f0361c9a985dcd835725392b939c2ce18161ccce1ab9dd686021",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-column.png",
+      "bytes": 107,
+      "sha256": "fc209f55e1c2a7992675768fd68e8ca942e3f9b09277524bb5942de4681286ea",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-column.svg",
+      "bytes": 527,
+      "sha256": "787a4703edff0a21c2935d07e69a4886f2a0d3b2ce38473ee18cd8d65e9a22c4",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-column_2x.cur",
+      "bytes": 1886,
+      "sha256": "f1c5d95f1409604ad575b9e67d1e855a2a297e3d77c8601bf9b17d3ace84a7b2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-column_2x.png",
+      "bytes": 145,
+      "sha256": "56cda2150eb49753d08fdb842ef214b3bbae5e2332f2ca66c7c4c7e544757506",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-content.cur",
+      "bytes": 590,
+      "sha256": "58fe1b46e4761a59e4b8a2d418235bad6c6c5660d83ebc8233da903caa5036f3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-content.png",
+      "bytes": 206,
+      "sha256": "adf5306459eebf857365203c6d0173c4f4467809f2487e1ec2cea81b793c39f6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-content.svg",
+      "bytes": 472,
+      "sha256": "d7d16002161df25bccbf45900d38aec7a85799200e42ea2adb8d199f40de0563",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-content_2x.cur",
+      "bytes": 2086,
+      "sha256": "7a2268233825e5b2c90b6ee2964eaeb833a62136ece7d2ed09540dc2b21bdc38",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-content_2x.png",
+      "bytes": 261,
+      "sha256": "745dc71854dcf6da04038daa298371f51121091e9b80b1792188b125c403a0df",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-row.cur",
+      "bytes": 530,
+      "sha256": "50b75d95fc5dbc1decdee29cfb53a9dcc4a6c170ed6518308bd2b30773d877d7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-row.png",
+      "bytes": 107,
+      "sha256": "8d9e9668a6c161521d8d8854884a5b8758b4141c27a0ff04ad762f92c9fd0747",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-row.svg",
+      "bytes": 546,
+      "sha256": "8d190343b48e80a67ff41c8a34f300ea826cce1f9bbfeca2d8c46a8188962b60",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-row_2x.cur",
+      "bytes": 1862,
+      "sha256": "ed71c39c092b8848bf2eb0728663328797e4426d2fd6619d4b76b9bdb32ca3f7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/select-table-row_2x.png",
+      "bytes": 141,
+      "sha256": "3dd8eaa4aab0bc475d44faf45ba1d9d91170307580db764d9aeacc32bc6ce64a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/shape-copy.cur",
+      "bytes": 2246,
+      "sha256": "c864f86f1d5a0038412985a5c6df2f6259c870481d244ef1f90edb9a33845dfd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/shape-copy.png",
+      "bytes": 340,
+      "sha256": "38741f815d240f2a0764459f275a498b64072ca7711e294801fc82333e68d721",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/shape-copy.svg",
+      "bytes": 785,
+      "sha256": "7ca06fce492e53933dcf36c81efad9aff8d340e94523d2da6f28f17a5240bcef",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/shape-copy_2x.cur",
+      "bytes": 8590,
+      "sha256": "860e7ccc890b506b7a0494ca2286bfa806b05708ca3ce3c50487b5af3aa2ec8e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/shape-copy_2x.png",
+      "bytes": 562,
+      "sha256": "c92e10768f97a18abf82454b9693d04201d1bba5fb62b6d4ee96be656a8a2935",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/svg.json",
+      "bytes": 18854,
+      "sha256": "1cbcfb71bd710f7635ef62755e06c287624ceea359ce7276d9f33f32900e4e9e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-eraser.cur",
+      "bytes": 1430,
+      "sha256": "236015a1a504e91b4d32faea019c4bce37b25787c873aa6fa80c3e9d84bf18d8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-eraser.png",
+      "bytes": 272,
+      "sha256": "c5b0b920d139d6fbe2455ace1e55dff76eba1504e69700e8080cb8076b57a232",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-eraser.svg",
+      "bytes": 484,
+      "sha256": "87c7e85dc2b2fd9b01b152bd3f99bd94f2cbad738594dfe5c5902e0bf2dd6c97",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-eraser_2x.cur",
+      "bytes": 5242,
+      "sha256": "538d6e847d633a60d081130b597b5aca75dcbb3688a2ff6d6f5a95736e7f2f11",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-eraser_2x.png",
+      "bytes": 551,
+      "sha256": "f3ed82c94b7e00e424e32ec4cc859c4342f26f04cec073b3c705bcb5aee4d195",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-pen.cur",
+      "bytes": 1286,
+      "sha256": "e02d3f2460c12a09aa281b8d5321c6e3af72d68d04ed8b9a67bb84a61ce37c5c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-pen.png",
+      "bytes": 215,
+      "sha256": "ab1911224a2122928d842a986539b656a0ff55468820078a90d79888b1ac92e6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-pen.svg",
+      "bytes": 573,
+      "sha256": "5bf437798442a5bf61c8baf983beaa10bdea5e05698e61aafca08bc0557bfd00",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-pen_2x.cur",
+      "bytes": 5242,
+      "sha256": "b3d6d3efb4dfd2f26f4bd1d337f3e8ae8569394869695a1f483a18cee2c6376a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/table-pen_2x.png",
+      "bytes": 585,
+      "sha256": "d5a72475c395c876c879392cfb883f76b7c906dd0f1679846d602a5c8f250d0a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/text-copy.cur",
+      "bytes": 214,
+      "sha256": "0f9a9147a0bb6b13d28970c130a96bb9b6ac07f2facba19441a769510cef9426",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/text-copy.png",
+      "bytes": 242,
+      "sha256": "e6acb2867100c5815d1619cbd1a39f880f898c14f2d65c413ac5f535b50842f4",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/text-copy.svg",
+      "bytes": 623,
+      "sha256": "0cddfb59237313d8d7aa5e4695afe62f2912c0f29f0e57631175272558013ca7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/text-copy_2x.cur",
+      "bytes": 646,
+      "sha256": "5144bbb4c448d5c5c1bbb40554f73a85a244bb1e9e93efde8616ae8c1e191e26",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/cursors/text-copy_2x.png",
+      "bytes": 294,
+      "sha256": "f5843b3b4d0804f5e8bbb8c47e888c0969e51d253425412732eb975bbd0c15db",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/icons/anchor.png",
+      "bytes": 153,
+      "sha256": "9a5ecd2e1d8df10ccdee27f2a86894a85c33829e295355961909b5cdaa726567",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/icons/anchor@1.25x.png",
+      "bytes": 189,
+      "sha256": "ba25099346a04ff954d3c9fff56d8a30d55ce60614e16a20c41841327fffed6e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/icons/anchor@1.5x.png",
+      "bytes": 202,
+      "sha256": "1593aceda51ce2f3e157fecd96ed4e505dcc99c62896ba5bcb03b3369c2af215",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/icons/anchor@1.75x.png",
+      "bytes": 223,
+      "sha256": "00e58ee05e0347758eb0fbbee3acc9c3880165f08acf800c60c02f5f26b303a4",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/icons/anchor@2x.png",
+      "bytes": 251,
+      "sha256": "617c0b73a56acb6b37f937e4d32070c7cfea027b9371a2e2ba3ac9b43ba53c5f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio.png",
+      "bytes": 257,
+      "sha256": "c1d5616e02dc31061fe4777db992c715b6ce33e62fec6acbc5582e752760dcf2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio@1.25x.png",
+      "bytes": 284,
+      "sha256": "9ad8b2ae8fc2e59ee7079008edb32f78612220b201683459c844b08724abfe27",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio@1.5x.png",
+      "bytes": 339,
+      "sha256": "8b07b6a00a78eae09bdab0d37b62ebcea3605a2e1cbdac461efef386b8fc805f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio@1.75x.png",
+      "bytes": 392,
+      "sha256": "f1851a4794725766470ae2fb2478284d1dca893261a4e7548de180a2443a6d73",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio@2x.png",
+      "bytes": 432,
+      "sha256": "fe24ed629f44a5acfa500b6eac4aff1742568d1c77260e85283de711bad9bbdd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio_active.png",
+      "bytes": 230,
+      "sha256": "f2d5e3772f7acf736936e96258579a03486a9c4ca96de32079fe4caa595ec27a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio_active@1.25x.png",
+      "bytes": 253,
+      "sha256": "16a2c2f166b8796cd9f765b4929aa87f392733eaeb5afa5d9251d04ca8343a74",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio_active@1.5x.png",
+      "bytes": 301,
+      "sha256": "8720e0bd60647d79ef7bdb2a7f22c671eec9a19891b63a3f237253e37c755b97",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio_active@1.75x.png",
+      "bytes": 337,
+      "sha256": "6b17047069437abbb3d3f9aab0c8ca095076cc9513eb7a1ea1047076606a9df5",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/audio_active@2x.png",
+      "bytes": 365,
+      "sha256": "543604eda1dc690e44d1fd0f51221039746a9a09751315e285e87d0993a2ab92",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart.png",
+      "bytes": 115,
+      "sha256": "e7ec2d8fb9674e4f7ba1b13d1ff76530da856ead7d14fff60ae977113afcb394",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart@1.25x.png",
+      "bytes": 123,
+      "sha256": "a3b9ec6a1b005cccd0dee3527803bf870da7c7e14d33d124ccbf759d0cbd66af",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart@1.5x.png",
+      "bytes": 130,
+      "sha256": "ff7a0b53d461e10b728651e4f5363aa0b48f6e143a82f3c1352050b852182c9c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart@1.75x.png",
+      "bytes": 173,
+      "sha256": "862a5bc7ca64cb79d5ef9bcdfa725bbf381e63a32f1bce058dcd8fce931e7512",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart@2x.png",
+      "bytes": 170,
+      "sha256": "bd2941f0159a08137a3f7898510eab837ca77950b74885404c9a137cf60cb207",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart_active.png",
+      "bytes": 111,
+      "sha256": "ab22ad3bb3b7d92b0f5feddd35ea807c9a2fff8e1b23048675eb89e56cf83431",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart_active@1.25x.png",
+      "bytes": 119,
+      "sha256": "3433e25a037a6bf916e38fb18858d01c823082a195aa62b1932419d06baaaeb8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart_active@1.5x.png",
+      "bytes": 123,
+      "sha256": "c95fe8935e75a62da5b6f59486b8263214f70a677d782331b2542a89615c9020",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart_active@1.75x.png",
+      "bytes": 160,
+      "sha256": "69d4e11c3658b5953dc55bfd7496898dea0175c190f58cd2381be715265d666e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/chart_active@2x.png",
+      "bytes": 157,
+      "sha256": "5b4403f5f237df6252da75644db15247c7005e42e75ed5edc75a0ec6753d15f0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image.png",
+      "bytes": 193,
+      "sha256": "b3ca6aba515bdd47b41da77340f79e3bd7ced82cac21e313c35fe7438ab1da8c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image@1.25x.png",
+      "bytes": 240,
+      "sha256": "a896bf4d9e552ef7e2d6ba785d428a40b122eae275b9a3e7aa9717a407c118b9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image@1.5x.png",
+      "bytes": 249,
+      "sha256": "f0c45913bf1dba4eed7565ae48f154fb959560d1f6434c78f6a8f31631d4b918",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image@1.75x.png",
+      "bytes": 294,
+      "sha256": "a2e2eeb9c5101f8c62ad29b4a36c82338116fc5877111062265775220b39c0a8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image@2x.png",
+      "bytes": 342,
+      "sha256": "18bdcd62455d4c010c302e755ee5af2070758f239c81ed3a4f8615dc174155b3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_active.png",
+      "bytes": 173,
+      "sha256": "ddf36ff75ff4ed69e3baadc1f815b80cd7ec30c59ff45f2edab6fdddb5518ae7",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_active@1.25x.png",
+      "bytes": 220,
+      "sha256": "0fab3a73d1ba4c5cb08ccf16dbc02d76151dbc02d0715c6e7f2aecd1dabaa69d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_active@1.5x.png",
+      "bytes": 224,
+      "sha256": "22be9e3b8fe323d114cad70191331928933b847b78bacf7c6c69b4238c545dd2",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_active@1.75x.png",
+      "bytes": 268,
+      "sha256": "cfa0552e049ee1a7797ece0f077d1e356c1286c9783f2a9f4c00c623701d748b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_active@2x.png",
+      "bytes": 304,
+      "sha256": "c4b1d6798bf93f941f049eb108acdb91b49999c5baa992563c46a2835a65e298",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url.png",
+      "bytes": 313,
+      "sha256": "2d6f223726101e44a12b23fdaaaec242a2e116e27cf2f39d046d1b9d83a3a2c3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url@1.25x.png",
+      "bytes": 370,
+      "sha256": "6680a261b4ac6b9cc50d34b7b3119aa7cff48c0223276d24d4d3d033c0ee03f4",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url@1.5x.png",
+      "bytes": 422,
+      "sha256": "a09aa60d99387c1bbdab1c1a7cff067040670c936833632787695b73cc94112a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url@1.75x.png",
+      "bytes": 533,
+      "sha256": "e730cc44c9d5279943f98e4e30a64d37bcc429adbc14b1a069fa828e27594735",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url@2x.png",
+      "bytes": 581,
+      "sha256": "a52b65ad6b2e587333a37cb4a5602370e7fdc4c0380e03618bff7f71f8a76c37",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url_active.png",
+      "bytes": 260,
+      "sha256": "8283cba58ea806ff0036f9b640afa1b8b1a3b3d3e6f7f6e4a75ecc4147f59a73",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url_active@1.25x.png",
+      "bytes": 327,
+      "sha256": "8d21eb659f42fa6895caacca7a7135dee2b9ea52de488a765bd0bd0444b9ccbc",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url_active@1.5x.png",
+      "bytes": 366,
+      "sha256": "1e2e6e0dbf6d95016751b72aa55f1c592143636277e06a9054d069394d1c9593",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url_active@1.75x.png",
+      "bytes": 469,
+      "sha256": "c3f64cb398aed78d24610345a996b1a1e1cf348d4670ff52606181022159326f",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/image_url_active@2x.png",
+      "bytes": 515,
+      "sha256": "ba75f86ba4dd3dec517748c15949cf26e18040114f4865b89120e65d79d9f53e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart.png",
+      "bytes": 316,
+      "sha256": "e13917fabe3a00ba49370ac7c76a50bf92f30ca322f660fd0c37e1764b1d500b",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart@1.25x.png",
+      "bytes": 342,
+      "sha256": "74a48fceb5348b6707d03624e6fbf1e72d610257116407a08b20c714205609a0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart@1.5x.png",
+      "bytes": 360,
+      "sha256": "4fc2241961250a77c5c633bb9bf70de8e27a0dc8545ce7a434e6cd0962601c4a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart@1.75x.png",
+      "bytes": 402,
+      "sha256": "4a1fcab617adec950a0f1000f03753da627b75f4f1669a6f4da498c544fa6637",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart@2x.png",
+      "bytes": 525,
+      "sha256": "0f56328ecaf0288b13760d5831c0e88f44a7519cd245e7bc74da4a7b1b9cbe21",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart_active.png",
+      "bytes": 323,
+      "sha256": "449013bd8e43442140322fe44a22ddc0334d4cfd355dfa19644e1b0677269b99",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart_active@1.25x.png",
+      "bytes": 350,
+      "sha256": "6238ca16eeee3514df27e97607e98f08709d88750594c87d701c378865dbe8de",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart_active@1.5x.png",
+      "bytes": 381,
+      "sha256": "7b270da5ba23d2f578a045c7bbd629182f37a58f56273c3e2be20eb670f9ce4c",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart_active@1.75x.png",
+      "bytes": 418,
+      "sha256": "976ecec7bcaa320dd331b001701b9cd6641c18afbb642f8515b125bdad508d51",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/smartart_active@2x.png",
+      "bytes": 581,
+      "sha256": "593e3a570bebf950bfe180913e8dcdc1409002786746512a4b20683bfc7f4327",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table.png",
+      "bytes": 107,
+      "sha256": "b317e67fec67ffe5785cd261535d637c36c70b912a8dbb1e478e22f5052f14e9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table@1.25x.png",
+      "bytes": 114,
+      "sha256": "6c24278ba949f4a57307a7ce16f7351638498663035758178e4b87341acd5512",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table@1.5x.png",
+      "bytes": 118,
+      "sha256": "e80059976d88a8524f8b9296bcfa3dea3c893c156c0bde6580b523a46b8079d6",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table@1.75x.png",
+      "bytes": 151,
+      "sha256": "b66c0b66cde30e6e03d4b893c5b7424a6f27c8298ad3da07b15b05118a43714e",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table@2x.png",
+      "bytes": 144,
+      "sha256": "28d1c4c875d530b5d63cedb5683b9bc278942b1ae6fff1a847d1066b719e7a71",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table_active.png",
+      "bytes": 99,
+      "sha256": "ef6ad41d9e7a4ea91933ec0190def6d60d53548c13f754a28d53207a0101dc96",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table_active@1.25x.png",
+      "bytes": 106,
+      "sha256": "20ca04190fec42cb70d3dcfbea3fcb9f6d070ab2bcef9ce0985dd064cace2e73",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table_active@1.5x.png",
+      "bytes": 112,
+      "sha256": "0ca4886a09b886ef3659436dbc085d9367f0be33a8f03c9333e19c134444d93d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table_active@1.75x.png",
+      "bytes": 138,
+      "sha256": "6f1d8461bab1d58a548839f0384be5f7afa2c120fbf9804b3e48fe78487ba500",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/table_active@2x.png",
+      "bytes": 133,
+      "sha256": "608c534f4f2c304dfd600cb8a8cb9483d553b1418ac16773a0f575477765dad9",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video.png",
+      "bytes": 165,
+      "sha256": "fd6c8020c39eb651ab6c400613d14262909b4500dc0e12d1bf1ca47c25ae7727",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video@1.25x.png",
+      "bytes": 164,
+      "sha256": "0ab508990e48f27d9b4601c0e840216b349532b542eedba0399c667824c57337",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video@1.5x.png",
+      "bytes": 199,
+      "sha256": "8f816572a6294c96b66c40b458c73d5478e401280016a29fc001e629a1489a02",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video@1.75x.png",
+      "bytes": 202,
+      "sha256": "b188ae98c38c644ab520ad4421487f4ef100e68f83fc8696dbaf687e3ca2c0c3",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video@2x.png",
+      "bytes": 244,
+      "sha256": "93a7a2ca4ded75c3ea2b4c619368bfe755b7343c692502af4a885af6907eabef",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video_active.png",
+      "bytes": 154,
+      "sha256": "59664dab8f4abfcad84c94f4b52872899e5d9a89d20583a824c0231284ca51fd",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video_active@1.25x.png",
+      "bytes": 152,
+      "sha256": "ee65d7593d0f3e93fa2c9a7edadb7a9ff25b8569927d209a778915899e62f15a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video_active@1.5x.png",
+      "bytes": 182,
+      "sha256": "e7faccec6ed80b9b5746ec5c46aae10c1923cfe8f86fa6c8a242de7bb4d68663",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video_active@1.75x.png",
+      "bytes": 187,
+      "sha256": "370f5cedfbf3e16a14d6a6a0ca0211e576c3ef45e323bb9a47eea8ec821b15ff",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/placeholders/video_active@2x.png",
+      "bytes": 223,
+      "sha256": "2e7028990dea6fa93449588cd0d08380c77e1ee1f411e452b85a3f6b769ec552",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/reporter/buttons.png",
+      "bytes": 1282,
+      "sha256": "a1150065ce1f30b016695ad534f09ccb3af3b9017ef006900be9e5c176725461",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/reporter/buttons@1.25x.png",
+      "bytes": 1507,
+      "sha256": "99000025f76ba7ba989c08c34f65a0f636c9a60f4d0b7a77686e9baef782cc7d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/reporter/buttons@1.5x.png",
+      "bytes": 1801,
+      "sha256": "03ec633452a254ba7d0f751750b533ecc0fa2ecff508e1cc667e3105352b8154",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/reporter/buttons@1.75x.png",
+      "bytes": 2139,
+      "sha256": "faf7bbabc1bd433a1cb7eda149f7f0095dcb42f880487d59fc63035ccb4cd5f8",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Images/reporter/buttons@2x.png",
+      "bytes": 2405,
+      "sha256": "d7c3e6d6b0c0015d44dc01fcf9d12191442608020a81312d9ab7ffe44d0abc07",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/hash/hash/engine.js",
+      "bytes": 42729,
+      "sha256": "a017a4e9a073bb5c12f1671a0d1b2e41f4e37139533f5f34404887bb00a4b9d0",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/hash/hash/engine.wasm",
+      "bytes": 65115,
+      "sha256": "8a0cb4c59bf777320f74e9d9b0b2f1623ea1aedcd58896852879a0c7b5b2508d",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/hash/hash/engine_ie.js",
+      "bytes": 190212,
+      "sha256": "fc175dbb2c5bdd69836bff2c618d6f10a39a0f6050fd5cc0023b26c9d522a684",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "common/Drawings/Format/path-boolean-min.js",
+      "bytes": 70495,
+      "sha256": "79df2136e739bd05c0ef3fcb65b6e81f4c2583f60c43f6df1537059708b46388",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "cell/css/main-mobile.css",
+      "bytes": 1790,
+      "sha256": "0a18c77581a314367b5635a3d0064b447c4c73900f3652c18fc9e3e09be44c8a",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    },
+    {
+      "path": "cell/css/main.css",
+      "bytes": 2638,
+      "sha256": "f102cb088d977329008ab2980c3e7e6561638226426d1bf2635af1b9535c30a4",
+      "origin": "source_tree_copied_asset_not_rebuilt"
+    }
+  ]
+}

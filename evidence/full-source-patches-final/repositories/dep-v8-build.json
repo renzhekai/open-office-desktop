@@ -1,0 +1,60 @@
+{
+  "name": "dep-v8-build",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\build",
+  "pin": "d5995537211ebc4d1bc37f215c25fa3781ba9d6e",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/v8-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:04.238878+00:00",
+  "head": "d5995537211ebc4d1bc37f215c25fa3781ba9d6e",
+  "expected_commit_matches": true,
+  "origin": "https://chromium.googlesource.com/chromium/src/build.git",
+  "patch": {
+    "path": "patches/dep-v8-build.patch",
+    "size": 3979,
+    "sha256": "8f5515f1bd7a802bae3e86a2c74f892145316f4e0bcc11245466a3f96fb63fef"
+  },
+  "head_file": {
+    "path": "heads/dep-v8-build.txt",
+    "size": 41,
+    "sha256": "e3c6c2c2609289ef9a37a3c34b0a29fc254e9c8abff3896450d95e3d8304bed7"
+  },
+  "changed_files": [
+    {
+      "path": "config/win/BUILD.gn",
+      "state": "file",
+      "size": 20654,
+      "sha256": "adc439bbfa1a0ec6c4e1420f4534e7026d848eaec8df8b0ac31b5b36ee2d2262"
+    },
+    {
+      "path": "toolchain/win/setup_toolchain.py",
+      "state": "file",
+      "size": 12049,
+      "sha256": "4e4110f6f83a9f9cf8c1f9b3c6f089ad8dfb94bbe5cd80925242c2534682b58f"
+    },
+    {
+      "path": "toolchain/win/tool_wrapper.py",
+      "state": "file",
+      "size": 7167,
+      "sha256": "efb9bfed1c6f5dbafdd4e87cb951dbec8ea8d2e450f92d68063023db6b3c2175"
+    },
+    {
+      "path": "vs_toolchain.py",
+      "state": "file",
+      "size": 23859,
+      "sha256": "4d2cdd9f4134c6a1e72b87bc338582ed931abd80f874ebc472c0894235c8deba"
+    }
+  ],
+  "changed_file_count": 4,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:04.997899+00:00"
+}

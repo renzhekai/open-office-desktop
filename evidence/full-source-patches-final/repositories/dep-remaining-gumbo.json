@@ -1,0 +1,42 @@
+{
+  "name": "dep-remaining-gumbo",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\gumbo-parser",
+  "pin": "aa91b27b02c0c80c482e24348a457ed7c3c088e0",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:10.388897+00:00",
+  "head": "aa91b27b02c0c80c482e24348a457ed7c3c088e0",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/google/gumbo-parser.git",
+  "patch": {
+    "path": "patches/dep-remaining-gumbo.patch",
+    "size": 626,
+    "sha256": "21321a835a840543db7d9105890e3963c50ae2b383c7f28a82c3c8358b2775dc"
+  },
+  "head_file": {
+    "path": "heads/dep-remaining-gumbo.txt",
+    "size": 41,
+    "sha256": "7ef4430fd5db975cdd873b445e88744b1e0cb8fefbc7446dc3f2e9dc25910772"
+  },
+  "changed_files": [
+    {
+      "path": "src/tag.c",
+      "state": "file",
+      "size": 2684,
+      "sha256": "193a425a65714b1d2e6b59a97f6aafc5576a46baaab4a476e3dcad943e421773"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:10.957241+00:00"
+}

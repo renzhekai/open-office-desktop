@@ -1,0 +1,177 @@
+{
+  "checked_at_utc": "2026-11-02T10:50:48.330159+00:00",
+  "source_outputs": [
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\CompoundFileLib.lib",
+      "size": 1967704,
+      "sha256": "7fcc848fb7e1ebab2d1e6be58ff80a007af2176b34c92a10ce85c4f17e9c70c4"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\CryptoPPLib.lib",
+      "size": 20422634,
+      "sha256": "40d6395c115d6ba3eba047e696b6512acda55c980bc5380c6e2160189dcca12d"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\UnicodeConverter.dll",
+      "size": 33280,
+      "sha256": "024a9cc234dbabde437c6895e11a4f2cb3227ccc905fcad76323ad0207b58edc"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\UnicodeConverter.lib",
+      "size": 10398,
+      "sha256": "978d7f3ddc11b7a6798c6d3afb35bba6202f3e25d207e60ffb69dc404e59afaa"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\kernel.dll",
+      "size": 1044480,
+      "sha256": "54cea0f52d217ba9ebb5bb8b20c5721b79a16a42a2bb293b4a802f78a538aa8f"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\kernel.lib",
+      "size": 286578,
+      "sha256": "babb92cff210c34ba55c972aa27ad43926943d1d113d852a2ba2385b3ef1d806"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_date_time-vc143-mt-x64-1_72.lib",
+      "size": 746486,
+      "sha256": "3a6fc44a26bfe05bb198ba57ad675676d647655783e5c951050b77e963a9a46a"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_filesystem-vc143-mt-x64-1_72.lib",
+      "size": 1682710,
+      "sha256": "47be2566fb5bdb282fba9f77a7c5bfc6b84093fb2db5951a2016d8f7c404da9f"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_regex-vc143-mt-x64-1_72.lib",
+      "size": 15145364,
+      "sha256": "dd52303ef69e1dddeec39d64df8f231b20aa6ea589dbcb47dc094056547bd8ce"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\boost\\build\\win_64\\lib\\libboost_system-vc143-mt-x64-1_72.lib",
+      "size": 1450,
+      "sha256": "46bcecbfbe58c391897c496051bf7cf5ee2e694b4721adea86d93a907ed29363"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icudt74.dll",
+      "size": 30786048,
+      "sha256": "9e9492b120f561e6ca0220beff943c10a6c237a7b83271d0b27e76c8dc78ca24"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icuuc74.dll",
+      "size": 2340864,
+      "sha256": "b260e105c64000a588bc1731acfc3d3364b7c0ffab877d3d45ec7c6ab8a140d0"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icudt.lib",
+      "size": 1686,
+      "sha256": "e1215d23ce14dc01f9b5c3809427e362c658645761d9fad145018c5610a5794c"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\icu\\win_64\\build\\icuuc.lib",
+      "size": 1081586,
+      "sha256": "525d5731b3be19cffa782621a341fa8710fc5dda1e427a56ac42b500e27f9cf3"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\openssl\\build\\win_64\\lib\\libssl.lib",
+      "size": 4443158,
+      "sha256": "32661409dc66b217a257c28ca2d5635a5ba78bb95fcc0f9783fb478309e85dcd"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\openssl\\build\\win_64\\lib\\libcrypto.lib",
+      "size": 21026802,
+      "sha256": "118b3d117062e67b953cea8ce697c1a1f723d00aa5bc70b7cb0687ff4d656629"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\StarMathConverter.dll",
+      "size": 203264,
+      "sha256": "39932cd54c00231f75a3b9593f0094f9c03c42dd8e9ab92a71f9cf52f11d2706",
+      "validation": "compiled_and_linked_only"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\StarMathConverter.lib",
+      "size": 9420,
+      "sha256": "a8dc1d82ed4085fd35af5e1a04e71275146e15a2bf0b16b4de5f5f899efeef69",
+      "validation": "compiled_and_linked_only"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\ooxmlsignature.dll",
+      "size": 1833472,
+      "sha256": "279ac5d60b6db251a87c03230f67e72a74abbe4e1650c4965513a4e07feccb40",
+      "validation": "compiled_and_linked_only"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\ooxmlsignature.lib",
+      "size": 49780,
+      "sha256": "da714729410600739b42121b812826c6f4c195dc148da92bf9fa1b55f2583e60",
+      "validation": "compiled_and_linked_only"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\DocxFormatLib.lib",
+      "size": 109766800,
+      "sha256": "4140b840049535f28e04963289d7f99a0b07925519ffe5cb086fd53f15c3f5f7"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\PPTXFormatLib.lib",
+      "size": 85039544,
+      "sha256": "77f37e816068d7235ea135e63faf8ddc167ffee4ed9f9df587dfc66628843f21"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\XlsbFormatLib.lib",
+      "size": 195640470,
+      "sha256": "f180aec5e68e1d41e89c611f5abd5e4a588a7c56cf8eedef290e90174eb8eda5"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\DocFormatLib.lib",
+      "size": 21417976,
+      "sha256": "f6bcd378e7c0b5bcfb147407500cc0f1e169c5d1d03f0441a99c2080034b20d0"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\graphics.dll",
+      "size": 9308160,
+      "sha256": "5c8cff1e4b449a2f1ad65189c7e63a899f0cc9b39adbad8e8a480e6b422c1fa9"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\graphics.lib",
+      "size": 590800,
+      "sha256": "f7222173a5df3cee9b07b07d83b65fefc0433b57c2370f96133749ce2e3b7eff"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\kernel_network.dll",
+      "size": 118784,
+      "sha256": "6e2827b23873e40a1979fb3b5f4980b18de6564bd835484cac9b8b6dc9decbb5"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\kernel_network.lib",
+      "size": 43508,
+      "sha256": "875c834a2d556975904aceb79cc4e4ed5988caf369efb0a4dec7fafd2bfce0a8"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\hunspell.dll",
+      "size": 496128,
+      "sha256": "52ad05dc4baf6096e10e5ff7624dd123ed1879df0e6a255644ad9257ffd0f4b2"
+    },
+    {
+      "path": "build\\full-source\\DesktopEditors\\core\\build\\lib\\win_64\\hunspell.lib",
+      "size": 51508,
+      "sha256": "a3bbb450993bedfd8ce7ffbb2418cce6f6e5b3da6137404404ea1ee3d3fd14a3"
+    }
+  ],
+  "preserved_files": {
+    "requirements.md": {
+      "actual_sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+      "matches_saved_baseline": true
+    },
+    "build/native-engine-run/OpenOffice.exe": {
+      "actual_sha256": "75f5a57dc9ac46919af8933a7b2e23b3c021e78cda315ca4d46ef60d05e1dcc7",
+      "matches_saved_baseline": true
+    }
+  },
+  "complete_engine_build": false,
+  "new_runtime_assembled": false,
+  "docx_regression_with_new_core": "not_run",
+  "pending_approval": [
+    "V8 project-local depot_tools/CIPD, GN, compatible Python runtimes"
+  ],
+  "openssl_smoke": "OPENSSL_SMOKE_PASSED OpenSSL 1.1.1f  31 Mar 2020",
+  "kernel_smoke": "KERNEL_XML_CHINESE_ENTITY_SMOKE_PASSED"
+}

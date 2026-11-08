@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-11-05T04:47:52.910043+00:00",
+  "user_decision": "2026-11-04: 修复后装配 (fix the WMF/EMF->SVG null font manager defect, then assemble the candidate runtime)",
+  "correction_of_previous_analysis": "zlib-wmf-svg-analysis.json said the rebuilt fonts output for image10.wmf was untrustworthy. That was wrong: the font-substitution lookup in CInterpretatorSvgBase.cpp:332 and CEmfInterpretatorSvg.cpp:1251 is guarded by #ifndef BUILDING_WASM_MODULE, and libfont.json defines BUILDING_WASM_MODULE, so the fonts engine never runs it. Only the 2022-era zlib recipe lacked the define and compiled the lookup, which dereferenced the NULL font manager created by MetaFile::Create(NULL).",
+  "fix": {
+    "kind": "recipe adaptation, no source change",
+    "change": "add define BUILDING_WASM_MODULE to the zlib recipe (as libfont.json and drawingfile.json of the same snapshot)",
+    "where": "scripts/build_wasm_module.py RECIPE_ADAPTATIONS['zlib']",
+    "effects_in_zlib_sources": {
+      "metafile SVG writers": "skip the font-substitution lookup (the defect)",
+      "cximage/CxImage/ximacfg.h:93": "CXIMAGE_SUPPORT_EXCEPTION_HANDLING 0, as in the fonts engine",
+      "cximage/CxImage/ximacfg.h:48": "HEIF support stays off (SUPPORT_LIB_HEIF_SOURCES not defined either way)"
+    },
+    "why_not_a_source_patch": "the upstream source already handles WASM builds through this define; using it keeps the pinned core unmodified"
+  },
+  "build": "evidence/wasm-source/zlib-build-pass8.json",
+  "test": "evidence/wasm-source/zlib-functional-pass3.json",
+  "results": {
+    "image10.wmf": "no trap; SVG output byte-identical to the rebuilt fonts engine",
+    "all 4 WMF -> SVG": "rebuilt zlib byte-identical to rebuilt fonts (same 2026 source); official zlib 2022 and official fonts 2025-12 differ (source evolution)",
+    "GIF/JPEG re-encoded to PNG": "rebuilt zlib returns no data like both fonts engines (official and rebuilt); only the official 2022 zlib threw a C++ exception",
+    "zip, PNG/GIF/JPEG decode, other encodes": "identical to the official zlib; Python zipfile checks pass"
+  }
+}

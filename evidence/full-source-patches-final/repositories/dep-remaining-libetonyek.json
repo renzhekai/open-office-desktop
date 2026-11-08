@@ -1,0 +1,42 @@
+{
+  "name": "dep-remaining-libetonyek",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\libetonyek",
+  "pin": "cb396b4a9453a457469b62a740d8fb933c9442c3",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:11.978833+00:00",
+  "head": "cb396b4a9453a457469b62a740d8fb933c9442c3",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/LibreOffice/libetonyek.git",
+  "patch": {
+    "path": "patches/dep-remaining-libetonyek.patch",
+    "size": 542,
+    "sha256": "89307a857f4f4dd16866685facab51a267bc93222656703d9e7531f2e65e595c"
+  },
+  "head_file": {
+    "path": "heads/dep-remaining-libetonyek.txt",
+    "size": 41,
+    "sha256": "3848b1c33a64f72ed88c968f2bb0b6ee90a12f1e2f990f72d900b8f1b4be2e3f"
+  },
+  "changed_files": [
+    {
+      "path": "src/lib/IWORKTable.cpp",
+      "state": "file",
+      "size": 34918,
+      "sha256": "e77d3fd358b1da7a1297ef51cc625859043fd164ded486a8b94b58298f288bb0"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:12.602244+00:00"
+}

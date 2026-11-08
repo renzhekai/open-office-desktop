@@ -1,0 +1,503 @@
+{
+  "v8_commit": "a2d8eca22ad478a95ca67bb2421a9a2535113925",
+  "deps_sha256": "6c528c6f3ab83a10fcefb71b9d1e3f3cf3c0569546426686677f8e7720b77fae",
+  "parsed_dependencies": {
+    "build": "https://chromium.googlesource.com/chromium/src/build.git@d5995537211ebc4d1bc37f215c25fa3781ba9d6e",
+    "third_party/depot_tools": "https://chromium.googlesource.com/chromium/tools/depot_tools.git@82b992a1656d7d1cd0ee3cbea8ff609ffdfed380",
+    "third_party/icu": "https://chromium.googlesource.com/chromium/deps/icu.git@899e18383fd732b47e6978db2b960a1b2a80179b",
+    "third_party/instrumented_libraries": "https://chromium.googlesource.com/chromium/src/third_party/instrumented_libraries.git@4d3867052d35b2171f2edbb3466fa8f7e2d11319",
+    "buildtools": "https://chromium.googlesource.com/chromium/src/buildtools.git@235cfe435ca5a9826569ee4ef603e226216bd768",
+    "buildtools/clang_format/script": "https://chromium.googlesource.com/chromium/llvm-project/cfe/tools/clang-format.git@96636aa0e9f047f17447f2d45a094d0b59ed7917",
+    "buildtools/linux64": {
+      "packages": [
+        {
+          "package": "gn/gn/linux-amd64",
+          "version": "git_revision:595e3be7c8381d4eeefce62a63ec12bae9ce5140"
+        }
+      ],
+      "dep_type": "cipd",
+      "condition": "host_os == \"linux\""
+    },
+    "buildtools/mac": {
+      "packages": [
+        {
+          "package": "gn/gn/mac-amd64",
+          "version": "git_revision:595e3be7c8381d4eeefce62a63ec12bae9ce5140"
+        }
+      ],
+      "dep_type": "cipd",
+      "condition": "host_os == \"mac\""
+    },
+    "buildtools/third_party/libc++/trunk": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@d9040c75cfea5928c804ab7c235fed06a63f743a",
+    "buildtools/third_party/libc++abi/trunk": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxxabi.git@196ba1aaa8ac285d94f4ea8d9836390a45360533",
+    "buildtools/third_party/libunwind/trunk": "https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@d999d54f4bca789543a2eb6c995af2d9b5a1f3ed",
+    "buildtools/win": {
+      "packages": [
+        {
+          "package": "gn/gn/windows-amd64",
+          "version": "git_revision:595e3be7c8381d4eeefce62a63ec12bae9ce5140"
+        }
+      ],
+      "dep_type": "cipd",
+      "condition": "host_os == \"win\""
+    },
+    "base/trace_event/common": "https://chromium.googlesource.com/chromium/src/base/trace_event/common.git@eb94f1c7aa96207f469008f29989a43feb2718f8",
+    "third_party/android_ndk": {
+      "url": "https://chromium.googlesource.com/android_ndk.git@27c0a8d090c666a50e40fceb4ee5b40b1a2d3f87",
+      "condition": "checkout_android"
+    },
+    "third_party/android_platform": {
+      "url": "https://chromium.googlesource.com/chromium/src/third_party/android_platform.git@ef64306e7772dea22df5f98102e6288da3510843",
+      "condition": "checkout_android"
+    },
+    "third_party/android_sdk/public": {
+      "packages": [
+        {
+          "package": "chromium/third_party/android_sdk/public/build-tools/30.0.1",
+          "version": "8LZujEmLjSh0g3JciDA3cslSptxKs9HOa_iUPXkOeYQC"
+        },
+        {
+          "package": "chromium/third_party/android_sdk/public/emulator",
+          "version": "A4EvXZUIuQho0QRDJopMUpgyp6NA3aiDQjGKPUKbowMC"
+        },
+        {
+          "package": "chromium/third_party/android_sdk/public/extras",
+          "version": "ppQ4TnqDvBHQ3lXx5KPq97egzF5X2FFyOrVHkGmiTMQC"
+        },
+        {
+          "package": "chromium/third_party/android_sdk/public/patcher",
+          "version": "I6FNMhrXlpB-E1lOhMlvld7xt9lBVNOO83KIluXDyA0C"
+        },
+        {
+          "package": "chromium/third_party/android_sdk/public/platform-tools",
+          "version": "8tF0AOj7Dwlv4j7_nfkhxWB0jzrvWWYjEIpirt8FIWYC"
+        },
+        {
+          "package": "chromium/third_party/android_sdk/public/platforms/android-30",
+          "version": "YMUu9EHNZ__2Xcxl-KsaSf-dI5TMt_P62IseUVsxktMC"
+        },
+        {
+          "package": "chromium/third_party/android_sdk/public/sources/android-29",
+          "version": "4gxhM8E62bvZpQs7Q3d0DinQaW0RLCIefhXrQBFkNy8C"
+        },
+        {
+          "package": "chromium/third_party/android_sdk/public/cmdline-tools",
+          "version": "V__2Ycej-H2-6AcXX5A3gi7sIk74SuN44PBm2uC_N1sC"
+        }
+      ],
+      "condition": "checkout_android",
+      "dep_type": "cipd"
+    },
+    "third_party/catapult": {
+      "url": "https://chromium.googlesource.com/catapult.git@d1a3011cd91205aa96b74b5dfc227d391e88108d",
+      "condition": "checkout_android"
+    },
+    "third_party/colorama/src": {
+      "url": "https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8",
+      "condition": "checkout_android"
+    },
+    "third_party/fuchsia-sdk": {
+      "url": "https://chromium.googlesource.com/chromium/src/third_party/fuchsia-sdk.git@efa46583d89ea8c97523281d9f52a0d96472114d",
+      "condition": "checkout_fuchsia"
+    },
+    "third_party/googletest/src": "https://chromium.googlesource.com/external/github.com/google/googletest.git@1b0cdaae57c046c87fb99cb4f69c312a7e794adb",
+    "third_party/google_benchmark/src": {
+      "url": "https://chromium.googlesource.com/external/github.com/google/benchmark.git@7f27afe83b82f3a98baf58ef595814b9d42a5b2b",
+      "condition": "checkout_google_benchmark"
+    },
+    "third_party/jinja2": "https://chromium.googlesource.com/chromium/src/third_party/jinja2.git@11b6b3e5971d760bd2d310f77643f55a818a6d25",
+    "third_party/markupsafe": "https://chromium.googlesource.com/chromium/src/third_party/markupsafe.git@0944e71f4b2cb9a871bcbe353f95e889b64a611a",
+    "tools/swarming_client": "https://chromium.googlesource.com/infra/luci/client-py.git@1a072711d4388c62e02480fabc26c68c24494be9",
+    "test/benchmarks/data": "https://chromium.googlesource.com/v8/deps/third_party/benchmarks.git@05d7188267b4560491ff9155c5ee13e207ecd65f",
+    "test/mozilla/data": "https://chromium.googlesource.com/v8/deps/third_party/mozilla-tests.git@f6c578a10ea707b1a8ab0b88943fe5115ce2b9be",
+    "test/test262/data": "https://chromium.googlesource.com/external/github.com/tc39/test262.git@b2e9dff2816cceb5ee84c0c226c50a31d01a7297",
+    "test/test262/harness": "https://chromium.googlesource.com/external/github.com/test262-utils/test262-harness-py.git@4555345a943d0c99a9461182705543fb171dda4b",
+    "third_party/qemu-linux-x64": {
+      "packages": [
+        {
+          "package": "fuchsia/qemu/linux-amd64",
+          "version": "9cc486c5b18a0be515c39a280ca9a309c54cf994"
+        }
+      ],
+      "condition": "host_os == \"linux\" and checkout_fuchsia",
+      "dep_type": "cipd"
+    },
+    "third_party/qemu-mac-x64": {
+      "packages": [
+        {
+          "package": "fuchsia/qemu/mac-amd64",
+          "version": "2d3358ae9a569b2d4a474f498b32b202a152134f"
+        }
+      ],
+      "condition": "host_os == \"mac\" and checkout_fuchsia",
+      "dep_type": "cipd"
+    },
+    "third_party/aemu-linux-x64": {
+      "packages": [
+        {
+          "package": "fuchsia/third_party/aemu/linux-amd64",
+          "version": "xAHa1IXmKteChkPvba9ezjSnKL7IyDePQRzWVUEAx9UC"
+        }
+      ],
+      "condition": "host_os == \"linux\" and checkout_fuchsia",
+      "dep_type": "cipd"
+    },
+    "third_party/aemu-mac-x64": {
+      "packages": [
+        {
+          "package": "fuchsia/third_party/aemu/mac-amd64",
+          "version": "T9bWxf8aUC5TwCFgPxpuW29Mfy-7Z9xCfXB9QO8MfU0C"
+        }
+      ],
+      "condition": "host_os == \"mac\" and checkout_fuchsia",
+      "dep_type": "cipd"
+    },
+    "tools/clang": "https://chromium.googlesource.com/chromium/src/tools/clang.git@2246bee280e908ac1fd27ab75e7d0021b14d875c",
+    "tools/luci-go": {
+      "packages": [
+        {
+          "package": "infra/tools/luci/isolate/${{platform}}",
+          "version": "git_revision:67aba6e3373bb0b9e3ef9871362045736cd29b6e"
+        },
+        {
+          "package": "infra/tools/luci/isolated/${{platform}}",
+          "version": "git_revision:67aba6e3373bb0b9e3ef9871362045736cd29b6e"
+        },
+        {
+          "package": "infra/tools/luci/swarming/${{platform}}",
+          "version": "git_revision:67aba6e3373bb0b9e3ef9871362045736cd29b6e"
+        }
+      ],
+      "condition": "host_cpu != \"s390\" and host_os != \"aix\"",
+      "dep_type": "cipd"
+    },
+    "tools/clang/dsymutil": {
+      "packages": [
+        {
+          "package": "chromium/llvm-build-tools/dsymutil",
+          "version": "M56jPzDv1620Rnm__jTMYS62Zi8rxHVq7yw0qeBFEgkC"
+        }
+      ],
+      "condition": "checkout_mac",
+      "dep_type": "cipd"
+    },
+    "third_party/perfetto": "https://android.googlesource.com/platform/external/perfetto.git@7cdc44f903d3bcfd1d0f67188bfa797a24756868",
+    "third_party/protobuf": "https://chromium.googlesource.com/external/github.com/google/protobuf@b68a347f56137b4b1a746e8c7438495a6ac1bd91",
+    "third_party/zlib": "https://chromium.googlesource.com/chromium/src/third_party/zlib.git@2c183c9f93a328bfb3121284da13cf89a0f7e64a",
+    "third_party/jsoncpp/source": "https://chromium.googlesource.com/external/github.com/open-source-parsers/jsoncpp.git@9059f5cad030ba11d37818847443a53918c327b1",
+    "third_party/ittapi": {
+      "url": "https://chromium.googlesource.com/external/github.com/intel/ittapi@b4ae0122ba749163096058b4f1bb065bf4a7de94",
+      "condition": "checkout_ittapi or check_v8_header_includes"
+    },
+    "third_party/requests": {
+      "url": "https://chromium.googlesource.com/external/github.com/kennethreitz/requests.git@bfb93d4b7d269a8735f1b216093e7e9a9fdc4517",
+      "condition": "checkout_android"
+    }
+  },
+  "hooks": [
+    {
+      "name": "disable_depot_tools_selfupdate",
+      "action": [
+        "python",
+        "third_party/depot_tools/update_depot_tools_toggle.py",
+        "--disable"
+      ],
+      "condition": null,
+      "status": "not_executed"
+    },
+    {
+      "name": "landmines",
+      "action": [
+        "python",
+        "build/landmines.py",
+        "--landmine-scripts",
+        "tools/get_landmines.py"
+      ],
+      "condition": null,
+      "status": "not_executed"
+    },
+    {
+      "name": "clang_format_win",
+      "action": [
+        "download_from_google_storage",
+        "--no_resume",
+        "--platform=win32",
+        "--no_auth",
+        "--bucket",
+        "chromium-clang-format",
+        "-s",
+        "buildtools/win/clang-format.exe.sha1"
+      ],
+      "condition": "host_os == \"win\"",
+      "status": "not_executed"
+    },
+    {
+      "name": "clang_format_mac",
+      "action": [
+        "download_from_google_storage",
+        "--no_resume",
+        "--platform=darwin",
+        "--no_auth",
+        "--bucket",
+        "chromium-clang-format",
+        "-s",
+        "buildtools/mac/clang-format.sha1"
+      ],
+      "condition": "host_os == \"mac\"",
+      "status": "not_executed"
+    },
+    {
+      "name": "clang_format_linux",
+      "action": [
+        "download_from_google_storage",
+        "--no_resume",
+        "--platform=linux*",
+        "--no_auth",
+        "--bucket",
+        "chromium-clang-format",
+        "-s",
+        "buildtools/linux64/clang-format.sha1"
+      ],
+      "condition": "host_os == \"linux\"",
+      "status": "not_executed"
+    },
+    {
+      "name": "gcmole",
+      "action": [
+        "download_from_google_storage",
+        "--bucket",
+        "chrome-v8-gcmole",
+        "-u",
+        "--no_resume",
+        "-s",
+        "tools/gcmole/gcmole-tools.tar.gz.sha1",
+        "--platform=linux*"
+      ],
+      "condition": "download_gcmole",
+      "status": "not_executed"
+    },
+    {
+      "name": "jsfunfuzz",
+      "action": [
+        "download_from_google_storage",
+        "--bucket",
+        "chrome-v8-jsfunfuzz",
+        "-u",
+        "--no_resume",
+        "-s",
+        "tools/jsfunfuzz/jsfunfuzz.tar.gz.sha1",
+        "--platform=linux*"
+      ],
+      "condition": "download_jsfunfuzz",
+      "status": "not_executed"
+    },
+    {
+      "name": "wasm_spec_tests",
+      "action": [
+        "download_from_google_storage",
+        "--no_resume",
+        "--no_auth",
+        "-u",
+        "--bucket",
+        "v8-wasm-spec-tests",
+        "-s",
+        "test/wasm-spec-tests/tests.tar.gz.sha1"
+      ],
+      "condition": null,
+      "status": "not_executed"
+    },
+    {
+      "name": "wasm_js",
+      "action": [
+        "download_from_google_storage",
+        "--no_resume",
+        "--no_auth",
+        "-u",
+        "--bucket",
+        "v8-wasm-spec-tests",
+        "-s",
+        "test/wasm-js/tests.tar.gz.sha1"
+      ],
+      "condition": null,
+      "status": "not_executed"
+    },
+    {
+      "name": "sysroot_arm",
+      "action": [
+        "python",
+        "build/linux/sysroot_scripts/install-sysroot.py",
+        "--arch=arm"
+      ],
+      "condition": "(checkout_linux and checkout_arm)",
+      "status": "not_executed"
+    },
+    {
+      "name": "sysroot_arm64",
+      "action": [
+        "python",
+        "build/linux/sysroot_scripts/install-sysroot.py",
+        "--arch=arm64"
+      ],
+      "condition": "(checkout_linux and checkout_arm64)",
+      "status": "not_executed"
+    },
+    {
+      "name": "sysroot_x86",
+      "action": [
+        "python",
+        "build/linux/sysroot_scripts/install-sysroot.py",
+        "--arch=x86"
+      ],
+      "condition": "(checkout_linux and (checkout_x86 or checkout_x64))",
+      "status": "not_executed"
+    },
+    {
+      "name": "sysroot_x64",
+      "action": [
+        "python",
+        "build/linux/sysroot_scripts/install-sysroot.py",
+        "--arch=x64"
+      ],
+      "condition": "checkout_linux and checkout_x64",
+      "status": "not_executed"
+    },
+    {
+      "name": "msan_chained_origins",
+      "action": [
+        "download_from_google_storage",
+        "--no_resume",
+        "--no_auth",
+        "--bucket",
+        "chromium-instrumented-libraries",
+        "-s",
+        "third_party/instrumented_libraries/binaries/msan-chained-origins-trusty.tgz.sha1"
+      ],
+      "condition": "checkout_instrumented_libraries",
+      "status": "not_executed"
+    },
+    {
+      "name": "msan_no_origins",
+      "action": [
+        "download_from_google_storage",
+        "--no_resume",
+        "--no_auth",
+        "--bucket",
+        "chromium-instrumented-libraries",
+        "-s",
+        "third_party/instrumented_libraries/binaries/msan-no-origins-trusty.tgz.sha1"
+      ],
+      "condition": "checkout_instrumented_libraries",
+      "status": "not_executed"
+    },
+    {
+      "name": "win_toolchain",
+      "action": [
+        "python",
+        "build/vs_toolchain.py",
+        "update"
+      ],
+      "condition": "checkout_win",
+      "status": "not_executed"
+    },
+    {
+      "name": "mac_toolchain",
+      "action": [
+        "python",
+        "build/mac_toolchain.py"
+      ],
+      "condition": "checkout_mac",
+      "status": "not_executed"
+    },
+    {
+      "name": "clang",
+      "action": [
+        "python",
+        "tools/clang/scripts/update.py"
+      ],
+      "condition": "host_os != \"aix\"",
+      "status": "not_executed"
+    },
+    {
+      "name": "clang_tidy",
+      "action": [
+        "python",
+        "tools/clang/scripts/update.py",
+        "--package=clang-tidy"
+      ],
+      "condition": "checkout_clang_tidy",
+      "status": "not_executed"
+    },
+    {
+      "name": "lastchange",
+      "action": [
+        "python",
+        "build/util/lastchange.py",
+        "-o",
+        "build/util/LASTCHANGE"
+      ],
+      "condition": null,
+      "status": "not_executed"
+    },
+    {
+      "name": "Download Fuchsia SDK",
+      "action": [
+        "python",
+        "build/fuchsia/update_sdk.py"
+      ],
+      "condition": "checkout_fuchsia",
+      "status": "not_executed"
+    },
+    {
+      "name": "Download Fuchsia system images",
+      "action": [
+        "python",
+        "build/fuchsia/update_images.py",
+        "--boot-images={checkout_fuchsia_boot_images}"
+      ],
+      "condition": "checkout_fuchsia",
+      "status": "not_executed"
+    },
+    {
+      "name": "lld/mac",
+      "action": [
+        "python",
+        "tools/clang/scripts/update.py",
+        "--package=lld_mac"
+      ],
+      "condition": "host_os == \"mac\" and checkout_fuchsia",
+      "status": "not_executed"
+    },
+    {
+      "name": "llvm-objdump",
+      "action": [
+        "python",
+        "tools/clang/scripts/update.py",
+        "--package=objdump"
+      ],
+      "condition": "host_os == \"mac\" and checkout_fuchsia",
+      "status": "not_executed"
+    },
+    {
+      "name": "vpython_common",
+      "action": [
+        "vpython",
+        "-vpython-spec",
+        ".vpython",
+        "-vpython-tool",
+        "install"
+      ],
+      "condition": "checkout_android",
+      "status": "not_executed"
+    },
+    {
+      "name": "check_v8_header_includes",
+      "action": [
+        "python",
+        "tools/generate-header-include-checks.py"
+      ],
+      "condition": "check_v8_header_includes",
+      "status": "not_executed"
+    }
+  ],
+  "strategy": "Explicit pinned Git sources, no hooks/bootstrap; GN is the only DEPS CIPD binary needed for this target."
+}

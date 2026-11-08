@@ -1,0 +1,16 @@
+﻿Open Office 开发版
+
+安装位置
+- 默认安装到你的用户目录（%LOCALAPPDATA%\Programs\OpenOffice），只为当前 Windows 用户安装，不需要管理员权限。
+- 如果改选其他文件夹，请选你有写入权限的位置；不要选 C:\Program Files。
+
+当前功能
+- 打开、编辑、保存现有 DOCX 文档。
+- 新建文字文档、另存为、在同一窗口换文档。
+- 暂未开放：新建或打开表格/演示、导出为 PDF 等其他格式、多文档标签页。
+
+注意
+- 这是开发版，只在构建它的电脑上验证过，还没有在其他电脑上测试。
+- 程序第一次启动时会在安装文件夹里创建 openoffice-profile，保存配置和缓存。卸载时会保留这个文件夹，不需要的话可以手动删除。
+- 安装包附带了程序运行所需的 Microsoft Visual C++ 运行库文件，只放在程序文件夹里使用，不改动系统。
+- 基于 ONLYOFFICE（Ascensio System SIA）开源组件。第三方许可见安装文件夹中的 OPEN_OFFICE_THIRD_PARTY_NOTICES.md 和 OPEN_OFFICE_SOURCE_LICENSES。本项目不是 ONLYOFFICE 官方发行版。

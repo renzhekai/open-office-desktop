@@ -1,0 +1,13 @@
+diff --git a/glm/detail/func_common.inl b/glm/detail/func_common.inl
+index f0397d4edc6c6c64aaf7d596759a49d1906f07ac..3040e0e57d8e098fbff2a69cfa87e68d5edfc9c4 100644
+--- a/glm/detail/func_common.inl
++++ b/glm/detail/func_common.inl
+@@ -345,7 +345,7 @@ namespace detail
+ 		template<int c>
+ 		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<L, T, Q> call(vec<L, T, Q> const& a)
+ 		{
+-			vec<L, T, Q> v;
++			vec<L, T, Q> v{};
+ 			for (int i = 0; i < L; ++i)
+ 				v[i] = a[c];
+ 			return v;

@@ -1,0 +1,3538 @@
+{
+  "file": "qtascdocumentscore.dll",
+  "inspection": "ZIP entry inflated in memory; CRC checked; PE parsed as bytes; DLL never loaded/executed",
+  "uncompressed_size": 142320,
+  "sha256": "689ec2e7473a2f210f683b5e636894032dd966eea49f22b1801a23af22981a2b",
+  "zip_crc32": "a6a6635d",
+  "machine": "0x8664",
+  "pe_timestamp": 1791732993,
+  "linker_version": "14.29",
+  "characteristics": "0x2022",
+  "has_delay_import_directory": false,
+  "sections": [
+    {
+      "name": ".text",
+      "rva": 4096,
+      "virtual_size": 60483,
+      "raw_size": 60928,
+      "raw_offset": 1024,
+      "characteristics": 1610612768
+    },
+    {
+      "name": ".rdata",
+      "rva": 65536,
+      "virtual_size": 61952,
+      "raw_size": 61952,
+      "raw_offset": 61952,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".data",
+      "rva": 131072,
+      "virtual_size": 4088,
+      "raw_size": 2560,
+      "raw_offset": 123904,
+      "characteristics": 3221225536
+    },
+    {
+      "name": ".pdata",
+      "rva": 135168,
+      "virtual_size": 4416,
+      "raw_size": 4608,
+      "raw_offset": 126464,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".rsrc",
+      "rva": 143360,
+      "virtual_size": 840,
+      "raw_size": 1024,
+      "raw_offset": 131072,
+      "characteristics": 1073741888
+    },
+    {
+      "name": ".reloc",
+      "rva": 147456,
+      "virtual_size": 1536,
+      "raw_size": 1536,
+      "raw_offset": 132096,
+      "characteristics": 1107296320
+    }
+  ],
+  "imports": [
+    {
+      "dll": "kernel.dll",
+      "symbols": [
+        {
+          "name": "?Remove@CFileBinary@NSFile@@SA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?CreateTempFileWithUniqueName@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBV34@0@Z"
+        },
+        {
+          "name": "?GetTempPath@CFileBinary@NSFile@@SA?AV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "graphics.dll",
+      "symbols": [
+        {
+          "name": "?SetElements@CMatrix@Aggplus@@QEAAXAEBN00000@Z"
+        },
+        {
+          "name": "??4CGraphicsPathSimpleConverter@Aggplus@@QEAAAEAV01@AEBV01@@Z"
+        },
+        {
+          "name": "??0CGraphicsPathSimpleConverter@Aggplus@@QEAA@AEBV01@@Z"
+        },
+        {
+          "name": "??4CMatrix@Aggplus@@QEAAAEBV01@AEBV01@@Z"
+        },
+        {
+          "name": "?GetElements@CMatrix@Aggplus@@QEBA?AW4Status@2@PEAN@Z"
+        },
+        {
+          "name": "?Rotate@CMatrix@Aggplus@@QEAAXNW4MatrixOrder@2@@Z"
+        },
+        {
+          "name": "?Scale@CMatrix@Aggplus@@QEAAXNNW4MatrixOrder@2@@Z"
+        },
+        {
+          "name": "?Translate@CMatrix@Aggplus@@QEAAXNNW4MatrixOrder@2@@Z"
+        },
+        {
+          "name": "??1CMatrix@Aggplus@@QEAA@XZ"
+        },
+        {
+          "name": "??0CMatrix@Aggplus@@QEAA@XZ"
+        },
+        {
+          "name": "??0CMatrix@Aggplus@@QEAA@NNNNNN@Z"
+        },
+        {
+          "name": "??1CGraphicsPathSimpleConverter@Aggplus@@QEAA@XZ"
+        },
+        {
+          "name": "?SetRenderer@CGraphicsPathSimpleConverter@Aggplus@@QEAAXPEAVIRenderer@@@Z"
+        },
+        {
+          "name": "?PathCommandMoveTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNN@Z"
+        },
+        {
+          "name": "?PathCommandLineTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNN@Z"
+        },
+        {
+          "name": "??0CImageFileFormatChecker@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "??1IMetafileToRenderter@@UEAA@XZ"
+        },
+        {
+          "name": "??0IMetafileToRenderter@@QEAA@PEAVIRenderer@@@Z"
+        },
+        {
+          "name": "?Create@MetaFile@@YAPEAVIMetaFile@1@PEAVIApplicationFonts@NSFonts@@@Z"
+        },
+        {
+          "name": "?GetLastStatus@CImage@Aggplus@@QEBA?AW4Status@2@XZ"
+        },
+        {
+          "name": "?GetData@CImage@Aggplus@@QEBAPEAEXZ"
+        },
+        {
+          "name": "?GetStride@CImage@Aggplus@@QEBAJXZ"
+        },
+        {
+          "name": "?GetHeight@CImage@Aggplus@@QEBAKXZ"
+        },
+        {
+          "name": "?GetWidth@CImage@Aggplus@@QEBAKXZ"
+        },
+        {
+          "name": "??1CImage@Aggplus@@UEAA@XZ"
+        },
+        {
+          "name": "??0CImage@Aggplus@@QEAA@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?PathCommandText2@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBHAEBHPEAVIFontManager@NSFonts@@AEBN444@Z"
+        },
+        {
+          "name": "?PathCommandText2@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NPEBH0AEBHPEAVIFontManager@NSFonts@@AEBN333@Z"
+        },
+        {
+          "name": "?PathCommandText@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEAVIFontManager@NSFonts@@NNNNN@Z"
+        },
+        {
+          "name": "?PathCommandGetCurrentPoint@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NPEAN0@Z"
+        },
+        {
+          "name": "?PathCommandEnd@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NXZ"
+        },
+        {
+          "name": "?PathCommandClose@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NXZ"
+        },
+        {
+          "name": "?PathCommandArcTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNNNNNN@Z"
+        },
+        {
+          "name": "?PathCommandCurvesTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NPEANJ@Z"
+        },
+        {
+          "name": "?PathCommandCurveTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NNNNNNN@Z"
+        },
+        {
+          "name": "?PathCommandLinesTo@CGraphicsPathSimpleConverter@Aggplus@@QEAA_NPEANJ@Z"
+        },
+        {
+          "name": "??0CGraphicsPathSimpleConverter@Aggplus@@QEAA@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "ascdocumentscore.dll",
+      "symbols": [
+        {
+          "name": "??1CCefView@@UEAA@XZ"
+        },
+        {
+          "name": "?resizeEvent@CCefView@@QEAAXXZ"
+        },
+        {
+          "name": "?focus@CCefView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?moveEvent@CCefView@@QEAAXXZ"
+        },
+        {
+          "name": "?IsDestroy@CCefView@@QEAA_NXZ"
+        },
+        {
+          "name": "??1CCefViewEditor@@UEAA@XZ"
+        },
+        {
+          "name": "??1CApplicationCEF@@UEAA@XZ"
+        },
+        {
+          "name": "??1CAscDpiChecker@@UEAA@XZ"
+        },
+        {
+          "name": "?GetWindowDpi@CAscDpiChecker@@UEAAHPEAUHWND__@@PEAI1@Z"
+        },
+        {
+          "name": "?GetMonitorDpi@CAscDpiChecker@@UEAAHHPEAI0@Z"
+        },
+        {
+          "name": "?GetWidgetImplDpi@CAscDpiChecker@@UEAAHPEAVCCefViewWidgetImpl@@PEAI1@Z"
+        },
+        {
+          "name": "?GetScale@CAscDpiChecker@@UEAANII@Z"
+        },
+        {
+          "name": "??1CAscApplicationManager@@UEAA@XZ"
+        },
+        {
+          "name": "?IsPlatformKeyboardSupport@CAscApplicationManager@@UEAA_NXZ"
+        },
+        {
+          "name": "?GetPlatformKeyboardLayout@CAscApplicationManager@@UEAAHXZ"
+        },
+        {
+          "name": "?GetForceScale@CAscDpiChecker@@QEAANPEAI0@Z"
+        },
+        {
+          "name": "??0CAscDpiChecker@@QEAA@PEAVCAscApplicationManager@@@Z"
+        },
+        {
+          "name": "?IsExitMessageLoop@CAscApplicationManager@@QEAA_NXZ"
+        },
+        {
+          "name": "??0CAscApplicationManager@@QEAA@XZ"
+        },
+        {
+          "name": "?GetDeviceScale@CCefView@@QEAANXZ"
+        },
+        {
+          "name": "?IsPresentationReporter@CCefView@@QEAA_NXZ"
+        },
+        {
+          "name": "?InitDpiChecker@CAscApplicationManager@@MEAAPEAVCAscDpiChecker@@XZ"
+        },
+        {
+          "name": "?GetKeychainEngine@CAscApplicationManager@@UEAAPEAVCAscKeychain@NSAscCrypto@@XZ"
+        },
+        {
+          "name": "?ExternalMessageLoop_OnTimeout@CAscApplicationManager@@UEAAXXZ"
+        },
+        {
+          "name": "?ExternalMessageLoop_OnExecute@CAscApplicationManager@@UEAAXPEAX@Z"
+        },
+        {
+          "name": "?GetExternalMessageLoop@CAscApplicationManager@@UEAAPEAVIExternalMessageLoop@@XZ"
+        },
+        {
+          "name": "?IsExternalEventLoop@CAscApplicationManager@@UEAA_NXZ"
+        },
+        {
+          "name": "?EndSaveDialog@CAscApplicationManager@@UEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@I@Z"
+        },
+        {
+          "name": "?StartSaveDialog@CAscApplicationManager@@UEAAXAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@I@Z"
+        },
+        {
+          "name": "?CreateCefPresentationReporter@CAscApplicationManager@@QEAAPEAVCCefViewEditor@@PEAVCCefViewWidgetImpl@@PEAVCAscReporterData@@@Z"
+        },
+        {
+          "name": "?CreateCefEditor@CAscApplicationManager@@QEAAPEAVCCefViewEditor@@PEAVCCefViewWidgetImpl@@@Z"
+        },
+        {
+          "name": "?CreateCefView@CAscApplicationManager@@QEAAPEAVCCefView@@PEAVCCefViewWidgetImpl@@@Z"
+        }
+      ]
+    },
+    {
+      "dll": "videoplayer.dll",
+      "symbols": [
+        {
+          "name": "?GetMinWidth@QFooterPanel@@QEAAHXZ"
+        },
+        {
+          "name": "?GetMaxWidth@QFooterPanel@@QEAAHXZ"
+        },
+        {
+          "name": "?ApplySkin@QFooterPanel@@QEAAXW4Type@CFooterSkin@@@Z"
+        },
+        {
+          "name": "?SetRoundedCorners@QFooterPanel@@QEAAX_N@Z"
+        },
+        {
+          "name": "?SetDPI@QWidgetUtils@@YAXPEAVQWidget@@AEBN@Z"
+        },
+        {
+          "name": "??0QAscVideoView@@QEAA@PEAVQWidget@@_N@Z"
+        },
+        {
+          "name": "??1QAscVideoView@@UEAA@XZ"
+        },
+        {
+          "name": "?Play@QAscVideoView@@QEAAXXZ"
+        },
+        {
+          "name": "?Pause@QAscVideoView@@QEAAXXZ"
+        },
+        {
+          "name": "?TogglePause@QAscVideoView@@QEAAXXZ"
+        },
+        {
+          "name": "?ChangeVolume@QAscVideoView@@QEAAXH@Z"
+        },
+        {
+          "name": "?ToggleMute@QAscVideoView@@QEAAXXZ"
+        },
+        {
+          "name": "?Footer@QAscVideoView@@QEAAPEAVQFooterPanel@@XZ"
+        },
+        {
+          "name": "?setPlayListUsed@QAscVideoView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?setFullScreenUsed@QAscVideoView@@QEAAX_N@Z"
+        },
+        {
+          "name": "?GetHeight@QFooterPanel@@QEAAHXZ"
+        },
+        {
+          "name": "?setMedia@QAscVideoView@@QEAAXVQString@@_N@Z"
+        },
+        {
+          "name": "?Stop@QAscVideoView@@QEAAXXZ"
+        },
+        {
+          "name": "?RemoveFromPresentation@QAscVideoView@@QEAAXXZ"
+        },
+        {
+          "name": "?dragEnterEvent@QAscVideoView@@UEAAXPEAVQDragEnterEvent@@@Z"
+        },
+        {
+          "name": "?dropEvent@QAscVideoView@@UEAAXPEAVQDropEvent@@@Z"
+        },
+        {
+          "name": "?eventFilter@QAscVideoView@@UEAA_NPEAVQObject@@PEAVQEvent@@@Z"
+        },
+        {
+          "name": "?getMainWindow@QAscVideoView@@UEAAPEAVQWidget@@XZ"
+        },
+        {
+          "name": "?getMainWindowFullScreen@QAscVideoView@@UEAA_NXZ"
+        },
+        {
+          "name": "?keyPressEvent@QAscVideoView@@UEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?metaObject@QAscVideoView@@UEBAPEBUQMetaObject@@XZ"
+        },
+        {
+          "name": "?mousePressEvent@QAscVideoView@@UEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?paintEvent@QAscVideoView@@UEAAXPEAVQPaintEvent@@@Z"
+        },
+        {
+          "name": "?qt_metacall@QAscVideoView@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?qt_metacast@QAscVideoView@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?resizeEvent@QAscVideoView@@UEAAXPEAVQResizeEvent@@@Z"
+        },
+        {
+          "name": "?setMainWindowFullScreen@QAscVideoView@@UEAAX_N@Z"
+        }
+      ]
+    },
+    {
+      "dll": "USER32.dll",
+      "symbols": [
+        {
+          "name": "GetWindow"
+        },
+        {
+          "name": "GetForegroundWindow"
+        },
+        {
+          "name": "SetWindowPos"
+        },
+        {
+          "name": "IsChild"
+        }
+      ]
+    },
+    {
+      "dll": "Qt5PrintSupport.dll",
+      "symbols": [
+        {
+          "name": "?setDuplex@QPrinter@@QEAAXW4DuplexMode@1@@Z"
+        },
+        {
+          "name": "?paperRect@QPrinter@@QEBA?AVQRect@@XZ"
+        },
+        {
+          "name": "?pageRect@QPrinter@@QEBA?AVQRect@@XZ"
+        },
+        {
+          "name": "??0QPrinterInfo@@QEAA@AEBVQPrinter@@@Z"
+        },
+        {
+          "name": "?outputFileName@QPrinter@@QEBA?AVQString@@XZ"
+        },
+        {
+          "name": "??0QPrinter@@QEAA@AEBVQPrinterInfo@@W4PrinterMode@0@@Z"
+        },
+        {
+          "name": "??0QPrinter@@QEAA@W4PrinterMode@0@@Z"
+        },
+        {
+          "name": "??1QPrinterInfo@@QEAA@XZ"
+        },
+        {
+          "name": "?defaultPageSize@QPrinterInfo@@QEBA?AVQPageSize@@XZ"
+        },
+        {
+          "name": "?defaultDuplexMode@QPrinterInfo@@QEBA?AW4DuplexMode@QPrinter@@XZ"
+        },
+        {
+          "name": "??1QPrinter@@UEAA@XZ"
+        }
+      ]
+    },
+    {
+      "dll": "Qt5Widgets.dll",
+      "symbols": [
+        {
+          "name": "?showEvent@QWidget@@MEAAXPEAVQShowEvent@@@Z"
+        },
+        {
+          "name": "?sharedPainter@QWidget@@MEBAPEAVQPainter@@XZ"
+        },
+        {
+          "name": "?setVisible@QWidget@@UEAAX_N@Z"
+        },
+        {
+          "name": "?redirected@QWidget@@MEBAPEAVQPaintDevice@@PEAVQPoint@@@Z"
+        },
+        {
+          "name": "?paintEngine@QWidget@@UEBAPEAVQPaintEngine@@XZ"
+        },
+        {
+          "name": "?nativeEvent@QWidget@@MEAA_NAEBVQByteArray@@PEAXPEAJ@Z"
+        },
+        {
+          "name": "?mouseReleaseEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mousePressEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseMoveEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?mouseDoubleClickEvent@QWidget@@MEAAXPEAVQMouseEvent@@@Z"
+        },
+        {
+          "name": "?minimumSizeHint@QWidget@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?metric@QWidget@@MEBAHW4PaintDeviceMetric@QPaintDevice@@@Z"
+        },
+        {
+          "name": "?leaveEvent@QWidget@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?keyReleaseEvent@QWidget@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?keyPressEvent@QWidget@@MEAAXPEAVQKeyEvent@@@Z"
+        },
+        {
+          "name": "?inputMethodQuery@QWidget@@UEBA?AVQVariant@@W4InputMethodQuery@Qt@@@Z"
+        },
+        {
+          "name": "?inputMethodEvent@QWidget@@MEAAXPEAVQInputMethodEvent@@@Z"
+        },
+        {
+          "name": "?initPainter@QWidget@@MEBAXPEAVQPainter@@@Z"
+        },
+        {
+          "name": "?heightForWidth@QWidget@@UEBAHH@Z"
+        },
+        {
+          "name": "?hasHeightForWidth@QWidget@@UEBA_NXZ"
+        },
+        {
+          "name": "?focusNextPrevChild@QWidget@@MEAA_N_N@Z"
+        },
+        {
+          "name": "?tabletEvent@QWidget@@MEAAXPEAVQTabletEvent@@@Z"
+        },
+        {
+          "name": "?enterEvent@QWidget@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?dropEvent@QWidget@@MEAAXPEAVQDropEvent@@@Z"
+        },
+        {
+          "name": "?dragMoveEvent@QWidget@@MEAAXPEAVQDragMoveEvent@@@Z"
+        },
+        {
+          "name": "?dragLeaveEvent@QWidget@@MEAAXPEAVQDragLeaveEvent@@@Z"
+        },
+        {
+          "name": "?dragEnterEvent@QWidget@@MEAAXPEAVQDragEnterEvent@@@Z"
+        },
+        {
+          "name": "?devType@QWidget@@UEBAHXZ"
+        },
+        {
+          "name": "?contextMenuEvent@QWidget@@MEAAXPEAVQContextMenuEvent@@@Z"
+        },
+        {
+          "name": "?changeEvent@QWidget@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?actionEvent@QWidget@@MEAAXPEAVQActionEvent@@@Z"
+        },
+        {
+          "name": "?init@QStyleOption@@QEAAXPEBVQWidget@@@Z"
+        },
+        {
+          "name": "??1QStyleOption@@QEAA@XZ"
+        },
+        {
+          "name": "??0QStyleOption@@QEAA@HH@Z"
+        },
+        {
+          "name": "?hideEvent@QWidget@@MEAAXPEAVQHideEvent@@@Z"
+        },
+        {
+          "name": "?setGeometry@QWidget@@QEAAXHHHH@Z"
+        },
+        {
+          "name": "?resize@QWidget@@QEAAXAEBVQSize@@@Z"
+        },
+        {
+          "name": "?setStyleSheet@QWidget@@QEAAXAEBVQString@@@Z"
+        },
+        {
+          "name": "?height@QWidget@@QEBAHXZ"
+        },
+        {
+          "name": "?width@QWidget@@QEBAHXZ"
+        },
+        {
+          "name": "?style@QWidget@@QEBAPEAVQStyle@@XZ"
+        },
+        {
+          "name": "?winId@QWidget@@QEBA_KXZ"
+        },
+        {
+          "name": "??1QWidget@@UEAA@XZ"
+        },
+        {
+          "name": "??0QWidget@@QEAA@PEAV0@V?$QFlags@W4WindowType@Qt@@@@@Z"
+        },
+        {
+          "name": "?sizeHint@QWidget@@UEBA?AVQSize@@XZ"
+        },
+        {
+          "name": "?wheelEvent@QWidget@@MEAAXPEAVQWheelEvent@@@Z"
+        },
+        {
+          "name": "?show@QWidget@@QEAAXXZ"
+        },
+        {
+          "name": "?closeEvent@QWidget@@MEAAXPEAVQCloseEvent@@@Z"
+        },
+        {
+          "name": "?focusInEvent@QWidget@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?focusOutEvent@QWidget@@MEAAXPEAVQFocusEvent@@@Z"
+        },
+        {
+          "name": "?screen@QWidget@@QEBAPEAVQScreen@@XZ"
+        },
+        {
+          "name": "?staticMetaObject@QWidget@@2UQMetaObject@@B"
+        },
+        {
+          "name": "?qt_metacast@QWidget@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?qt_metacall@QWidget@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?event@QWidget@@MEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?moveEvent@QWidget@@MEAAXPEAVQMoveEvent@@@Z"
+        }
+      ]
+    },
+    {
+      "dll": "Qt5Gui.dll",
+      "symbols": [
+        {
+          "name": "?screens@QGuiApplication@@SA?AV?$QList@PEAVQScreen@@@@XZ"
+        },
+        {
+          "name": "?primaryScreen@QGuiApplication@@SAPEAVQScreen@@XZ"
+        },
+        {
+          "name": "?logicalDotsPerInchY@QScreen@@QEBANXZ"
+        },
+        {
+          "name": "?logicalDotsPerInchX@QScreen@@QEBANXZ"
+        },
+        {
+          "name": "?sharedPainter@QPaintDevice@@MEBAPEAVQPainter@@XZ"
+        },
+        {
+          "name": "?redirected@QPaintDevice@@MEBAPEAV1@PEAVQPoint@@@Z"
+        },
+        {
+          "name": "?paintEngine@QImage@@UEBAPEAVQPaintEngine@@XZ"
+        },
+        {
+          "name": "?metric@QImage@@MEBAHW4PaintDeviceMetric@QPaintDevice@@@Z"
+        },
+        {
+          "name": "?initPainter@QPaintDevice@@MEBAXPEAVQPainter@@@Z"
+        },
+        {
+          "name": "?devType@QImage@@UEBAHXZ"
+        },
+        {
+          "name": "?isEmpty@QPainterPath@@QEBA_NXZ"
+        },
+        {
+          "name": "?setFillRule@QPainterPath@@QEAAXW4FillRule@Qt@@@Z"
+        },
+        {
+          "name": "?boundingRect@QPainterPath@@QEBA?AVQRectF@@XZ"
+        },
+        {
+          "name": "?cubicTo@QPainterPath@@QEAAXAEBVQPointF@@00@Z"
+        },
+        {
+          "name": "?lineTo@QPainterPath@@QEAAXAEBVQPointF@@@Z"
+        },
+        {
+          "name": "?moveTo@QPainterPath@@QEAAXAEBVQPointF@@@Z"
+        },
+        {
+          "name": "?closeSubpath@QPainterPath@@QEAAXXZ"
+        },
+        {
+          "name": "??4QPainterPath@@QEAAAEAV0@$$QEAV0@@Z"
+        },
+        {
+          "name": "??0QPainterPath@@QEAA@XZ"
+        },
+        {
+          "name": "?drawImage@QPainter@@QEAAXHHAEBVQImage@@HHHHV?$QFlags@W4ImageConversionFlag@Qt@@@@@Z"
+        },
+        {
+          "name": "?drawImage@QPainter@@QEAAXAEBVQRectF@@AEBVQImage@@@Z"
+        },
+        {
+          "name": "?fillPath@QPainter@@QEAAXAEBVQPainterPath@@AEBVQBrush@@@Z"
+        },
+        {
+          "name": "?strokePath@QPainter@@QEAAXAEBVQPainterPath@@AEBVQPen@@@Z"
+        },
+        {
+          "name": "?transform@QPainter@@QEBAAEBVQTransform@@XZ"
+        },
+        {
+          "name": "?setTransform@QPainter@@QEAAXAEBVQTransform@@_N@Z"
+        },
+        {
+          "name": "?setClipPath@QPainter@@QEAAXAEBVQPainterPath@@W4ClipOperation@Qt@@@Z"
+        },
+        {
+          "name": "?setOpacity@QPainter@@QEAAXN@Z"
+        },
+        {
+          "name": "?setJoinStyle@QPen@@QEAAXW4PenJoinStyle@Qt@@@Z"
+        },
+        {
+          "name": "?setCapStyle@QPen@@QEAAXW4PenCapStyle@Qt@@@Z"
+        },
+        {
+          "name": "?setColor@QPen@@QEAAXAEBVQColor@@@Z"
+        },
+        {
+          "name": "?scale@QTransform@@QEAAAEAV1@NN@Z"
+        },
+        {
+          "name": "?setWidthF@QPen@@QEAAXN@Z"
+        },
+        {
+          "name": "?setMiterLimit@QPen@@QEAAXN@Z"
+        },
+        {
+          "name": "?setDashOffset@QPen@@QEAAXN@Z"
+        },
+        {
+          "name": "?setDashPattern@QPen@@QEAAXAEBV?$QVector@N@@@Z"
+        },
+        {
+          "name": "?setStyle@QPen@@QEAAXW4PenStyle@Qt@@@Z"
+        },
+        {
+          "name": "??1QPen@@QEAA@XZ"
+        },
+        {
+          "name": "??0QPen@@QEAA@XZ"
+        },
+        {
+          "name": "?setColor@QBrush@@QEAAXAEBVQColor@@@Z"
+        },
+        {
+          "name": "?setTextureImage@QBrush@@QEAAXAEBVQImage@@@Z"
+        },
+        {
+          "name": "?setTransform@QBrush@@QEAAXAEBVQTransform@@@Z"
+        },
+        {
+          "name": "?transform@QBrush@@QEBA?AVQTransform@@XZ"
+        },
+        {
+          "name": "??1QBrush@@QEAA@XZ"
+        },
+        {
+          "name": "??0QBrush@@QEAA@W4BrushStyle@Qt@@@Z"
+        },
+        {
+          "name": "??0QBrush@@QEAA@XZ"
+        },
+        {
+          "name": "?mirrored_helper@QImage@@IEBA?AV1@_N0@Z"
+        },
+        {
+          "name": "?height@QImage@@QEBAHXZ"
+        },
+        {
+          "name": "?width@QImage@@QEBAHXZ"
+        },
+        {
+          "name": "??4QImage@@QEAAAEAV0@$$QEAV0@@Z"
+        },
+        {
+          "name": "??0QImage@@QEAA@HHW4Format@0@@Z"
+        },
+        {
+          "name": "??0QImage@@QEAA@XZ"
+        },
+        {
+          "name": "?reset@QTransform@@QEAAXXZ"
+        },
+        {
+          "name": "??DQTransform@@QEBA?AV0@AEBV0@@Z"
+        },
+        {
+          "name": "?rotate@QTransform@@QEAAAEAV1@NW4Axis@Qt@@@Z"
+        },
+        {
+          "name": "?translate@QTransform@@QEAAAEAV1@NN@Z"
+        },
+        {
+          "name": "?determinant@QTransform@@QEBANXZ"
+        },
+        {
+          "name": "??4QTransform@@QEAAAEAV0@$$QEAV0@@Z"
+        },
+        {
+          "name": "??0QTransform@@QEAA@NNNNNN@Z"
+        },
+        {
+          "name": "??0QTransform@@QEAA@XZ"
+        },
+        {
+          "name": "??0QColor@@QEAA@HHHH@Z"
+        },
+        {
+          "name": "??1QPainterPath@@QEAA@XZ"
+        },
+        {
+          "name": "??0QPainter@@QEAA@PEAVQPaintDevice@@@Z"
+        },
+        {
+          "name": "??1QPainter@@QEAA@XZ"
+        },
+        {
+          "name": "?width@QPaintDevice@@QEBAHXZ"
+        },
+        {
+          "name": "?height@QPaintDevice@@QEBAHXZ"
+        },
+        {
+          "name": "?logicalDpiX@QPaintDevice@@QEBAHXZ"
+        },
+        {
+          "name": "?logicalDpiY@QPaintDevice@@QEBAHXZ"
+        },
+        {
+          "name": "??1QPageSize@@QEAA@XZ"
+        },
+        {
+          "name": "?setPageSize@QPagedPaintDevice@@QEAA_NAEBVQPageSize@@@Z"
+        },
+        {
+          "name": "?setPageMargins@QPagedPaintDevice@@QEAA_NAEBVQMarginsF@@W4Unit@QPageLayout@@@Z"
+        },
+        {
+          "name": "??4QTransform@@QEAAAEAV0@AEBV0@@Z"
+        },
+        {
+          "name": "??0QTransform@@QEAA@AEBV0@@Z"
+        },
+        {
+          "name": "??0QImage@@QEAA@PEAEHHHW4Format@0@P6AXPEAX@Z2@Z"
+        },
+        {
+          "name": "??1QImage@@UEAA@XZ"
+        },
+        {
+          "name": "??0QPainter@@QEAA@XZ"
+        },
+        {
+          "name": "?begin@QPainter@@QEAA_NPEAVQPaintDevice@@@Z"
+        },
+        {
+          "name": "?end@QPainter@@QEAA_NXZ"
+        },
+        {
+          "name": "?setClipping@QPainter@@QEAAX_N@Z"
+        },
+        {
+          "name": "?hasClipping@QPainter@@QEBA_NXZ"
+        },
+        {
+          "name": "?save@QPainter@@QEAAXXZ"
+        },
+        {
+          "name": "?restore@QPainter@@QEAAXXZ"
+        },
+        {
+          "name": "?rotate@QPainter@@QEAAXN@Z"
+        },
+        {
+          "name": "?translate@QPainter@@QEAAXAEBVQPointF@@@Z"
+        },
+        {
+          "name": "?drawImage@QPainter@@QEAAXAEBVQRect@@AEBVQImage@@0V?$QFlags@W4ImageConversionFlag@Qt@@@@@Z"
+        },
+        {
+          "name": "?setRenderHints@QPainter@@QEAAXV?$QFlags@W4RenderHint@QPainter@@@@_N@Z"
+        },
+        {
+          "name": "??0QPainterPath@@QEAA@AEBV0@@Z"
+        },
+        {
+          "name": "??4QPainterPath@@QEAAAEAV0@AEBV0@@Z"
+        }
+      ]
+    },
+    {
+      "dll": "Qt5Core.dll",
+      "symbols": [
+        {
+          "name": "?disconnectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z"
+        },
+        {
+          "name": "?timerEvent@QObject@@MEAAXPEAVQTimerEvent@@@Z"
+        },
+        {
+          "name": "?connectNotify@QObject@@MEAAXAEBVQMetaMethod@@@Z"
+        },
+        {
+          "name": "?defaultTypeFor@QTimer@@CA?AW4TimerType@Qt@@H@Z"
+        },
+        {
+          "name": "?singleShotImpl@QTimer@@CAXHW4TimerType@Qt@@PEBVQObject@@PEAVQSlotObjectBase@QtPrivate@@@Z"
+        },
+        {
+          "name": "??0QRect@@QEAA@HHHH@Z"
+        },
+        {
+          "name": "?fromStdWString@QString@@SA?AV1@AEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z"
+        },
+        {
+          "name": "?customEvent@QObject@@MEAAXPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?x@QRect@@QEBAHXZ"
+        },
+        {
+          "name": "?y@QRect@@QEBAHXZ"
+        },
+        {
+          "name": "?setY@QRect@@QEAAXH@Z"
+        },
+        {
+          "name": "?width@QRect@@QEBAHXZ"
+        },
+        {
+          "name": "?height@QRect@@QEBAHXZ"
+        },
+        {
+          "name": "?setHeight@QRect@@QEAAXH@Z"
+        },
+        {
+          "name": "?qBadAlloc@@YAXXZ"
+        },
+        {
+          "name": "??0QSizeF@@QEAA@NN@Z"
+        },
+        {
+          "name": "?width@QSizeF@@QEBANXZ"
+        },
+        {
+          "name": "?height@QSizeF@@QEBANXZ"
+        },
+        {
+          "name": "?childEvent@QObject@@MEAAXPEAVQChildEvent@@@Z"
+        },
+        {
+          "name": "??0QRectF@@QEAA@NNNN@Z"
+        },
+        {
+          "name": "??1Connection@QMetaObject@@QEAA@XZ"
+        },
+        {
+          "name": "?qt_metacall@QObject@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z"
+        },
+        {
+          "name": "?qt_metacast@QObject@@UEAAPEAXPEBD@Z"
+        },
+        {
+          "name": "?staticMetaObject@QObject@@2UQMetaObject@@B"
+        },
+        {
+          "name": "?shared_null@QListData@@2UData@1@B"
+        },
+        {
+          "name": "?dynamicMetaObject@QObjectData@@QEBAPEAUQMetaObject@@XZ"
+        },
+        {
+          "name": "?unregisterConverterFunction@QMetaType@@SAXHH@Z"
+        },
+        {
+          "name": "?registerConverterFunction@QMetaType@@SA_NPEBUAbstractConverterFunction@QtPrivate@@HH@Z"
+        },
+        {
+          "name": "?hasRegisteredConverterFunction@QMetaType@@SA_NHH@Z"
+        },
+        {
+          "name": "?typeName@QMetaType@@SAPEBDH@Z"
+        },
+        {
+          "name": "?registerNormalizedType@QMetaType@@SAHAEBVQByteArray@@P6AXPEAX@ZP6APEAX1PEBX@ZHV?$QFlags@W4TypeFlag@QMetaType@@@@PEBUQMetaObject@@@Z"
+        },
+        {
+          "name": "?append@QListData@@QEAAPEAPEAXXZ"
+        },
+        {
+          "name": "?dispose@QListData@@QEAAXXZ"
+        },
+        {
+          "name": "?detach_grow@QListData@@QEAAPEAUData@1@PEAHH@Z"
+        },
+        {
+          "name": "?detach@QListData@@QEAAPEAUData@1@H@Z"
+        },
+        {
+          "name": "?append@QByteArray@@QEAAAEAV1@PEBDH@Z"
+        },
+        {
+          "name": "?append@QByteArray@@QEAAAEAV1@D@Z"
+        },
+        {
+          "name": "?endsWith@QByteArray@@QEBA_ND@Z"
+        },
+        {
+          "name": "?reserve@QByteArray@@QEAAXH@Z"
+        },
+        {
+          "name": "??1QByteArray@@QEAA@XZ"
+        },
+        {
+          "name": "??0QByteArray@@QEAA@XZ"
+        },
+        {
+          "name": "?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z"
+        },
+        {
+          "name": "?normalizedType@QMetaObject@@SA?AVQByteArray@@PEBD@Z"
+        },
+        {
+          "name": "?end@QListData@@QEBAPEAPEAXXZ"
+        },
+        {
+          "name": "?begin@QListData@@QEBAPEAPEAXXZ"
+        },
+        {
+          "name": "?at@QListData@@QEBAPEAPEAXH@Z"
+        },
+        {
+          "name": "?size@QListData@@QEBAHXZ"
+        },
+        {
+          "name": "?dispose@QListData@@SAXPEAUData@1@@Z"
+        },
+        {
+          "name": "?processEvents@QCoreApplication@@SAXV?$QFlags@W4ProcessEventsFlag@QEventLoop@@@@@Z"
+        },
+        {
+          "name": "?event@QObject@@UEAA_NPEAVQEvent@@@Z"
+        },
+        {
+          "name": "?stop@QTimer@@QEAAXXZ"
+        },
+        {
+          "name": "?start@QTimer@@QEAAXH@Z"
+        },
+        {
+          "name": "??1QTimer@@UEAA@XZ"
+        },
+        {
+          "name": "??0QTimer@@QEAA@PEAVQObject@@@Z"
+        },
+        {
+          "name": "?quit@QCoreApplication@@SAXXZ"
+        },
+        {
+          "name": "?exec@QCoreApplication@@SAHXZ"
+        },
+        {
+          "name": "?instance@QCoreApplication@@SAPEAV1@XZ"
+        },
+        {
+          "name": "??1QObject@@UEAA@XZ"
+        },
+        {
+          "name": "??0QObject@@QEAA@PEAV0@@Z"
+        },
+        {
+          "name": "?deallocate@QArrayData@@SAXPEAU1@_K1@Z"
+        },
+        {
+          "name": "?allocate@QArrayData@@SAPEAU1@_K00V?$QFlags@W4AllocationOption@QArrayData@@@@@Z"
+        },
+        {
+          "name": "?height@QRectF@@QEBANXZ"
+        },
+        {
+          "name": "?width@QRectF@@QEBANXZ"
+        },
+        {
+          "name": "?top@QRectF@@QEBANXZ"
+        },
+        {
+          "name": "?left@QRectF@@QEBANXZ"
+        },
+        {
+          "name": "?getAndRef@ExternalRefCountData@QtSharedPointer@@SAPEAU12@PEBVQObject@@@Z"
+        },
+        {
+          "name": "?isEmpty@QSize@@QEBA_NXZ"
+        },
+        {
+          "name": "?connect@QObject@@SA?AVConnection@QMetaObject@@PEBV1@PEBD01W4ConnectionType@Qt@@@Z"
+        },
+        {
+          "name": "?installEventFilter@QObject@@QEAAXPEAV1@@Z"
+        },
+        {
+          "name": "?eventFilter@QObject@@UEAA_NPEAV1@PEAVQEvent@@@Z"
+        },
+        {
+          "name": "?number@QString@@SA?AV1@HH@Z"
+        },
+        {
+          "name": "?fromUtf8@QString@@SA?AV1@PEBDH@Z"
+        },
+        {
+          "name": "?append@QString@@QEAAAEAV1@AEBV1@@Z"
+        },
+        {
+          "name": "??4QString@@QEAAAEAV0@AEBV0@@Z"
+        },
+        {
+          "name": "??1QString@@QEAA@XZ"
+        },
+        {
+          "name": "??0QString@@QEAA@AEBV0@@Z"
+        },
+        {
+          "name": "?tr@QMetaObject@@QEBA?AVQString@@PEBD0H@Z"
+        }
+      ]
+    },
+    {
+      "dll": "MSVCP140.dll",
+      "symbols": [
+        {
+          "name": "?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@XZ"
+        },
+        {
+          "name": "?put@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV12@D@Z"
+        },
+        {
+          "name": "?_Xlength_error@std@@YAXPEBD@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@H@Z"
+        },
+        {
+          "name": "?cout@std@@3V?$basic_ostream@DU?$char_traits@D@std@@@1@A"
+        },
+        {
+          "name": "?_Osfx@?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAXXZ"
+        },
+        {
+          "name": "?widen@?$basic_ios@DU?$char_traits@D@std@@@std@@QEBADD@Z"
+        },
+        {
+          "name": "?setstate@?$basic_ios@DU?$char_traits@D@std@@@std@@QEAAXH_N@Z"
+        },
+        {
+          "name": "?sputn@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAA_JPEBD_J@Z"
+        },
+        {
+          "name": "?sputc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@QEAAHD@Z"
+        },
+        {
+          "name": "??6?$basic_ostream@DU?$char_traits@D@std@@@std@@QEAAAEAV01@P6AAEAV01@AEAV01@@Z@Z"
+        },
+        {
+          "name": "?uncaught_exception@std@@YA_NXZ"
+        }
+      ]
+    },
+    {
+      "dll": "KERNEL32.dll",
+      "symbols": [
+        {
+          "name": "TerminateProcess"
+        },
+        {
+          "name": "GetProcAddress"
+        },
+        {
+          "name": "RtlCaptureContext"
+        },
+        {
+          "name": "RtlLookupFunctionEntry"
+        },
+        {
+          "name": "RtlVirtualUnwind"
+        },
+        {
+          "name": "UnhandledExceptionFilter"
+        },
+        {
+          "name": "SetUnhandledExceptionFilter"
+        },
+        {
+          "name": "GetCurrentProcess"
+        },
+        {
+          "name": "IsProcessorFeaturePresent"
+        },
+        {
+          "name": "IsDebuggerPresent"
+        },
+        {
+          "name": "CloseHandle"
+        },
+        {
+          "name": "EnterCriticalSection"
+        },
+        {
+          "name": "LeaveCriticalSection"
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount"
+        },
+        {
+          "name": "DeleteCriticalSection"
+        },
+        {
+          "name": "SetEvent"
+        },
+        {
+          "name": "ResetEvent"
+        },
+        {
+          "name": "WaitForSingleObjectEx"
+        },
+        {
+          "name": "CreateEventW"
+        },
+        {
+          "name": "QueryPerformanceCounter"
+        },
+        {
+          "name": "InitializeSListHead"
+        },
+        {
+          "name": "DisableThreadLibraryCalls"
+        },
+        {
+          "name": "GetSystemTimeAsFileTime"
+        },
+        {
+          "name": "GetCurrentThreadId"
+        },
+        {
+          "name": "GetCurrentProcessId"
+        },
+        {
+          "name": "GetModuleHandleW"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140.dll",
+      "symbols": [
+        {
+          "name": "__std_exception_copy"
+        },
+        {
+          "name": "__std_exception_destroy"
+        },
+        {
+          "name": "_CxxThrowException"
+        },
+        {
+          "name": "__std_type_info_destroy_list"
+        },
+        {
+          "name": "memcpy"
+        },
+        {
+          "name": "memmove"
+        },
+        {
+          "name": "__std_terminate"
+        },
+        {
+          "name": "memcmp"
+        },
+        {
+          "name": "_purecall"
+        },
+        {
+          "name": "memset"
+        },
+        {
+          "name": "__current_exception"
+        },
+        {
+          "name": "__current_exception_context"
+        },
+        {
+          "name": "__C_specific_handler"
+        }
+      ]
+    },
+    {
+      "dll": "VCRUNTIME140_1.dll",
+      "symbols": [
+        {
+          "name": "__CxxFrameHandler4"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-runtime-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "signal"
+        },
+        {
+          "name": "_initialize_onexit_table"
+        },
+        {
+          "name": "_initterm_e"
+        },
+        {
+          "name": "_initterm"
+        },
+        {
+          "name": "_cexit"
+        },
+        {
+          "name": "_crt_atexit"
+        },
+        {
+          "name": "_execute_onexit_table"
+        },
+        {
+          "name": "_register_onexit_function"
+        },
+        {
+          "name": "_invalid_parameter_noinfo_noreturn"
+        },
+        {
+          "name": "_initialize_narrow_environment"
+        },
+        {
+          "name": "_configure_narrow_argv"
+        },
+        {
+          "name": "_seh_filter_dll"
+        },
+        {
+          "name": "terminate"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-math-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "sqrt"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-string-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "strcmp"
+        }
+      ]
+    },
+    {
+      "dll": "api-ms-win-crt-heap-l1-1-0.dll",
+      "symbols": [
+        {
+          "name": "malloc"
+        },
+        {
+          "name": "free"
+        },
+        {
+          "name": "_callnewh"
+        }
+      ]
+    }
+  ],
+  "exports": [
+    {
+      "name": "??0CApplicationCEF@@QEAA@AEBV0@@Z",
+      "ordinal": 1,
+      "rva": 5760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CAscApplicationManager@@QEAA@AEBV0@@Z",
+      "ordinal": 2,
+      "rva": 5792,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CAscApplicationSettings@@QEAA@AEBV0@@Z",
+      "ordinal": 3,
+      "rva": 5888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CAscDpiChecker@@QEAA@AEBV0@@Z",
+      "ordinal": 4,
+      "rva": 7984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CCefView@@QEAA@AEBV0@@Z",
+      "ordinal": 5,
+      "rva": 8016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CCefViewEditor@@QEAA@AEBV0@@Z",
+      "ordinal": 6,
+      "rva": 8064,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CQRenderer@NSQRenderer@@QEAA@AEBV01@@Z",
+      "ordinal": 7,
+      "rva": 21056,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0CQRenderer@NSQRenderer@@QEAA@PEAVQAscPrinterContext@@@Z",
+      "ordinal": 8,
+      "rva": 31760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QAscApplicationManager@@QEAA@AEBV0@@Z",
+      "ordinal": 9,
+      "rva": 49680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QAscApplicationManager@@QEAA@XZ",
+      "ordinal": 10,
+      "rva": 49776,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QAscPrinterContext@@QEAA@AEBVQPrinterInfo@@W4PrinterMode@QPrinter@@@Z",
+      "ordinal": 11,
+      "rva": 22096,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QAscPrinterContext@@QEAA@PEAVQPagedPaintDevice@@@Z",
+      "ordinal": 12,
+      "rva": 22176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QAscPrinterContext@@QEAA@PEAVQPaintDevice@@@Z",
+      "ordinal": 13,
+      "rva": 22272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QAscPrinterContext@@QEAA@W4PrinterMode@QPrinter@@@Z",
+      "ordinal": 14,
+      "rva": 22368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QCefView@@QEAA@PEAVQWidget@@AEBVQSize@@@Z",
+      "ordinal": 15,
+      "rva": 8128,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QCefView_Media@@QEAA@PEAVQWidget@@AEBVQSize@@@Z",
+      "ordinal": 16,
+      "rva": 14832,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QDpiChecker@@QEAA@$$QEAV0@@Z",
+      "ordinal": 17,
+      "rva": 49824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QDpiChecker@@QEAA@AEBV0@@Z",
+      "ordinal": 18,
+      "rva": 49824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QDpiChecker@@QEAA@PEAVCAscApplicationManager@@@Z",
+      "ordinal": 19,
+      "rva": 50400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??0QExternalMessageLoop@@QEAA@PEAVCAscApplicationManager@@@Z",
+      "ordinal": 20,
+      "rva": 48912,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1CQRenderer@NSQRenderer@@UEAA@XZ",
+      "ordinal": 21,
+      "rva": 32496,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QAscApplicationManager@@UEAA@XZ",
+      "ordinal": 22,
+      "rva": 49856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QAscPrinterContext@@UEAA@XZ",
+      "ordinal": 23,
+      "rva": 23312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QCefView@@UEAA@XZ",
+      "ordinal": 24,
+      "rva": 9120,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QCefView_Media@@UEAA@XZ",
+      "ordinal": 25,
+      "rva": 14912,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QDpiChecker@@UEAA@XZ",
+      "ordinal": 26,
+      "rva": 49872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??1QExternalMessageLoop@@UEAA@XZ",
+      "ordinal": 27,
+      "rva": 49136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CApplicationCEF@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 28,
+      "rva": 9296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CAscApplicationManager@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 29,
+      "rva": 9312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CAscApplicationSettings@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 30,
+      "rva": 9392,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CAscDpiChecker@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 31,
+      "rva": 9296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CAscKeyboardChecker@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 32,
+      "rva": 10400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CAscSpellChecker@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 33,
+      "rva": 10400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CCefView@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 34,
+      "rva": 10416,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CCefViewEditor@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 35,
+      "rva": 10448,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CQRenderer@NSQRenderer@@QEAAAEAV01@AEBV01@@Z",
+      "ordinal": 36,
+      "rva": 25008,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4CUserSettings@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 37,
+      "rva": 10400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4QAscApplicationManager@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 38,
+      "rva": 9312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4QDpiChecker@@QEAAAEAV0@$$QEAV0@@Z",
+      "ordinal": 39,
+      "rva": 9296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??4QDpiChecker@@QEAAAEAV0@AEBV0@@Z",
+      "ordinal": 40,
+      "rva": 9296,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "??_7CApplicationCEF@@6B@",
+      "ordinal": 41,
+      "rva": 69320,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CAscApplicationManager@@6B@",
+      "ordinal": 42,
+      "rva": 69384,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CAscDpiChecker@@6B@",
+      "ordinal": 43,
+      "rva": 69336,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CCefView@@6B@",
+      "ordinal": 44,
+      "rva": 69288,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CCefViewEditor@@6B@",
+      "ordinal": 45,
+      "rva": 69304,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7CQRenderer@NSQRenderer@@6B@",
+      "ordinal": 46,
+      "rva": 72384,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QAscApplicationManager@@6B@",
+      "ordinal": 47,
+      "rva": 75080,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QAscPrinterContext@@6B@",
+      "ordinal": 48,
+      "rva": 71208,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QCefView@@6B@",
+      "ordinal": 49,
+      "rva": 69936,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QCefView@@6BQObject@@@",
+      "ordinal": 50,
+      "rva": 69480,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QCefView@@6BQPaintDevice@@@",
+      "ordinal": 51,
+      "rva": 69872,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QCefView_Media@@6B@",
+      "ordinal": 52,
+      "rva": 71016,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QCefView_Media@@6BQObject@@@",
+      "ordinal": 53,
+      "rva": 70560,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QCefView_Media@@6BQPaintDevice@@@",
+      "ordinal": 54,
+      "rva": 70952,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QDpiChecker@@6B@",
+      "ordinal": 55,
+      "rva": 75176,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QExternalMessageLoop@@6BIExternalMessageLoop@@@",
+      "ordinal": 56,
+      "rva": 74920,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_7QExternalMessageLoop@@6BQObject@@@",
+      "ordinal": 57,
+      "rva": 74824,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "??_FQAscPrinterContext@@QEAAXXZ",
+      "ordinal": 58,
+      "rva": 26352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?AfterCreate@QCefView@@UEAAXXZ",
+      "ordinal": 59,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?BeginCommand@CQRenderer@NSQRenderer@@UEAAJAEBK@Z",
+      "ordinal": 60,
+      "rva": 33024,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?BeginPaint@QAscPrinterContext@@QEAA_NXZ",
+      "ordinal": 61,
+      "rva": 26832,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?BitBlt@QAscPrinterContext@@UEAAXPEAEAEBH111AEBN2222@Z",
+      "ordinal": 62,
+      "rva": 27024,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?BrushBounds@CQRenderer@NSQRenderer@@UEAAJAEBN000@Z",
+      "ordinal": 63,
+      "rva": 33040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?BrushRect@CQRenderer@NSQRenderer@@UEAAJAEBHAEBN111@Z",
+      "ordinal": 64,
+      "rva": 33136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CommandDouble@CQRenderer@NSQRenderer@@UEAAJAEBJAEBN@Z",
+      "ordinal": 65,
+      "rva": 28352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CommandDrawText@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN111@Z",
+      "ordinal": 66,
+      "rva": 33232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CommandDrawTextCHAR@CQRenderer@NSQRenderer@@UEAAJAEBJAEBN111@Z",
+      "ordinal": 67,
+      "rva": 33392,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CommandDrawTextEx@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBIIAEBN222@Z",
+      "ordinal": 68,
+      "rva": 33552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CommandDrawTextExCHAR@CQRenderer@NSQRenderer@@UEAAJAEBJ0AEBN111@Z",
+      "ordinal": 69,
+      "rva": 33728,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CommandLong@CQRenderer@NSQRenderer@@UEAAJAEBJ0@Z",
+      "ordinal": 70,
+      "rva": 33888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CommandString@CQRenderer@NSQRenderer@@UEAAJAEBJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 71,
+      "rva": 28352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Create@QCefView@@QEAAXPEAVCAscApplicationManager@@W4CefViewWrapperType@@@Z",
+      "ordinal": 72,
+      "rva": 11696,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?CreateReporter@QCefView@@QEAAXPEAVCAscApplicationManager@@PEAVCAscReporterData@@@Z",
+      "ordinal": 73,
+      "rva": 11824,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DrawImage@CQRenderer@NSQRenderer@@UEAAJPEAVIGrObject@@AEBN111@Z",
+      "ordinal": 74,
+      "rva": 33952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DrawImage@QAscPrinterContext@@AEAAXPEAVQPainter@@AEBVQImage@@AEBVQRect@@2@Z",
+      "ordinal": 75,
+      "rva": 28368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DrawImageFromFile@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN111AEBE@Z",
+      "ordinal": 76,
+      "rva": 34128,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?DrawPath@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 77,
+      "rva": 35248,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EndCommand@CQRenderer@NSQRenderer@@UEAAJAEBK@Z",
+      "ordinal": 78,
+      "rva": 35472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?EndPaint@QAscPrinterContext@@QEAAXXZ",
+      "ordinal": 79,
+      "rva": 28656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Execute@QExternalMessageLoop@@UEAAXPEAX@Z",
+      "ordinal": 80,
+      "rva": 49488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Exit@QExternalMessageLoop@@UEAAXXZ",
+      "ordinal": 81,
+      "rva": 49504,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetBaseTransform@CQRenderer@NSQRenderer@@QEAAXAEAN00000@Z",
+      "ordinal": 82,
+      "rva": 35664,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetCefView@QCefView@@QEAAPEAVCCefView@@XZ",
+      "ordinal": 83,
+      "rva": 11920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetChecker@CQRenderer@NSQRenderer@@SAPEAVIMetafileToRenderter@@XZ",
+      "ordinal": 84,
+      "rva": 35744,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetCoordTransform@CQRenderer@NSQRenderer@@QEAAAEAVQTransform@@XZ",
+      "ordinal": 85,
+      "rva": 35872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetExternalMessageLoop@QAscApplicationManager@@UEAAPEAVIExternalMessageLoop@@XZ",
+      "ordinal": 86,
+      "rva": 50192,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetLogicalDPI@QAscPrinterContext@@UEAAXAEAH0@Z",
+      "ordinal": 87,
+      "rva": 28704,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetMonitorDpi@QDpiChecker@@UEAAHHPEAI0@Z",
+      "ordinal": 88,
+      "rva": 50448,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNativeRenderer@QAscPrinterContext@@UEAAPEAXXZ",
+      "ordinal": 89,
+      "rva": 28800,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetNativeRendererUnsupportChecker@QAscPrinterContext@@UEAAPEAXXZ",
+      "ordinal": 90,
+      "rva": 28848,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetPainter@QAscPrinterContext@@QEAAPEAVQPainter@@XZ",
+      "ordinal": 91,
+      "rva": 28864,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetPhysicalRect@QAscPrinterContext@@UEAAXAEAH000@Z",
+      "ordinal": 92,
+      "rva": 28880,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetPlatformKeyboardLayout@QAscApplicationManager@@UEAAHXZ",
+      "ordinal": 93,
+      "rva": 50256,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetPrintAreaSize@QAscPrinterContext@@UEAAXAEAH0@Z",
+      "ordinal": 94,
+      "rva": 29072,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTileScaleX@CQRenderer@NSQRenderer@@QEBAXAEAN@Z",
+      "ordinal": 95,
+      "rva": 35952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTileScaleY@CQRenderer@NSQRenderer@@QEBAXAEAN@Z",
+      "ordinal": 96,
+      "rva": 35968,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetTransform@CQRenderer@NSQRenderer@@UEAAJPEAN00000@Z",
+      "ordinal": 97,
+      "rva": 35984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetViewWidget@QCefView@@QEAAPEAVQWidget@@XZ",
+      "ordinal": 98,
+      "rva": 11936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetWidgetDpi@QDpiChecker@@UEAAHPEAVQWidget@@PEAI1@Z",
+      "ordinal": 99,
+      "rva": 50784,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetWidgetImplDpi@QDpiChecker@@UEAAHPEAVCCefViewWidgetImpl@@PEAI1@Z",
+      "ordinal": 100,
+      "rva": 51152,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?GetWindowDpi@QDpiChecker@@UEAAHPEAUHWND__@@PEAI1@Z",
+      "ordinal": 101,
+      "rva": 51184,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Init@QCefView@@IEAAXXZ",
+      "ordinal": 102,
+      "rva": 12176,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?InitDefaults@CQRenderer@NSQRenderer@@AEAAXXZ",
+      "ordinal": 103,
+      "rva": 36128,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?InitDpiChecker@QAscApplicationManager@@UEAAPEAVCAscDpiChecker@@XZ",
+      "ordinal": 104,
+      "rva": 50304,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?InitFonts@CQRenderer@NSQRenderer@@QEAAXPEAVIApplicationFonts@NSFonts@@@Z",
+      "ordinal": 105,
+      "rva": 36240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?InitRenderer@QAscPrinterContext@@UEAAXPEAX0@Z",
+      "ordinal": 106,
+      "rva": 29200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?IsSupportLayers@QCefView@@SA_NXZ",
+      "ordinal": 107,
+      "rva": 12240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?KillTimer@QExternalMessageLoop@@UEAAXXZ",
+      "ordinal": 108,
+      "rva": 49536,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?NewPage@CQRenderer@NSQRenderer@@UEAAJXZ",
+      "ordinal": 109,
+      "rva": 36400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?NewPage@QAscPrinterContext@@UEAAXXZ",
+      "ordinal": 110,
+      "rva": 29232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnLoaded@QCefView@@UEAAXXZ",
+      "ordinal": 111,
+      "rva": 12256,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnMediaEnd@QCefView@@UEAAX_N@Z",
+      "ordinal": 112,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnMediaEnd@QCefView_Media@@UEAAX_N@Z",
+      "ordinal": 113,
+      "rva": 15312,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnMediaPlayerCommand@QCefView@@UEAAXPEAVCAscExternalMediaPlayerCommand@NSEditorApi@@@Z",
+      "ordinal": 114,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnMediaPlayerCommand@QCefView_Media@@UEAAXPEAVCAscExternalMediaPlayerCommand@NSEditorApi@@@Z",
+      "ordinal": 115,
+      "rva": 15440,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnMediaStart@QCefView@@UEAAXPEAVCAscExternalMedia@NSEditorApi@@@Z",
+      "ordinal": 116,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnMediaStart@QCefView_Media@@UEAAXPEAVCAscExternalMedia@NSEditorApi@@@Z",
+      "ordinal": 117,
+      "rva": 16288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?OnRelease@QCefView@@UEAAXXZ",
+      "ordinal": 118,
+      "rva": 12272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandArcTo@CQRenderer@NSQRenderer@@UEAAJAEBN00000@Z",
+      "ordinal": 119,
+      "rva": 36432,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandClose@CQRenderer@NSQRenderer@@UEAAJXZ",
+      "ordinal": 120,
+      "rva": 36528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandCurveTo@CQRenderer@NSQRenderer@@UEAAJAEBN00000@Z",
+      "ordinal": 121,
+      "rva": 36592,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandCurvesTo@CQRenderer@NSQRenderer@@UEAAJPEANAEBH@Z",
+      "ordinal": 122,
+      "rva": 36816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandEnd@CQRenderer@NSQRenderer@@UEAAJXZ",
+      "ordinal": 123,
+      "rva": 36848,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandGetCurrentPoint@CQRenderer@NSQRenderer@@UEAAJPEAN0@Z",
+      "ordinal": 124,
+      "rva": 36944,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandLineTo@CQRenderer@NSQRenderer@@UEAAJAEBN0@Z",
+      "ordinal": 125,
+      "rva": 36976,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandLinesTo@CQRenderer@NSQRenderer@@UEAAJPEANAEBH@Z",
+      "ordinal": 126,
+      "rva": 37072,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandMoveTo@CQRenderer@NSQRenderer@@UEAAJAEBN0@Z",
+      "ordinal": 127,
+      "rva": 37104,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandStart@CQRenderer@NSQRenderer@@UEAAJXZ",
+      "ordinal": 128,
+      "rva": 37200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandText@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@AEBN111@Z",
+      "ordinal": 129,
+      "rva": 37264,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandTextCHAR@CQRenderer@NSQRenderer@@UEAAJAEBJAEBN111@Z",
+      "ordinal": 130,
+      "rva": 37440,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandTextEx@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@PEBIIAEBN222@Z",
+      "ordinal": 131,
+      "rva": 37584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PathCommandTextExCHAR@CQRenderer@NSQRenderer@@UEAAJAEBJ0AEBN111@Z",
+      "ordinal": 132,
+      "rva": 37744,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PenDashPattern@CQRenderer@NSQRenderer@@UEAAJPEANJ@Z",
+      "ordinal": 133,
+      "rva": 37904,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PrepareBitBlt@CQRenderer@NSQRenderer@@QEAAXAEBH000AEBN111111@Z",
+      "ordinal": 134,
+      "rva": 38048,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?PrepareBitBlt@QAscPrinterContext@@UEAAXPEAXAEBH111AEBN222222@Z",
+      "ordinal": 135,
+      "rva": 29264,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ResetBaseTransform@CQRenderer@NSQRenderer@@QEAAXXZ",
+      "ordinal": 136,
+      "rva": 38704,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?ResetTransform@CQRenderer@NSQRenderer@@UEAAJXZ",
+      "ordinal": 137,
+      "rva": 38752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?RestoreState@QAscPrinterContext@@UEAAXXZ",
+      "ordinal": 138,
+      "rva": 29456,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?Run@QExternalMessageLoop@@UEAAXXZ",
+      "ordinal": 139,
+      "rva": 49552,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SaveState@QAscPrinterContext@@UEAAXXZ",
+      "ordinal": 140,
+      "rva": 29488,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetBackgroundCefColor@QCefView@@QEAAXEEE@Z",
+      "ordinal": 141,
+      "rva": 12288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetBaseTransform@CQRenderer@NSQRenderer@@UEAAJAEBN00000@Z",
+      "ordinal": 142,
+      "rva": 38800,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetCaptionMaskSize@QCefView@@QEAAXH@Z",
+      "ordinal": 143,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetCommandParams@CQRenderer@NSQRenderer@@UEAAJNNNNNK@Z",
+      "ordinal": 144,
+      "rva": 28352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetFont@CQRenderer@NSQRenderer@@AEAAXXZ",
+      "ordinal": 145,
+      "rva": 38928,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetFontsManager@CQRenderer@NSQRenderer@@QEAAXPEAVIFontManager@NSFonts@@@Z",
+      "ordinal": 146,
+      "rva": 39680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetPageOrientation@QAscPrinterContext@@UEAAXH@Z",
+      "ordinal": 147,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetTimer@QExternalMessageLoop@@UEAAXJ@Z",
+      "ordinal": 148,
+      "rva": 49584,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetTransform@CQRenderer@NSQRenderer@@UEAAJAEBN00000@Z",
+      "ordinal": 149,
+      "rva": 39888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?SetUseTextAsPath@CQRenderer@NSQRenderer@@QEAAXAEB_N@Z",
+      "ordinal": 150,
+      "rva": 40016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?UpdateSize@QCefView@@UEAAXXZ",
+      "ordinal": 151,
+      "rva": 12864,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?_closed@QCefView@@QEAAXXZ",
+      "ordinal": 152,
+      "rva": 51952,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?_closedSlot@QCefView@@IEAAXXZ",
+      "ordinal": 153,
+      "rva": 13248,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?_loaded@QCefView@@QEAAXXZ",
+      "ordinal": 154,
+      "rva": 51984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?_loadedSlot@QCefView@@IEAAXXZ",
+      "ordinal": 155,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?applyTransform@CQRenderer@NSQRenderer@@AEAAXXZ",
+      "ordinal": 156,
+      "rva": 40032,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?closeEvent@QCefView@@UEAAXPEAVQCloseEvent@@@Z",
+      "ordinal": 157,
+      "rva": 14144,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?closeWidget@QCefView@@QEAAXPEAVQCloseEvent@@@Z",
+      "ordinal": 158,
+      "rva": 52240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?eventFilter@QCefView@@UEAA_NPEAVQObject@@PEAVQEvent@@@Z",
+      "ordinal": 159,
+      "rva": 14160,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?fillPath@CQRenderer@NSQRenderer@@AEAAXPEAVQPainterPath@@@Z",
+      "ordinal": 160,
+      "rva": 42288,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?focusInEvent@QCefView@@UEAAXPEAVQFocusEvent@@@Z",
+      "ordinal": 161,
+      "rva": 14240,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?focusOutEvent@QCefView@@UEAAXPEAVQFocusEvent@@@Z",
+      "ordinal": 162,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?getPrinter@QAscPrinterContext@@QEAAPEAVQPrinter@@XZ",
+      "ordinal": 163,
+      "rva": 31136,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushAlpha1@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 164,
+      "rva": 44368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushAlpha2@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 165,
+      "rva": 44400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushColor1@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 166,
+      "rva": 44432,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushColor2@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 167,
+      "rva": 44464,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushLinearAngle@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 168,
+      "rva": 44496,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushOffset@CQRenderer@NSQRenderer@@UEBAJAEAN0@Z",
+      "ordinal": 169,
+      "rva": 44528,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushScale@CQRenderer@NSQRenderer@@UEBAJAEA_NAEAN1@Z",
+      "ordinal": 170,
+      "rva": 44560,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushTextureAlpha@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 171,
+      "rva": 44608,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushTextureImage@CQRenderer@NSQRenderer@@UEAAJPEAPEAVCImage@Aggplus@@@Z",
+      "ordinal": 172,
+      "rva": 28352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushTextureMode@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 173,
+      "rva": 44640,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushTexturePath@CQRenderer@NSQRenderer@@UEAAJPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 174,
+      "rva": 44672,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushTransform@CQRenderer@NSQRenderer@@UEAAJAEAVCMatrix@Aggplus@@@Z",
+      "ordinal": 175,
+      "rva": 28352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_BrushType@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 176,
+      "rva": 44752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_ClipMode@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 177,
+      "rva": 44784,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_DpiX@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 178,
+      "rva": 44816,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_DpiY@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 179,
+      "rva": 44896,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_FontCharSpace@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 180,
+      "rva": 44976,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_FontFaceIndex@CQRenderer@NSQRenderer@@UEAAJPEAH@Z",
+      "ordinal": 181,
+      "rva": 45008,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_FontName@CQRenderer@NSQRenderer@@UEAAJPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 182,
+      "rva": 45040,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_FontPath@CQRenderer@NSQRenderer@@UEAAJPEAV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 183,
+      "rva": 45120,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_FontSize@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 184,
+      "rva": 45200,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_FontStringGID@CQRenderer@NSQRenderer@@UEAAJPEAH@Z",
+      "ordinal": 185,
+      "rva": 45232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_FontStyle@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 186,
+      "rva": 45264,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_Height@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 187,
+      "rva": 45344,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenAlign@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 188,
+      "rva": 45376,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenAlpha@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 189,
+      "rva": 45408,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenColor@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 190,
+      "rva": 45440,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenDashOffset@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 191,
+      "rva": 45472,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenDashStyle@CQRenderer@NSQRenderer@@UEAAJPEAE@Z",
+      "ordinal": 192,
+      "rva": 45504,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenLineEndCap@CQRenderer@NSQRenderer@@UEAAJPEAE@Z",
+      "ordinal": 193,
+      "rva": 45536,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenLineJoin@CQRenderer@NSQRenderer@@UEAAJPEAE@Z",
+      "ordinal": 194,
+      "rva": 45568,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenLineStartCap@CQRenderer@NSQRenderer@@UEAAJPEAE@Z",
+      "ordinal": 195,
+      "rva": 45600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenMiterLimit@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 196,
+      "rva": 45632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_PenSize@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 197,
+      "rva": 45664,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_Type@CQRenderer@NSQRenderer@@UEAAJPEAJ@Z",
+      "ordinal": 198,
+      "rva": 45696,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?get_Width@CQRenderer@NSQRenderer@@UEAAJPEAN@Z",
+      "ordinal": 199,
+      "rva": 45744,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?hideMediaControl@QCefView_Media@@QEAAXXZ",
+      "ordinal": 200,
+      "rva": 16976,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?metaObject@QCefView@@UEBAPEBUQMetaObject@@XZ",
+      "ordinal": 201,
+      "rva": 52848,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?metaObject@QCefView_Media@@UEBAPEBUQMetaObject@@XZ",
+      "ordinal": 202,
+      "rva": 54416,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?metaObject@QExternalMessageLoop@@UEBAPEBUQMetaObject@@XZ",
+      "ordinal": 203,
+      "rva": 54656,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?moveEvent@QCefView@@UEAAXPEAVQMoveEvent@@@Z",
+      "ordinal": 204,
+      "rva": 14272,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onDropFiles@QCefView@@QEAAXV?$QList@VQString@@@@@Z",
+      "ordinal": 205,
+      "rva": 53056,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onExecuteCommand@QExternalMessageLoop@@QEAAXPEAX@Z",
+      "ordinal": 206,
+      "rva": 54688,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?onMediaKeyDown@QCefView_Media@@IEAAXHV?$QFlags@W4KeyboardModifier@Qt@@@@@Z",
+      "ordinal": 207,
+      "rva": 11680,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?paintEvent@QCefView@@UEAAXPEAVQPaintEvent@@@Z",
+      "ordinal": 208,
+      "rva": 14336,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?paperSize@CQRenderer@NSQRenderer@@AEBA?AVQSizeF@@XZ",
+      "ordinal": 209,
+      "rva": 45776,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?pen@CQRenderer@NSQRenderer@@AEBA?AVQPen@@XZ",
+      "ordinal": 210,
+      "rva": 45872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?processEvents@QAscApplicationManager@@QEAAXXZ",
+      "ordinal": 211,
+      "rva": 50352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushAlpha1@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 212,
+      "rva": 47344,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushAlpha2@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 213,
+      "rva": 47360,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushColor1@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 214,
+      "rva": 47376,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushColor2@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 215,
+      "rva": 47392,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushGradientColors@CQRenderer@NSQRenderer@@UEAAJPEAJPEANJ@Z",
+      "ordinal": 216,
+      "rva": 47408,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushLinearAngle@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 217,
+      "rva": 47616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushOffset@CQRenderer@NSQRenderer@@UEAAJAEBN0@Z",
+      "ordinal": 218,
+      "rva": 47632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushScale@CQRenderer@NSQRenderer@@UEAAJ_NAEBN1@Z",
+      "ordinal": 219,
+      "rva": 47664,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushTextureAlpha@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 220,
+      "rva": 47696,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushTextureImage@CQRenderer@NSQRenderer@@UEAAJPEAVCImage@Aggplus@@@Z",
+      "ordinal": 221,
+      "rva": 28352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushTextureMode@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 222,
+      "rva": 47728,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushTexturePath@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 223,
+      "rva": 47760,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushTransform@CQRenderer@NSQRenderer@@UEAAJAEBVCMatrix@Aggplus@@@Z",
+      "ordinal": 224,
+      "rva": 28352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_BrushType@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 225,
+      "rva": 47808,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_ClipMode@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 226,
+      "rva": 47840,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_FontCharSpace@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 227,
+      "rva": 47856,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_FontFaceIndex@CQRenderer@NSQRenderer@@UEAAJAEBH@Z",
+      "ordinal": 228,
+      "rva": 47872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_FontName@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 229,
+      "rva": 47888,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_FontPath@CQRenderer@NSQRenderer@@UEAAJAEBV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z",
+      "ordinal": 230,
+      "rva": 47936,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_FontSize@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 231,
+      "rva": 47984,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_FontStringGID@CQRenderer@NSQRenderer@@UEAAJAEBH@Z",
+      "ordinal": 232,
+      "rva": 48000,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_FontStyle@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 233,
+      "rva": 48016,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_Height@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 234,
+      "rva": 48080,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenAlign@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 235,
+      "rva": 48320,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenAlpha@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 236,
+      "rva": 48336,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenColor@CQRenderer@NSQRenderer@@UEAAJAEBJ@Z",
+      "ordinal": 237,
+      "rva": 48352,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenDashOffset@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 238,
+      "rva": 48368,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenDashStyle@CQRenderer@NSQRenderer@@UEAAJAEBE@Z",
+      "ordinal": 239,
+      "rva": 48384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenLineEndCap@CQRenderer@NSQRenderer@@UEAAJAEBE@Z",
+      "ordinal": 240,
+      "rva": 48400,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenLineJoin@CQRenderer@NSQRenderer@@UEAAJAEBE@Z",
+      "ordinal": 241,
+      "rva": 48416,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenLineStartCap@CQRenderer@NSQRenderer@@UEAAJAEBE@Z",
+      "ordinal": 242,
+      "rva": 48432,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenMiterLimit@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 243,
+      "rva": 48448,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_PenSize@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 244,
+      "rva": 48464,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?put_Width@CQRenderer@NSQRenderer@@UEAAJAEBN@Z",
+      "ordinal": 245,
+      "rva": 48480,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacall@QCefView@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 246,
+      "rva": 53120,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacall@QCefView_Media@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 247,
+      "rva": 54448,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacall@QExternalMessageLoop@@UEAAHW4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 248,
+      "rva": 54752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacast@QCefView@@UEAAPEAXPEBD@Z",
+      "ordinal": 249,
+      "rva": 53232,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacast@QCefView_Media@@UEAAPEAXPEBD@Z",
+      "ordinal": 250,
+      "rva": 54576,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_metacast@QExternalMessageLoop@@UEAAPEAXPEBD@Z",
+      "ordinal": 251,
+      "rva": 54864,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_static_metacall@QCefView@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 252,
+      "rva": 53920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_static_metacall@QCefView_Media@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 253,
+      "rva": 54384,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?qt_static_metacall@QExternalMessageLoop@@CAXPEAVQObject@@W4Call@QMetaObject@@HPEAPEAX@Z",
+      "ordinal": 254,
+      "rva": 55024,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?resizeEvent@QCefView@@UEAAXPEAVQResizeEvent@@@Z",
+      "ordinal": 255,
+      "rva": 14496,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setDefaults@QAscPrinterContext@@AEAAXXZ",
+      "ordinal": 256,
+      "rva": 31152,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?setFocusToCef@QCefView@@QEAA_NXZ",
+      "ordinal": 257,
+      "rva": 14624,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?showMediaControl@QCefView_Media@@QEAAXPEAVCAscExternalMediaPlayerCommand@NSEditorApi@@@Z",
+      "ordinal": 258,
+      "rva": 17072,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slot_onExecuteCommand@QExternalMessageLoop@@QEAAXPEAX@Z",
+      "ordinal": 259,
+      "rva": 49600,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?slot_onTimeout@QExternalMessageLoop@@QEAAXXZ",
+      "ordinal": 260,
+      "rva": 49616,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?staticMetaObject@QCefView@@2UQMetaObject@@B",
+      "ordinal": 261,
+      "rva": 131448,
+      "forwarder": null,
+      "section": ".data",
+      "executable_section": false
+    },
+    {
+      "name": "?staticMetaObject@QCefView_Media@@2UQMetaObject@@B",
+      "ordinal": 262,
+      "rva": 75560,
+      "forwarder": null,
+      "section": ".rdata",
+      "executable_section": false
+    },
+    {
+      "name": "?staticMetaObject@QExternalMessageLoop@@2UQMetaObject@@B",
+      "ordinal": 263,
+      "rva": 131912,
+      "forwarder": null,
+      "section": ".data",
+      "executable_section": false
+    },
+    {
+      "name": "?tr@QCefView@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 264,
+      "rva": 14752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?tr@QCefView_Media@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 265,
+      "rva": 17872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?tr@QExternalMessageLoop@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 266,
+      "rva": 49632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?trUtf8@QCefView@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 267,
+      "rva": 14752,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?trUtf8@QCefView_Media@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 268,
+      "rva": 17872,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?trUtf8@QExternalMessageLoop@@SA?AVQString@@PEBD0H@Z",
+      "ordinal": 269,
+      "rva": 49632,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    },
+    {
+      "name": "?updateGeometry@QCefView_Media@@QEAAXPEAVCAscExternalMediaPlayerCommand@NSEditorApi@@@Z",
+      "ordinal": 270,
+      "rva": 17920,
+      "forwarder": null,
+      "section": ".text",
+      "executable_section": true
+    }
+  ]
+}

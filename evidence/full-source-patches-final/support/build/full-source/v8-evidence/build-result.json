@@ -1,0 +1,13 @@
+{
+  "exit_code": 0,
+  "at": "2026-11-02T11:23:09.306403+00:00",
+  "v8_commit": "a2d8eca22ad478a95ca67bb2421a9a2535113925",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8\\out.gn\\win_64\\release\\obj\\v8_monolith.lib",
+  "size": 218458654,
+  "sha256": "5a481cbed294ebfd4c9c378edc978c0c1f652dbd1ac61be9cf01ea59ab2ed0c4",
+  "log": "D:\\open office\\build\\full-source\\v8-evidence\\ninja-build.log",
+  "compiler": "MSVC 14.44.35207",
+  "sdk": "10.0.26100.0",
+  "gn_args": "is_debug = false\nis_component_build = false\nis_clang = false\nuse_lld = false\ntarget_cpu = \"x64\"\nv8_target_cpu = \"x64\"\nv8_static_library = true\nv8_monolithic = true\nv8_use_external_startup_data = false\nv8_enable_pointer_compression = true\nuse_custom_libcxx = false\ntreat_warnings_as_errors = false\nsymbol_level = 1\nuse_goma = false\nenable_iterator_debugging = false\n",
+  "jobs": 4
+}

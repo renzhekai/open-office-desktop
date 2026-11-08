@@ -1,0 +1,9 @@
+{
+  "status": "failed",
+  "started_at_utc": "2026-11-02T04:43:22.7134644Z",
+  "cwd": "D:\\open office\\build\\full-source\\DesktopEditors\\web-apps\\build",
+  "command": "npm ci --ignore-scripts --include=dev --include=optional --no-audit --no-fund --cache D:\\open office\\dependencies\\npm-cache",
+  "scripts_disabled": true,
+  "exit_code": -4077,
+  "finished_at_utc": "2026-11-02T04:45:28.1089332Z"
+}

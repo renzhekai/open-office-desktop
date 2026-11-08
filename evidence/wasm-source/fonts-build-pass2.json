@@ -1,0 +1,160 @@
+{
+  "module": "fonts",
+  "label": "pass2",
+  "recipe": "DesktopEditor/fontengine/js/libfont.json",
+  "recipe_sha256": "2007f73f090c5c2582aa47a032f933ce1898495a416a2c6ebf53bbf06a4b1ef3",
+  "started_utc": "2026-11-03T09:54:54.658407+00:00",
+  "emscripten": "3.1.48",
+  "em_config": "D:\\open office\\build\\wasm-source\\toolchain\\emscripten_config",
+  "jobs": 20,
+  "output_dir": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2",
+  "recipe_adaptations": [
+    {
+      "group_folder": "../../cximage/CxImage/",
+      "add_files": [
+        "APP14cmyktorgb.cpp"
+      ],
+      "reason": "ximajpg.cpp in the pinned core calls ima_jpeg_cmyk_to_rgb, defined in the newer APP14cmyktorgb.cpp that the 075052dd recipe does not list (wasm-ld undefined symbol, pass1)",
+      "official_reference": "DesktopEditor/graphics/pro/raster.pri:268"
+    }
+  ],
+  "wasm": {
+    "compiled": 298,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "fonts.js": {
+        "bytes": 40400,
+        "sha256": "3d226015b19410a431e4abb57f018e60e4b0ec8492d275ba8e455d762bd49917"
+      },
+      "fonts.wasm": {
+        "bytes": 3641996,
+        "sha256": "57f20fedb547c3bc856b31bc678f2dfaa4177efd30f83c93f2031ca5ebaeb9e5"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\wasm-commands.json"
+  },
+  "template_marker_counts": {
+    "//module": 1,
+    "//string_utf8": 1,
+    "//desktop_fetch": 1
+  },
+  "asm": {
+    "compiled": 298,
+    "compile_failures": [],
+    "link_exit": 0,
+    "outputs": {
+      "fonts.js": {
+        "bytes": 6872966,
+        "sha256": "c70eb8e6c92c91285d1d8c5c73728b032a72fcf75ab678afe643754a1a1d8273"
+      }
+    },
+    "command_log": "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\asm-commands.json"
+  },
+  "template_marker_counts_ie": {
+    "//module": 1,
+    "//string_utf8": 1,
+    "//desktop_fetch": 1,
+    "//polyfill": 1
+  },
+  "post_process": [
+    {
+      "file": "fonts.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1,
+        "__ATPOSTRUN__ = [];": 0
+      },
+      "replacement": "__ATPOSTRUN__=[function(){window[\"AscFonts\"].onLoadModule();}];"
+    },
+    {
+      "file": "fonts.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    },
+    {
+      "file": "fonts_ie.js",
+      "counts": {
+        "__ATPOSTRUN__=[];": 1,
+        "__ATPOSTRUN__ = [];": 0
+      },
+      "replacement": "__ATPOSTRUN__=[function(){window[\"AscFonts\"].onLoadModule();}];"
+    },
+    {
+      "file": "fonts_ie.js",
+      "counts": {
+        "function getBinaryPromise(": 1
+      },
+      "replacement": "function getBinaryPromise2("
+    }
+  ],
+  "minify": {
+    "level": "WHITESPACE_ONLY",
+    "language_out": "ECMASCRIPT5_STRICT",
+    "runs": [
+      {
+        "cmd": [
+          "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\node_modules\\google-closure-compiler-windows\\compiler.exe",
+          "--compilation_level",
+          "WHITESPACE_ONLY",
+          "--language_out",
+          "ECMASCRIPT5_STRICT",
+          "--js_output_file",
+          "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts.closure.js",
+          "--js",
+          "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts.unminified.js"
+        ],
+        "exit": 0,
+        "stderr": ""
+      },
+      {
+        "cmd": [
+          "D:\\open office\\dependencies\\emscripten-3.1.48\\install\\install\\emscripten\\node_modules\\google-closure-compiler-windows\\compiler.exe",
+          "--compilation_level",
+          "WHITESPACE_ONLY",
+          "--language_out",
+          "ECMASCRIPT5_STRICT",
+          "--js_output_file",
+          "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts_ie.closure.js",
+          "--js",
+          "D:\\open office\\build\\wasm-source\\out\\fonts\\pass2\\deploy\\fonts_ie.unminified.js"
+        ],
+        "exit": 0,
+        "stderr": ""
+      }
+    ]
+  },
+  "deploy": {
+    "fonts.closure.js": {
+      "bytes": 58547,
+      "sha256": "3c159646df087d68649bc5d926c44f2ccb1791dbb4fa6ab15eaf8bd43182f8a8"
+    },
+    "fonts.js": {
+      "bytes": 60227,
+      "sha256": "83c4b18faa5414a31e3e938a6d7ec0c138a46fdfbb5db2ec10fa47517a9ac9de"
+    },
+    "fonts.unminified.js": {
+      "bytes": 63926,
+      "sha256": "39e40df6d2c723b743dadc3bab86ae805968181b7a3fb8954fcc7d1b11860410"
+    },
+    "fonts.wasm": {
+      "bytes": 3641996,
+      "sha256": "57f20fedb547c3bc856b31bc678f2dfaa4177efd30f83c93f2031ca5ebaeb9e5"
+    },
+    "fonts_ie.closure.js": {
+      "bytes": 6865150,
+      "sha256": "8650d15f73a789e26e26162dc018952a04616035761a839648b2aeedaac170a1"
+    },
+    "fonts_ie.js": {
+      "bytes": 6878154,
+      "sha256": "e7c93f92e5328c93889a1fa12d8988d840531259f4c984de8517e1a4bfa2bba6"
+    },
+    "fonts_ie.unminified.js": {
+      "bytes": 6909240,
+      "sha256": "b9277bc4b421a97c7dee1d20abcd4819bcd7421b80757922ea1ac86f26fa81de"
+    }
+  },
+  "status": "built",
+  "finished_utc": "2026-11-03T09:57:03.698899+00:00"
+}

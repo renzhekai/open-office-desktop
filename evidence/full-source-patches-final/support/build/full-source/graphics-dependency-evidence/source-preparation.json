@@ -1,0 +1,56 @@
+[
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\katana-parser\\src\\tokenizer.c",
+    "before_sha256": "d720e047ef293c1395805d8c8707765149359eef936e5ab1191fcbfff0b12280",
+    "after_sha256": "8260949e43c4256e1561567f53099a5375a072706207332d5ef70d2fb6315fd6"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\katana-parser\\src\\parser.c",
+    "before_sha256": "99e1b3f6f9bf39049d76872f8015ad9dc8c183e2fffb5b3db8db1b9e335aadd5",
+    "after_sha256": "8338e46226526350bce3c39c8f7bcfcc47884aecffb470b2275a2ea22abe1441"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\katana-parser\\src\\parser.c",
+    "before_sha256": "8338e46226526350bce3c39c8f7bcfcc47884aecffb470b2275a2ea22abe1441",
+    "after_sha256": "bce638769a26945afcadcce76fd1173bc5f3198c762f9445a8efe8bc23fc3ccb"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\katana-parser\\src\\foundation.c",
+    "before_sha256": "1267e3b6358423909ecf2dfefe29d07423f4319cd768e7cb502dca18608a4628",
+    "after_sha256": "15b82f1076a1564e387c2c70feb2dd36f7d9df608292f58aad21193a1cd7a8e1"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\harfbuzz\\harfbuzz\\src\\hb-ft.cc",
+    "before_sha256": "7ae748c0f1c89490eb872b42d8af7576e3e9a6d4dd2f864ffc1f30bc3810e8bd",
+    "after_sha256": "58891395182d04a33dc6b4ed3f3f84b6610070921e607f9e33989cc3211d190b"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\harfbuzz\\harfbuzz.pri",
+    "generated": true,
+    "headers": 205,
+    "sources": 75,
+    "sha256": "ca92bdd824f4729bb0a702a98339e9a9e0377ddb0001c9764b5be0d6a06bdd48"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\x265\\source\\cmake\\Version.cmake",
+    "before_sha256": "0cea349ab65126ddc2c1957c2e710b2daa2a909658e1c7e305a62f88c2ac92bf",
+    "after_sha256": "8edc201cc31da5a355de4b4af0e3f8774be4c89923d0a0335a2d1252f31dee5e"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\harfbuzz\\harfbuzz.pri",
+    "generated": true,
+    "headers": 205,
+    "sources": 75,
+    "sha256": "ca92bdd824f4729bb0a702a98339e9a9e0377ddb0001c9764b5be0d6a06bdd48"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\libheif\\CMakeLists.txt",
+    "patch": "disable heifio",
+    "status": "not_applicable_pinned_v1.18.2_has_no_heifio_subdirectory"
+  },
+  {
+    "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\heif\\libheif\\CMakeLists.txt",
+    "before_sha256": "750edff18090d7449e7d6489642ec0ba4205787b2bd893c0cf32d0d725348657",
+    "after_sha256": "e70e12e454daac9f4c04070e849503c67391390024e36b2baf258dec6defabdd"
+  }
+]

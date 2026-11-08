@@ -1,0 +1,186 @@
+diff --git a/configure.py b/configure.py
+index 7ecacd5..a976b1a 100755
+--- a/configure.py
++++ b/configure.py
+@@ -41,6 +41,8 @@ parser.add_option("--sdkjs-plugin-server", action="append", type="string", dest=
+ parser.add_option("--features", action="store", type="string", dest="features", default="", help="native features (config addon)")
+ parser.add_option("--vs-version", action="store", type="string", dest="vs-version", default="2015", help="version of visual studio")
+ parser.add_option("--vs-path", action="store", type="string", dest="vs-path", default="", help="path to vcvarsall")
++parser.add_option("--vcvars-ver", action="store", type="string", dest="vcvars-ver", default="", help="optional exact MSVC tools version for qmake builds, e.g. 14.44.35207 (requires --vs-path)")
++parser.add_option("--cmake-dir", action="store", type="string", dest="cmake-dir", default="", help="optional directory containing cmake.exe; prepended to this build process PATH on Windows")
+ parser.add_option("--siteUrl", action="store", type="string", dest="siteUrl", default="127.0.0.1", help="site url")
+ parser.add_option("--multiprocess", action="store", type="string", dest="multiprocess", default="1", help="provides ability to specify single process for make")
+ parser.add_option("--sysroot", action="store", type="string", dest="sysroot", default="0", help="provides ability to use sysroot (ubuntu 16.04) to build c++ code. If value is \"1\", then the sysroot from tools/linux/sysroot will be used, and if it is not there, it will download it and unpack it. You can also set value as the path to the your own sysroot (rarely used). Only for linux")
+diff --git a/scripts/config.py b/scripts/config.py
+index 2829425..f7f1c60 100644
+--- a/scripts/config.py
++++ b/scripts/config.py
+@@ -3,6 +3,28 @@
+ import base
+ import os
+ import platform
++import re
++
++def configure_windows_toolchain():
++  # Explicit, process-local overrides; do not change global machine settings.
++  vcvars_ver = option("vcvars-ver")
++  if vcvars_ver:
++    if not re.match(r"^14\.[0-9]+\.[0-9]+\Z", vcvars_ver):
++      raise ValueError("vcvars-ver must be a complete MSVC tools version, e.g. 14.44.35207")
++    if not option("vs-path") or not os.path.isfile(os.path.join(option("vs-path"), "vcvarsall.bat")):
++      raise ValueError("vcvars-ver requires vs-path containing vcvarsall.bat")
++
++  cmake_dir = option("cmake-dir")
++  if cmake_dir:
++    cmake_dir = os.path.abspath(cmake_dir)
++    if not os.path.isfile(os.path.join(cmake_dir, "cmake.exe")):
++      raise ValueError("cmake-dir must contain cmake.exe: " + cmake_dir)
++    # Repeated parse calls must not repeatedly prepend the same directory.
++    path = os.environ.get("PATH", "").split(os.pathsep)
++    path = [entry for entry in path if os.path.normcase(entry) != os.path.normcase(cmake_dir)]
++    os.environ["PATH"] = os.pathsep.join([cmake_dir] + path)
++    options["cmake-dir"] = cmake_dir
++    os.environ["OO_CMAKE_DIR"] = cmake_dir
+ 
+ def parse():
+   configfile = open(base.get_script_dir() + "/../config", "r")
+@@ -119,6 +141,9 @@ def parse():
+       else:
+         options["vs-path"] = programFilesDir + "/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build"
+ 
++  if "windows" == host_platform:
++    configure_windows_toolchain()
++
+   # check sdkjs-plugins
+   if not "sdkjs-plugin" in options:
+     options["sdkjs-plugin"] = "default"
+diff --git a/scripts/qmake.py b/scripts/qmake.py
+index 921934e..d031796 100644
+--- a/scripts/qmake.py
++++ b/scripts/qmake.py
+@@ -10,6 +10,67 @@ import base
+ import config
+ import android_ndk
+ import multiprocessing
++import re
++
++def windows_quote(value):
++  # Batch files expand percent signs even inside quotes. Reject unsupported
++  # values instead of silently changing a path or treating it as shell code.
++  if any(char in value for char in ['"', '%', '\r', '\n', '\x00']):
++    raise ValueError("Unsupported character in Windows build argument: " + repr(value))
++  # Windows native argv parsing treats backslashes immediately before the
++  # closing quote specially, so double any trailing backslashes.
++  trailing = len(value) - len(value.rstrip("\\"))
++  return '"' + value + ('\\' * trailing) + '"'
++
++def windows_command(program, arguments):
++  command = " ".join(windows_quote(value) for value in [program] + arguments)
++  if program.lower().endswith((".bat", ".cmd")):
++    # CALL reparses its arguments. Keep batch paths/arguments free of expansion
++    # and shell metacharacters; executable paths still support & and parentheses.
++    if any(char in value for value in [program] + arguments for char in "!^&|<>"):
++      raise ValueError("Unsupported character in called batch argument")
++    command = "call " + command
++  return command
++
++def windows_build_commands(platform, qmake_app, file_pro, makefile,
++                           config_params, qmake_addon, jom_exe, qmake_env_addon=""):
++  """Generate commands only: no subprocess, download, or filesystem mutation."""
++  arch = "x86" if base.platform_is_32(platform) else "x64"
++  if platform == "win_arm64":
++    arch = "x64_arm64"
++  vcvars_args = [arch]
++  vcvars_ver = config.option("vcvars-ver")
++  if vcvars_ver:
++    if not re.match(r"^14\.[0-9]+\.[0-9]+\Z", vcvars_ver):
++      raise ValueError("vcvars-ver must be a complete MSVC tools version")
++    vcvars_args.append("-vcvars_ver=" + vcvars_ver)
++  commands = ["@echo off", "setlocal DisableDelayedExpansion"]
++  commands.append(windows_command(config.option("vs-path") + "/vcvarsall.bat", vcvars_args))
++  commands.append('if not "%errorlevel%"=="0" exit /b %errorlevel%')
++  if vcvars_ver:
++    commands.append('if not "%VCToolsVersion%"=="' + vcvars_ver + '" exit /b 1')
++
++  cmake_dir = config.option("cmake-dir")
++  if cmake_dir:
++    windows_quote(cmake_dir)  # Validate before embedding in a SET command.
++    commands.append('set "PATH=' + cmake_dir + ';%PATH%"')
++
++  # qt_setup currently supplies either an empty value or '-spec <name>'.
++  qmake_args = ["-nocache"] + qmake_env_addon.split() + [file_pro] + config_params + qmake_addon
++  qmake_command = windows_command(qmake_app, qmake_args)
++  commands.extend([qmake_command, 'if not "%errorlevel%"=="0" exit /b %errorlevel%'])
++  make_exe = jom_exe if jom_exe else "nmake.exe"
++  if "1" == config.option("clean"):
++    # Preserve upstream's best-effort clean, but never hide qmake/build failure.
++    commands.append(windows_command(make_exe, ["clean", "-f", makefile]))
++    commands.append(windows_command(make_exe, ["distclean", "-f", makefile]))
++    commands.extend([qmake_command, 'if not "%errorlevel%"=="0" exit /b %errorlevel%'])
++  if not jom_exe and "0" != config.option("multiprocess"):
++    commands.append("set CL=/MP")
++  make_args = ["-f", makefile] + (get_j_num() if jom_exe else [])
++  commands.append(windows_command(make_exe, make_args))
++  commands.append("exit /b %errorlevel%")
++  return commands
+ 
+ def get_make_file_suffix(platform):
+   suffix = platform
+@@ -168,50 +229,13 @@ def make(platform, project, qmake_config_addon="", is_no_errors=False):
+     if "" != config.option("sysroot"):
+       base.restore_sysroot_env()
+   else:
+-    config_params_array = base.qt_config_as_param(config_param)
+-    config_params_string = ""
+-    for item in config_params_array:
+-      config_params_string += (" \"" + item + "\"")
+-    qmake_addon_string = " ".join(qmake_addon)
+-    if ("" != qmake_addon_string):
+-      qmake_addon_string = " " + qmake_addon_string
+-
+-    vcvarsall_arch = "x64"
+-    if base.platform_is_32(platform):
+-      vcvarsall_arch = "x86"
+-    if (platform == "win_arm64"):
+-      vcvarsall_arch = "x64_arm64"
+-
+-    qmake_env_addon = base.get_env("QT_QMAKE_ADDON")
+-    if (qmake_env_addon != ""):
+-      qmake_env_addon += " "
+-
+-    nmake_exe = "nmake"
+-    jom_exe = check_jom()
+-
+-    if "" != jom_exe:
+-      nmake_exe = "\"" + jom_exe + "\""
+-
+-    qmake_bat = []
+-    qmake_bat.append("call \"" + config.option("vs-path") + "/vcvarsall.bat\" " + vcvarsall_arch)
+-    qmake_addon_string = ""
+-    if ("" != config.option("qmake_addon")):
+-      qmake_addon_string = " " + (" ").join(["\"" + addon + "\"" for addon in qmake_addon])
+-    qmake_bat.append("call \"" + qmake_app + "\" -nocache " + qmake_env_addon + file_pro + config_params_string + qmake_addon_string)
+-    if ("1" == config.option("clean")):
+-      qmake_bat.append("call " + nmake_exe + " " + " ".join(clean_params))
+-      qmake_bat.append("call " + nmake_exe + " " + " ".join(distclean_params))
+-      qmake_bat.append("call \"" + qmake_app + "\" -nocache " + file_pro + config_params_string + qmake_addon_string)
+-    if (nmake_exe == "nmake"):
+-      if ("0" != config.option("multiprocess")):
+-        qmake_bat.append("set CL=/MP")
+-      qmake_bat.append("call " + nmake_exe + " -f " + makefile)
+-    else:
+-      j_param = get_j_num()
+-      j_param_str = ""
+-      if len(j_param) == 1:
+-        j_param_str = " " + j_param[0]
+-      qmake_bat.append("call " + nmake_exe + " -f " + makefile + j_param_str)
++    if base.is_file(qmake_app + ".exe"):
++      qmake_app += ".exe"
++    elif base.is_file(qmake_app + ".bat"):
++      qmake_app += ".bat"
++    qmake_bat = windows_build_commands(platform, qmake_app, file_pro, makefile,
++                                      base.qt_config_as_param(config_param), qmake_addon,
++                                      check_jom(), base.get_env("QT_QMAKE_ADDON"))
+     base.run_as_bat(qmake_bat, is_no_errors)
+ 
+   if (base.is_file(stash_file)):

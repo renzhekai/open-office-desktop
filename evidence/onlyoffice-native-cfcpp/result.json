@@ -1,0 +1,79 @@
+{
+  "observed_at_utc": "2026-11-01T09:09:49.5114907Z",
+  "core_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "core_worktree_status": [],
+  "toolchain": {
+    "msvc_tools": "14.44.35207",
+    "compiler": "19.44.35228.0",
+    "architecture": "x64",
+    "windows_sdk": "10.0.26100.0",
+    "cpp_standard": "C++17",
+    "runtime": "/MD"
+  },
+  "upstream_source_modified": false,
+  "network_used": false,
+  "full_make_executed": false,
+  "validation": {
+    "compile_13_sources": true,
+    "archive_created": true,
+    "support_dll_created": true,
+    "consumer_linked": true,
+    "consumer_started": true,
+    "getData_roundtrip_pass": false,
+    "Read_10_bytes_roundtrip_pass": true,
+    "Read_8192_bytes_roundtrip_pass": false,
+    "overall_roundtrip_pass": false,
+    "full_kernel_built": false,
+    "editor_engine_integrated": false
+  },
+  "attempt_exit_codes": {
+    "attempt_01": 2,
+    "attempt_02": 4,
+    "attempt_03": 4,
+    "attempt_04": 4
+  },
+  "artifacts": [
+    {
+      "name": "CompoundFileLib.lib",
+      "path": "D:\\open office\\build\\onlyoffice-cfcpp-msvc144\\CompoundFileLib.lib",
+      "bytes": 3674640,
+      "sha256": "DC3A8CF152318B82F9BE950966DDB71904DF8F4EA4E396EE71F048A6C0AE9241"
+    },
+    {
+      "name": "kernel-file-support.dll",
+      "path": "D:\\open office\\build\\onlyoffice-cfcpp-msvc144\\kernel-file-support.dll",
+      "bytes": 73728,
+      "sha256": "66CE0FDEFDCDED749C34B59AD9FE7765FB68B208589A244DA2FCFE2BEB108AC5"
+    },
+    {
+      "name": "kernel-file-support.lib",
+      "path": "D:\\open office\\build\\onlyoffice-cfcpp-msvc144\\kernel-file-support.lib",
+      "bytes": 51054,
+      "sha256": "8D378857B0A322EFEA8632D24C7C031FA52B209F32FB04D1BEB9E7F1A9A7F89B"
+    },
+    {
+      "name": "cfcpp-smoke.exe",
+      "path": "D:\\open office\\build\\onlyoffice-cfcpp-msvc144\\cfcpp-smoke.exe",
+      "bytes": 194560,
+      "sha256": "9BB698EE0678ADA570CC472110637BFA267E17473957174489FA9D1E562ED34D"
+    },
+    {
+      "name": "cfcpp-read-smoke.exe",
+      "path": "D:\\open office\\build\\onlyoffice-cfcpp-msvc144\\cfcpp-read-smoke.exe",
+      "bytes": 194048,
+      "sha256": "7B2E76A80C09C6AC6050E0C57A6E11007C39EA5F024A9D71683ADBBF409FFA65"
+    },
+    {
+      "name": "native-roundtrip.cfb",
+      "path": "D:\\open office\\build\\onlyoffice-cfcpp-msvc144\\native-roundtrip.cfb",
+      "bytes": 2560,
+      "sha256": "0DF50598F14C9FCA2D43C22B1A06B44340EBE74734A01757B860A3132A514F69"
+    },
+    {
+      "name": "native-read-roundtrip.cfb",
+      "path": "D:\\open office\\build\\onlyoffice-cfcpp-msvc144\\native-read-roundtrip.cfb",
+      "bytes": 10752,
+      "sha256": "49073FC29AEF03A5FF358C3D529FB48984B83C5397A1532D293A35DF782EAA86"
+    }
+  ]
+}

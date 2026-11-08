@@ -1,0 +1,74 @@
+{
+  "result": "passed_for_minimal_docx_sample",
+  "date_utc": "2026-11-01",
+  "entry_point": "D:\\open office\\build\\native-engine-run\\OpenOffice.exe",
+  "entry_point_sha256": "75f5a57dc9ac46919af8933a7b2e23b3c021e78cda315ca4d46ef60d05e1dcc7",
+  "implementation": {
+    "own_host": "C++17 / Qt 6.11.1 Widgets / MSVC 14.44.35207",
+    "qt_wrappers": "locally compiled pinned ONLYOFFICE v10.0.0 source",
+    "native_engine": "official SHA256-verified prebuilt v10.0.0",
+    "full_native_engine_source_build": false,
+    "official_DesktopEditors_exe_launched": false
+  },
+  "actions_observed": [
+    "Launched own OpenOffice.exe, embedded native QCefView/CEF editor, received document-ready event.",
+    "Used real GUI to insert Chinese marker at the beginning of the DOCX.",
+    "Clicked own host Save button; received successful native save; unsaved indication cleared.",
+    "Independently inspected saved OOXML package: marker added once, original paragraphs and 2x2 table retained.",
+    "Closed through native close handshake; DESTROYWINDOW event 8000, message-loop return and shutdown logged; process exit 0.",
+    "Reopened saved file in a NEW process with a NEW profile and visually confirmed marker, original text and table.",
+    "Verified Chinese editor toolbar, native attribution and full-size CEF child at current display scaling in normal and maximized windows.",
+    "Closed second process normally, again exit 0."
+  ],
+  "first_run": {
+    "pid": 16856,
+    "exit_code": 0,
+    "profile": "build/native-docx-profile",
+    "launch_report": "evidence/native-docx-launch-templatefix.json",
+    "events": "evidence/native-docx-first-events.log",
+    "stdout": "evidence/native-docx-templatefix.stdout.log",
+    "stderr": "evidence/native-docx-templatefix.stderr.log"
+  },
+  "reopen_run": {
+    "pid": 19736,
+    "exit_code": 0,
+    "profile": "build/native-docx-reopen-profile",
+    "profile_existed_before_run": false,
+    "launch_report": "evidence/native-docx-reopen-launch.json",
+    "events": "evidence/native-docx-reopen-events.log",
+    "stdout": "evidence/native-docx-reopen.stdout.log",
+    "stderr": "evidence/native-docx-reopen.stderr.log"
+  },
+  "visual_evidence": "Actual Windows CUA screenshots in this task conversation: saved document, reopened Chinese editor, maximized editor. No standalone screenshot file claimed.",
+  "saved_file": {
+    "path": "D:\\open office\\fixtures\\results\\native-docx-roundtrip.docx",
+    "sha256": "0f1c78c8d53f8de66d0eda2de4fafd15c7a7a9fcfda8e587578182e1c3d9059e",
+    "bytes": 25868
+  },
+  "semantic_verification": "evidence/native-docx-saved-semantics.json",
+  "build_validation": {
+    "log": "evidence/native-engine-build-final.log",
+    "ctest_suites_passed": 2,
+    "ctest_suites_failed": 0,
+    "engine_QtTest_entries_passed": 20,
+    "UI_QtTest_entries_passed": 17,
+    "qt_test_counts_include_init_and_cleanup": true
+  },
+  "known_limits": [
+    "One existing DOCX per process; restart for another document.",
+    "New document, Save As, XLSX/PPTX/PDF, printing and embedded media not accepted in this milestone.",
+    "Full native engine source build remains unverified.",
+    "Only a small text/table fixture; no broad Office layout fidelity claim.",
+    "DPI checked only on current monitor at normal/maximized sizes; cross-monitor transitions not tested.",
+    "No AI added; no external release or installer registration performed."
+  ],
+  "blocking_approval": null,
+  "requirements_sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+  "default_entry_smoke": {
+    "exit_code": 0,
+    "report": "evidence/native-engine-home-final.json",
+    "image": "evidence/native-engine-home-final.png",
+    "image_scope": "Own QWidget home page only, not a native document screenshot",
+    "default_profile_used": true
+  }
+}

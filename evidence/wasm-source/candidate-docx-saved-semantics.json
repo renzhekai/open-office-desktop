@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "checks": {
+    "docx_package_valid": true,
+    "exactly_one_added_marker_paragraph": true,
+    "original_table_values_and_structure_preserved": true,
+    "saved_bytes_changed": true
+  },
+  "marker": "\u6e90\u7801\u91cd\u5efaWASM\u7f16\u8f91\u4fdd\u5b58\u9a8c\u8bc1 2026-11-05",
+  "original": {
+    "path": "D:\\open office\\fixtures\\generated\\text-table.docx",
+    "sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795"
+  },
+  "saved": {
+    "path": "D:\\open office\\fixtures\\results\\wasm-candidate-docx-roundtrip.docx",
+    "sha256": "6401a35ff9329a64dea813081121ac4165811e8817eb3661ee684cee80e2cc14",
+    "bytes": 25870
+  },
+  "saved_semantics": {
+    "kind": "docx",
+    "paragraphs": [
+      "\u6e90\u7801\u91cd\u5efaWASM\u7f16\u8f91\u4fdd\u5b58\u9a8c\u8bc1 2026-11-05",
+      "Open Office \u517c\u5bb9\u6027\u6837\u672c",
+      "\u4e2d\u6587\u4e0e English 123\uff1b\u6807\u70b9\uff1a\uff0c\u3002\uff01\uff1f",
+      "\u666e\u901a\u6587\u5b57 + \u7c97\u659c\u4f53",
+      "\u9879\u76ee",
+      "\u6570\u91cf",
+      "\u529e\u516c\u5957\u4ef6",
+      "3"
+    ],
+    "tables": [
+      [
+        [
+          "\u9879\u76ee",
+          "\u6570\u91cf"
+        ],
+        [
+          "\u529e\u516c\u5957\u4ef6",
+          "3"
+        ]
+      ]
+    ]
+  },
+  "scope": "Fixture text and table semantics only; source provenance, GUI input and reopening require separate evidence."
+}

@@ -1,0 +1,31 @@
+{
+  "name": "dep-graphics-brotli",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\brotli\\brotli",
+  "pin": "a47d7475063eb223c87632eed806c0070e70da29",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:08.681976+00:00",
+  "head": "a47d7475063eb223c87632eed806c0070e70da29",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/google/brotli.git",
+  "patch": {
+    "path": "patches/dep-graphics-brotli.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-graphics-brotli.txt",
+    "size": 41,
+    "sha256": "b036d937c99a747f6403f399389ef1e110245797766e9355b8889e527b0fc00f"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:09.538477+00:00"
+}

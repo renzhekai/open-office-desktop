@@ -1,0 +1,74 @@
+{
+  "gumbo": {
+    "repository": "https://github.com/google/gumbo-parser.git",
+    "commit": "aa91b27b02c0c80c482e24348a457ed7c3c088e0",
+    "relative_path": "html/gumbo-parser",
+    "checked_out_commit": "aa91b27b02c0c80c482e24348a457ed7c3c088e0",
+    "checked_at_utc": "2026-11-02T10:44:30.104959+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_repository"
+  },
+  "hunspell": {
+    "repository": "https://github.com/hunspell/hunspell.git",
+    "commit": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+    "relative_path": "hunspell/hunspell",
+    "checked_out_commit": "8a2fdfe5a6bb1cbafc04b0c8486abcefd17ad903",
+    "checked_at_utc": "2026-11-02T10:44:34.296966+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_repository"
+  },
+  "glm": {
+    "repository": "https://github.com/g-truc/glm.git",
+    "commit": "33b4a621a697a305bc3a7610d290677b96beb181",
+    "relative_path": "apple/glm",
+    "checked_out_commit": "33b4a621a697a305bc3a7610d290677b96beb181",
+    "checked_at_utc": "2026-11-02T10:44:40.344104+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_repository"
+  },
+  "mdds": {
+    "repository": "https://github.com/kohei-us/mdds.git",
+    "commit": "0783158939c6ce4b0b1b89e345ab983ccb0f0ad0",
+    "relative_path": "apple/mdds",
+    "checked_out_commit": "0783158939c6ce4b0b1b89e345ab983ccb0f0ad0",
+    "checked_at_utc": "2026-11-02T10:44:46.155324+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_repository"
+  },
+  "librevenge": {
+    "repository": "https://github.com/Distrotech/librevenge.git",
+    "commit": "becd044b519ab83893ad6398e3cbb499a7f0aaf4",
+    "relative_path": "apple/librevenge",
+    "checked_out_commit": "becd044b519ab83893ad6398e3cbb499a7f0aaf4",
+    "checked_at_utc": "2026-11-02T10:44:50.276251+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_recipe_mirror"
+  },
+  "libodfgen": {
+    "repository": "https://github.com/Distrotech/libodfgen.git",
+    "commit": "8ef8c171ebe3c5daebdce80ee422cf7bb96aa3bc",
+    "relative_path": "apple/libodfgen",
+    "checked_out_commit": "8ef8c171ebe3c5daebdce80ee422cf7bb96aa3bc",
+    "checked_at_utc": "2026-11-02T10:44:54.524045+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_recipe_mirror"
+  },
+  "libetonyek": {
+    "repository": "https://github.com/LibreOffice/libetonyek.git",
+    "commit": "cb396b4a9453a457469b62a740d8fb933c9442c3",
+    "relative_path": "apple/libetonyek",
+    "checked_out_commit": "cb396b4a9453a457469b62a740d8fb933c9442c3",
+    "checked_at_utc": "2026-11-02T10:44:59.575624+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_repository"
+  },
+  "md4c": {
+    "repository": "https://github.com/mity/md4c.git",
+    "commit": "481fbfbdf72daab2912380d62bb5f2187d438408",
+    "relative_path": "md/md4c",
+    "checked_out_commit": "481fbfbdf72daab2912380d62bb5f2187d438408",
+    "checked_at_utc": "2026-11-02T10:48:07.529698+00:00",
+    "status": "checked_out",
+    "source_role": "upstream_repository"
+  }
+}

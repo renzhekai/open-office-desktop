@@ -1,0 +1,42 @@
+{
+  "name": "dep-socket-socketio",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\socketio\\socket.io-client-cpp",
+  "pin": "da779141a7379cc30c870d48295033bc16a23c66",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/socket-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:12.164319+00:00",
+  "head": "da779141a7379cc30c870d48295033bc16a23c66",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/socketio/socket.io-client-cpp.git",
+  "patch": {
+    "path": "patches/dep-socket-socketio.patch",
+    "size": 3009,
+    "sha256": "db169f63d2853cc930d6ba5be0ab54c09e9b01006ef983f48d8d511b02fe3c95"
+  },
+  "head_file": {
+    "path": "heads/dep-socket-socketio.txt",
+    "size": 41,
+    "sha256": "e163b63735e1d90c2aaab0dd2d8dd55dac985f8c73557ce7acc37ea17f68a897"
+  },
+  "changed_files": [
+    {
+      "path": "src/internal/sio_client_impl.cpp",
+      "state": "file",
+      "size": 21862,
+      "sha256": "3ec9c6a68e7dae83af84e492015919694cb9c0a0db87aabf2ea6cfdef09154ec"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:12.641872+00:00"
+}

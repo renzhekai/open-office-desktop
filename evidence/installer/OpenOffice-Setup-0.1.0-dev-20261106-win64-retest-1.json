@@ -1,0 +1,70 @@
+{
+  "kind": "open-office-installer-retest",
+  "created_utc": "2026-11-07T06:46:43.821863+00:00",
+  "setup": "D:\\open office\\dist\\OpenOffice-Setup-0.1.0-dev-20261106-win64.exe",
+  "setup_sha256": "9c6b4d02587407a8f9aac6f917e2c980fedd6d25e66a4f5f145baa3839242763",
+  "build_record": "D:\\open office\\evidence\\installer\\OpenOffice-Setup-0.1.0-dev-20261106-win64.json",
+  "install_test": {
+    "folder": "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1",
+    "install_exit_code": 0,
+    "install_seconds": 50,
+    "uninstall_entry_seen_after_seconds": 50,
+    "uninstall_entry_after_install": {
+      "InstallLocation": "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\",
+      "DisplayName": "Open Office（开发版）",
+      "DisplayIcon": "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\OpenOffice.exe",
+      "UninstallString": "\"D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\unins000.exe\"",
+      "QuietUninstallString": "\"D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\unins000.exe\" /SILENT",
+      "DisplayVersion": "0.1.0",
+      "Publisher": "Open Office Project",
+      "NoModify": "0x1",
+      "NoRepair": "0x1",
+      "InstallDate": "20261106",
+      "MajorVersion": "0x0",
+      "MinorVersion": "0x1",
+      "VersionMajor": "0x0",
+      "VersionMinor": "0x1",
+      "EstimatedSize": "0x17ccf2"
+    },
+    "installed_files": 20985,
+    "file_mismatches": [],
+    "extra_files": [
+      "unins000.dat",
+      "unins000.exe"
+    ],
+    "launch": {
+      "exit_code": 0,
+      "report": {
+        "application": "Open Office",
+        "engine_connected": true,
+        "engine_save_enabled": false,
+        "height": 800,
+        "office_open_edit_save": "engine_initialized_roundtrip_not_verified_by_smoke",
+        "platform_plugin": "windows",
+        "prototype": true,
+        "qt_version": "6.11.1",
+        "select_file_enabled": true,
+        "snapshot_kind": "application QWidget render; native CEF child content requires desktop capture",
+        "snapshot_saved": false,
+        "version": "0.1.0",
+        "width": 1240,
+        "window_rendered": true
+      },
+      "crt_modules_loaded": [
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\MSVCP140.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\VCRUNTIME140.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\VCRUNTIME140_1.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\MSVCP140_1.dll",
+        "D:\\open office\\build\\installer-check\\OpenOffice-Setup-0.1.0-dev-20261106-win64-retest-1\\app\\MSVCP140_2.dll"
+      ],
+      "crt_loaded_from_app": true,
+      "default_profile_created": true
+    },
+    "uninstall": {
+      "entry_removed": true,
+      "remaining_files": 37,
+      "remaining_outside_profile": []
+    },
+    "ok": true
+  }
+}

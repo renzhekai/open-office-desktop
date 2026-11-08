@@ -1,0 +1,8 @@
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "init", "--initial-branch=source-build", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8"]
+Initialized empty Git repository in D:/open office/build/full-source/DesktopEditors/core/Common/3dParty/v8_89/v8/.git/
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "-C", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8", "remote", "add", "origin", "https://chromium.googlesource.com/v8/v8.git"]
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "-C", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8", "fetch", "--depth=1", "origin", "a2d8eca22ad478a95ca67bb2421a9a2535113925"]
+From https://chromium.googlesource.com/v8/v8
+ * branch            a2d8eca22ad478a95ca67bb2421a9a2535113925 -> FETCH_HEAD
+COMMAND ["git", "-c", "core.longpaths=true", "-c", "core.hooksPath=D:\\open office\\build\\full-source\\empty-hooks", "-c", "http.version=HTTP/1.1", "-C", "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\v8_89\\v8", "checkout", "--detach", "a2d8eca22ad478a95ca67bb2421a9a2535113925"]
+HEAD is now at a2d8eca Version 8.9.255.25

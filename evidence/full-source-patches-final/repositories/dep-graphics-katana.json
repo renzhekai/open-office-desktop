@@ -1,0 +1,54 @@
+{
+  "name": "dep-graphics-katana",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\html\\katana-parser",
+  "pin": "be6df458d4540eee375c513958dcb862a391cdd1",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:08.241702+00:00",
+  "head": "be6df458d4540eee375c513958dcb862a391cdd1",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/jasenhuang/katana-parser.git",
+  "patch": {
+    "path": "patches/dep-graphics-katana.patch",
+    "size": 2757,
+    "sha256": "9e255cda083f6f6dab946a467727ca678a11405a300a2b47f616d43e475a4728"
+  },
+  "head_file": {
+    "path": "heads/dep-graphics-katana.txt",
+    "size": 41,
+    "sha256": "844181d2f4543764da52ca08b823ee1ff9cd9de1403c15fe3ceaa7add4c40e25"
+  },
+  "changed_files": [
+    {
+      "path": "src/foundation.c",
+      "state": "file",
+      "size": 7863,
+      "sha256": "15b82f1076a1564e387c2c70feb2dd36f7d9df608292f58aad21193a1cd7a8e1"
+    },
+    {
+      "path": "src/parser.c",
+      "state": "file",
+      "size": 58600,
+      "sha256": "bce638769a26945afcadcce76fd1173bc5f3198c762f9445a8efe8bc23fc3ccb"
+    },
+    {
+      "path": "src/tokenizer.c",
+      "state": "file",
+      "size": 10330,
+      "sha256": "8260949e43c4256e1561567f53099a5375a072706207332d5ef70d2fb6315fd6"
+    }
+  ],
+  "changed_file_count": 3,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:08.676868+00:00"
+}

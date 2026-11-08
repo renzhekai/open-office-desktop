@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "command": [
+    "D:\\open office\\build\\full-source-run\\OpenOffice.exe",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\default-home\\launch-report.json",
+    "--snapshot",
+    "D:\\open office\\evidence\\full-source-gui\\default-home\\home.png",
+    "--exit-after-ms",
+    "2200"
+  ],
+  "default_profile_created": true,
+  "profile": "D:\\open office\\build\\full-source-run\\openoffice-profile",
+  "engine_connected": true,
+  "select_file_enabled": true,
+  "snapshot_saved": true,
+  "snapshot_scope": "Own QWidget home page; not native document content",
+  "passed": true
+}

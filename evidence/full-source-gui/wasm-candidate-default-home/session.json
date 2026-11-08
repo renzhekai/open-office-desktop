@@ -1,0 +1,25 @@
+{
+  "started_at_utc": "2026-11-05T10:44:20.426862+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-wasm-candidate\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\wasm-candidate-default-home",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\wasm-candidate-default-home\\launch-report.json",
+    "--exit-after-ms",
+    "8000"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\wasm-candidate-default-home",
+  "profile_existed_before": false,
+  "entry_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-wasm-candidate",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 23104,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-05T10:44:30.557687+00:00",
+  "native_events_sha256": "4f649fe244cf40ca7f471a4bb0e9dad51415b771133fd6270d91d5ea1255e18d"
+}

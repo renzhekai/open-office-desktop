@@ -1,0 +1,26 @@
+{
+  "started_at_utc": "2026-11-07T06:31:54.391084+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-assistant\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\assistant-session1",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\assistant-session1\\launch-report.json",
+    "--open",
+    "D:\\open office\\fixtures\\results\\assistant-sample.docx"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\assistant-session1",
+  "profile_existed_before": false,
+  "entry_sha256": "59d08aed82a4a335c6620c064bed9e232d5d8f30c46377145f564f1627deba59",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-assistant",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "host_candidate_marker_sha256": "07672ce833aef6ed27838883c91416d629712d1ccc55aac82763ee4d333b9c9a",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 47112,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-07T06:33:03.575390+00:00",
+  "native_events_sha256": "2bc61f4e82936c17872a2fac5950d13dbe06d65889210dbfae9530050ab19b8e"
+}

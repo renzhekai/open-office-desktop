@@ -1,0 +1,20 @@
+
+D:\open office>setlocal DisableDelayedExpansion 
+
+D:\open office>set "TEMP=D:\open office\build\onlyoffice-cfcpp-msvc144\tmp" 
+
+D:\open office>set "TMP=D:\open office\build\onlyoffice-cfcpp-msvc144\tmp" 
+
+D:\open office>call "D:\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvarsall.bat" x64 10.0.26100.0 -vcvars_ver=14.44.35207 
+**********************************************************************
+** Visual Studio 2026 Developer Command Prompt v18.7.3
+** Copyright (c) 2026 Microsoft Corporation
+**********************************************************************
+[vcvarsall.bat] Environment initialized for: 'x64'
+MSVC_TOOLS=14.44.35207
+WINDOWS_SDK=10.0.26100.0\
+File.cpp
+Base64.cpp
+正在生成代码...
+  正在创建库 D:\open office\build\onlyoffice-cfcpp-msvc144\kernel-file-support.lib 和对象 D:\open office\build\onlyoffice-cfcpp-msvc144\kernel-file-support.exp
+smoke.cpp

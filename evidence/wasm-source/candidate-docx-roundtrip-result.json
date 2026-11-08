@@ -1,0 +1,70 @@
+{
+  "result": "passed_wasm_candidate_docx_roundtrip",
+  "recorded_utc": "2026-11-05T10:42:43.895854+00:00",
+  "user_decision": "2026-11-04: 修复后装配",
+  "runtime": "D:\\open office\\build\\full-source-run-wasm-candidate",
+  "entry_point_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+  "candidate_marker": {
+    "path": "openoffice-wasm-candidate.json",
+    "sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+    "assembly_evidence": "evidence/wasm-source/candidate-runtime-full-source-run-wasm-candidate.json"
+  },
+  "what_differs_from_accepted_runtime": "15 SDKJS engine files replaced by the source-rebuilt fonts, zlib, spell, hash and drawingfile engines; stale spell.js.mem removed; profile not copied; all other 20,956 files byte-identical",
+  "source_boundary": "the 5 WASM binaries and their Emscripten glue are rebuilt from source; the drawingfile loader's first-party template JS is taken from the official generated files (no public source), and fonts_native.js / drawingfile_native.js stay official",
+  "actions_observed": [
+    "Candidate host embedded the real CEF editor; the host status line confirmed the document was ready; Chinese, English, bold italic and the 2x2 table rendered with the rebuilt fonts engine.",
+    "Clicked into the document, pressed Ctrl+Home, typed the marker and pressed Enter, so the marker became the first paragraph.",
+    "Clicked the host Save button; the host confirmed the save and cleared the unsaved marker and the title asterisk.",
+    "Closed the window with its title bar close button; destroy / message loop returned / shutdown completed events recorded; exit code 0.",
+    "Independent OOXML check: exactly one marker paragraph added, original paragraphs and 2x2 table preserved.",
+    "Reopened the saved file in a new process with a fresh profile; visually confirmed the marker, original text, formatting and table (reopen-window.jpg); closed by the host test timer with the normal handshake; exit code 0.",
+    "No OpenOffice or editors_helper processes remained."
+  ],
+  "marker": "源码重建WASM编辑保存验证 2026-11-05",
+  "saved_file": {
+    "path": "fixtures/results/wasm-candidate-docx-roundtrip.docx",
+    "sha256": "6401a35ff9329a64dea813081121ac4165811e8817eb3661ee684cee80e2cc14",
+    "bytes": 25870,
+    "original": {
+      "path": "fixtures/generated/text-table.docx",
+      "sha256": "b3e45a09b5fb1713a7e9c493e29bc549d10b7696f3b7f49a8301a7ea83078795"
+    }
+  },
+  "semantics": {
+    "evidence": "evidence/wasm-source/candidate-docx-saved-semantics.json",
+    "passed": true,
+    "checks": {
+      "docx_package_valid": true,
+      "exactly_one_added_marker_paragraph": true,
+      "original_table_values_and_structure_preserved": true,
+      "saved_bytes_changed": true
+    }
+  },
+  "first_run": {
+    "evidence": "evidence/full-source-gui/wasm-candidate-docx-first-r2",
+    "exit_code": 0,
+    "started_utc": "2026-11-05T10:36:50.330474+00:00",
+    "exited_utc": "2026-11-05T10:39:57.079135+00:00"
+  },
+  "reopen_run": {
+    "evidence": "evidence/full-source-gui/wasm-candidate-docx-reopen",
+    "exit_code": 0,
+    "started_utc": "2026-11-05T10:40:51.540282+00:00",
+    "exited_utc": "2026-11-05T10:41:39.137649+00:00",
+    "screenshot": {
+      "path": "evidence/full-source-gui/wasm-candidate-docx-reopen/reopen-window.jpg",
+      "sha256": "20ec7d893acd188ef90beb1d5145225229c78ef2a43db0ed714a14c63db91e84"
+    }
+  },
+  "interrupted_attempt": {
+    "evidence": "evidence/full-source-gui/wasm-candidate-docx-first",
+    "exit_code": 1,
+    "note": "launched before the Claude app quit; the document loaded (operation_completed for the open request) but no edit was made and the process ended with exit code 1 without the normal close events when the app quit; the fixture was unchanged, so the run was repeated under a new label"
+  },
+  "side_effect": "the desktop typing tool entered the Chinese marker through the clipboard, replacing the user's clipboard content with the marker text",
+  "scope": "one existing DOCX in one process, Chinese text input, save, close, reopen; this does not test PDF, spell checking, hashing or WMF/EMF paths in the GUI, nor complex documents",
+  "accepted_runtimes_unchanged": {
+    "build/full-source-run/OpenOffice.exe": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+    "build/native-engine-run/OpenOffice.exe": "75f5a57dc9ac46919af8933a7b2e23b3c021e78cda315ca4d46ef60d05e1dcc7"
+  }
+}

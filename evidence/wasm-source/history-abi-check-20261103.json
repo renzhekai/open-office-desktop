@@ -1,0 +1,4846 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-11-03T09:44:43.240725+00:00",
+  "scope": "read-only parse of historical recipes/wrappers, pinned core tree and deployed SDKJS WASM/JS; no compiler, emsdk or input code executed",
+  "history_commit": "075052dd3f41373affa533317d6734a0d34e0897",
+  "core_commit": "ed63e94de814ff1d4ea28cddfaba6939bc9df9ed",
+  "sdkjs_deploy": "D:\\open office\\build\\full-source\\DesktopEditors\\sdkjs\\deploy\\sdkjs",
+  "modules": [
+    {
+      "module": "fonts",
+      "recipe": {
+        "path": "DesktopEditor/fontengine/js/libfont.json",
+        "sha256": "2007f73f090c5c2582aa47a032f933ce1898495a416a2c6ebf53bbf06a4b1ef3",
+        "run_before": "before.py",
+        "run_after": "after.py"
+      },
+      "current_wasm": {
+        "path": "common/libfont/engine/fonts.wasm",
+        "bytes": 3614021,
+        "sha256": "6b27107256a1df72419ac2b4894c65f9f6f0585ac303b8f3158dc441281e4482",
+        "function_exports": 60,
+        "global_exports": []
+      },
+      "current_loader": {
+        "path": "common/libfont/engine/fonts.js",
+        "sha256": "c80354b6e8431d37c0661fc67b92de8d4df8d5ee058cce0348a7a3df57220cc9"
+      },
+      "sources": {
+        "total": 297,
+        "same_blob": 124,
+        "changed_since_history": [
+          "OfficeUtils/src/ZipBuffer.cpp",
+          "OfficeUtils/src/zlib_addon.c",
+          "DesktopEditor/graphics/Image.cpp",
+          "DesktopEditor/raster/BgraFrame.cpp",
+          "DesktopEditor/raster/ImageFileFormatChecker.cpp",
+          "DesktopEditor/graphics/Matrix.cpp",
+          "DesktopEditor/graphics/GraphicsPath.cpp",
+          "DesktopEditor/raster/PICT/PICFile.cpp",
+          "DesktopEditor/cximage/CxImage/ximajpg.cpp",
+          "DesktopEditor/cximage/CxImage/ximabmp.cpp",
+          "DesktopEditor/cximage/CxImage/ximatif.cpp",
+          "DesktopEditor/raster/Metafile/MetaFile.cpp",
+          "DesktopEditor/raster/Metafile/Common/MetaFileTypes.cpp",
+          "DesktopEditor/raster/Metafile/Common/MetaFileUtils.cpp",
+          "DesktopEditor/raster/Metafile/Common/CPathConverter.cpp",
+          "DesktopEditor/raster/Metafile/Common/CPath.cpp",
+          "DesktopEditor/raster/Metafile/Common/CClip.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretator.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretatorArray.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretatorRender.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretatorSvg.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfParser/CEmfParser.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfParser/CEmfParserBase.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfParser/CEmfPlusParser.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfObjects.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfPlusObjects.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfPlayer.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfFile.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CInterpretatorSvgBase.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretatorSvg.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretatorRender.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretator.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfParser/CWmfParser.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfParser/CWmfParserBase.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfObjects.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfPlayer.cpp",
+          "DesktopEditor/common/File.cpp",
+          "DesktopEditor/common/Base64.cpp",
+          "DesktopEditor/common/StringExt.cpp",
+          "DesktopEditor/common/StringBuilder.cpp",
+          "DesktopEditor/xml/src/xmlwriter.cpp",
+          "DesktopEditor/fontengine/TextHyphen.cpp"
+        ],
+        "removed_after_history": [
+          "DesktopEditor/fontengine/js/cpp/text.cpp",
+          "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.cpp",
+          "OfficeUtils/js/wasm/src/base.cpp",
+          "DesktopEditor/graphics/pro/js/qt/raster/pro_Fonts_empty.cpp",
+          "DesktopEditor/graphics/pro/js/qt/raster/pro_Graphics_empty.cpp",
+          "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+          "Common/3dParty/hyphen/js/src/hyphen.cpp"
+        ],
+        "case_only_mismatch": [
+          {
+            "recipe": "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretator.cpp",
+            "tree": "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/cwmfinterpretator.cpp"
+          }
+        ],
+        "fetched_3dparty_present_in_prepared_tree": [
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-aat-layout.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-aat-map.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-blob.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-buffer-serialize.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-buffer-verify.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-buffer.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-cairo-utils.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-cairo.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-common.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-coretext.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-directwrite.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-draw.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-face-builder.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-face.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-fallback-shape.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-font.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ft.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-gdi.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-glib.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-gobject-structs.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-graphite2.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-icu.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-map.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-number.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-cff1-table.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-cff2-table.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-color.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-face.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-font.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-layout.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-map.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-math.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-meta.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-metrics.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-name.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shape-fallback.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shape-normalize.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shape.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-arabic.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-default.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-hangul.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-hebrew.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-indic-table.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-indic.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-khmer.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-myanmar.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-syllabic.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-thai.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-use.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-shaper-vowel-constraints.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-tag.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ot-var.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-outline.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-paint-extents.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-paint.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-set.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-shape-plan.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-shape.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-shaper.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-static.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-style.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset-cff-common.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset-cff1.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset-cff2.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset-input.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset-instancer-solver.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset-plan.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset-repacker.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-subset.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-ucd.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-unicode.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-uniscribe.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-wasm-api.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/hb-wasm-shape.cc",
+          "Common/3dParty/harfbuzz/harfbuzz/src/graph/gsubgpos-context.cc",
+          "Common/3dParty/brotli/brotli/c/common/constants.c",
+          "Common/3dParty/brotli/brotli/c/common/context.c",
+          "Common/3dParty/brotli/brotli/c/common/dictionary.c",
+          "Common/3dParty/brotli/brotli/c/common/platform.c",
+          "Common/3dParty/brotli/brotli/c/common/shared_dictionary.c",
+          "Common/3dParty/brotli/brotli/c/common/transform.c",
+          "Common/3dParty/brotli/brotli/c/dec/bit_reader.c",
+          "Common/3dParty/brotli/brotli/c/dec/decode.c",
+          "Common/3dParty/brotli/brotli/c/dec/huffman.c",
+          "Common/3dParty/brotli/brotli/c/dec/state.c"
+        ],
+        "absent_everywhere": [
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftdebug.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/autofit/autofit.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/bdf/bdf.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cff/cff.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbase.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbitmap.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftfstype.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgasp.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cache/ftcache.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftglyph.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/gzip/ftgzip.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftinit.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/lzw/ftlzw.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftstroke.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsystem.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/smooth.cpp",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbbox.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbdf.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftcid.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftmm.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpfr.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsynth.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/fttype1.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftwinfnt.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgxval.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftotval.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpatent.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pcf/pcf.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pfr/pfr.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psaux/psaux.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pshinter/pshinter.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psnames/psmodule.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/raster/raster.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/sfnt.cpp",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/truetype/truetype.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type1/type1.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cid/type1cid.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type42/type42.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/winfonts/winfnt.c"
+        ]
+      },
+      "exports": [
+        {
+          "name": "_ASC_FT_Done_Face",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "void",
+            "params": [
+              "FT_Face face"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Done_FreeType",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "void",
+            "params": [
+              "FT_Library library"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "void",
+            "params": [
+              "void* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_GetFaceInfo",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int*",
+            "params": [
+              "FT_Face face"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_GetFaceMaxAdvanceX",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int",
+            "params": [
+              "FT_Face face"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_GetKerningX",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int",
+            "params": [
+              "FT_Face face",
+              "unsigned int prev_gid",
+              "unsigned int gid"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Get_Glyph_Measure_Params",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int*",
+            "params": [
+              "FT_Face face",
+              "int isVector"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Get_Glyph_Render_Buffer",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "FT_Face face"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Get_Glyph_Render_Params",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int*",
+            "params": [
+              "FT_Face face",
+              "int render_mode"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Glyph_Get_CBox",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int*",
+            "params": [
+              "FT_Glyph glyph",
+              "FT_UInt bbox_mode"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Init",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "FT_Library",
+            "params": [],
+            "wasm_params": []
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Load_Glyph",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int",
+            "params": [
+              "FT_Face face",
+              "FT_UInt glyph_index",
+              "FT_Int32 load_flags"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned int size"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Open_Face",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "FT_Face",
+            "params": [
+              "FT_Library library",
+              "unsigned char* memory",
+              "unsigned int size",
+              "int face_index"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_SetCMapForCharCode",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "unsigned int",
+            "params": [
+              "FT_Face face",
+              "unsigned int unicode"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Set_Char_Size",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int",
+            "params": [
+              "FT_Face face",
+              "FT_F26Dot6 char_width",
+              "FT_F26Dot6 char_height",
+              "FT_UInt horz_resolution",
+              "FT_UInt vert_resolution"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Set_Transform",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "void",
+            "params": [
+              "FT_Face face",
+              "int xx",
+              "int yx",
+              "int xy",
+              "int yy"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_FT_Set_TrueType_HintProp",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "int",
+            "params": [
+              "FT_Library library",
+              "unsigned int interpreter_version"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_HB_FontFree",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "void",
+            "params": [
+              "hb_font_t* font"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_HB_LanguageFromString",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "void*",
+            "params": [
+              "char* language_bcp_47"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ASC_HB_ShapeText",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/fontengine/js/cpp/text.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "FT_Face pFace",
+              "hb_font_t* pFont",
+              "char* pText",
+              "unsigned int nFeatures",
+              "unsigned int nScript",
+              "unsigned int nDirection",
+              "unsigned char* nLanguage"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Image_GetFormat",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "unsigned char* buffer",
+              "int size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_DecodeFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned char* buffer",
+              "int size",
+              "bool isRgba"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_Destroy",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_DestroyEncodedData",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void",
+            "params": [
+              "void* encodedData"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_Encode",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned char* buffer",
+              "int size",
+              "int format"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_EncodeImageData",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned char* buffer",
+              "int w",
+              "int h",
+              "int stride",
+              "int format",
+              "bool isRgba"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetDecodedBuffer",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetEncodedBuffer",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "void* encodedData"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetEncodedSize",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* encodedData"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetHeight",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetStride",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetWidth",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_AddFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CZipBuffer* p",
+              "const char* path",
+              "unsigned char* data",
+              "unsigned long length"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Close",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CZipBuffer* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Create",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "CZipBuffer*",
+            "params": [],
+            "wasm_params": []
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "void* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_GetFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "CZipBuffer* p",
+              "const char* path"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_GetPaths",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "CZipBuffer* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned int size"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Open",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "CZipBuffer*",
+            "params": [
+              "unsigned char* buffer",
+              "unsigned long size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_RemoveFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CZipBuffer* p",
+              "const char* path"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Save",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "CZipBuffer* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_hyphenCheckDictionary",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hyphen/js/src/hyphen.cpp",
+            "return": "int",
+            "params": [
+              "NSHyphen::CEngine* app",
+              "const int lang"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_hyphenCreateApplication",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hyphen/js/src/hyphen.cpp",
+            "return": "NSHyphen::CEngine*",
+            "params": [],
+            "wasm_params": []
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_hyphenDestroyApplication",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hyphen/js/src/hyphen.cpp",
+            "return": "void",
+            "params": [
+              "NSHyphen::CEngine* app"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_hyphenLoadDictionary",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hyphen/js/src/hyphen.cpp",
+            "return": "int",
+            "params": [
+              "NSHyphen::CEngine* app",
+              "const int lang",
+              "const char *dict",
+              "const unsigned int dict_size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_hyphenWord",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hyphen/js/src/hyphen.cpp",
+            "return": "char*",
+            "params": [
+              "NSHyphen::CEngine* app",
+              "const int lang",
+              "const char *word",
+              "const int word_len"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        }
+      ],
+      "export_summary": {
+        "recipe_only": [],
+        "loader_only": [],
+        "loader_only_runtime_internal": [],
+        "missing_in_current_wasm": [],
+        "historical_definition_not_found": [],
+        "param_type_mismatch": []
+      }
+    },
+    {
+      "module": "zlib",
+      "recipe": {
+        "path": "OfficeUtils/js/zlib_image.json",
+        "sha256": "81d48616d842192e20cc28f2d8854706b4378c4dc311202490d596e7bd43233d",
+        "run_before": null,
+        "run_after": "import sys;sys.path.append(\"../../../build_tools/scripts\");import base;base.configure_common_apps();base.replaceInFile(\"./deploy/zlib.js\", \"__ATPOSTRUN__=[];\", \"__ATPOSTRUN__=[function(){self.onZlibEngineInit();}];\");base.replaceInFile(\"./deploy/zlib.js\", \"function getBinaryPromise(){\", \"function getBinaryPromise2(){\");base.replaceInFile(\"./deploy/zlib_ie.js\", \"__ATPOSTRUN__=[];\", \"__ATPOSTRUN__=[function(){self.onZlibEngineInit();}];\");base.replaceInFile(\"./deploy/zlib_ie.js\", \"function getBinaryPromise(){\", \"function getBinaryPromise2(){\");base.copy_file(\"./wasm/js/index.html\", \"./deploy/index.html\");base.copy_file(\"./wasm/js/code.js\", \"./deploy/code.js\")"
+      },
+      "current_wasm": {
+        "path": "common/zlib/engine/zlib.wasm",
+        "bytes": 1617419,
+        "sha256": "eab72ffc7a4f304fe1d281c7fe1ff271e206bb6154c4de8a472de2c750d232bf",
+        "function_exports": 28,
+        "global_exports": []
+      },
+      "current_loader": {
+        "path": "common/zlib/engine/zlib.js",
+        "sha256": "7423739061097d41a870569756bd19d69303b0479368e43b1612c414b4a3e70e"
+      },
+      "sources": {
+        "total": 164,
+        "same_blob": 122,
+        "changed_since_history": [
+          "OfficeUtils/src/ZipBuffer.cpp",
+          "OfficeUtils/src/zlib_addon.c",
+          "DesktopEditor/graphics/Image.cpp",
+          "DesktopEditor/raster/BgraFrame.cpp",
+          "DesktopEditor/raster/ImageFileFormatChecker.cpp",
+          "DesktopEditor/cximage/CxImage/ximajpg.cpp",
+          "DesktopEditor/cximage/CxImage/ximabmp.cpp",
+          "DesktopEditor/cximage/CxImage/ximatif.cpp",
+          "DesktopEditor/raster/Metafile/MetaFile.cpp",
+          "DesktopEditor/raster/Metafile/Common/MetaFileTypes.cpp",
+          "DesktopEditor/raster/Metafile/Common/MetaFileUtils.cpp",
+          "DesktopEditor/raster/Metafile/Common/CPathConverter.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretator.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretatorArray.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretatorRender.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfInterpretator/CEmfInterpretatorSvg.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfParser/CEmfParser.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfParser/CEmfParserBase.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfParser/CEmfPlusParser.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfObjects.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfPlayer.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfFile.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CInterpretatorSvgBase.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretatorSvg.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretatorRender.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretator.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfParser/CWmfParser.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfParser/CWmfParserBase.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfObjects.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfPlayer.cpp",
+          "DesktopEditor/common/File.cpp",
+          "DesktopEditor/common/Base64.cpp",
+          "DesktopEditor/common/StringExt.cpp",
+          "DesktopEditor/common/StringBuilder.cpp",
+          "DesktopEditor/xml/src/xmlwriter.cpp"
+        ],
+        "removed_after_history": [
+          "OfficeUtils/js/wasm/src/base.cpp",
+          "DesktopEditor/graphics/pro/js/qt/raster/pro_Fonts_empty.cpp",
+          "DesktopEditor/graphics/pro/js/qt/raster/pro_Graphics_empty.cpp",
+          "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp"
+        ],
+        "case_only_mismatch": [
+          {
+            "recipe": "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/CWmfInterpretator.cpp",
+            "tree": "DesktopEditor/raster/Metafile/Wmf/WmfInterpretator/cwmfinterpretator.cpp"
+          }
+        ],
+        "fetched_3dparty_present_in_prepared_tree": [],
+        "absent_everywhere": [
+          "DesktopEditor/raster/Metafile/Emf/EmfClip.cpp",
+          "DesktopEditor/raster/Metafile/Emf/EmfPath.cpp",
+          "DesktopEditor/raster/Metafile/Wmf/WmfClip.cpp"
+        ]
+      },
+      "exports": [
+        {
+          "name": "_Image_GetFormat",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "unsigned char* buffer",
+              "int size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_DecodeFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned char* buffer",
+              "int size",
+              "bool isRgba"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_Destroy",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_DestroyEncodedData",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void",
+            "params": [
+              "void* encodedData"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_Encode",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned char* buffer",
+              "int size",
+              "int format"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_EncodeImageData",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned char* buffer",
+              "int w",
+              "int h",
+              "int stride",
+              "int format",
+              "bool isRgba"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetDecodedBuffer",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetEncodedBuffer",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "void*",
+            "params": [
+              "void* encodedData"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetEncodedSize",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* encodedData"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetHeight",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetStride",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Raster_GetWidth",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/qt/raster/raster.cpp",
+            "return": "int",
+            "params": [
+              "void* frame"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_AddFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CZipBuffer* p",
+              "const char* path",
+              "unsigned char* data",
+              "unsigned long length"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Close",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CZipBuffer* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Create",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "CZipBuffer*",
+            "params": [],
+            "wasm_params": []
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "void* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_GetFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "CZipBuffer* p",
+              "const char* path"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_GetPaths",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "CZipBuffer* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned int size"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Open",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "CZipBuffer*",
+            "params": [
+              "unsigned char* buffer",
+              "unsigned long size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_RemoveFile",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CZipBuffer* p",
+              "const char* path"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Zlib_Save",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "OfficeUtils/js/wasm/src/base.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "CZipBuffer* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "___wasm_call_ctors",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_setThrew",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": null
+        }
+      ],
+      "export_summary": {
+        "recipe_only": [],
+        "loader_only": [],
+        "loader_only_runtime_internal": [
+          "___wasm_call_ctors",
+          "_setThrew"
+        ],
+        "missing_in_current_wasm": [],
+        "historical_definition_not_found": [],
+        "param_type_mismatch": []
+      }
+    },
+    {
+      "module": "spell",
+      "recipe": {
+        "path": "Common/3dParty/hunspell/hunspell.json",
+        "sha256": "f88338b1d7e5b2c0424435129b734f596043a5eee8c25bb00a3621de85c753ec",
+        "run_before": "before.py",
+        "run_after": "import sys;sys.path.append(\"../../../../build_tools/scripts\");import base;base.configure_common_apps();base.replaceInFile(\"./deploy/spell/spell.js\", \"__ATPOSTRUN__=[];\", \"__ATPOSTRUN__=[function(){self.onEngineInit();}];\");base.replaceInFile(\"./deploy/spell/spell.js\", \"function getBinaryPromise(){\", \"function getBinaryPromise2(){\");base.replaceInFile(\"./deploy/spell/spell_ie.js\", \"__ATPOSTRUN__=[];\", \"__ATPOSTRUN__=[function(){self.onEngineInit();}];\");base.replaceInFile(\"./deploy/spell/spell_ie.js\", \"function getBinaryPromise(){\", \"function getBinaryPromise2(){\");base.copy_file(\"./wasm/js/code.js\", \"./deploy/spell.js\");base.copy_file(\"./wasm/js/index.html\", \"./deploy/index.html\")"
+      },
+      "current_wasm": {
+        "path": "common/spell/spell/spell.wasm",
+        "bytes": 510644,
+        "sha256": "9c5c4b4a6329db55b52558962e9625b83194e7d6a085b67d05554d3ec2240984",
+        "function_exports": 14,
+        "global_exports": []
+      },
+      "current_loader": {
+        "path": "common/spell/spell/spell.js",
+        "sha256": "28a2822a20c8377caef20153edf3ddf91182472006a53153f3b9f126630cd4d2"
+      },
+      "sources": {
+        "total": 11,
+        "same_blob": 0,
+        "changed_since_history": [],
+        "removed_after_history": [
+          "Common/3dParty/hunspell/wasm/src/filemgr_wrapper_new.cxx",
+          "Common/3dParty/hunspell/wasm/src/base.cpp"
+        ],
+        "case_only_mismatch": [],
+        "fetched_3dparty_present_in_prepared_tree": [
+          "Common/3dParty/hunspell/hunspell/src/hunspell/affentry.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/affixmgr.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/csutil.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/hashmgr.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/hunspell.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/hunzip.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/phonet.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/replist.cxx",
+          "Common/3dParty/hunspell/hunspell/src/hunspell/suggestmgr.cxx"
+        ],
+        "absent_everywhere": []
+      },
+      "exports": [
+        {
+          "name": "_Spellchecker_AddDictionary",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "int",
+            "params": [
+              "CSpellchecker* p",
+              "const char* id",
+              "unsigned char* data",
+              "unsigned int size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_Create",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "CSpellchecker*",
+            "params": [
+              "size_t max_engine_number"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_Destroy",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CSpellchecker* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_Free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "void* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_Load",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "int",
+            "params": [
+              "CSpellchecker* p",
+              "const char* aff_id",
+              "const char* dic_id"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_Malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "void*",
+            "params": [
+              "unsigned int size"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_RemoveDicrionary",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CSpellchecker* p",
+              "const char* id"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_RemoveEngine",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "void",
+            "params": [
+              "CSpellchecker* p",
+              "const char* sid"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_Spell",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "int",
+            "params": [
+              "CSpellchecker* p",
+              "const char* word_utf8"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_Suggest",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "CSpellchecker* p",
+              "const char* word_utf8"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Spellchecker_TotalAllocatedMemory",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": [
+              "f64"
+            ]
+          },
+          "historical_definition": {
+            "file": "Common/3dParty/hunspell/wasm/src/base.cpp",
+            "return": "double",
+            "params": [],
+            "wasm_params": []
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "___wasm_call_ctors",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        }
+      ],
+      "export_summary": {
+        "recipe_only": [],
+        "loader_only": [],
+        "loader_only_runtime_internal": [
+          "___wasm_call_ctors"
+        ],
+        "missing_in_current_wasm": [],
+        "historical_definition_not_found": [],
+        "param_type_mismatch": []
+      }
+    },
+    {
+      "module": "hash",
+      "recipe": {
+        "path": "DesktopEditor/xmlsec/src/wasm/hash/hash.json",
+        "sha256": "3b45807493cd39cd7a2eb8afa80c4af9d7c3de52bf4626c9c9957ad88bfb3312",
+        "run_before": "before.py",
+        "run_after": "after.py"
+      },
+      "current_wasm": {
+        "path": "common/hash/hash/engine.wasm",
+        "bytes": 65115,
+        "sha256": "8a0cb4c59bf777320f74e9d9b0b2f1623ea1aedcd58896852879a0c7b5b2508d",
+        "function_exports": 5,
+        "global_exports": []
+      },
+      "current_loader": {
+        "path": "common/hash/hash/engine.js",
+        "sha256": "a017a4e9a073bb5c12f1671a0d1b2e41f4e37139533f5f34404887bb00a4b9d0"
+      },
+      "sources": {
+        "total": 17,
+        "same_blob": 0,
+        "changed_since_history": [],
+        "removed_after_history": [
+          "DesktopEditor/xmlsec/src/wasm/hash/main.cpp"
+        ],
+        "case_only_mismatch": [],
+        "fetched_3dparty_present_in_prepared_tree": [],
+        "absent_everywhere": [
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/keccak1600.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha1_one.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha1dgst.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha256.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/sha/sha512.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md2/md2_dgst.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md2/md2_one.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md4/md4_dgst.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md4/md4_one.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md5/md5_dgst.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/md5/md5_one.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/ripemd/rmd_dgst.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/ripemd/rmd_one.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/whrlpool/wp_block.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/whrlpool/wp_dgst.c",
+          "DesktopEditor/xmlsec/src/wasm/3rdParty/openssl/crypto/mem_clr.c"
+        ]
+      },
+      "exports": [
+        {
+          "name": "___wasm_call_ctors",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_hash",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/xmlsec/src/wasm/hash/main.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "const unsigned char* data",
+              "int size",
+              "int alg"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_hash2",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/xmlsec/src/wasm/hash/main.cpp",
+            "return": "unsigned char*",
+            "params": [
+              "const char* password",
+              "const char* salt",
+              "int spinCount",
+              "int alg"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        }
+      ],
+      "export_summary": {
+        "recipe_only": [],
+        "loader_only": [],
+        "loader_only_runtime_internal": [
+          "___wasm_call_ctors"
+        ],
+        "missing_in_current_wasm": [],
+        "historical_definition_not_found": [],
+        "param_type_mismatch": []
+      }
+    },
+    {
+      "module": "drawingfile",
+      "recipe": {
+        "path": "DesktopEditor/graphics/pro/js/drawingfile.json",
+        "sha256": "a444b2cda1e8f1854b388f1701a0c098d5a54a4821a444730ad88e2d2c0374e8",
+        "run_before": "before.py",
+        "run_after": "after.py"
+      },
+      "current_wasm": {
+        "path": "pdf/src/engine/drawingfile.wasm",
+        "bytes": 10868120,
+        "sha256": "8c79a2b610dc9699b48f12d76a245ad75fb72700f17dd63fea9f49d6dc2173cb",
+        "function_exports": 60,
+        "global_exports": []
+      },
+      "current_loader": {
+        "path": "pdf/src/engine/drawingfile.js",
+        "sha256": "c27e605cb9fdce36d30a0de78ac727cc0db88afd881b96dbee449c2021e2538b"
+      },
+      "sources": {
+        "total": 795,
+        "same_blob": 548,
+        "changed_since_history": [
+          "DesktopEditor/raster/BgraFrame.cpp",
+          "DesktopEditor/raster/ImageFileFormatChecker.cpp",
+          "DesktopEditor/raster/PICT/PICFile.cpp",
+          "DesktopEditor/cximage/CxImage/ximajpg.cpp",
+          "DesktopEditor/cximage/CxImage/ximabmp.cpp",
+          "DesktopEditor/cximage/CxImage/ximatif.cpp",
+          "DesktopEditor/raster/Jp2/J2kFile.cpp",
+          "DesktopEditor/raster/Jp2/Reader.cpp",
+          "DesktopEditor/raster/JBig2/source/JBig2File.cpp",
+          "DesktopEditor/raster/JBig2/source/Encoder/jbig2enc.cpp",
+          "DesktopEditor/raster/JBig2/source/Encoder/jbig2arith.cpp",
+          "DesktopEditor/raster/JBig2/source/Encoder/jbig2sym.cpp",
+          "DesktopEditor/graphics/pro/js/wasm/src/HTMLRendererText.cpp",
+          "DesktopEditor/graphics/GraphicsRenderer.cpp",
+          "DesktopEditor/graphics/pro/pro_Graphics.cpp",
+          "DesktopEditor/graphics/pro/pro_Fonts.cpp",
+          "DesktopEditor/graphics/pro/pro_Image.cpp",
+          "DesktopEditor/graphics/Graphics.cpp",
+          "DesktopEditor/graphics/Brush.cpp",
+          "DesktopEditor/graphics/BaseThread.cpp",
+          "DesktopEditor/graphics/GraphicsPath.cpp",
+          "DesktopEditor/graphics/BooleanOperations.cpp",
+          "DesktopEditor/graphics/Image.cpp",
+          "DesktopEditor/graphics/Matrix.cpp",
+          "DesktopEditor/graphics/Clip.cpp",
+          "DesktopEditor/graphics/TemporaryCS.cpp",
+          "DesktopEditor/graphics/AlphaMask.cpp",
+          "DesktopEditor/graphics/GraphicsLayer.cpp",
+          "DesktopEditor/graphics/commands/DocInfo.cpp",
+          "DesktopEditor/graphics/commands/AnnotField.cpp",
+          "DesktopEditor/graphics/commands/FormField.cpp",
+          "DesktopEditor/graphics/MetafileToRenderer.cpp",
+          "DesktopEditor/graphics/MetafileToRendererReader.cpp",
+          "DesktopEditor/fontengine/GlyphString.cpp",
+          "DesktopEditor/fontengine/FontManager.cpp",
+          "DesktopEditor/fontengine/FontFile.cpp",
+          "DesktopEditor/fontengine/FontPath.cpp",
+          "DesktopEditor/fontengine/ApplicationFonts.cpp",
+          "DesktopEditor/common/File.cpp",
+          "DesktopEditor/common/Directory.cpp",
+          "DesktopEditor/common/ByteBuilder.cpp",
+          "DesktopEditor/common/Base64.cpp",
+          "DesktopEditor/common/StringExt.cpp",
+          "DesktopEditor/common/Path.cpp",
+          "DesktopEditor/common/SystemUtils.cpp",
+          "DesktopEditor/common/StringUTF32.cpp",
+          "DesktopEditor/common/StringBuilder.cpp",
+          "OfficeUtils/src/OfficeUtils.cpp",
+          "OfficeUtils/src/ZipBuffer.cpp",
+          "OfficeUtils/src/ZipUtilsCP.cpp",
+          "OfficeUtils/src/zlib_addon.c",
+          "PdfFile/PdfFile.cpp",
+          "PdfFile/PdfReader.cpp",
+          "PdfFile/PdfWriter.cpp",
+          "PdfFile/PdfEditor.cpp",
+          "PdfFile/OnlineOfficeBinToPdf.cpp",
+          "PdfFile/SrcReader/Adaptors.cpp",
+          "PdfFile/SrcReader/GfxClip.cpp",
+          "PdfFile/SrcReader/RendererOutputDev.cpp",
+          "PdfFile/SrcReader/JPXStream2.cpp",
+          "PdfFile/SrcReader/PdfAnnot.cpp",
+          "PdfFile/SrcReader/PdfFont.cpp",
+          "PdfFile/SrcWriter/AcroForm.cpp",
+          "PdfFile/SrcWriter/Annotation.cpp",
+          "PdfFile/SrcWriter/Catalog.cpp",
+          "PdfFile/SrcWriter/Destination.cpp",
+          "PdfFile/SrcWriter/Document.cpp",
+          "PdfFile/SrcWriter/Encrypt.cpp",
+          "PdfFile/SrcWriter/EncryptDictionary.cpp",
+          "PdfFile/SrcWriter/Field.cpp",
+          "PdfFile/SrcWriter/Font.cpp",
+          "PdfFile/SrcWriter/Font14.cpp",
+          "PdfFile/SrcWriter/FontCidTT.cpp",
+          "PdfFile/SrcWriter/FontOTWriter.cpp",
+          "PdfFile/SrcWriter/FontTT.cpp",
+          "PdfFile/SrcWriter/FontTTWriter.cpp",
+          "PdfFile/SrcWriter/GState.cpp",
+          "PdfFile/SrcWriter/Image.cpp",
+          "PdfFile/SrcWriter/Info.cpp",
+          "PdfFile/SrcWriter/Metadata.cpp",
+          "PdfFile/SrcWriter/Objects.cpp",
+          "PdfFile/SrcWriter/Outline.cpp",
+          "PdfFile/SrcWriter/Pages.cpp",
+          "PdfFile/SrcWriter/Pattern.cpp",
+          "PdfFile/SrcWriter/ResourcesDictionary.cpp",
+          "PdfFile/SrcWriter/Shading.cpp",
+          "PdfFile/SrcWriter/States.cpp",
+          "PdfFile/SrcWriter/Streams.cpp",
+          "PdfFile/SrcWriter/Utils.cpp",
+          "PdfFile/SrcWriter/RedactOutputDev.cpp",
+          "PdfFile/Resources/BaseFonts.cpp",
+          "PdfFile/Resources/CMapMemory/cmap_memory.cpp",
+          "PdfFile/lib/xpdf/AcroForm.cc",
+          "PdfFile/lib/xpdf/Gfx.cc",
+          "PdfFile/lib/xpdf/GfxFont.cc",
+          "PdfFile/lib/xpdf/GfxState.cc",
+          "PdfFile/lib/xpdf/XRef.cc",
+          "DesktopEditor/raster/Jp2/openjpeg/opj_bgraframe.cpp",
+          "XpsFile/XpsFile.cpp",
+          "XpsFile/XpsLib/Document.cpp",
+          "XpsFile/XpsLib/XpsPage.cpp",
+          "XpsFile/XpsLib/StaticResources.cpp",
+          "XpsFile/XpsLib/Utils.cpp",
+          "XpsFile/XpsLib/WString.cpp",
+          "XpsFile/XpsLib/ContextState.cpp",
+          "DjVuFile/DjVu.cpp",
+          "DjVuFile/DjVuFileImplementation.cpp",
+          "DesktopEditor/graphics/pro/officedrawingfile.cpp",
+          "UnicodeConverter/UnicodeConverter.cpp",
+          "DocxRenderer/DocxRenderer.cpp",
+          "DocxRenderer/src/resources/VectorGraphics.cpp",
+          "DocxRenderer/src/logic/styles/FontStyle.cpp",
+          "DocxRenderer/src/logic/styles/ParagraphStyle.cpp",
+          "DocxRenderer/src/logic/Page.cpp",
+          "DocxRenderer/src/logic/Document.cpp",
+          "DocxRenderer/src/logic/managers/FontManager.cpp",
+          "DocxRenderer/src/logic/managers/FontStyleManager.cpp",
+          "DocxRenderer/src/logic/managers/ImageManager.cpp",
+          "DocxRenderer/src/logic/managers/ParagraphStyleManager.cpp",
+          "DocxRenderer/src/logic/elements/BaseItem.cpp",
+          "DocxRenderer/src/logic/elements/ContText.cpp",
+          "DocxRenderer/src/logic/elements/Paragraph.cpp",
+          "DocxRenderer/src/logic/elements/Shape.cpp",
+          "DocxRenderer/src/logic/elements/TextLine.cpp",
+          "DocxRenderer/src/logic/elements/Table.cpp",
+          "OdfFile/Common/logging.cpp"
+        ],
+        "removed_after_history": [
+          "DesktopEditor/graphics/pro/js/wasm/src/lib/wasm_jmp.cpp",
+          "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+          "DesktopEditor/graphics/pro/js/wasm/src/metafile.cpp"
+        ],
+        "case_only_mismatch": [],
+        "fetched_3dparty_present_in_prepared_tree": [
+          "Common/3dParty/icu/icu/source/common/ustr_wcs.cpp",
+          "Common/3dParty/icu/icu/source/common/ustrtrns.cpp",
+          "Common/3dParty/icu/icu/source/common/udata.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_io.cpp",
+          "Common/3dParty/icu/icu/source/common/ustring.cpp",
+          "Common/3dParty/icu/icu/source/common/umutex.cpp",
+          "Common/3dParty/icu/icu/source/common/putil.cpp",
+          "Common/3dParty/icu/icu/source/common/ustr_cnv.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnvmbcs.cpp",
+          "Common/3dParty/icu/icu/source/common/ucln_cmn.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv2022.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnvbocu.cpp",
+          "Common/3dParty/icu/icu/source/common/stringpiece.cpp",
+          "Common/3dParty/icu/icu/source/common/charstr.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_ext.cpp",
+          "Common/3dParty/icu/icu/source/common/uobject.cpp",
+          "Common/3dParty/icu/icu/source/common/usprep.cpp",
+          "Common/3dParty/icu/icu/source/common/unistr.cpp",
+          "Common/3dParty/icu/icu/source/common/uniset_props.cpp",
+          "Common/3dParty/icu/icu/source/common/loadednormalizer2impl.cpp",
+          "Common/3dParty/icu/icu/source/common/filterednormalizer2.cpp",
+          "Common/3dParty/icu/icu/source/common/utrie2.cpp",
+          "Common/3dParty/icu/icu/source/common/normalizer2.cpp",
+          "Common/3dParty/icu/icu/source/common/normalizer2impl.cpp",
+          "Common/3dParty/icu/icu/source/common/utrie.cpp",
+          "Common/3dParty/icu/icu/source/common/ucase.cpp",
+          "Common/3dParty/icu/icu/source/common/uniset.cpp",
+          "Common/3dParty/icu/icu/source/common/ruleiter.cpp",
+          "Common/3dParty/icu/icu/source/common/parsepos.cpp",
+          "Common/3dParty/icu/icu/source/common/util.cpp",
+          "Common/3dParty/icu/icu/source/common/uprops.cpp",
+          "Common/3dParty/icu/icu/source/common/uvector.cpp",
+          "Common/3dParty/icu/icu/source/common/unames.cpp",
+          "Common/3dParty/icu/icu/source/common/propname.cpp",
+          "Common/3dParty/icu/icu/source/common/utrie2_builder.cpp",
+          "Common/3dParty/icu/icu/source/common/unifunct.cpp",
+          "Common/3dParty/icu/icu/source/common/bmpset.cpp",
+          "Common/3dParty/icu/icu/source/common/unisetspan.cpp",
+          "Common/3dParty/icu/icu/source/common/unifilt.cpp",
+          "Common/3dParty/icu/icu/source/common/patternprops.cpp",
+          "Common/3dParty/icu/icu/source/common/ustrcase.cpp",
+          "Common/3dParty/icu/icu/source/common/bytestrie.cpp",
+          "Common/3dParty/icu/icu/source/common/utf_impl.cpp",
+          "Common/3dParty/icu/icu/source/common/cmemory.cpp",
+          "Common/3dParty/icu/icu/source/common/uhash.cpp",
+          "Common/3dParty/icu/icu/source/common/udatamem.cpp",
+          "Common/3dParty/icu/icu/source/common/umapfile.cpp",
+          "Common/3dParty/icu/icu/source/common/uinvchar.cpp",
+          "Common/3dParty/icu/icu/source/common/uchar.cpp",
+          "Common/3dParty/icu/icu/source/common/ubidi_props.cpp",
+          "Common/3dParty/icu/icu/source/common/characterproperties.cpp",
+          "Common/3dParty/icu/icu/source/common/ucptrie.cpp",
+          "Common/3dParty/icu/icu/source/common/edits.cpp",
+          "Common/3dParty/icu/icu/source/common/umutablecptrie.cpp",
+          "Common/3dParty/icu/icu/source/common/bytesinkutil.cpp",
+          "Common/3dParty/icu/icu/source/common/emojiprops.cpp",
+          "Common/3dParty/icu/icu/source/common/cstring.cpp",
+          "Common/3dParty/icu/icu/source/common/ucmndata.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_u7.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_u8.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_u16.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_u32.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_err.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_cnv.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_lmb.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_cb.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_ct.cpp",
+          "Common/3dParty/icu/icu/source/common/ucharstrieiterator.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnvlat1.cpp",
+          "Common/3dParty/icu/icu/source/common/uvectr32.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnvhz.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnvscsu.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnv_bld.cpp",
+          "Common/3dParty/icu/icu/source/common/ucnvisci.cpp"
+        ],
+        "absent_everywhere": [
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftdebug.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/autofit/autofit.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/bdf/bdf.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cff/cff.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbase.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbitmap.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftfstype.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgasp.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cache/ftcache.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftglyph.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/gzip/ftgzip.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftinit.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/lzw/ftlzw.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftstroke.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsystem.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/smooth/smooth.cpp",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbbox.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftbdf.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftcid.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftmm.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpfr.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftsynth.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/fttype1.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftwinfnt.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftgxval.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftotval.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/base/ftpatent.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pcf/pcf.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pfr/pfr.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psaux/psaux.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/pshinter/pshinter.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/psnames/psmodule.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/raster/raster.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/sfnt/sfnt.cpp",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/truetype/truetype.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type1/type1.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/cid/type1cid.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/type42/type42.c",
+          "DesktopEditor/graphics/pro/js/freetype-2.10.4/src/winfonts/winfnt.c",
+          "DesktopEditor/graphics/pro/js/xml/src/xmllight.cpp",
+          "DesktopEditor/graphics/pro/js/xml/src/xmldom.cpp",
+          "DesktopEditor/graphics/pro/js/xml/build/qt/libxml2_all.c",
+          "DesktopEditor/graphics/pro/js/xml/build/qt/libxml2_all2.c"
+        ]
+      },
+      "exports": [
+        {
+          "name": "_BuildPdf",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_CheckOwnerPassword",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile",
+              "const char* password"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_CheckPerm",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPermFlag"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ClearFontsStorage",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_ClearImagesStorage",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_Close",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_DestroyTextInfo",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetAnnotationsAP",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nRasterW",
+              "int nRasterH",
+              "int nBackgroundColor",
+              "int nPageIndex",
+              "int nAnnot",
+              "int nView"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetAnnotationsInfo",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPageIndex"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetButtonIcons",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nBackgroundColor",
+              "int nPageIndex",
+              "int bBase64",
+              "int nButtonWidget",
+              "int nIconView"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetErrorCode",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetFontBinary",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "char* path"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetGIDByUnicode",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "char* path"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetGlyphs",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPageIndex"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetImageBase64",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int rId"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetImageBase64Free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "std::string* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetImageBase64Len",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "std::string* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetImageBase64Ptr",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "char*",
+            "params": [
+              "std::string* p"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetInfo",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetInteractiveFormsAP",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nRasterW",
+              "int nRasterH",
+              "int nBackgroundColor",
+              "int nPageIndex",
+              "int nWidget",
+              "int nView",
+              "int nButtonView"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetInteractiveFormsFonts",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nType"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetInteractiveFormsInfo",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetLinks",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPageIndex"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetMacros",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_GetPixmap",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPageIndex",
+              "int nRasterW",
+              "int nRasterH",
+              "int nBackgroundColor"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetStructure",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_GetType",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_InitializeFontsBase64",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "BYTE* pDataSrc",
+              "int nLenSrc"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_InitializeFontsBin",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "BYTE* data",
+              "int size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_InitializeFontsRanges",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "BYTE* pDataSrc"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_IsFontBinaryExist",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "char* path"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_IsImageBinaryExist",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_IsNeedCMap",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_MergePages",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile",
+              "BYTE* data",
+              "LONG size",
+              "int nMaxID",
+              "const char* sPrefixForm"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_Open",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "CDrawingFile*",
+            "params": [
+              "BYTE* data",
+              "LONG size",
+              "const char* password"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_RedactPage",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPageIndex",
+              "int* arrRedactBox",
+              "int nLengthX8",
+              "BYTE* data",
+              "int size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_ScanPage",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPageIndex",
+              "int mode"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_SetCMapData",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "CDrawingFile* pFile",
+              "BYTE* data",
+              "int size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_SetFontBinary",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "char* path",
+              "BYTE* data",
+              "int size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_SetImageBinary",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_SetScanPageFonts",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "void",
+            "params": [
+              "CDrawingFile* pFile",
+              "int nPageIndex"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": false
+        },
+        {
+          "name": "_SplitPages",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "BYTE*",
+            "params": [
+              "CDrawingFile* pFile",
+              "int* arrPageIndex",
+              "int nLength",
+              "BYTE* data",
+              "LONG size"
+            ],
+            "wasm_params": [
+              "i32",
+              "i32",
+              "i32",
+              "i32",
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_UndoRedact",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "_UnmergePages",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": {
+            "file": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+            "return": "int",
+            "params": [
+              "CDrawingFile* pFile"
+            ],
+            "wasm_params": [
+              "i32"
+            ]
+          },
+          "param_types_match": true
+        },
+        {
+          "name": "___start_em_js",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": null,
+          "historical_definition": null
+        },
+        {
+          "name": "___stop_em_js",
+          "in_historical_recipe": false,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": null,
+          "historical_definition": null
+        },
+        {
+          "name": "_free",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": []
+          },
+          "historical_definition": null
+        },
+        {
+          "name": "_malloc",
+          "in_historical_recipe": true,
+          "used_by_current_loader": true,
+          "current_wasm_is_global": false,
+          "current_wasm_signature": {
+            "params": [
+              "i32"
+            ],
+            "results": [
+              "i32"
+            ]
+          },
+          "historical_definition": null
+        }
+      ],
+      "export_summary": {
+        "recipe_only": [],
+        "loader_only": [
+          "_BuildPdf",
+          "_ClearFontsStorage",
+          "_ClearImagesStorage",
+          "_GetMacros",
+          "_IsImageBinaryExist",
+          "_SetImageBinary"
+        ],
+        "loader_only_runtime_internal": [
+          "___start_em_js",
+          "___stop_em_js"
+        ],
+        "missing_in_current_wasm": [],
+        "historical_definition_not_found": [],
+        "param_type_mismatch": [
+          "_SetScanPageFonts"
+        ]
+      },
+      "drawingfile_api": {
+        "wrapper": "DesktopEditor/graphics/pro/js/wasm/src/drawingfile.cpp",
+        "class_header": "DesktopEditor/doctrenderer/drawingfile.h",
+        "wrapper_calls": [
+          {
+            "method": "OpenFile",
+            "historical_argc": 3,
+            "current_overloads": [
+              {
+                "required": 2,
+                "max": 2
+              },
+              {
+                "required": 3,
+                "max": 3
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetType",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetErrorCode",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetInfo",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetPixmap",
+            "historical_argc": 4,
+            "current_overloads": [
+              {
+                "required": 4,
+                "max": 4
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetGlyphs",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetLinks",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetStructure",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetInteractiveFormsInfo",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetInteractiveFormsFonts",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetInteractiveFormsAP",
+            "historical_argc": 7,
+            "current_overloads": [
+              {
+                "required": 7,
+                "max": 7
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetButtonIcons",
+            "historical_argc": 5,
+            "current_overloads": [
+              {
+                "required": 5,
+                "max": 5
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetAnnotationsInfo",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetAnnotationsAP",
+            "historical_argc": 6,
+            "current_overloads": [
+              {
+                "required": 6,
+                "max": 6
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetFontBinary",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetGIDByUnicode",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              },
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "DestroyTextInfo",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "IsNeedCMap",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "SetCMapData",
+            "historical_argc": 2,
+            "current_overloads": [
+              {
+                "required": 2,
+                "max": 2
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "SetScanPageFonts",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 2,
+                "max": 2
+              }
+            ],
+            "compatible": false
+          },
+          {
+            "method": "ScanPage",
+            "historical_argc": 2,
+            "current_overloads": [
+              {
+                "required": 2,
+                "max": 2
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "SplitPages",
+            "historical_argc": 4,
+            "current_overloads": [
+              {
+                "required": 4,
+                "max": 4
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "MergePages",
+            "historical_argc": 4,
+            "current_overloads": [
+              {
+                "required": 4,
+                "max": 5
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "UnmergePages",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "RedactPage",
+            "historical_argc": 5,
+            "current_overloads": [
+              {
+                "required": 5,
+                "max": 6
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "UndoRedact",
+            "historical_argc": 0,
+            "current_overloads": [
+              {
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "CheckOwnerPassword",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "CheckPerm",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          },
+          {
+            "method": "GetImageBase64",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "compatible": true
+          }
+        ],
+        "incompatible_calls": [
+          {
+            "method": "SetScanPageFonts",
+            "historical_argc": 1,
+            "current_overloads": [
+              {
+                "required": 2,
+                "max": 2
+              }
+            ],
+            "compatible": false
+          }
+        ],
+        "exports_missing_from_historical_wrapper": [
+          {
+            "name": "_BuildPdf",
+            "current_wasm_signature": {
+              "params": [
+                "i32",
+                "i32",
+                "i32",
+                "i32",
+                "i32",
+                "i32"
+              ],
+              "results": [
+                "i32"
+              ]
+            },
+            "core_method_overloads": [
+              {
+                "params": [
+                  "BYTE* pCommands",
+                  "int nCommandsLen",
+                  "const wchar_t* sPassword",
+                  "BYTE* pMetaData = NULL",
+                  "int nMetaLen = 0"
+                ],
+                "required": 3,
+                "max": 5
+              }
+            ],
+            "fits_instance_wrapper": true,
+            "fits_global_wrapper": false
+          },
+          {
+            "name": "_ClearFontsStorage",
+            "current_wasm_signature": {
+              "params": [],
+              "results": []
+            },
+            "core_method_overloads": [],
+            "fits_instance_wrapper": false,
+            "fits_global_wrapper": false,
+            "storage_clear_backing": {
+              "static_getter": "GetFontsStorage",
+              "getter_in_class": true,
+              "storage_interface": "DesktopEditor/graphics/pro/MemoryStorage.h",
+              "interface_has_pure_virtual_clear": true,
+              "zero_arg_wasm_matches": true
+            }
+          },
+          {
+            "name": "_ClearImagesStorage",
+            "current_wasm_signature": {
+              "params": [],
+              "results": []
+            },
+            "core_method_overloads": [],
+            "fits_instance_wrapper": false,
+            "fits_global_wrapper": false,
+            "storage_clear_backing": {
+              "static_getter": "GetImagesStorage",
+              "getter_in_class": true,
+              "storage_interface": "DesktopEditor/graphics/pro/MemoryStorage.h",
+              "interface_has_pure_virtual_clear": true,
+              "zero_arg_wasm_matches": true
+            }
+          },
+          {
+            "name": "_GetMacros",
+            "current_wasm_signature": {
+              "params": [
+                "i32"
+              ],
+              "results": [
+                "i32"
+              ]
+            },
+            "core_method_overloads": [
+              {
+                "params": [],
+                "required": 0,
+                "max": 0
+              }
+            ],
+            "fits_instance_wrapper": true,
+            "fits_global_wrapper": false
+          },
+          {
+            "name": "_IsImageBinaryExist",
+            "current_wasm_signature": {
+              "params": [
+                "i32"
+              ],
+              "results": [
+                "i32"
+              ]
+            },
+            "core_method_overloads": [
+              {
+                "params": [
+                  "char* path"
+                ],
+                "required": 1,
+                "max": 1
+              }
+            ],
+            "fits_instance_wrapper": false,
+            "fits_global_wrapper": true
+          },
+          {
+            "name": "_SetImageBinary",
+            "current_wasm_signature": {
+              "params": [
+                "i32",
+                "i32",
+                "i32"
+              ],
+              "results": []
+            },
+            "core_method_overloads": [
+              {
+                "params": [
+                  "char* path",
+                  "BYTE* data",
+                  "int size"
+                ],
+                "required": 3,
+                "max": 3
+              }
+            ],
+            "fits_instance_wrapper": false,
+            "fits_global_wrapper": true
+          }
+        ]
+      }
+    }
+  ]
+}

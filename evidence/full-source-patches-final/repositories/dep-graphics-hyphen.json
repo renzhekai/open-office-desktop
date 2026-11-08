@@ -1,0 +1,31 @@
+{
+  "name": "dep-graphics-hyphen",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\hyphen\\hyphen",
+  "pin": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/graphics-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:09.543323+00:00",
+  "head": "53820b5d49c64a6e9b8249fcc26d0eb2ed818cbe",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/hunspell/hyphen.git",
+  "patch": {
+    "path": "patches/dep-graphics-hyphen.patch",
+    "size": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "head_file": {
+    "path": "heads/dep-graphics-hyphen.txt",
+    "size": 41,
+    "sha256": "5832c2f0a490e9928d7c4830b08ea8b9b3fff4ba45eaee51c008b202aa349217"
+  },
+  "changed_files": [],
+  "changed_file_count": 0,
+  "empty_patch": true,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:09.930551+00:00"
+}

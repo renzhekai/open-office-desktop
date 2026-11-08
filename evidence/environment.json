@@ -1,0 +1,87 @@
+{
+  "captured_at": "2026-11-01T07:41:59.605053+00:00",
+  "workspace": "D:\\open office",
+  "platform": {
+    "system": "Windows",
+    "release": "11",
+    "version": "10.0.26200",
+    "machine": ""
+  },
+  "requirements_sha256": "1e7d43e339deb30766561fb315e87585ea3bb06c32cb11678f84059d379c19ff",
+  "memory": {
+    "status": "observed",
+    "physical_bytes": 33787346944,
+    "available_bytes": 14719041536
+  },
+  "workspace_disk": {
+    "total_bytes": 700605001728,
+    "free_bytes": 56371175424
+  },
+  "tools": {
+    "git": {
+      "path": "C:\\Program Files\\Git\\cmd\\git.EXE",
+      "available_on_path": true,
+      "exit_code": 0,
+      "output": "git version 2.55.0.windows.4"
+    },
+    "python": {
+      "path": "C:\\Users\\18268\\AppData\\Local\\Programs\\Python\\Python314\\python.EXE",
+      "available_on_path": true,
+      "exit_code": 0,
+      "output": "Python 3.14.5"
+    },
+    "node": {
+      "path": "C:\\Program Files\\nodejs\\node.EXE",
+      "available_on_path": true,
+      "exit_code": 0,
+      "output": "v24.15.0"
+    },
+    "cmake": {
+      "path": "C:\\Program Files\\CMake\\bin\\cmake.EXE",
+      "available_on_path": true,
+      "exit_code": 0,
+      "output": "cmake version 4.3.4\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake)."
+    },
+    "ninja": {
+      "path": null,
+      "available_on_path": false
+    },
+    "qmake": {
+      "path": null,
+      "available_on_path": false
+    },
+    "msbuild": {
+      "path": null,
+      "available_on_path": false
+    },
+    "cl": {
+      "path": null,
+      "available_on_path": false
+    }
+  },
+  "known_installations": {
+    "visual_studio": "D:\\Microsoft Visual Studio\\18\\Community",
+    "msvc_toolsets": [
+      "D:\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.44.35207",
+      "D:\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231"
+    ],
+    "qt_6_11_1_kits": [
+      "D:\\Qt\\6.11.1\\mingw_64"
+    ],
+    "windows_sdk_include": [
+      "D:\\Windows Kits\\10\\Include\\10.0.26100.0",
+      "D:\\Windows Kits\\10\\Include\\10.0.28000.0"
+    ],
+    "onlyoffice_standard_paths": {
+      "C:\\Program Files\\ONLYOFFICE": false,
+      "C:\\Program Files (x86)\\ONLYOFFICE": false
+    }
+  },
+  "limitations": [
+    "Known installation locations and PATH are inventoried; absence here is not a full-disk search.",
+    "Installed tool versions do not establish upstream compatibility or build success.",
+    "No network requests, installation, system configuration, source builds, or desktop launches occur."
+  ],
+  "build_status": "not_run",
+  "desktop_runtime_status": "not_run"
+}

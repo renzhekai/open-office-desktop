@@ -1,0 +1,42 @@
+{
+  "name": "dep-remaining-glm",
+  "path": "D:\\open office\\build\\full-source\\DesktopEditors\\core\\Common\\3dParty\\apple\\glm",
+  "pin": "33b4a621a697a305bc3a7610d290677b96beb181",
+  "kind": "dependency_clone",
+  "receipt": "build/full-source/remaining-dependency-evidence/sources.json",
+  "started_at_utc": "2026-11-02T11:36:10.963262+00:00",
+  "head": "33b4a621a697a305bc3a7610d290677b96beb181",
+  "expected_commit_matches": true,
+  "origin": "https://github.com/g-truc/glm.git",
+  "patch": {
+    "path": "patches/dep-remaining-glm.patch",
+    "size": 482,
+    "sha256": "f5ceaed9bbbdbcee299e89f6bd6169fa40472e349dfdab40789471aed6e98e7f"
+  },
+  "head_file": {
+    "path": "heads/dep-remaining-glm.txt",
+    "size": 41,
+    "sha256": "6fc5276f7a87e1765d4f00c0405f519ddac0c997b52e5b4f477bf7b192a9544d"
+  },
+  "changed_files": [
+    {
+      "path": "glm/detail/func_common.inl",
+      "state": "file",
+      "size": 29695,
+      "sha256": "d6e092261a7e62b6accc8c50802c579ee2f2f7f457be4ea5dbeccc94c617b314"
+    }
+  ],
+  "changed_file_count": 1,
+  "empty_patch": false,
+  "eol_configuration": {
+    "core.autocrlf": "true",
+    "core.eol": null
+  },
+  "reverse_apply_check": {
+    "exit_code": 0,
+    "stderr": ""
+  },
+  "status": "captured",
+  "stable_during_capture": true,
+  "finished_at_utc": "2026-11-02T11:36:11.973277+00:00"
+}

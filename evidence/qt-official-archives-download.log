@@ -1,0 +1,83 @@
+Downloading qtbase
+Downloading qtsvg
+Downloading qtdeclarative
+Verified qtsvg
+Downloading qtdoc
+Verified qtdoc
+Downloading qttools
+Verified qttools
+Downloading qttranslations
+Verified qttranslations
+Downloading d3dcompiler_47-x64.7z
+Verified d3dcompiler_47-x64.7z
+Downloading opengl32sw-64-mesa_11_2_2-signed_sha256.7z
+Verified qtdeclarative
+Downloading qtmultimedia
+Verified opengl32sw-64-mesa_11_2_2-signed_sha256.7z
+Verified qtmultimedia
+Verified qtbase
+[
+  {
+    "module": "qtsvg",
+    "status": "downloaded_verified",
+    "size": 689094,
+    "sha256": "1d75ccf1f1a8fc78612c2c78bc2448f8f68949096d38ff9afe21980e0cb3d9b5",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529qtsvg-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z"
+  },
+  {
+    "module": "qtdoc",
+    "status": "downloaded_verified",
+    "size": 1858329,
+    "sha256": "311977f28a6df54c923884ce4d2e08bf246bc937d768976ad9f532060e23d286",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529qtdoc-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z"
+  },
+  {
+    "module": "qttools",
+    "status": "downloaded_verified",
+    "size": 27133575,
+    "sha256": "748f455851e0d81cd0e65232f6110840eda2bb980c4a4abf7e58ce97c2ff0f71",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529qttools-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z"
+  },
+  {
+    "module": "qttranslations",
+    "status": "downloaded_verified",
+    "size": 1946027,
+    "sha256": "2da76e41de1ed46542b8648e5d92b18f916817fac1d76121a209d72a0123093c",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529qttranslations-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z"
+  },
+  {
+    "module": "d3dcompiler_47-x64.7z",
+    "status": "downloaded_verified",
+    "size": 1380117,
+    "sha256": "60a197f75dbac55661bc4697809d8422c2ab6acea68a917339bc262e6e46c0c8",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529d3dcompiler_47-x64.7z"
+  },
+  {
+    "module": "qtdeclarative",
+    "status": "downloaded_verified",
+    "size": 166957267,
+    "sha256": "fc716b905581922ee8254740ae0017fcdc90b58138109ce0d9a927c099412f44",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529qtdeclarative-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z"
+  },
+  {
+    "module": "opengl32sw-64-mesa_11_2_2-signed_sha256.7z",
+    "status": "downloaded_verified",
+    "size": 5474526,
+    "sha256": "dde9302fbc8535cedf2fd75fa1826d6ac01e6fde230c976cd8ec05fe695b9db3",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529opengl32sw-64-mesa_11_2_2-signed_sha256.7z"
+  },
+  {
+    "module": "qtmultimedia",
+    "status": "downloaded_verified",
+    "size": 42734574,
+    "sha256": "e7255e7ed621c6e4fc5af9f5a1614b45260a960f03bcb4b1f37f8e910f6c8fd9",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529qtmultimedia-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z"
+  },
+  {
+    "module": "qtbase",
+    "status": "downloaded_verified",
+    "size": 39469569,
+    "sha256": "7f97edc3937fec7383eb865e010ed5128155bf9c80a563abca450860f3e9bef5",
+    "path": "D:\\open office\\dependencies\\qt-6.11.1-msvc2022-archives\\6.11.1-0-202605090529qtbase-Windows-Windows_11_24H2-MSVC2022-Windows-Windows_11_24H2-X86_64.7z"
+  }
+]

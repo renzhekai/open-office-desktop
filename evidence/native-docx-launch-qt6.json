@@ -1,0 +1,6 @@
+{
+    "application": "Open Office",
+    "engine_connected": false,
+    "initialization_error": "runtime_incomplete",
+    "message": "缺少必要的运行目录：converter/templates"
+}
