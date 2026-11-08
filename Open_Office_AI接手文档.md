@@ -25,7 +25,7 @@
 - 旧包原样保留：`…-20261107-win64.exe`（装 r7）、`…-20261106-win64.exe`（装 r2）、便携包 `dist/OpenOffice-portable-win64-20261106.zip`（r2）。
 - 都没有数字签名，也没在别的电脑上测过。见第 13 节第 28、31、34 条。
 
-**代码仓库（2026-11-07 用户要求“把代码放入 git 和在 GitHub 建立仓库”）：** 项目根目录已是 git 仓库（分支 `main`）。用户选定：公开、AGPL-3.0、仓库名 `open-office-desktop`、放代码和文档加 5 MB 以下的证据、提交用 GitHub 隐私邮箱。安装包、运行目录、源码树和下载的工具都不进 git。GitHub 上的仓库要等用户在内置浏览器里登录 GitHub 后再建（第 35 条）。
+**代码仓库（2026-11-07 用户要求“把代码放入 git 和在 GitHub 建立仓库”）：** <https://github.com/renzhekai/open-office-desktop>（公开，AGPL-3.0，分支 `main`，远端名 `origin`）。项目根目录就是工作区。放代码、文档和 5 MB 以下的证据；安装包、运行目录、源码树和下载的工具都不进 git。提交邮箱是仓库本地配置的 GitHub 隐私邮箱。每次更新都要提交并推送（见“维护规则”，第 35、36 条）。
 
 **AI 助手（2026-11-06～07，用户要求“尝试接入 AI 助手，先做接口”）：** `build/full-source-run-assistant-ball-r7`（宿主 `039299d6…`，构建 `free-ball-1`），现为回退。
 - 第一版接口已完成：8 条带参数校验和来源标记的命令，编辑器命令由编辑器回报后才算完成；只记元数据的命令日志。没有接模型，也没有 MCP 服务。
@@ -38,7 +38,7 @@
 - 模型把助手命令当工具调用；改文档、保存、新建都要用户点“执行”。只连本机回环地址，云端模型不列出。
 - CTest 共 75 项通过；真实编辑器里用本机 `gpt-oss:20b` 完成“提问 → 确认 → 插入 → 保存”，6 项检查全过；连不上时显示启动卡片。见第 32 条。
 
-**正在做：** 建 GitHub 仓库并做第一次提交和推送，等用户登录 GitHub（第 35 条）。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做：** 无进行中的任务。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -821,6 +821,14 @@ python -B scripts/verify_full_source_docx_sample.py
     - **README：** 安装一节改为第二次生成的安装包，并写明安装包不进 git；新增“许可证”一节，按 ONLYOFFICE 附加条款列出署名、修改说明、界面声明和商标要求。
     - **本地仓库：** `git init -b main`，暂存 763 个文件，约 6.8 MB（压缩后），最大单个文件 4.2 MB。扫描暂存内容：没有 GitHub/OpenAI/AWS 密钥或私钥；“password”“token”只出现在 ONLYOFFICE 文件名、构建日志和哈希测试用例里；没有用户的邮箱或手机号。约 23 个证据文件里的本机路径含 Windows 用户名 `18268`，用户已知情并选择公开。
     - **未完成：** 内置浏览器里 GitHub 还没登录（需要用户自己登录），所以还没查到隐私邮箱，也还没提交、建仓库、推送。
+
+36. **GitHub 仓库建好并推送（2026-11-07，接第 35 条；用户登录 GitHub 后说“继续”）：**
+    - **账号：** 内置浏览器里登录的是 GitHub 账号 `renzhekai`。隐私邮箱 `279273193+renzhekai@users.noreply.github.com` 只写进本仓库的 `git config --local user.email`；全局 git 配置和 GitHub 账号的邮箱隐私设置都没改。
+    - **首次提交：** `ac630cf`（“Open Office：首次提交”），763 个文件，作者 `rzk <隐私邮箱>`，带 Claude 共同作者行。
+    - **建仓库：** 在 github.com/new 建了 `renzhekai/open-office-desktop`：公开，无描述，不让 GitHub 生成 README、.gitignore、许可证。第一次输入仓库名时页面元素没初始化，文字没进输入框，页面也被切到了仓库列表（可能是用户在浏览器里点了）；重新打开后用表单填写，没有建出别的仓库。
+    - **推送：** `git remote add origin https://github.com/renzhekai/open-office-desktop.git`，`git push -u origin main` 成功（Git Credential Manager 已有凭据，没弹窗）。远端 `main` 与本地同为 `ac630cf…`。
+    - **网页核对：** 仓库显示为 Public，GitHub 识别出 AGPL-3.0 许可证，README 正常显示。
+    - **之后的规矩：** 每次更新都提交并推送（已写进“维护规则”）。
 
 ## 附录 A：requirements.md 完整原文
 

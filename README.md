@@ -1,6 +1,6 @@
 # Open Office
 
-面向 Windows 的开源办公应用。需求原文保留在 [requirements.md](requirements.md)。默认入口带一个 AI 助手悬浮球，可以接上这台电脑里的 Ollama 本地模型，对话和文档内容只在本机处理（见下文“AI 助手”）。
+面向 Windows 的开源办公应用。代码仓库：<https://github.com/renzhekai/open-office-desktop>（公开，AGPL-3.0）。需求原文保留在 [requirements.md](requirements.md)。默认入口带一个 AI 助手悬浮球，可以接上这台电脑里的 Ollama 本地模型，对话和文档内容只在本机处理（见下文“AI 助手”）。
 
 当前入口使用 C++17 / Qt 6 Widgets，嵌入 ONLYOFFICE 原生编辑视图。已从固定源码编译的部分：
 - Windows 原生核心、13 个格式静态库、V8、转换器、桌面核心和 Qt 包装层。
