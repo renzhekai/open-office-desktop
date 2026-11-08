@@ -59,7 +59,7 @@
 | drawingfile | 已重建并通过（`out/drawingfile/pass6`，`drawingfile-functional-pass2.json`）：46 个导出签名一致，两份自建 PDF 的渲染、文字、链接、目录、表单与外观、拆分/另存为、存储接口两版都与官方一致。边界：加载器 JS 模板取自官方生成文件（无公开源码），`drawingfile_native.js` 沿用官方 |
 
 **下一步（待用户确定方向）：**
-0. AI 助手：等用户调整好代理（Fake-IP 过滤加 `+.r2.cloudflarestorage.com`）后，用助手里的“下载 qwen3:8b”下载，再用 `scripts/verify_office_ai_session.py` 在真实编辑器里走完整的校对 / 润色 / 起草；通过后再问用户是否把办公助手候选设为默认入口、重新生成安装包。之后：没装 Ollama 的电脑上走新手流程；把命令清单接成真正的 MCP 服务。
+0. AI 助手：**用户已决定 Office 不再用 Ollama，改用内置引擎**（llama.cpp，另一个会话在做：引擎已下到 `dependencies/llama.cpp-b12202`，测试模型 `Qwen3-1.7B-Q8_0.gguf`、`Qwen3-4B-Q4_K_M.gguf` 由用户自己下载到 `dependencies/local-models/download`，再用 `python -I scripts/fetch_local_ai_dependencies.py models` 核对 SHA256）。办公助手（第 37、38 条）的任务、编辑器命令和界面与后端无关，接内置引擎时只需替换 `ollama_client.*` 和 `local_assistant.*` 里检测、下载、对话的部分；两个会话不要同时改这些文件。接好后用 `scripts/verify_office_ai_session.py` 走完整的校对 / 润色 / 起草，再问用户是否设为默认入口、重新生成安装包。之后：把命令清单接成真正的 MCP 服务。
 1. 在一台干净的 Windows 电脑（或虚拟机）上试装安装包；考虑代码签名。
 2. XLSX/PPTX/PDF 的界面流程与回归：打开、新建（目前只开放新建文字文档）、保存、另存为。
 3. 导出为其他格式（如 PDF）：编辑器自己菜单里的导出目前会被取消，见第 26 条。
@@ -150,6 +150,8 @@
 | 2026-11-08 | 好慢啊（看着全文校对等了几分钟） | 第 38 条：查明是模型放不进显卡；按显存选模型、慢模型提示、计秒、停止按钮 |
 | 2026-11-08 | 同意下载 qwen3:8b；随后要求删除另一个中文很差的模型、新模型下到 D 盘 | 删除了 granite4.1:3b；Ollama 本来就设为 `OLLAMA_MODELS=D:\models`，没改任何设置；下载因代理 Fake-IP 失败，见第 38 条 |
 | 2026-11-08 | 不要关闭 TUN，我自己稍后试试；跳过这步 | 没碰网络设置，跳过模型下载，验证改为只验证不依赖新模型的部分 |
+| 2026-11-08 | 给我下载方式，我自己下，还有用中文 | 先按 Ollama 给了下载方法（错的，见下一条）；之后的回复全部用中文 |
+| 2026-11-08 | 我不是说 office 不用 ollama 了吗 | 这条决定是在另一个会话（准备内置 llama.cpp 引擎）里说的，本会话之前不知道。撤回 Ollama 的下载方法，改给内置引擎测试模型的下载方式；“下一步”第 0 项已改 |
 
 ## 3. 目录、代码与运行入口
 
