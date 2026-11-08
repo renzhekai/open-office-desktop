@@ -36,11 +36,30 @@ QList<CommandSpec> buildCatalog()
         {QStringLiteral("document.save"), QStringLiteral("保存"),
          QStringLiteral("保存当前文档；新文档第一次保存时由用户选择位置。"), {}, CommandTarget::Host, true, false},
         {QStringLiteral("text.insert"), QStringLiteral("插入文字"),
-         QStringLiteral("在光标处插入纯文本；换行会成为新段落。可用撤销恢复。"),
-         {A{QStringLiteral("text"), ArgumentType::String, true, 10000, QStringLiteral("要插入的文字，1 到 10000 个字符。")}},
+         QStringLiteral("把文字插入文档；换行会成为新段落。format 为 markdown 时，# 标题、列表、表格、加粗会变成真正的格式。"
+                        "position 为 after 时插在光标所在段落（或选中内容）之后的新段落里，光标在空段落时就插在这里。可用撤销恢复。"),
+         {A{QStringLiteral("text"), ArgumentType::String, true, 20000, QStringLiteral("要插入的文字，1 到 20000 个字符。")},
+          A{QStringLiteral("format"), ArgumentType::Choice, false, 0,
+            QStringLiteral("plain（默认，纯文本）或 markdown（带格式）。"), {QStringLiteral("plain"), QStringLiteral("markdown")}},
+          A{QStringLiteral("position"), ArgumentType::Choice, false, 0,
+            QStringLiteral("cursor（默认，光标处）或 after（当前段落之后）。"), {QStringLiteral("cursor"), QStringLiteral("after")}}},
          CommandTarget::Editor, true, true},
         {QStringLiteral("selection.getText"), QStringLiteral("读取选中文字"),
-         QStringLiteral("返回编辑器中当前选中的文字（最多 20000 个字符）。"), {}, CommandTarget::Editor, true, false},
+         QStringLiteral("返回编辑器中当前选中的文字（最多 20000 个字符）和选中的段落数。"), {}, CommandTarget::Editor, true, false},
+        {QStringLiteral("selection.replace"), QStringLiteral("替换选中文字"),
+         QStringLiteral("用新文字替换当前选中的文字，尽量保留原来的字体和段落格式；换行会成为新段落。"
+                        "给出 expected（原来选中的文字）时，选区变了就不替换。可用撤销恢复。"),
+         {A{QStringLiteral("text"), ArgumentType::String, true, 20000, QStringLiteral("新文字，1 到 20000 个字符。")},
+          A{QStringLiteral("expected"), ArgumentType::String, false, 20000, QStringLiteral("原来选中的文字，用来确认选区没有变。")}},
+         CommandTarget::Editor, true, true},
+        {QStringLiteral("document.getText"), QStringLiteral("读取全文"),
+         QStringLiteral("返回整篇文档的文字（最多 40000 个字符）：标题前加 #，表格每行写成 | 单元格 |。不改变选区。"),
+         {}, CommandTarget::Editor, true, false},
+        {QStringLiteral("document.replaceText"), QStringLiteral("查找替换"),
+         QStringLiteral("把文档中所有与 find 完全相同（区分大小写）的文字替换为 replace，返回替换的处数。可用撤销恢复。"),
+         {A{QStringLiteral("find"), ArgumentType::String, true, 200, QStringLiteral("要查找的文字，1 到 200 个字符。")},
+          A{QStringLiteral("replace"), ArgumentType::String, true, 200, QStringLiteral("替换成的文字，1 到 200 个字符。")}},
+         CommandTarget::Editor, true, true},
         {QStringLiteral("edit.undo"), QStringLiteral("撤销"),
          QStringLiteral("撤销编辑器中的上一步操作。"), {}, CommandTarget::Editor, true, true},
         {QStringLiteral("edit.redo"), QStringLiteral("重做"),
@@ -68,6 +87,8 @@ const QHash<QString, SlashAlias>& slashAliases()
         {QStringLiteral("插入"), {QStringLiteral("text.insert"), true}},
         {QStringLiteral("insert"), {QStringLiteral("text.insert"), true}},
         {QStringLiteral("选中"), {QStringLiteral("selection.getText"), false}},
+        {QStringLiteral("全文"), {QStringLiteral("document.getText"), false}},
+        {QStringLiteral("read"), {QStringLiteral("document.getText"), false}},
         {QStringLiteral("selection"), {QStringLiteral("selection.getText"), false}},
         {QStringLiteral("撤销"), {QStringLiteral("edit.undo"), false}},
         {QStringLiteral("undo"), {QStringLiteral("edit.undo"), false}},
@@ -138,6 +159,8 @@ CommandOutcome validateCommand(const AssistantCommand& command)
             return failure("argument_too_long", QStringLiteral("参数 %1 超过 %2 个字符。").arg(argument.name).arg(argument.maxLength));
         if (argument.type == ArgumentType::DocumentKind && !documentKinds().contains(text))
             return failure("invalid_argument", QStringLiteral("文档类型只能是 text、spreadsheet 或 presentation。"));
+        if (argument.type == ArgumentType::Choice && !argument.choices.contains(text))
+            return failure("invalid_argument", QStringLiteral("参数 %1 只能是 %2。").arg(argument.name, argument.choices.join(QStringLiteral("、"))));
     }
     return {true, QStringLiteral("valid"), QString(), {}};
 }
@@ -153,6 +176,8 @@ QJsonArray commandCatalogJson()
                                  {QStringLiteral("description"), argument.description}};
             if (argument.type == ArgumentType::DocumentKind)
                 property.insert(QStringLiteral("enum"), QJsonArray::fromStringList(documentKinds()));
+            if (argument.type == ArgumentType::Choice)
+                property.insert(QStringLiteral("enum"), QJsonArray::fromStringList(argument.choices));
             if (argument.maxLength > 0) property.insert(QStringLiteral("maxLength"), argument.maxLength);
             if (argument.required) {
                 property.insert(QStringLiteral("minLength"), 1);

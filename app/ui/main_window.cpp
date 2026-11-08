@@ -1,12 +1,14 @@
 #include "main_window.h"
 
 #include "assistant/local_assistant.h"
+#include "assistant/markdown_html.h"
 #include "engine/office_engine.h"
 #include "ui/assistant_art.h"
 #include "ui/assistant_ball.h"
 
 #include <QAction>
 #include <QApplication>
+#include <QClipboard>
 #include <QCloseEvent>
 #include <QDateTime>
 #include <QDesktopServices>
@@ -505,7 +507,8 @@ void MainWindow::buildInterface()
     // A floating window owned by this one, so it stays above the embedded editor.
     m_assistantBall = new AssistantBall(this);
     m_assistantBall->setArea(m_editorPage); // it belongs to the document page
-    connect(m_assistantBall, &AssistantBall::commandSubmitted, this, &MainWindow::runAssistantCommand);
+    connect(m_assistantBall, &AssistantBall::commandSubmitted, this,
+            [this](const AssistantCommand& command) { runAssistantCommand(command); });
     connect(m_workspace, &QStackedWidget::currentChanged, this, [this] { updateAssistantVisibility(); });
 
     // The local AI is detected lazily: only when the person opens the ball.
@@ -521,7 +524,21 @@ void MainWindow::buildInterface()
     });
     connect(m_assistantBall, &AssistantBall::opened, this, [this] {
         if (m_localAi->state() == LocalAiState::Unknown) m_localAi->refresh();
+        else m_localAi->warmUp(); // the first answer should not wait for the model to load
+        refreshQuickActions();
     });
+    connect(m_assistantBall, &AssistantBall::quickActionTriggered, this, &MainWindow::runQuickAction);
+    connect(m_assistantBall, &AssistantBall::draftSubmitted, this, [this](const QString& id, const QString& text) {
+        const TaskSpec* spec = findTask(id);
+        if (!spec) return;
+        whenLocalAiReady([this, spec, text] { startTask(*spec, {QString(), text, currentDocumentName()}); });
+    });
+    connect(m_assistantBall, &AssistantBall::correctionRequested, this, [this](int index) {
+        applyCorrection(index, [this, index](bool ok) { m_assistantBall->markCorrection(index, ok); });
+    });
+    connect(m_assistantBall, &AssistantBall::allCorrectionsRequested, this, [this] { applyRemainingCorrections(0); });
+    connect(m_assistantBall, &AssistantBall::stopRequested, this, [this] { m_localAi->cancel(); });
+    showQuickActionsFor(QString());
     connect(m_localAi, &LocalAssistant::stateChanged, this, [this] {
         const LocalAiState state = m_localAi->state();
         m_assistantBall->setStatus(m_localAi->statusText(), state == LocalAiState::Ready || state == LocalAiState::Thinking);
@@ -533,24 +550,48 @@ void MainWindow::buildInterface()
             m_assistantBall->endReply(m_localAi->downloadStatus(), state == LocalAiState::Ready);
             m_cardOnNextState = true;
         }
-        if (!m_pendingQuestion.isEmpty()) {
-            const QString question = m_pendingQuestion;
-            m_pendingQuestion.clear();
-            if (m_localAi->ask(question, documentContext())) return;
-            m_cardOnNextState = true;
+        if (m_whenReady) {
+            const std::function<void()> action = std::move(m_whenReady);
+            m_whenReady = {};
+            if (state == LocalAiState::Ready) {
+                action();
+                return;
+            }
+            m_cardOnNextState = true; // explain what is missing instead
+        }
+        if (state == LocalAiState::Ready && m_assistantBall->expanded()) {
+            m_localAi->warmUp();
+            refreshQuickActions();
         }
         if (m_cardOnNextState) {
             m_cardOnNextState = false;
             showLocalAiCard();
         }
     });
-    connect(m_localAi, &LocalAssistant::replyStarted, this, [this] { m_assistantBall->beginReply(QStringLiteral("本地 AI")); });
+    connect(m_localAi, &LocalAssistant::replyStarted, this, [this] {
+        m_assistantBall->setWaitHint(waitHint());
+        m_assistantBall->beginReply(QStringLiteral("本地 AI"), true);
+    });
     connect(m_localAi, &LocalAssistant::replyDelta, m_assistantBall, &AssistantBall::appendReply);
     connect(m_localAi, &LocalAssistant::replyFinished, this, [this](const QString& text, bool ok) {
         m_assistantBall->endReply(text, ok);
         updateAssistantWorking();
+        adviseIfSlow();
     });
     connect(m_localAi, &LocalAssistant::commandProposed, this, &MainWindow::handleProposedCommand);
+    connect(m_localAi, &LocalAssistant::taskStarted, this, [this](const QString& id) {
+        const TaskSpec* spec = findTask(id);
+        m_assistantBall->setWaitHint(waitHint());
+        m_assistantBall->beginReply(spec ? spec->title : QStringLiteral("本地 AI"),
+                                    spec && spec->output == TaskOutput::Markdown);
+        updateAssistantWorking();
+    });
+    connect(m_localAi, &LocalAssistant::taskDelta, this, [this](const QString& text) {
+        const TaskSpec* spec = findTask(m_localAi->runningTask());
+        if (spec && spec->output == TaskOutput::Corrections) return; // raw JSON is not for reading
+        m_assistantBall->appendReply(text);
+    });
+    connect(m_localAi, &LocalAssistant::taskFinished, this, &MainWindow::finishTask);
     connect(m_localAi, &LocalAssistant::downloadProgress, this, [this](const QString& text) {
         if (!m_downloadShown) {
             m_downloadShown = true;
@@ -763,8 +804,26 @@ bool MainWindow::prepareReplacement(const std::function<void()>& retry, bool& di
 
 void MainWindow::runAssistantCommand(const AssistantCommand& command)
 {
-    const auto finishNow = [this, &command](const CommandOutcome& outcome) { finishAssistantCommand(command, outcome); };
+    runAssistantCommand(command, {}, false);
+}
+
+void MainWindow::readForAssistant(const QString& name, CommandDone done)
+{
+    runAssistantCommand({name, {}, CommandSource::Assistant}, std::move(done), true);
+}
+
+void MainWindow::runAssistantCommand(const AssistantCommand& command, CommandDone done, bool quiet)
+{
+    const auto finishNow = [this, &command, &done, quiet](const CommandOutcome& outcome) {
+        finishAssistantCommand(command, outcome, done, quiet);
+    };
     if (m_assistantEditorRequest || m_assistantHostRequest) {
+        // Reads made for the AI take a moment; they and whatever meets them
+        // wait their turn. Two of the person's own commands still never overlap.
+        if (quiet || (m_assistantEditorRequest && m_assistantQuiet)) {
+            m_assistantQueue.append([this, command, done, quiet] { runAssistantCommand(command, done, quiet); });
+            return;
+        }
         finishNow({false, QStringLiteral("assistant_busy"), QStringLiteral("上一条命令还在执行。"), {}});
         return;
     }
@@ -787,8 +846,13 @@ void MainWindow::runAssistantCommand(const AssistantCommand& command)
             finishNow({false, QStringLiteral("unsupported_command"), QStringLiteral("当前编辑引擎不支持这个命令。"), {}});
             return;
         }
+        QJsonObject engineArguments = command.arguments;
+        // Markdown becomes real formatting: the editor pastes the converted HTML.
+        if (command.name == QStringLiteral("text.insert")
+            && command.arguments.value(QStringLiteral("format")).toString() == QStringLiteral("markdown"))
+            engineArguments.insert(QStringLiteral("html"), markdownToHtml(command.arguments.value(QStringLiteral("text")).toString()));
         const quint64 requestId = ++m_nextRequestId;
-        const EngineResult accepted = m_engine->requestEditorCommand(requestId, command.name, command.arguments);
+        const EngineResult accepted = m_engine->requestEditorCommand(requestId, command.name, engineArguments);
         if (!accepted.ok) {
             finishNow({false, accepted.code, accepted.message, {}});
             return;
@@ -796,6 +860,8 @@ void MainWindow::runAssistantCommand(const AssistantCommand& command)
         // Accepted is not done: the panel waits for the editor's own report.
         m_assistantEditorRequest = requestId;
         m_assistantCommand = command;
+        m_assistantDone = std::move(done);
+        m_assistantQuiet = quiet;
         m_assistantBall->setWorking(true);
         return;
     }
@@ -857,10 +923,15 @@ void MainWindow::handleEditorCommandFinished(quint64 requestId, const EngineResu
 {
     if (!m_assistantEditorRequest || requestId != m_assistantEditorRequest) return;
     m_assistantEditorRequest = 0;
-    finishAssistantCommand(m_assistantCommand, {result.ok, result.code, result.message, value});
+    const CommandDone done = std::move(m_assistantDone);
+    m_assistantDone = {};
+    const bool quiet = m_assistantQuiet;
+    m_assistantQuiet = false;
+    finishAssistantCommand(m_assistantCommand, {result.ok, result.code, result.message, value}, done, quiet);
 }
 
-void MainWindow::finishAssistantCommand(const AssistantCommand& command, const CommandOutcome& outcome)
+void MainWindow::finishAssistantCommand(const AssistantCommand& command, const CommandOutcome& outcome,
+                                        const CommandDone& done, bool quiet)
 {
     // A refused overlapping command must not end the one still running.
     updateAssistantWorking();
@@ -877,15 +948,48 @@ void MainWindow::finishAssistantCommand(const AssistantCommand& command, const C
             journal.write(QJsonDocument(entry).toJson(QJsonDocument::Compact) + '\n');
         }
     }
-    m_assistantBall->showOutcome(command, outcome);
+    if (!quiet) m_assistantBall->showOutcome(command, outcome);
+    if (done) done(outcome);
     // A command the local AI asked for: its outcome goes back to the model.
-    if (command.source == CommandSource::Assistant) m_localAi->commandFinished(command, outcome);
+    else if (command.source == CommandSource::Assistant) m_localAi->commandFinished(command, outcome);
+    if (!m_assistantQueue.isEmpty() && !m_assistantEditorRequest && !m_assistantHostRequest)
+        QTimer::singleShot(0, this, m_assistantQueue.takeFirst());
+}
+
+QString MainWindow::waitHint() const
+{
+    if (m_localAi->slowModel())
+        return m_localAi->model() + QStringLiteral(" 在这台电脑上比较慢。等不及可以点右下角的 ■ 停止；"
+                                                   "点“本地 AI”可以看看怎么换成更快的模型。");
+    return QStringLiteral("第一次使用要先把模型读进内存，可能要等十几秒到一分钟。等不及可以点 ■ 停止。");
+}
+
+void MainWindow::adviseIfSlow()
+{
+    // Once per session, after an answer: say plainly why it was slow and what helps.
+    if (m_speedAdviceShown || !m_localAi->slowModel()) return;
+    const QString advice = m_localAi->speedAdvice();
+    if (advice.isEmpty()) return;
+    m_speedAdviceShown = true;
+    QList<AssistantBall::CardAction> actions;
+    if (!m_localAi->recommendationInstalled() && m_localAi->recommendation().name != m_localAi->model()) {
+        const ModelRecommendation better = m_localAi->recommendation();
+        actions.append({QStringLiteral("下载 ") + better.name, [this] { m_localAi->downloadRecommended(); }});
+    } else if (m_localAi->recommendationInstalled()) {
+        const QString better = m_localAi->recommendation().name;
+        actions.append({QStringLiteral("改用 ") + better, [this, better] {
+            m_localAi->setModel(better);
+            showLocalAiCard();
+        }});
+    }
+    m_assistantBall->showCard(QStringLiteral("回答有点慢？"), advice, actions, false);
 }
 
 void MainWindow::updateAssistantWorking()
 {
-    m_assistantBall->setWorking(m_assistantEditorRequest || m_assistantHostRequest
-                                || (m_localAi && m_localAi->state() == LocalAiState::Thinking));
+    const bool thinking = m_localAi && m_localAi->state() == LocalAiState::Thinking;
+    m_assistantBall->setWorking(m_assistantEditorRequest || m_assistantHostRequest || thinking);
+    m_assistantBall->setStoppable(thinking);
 }
 
 QString MainWindow::documentContext() const
@@ -898,24 +1002,267 @@ QString MainWindow::documentContext() const
         + (modified ? QStringLiteral("，有未保存的修改）") : QStringLiteral("）"));
 }
 
-void MainWindow::askLocalAi(const QString& text)
+QString MainWindow::currentDocumentName() const
 {
-    if (m_localAi->ask(text, documentContext())) {
-        updateAssistantWorking();
-        return;
+    if (!m_documentOpened) return {};
+    return !m_openedPath.isEmpty() ? QFileInfo(m_openedPath).fileName()
+        : !m_untitledTitle.isEmpty() ? m_untitledTitle : QStringLiteral("未命名.") + extensionFor(m_openedKind);
+}
+
+QString MainWindow::assistantContext(const QString& documentText, const QString& selection) const
+{
+    constexpr int kDocumentLimit = 8000;
+    QString context = QStringLiteral("当前文档：") + documentContext();
+    if (!documentText.trimmed().isEmpty()) {
+        context += QStringLiteral("\n文档内容（共 ") + QString::number(documentText.size()) + QStringLiteral(" 字")
+            + (documentText.size() > kDocumentLimit ? QStringLiteral("，这里只给出前 8000 字") : QString())
+            + QStringLiteral("）：\n<<<\n") + documentText.left(kDocumentLimit) + QStringLiteral("\n>>>");
+    } else if (m_documentOpened) {
+        context += QStringLiteral("\n文档目前是空的。");
     }
+    context += selection.trimmed().isEmpty()
+        ? QStringLiteral("\n用户没有选中文字。")
+        : QStringLiteral("\n用户选中的文字：\n<<<\n") + selection.left(4000) + QStringLiteral("\n>>>");
+    return context;
+}
+
+void MainWindow::whenLocalAiReady(std::function<void()> action)
+{
     switch (m_localAi->state()) {
+    case LocalAiState::Ready:
+        action();
+        return;
     case LocalAiState::Unknown:
     case LocalAiState::Checking:
-        m_pendingQuestion = text; // answered as soon as detection finishes
+        m_whenReady = std::move(action); // done as soon as detection finishes
         if (m_localAi->state() == LocalAiState::Unknown) m_localAi->refresh();
         return;
     case LocalAiState::Thinking:
-        m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("本地 AI 还在回答上一个问题。"), {}, false);
+        m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("本地 AI 还在处理上一个请求。"), {}, false);
         return;
     default:
         showLocalAiCard();
     }
+}
+
+void MainWindow::askLocalAi(const QString& text)
+{
+    whenLocalAiReady([this, text] {
+        // The model answers about the real document: its text and the selection go along.
+        const auto ask = [this, text](const QString& documentText, const QString& selection) {
+            if (!m_localAi->ask(text, assistantContext(documentText, selection))) showLocalAiCard();
+            updateAssistantWorking();
+        };
+        if (!m_documentOpened) {
+            ask(QString(), QString());
+            return;
+        }
+        readForAssistant(QStringLiteral("document.getText"), [this, ask](const CommandOutcome& document) {
+            const QString documentText = document.ok ? document.value.value(QStringLiteral("text")).toString() : QString();
+            readForAssistant(QStringLiteral("selection.getText"), [ask, documentText](const CommandOutcome& selection) {
+                ask(documentText, selection.ok ? selection.value.value(QStringLiteral("text")).toString() : QString());
+            });
+        });
+    });
+}
+
+void MainWindow::refreshQuickActions()
+{
+    // Without a ready local AI the actions only lead to its setup; no need to read.
+    if (!m_documentOpened || m_localAi->state() != LocalAiState::Ready
+        || m_assistantEditorRequest || m_assistantHostRequest) {
+        showQuickActionsFor(QString());
+        return;
+    }
+    readForAssistant(QStringLiteral("selection.getText"), [this](const CommandOutcome& outcome) {
+        showQuickActionsFor(outcome.ok ? outcome.value.value(QStringLiteral("text")).toString() : QString());
+    });
+}
+
+void MainWindow::showQuickActionsFor(const QString& selection)
+{
+    QList<AssistantBall::QuickAction> actions;
+    QString context;
+    const QString trimmed = selection.trimmed();
+    if (!trimmed.isEmpty()) {
+        const QString flat = trimmed.simplified();
+        context = QStringLiteral("已选中 ") + QString::number(trimmed.size()) + QStringLiteral(" 字：")
+            + (flat.size() > 36 ? flat.left(36) + QStringLiteral("…") : flat);
+        for (const TaskSpec* spec : tasksFor(TaskScope::Selection)) actions.append({spec->id, spec->title});
+    } else {
+        context = QStringLiteral("处理整篇文档，或起草新内容（选中文字后还能润色、纠错、翻译）");
+        actions.append({QStringLiteral("draft"), QStringLiteral("起草…")});
+        for (const TaskSpec* spec : tasksFor(TaskScope::Document)) actions.append({spec->id, spec->title});
+        actions.append({QStringLiteral("setup"), QStringLiteral("本地 AI")});
+    }
+    m_assistantBall->setQuickActions(context, actions);
+}
+
+void MainWindow::runQuickAction(const QString& id)
+{
+    if (id == QStringLiteral("setup")) {
+        if (m_localAi->state() == LocalAiState::Unknown) {
+            m_cardOnNextState = true;
+            m_localAi->refresh();
+        } else {
+            showLocalAiCard();
+        }
+        return;
+    }
+    if (id == QStringLiteral("draft")) {
+        QList<AssistantBall::QuickAction> actions;
+        for (const TaskSpec* spec : tasksFor(TaskScope::Writing)) actions.append({spec->id, spec->title});
+        actions.append({QStringLiteral("back"), QStringLiteral("‹ 返回")});
+        m_assistantBall->setQuickActions(QStringLiteral("起草什么？选一种，再写几句要点"), actions);
+        return;
+    }
+    if (id == QStringLiteral("back")) {
+        m_assistantBall->setDraftMode(QString(), QString(), QString());
+        refreshQuickActions();
+        return;
+    }
+    const TaskSpec* spec = findTask(id);
+    if (!spec) return;
+    if (spec->scope == TaskScope::Writing) {
+        m_assistantBall->setDraftMode(spec->id, spec->title, spec->placeholder);
+        return;
+    }
+    whenLocalAiReady([this, spec] {
+        if (spec->scope == TaskScope::Selection) {
+            // Read the selection now: it may have changed since the bar was set.
+            readForAssistant(QStringLiteral("selection.getText"), [this, spec](const CommandOutcome& outcome) {
+                const QString text = outcome.ok ? outcome.value.value(QStringLiteral("text")).toString() : QString();
+                if (text.trimmed().isEmpty()) {
+                    m_assistantBall->showCard(spec->title,
+                        QStringLiteral("请先在文档里选中要处理的文字，再点“") + spec->title + QStringLiteral("”。"), {}, false);
+                    showQuickActionsFor(QString());
+                    return;
+                }
+                m_assistantBall->addRequest(spec->title + QStringLiteral("选中的文字（") + QString::number(text.trimmed().size())
+                                            + QStringLiteral(" 字）"));
+                startTask(*spec, {text, QString(), currentDocumentName()});
+            });
+            return;
+        }
+        readForAssistant(QStringLiteral("document.getText"), [this, spec](const CommandOutcome& outcome) {
+            const QString text = outcome.ok ? outcome.value.value(QStringLiteral("text")).toString() : QString();
+            if (!outcome.ok || text.trimmed().isEmpty()) {
+                m_assistantBall->showCard(spec->title, outcome.ok ? QStringLiteral("文档还是空的，先写点内容吧。") : outcome.message,
+                                          {}, false);
+                return;
+            }
+            m_assistantBall->addRequest(spec->title);
+            startTask(*spec, {text, QString(), currentDocumentName()});
+        });
+    });
+}
+
+void MainWindow::startTask(const TaskSpec& spec, const TaskInput& input)
+{
+    m_lastTaskId = spec.id;
+    m_lastTaskInput = input;
+    if (!m_localAi->runTask(spec, input)) showLocalAiCard();
+    updateAssistantWorking();
+}
+
+void MainWindow::finishTask(const QString& id, const QString& text, bool ok, const QString& error)
+{
+    updateAssistantWorking();
+    QTimer::singleShot(0, this, [this] { adviseIfSlow(); }); // after the result, never before it
+    const TaskSpec* spec = findTask(id);
+    if (!spec) return;
+    using Action = AssistantBall::ReplyAction;
+    const auto retry = [this, spec] {
+        m_assistantBall->addRequest(QStringLiteral("再来一次"));
+        whenLocalAiReady([this, spec] { startTask(*spec, m_lastTaskInput); });
+    };
+    if (!ok) {
+        m_assistantBall->endReply(error, false, {Action{QStringLiteral("重试"), retry}});
+        return;
+    }
+    if (spec->output == TaskOutput::Rewrite) {
+        const QString result = cleanRewrite(text);
+        if (result.isEmpty()) {
+            m_assistantBall->endReply(QStringLiteral("模型没有给出结果。"), false, {Action{QStringLiteral("重试"), retry}});
+            return;
+        }
+        const QString original = m_lastTaskInput.text;
+        m_assistantBall->endReply(result, true, {
+            Action{QStringLiteral("替换原文"), [this, result, original] {
+                runAssistantCommand({QStringLiteral("selection.replace"),
+                                     {{QStringLiteral("text"), result}, {QStringLiteral("expected"), original}},
+                                     CommandSource::Assistant}, {}, false);
+            }},
+            Action{QStringLiteral("插到后面"), [this, result] {
+                runAssistantCommand({QStringLiteral("text.insert"),
+                                     {{QStringLiteral("text"), result}, {QStringLiteral("position"), QStringLiteral("after")}},
+                                     CommandSource::Assistant}, {}, false);
+            }},
+            Action{QStringLiteral("复制"), [result] { QGuiApplication::clipboard()->setText(result); }, false},
+            Action{QStringLiteral("重写"), retry}});
+        return;
+    }
+    if (spec->output == TaskOutput::Markdown) {
+        const QString result = stripThinking(text).trimmed();
+        if (result.isEmpty()) {
+            m_assistantBall->endReply(QStringLiteral("模型没有给出结果。"), false, {Action{QStringLiteral("重试"), retry}});
+            return;
+        }
+        QList<Action> actions{
+            Action{QStringLiteral("插入文档"), [this, result] {
+                runAssistantCommand({QStringLiteral("text.insert"),
+                                     {{QStringLiteral("text"), result.left(20000)}, {QStringLiteral("format"), QStringLiteral("markdown")},
+                                      {QStringLiteral("position"), QStringLiteral("after")}},
+                                     CommandSource::Assistant}, {}, false);
+            }},
+            Action{QStringLiteral("复制"), [result] { QGuiApplication::clipboard()->setText(result); }, false}};
+        if (spec->scope == TaskScope::Writing) actions.append(Action{QStringLiteral("重写"), retry});
+        m_assistantBall->endReply(result, true, actions);
+        return;
+    }
+    // Corrections: only fixes that can really be found in the document are offered.
+    m_assistantBall->endReply(QString(), true); // the "thinking" bubble gives way to the list
+    m_corrections = parseCorrections(text, m_lastTaskInput.text);
+    m_correctionState = QList<int>(m_corrections.size(), 0);
+    if (m_corrections.isEmpty()) {
+        m_assistantBall->showCard(spec->title, QStringLiteral("没有发现明显的错别字、标点错误或语病。"), {}, true);
+        return;
+    }
+    QList<AssistantBall::CorrectionItem> items;
+    for (const Correction& correction : m_corrections)
+        items.append({correction.original, correction.corrected, correction.reason});
+    m_assistantBall->showCorrections(spec->title, items);
+}
+
+void MainWindow::applyCorrection(int index, std::function<void(bool)> done)
+{
+    if (index < 0 || index >= m_corrections.size()) return;
+    if (m_correctionState[index] == 1) {
+        done(true);
+        return;
+    }
+    const Correction correction = m_corrections[index];
+    runAssistantCommand({QStringLiteral("document.replaceText"),
+                         {{QStringLiteral("find"), correction.original}, {QStringLiteral("replace"), correction.corrected}},
+                         CommandSource::Assistant},
+                        [this, index, done](const CommandOutcome& outcome) {
+                            if (index < m_correctionState.size()) m_correctionState[index] = outcome.ok ? 1 : 2;
+                            done(outcome.ok);
+                        }, true);
+}
+
+void MainWindow::applyRemainingCorrections(int fixed)
+{
+    for (int i = 0; i < m_corrections.size(); ++i) {
+        if (m_correctionState[i] != 0) continue;
+        applyCorrection(i, [this, i, fixed](bool ok) {
+            m_assistantBall->markCorrection(i, ok);
+            applyRemainingCorrections(fixed + (ok ? 1 : 0));
+        });
+        return;
+    }
+    m_assistantBall->showCard(QStringLiteral("全文校对"),
+        QStringLiteral("已改正 ") + QString::number(fixed) + QStringLiteral(" 处。改得不对的地方可以用撤销恢复。"), {}, true);
 }
 
 void MainWindow::showLocalAiCard()
@@ -950,10 +1297,14 @@ void MainWindow::showLocalAiCard()
     case LocalAiState::NoModel: {
         const ModelRecommendation model = m_localAi->recommendation();
         const QString memory = QString::number(m_localAi->memory() / double(1LL << 30), 'f', 0);
+        const QString hardware = m_localAi->videoMemory() > 0
+            ? QStringLiteral("显卡（%1 GB 显存）和内存（%2 GB）")
+                  .arg(QString::number(m_localAi->videoMemory() / double(1LL << 30), 'f', 0), memory)
+            : QStringLiteral("内存（%1 GB，没有可用的独立显卡）").arg(memory);
         m_assistantBall->showCard(QStringLiteral("下载一个本地模型"),
-            QStringLiteral("还需要一个本地模型，只需下载一次，之后不联网也能用。按这台电脑的内存（%1 GB），推荐 %2，"
+            QStringLiteral("还需要一个本地模型，只需下载一次，之后不联网也能用。按这台电脑的%1，推荐 %2，"
                            "大约 %3 GB，来自 Ollama 官方模型库。")
-                .arg(memory, model.name, QString::number(model.approximateGigabytes, 'f', 1)),
+                .arg(hardware, model.name, QString::number(model.approximateGigabytes, 'f', 1)),
             {Action{QStringLiteral("下载 ") + model.name, [this] { m_localAi->downloadRecommended(); }}, recheck}, false);
         return;
     }
@@ -974,7 +1325,14 @@ void MainWindow::showLocalAiCard()
             }
         }
         if (!actions.isEmpty()) text += QStringLiteral("\n也可以改用本机已有的其他模型：");
-        m_assistantBall->showCard(QStringLiteral("本地 AI 已就绪"), text, actions, true);
+        const QString advice = m_localAi->speedAdvice();
+        if (!advice.isEmpty()) {
+            text += QLatin1Char('\n') + advice;
+            const ModelRecommendation better = m_localAi->recommendation();
+            if (!m_localAi->recommendationInstalled() && better.name != m_localAi->model())
+                actions.prepend(Action{QStringLiteral("下载 ") + better.name, [this] { m_localAi->downloadRecommended(); }});
+        }
+        m_assistantBall->showCard(QStringLiteral("本地 AI 已就绪"), text, actions, advice.isEmpty());
         return;
     }
     case LocalAiState::Downloading:
@@ -1002,9 +1360,16 @@ void MainWindow::handleProposedCommand(const AssistantCommand& command)
         return;
     }
     QString preview;
+    const QString text = command.arguments.value(QStringLiteral("text")).toString();
+    const QString shown = text.size() > 300 ? text.left(300) + QStringLiteral("…") : text;
     if (command.name == QStringLiteral("text.insert")) {
-        const QString text = command.arguments.value(QStringLiteral("text")).toString();
-        preview = QStringLiteral("在光标处插入：\n") + (text.size() > 300 ? text.left(300) + QStringLiteral("…") : text);
+        preview = (command.arguments.value(QStringLiteral("position")).toString() == QStringLiteral("after")
+                       ? QStringLiteral("在当前段落后面插入：\n") : QStringLiteral("在光标处插入：\n")) + shown;
+    } else if (command.name == QStringLiteral("selection.replace")) {
+        preview = QStringLiteral("把选中的文字改为：\n") + shown;
+    } else if (command.name == QStringLiteral("document.replaceText")) {
+        preview = QStringLiteral("把文档中所有“") + command.arguments.value(QStringLiteral("find")).toString()
+            + QStringLiteral("”改为“") + command.arguments.value(QStringLiteral("replace")).toString() + QStringLiteral("”。");
     } else {
         preview = spec->description;
     }

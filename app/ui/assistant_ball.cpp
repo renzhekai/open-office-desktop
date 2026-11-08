@@ -2,6 +2,8 @@
 
 #include "assistant_art.h"
 
+#include "assistant/markdown_html.h"
+
 #include <QAbstractButton>
 #include <QApplication>
 #include <QClipboard>
@@ -33,8 +35,9 @@ namespace {
 
 constexpr int kBall = 58;     // visible ball diameter
 constexpr int kBox = 116;     // window square around the ball: aura, ring, hover growth
-constexpr int kWidth = 440;   // expanded window
-constexpr int kHeight = 420;
+constexpr int kWidth = 500;   // expanded window
+constexpr int kHeight = 580;
+constexpr int kTextWidth = 330; // widest reply text in a bubble
 constexpr int kCapsuleHeight = 46;
 
 // Apple-inspired system colours (light / dark), chosen by this project.
@@ -90,6 +93,7 @@ QString slashExample(const QString& name)
         {QStringLiteral("document.save"), QStringLiteral("/保存")},
         {QStringLiteral("text.insert"), QStringLiteral("/插入 文字")},
         {QStringLiteral("selection.getText"), QStringLiteral("/选中")},
+        {QStringLiteral("document.getText"), QStringLiteral("/全文")},
         {QStringLiteral("edit.undo"), QStringLiteral("/撤销")},
         {QStringLiteral("edit.redo"), QStringLiteral("/重做")},
     };
@@ -111,7 +115,7 @@ public:
     Bubble(bool fromUser, const bool* dark, QWidget* parent)
         : QFrame(parent), m_user(fromUser), m_dark(dark)
     {
-        setMaximumWidth(300);
+        setMaximumWidth(kTextWidth + 30);
         setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
     }
 
@@ -228,6 +232,14 @@ public:
         m_colors = colors;
         update();
     }
+    void setStopMode(bool stop)
+    {
+        if (m_stop == stop) return;
+        m_stop = stop;
+        setAccessibleName(stop ? QStringLiteral("停止") : QStringLiteral("发送"));
+        setToolTip(stop ? QStringLiteral("停止本地 AI") : QStringLiteral("发送（Enter）"));
+        update();
+    }
 
 protected:
     void paintEvent(QPaintEvent*) override
@@ -248,6 +260,11 @@ protected:
             painter.setBrush(m_colors.disabled);
         }
         painter.drawEllipse(QRectF(rect()).adjusted(1, 1, -1, -1));
+        if (m_stop) {
+            painter.setBrush(Qt::white);
+            painter.drawPath(art::continuousRoundedRect(QRectF(c.x() - 5.5, c.y() - 5.5, 11, 11), 2.5));
+            return;
+        }
         painter.setPen(QPen(Qt::white, 2.2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
         painter.drawLine(QPointF(c.x(), c.y() + 6.5), QPointF(c.x(), c.y() - 6));
         painter.drawPolyline(QPolygonF{{c.x() - 5, c.y() - 1}, {c.x(), c.y() - 6}, {c.x() + 5, c.y() - 1}});
@@ -266,6 +283,7 @@ private:
     }
 
     Colors m_colors = colorsFor(false);
+    bool m_stop = false;
     qreal m_scale = 1.0;
     QVariantAnimation* m_press = nullptr;
 };
@@ -308,50 +326,37 @@ AssistantBall::AssistantBall(QWidget* anchor)
     welcome->addWidget(label(QStringLiteral("有什么可以帮你？"), "assistantHeadline", m_welcome));
     m_caption = label(QStringLiteral("正在检测本机的本地 AI…\n以 / 开头的指令随时可用。"), "assistantCaption", m_welcome);
     welcome->addWidget(m_caption);
-    auto* chips = new QGridLayout;
-    chips->setHorizontalSpacing(8);
-    chips->setVerticalSpacing(8);
-    const struct { const char* title; const char* text; bool run; } presets[] = {
-        {"插入文字", "/插入 ", false}, {"读取选中", "/选中", true}, {"文档状态", "/状态", true},
-        {"撤销", "/撤销", true}, {"本地 AI", "", true}, {"全部命令", "/命令", true},
-    };
-    int index = 0;
-    for (const auto& preset : presets) {
-        auto* chip = new QPushButton(QString::fromUtf8(preset.title), m_welcome);
-        chip->setObjectName(QStringLiteral("assistantChip"));
-        chip->setCursor(Qt::PointingHandCursor);
-        const QString text = QString::fromUtf8(preset.text);
-        const bool run = preset.run;
-        connect(chip, &QPushButton::clicked, this, [this, text, run] {
-            if (text.isEmpty()) {
-                emit setupRequested(); // the local AI card: status, model, setup steps
-                return;
-            }
-            if (run) {
-                submitText(text);
-                return;
-            }
-            m_input->setText(text);
-            m_input->setFocus();
-            claimKeyboardFocus(m_input);
-        });
-        chips->addWidget(chip, index / 3, index % 3);
-        ++index;
-    }
-    welcome->addLayout(chips);
     m_messages->addWidget(m_welcome);
     m_scroll->setWidget(list);
+
+    // Quick actions next to the capsule: what they act on, then the chips.
+    m_actionBar = new QWidget(m_content);
+    m_actionBar->setObjectName(QStringLiteral("assistantActionBar"));
+    auto* bar = new QVBoxLayout(m_actionBar);
+    bar->setContentsMargins(6, 2, 6, 2);
+    bar->setSpacing(6);
+    m_actionContext = label(QString(), "assistantContext", m_actionBar);
+    m_actionContext->setWordWrap(false);
+    bar->addWidget(m_actionContext);
+    m_actionRows = new QVBoxLayout;
+    m_actionRows->setSpacing(6);
+    bar->addLayout(m_actionRows);
 
     m_input = new QLineEdit(m_content);
     m_input->setObjectName(QStringLiteral("assistantInput"));
     m_input->setAccessibleName(QStringLiteral("助手输入框"));
-    m_input->setPlaceholderText(QStringLiteral("输入指令，如 /插入 你好"));
+    m_idlePlaceholder = QStringLiteral("输入指令，如 /插入 你好");
+    m_input->setPlaceholderText(m_idlePlaceholder);
     m_input->setFrame(false);
-    m_input->setMaxLength(10000 + 8); // the insert limit plus the command word
+    m_input->setMaxLength(20000 + 8); // the insert limit plus the command word
     connect(m_input, &QLineEdit::returnPressed, this, &AssistantBall::submit);
     connect(m_input, &QLineEdit::textChanged, this, &AssistantBall::updateSendState);
     m_send = new SendButton(m_content);
     connect(m_send, &QAbstractButton::clicked, this, &AssistantBall::submit);
+
+    m_waitTimer = new QTimer(this);
+    m_waitTimer->setInterval(1000);
+    connect(m_waitTimer, &QTimer::timeout, this, &AssistantBall::updateWaitText);
 
     m_timer = new QTimer(this);
     m_timer->setInterval(33);
@@ -427,13 +432,15 @@ QRectF AssistantBall::capsuleRect() const
 QRectF AssistantBall::historyRect() const
 {
     if (!m_expanded || !m_scroll->isVisible() || !m_scroll->widget()) return {};
-    // Hug the conversation: as tall as its content (up to the scroll area),
-    // growing away from the capsule.
+    // One card for the quick actions and the conversation: as tall as the
+    // conversation's content (up to the scroll area), growing away from the capsule.
     const QRect scroll = m_scroll->geometry().translated(m_content->pos());
+    const QRect bar = m_actionBar->geometry().translated(m_content->pos());
     const int content = m_scroll->widget()->layout()->sizeHint().height();
-    const int height = qMin(scroll.height(), content) + 16;
-    const qreal top = m_openUp ? scroll.bottom() + 9 - height : scroll.top() - 8;
-    return QRectF(scroll.left() - 8, top, scroll.width() + 12, height);
+    const int shown = qMin(scroll.height(), content);
+    const qreal top = m_openUp ? scroll.bottom() + 1 - shown - 8 : bar.top() - 8;
+    const qreal bottom = m_openUp ? bar.bottom() + 9 : scroll.top() + shown + 8;
+    return QRectF(scroll.left() - 8, top, scroll.width() + 12, bottom - top);
 }
 
 bool AssistantBall::eventFilter(QObject* watched, QEvent* event)
@@ -466,10 +473,17 @@ void AssistantBall::layoutContent()
     m_send->setVisible(capsule.width() > send + 24);
     m_input->setGeometry(capsule.adjusted(18, 8, -(send + 14), -8).toRect());
     m_input->setVisible(capsule.width() > 120);
-    // Replies sit on the far side of the capsule from the window edge it is near.
-    const int top = m_openUp ? 10 : qRound(capsule.bottom()) + 10;
-    const int bottom = m_openUp ? qRound(capsule.top()) - 10 : height() - 10;
-    m_scroll->setGeometry(QRect(m_dockRight ? 10 : 0, top, content.width() - 10, qMax(0, bottom - top)));
+    // Replies sit on the far side of the capsule from the window edge it is near;
+    // the quick actions sit between them and the capsule.
+    const int left = m_dockRight ? 10 : 0;
+    const int width = content.width() - 10;
+    const int barHeight = m_actionBar->sizeHint().height();
+    const int barTop = m_openUp ? qRound(capsule.top()) - 12 - barHeight : qRound(capsule.bottom()) + 12;
+    m_actionBar->setGeometry(QRect(left, barTop, width, barHeight));
+    m_actionBar->setVisible(m_progress > 0.3);
+    const int top = m_openUp ? 10 : barTop + barHeight + 4;
+    const int bottom = m_openUp ? barTop - 4 : height() - 10;
+    m_scroll->setGeometry(QRect(left, top, width, qMax(0, bottom - top)));
 }
 
 void AssistantBall::setBallVisible(bool visible)
@@ -758,7 +772,8 @@ void AssistantBall::leaveEvent(QEvent* event)
 void AssistantBall::keyPressEvent(QKeyEvent* event)
 {
     if (event->key() == Qt::Key_Escape) {
-        collapse();
+        if (!m_draftId.isEmpty()) setDraftMode(QString(), QString(), QString()); // leave drafting first
+        else collapse();
         return;
     }
     QWidget::keyPressEvent(event);
@@ -787,8 +802,37 @@ void AssistantBall::hideEvent(QHideEvent* event)
     QWidget::hideEvent(event);
 }
 
+void AssistantBall::setStoppable(bool stoppable)
+{
+    m_stoppable = stoppable;
+    updateSendState();
+}
+
+void AssistantBall::requestStop()
+{
+    if (m_working && m_stoppable) emit stopRequested();
+}
+
+void AssistantBall::updateWaitText()
+{
+    if (!m_replyBody || !m_replyText.isEmpty() || !m_replyClock.isValid()) {
+        m_waitTimer->stop();
+        return;
+    }
+    const qint64 seconds = m_replyClock.elapsed() / 1000;
+    QString text = seconds < 3 ? QStringLiteral("正在思考…") : QStringLiteral("正在思考… %1 秒").arg(seconds);
+    if (seconds >= 15 && !m_waitHint.isEmpty()) text += QLatin1Char('\n') + m_waitHint;
+    m_replyBody->setTextFormat(Qt::PlainText);
+    m_replyBody->setText(text);
+    fitWidth(m_replyBody, kTextWidth);
+}
+
 void AssistantBall::submit()
 {
+    if (m_working && m_stoppable) { // the button is a stop button now
+        emit stopRequested();
+        return;
+    }
     const QString text = m_input->text().trimmed();
     if (text.isEmpty() || m_working) return;
     m_input->clear();
@@ -801,6 +845,13 @@ void AssistantBall::submitText(const QString& text)
     if (!m_expanded) expand();
     m_welcome->hide();
     addUserMessage(text);
+    const bool slash = text.trimmed().startsWith(QLatin1Char('/')) || text.trimmed().startsWith(QChar(0xFF0F));
+    if (!m_draftId.isEmpty() && !slash) {
+        const QString id = m_draftId;
+        setDraftMode(QString(), QString(), QString());
+        emit draftSubmitted(id, text);
+        return;
+    }
     QString error;
     if (const auto command = parseSlashCommand(text, &error)) {
         emit commandSubmitted(*command);
@@ -813,6 +864,19 @@ void AssistantBall::submitText(const QString& text)
     emit freeTextSubmitted(text); // for the local AI; the window answers either way
 }
 
+QVBoxLayout* AssistantBall::lastBubbleLayout(QWidget** bubbleOut) const
+{
+    // The newest message is the last widget row (a stretch may follow it).
+    for (int i = m_messages->count() - 1; i >= 0; --i) {
+        QWidget* row = m_messages->itemAt(i)->widget();
+        if (!row || row == m_welcome) continue;
+        auto* bubble = row->findChild<QFrame*>();
+        if (bubbleOut) *bubbleOut = bubble;
+        return bubble ? qobject_cast<QVBoxLayout*>(bubble->layout()) : nullptr;
+    }
+    return nullptr;
+}
+
 void AssistantBall::showCard(const QString& title, const QString& text, const QList<CardAction>& actions, bool ok)
 {
     if (!m_expanded) expand();
@@ -820,9 +884,8 @@ void AssistantBall::showCard(const QString& title, const QString& text, const QL
     addAssistantMessage(title, text, ok);
     if (actions.isEmpty()) return;
     // The new card is the last row; give it a row of buttons.
-    QWidget* row = m_messages->itemAt(m_messages->count() - (m_messages->itemAt(m_messages->count() - 1)->spacerItem() ? 2 : 1))->widget();
-    auto* bubble = row ? row->findChild<QFrame*>() : nullptr;
-    auto* inner = bubble ? qobject_cast<QVBoxLayout*>(bubble->layout()) : nullptr;
+    QWidget* bubble = nullptr;
+    auto* inner = lastBubbleLayout(&bubble);
     if (!inner) return;
     auto* buttons = new QHBoxLayout;
     buttons->setSpacing(8);
@@ -846,25 +909,37 @@ void AssistantBall::showCard(const QString& title, const QString& text, const QL
     }
 }
 
-void AssistantBall::beginReply(const QString& title)
+void AssistantBall::beginReply(const QString& title, bool markdown)
 {
     if (m_replyRow) endReply(QString(), true);
     if (!m_expanded) expand();
     m_welcome->hide();
     addAssistantMessage(title, QStringLiteral("正在思考…"), true);
-    QWidget* row = m_messages->itemAt(m_messages->count() - (m_messages->itemAt(m_messages->count() - 1)->spacerItem() ? 2 : 1))->widget();
+    QWidget* bubble = nullptr;
+    lastBubbleLayout(&bubble);
+    QWidget* row = bubble ? bubble->parentWidget() : nullptr;
     m_replyRow = row;
     m_replyBody = row ? row->findChild<QLabel*>(QStringLiteral("assistantBody")) : nullptr;
     m_replyTitle = row ? row->findChild<QLabel*>(QStringLiteral("assistantBubbleTitle")) : nullptr;
     m_replyText.clear();
+    m_replyMarkdown = markdown;
+    m_replyClock.start();
+    m_waitTimer->start();
 }
 
 void AssistantBall::appendReply(const QString& text)
 {
     if (!m_replyBody) beginReply(QStringLiteral("本地 AI"));
     m_replyText += text;
-    m_replyBody->setText(m_replyText); // tokens flow in as they arrive
-    fitWidth(m_replyBody, 270);
+    m_waitTimer->stop(); // the answer has started
+    if (m_replyMarkdown) { // formatted as it streams: lists and tables take shape
+        m_replyBody->setTextFormat(Qt::RichText);
+        m_replyBody->setText(markdownToHtml(m_replyText, MarkdownTarget::Bubble));
+        m_replyBody->setMinimumWidth(kTextWidth);
+    } else {
+        m_replyBody->setText(m_replyText); // tokens flow in as they arrive
+        fitWidth(m_replyBody, kTextWidth);
+    }
     m_lastMessageText = m_replyText;
     QTimer::singleShot(0, this, [this] { m_scroll->verticalScrollBar()->setValue(m_scroll->verticalScrollBar()->maximum()); });
 }
@@ -874,12 +949,13 @@ void AssistantBall::replaceReply(const QString& text)
     if (!m_replyBody) beginReply(QStringLiteral("本地 AI"));
     m_replyText = text;
     m_replyBody->setText(text);
-    fitWidth(m_replyBody, 270);
+    fitWidth(m_replyBody, kTextWidth);
     m_lastMessageText = text;
 }
 
 void AssistantBall::endReply(const QString& text, bool ok)
 {
+    m_waitTimer->stop();
     if (!m_replyRow) {
         if (!text.trimmed().isEmpty()) addAssistantMessage(QStringLiteral("本地 AI"), text, ok);
         return;
@@ -890,8 +966,15 @@ void AssistantBall::endReply(const QString& text, bool ok)
         delete m_replyRow.data();
         --m_messageCount;
     } else {
-        m_replyBody->setText(finalText);
-        fitWidth(m_replyBody, 270);
+        if (m_replyMarkdown && ok) {
+            m_replyBody->setTextFormat(Qt::RichText);
+            m_replyBody->setText(markdownToHtml(finalText, MarkdownTarget::Bubble));
+            m_replyBody->setMinimumWidth(kTextWidth);
+        } else {
+            m_replyBody->setTextFormat(Qt::PlainText);
+            m_replyBody->setText(finalText);
+            fitWidth(m_replyBody, kTextWidth);
+        }
         if (!ok && m_replyTitle) m_replyTitle->setText(m_replyTitle->text() + QStringLiteral(" · 没有完成"));
         m_lastMessageText = finalText;
     }
@@ -902,12 +985,207 @@ void AssistantBall::endReply(const QString& text, bool ok)
     QTimer::singleShot(0, this, [this] { m_scroll->verticalScrollBar()->setValue(m_scroll->verticalScrollBar()->maximum()); });
 }
 
+void AssistantBall::endReply(const QString& text, bool ok, const QList<ReplyAction>& actions)
+{
+    const QPointer<QWidget> row = m_replyRow;
+    endReply(text, ok);
+    // An empty reply removes its bubble; the buttons must not land on an older one.
+    if (row && !actions.isEmpty()) addButtons(actions);
+}
+
+void AssistantBall::addButtons(const QList<ReplyAction>& actions)
+{
+    QWidget* bubble = nullptr;
+    auto* inner = lastBubbleLayout(&bubble);
+    if (!inner || !bubble) return;
+    auto* row = new QHBoxLayout;
+    row->setSpacing(8);
+    QList<QPointer<QPushButton>> exclusive;
+    QList<QPushButton*> created;
+    for (int i = 0; i < actions.size(); ++i) {
+        auto* button = new QPushButton(actions[i].title, bubble);
+        button->setObjectName(i == 0 ? QStringLiteral("assistantPrimary") : QStringLiteral("assistantSecondary"));
+        button->setCursor(Qt::PointingHandCursor);
+        if (actions[i].once) exclusive.append(button);
+        created.append(button);
+        row->addWidget(button);
+    }
+    row->addStretch(1);
+    inner->addLayout(row);
+    for (int i = 0; i < actions.size(); ++i) {
+        const ReplyAction action = actions[i];
+        QPushButton* button = created[i];
+        connect(button, &QPushButton::clicked, this, [exclusive, action, button] {
+            if (action.once) {
+                for (const QPointer<QPushButton>& other : exclusive)
+                    if (other) other->setEnabled(false); // replace, insert, retry: one of them
+            } else {
+                // Repeatable (copy): confirm in place, then return to the resting label.
+                const QString title = button->text();
+                button->setText(QStringLiteral("✓ ") + title);
+                QTimer::singleShot(1500, button, [button, title] { button->setText(title); });
+            }
+            if (action.run) action.run();
+        });
+    }
+}
+
 void AssistantBall::setStatus(const QString& text, bool ready)
 {
-    m_caption->setText(text + QLatin1Char('\n') + (ready ? QStringLiteral("直接用中文提问；以 / 开头的指令会立即执行。")
+    m_caption->setText(text + QLatin1Char('\n') + (ready ? QStringLiteral("选中文字后可以一键润色、纠错、翻译；也可以直接用中文提问。")
                                                          : QStringLiteral("点下方“本地 AI”按提示配置；以 / 开头的指令随时可用。")));
-    m_input->setPlaceholderText(ready ? QStringLiteral("问点什么，或输入 / 使用指令")
-                                      : QStringLiteral("输入指令，如 /插入 你好"));
+    m_idlePlaceholder = ready ? QStringLiteral("问点什么，或输入 / 使用指令") : QStringLiteral("输入指令，如 /插入 你好");
+    if (m_draftId.isEmpty()) m_input->setPlaceholderText(m_idlePlaceholder);
+}
+
+void AssistantBall::setQuickActions(const QString& context, const QList<QuickAction>& actions)
+{
+    m_quickContext = context;
+    m_quickActions = actions;
+    rebuildQuickActions();
+}
+
+QStringList AssistantBall::quickActionIds() const
+{
+    QStringList ids;
+    for (const QuickAction& action : m_quickActions) ids.append(action.id);
+    return ids;
+}
+
+QString AssistantBall::quickContext() const
+{
+    return m_actionContext->text();
+}
+
+void AssistantBall::triggerQuickAction(const QString& id)
+{
+    if (m_working) return;
+    emit quickActionTriggered(id);
+}
+
+void AssistantBall::rebuildQuickActions()
+{
+    while (QLayoutItem* item = m_actionRows->takeAt(0)) {
+        if (QLayout* row = item->layout()) {
+            while (QLayoutItem* chip = row->takeAt(0)) {
+                if (QWidget* widget = chip->widget()) widget->deleteLater();
+                delete chip;
+            }
+        }
+        delete item;
+    }
+    const QString context = m_draftId.isEmpty()
+        ? m_quickContext
+        : QStringLiteral("起草「%1」：在下面写几句要点，按回车生成（Esc 取消）").arg(m_draftTitle);
+    m_actionContext->setText(m_actionContext->fontMetrics().elidedText(context, Qt::ElideRight, kWidth - kBox - 40));
+    m_actionContext->setToolTip(context);
+    // Chips flow into rows as wide as the bar.
+    const int available = kWidth - kBox - 30;
+    QHBoxLayout* row = nullptr;
+    int used = 0;
+    for (const QuickAction& action : m_quickActions) {
+        auto* chip = new QPushButton(action.title, m_actionBar);
+        chip->setObjectName(QStringLiteral("assistantChip"));
+        chip->setProperty("actionId", action.id);
+        chip->setCursor(Qt::PointingHandCursor);
+        chip->setEnabled(!m_working);
+        const QString id = action.id;
+        connect(chip, &QPushButton::clicked, this, [this, id] { triggerQuickAction(id); });
+        const int width = chip->sizeHint().width();
+        if (!row || used + width > available) {
+            row = new QHBoxLayout;
+            row->setSpacing(6);
+            row->addStretch(1); // chips go before it, so they stay left-aligned
+            m_actionRows->addLayout(row);
+            used = 0;
+        }
+        row->insertWidget(row->count() - 1, chip);
+        used += width + 6;
+    }
+    m_actionBar->adjustSize();
+    if (m_expanded) layoutContent();
+    update();
+}
+
+void AssistantBall::setDraftMode(const QString& id, const QString& title, const QString& placeholder)
+{
+    m_draftId = id;
+    m_draftTitle = title;
+    m_input->setPlaceholderText(id.isEmpty() ? m_idlePlaceholder : placeholder);
+    rebuildQuickActions();
+    if (!id.isEmpty()) {
+        if (!m_expanded) expand();
+        m_input->setFocus();
+        claimKeyboardFocus(m_input);
+    }
+}
+
+void AssistantBall::addRequest(const QString& text)
+{
+    if (!m_expanded) expand();
+    m_welcome->hide();
+    addUserMessage(text);
+}
+
+void AssistantBall::showCorrections(const QString& title, const QList<CorrectionItem>& items)
+{
+    for (const QPointer<QPushButton>& button : m_correctionButtons)
+        if (button) button->setEnabled(false); // only the newest list can still be applied
+    if (m_correctionAll) m_correctionAll->setEnabled(false);
+    m_correctionButtons.clear();
+    if (!m_expanded) expand();
+    m_welcome->hide();
+    addAssistantMessage(title, QStringLiteral("找到 %1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。").arg(items.size()), true);
+    QWidget* bubble = nullptr;
+    auto* inner = lastBubbleLayout(&bubble);
+    if (!inner || !bubble) return;
+    const Colors colors = colorsFor(m_dark);
+    for (int i = 0; i < items.size(); ++i) {
+        auto* row = new QHBoxLayout;
+        row->setSpacing(8);
+        auto* text = new QLabel(bubble);
+        text->setObjectName(QStringLiteral("assistantBody"));
+        text->setTextFormat(Qt::RichText);
+        text->setWordWrap(true);
+        text->setText(QStringLiteral("<span style=\"text-decoration:line-through\">%1</span> → <b>%2</b>"
+                                     "<br><span style=\"color:%3\">%4</span>")
+                          .arg(items[i].original.toHtmlEscaped(), items[i].corrected.toHtmlEscaped(),
+                               colors.secondary.name(), items[i].reason.toHtmlEscaped()));
+        text->setMinimumWidth(kTextWidth - 70);
+        row->addWidget(text, 1);
+        auto* fix = new QPushButton(QStringLiteral("改"), bubble);
+        fix->setObjectName(QStringLiteral("assistantSecondary"));
+        fix->setCursor(Qt::PointingHandCursor);
+        connect(fix, &QPushButton::clicked, this, [this, i, fix] {
+            fix->setEnabled(false);
+            emit correctionRequested(i);
+        });
+        row->addWidget(fix, 0, Qt::AlignTop);
+        inner->addLayout(row);
+        m_correctionButtons.append(fix);
+    }
+    auto* all = new QPushButton(QStringLiteral("全部改正"), bubble);
+    all->setObjectName(QStringLiteral("assistantPrimary"));
+    all->setCursor(Qt::PointingHandCursor);
+    connect(all, &QPushButton::clicked, this, [this, all] {
+        all->setEnabled(false);
+        for (const QPointer<QPushButton>& button : m_correctionButtons)
+            if (button) button->setEnabled(false);
+        emit allCorrectionsRequested();
+    });
+    inner->addWidget(all, 0, Qt::AlignLeft);
+    m_correctionAll = all;
+}
+
+void AssistantBall::markCorrection(int index, bool ok)
+{
+    if (index < 0 || index >= m_correctionButtons.size() || !m_correctionButtons[index]) return;
+    m_correctionButtons[index]->setEnabled(false);
+    m_correctionButtons[index]->setText(ok ? QStringLiteral("✓ 已改") : QStringLiteral("没改成"));
+    bool remaining = false;
+    for (const QPointer<QPushButton>& button : m_correctionButtons)
+        if (button && button->text() == QStringLiteral("改")) remaining = true;
+    if (!remaining && m_correctionAll) m_correctionAll->setEnabled(false);
 }
 
 void AssistantBall::showOutcome(const AssistantCommand& command, const CommandOutcome& outcome)
@@ -919,8 +1197,10 @@ void AssistantBall::showOutcome(const AssistantCommand& command, const CommandOu
     QString quote;
     if (outcome.ok && command.name == QStringLiteral("assistant.listCommands")) {
         QStringList lines;
-        for (const CommandSpec& entry : commandCatalog())
-            lines << entry.title + QStringLiteral("  ") + slashExample(entry.name);
+        for (const CommandSpec& entry : commandCatalog()) {
+            const QString example = slashExample(entry.name);
+            lines << entry.title + QStringLiteral("  ") + (example.isEmpty() ? QStringLiteral("（供 AI 使用）") : example);
+        }
         text = outcome.message + QLatin1Char('\n') + lines.join(QLatin1Char('\n'));
     } else if (outcome.ok && command.name == QStringLiteral("selection.getText")) {
         quote = outcome.value.value(QStringLiteral("text")).toString();
@@ -939,7 +1219,7 @@ void AssistantBall::addUserMessage(const QString& text)
     inner->setContentsMargins(14, 9, 14, 9);
     auto* body = label(text, "assistantUserText", bubble);
     body->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    fitWidth(body, 270);
+    fitWidth(body, kTextWidth);
     inner->addWidget(body);
     rowLayout->addWidget(bubble);
     m_lastMessageText = text;
@@ -963,7 +1243,7 @@ void AssistantBall::addAssistantMessage(const QString& title, const QString& tex
     inner->addLayout(heading);
     auto* body = label(text, "assistantBody", bubble);
     body->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    fitWidth(body, 270);
+    fitWidth(body, kTextWidth);
     inner->addWidget(body);
     if (!quote.isEmpty()) {
         const QString shown = quote.size() > 600 ? quote.left(600) + QStringLiteral("…") : quote;
@@ -972,7 +1252,7 @@ void AssistantBall::addAssistantMessage(const QString& title, const QString& tex
         quoteLayout->setContentsMargins(10, 8, 10, 8);
         auto* quoteLabel = label(shown, "assistantQuote", quoteFrame);
         quoteLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
-        fitWidth(quoteLabel, 244);
+        fitWidth(quoteLabel, kTextWidth - 26);
         quoteLayout->addWidget(quoteLabel);
         inner->addWidget(quoteFrame);
         auto* copy = new QPushButton(QStringLiteral("拷贝"), bubble);
@@ -1056,7 +1336,11 @@ void AssistantBall::appendMessage(QWidget* row)
 
 void AssistantBall::updateSendState()
 {
-    m_send->setEnabled(!m_working && !m_input->text().trimmed().isEmpty());
+    const bool stop = m_working && m_stoppable;
+    m_send->setStopMode(stop);
+    m_send->setEnabled(stop || (!m_working && !m_input->text().trimmed().isEmpty()));
+    for (QPushButton* chip : m_actionBar->findChildren<QPushButton*>(QStringLiteral("assistantChip")))
+        chip->setEnabled(!m_working);
 }
 
 void AssistantBall::applyStyle()
@@ -1068,6 +1352,7 @@ void AssistantBall::applyStyle()
         QLabel { background: transparent; }
         QLabel#assistantHeadline { font-size: 17px; font-weight: 600; color: %1; }
         QLabel#assistantCaption { font-size: 12px; color: %2; }
+        QLabel#assistantContext { font-size: 12px; color: %2; padding-left: 2px; }
         QLabel#assistantBody, QLabel#assistantBubbleTitle { font-size: 13px; color: %1; }
         QLabel#assistantBubbleTitle { font-weight: 600; }
         QLabel#assistantUserText { font-size: 13px; color: #FFFFFF; }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QJsonArray>
+#include <QJsonObject>
 #include <QList>
 #include <QNetworkReply>
 #include <QObject>
@@ -21,6 +22,15 @@ struct LocalModel {
     bool thinking = false; // has a reasoning phase before answering
 };
 
+// One chat request's settings besides the model and the messages.
+struct ChatOptions {
+    QJsonArray tools;    // functions the model may call; empty: none
+    QString think;       // "" omits the field; otherwise "low", "false"...
+    QJsonObject format;  // a JSON schema for structured output; empty: free text
+    int contextLength = 0; // num_ctx; 0 leaves Ollama's default
+    double temperature = 0.3;
+};
+
 // Client for an Ollama server on this computer. It only ever talks to a
 // loopback address, never through a proxy, and drops models that Ollama
 // forwards to a cloud service, so prompts and document text stay local.
@@ -38,12 +48,16 @@ public:
 
     void probe();      // -> probed
     void listModels(); // -> modelsListed
-    // Streams one chat turn. think: "" omits the field; otherwise "low", "false"...
-    quint64 chat(const QString& model, const QJsonArray& messages, const QJsonArray& tools, const QString& think);
+    // Streams one chat turn; the model stays loaded for a while afterwards.
+    quint64 chat(const QString& model, const QJsonArray& messages, const ChatOptions& options);
+    // Loads the model in the background so the first answer comes sooner.
+    void warmUp(const QString& model);
     void cancelChat();
     void pull(const QString& model); // -> pullProgress*, pullFinished
     void cancelPull();
     bool pulling() const { return m_pull; }
+    // Generation speed of the last finished chat (tokens per second); 0 when unknown.
+    double lastTokensPerSecond() const { return m_tokensPerSecond; }
 
 signals:
     void probed(bool running, QString version);
@@ -62,19 +76,30 @@ private:
     QPointer<QNetworkReply> m_chat;
     QPointer<QNetworkReply> m_pull;
     quint64 m_chatId = 0;
+    double m_tokensPerSecond = 0;
 };
 
 // Total installed memory, used to recommend a model size.
 qint64 totalPhysicalMemory();
+// Dedicated memory of the largest graphics card; 0 when there is none or it is
+// too small to run a model (integrated graphics share the system memory).
+qint64 totalVideoMemory();
+// A model answers quickly only when it fits the graphics card entirely; without
+// one, only small models are fast enough on the processor.
+bool runsSlowly(const LocalModel& model, qint64 videoBytes);
 // The best installed model for this assistant: one that can call commands,
-// fits the memory, and handles Chinese well. Empty when none is usable.
-QString pickInstalledModel(const QList<LocalModel>& models, qint64 memoryBytes);
+// answers quickly on this computer, and handles Chinese well. Models that
+// always reason before answering (gpt-oss) count less. Empty when none is usable.
+QString pickInstalledModel(const QList<LocalModel>& models, qint64 memoryBytes, qint64 videoBytes = 0);
 
 struct ModelRecommendation {
     QString name;
     double approximateGigabytes = 0;
 };
-// A model to download for a computer with this much memory.
-ModelRecommendation recommendDownload(qint64 memoryBytes);
+// A model to download for this computer: as large as fits the graphics card
+// (up to qwen3:8b); without one, a small model the processor runs quickly.
+ModelRecommendation recommendDownload(qint64 memoryBytes, qint64 videoBytes = 0);
+// What a failed download means, in words a beginner can act on.
+QString explainPullError(const QString& error);
 
 } // namespace openoffice

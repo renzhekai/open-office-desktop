@@ -73,9 +73,14 @@ endif()
 find_package(Qt6 REQUIRED COMPONENTS Network)
 add_library(office_assistant STATIC app/assistant/assistant_commands.h app/assistant/assistant_commands.cpp
     app/assistant/ollama_client.h app/assistant/ollama_client.cpp
-    app/assistant/local_assistant.h app/assistant/local_assistant.cpp)
+    app/assistant/local_assistant.h app/assistant/local_assistant.cpp
+    app/assistant/markdown_html.h app/assistant/markdown_html.cpp
+    app/assistant/assistant_tasks.h app/assistant/assistant_tasks.cpp)
 target_include_directories(office_assistant PUBLIC app)
 target_link_libraries(office_assistant PUBLIC Qt6::Core Qt6::Network)
+if(WIN32)
+    target_link_libraries(office_assistant PRIVATE dxgi)
+endif()
 
 add_library(office_ui STATIC app/ui/main_window.h app/ui/main_window.cpp
     app/ui/assistant_art.h app/ui/assistant_art.cpp app/ui/assistant_ball.h app/ui/assistant_ball.cpp)

@@ -62,6 +62,16 @@ public:
     bool supportsEditorCommand(const QString& name) const noexcept override { return editorCommands.contains(name); }
     openoffice::EngineResult requestEditorCommand(quint64 id, const QString& name, const QJsonObject& arguments) override
     {
+        if (answerReads && (name == QStringLiteral("document.getText") || name == QStringLiteral("selection.getText"))) {
+            // Reads the window makes for the AI: answered like the editor would, a moment later.
+            ++readCalls;
+            const QString text = name == QStringLiteral("document.getText") ? documentText : selectionText;
+            QTimer::singleShot(0, this, [this, id, text] {
+                emit editorCommandFinished(id, {true, QStringLiteral("read"), QStringLiteral("read")},
+                                           {{QStringLiteral("text"), text}, {QStringLiteral("length"), text.size()}});
+            });
+            return {true, QStringLiteral("test"), QStringLiteral("test read")};
+        }
         ++editorCommandCalls;
         lastCommandId = id;
         lastCommandName = name;
@@ -97,8 +107,14 @@ public:
     openoffice::EngineCapabilities currentCapabilities{true, true, true, true, true, true};
     bool textOnlyCreation = false;
     QStringList editorCommands{QStringLiteral("text.insert"), QStringLiteral("selection.getText"),
-                               QStringLiteral("edit.undo"), QStringLiteral("edit.redo")};
+                               QStringLiteral("selection.replace"), QStringLiteral("document.getText"),
+                               QStringLiteral("document.replaceText"), QStringLiteral("edit.undo"),
+                               QStringLiteral("edit.redo")};
     int editorCommandCalls = 0;
+    bool answerReads = false; // answer document/selection reads automatically, outside editorCommandCalls
+    QString documentText;
+    QString selectionText;
+    int readCalls = 0;
     QList<bool> appearance;
     quint64 lastCommandId = 0;
     QString lastCommandName;
@@ -876,6 +892,8 @@ private slots:
                       FakeOllama::chat({QStringLiteral("好的，没有插入。")})};
         ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
         ControlledEngine engine;
+        engine.answerReads = true;
+        engine.documentText = QStringLiteral("本周五在三楼开会。");
         openoffice::MainWindow window(&engine);
         auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
         openFixture(window, engine, "text-table.docx");
@@ -890,8 +908,11 @@ private slots:
         QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
         QVERIFY(panel->lastMessageText().contains(QStringLiteral("会议纪要")));
         QCOMPARE(engine.editorCommandCalls, 0); // proposed, not done
-        QVERIFY(fake.chatRequests().first().value(QStringLiteral("messages")).toArray().first().toObject()
-                    .value(QStringLiteral("content")).toString().contains(QStringLiteral("text-table.docx")));
+        const QString system = fake.chatRequests().first().value(QStringLiteral("messages")).toArray().first().toObject()
+                                   .value(QStringLiteral("content")).toString();
+        QVERIFY(system.contains(QStringLiteral("text-table.docx")));
+        QVERIFY(system.contains(QStringLiteral("本周五在三楼开会。"))); // the model sees the real document
+        QVERIFY(engine.readCalls >= 2);
         button(QStringLiteral("执行"))->click();
         QCOMPARE(engine.editorCommandCalls, 1);
         QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
@@ -907,6 +928,93 @@ private slots:
         QCOMPARE(engine.editorCommandCalls, 1); // declined: the engine never saw it
         QTRY_VERIFY(!panel->working());
         QCOMPARE(fake.chatRequests().size(), 4);
+    }
+
+    void quickActionsReworkSelectionProofreadAndDraft()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        const QJsonObject corrections{{QStringLiteral("corrections"), QJsonArray{
+            QJsonObject{{QStringLiteral("original"), QStringLiteral("按排")}, {QStringLiteral("corrected"), QStringLiteral("安排")},
+                        {QStringLiteral("reason"), QStringLiteral("错别字")}},
+            QJsonObject{{QStringLiteral("original"), QStringLiteral("不在文中")}, {QStringLiteral("corrected"), QStringLiteral("x")},
+                        {QStringLiteral("reason"), QStringLiteral("模型编的")}}}}};
+        fake.chats = {FakeOllama::chat({QStringLiteral("以下是润色后的文字：\n"), QStringLiteral("请大家准时参加会议。")}),
+                      FakeOllama::chat({QString::fromUtf8(QJsonDocument(corrections).toJson(QJsonDocument::Compact))}),
+                      FakeOllama::chat({QStringLiteral("# 通知\n\n请于【时间】到三楼参加安全会。")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.selectionText = QStringLiteral("大家要准时来开会");
+        engine.documentText = QStringLiteral("请按排好时间。\n大家要准时来开会");
+        openoffice::MainWindow window(&engine);
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        const auto button = [panel](const QString& text) -> QPushButton* {
+            QPushButton* found = nullptr;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                if (candidate->text() == text && candidate->isEnabled()) found = candidate;
+            return found;
+        };
+
+        // Opening the ball finds the local AI, reads the selection and offers rework.
+        panel->expand();
+        QTRY_VERIFY(panel->quickActionIds().contains(QStringLiteral("polish")));
+        QVERIFY(panel->quickContext().contains(QStringLiteral("大家要准时来开会")));
+        panel->triggerQuickAction(QStringLiteral("polish"));
+        QTRY_VERIFY(button(QStringLiteral("替换原文")) != nullptr);
+        QCOMPARE(panel->lastMessageText(), QStringLiteral("请大家准时参加会议。")); // the intro line is gone
+        const QJsonObject polish = fake.chatRequests().first();
+        QVERIFY(!polish.contains(QStringLiteral("tools"))); // one answer, no tool round trip
+        QVERIFY(polish.value(QStringLiteral("messages")).toArray().last().toObject().value(QStringLiteral("content"))
+                    .toString().contains(QStringLiteral("大家要准时来开会")));
+        QCOMPARE(engine.editorCommandCalls, 0); // nothing changes before the person chooses
+        button(QStringLiteral("替换原文"))->click();
+        QCOMPARE(engine.editorCommandCalls, 1);
+        QCOMPARE(engine.lastCommandName, QStringLiteral("selection.replace"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("text")).toString(), QStringLiteral("请大家准时参加会议。"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("expected")).toString(), QStringLiteral("大家要准时来开会"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已替换选中的文字，可以撤销。"));
+        QTRY_VERIFY(!panel->working());
+
+        // Proofreading offers only fixes that exist in the document.
+        engine.selectionText.clear();
+        panel->triggerQuickAction(QStringLiteral("proofread"));
+        QTRY_COMPARE(panel->correctionCount(), 1);
+        QVERIFY(fake.chatRequests().at(1).value(QStringLiteral("format")).isObject()); // structured answer
+        button(QStringLiteral("改"))->click();
+        QCOMPARE(engine.editorCommandCalls, 2);
+        QCOMPARE(engine.lastCommandName, QStringLiteral("document.replaceText"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("find")).toString(), QStringLiteral("按排"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("replace")).toString(), QStringLiteral("安排"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已替换 1 处，可以撤销。"));
+        const auto marked = [panel] {
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                if (candidate->text() == QStringLiteral("✓ 已改") && !candidate->isEnabled()) return true;
+            return false;
+        };
+        QTRY_VERIFY(marked()); // the fix is marked done and cannot be applied twice
+
+        // Drafting: pick the kind, type a few words, insert with real formatting.
+        panel->triggerQuickAction(QStringLiteral("draft"));
+        QVERIFY(panel->quickActionIds().contains(QStringLiteral("notice")));
+        panel->triggerQuickAction(QStringLiteral("notice"));
+        QCOMPARE(panel->draftMode(), QStringLiteral("notice"));
+        panel->submitText(QStringLiteral("周五下午三点三楼安全会"));
+        QCOMPARE(panel->draftMode(), QString());
+        QTRY_VERIFY(button(QStringLiteral("插入文档")) != nullptr);
+        QVERIFY(fake.chatRequests().at(2).value(QStringLiteral("messages")).toArray().last().toObject()
+                    .value(QStringLiteral("content")).toString().contains(QStringLiteral("周五下午三点三楼安全会")));
+        button(QStringLiteral("插入文档"))->click();
+        QCOMPARE(engine.editorCommandCalls, 3);
+        QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("format")).toString(), QStringLiteral("markdown"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("position")).toString(), QStringLiteral("after"));
+        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h1>通知</h1>")));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
+        QTRY_VERIFY(!panel->working());
+        QCOMPARE(fake.chatRequests().size(), 3);
     }
 
     void assistantHostCommandsUseTheWindowsOwnFlows()

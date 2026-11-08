@@ -33,10 +33,16 @@
 - 三组测试共 67 项通过；r7 真实编辑器复查 6 项全过（第 13 节第 29 条）。
 - 2026-11-07 曾按用户要求设为默认入口（第 30 条），同日被本地 AI 版取代（第 33 条）。
 
-**本地 AI（2026-11-07，用户要求“接入本地 Ollama，做好通用性适配，让小白也能快速使用”）：** `build/full-source-run-local-ai`（宿主 `3eb9a92a…`，构建 `local-ai-2`），**2026-11-07 起为默认入口**（第 33 条），但还不在安装包里。
+**本地 AI（2026-11-07，用户要求“接入本地 Ollama，做好通用性适配，让小白也能快速使用”）：** `build/full-source-run-local-ai`（宿主 `3eb9a92a…`，构建 `local-ai-2`），**2026-11-07 起为默认入口**（第 33 条），已打进安装包 `…-20261107-2-win64.exe`（第 34 条）。
 - 悬浮球接上本机 Ollama：自动检测、按状态给出“打开下载页 / 启动 Ollama / 下载推荐模型 / 重新检测”卡片；按内存自动选模型；流式回答。
 - 模型把助手命令当工具调用；改文档、保存、新建都要用户点“执行”。只连本机回环地址，云端模型不列出。
 - CTest 共 75 项通过；真实编辑器里用本机 `gpt-oss:20b` 完成“提问 → 确认 → 插入 → 保存”，6 项检查全过；连不上时显示启动卡片。见第 32 条。
+
+**办公助手（2026-11-08，用户说“AI 的功能还是很拉，无法满足实际办公需求，要结合实际、从用户角度做”）：** 最新候选 `build/full-source-run-office-ai-r3`（宿主 `76ab8d1a…`，构建 `office-ai-5`），**还不是默认入口，也不在安装包里**。
+- 常用活一键完成，不用写提示词：选中文字后润色、纠错、精简、扩写、改正式、翻译；没选文字时总结全文、提取待办、全文校对；起草通知、会议纪要、工作总结、邮件、请假条、活动方案。结果先给人看，再选“替换原文 / 插到后面 / 插入文档 / 复制 / 重写”。
+- 编辑器新命令：读全文、替换选区（保留格式、核对原文）、带格式插入（Markdown 转成真正的标题、列表、表格）、查找替换。直接提问时自动带上文档内容和选区。
+- 快慢：按显卡显存选模型和推荐下载；太慢时标“较慢”并说明原因、给下载按钮；“正在思考”计秒；发送键变 ■ 可停止；下载失败用中文说明（例如代理 Fake-IP）。
+- CTest 共 84 项通过；编辑器脚本在真实编辑器里逐条验证过；真实会话验证了按钮随选区变化、“较慢”标记、计秒和停止。**完整的校对 / 润色 / 起草还没在真实编辑器里走完**：本机只有很慢的 gpt-oss:20b，推荐的 qwen3:8b 因代理 Fake-IP 没下载成功，用户说稍后自己调整网络。见第 37、38 条。
 
 **正在做：** 无进行中的任务。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
@@ -53,7 +59,7 @@
 | drawingfile | 已重建并通过（`out/drawingfile/pass6`，`drawingfile-functional-pass2.json`）：46 个导出签名一致，两份自建 PDF 的渲染、文字、链接、目录、表单与外观、拆分/另存为、存储接口两版都与官方一致。边界：加载器 JS 模板取自官方生成文件（无公开源码），`drawingfile_native.js` 沿用官方 |
 
 **下一步（待用户确定方向）：**
-0. AI 助手：在没装 Ollama 的电脑上走一遍新手流程（下载模型要用户自己点）；把命令清单接成真正的 MCP 服务。
+0. AI 助手：等用户调整好代理（Fake-IP 过滤加 `+.r2.cloudflarestorage.com`）后，用助手里的“下载 qwen3:8b”下载，再用 `scripts/verify_office_ai_session.py` 在真实编辑器里走完整的校对 / 润色 / 起草；通过后再问用户是否把办公助手候选设为默认入口、重新生成安装包。之后：没装 Ollama 的电脑上走新手流程；把命令清单接成真正的 MCP 服务。
 1. 在一台干净的 Windows 电脑（或虚拟机）上试装安装包；考虑代码签名。
 2. XLSX/PPTX/PDF 的界面流程与回归：打开、新建（目前只开放新建文字文档）、保存、另存为。
 3. 导出为其他格式（如 PDF）：编辑器自己菜单里的导出目前会被取消，见第 26 条。
@@ -61,7 +67,7 @@
 5. 许可证与源码交付清单（安装包已有，尚未正式发布）。
 
 **不要做：**
-- 不覆盖默认入口 `build/full-source-run-local-ai`，以及回退 `build/full-source-run-assistant-ball-r7`、`build/full-source-run-host-saveas-r2`、`build/full-source-run-wasm-candidate`、`build/full-source-run`、`build/native-engine-run`。样本 `fixtures/results/local-ai-*.docx` 是证据，也不要覆盖。
+- 不覆盖默认入口 `build/full-source-run-local-ai`，以及回退 `build/full-source-run-assistant-ball-r7`、`build/full-source-run-host-saveas-r2`、`build/full-source-run-wasm-candidate`、`build/full-source-run`、`build/native-engine-run`。样本 `fixtures/results/local-ai-*.docx`、`fixtures/results/office-ai-sample*.docx` 是证据，也不要覆盖。办公助手候选 `build/full-source-run-office-ai`、`-r2`、`-r3` 原样保留。
 - 测试里不要点“下载 Ollama”“下载模型”这类按钮，除非用户批准。
 - 不覆盖 `requirements.md`、`upstream`、官方 SDKJS。
 - `build/full-source-run-host-saveas` 和 `fixtures/results/host-saveas-*.docx` 是回归证据，也不要覆盖。
@@ -140,6 +146,10 @@
 | 2026-11-07 | 用新默认入口重新生成安装包 | 第 34 条：`…-20261107-2-win64.exe`，同日旧包保留 |
 | 2026-11-07 | 把代码放入 git，在 GitHub 建仓库；选定公开 + AGPL-3.0、仓库名 `open-office-desktop`、代码和文档加小证据、GitHub 隐私邮箱 | 第 35 条 |
 | 2026-11-07 | 每次更新记得同步到 git 和 GitHub | 写进“维护规则” |
+| 2026-11-08 | AI 的功能还是很拉，无法满足实际办公时的需求，要结合实际来制作，在用户的角度看问题 | 第 37 条：办公助手（一键改写、全文、起草，结果先看再用） |
+| 2026-11-08 | 好慢啊（看着全文校对等了几分钟） | 第 38 条：查明是模型放不进显卡；按显存选模型、慢模型提示、计秒、停止按钮 |
+| 2026-11-08 | 同意下载 qwen3:8b；随后要求删除另一个中文很差的模型、新模型下到 D 盘 | 删除了 granite4.1:3b；Ollama 本来就设为 `OLLAMA_MODELS=D:\models`，没改任何设置；下载因代理 Fake-IP 失败，见第 38 条 |
+| 2026-11-08 | 不要关闭 TUN，我自己稍后试试；跳过这步 | 没碰网络设置，跳过模型下载，验证改为只验证不依赖新模型的部分 |
 
 ## 3. 目录、代码与运行入口
 
@@ -829,6 +839,51 @@ python -B scripts/verify_full_source_docx_sample.py
     - **推送：** `git remote add origin https://github.com/renzhekai/open-office-desktop.git`，`git push -u origin main` 成功（Git Credential Manager 已有凭据，没弹窗）。远端 `main` 与本地同为 `ac630cf…`。
     - **网页核对：** 仓库显示为 Public，GitHub 识别出 AGPL-3.0 许可证，README 正常显示。
     - **之后的规矩：** 每次更新都提交并推送（已写进“维护规则”）。
+
+37. **办公助手：常用活一键完成（2026-11-08，用户要求“结合实际来制作，在用户的角度看问题”）：**
+    - **原来的问题（从用户角度）：** 模型看不到文档内容；只会在光标处插纯文本，模型写的 `#`、`**` 会原样进文档；不能改选中的文字；什么都要自己写提示词；每次操作要“模型 → 工具 → 模型”两轮。
+    - **先查清编辑器能做什么（调试通道，只用于开发）：**
+      - 一次性的实验 profile 里写 `data/settings.xml` 的 `ascdesktop-support-debug-info-keep=1`，ONLYOFFICE 自己就会打开 127.0.0.1:8080 调试端口；`build/wasm-source/tmp/devtools_probe_launch.py` 启动这种实例，`cdp_eval.mjs`（Node 自带 WebSocket）在 `frameEditor` 里执行脚本。正式运行目录和用户 profile 都没改。
+      - 实测结论：`AscBuilder.Word.Api.GetDocument()` 能读全文；`ToMarkdown` 在有选区时只转选区，读全文要逐段读；`_pluginMethod_PasteHtml` 能把 `<h1>`、列表、表格贴成真正的样式；`pluginMethod_ReplaceTextSmart` 替换选区时保留粗斜体，新段落比选中段落少时会留空段（这时改用 HTML 粘贴）；纯文本粘贴会丢格式；`logic.Search` + `ReplaceSearchElement` 能查找替换；每种操作都只占一步撤销。
+    - **新代码：**
+      - `app/assistant/markdown_html.*`：模型写的 Markdown 转成编辑器能粘贴的 HTML（标题、段落、粗斜体、列表、表格、代码），文字全部转义，去掉 `<think>`；`cleanRewrite` 去掉改写结果里的“以下是……：”开头、整段引号和 Markdown 符号。
+      - `app/assistant/assistant_tasks.*`：15 个任务——选区 6 个（润色、纠错、精简、扩写、正式、翻译，翻译自动判断方向）、全文 3 个（总结、待办表格、校对）、起草 6 种（通知、会议纪要、工作总结、邮件、请假条、活动方案，没给的信息用【】标出）。校对要求结构化输出，`parseCorrections` 只保留文档里真找得到、确实改了、长度合理、不重复的条目，最多 30 条。文档超过 12000 字只发前面部分并告诉模型；上下文长度按内容估算（4096 到 32768）。
+      - 命令目录：新增 `selection.replace`（可带 `expected` 核对原文）、`document.getText`、`document.replaceText`；`text.insert` 增加 `format`（plain / markdown）和 `position`（cursor / after），上限 20000 字；参数类型新增“选项”。
+      - 引擎侧：每条编辑器命令有自己的参数表并再校验一次；新脚本见上；超时改为 15 秒。`build/wasm-source/tmp/check_editor_scripts.py` 用 Node 检查脚本语法，`run_editor_scripts.py` 把宿主源码里的脚本原样拿到真实编辑器执行。
+      - `LocalAssistant`：`runTask` 一次生成、不带工具、流式；`warmUp` 在打开球时预先装载模型（同一模型 10 分钟内不重复）；请求都带 `keep_alive: 30m` 和 `num_ctx`；系统提示改为“附有文档内容和选区”，并说明每个工具什么时候用。
+      - 窗口：为 AI 做的读取不弹气泡（仍记日志）；读取和用户命令撞上时排队，用户自己的两条命令仍然互斥；打开球时读选区决定按钮；直接提问前先读全文和选区一起发给模型；结果卡片按任务给出替换、插入、复制、重写；校对结果逐条可改，也可全部改正。
+      - 悬浮球：尺寸 500×580；输入框上方常驻一排随情况变化的按钮和说明；起草模式（Esc 退出）；回复里的 Markdown 显示成格式；校对列表卡片。
+    - **测试：** 助手 28 项、界面 33 项、契约 21 项。新增端到端测试：选中润色 → 替换原文（带 expected）、全文校对 → 只给文档里有的错 → 改一条、起草通知 → 带格式插入（HTML 里有 `<h1>`）。
+    - **候选：** `build/full-source-run-office-ai`（宿主 `0def1f43…`，构建 `office-ai-3`）。
+    - **真实会话 `office-ai-session1`：** 打开球后按钮正确（起草…、总结全文、提取待办、全文校对、本地 AI）；点全文校对后 gpt-oss:20b 6 分钟没出结果，关闭会话（样本未保存，哈希未变）。原因见第 38 条。
+    - **未改动：** 默认入口、各回退目录、安装包、需求原文。
+
+38. **慢的原因和改进（2026-11-08，用户：“好慢啊”）：**
+    - **查明原因：**
+      - 这台电脑：内存 31.5 GB，显卡 RTX 5070 Ti Laptop 12 GB。原来只按内存选模型，选中了 gpt-oss:20b（13 GB）。Ollama 只能把其中 9.6 GB 放进显卡，其余在处理器上算，实测每秒约 0.8 个词，两句话的校对要 150 秒。
+      - gpt-oss 不能关掉推理，加上结构化输出（`format`）时整个请求卡住，6 分钟没有结果，还挡住了后面的请求。
+      - 另一个模型 granite4.1:3b 很快（4.6 秒），但中文弱，校对找不出错。
+    - **用户的决定：** 同意下载 qwen3:8b；随后要求删除中文很差的模型、新模型放 D 盘；之后说不要关闭 TUN、跳过下载这步。
+      - 已通过 Ollama 接口删除 granite4.1:3b（D:\models 从 15 GB 降到 13 GB）。
+      - Ollama 本来就设置了用户环境变量 `OLLAMA_MODELS=D:\models`，C 盘的模型目录是空的，所以新模型本来就会下到 D 盘；没有改任何设置。
+      - 下载 qwen3:8b 失败：`redirect target not allowed: …r2.cloudflarestorage.com resolves to non-public 198.18.1.56`。Clash Verge 的 Fake-IP 模式把模型库的下载地址解析成 198.18.x.x，Ollama 出于安全拒绝下载。没有改代理和网络设置；用户说稍后自己处理。
+    - **改进（候选 `-r2` 宿主 `4dcf47f8…`，`-r3` 宿主 `76ab8d1a…`）：**
+      - `totalVideoMemory()` 用 DXGI 读最大独立显卡的显存（小于 3 GB 视为没有）；`runsSlowly()`：放不进 85% 显存的模型（没有显卡时大于 3.5 GB 的）算慢。
+      - `pickInstalledModel` 加入显存：放得进显卡 +60、放不进 -60，gpt-oss -25，大小加分到 40。这台电脑上装了 qwen3:8b 就选它，只有 gpt-oss 和 granite 时选 granite，24 GB 显卡上选 gpt-oss。
+      - `recommendDownload` 按显存：7.5 GB 以上 qwen3:8b，4.5 GB 以上 qwen3:4b，没有显卡时按内存 qwen3:4b 或 1.7b。
+      - 慢模型：状态行加“较慢”；回答（或任务）结束后每次会话弹一次“回答有点慢？”，说明原因并给“下载 X”或“改用 X”；“本地 AI”卡片里也有。实测速度低于每秒 5 个词也算慢（来自 Ollama 的 `eval_count / eval_duration`）。
+      - 等待：“正在思考… N 秒”，超过 15 秒附说明；本地 AI 工作时发送键变成 ■，点一下停止，显示“已停止。”和“重试”。
+      - gpt-oss 这类停不了推理的模型不再使用结构化输出。
+      - 下载失败用中文说明：Fake-IP / 内网地址、磁盘满、找不到模型、网络不通各给一句可以照做的话。下载成功后自动改用新模型。
+    - **测试：** 助手 30 项（新增：按显存选模型和推荐、下载失败说明、停止、gpt-oss 不用结构化输出）、界面 33 项、契约 21 项，共 84 项全过。
+    - **真实会话 `office-ai-session2`（候选 r2，样本 `office-ai-sample-2.docx`）：**
+      - 选中一句话后打开球：状态“本地模型 gpt-oss:20b · 只在本机运行 · 较慢”，按钮变成润色、纠错、精简、扩写、正式、翻译，说明行显示选中的字数和开头。
+      - 点润色：发送键变 ■；点 ■ 后显示“润色 · 没有完成 / 已停止。”和“重试”，发送键恢复。
+      - 回复刚出现时，按钮那一排有约一秒被裁掉一半，之后自己恢复正常（入场动画时的重绘），没有改。
+      - 之后用户自己在这个窗口里拖动悬浮球、改选区试用；窗口留给用户，没有关闭。启动它的脚本在上一次运行结束时被终止，所以 `session.json` 没有退出记录。
+      - r3 只比 r2 多一行：任务结束后也会弹“回答有点慢？”，由界面测试覆盖，没有再做真实会话。
+    - **新增脚本：** `scripts/verify_office_ai_session.py`：等下载好合适的模型后，用来核对完整的办公助手会话（两个错别字已改、润色已替换、起草带标题样式、日志不含正文）。
+    - **未做：** 完整的校对、润色、起草真实会话；没设为默认入口，没打安装包。
 
 ## 附录 A：requirements.md 完整原文
 

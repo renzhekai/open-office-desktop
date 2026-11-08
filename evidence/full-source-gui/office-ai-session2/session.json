@@ -1,0 +1,23 @@
+{
+  "started_at_utc": "2026-11-08T11:35:18.981325+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-office-ai-r2\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\office-ai-session2",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\office-ai-session2\\launch-report.json",
+    "--open",
+    "D:\\open office\\fixtures\\results\\office-ai-sample-2.docx"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\office-ai-session2",
+  "profile_existed_before": false,
+  "entry_sha256": "4dcf47f83ac6bbc9c7fe53ce99d458232bb726edfe56704b219dc4572e0e9f85",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-office-ai-r2",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "host_candidate_marker_sha256": "bdd68f9ba6acbe674df6aa0f806ae3470640107fa728d33061ab9893de5e272f",
+  "status": "running",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 48244
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "assistant/assistant_commands.h"
+#include "assistant/assistant_tasks.h"
 
 #include <QHash>
 #include <QMainWindow>
@@ -72,9 +73,25 @@ private:
     void showLocalAiCard();
     void handleProposedCommand(const AssistantCommand& command);
     QString documentContext() const;
+    QString currentDocumentName() const;
+    // What a free question is asked with: the document's text and the selection.
+    QString assistantContext(const QString& documentText, const QString& selection) const;
+    using CommandDone = std::function<void(const CommandOutcome&)>;
+    // done receives the outcome instead of the model; quiet commands show no bubble.
+    void runAssistantCommand(const AssistantCommand& command, CommandDone done, bool quiet);
+    void readForAssistant(const QString& name, CommandDone done); // a quiet read done for the AI
+    void whenLocalAiReady(std::function<void()> action);
+    void refreshQuickActions(); // reads the selection, then offers the matching actions
+    void showQuickActionsFor(const QString& selection);
+    void runQuickAction(const QString& id);
+    void startTask(const TaskSpec& spec, const TaskInput& input);
+    void finishTask(const QString& id, const QString& text, bool ok, const QString& error);
+    void applyCorrection(int index, std::function<void(bool)> done);
+    void applyRemainingCorrections(int fixed);
     void startHostCommand(const AssistantCommand& command, EngineOperation expected,
                           const std::function<void()>& action);
-    void finishAssistantCommand(const AssistantCommand& command, const CommandOutcome& outcome);
+    void finishAssistantCommand(const AssistantCommand& command, const CommandOutcome& outcome,
+                                const CommandDone& done = {}, bool quiet = false);
     void handleEditorCommandFinished(quint64 requestId, const EngineResult& result, const QJsonObject& value);
     quint64 beginRequest(EngineOperation operation);
     void handleRequestAccepted(const EngineResult& result);
@@ -97,13 +114,23 @@ private:
     QAction* m_assistantAction = nullptr;
     AssistantBall* m_assistantBall = nullptr;
     LocalAssistant* m_localAi = nullptr;
-    QString m_pendingQuestion;      // asked while the local AI was still being detected
+    std::function<void()> m_whenReady; // asked while the local AI was still being detected
     bool m_cardOnNextState = false; // show the local AI card once detection settles
     bool m_downloadShown = false;
     AssistantCommand m_assistantCommand;       // the command now running
     quint64 m_assistantEditorRequest = 0;      // editor command awaiting completion
     quint64 m_assistantHostRequest = 0;        // host open/save/create awaiting completion
     QString m_assistantJournalPath;
+    CommandDone m_assistantDone;      // receives the running editor command's outcome, if set
+    bool m_assistantQuiet = false;    // the running editor command shows no bubble
+    QList<std::function<void()>> m_assistantQueue; // waits behind a quiet read (or a quiet read waits)
+    QString m_lastTaskId;             // the latest office task and what it worked on
+    TaskInput m_lastTaskInput;
+    QList<Correction> m_corrections;  // the latest proofreading result
+    QList<int> m_correctionState;     // 0 not applied, 1 applied, 2 failed
+    bool m_speedAdviceShown = false;  // the "slow model" card appears once per session
+    QString waitHint() const;
+    void adviseIfSlow();
     QAction* m_createTextAction = nullptr;
     QAction* m_createSpreadsheetAction = nullptr;
     QAction* m_createPresentationAction = nullptr;

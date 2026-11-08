@@ -12,6 +12,7 @@
 
 #ifdef Q_OS_WIN
 #include <windows.h>
+#include <dxgi.h>
 #endif
 
 namespace openoffice {
@@ -139,16 +140,27 @@ void OllamaClient::listModels()
     });
 }
 
-quint64 OllamaClient::chat(const QString& model, const QJsonArray& messages, const QJsonArray& tools, const QString& think)
+void OllamaClient::warmUp(const QString& model)
+{
+    // A generate request without a prompt only loads the model.
+    const QJsonObject body{{QStringLiteral("model"), model}, {QStringLiteral("keep_alive"), QStringLiteral("30m")}};
+    QNetworkReply* reply = post(QStringLiteral("/api/generate"), QJsonDocument(body).toJson(QJsonDocument::Compact), 180000);
+    connect(reply, &QNetworkReply::finished, reply, &QObject::deleteLater);
+}
+
+quint64 OllamaClient::chat(const QString& model, const QJsonArray& messages, const ChatOptions& options)
 {
     cancelChat();
     const quint64 id = ++m_chatId;
+    QJsonObject settings{{QStringLiteral("temperature"), options.temperature}};
+    if (options.contextLength > 0) settings.insert(QStringLiteral("num_ctx"), options.contextLength);
     QJsonObject body{{QStringLiteral("model"), model}, {QStringLiteral("messages"), messages},
-                     {QStringLiteral("stream"), true},
-                     {QStringLiteral("options"), QJsonObject{{QStringLiteral("temperature"), 0.3}}}};
-    if (!tools.isEmpty()) body.insert(QStringLiteral("tools"), tools);
-    if (think == QStringLiteral("false")) body.insert(QStringLiteral("think"), false);
-    else if (!think.isEmpty()) body.insert(QStringLiteral("think"), think);
+                     {QStringLiteral("stream"), true}, {QStringLiteral("keep_alive"), QStringLiteral("30m")},
+                     {QStringLiteral("options"), settings}};
+    if (!options.tools.isEmpty()) body.insert(QStringLiteral("tools"), options.tools);
+    if (!options.format.isEmpty()) body.insert(QStringLiteral("format"), options.format);
+    if (options.think == QStringLiteral("false")) body.insert(QStringLiteral("think"), false);
+    else if (!options.think.isEmpty()) body.insert(QStringLiteral("think"), options.think);
     QNetworkReply* reply = post(QStringLiteral("/api/chat"), QJsonDocument(body).toJson(QJsonDocument::Compact), 300000);
     m_chat = reply;
     auto buffer = std::make_shared<QByteArray>();
@@ -174,7 +186,12 @@ quint64 OllamaClient::chat(const QString& model, const QJsonArray& messages, con
                 emit chatDelta(id, piece);
             }
             for (const QJsonValue& call : message.value(QStringLiteral("tool_calls")).toArray()) toolCalls->append(call);
-            if (chunk.value(QStringLiteral("done")).toBool()) *done = true;
+            if (chunk.value(QStringLiteral("done")).toBool()) {
+                *done = true;
+                const double count = chunk.value(QStringLiteral("eval_count")).toDouble();
+                const double nanoseconds = chunk.value(QStringLiteral("eval_duration")).toDouble();
+                if (count > 0 && nanoseconds > 0) m_tokensPerSecond = count / (nanoseconds / 1e9);
+            }
         }
     };
     connect(reply, &QNetworkReply::readyRead, this, [reply, buffer, consume] {
@@ -250,13 +267,40 @@ qint64 totalPhysicalMemory()
     return 8LL * 1024 * 1024 * 1024;
 }
 
-QString pickInstalledModel(const QList<LocalModel>& models, qint64 memoryBytes)
+qint64 totalVideoMemory()
+{
+    qint64 largest = 0;
+#ifdef Q_OS_WIN
+    IDXGIFactory1* factory = nullptr;
+    if (SUCCEEDED(::CreateDXGIFactory1(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(&factory))) && factory) {
+        IDXGIAdapter1* adapter = nullptr;
+        for (UINT index = 0; factory->EnumAdapters1(index, &adapter) != DXGI_ERROR_NOT_FOUND; ++index) {
+            DXGI_ADAPTER_DESC1 description{};
+            if (SUCCEEDED(adapter->GetDesc1(&description)) && !(description.Flags & DXGI_ADAPTER_FLAG_SOFTWARE))
+                largest = qMax<qint64>(largest, static_cast<qint64>(description.DedicatedVideoMemory));
+            adapter->Release();
+        }
+        factory->Release();
+    }
+#endif
+    // Integrated graphics report a small carve-out; local models do not run on them.
+    return largest >= (3LL << 30) ? largest : 0;
+}
+
+bool runsSlowly(const LocalModel& model, qint64 videoBytes)
+{
+    if (videoBytes > 0) return model.bytes > videoBytes * 0.85; // part of it would run on the processor
+    return model.bytes > static_cast<qint64>(3.5 * (1LL << 30));
+}
+
+QString pickInstalledModel(const QList<LocalModel>& models, qint64 memoryBytes, qint64 videoBytes)
 {
     // A model file should leave room for the system and the office suite.
     const double budget = (memoryBytes > 0 ? memoryBytes : 8LL << 30) * 0.55;
-    const double sweetSpot = 9.0 * (1LL << 30);
+    // Bigger is better quality, up to what still runs quickly here.
+    const double sweetSpot = videoBytes > 0 ? qMin<double>(videoBytes * 0.85, 9.0 * (1LL << 30)) : 3.5 * (1LL << 30);
     QString best;
-    double bestScore = -1;
+    double bestScore = -1e9;
     for (const LocalModel& model : models) {
         const QString key = (model.name + QLatin1Char(' ') + model.family).toLower();
         if (key.contains(QStringLiteral("embed")) || key.contains(QStringLiteral("bert"))) continue; // not chat models
@@ -265,10 +309,12 @@ QString pickInstalledModel(const QList<LocalModel>& models, qint64 memoryBytes)
         if (key.contains(QStringLiteral("qwen"))) score += 30;      // strong Chinese
         else if (key.contains(QStringLiteral("glm"))) score += 25;
         else if (key.contains(QStringLiteral("deepseek"))) score += 20;
-        else if (key.contains(QStringLiteral("gpt-oss")) || key.contains(QStringLiteral("gptoss"))) score += 18;
         else if (key.contains(QStringLiteral("llama")) || key.contains(QStringLiteral("gemma"))
                  || key.contains(QStringLiteral("mistral"))) score += 10;
-        score += qMin<double>(model.bytes, sweetSpot) / sweetSpot * 20; // larger is better, up to ~9 GB
+        // gpt-oss always reasons before answering: slower for short office jobs.
+        if (key.contains(QStringLiteral("gpt-oss")) || key.contains(QStringLiteral("gptoss"))) score -= 25;
+        score += runsSlowly(model, videoBytes) ? -60 : 60; // speed matters more than size
+        score += qMin<double>(model.bytes, sweetSpot) / sweetSpot * 40; // within that, bigger writes better
         if (score > bestScore) {
             bestScore = score;
             best = model.name;
@@ -277,12 +323,33 @@ QString pickInstalledModel(const QList<LocalModel>& models, qint64 memoryBytes)
     return best;
 }
 
-ModelRecommendation recommendDownload(qint64 memoryBytes)
+ModelRecommendation recommendDownload(qint64 memoryBytes, qint64 videoBytes)
 {
-    const double gigabytes = memoryBytes / double(1LL << 30);
-    if (gigabytes < 7.5) return {QStringLiteral("qwen3:1.7b"), 1.4};
-    if (gigabytes < 15.0) return {QStringLiteral("qwen3:4b"), 2.5};
-    return {QStringLiteral("qwen3:8b"), 5.2};
+    const double video = videoBytes / double(1LL << 30);
+    const double memory = memoryBytes / double(1LL << 30);
+    if (video >= 7.5 && memory >= 12.0) return {QStringLiteral("qwen3:8b"), 5.2};
+    if (video >= 4.5 && memory >= 7.5) return {QStringLiteral("qwen3:4b"), 2.5};
+    // On the processor: the 4b model still answers at a usable pace with enough memory.
+    if (memory >= 7.5) return {QStringLiteral("qwen3:4b"), 2.5};
+    return {QStringLiteral("qwen3:1.7b"), 1.4};
+}
+
+QString explainPullError(const QString& error)
+{
+    const QString text = error.toLower();
+    if (text.contains(QStringLiteral("non-public")) || text.contains(QStringLiteral("redirect target not allowed")))
+        return QStringLiteral("下载被网络代理软件拦住了：代理（例如 Clash 的 Fake-IP / 虚拟网卡模式）把下载地址解析成了内网地址，"
+                              "Ollama 为了安全拒绝下载。可以在代理软件的 Fake-IP 过滤里加入 +.r2.cloudflarestorage.com，"
+                              "或者下载时暂时换个网络模式，然后再点下载。");
+    if (text.contains(QStringLiteral("no space")) || text.contains(QStringLiteral("disk")))
+        return QStringLiteral("磁盘空间不够了。请清理出空间（模型存在 Ollama 的模型文件夹里）后再试。");
+    if (text.contains(QStringLiteral("file does not exist")) || text.contains(QStringLiteral("not found")))
+        return QStringLiteral("模型库里找不到这个模型，可能名字变了。请更新 Ollama 后再试。");
+    if (text.contains(QStringLiteral("timeout")) || text.contains(QStringLiteral("max retries"))
+        || text.contains(QStringLiteral("connection")) || text.contains(QStringLiteral("tls"))
+        || text.contains(QStringLiteral("dial tcp")))
+        return QStringLiteral("网络连不上 Ollama 的模型库。请检查网络或代理设置后再试；已下载的部分会保留，下次接着下。");
+    return error;
 }
 
 } // namespace openoffice

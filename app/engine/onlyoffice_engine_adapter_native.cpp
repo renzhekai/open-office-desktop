@@ -113,8 +113,59 @@ QString jsString(const QString& text)
 const QStringList& editorCommandNames()
 {
     static const QStringList names{QStringLiteral("text.insert"), QStringLiteral("selection.getText"),
-                                   QStringLiteral("edit.undo"), QStringLiteral("edit.redo")};
+                                   QStringLiteral("selection.replace"), QStringLiteral("document.getText"),
+                                   QStringLiteral("document.replaceText"), QStringLiteral("edit.undo"),
+                                   QStringLiteral("edit.redo")};
     return names;
+}
+
+// What the engine itself accepts for each editor command, checked again here
+// whatever the caller validated. "html" is not a catalog argument: the window
+// adds it when it converts Markdown for text.insert.
+struct EngineArgument {
+    const char* name;
+    bool required;
+    int maxLength;
+    QStringList choices;
+};
+
+const QHash<QString, QList<EngineArgument>>& editorCommandArguments()
+{
+    static const QHash<QString, QList<EngineArgument>> arguments{
+        {QStringLiteral("text.insert"),
+         {{"text", true, 20000, {}},
+          {"format", false, 0, {QStringLiteral("plain"), QStringLiteral("markdown")}},
+          {"position", false, 0, {QStringLiteral("cursor"), QStringLiteral("after")}},
+          {"html", false, 400000, {}}}},
+        {QStringLiteral("selection.replace"), {{"text", true, 20000, {}}, {"expected", false, 20000, {}}}},
+        {QStringLiteral("document.replaceText"), {{"find", true, 200, {}}, {"replace", true, 200, {}}}},
+    };
+    return arguments;
+}
+
+bool editorArgumentsValid(const QString& name, const QJsonObject& arguments)
+{
+    const QList<EngineArgument> allowed = editorCommandArguments().value(name);
+    for (auto it = arguments.begin(); it != arguments.end(); ++it) {
+        const auto known = std::find_if(allowed.begin(), allowed.end(),
+                                        [&it](const EngineArgument& argument) { return it.key() == QLatin1String(argument.name); });
+        if (known == allowed.end() || !it.value().isString()) return false;
+        const QString text = it.value().toString();
+        if (known->maxLength > 0 && text.size() > known->maxLength) return false;
+        if (!known->choices.isEmpty() && !known->choices.contains(text)) return false;
+    }
+    for (const EngineArgument& argument : allowed)
+        if (argument.required && arguments.value(QLatin1String(argument.name)).toString().isEmpty()) return false;
+    if (name == QStringLiteral("text.insert") && arguments.value(QStringLiteral("format")).toString() == QStringLiteral("markdown")
+        && arguments.value(QStringLiteral("html")).toString().isEmpty())
+        return false; // Markdown is converted by the host before it reaches the editor
+    return true;
+}
+
+QString jsValue(const QJsonObject& arguments, const char* name)
+{
+    const QJsonValue value = arguments.value(QLatin1String(name));
+    return value.isString() ? jsString(value.toString()) : QStringLiteral("null");
 }
 
 // The editor answers through AscDesktopEditor.execCommand("openoffice:command"),
@@ -124,14 +175,70 @@ QString editorCommandScript(quint64 id, const QString& name, const QJsonObject& 
 {
     QString body;
     if (name == QStringLiteral("text.insert")) {
-        body = QStringLiteral("var t=%1;api.asc_PasteData(1,t,undefined,undefined,undefined,"
-                              "function(){reply(true,'inserted',{length:t.length});},undefined,"
-                              "function(){reply(false,'selection_locked',null);});")
-                   .arg(jsString(arguments.value(QStringLiteral("text")).toString()));
+        // Plain text at the cursor uses the editor's text paste. HTML (converted
+        // Markdown) and "after" use the editor's HTML paste; "after" moves to the
+        // end of the current paragraph (or of the selection's last paragraph)
+        // and starts a new one, unless the cursor already sits in an empty one.
+        body = QStringLiteral("var t=%1,h=%2,pos=%3;"
+            "var done=function(){reply(true,'inserted',{length:t.length});};"
+            "if(pos==='after'){if(!logic||!B){reply(false,'editor_not_ready',null);return;}"
+            "var empty=false;if(!logic.IsSelectionUse()){var cp=logic.GetCurrentParagraph();var ap=cp&&B.GetByInternalId(cp.GetId());"
+            "empty=!!ap&&ap.GetText().replace(/[\\r\\n]/g,'')==='';}"
+            "if(!h)h=paras(t);if(!empty){if(!afterParagraph()){reply(false,'no_position',null);return;}h='<p></p>'+h;}}"
+            "if(h){pasteHtml(h,{},done);return;}"
+            "api.asc_PasteData(1,t,undefined,undefined,undefined,done,undefined,"
+            "function(){reply(false,'selection_locked',null);});")
+                   .arg(jsValue(arguments, "text"), jsValue(arguments, "html"), jsValue(arguments, "position"));
     } else if (name == QStringLiteral("selection.getText")) {
         body = QStringLiteral("var s=api.asc_GetSelectedText(false,{Numbering:true});"
-                              "s=(s===undefined||s===null)?'':String(s);"
-                              "reply(true,'ok',{text:s.slice(0,20000),length:s.length,truncated:s.length>20000});");
+                              "s=(s===undefined||s===null)?'':String(s);var n=0;"
+                              "try{if(s&&logic&&B&&logic.IsSelectionUse()){var r=B.GetDocument().GetRangeBySelect();"
+                              "var ps=r&&r.GetAllParagraphs();n=ps?ps.length:0;}}catch(e){}"
+                              "reply(true,'ok',{text:s.slice(0,20000),length:s.length,truncated:s.length>20000,paragraphs:n});");
+    } else if (name == QStringLiteral("selection.replace")) {
+        // The editor's own "smart" replacement keeps each paragraph's and run's
+        // formatting; it needs at least as many new paragraphs as are selected,
+        // otherwise the HTML paste (merged into the last paragraph) is used.
+        body = QStringLiteral("var t=%1,expected=%2;if(!logic||!B){reply(false,'editor_not_ready',null);return;}"
+            "if(!logic.IsSelectionUse()){reply(false,'no_selection',null);return;}"
+            "var norm=function(x){return String(x||'').replace(/\\s+/g,'');};"
+            "if(expected!==null&&norm(api.asc_GetSelectedText(false,{}))!==norm(expected)){reply(false,'selection_changed',null);return;}"
+            "var r=B.GetDocument().GetRangeBySelect();var ps=r&&r.GetAllParagraphs();var n=ps&&ps.length?ps.length:1;"
+            "var parts=t.replace(/\\r\\n?/g,'\\n').split('\\n').filter(function(l){return l.trim()!=='';});"
+            "if(!parts.length){reply(false,'invalid_argument',null);return;}"
+            "var ok=function(){reply(true,'replaced_selection',{length:t.length,paragraphs:parts.length});};"
+            "var plugins=window.g_asc_plugins;"
+            "if(parts.length<n||!plugins||!api.pluginMethod_ReplaceTextSmart){pasteHtml(paras(parts.join('\\n')),{MergeLast:true},ok);return;}"
+            "var old=plugins.onPluginMethodReturn,finished=false;"
+            "var finish=function(good){if(finished)return;finished=true;plugins.onPluginMethodReturn=old;"
+            "if(good)ok();else reply(false,'replace_timeout',null);};"
+            "plugins.onPluginMethodReturn=function(){finish(true);};"
+            "setTimeout(function(){finish(false);},12000);"
+            "api.pluginMethod_ReplaceTextSmart(parts,'\\t','\\r\\n');")
+                   .arg(jsValue(arguments, "text"), jsValue(arguments, "expected"));
+    } else if (name == QStringLiteral("document.getText")) {
+        // Top-level paragraphs and tables, without touching the selection:
+        // headings keep a Markdown marker, list numbers stay, table rows become
+        // "| a | b |" lines.
+        body = QStringLiteral("if(!B){reply(false,'editor_not_ready',null);return;}"
+            "var d=B.GetDocument(),out=[],n=d.GetElementsCount();"
+            "for(var i=0;i<n;i++){var e=d.GetElement(i),k=e.GetClassType();"
+            "if(k==='paragraph'){var st=e.GetStyle(),nm=st?st.GetName():'';var m=/^(?:heading|\\u6807\\u9898)\\s*(\\d)/i.exec(nm);"
+            "var x=e.GetText({Numbering:true}).replace(/[\\r\\n]+$/,'');out.push((m?new Array(+m[1]+1).join('#')+' ':'')+x);}"
+            "else if(k==='table'){for(var r=0;r<e.GetRowsCount();r++){var row=e.GetRow(r),cells=[];"
+            "for(var c=0;c<row.GetCellsCount();c++)cells.push(row.GetCell(c).GetContent().GetText({}).replace(/[\\r\\n]+/g,' ').trim());"
+            "out.push('| '+cells.join(' | ')+' |');}}"
+            "else{try{out.push(e.GetContent().GetText({}).replace(/[\\r\\n]+$/,''));}catch(x){}}}"
+            "var text=out.join('\\n');"
+            "reply(true,'read',{text:text.slice(0,40000),length:text.length,truncated:text.length>40000,blocks:n});");
+    } else if (name == QStringLiteral("document.replaceText")) {
+        body = QStringLiteral("var f=%1,rp=%2;if(!logic){reply(false,'editor_not_ready',null);return;}"
+            "var clear=function(){try{if(logic.ClearSearch)logic.ClearSearch();}catch(e){}};"
+            "var props=new AscCommon.CSearchSettings();props.SetText(f);props.SetMatchCase(true);"
+            "var engine=logic.Search(props);var n=engine?engine.Count:0;"
+            "if(!n){clear();reply(false,'not_found',{find:f});return;}"
+            "logic.ReplaceSearchElement(rp,true,null,false);clear();reply(true,'replaced',{count:n});")
+                   .arg(jsValue(arguments, "find"), jsValue(arguments, "replace"));
     } else if (name == QStringLiteral("edit.undo")) {
         body = QStringLiteral("if(api.asc_getCanUndo&&!api.asc_getCanUndo()){reply(false,'nothing_to_undo',null);return;}"
                               "api.Undo();reply(true,'undone',null);");
@@ -143,7 +250,18 @@ QString editorCommandScript(quint64 id, const QString& name, const QJsonObject& 
         "function reply(ok,code,value){try{window.AscDesktopEditor.execCommand('openoffice:command',"
         "JSON.stringify({id:id,ok:ok,code:code,value:value}));}catch(e){}}"
         "try{var api=(window.Asc&&window.Asc.editor)||window.editor;"
-        "if(!api){reply(false,'editor_not_ready',null);return;}%2"
+        "if(!api){reply(false,'editor_not_ready',null);return;}"
+        "var B=window.AscBuilder&&AscBuilder.Word&&AscBuilder.Word.Api;"
+        "var logic=api.WordControl&&api.WordControl.m_oLogicDocument;"
+        "var esc=function(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};"
+        "var paras=function(x){return x.replace(/\\r\\n?/g,'\\n').split('\\n').filter(function(l){return l.trim()!=='';})"
+        ".map(function(l){return '<p>'+esc(l)+'</p>';}).join('');};"
+        "var pasteHtml=function(h,o,cb){api._pluginMethod_PasteHtml(h,cb,o);};"
+        "var afterParagraph=function(){var p=null;"
+        "if(logic.IsSelectionUse()){var r=B.GetDocument().GetRangeBySelect();var ps=r&&r.GetAllParagraphs();if(ps&&ps.length)p=ps[ps.length-1];}"
+        "else{var c=logic.GetCurrentParagraph();if(c)p=B.GetByInternalId(c.GetId());}"
+        "if(!p)return false;p.Select();logic.MoveCursorRight(false,false);return true;};"
+        "%2"
         "}catch(e){reply(false,'script_error',String((e&&e.message)||e).slice(0,300));}})();")
         .arg(jsString(QString::number(id)), body);
 }
@@ -180,6 +298,22 @@ QString commandMessage(const QString& code, const QJsonObject& value, const QStr
     if (code == QStringLiteral("nothing_to_undo")) return QStringLiteral("没有可撤销的操作。");
     if (code == QStringLiteral("nothing_to_redo")) return QStringLiteral("没有可重做的操作。");
     if (code == QStringLiteral("selection_locked")) return QStringLiteral("当前位置不能插入文字。");
+    if (code == QStringLiteral("read")) {
+        const int length = value.value(QStringLiteral("length")).toInt();
+        return value.value(QStringLiteral("truncated")).toBool()
+            ? QStringLiteral("已读取全文（共 %1 个字符，只取了前 40000 个）。").arg(length)
+            : QStringLiteral("已读取全文（%1 个字符）。").arg(length);
+    }
+    if (code == QStringLiteral("replaced_selection")) return QStringLiteral("已替换选中的文字，可以撤销。");
+    if (code == QStringLiteral("replaced"))
+        return QStringLiteral("已替换 %1 处，可以撤销。").arg(value.value(QStringLiteral("count")).toInt());
+    if (code == QStringLiteral("not_found")) return QStringLiteral("文档里没有找到要替换的文字，可能已经改过了。");
+    if (code == QStringLiteral("no_selection")) return QStringLiteral("请先在文档里选中要修改的文字。");
+    if (code == QStringLiteral("selection_changed"))
+        return QStringLiteral("选中的内容和原来不一样了。请重新选中原文再试，或用“插到后面”。");
+    if (code == QStringLiteral("replace_timeout")) return QStringLiteral("编辑器没有及时完成替换，请检查文档后再试。");
+    if (code == QStringLiteral("no_position")) return QStringLiteral("找不到可以插入的位置。");
+    if (code == QStringLiteral("invalid_argument")) return QStringLiteral("命令参数无效。");
     if (code == QStringLiteral("editor_not_ready")) return QStringLiteral("编辑器尚未就绪。");
     return QStringLiteral("编辑器执行命令时出错：") + detail.left(300);
 }
@@ -294,7 +428,7 @@ struct OnlyOfficeEngineAdapter::Native final : CAscCefMenuEventListener {
         QObject::connect(commandTimer, &QTimer::timeout, owner, [this] {
             // Not a session fault: commands are tagged, a late reply is ignored.
             finishCommand(refused("editor_command_timeout",
-                QStringLiteral("编辑器没有在 10 秒内回报结果，无法确认命令是否已执行。")));
+                QStringLiteral("编辑器没有在 15 秒内回报结果，无法确认命令是否已执行。")));
         });
         timer = new QTimer(owner);
         timer->setSingleShot(true);
@@ -1155,13 +1289,11 @@ EngineResult OnlyOfficeEngineAdapter::requestEditorCommand(quint64 requestId, co
     if (state.editor()->IsBuilding() || state.editor()->IsSaveLocked())
         return refused("engine_busy", QStringLiteral("引擎仍在转换或保存文档。"));
     // The engine re-checks what it executes; it does not rely on the caller.
-    const QString text = arguments.value(QStringLiteral("text")).toString();
-    const bool takesText = name == QStringLiteral("text.insert");
-    if (takesText ? (arguments.size() != 1 || text.isEmpty() || text.size() > 10000) : !arguments.isEmpty())
+    if (!editorArgumentsValid(name, arguments))
         return refused("invalid_argument", QStringLiteral("命令参数无效。"));
     state.acceptedIds.insert(requestId);
     state.command = {true, requestId, name};
-    state.commandTimer->start(10000);
+    state.commandTimer->start(15000);
     state.logCommand("editor_command_accepted", requestId);
     state.editor()->ExecuteEditorScript(editorCommandScript(requestId, name, arguments).toStdString());
     return {true, QStringLiteral("accepted"), QStringLiteral("命令已交给编辑器，等待它回报结果。")};

@@ -13,3 +13,6 @@
 /evidence/full-source-runtime-inventory-initial.json
 /evidence/full-source-web-spreadsheeteditor.log
 /evidence/onlyoffice-native-cfcpp/archive-headers.txt
+
+# Lock files the editor writes next to an open document.
+.~lock.*#

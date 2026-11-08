@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QList>
 #include <QString>
+#include <QStringList>
 
 #include <optional>
 
@@ -20,7 +21,7 @@ enum class CommandSource {
     Unknown    // never guessed: callers that cannot tell must say Unknown
 };
 
-enum class ArgumentType { String, DocumentKind };
+enum class ArgumentType { String, DocumentKind, Choice };
 
 struct CommandArgument {
     QString name;
@@ -28,6 +29,7 @@ struct CommandArgument {
     bool required = false;
     int maxLength = 0; // String only; 0 = no limit
     QString description;
+    QStringList choices; // Choice only: the allowed values
 };
 
 // Where a command runs: the host window (document lifecycle) or the embedded

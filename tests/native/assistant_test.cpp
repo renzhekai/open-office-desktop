@@ -1,11 +1,15 @@
 #include "assistant/assistant_commands.h"
+#include "assistant/assistant_tasks.h"
 #include "assistant/local_assistant.h"
+#include "assistant/markdown_html.h"
 #include "assistant/ollama_client.h"
 #include "fake_ollama.h"
 
 #include <QJsonArray>
 #include <QSet>
 #include <QtTest>
+
+#include <algorithm>
 
 using namespace openoffice;
 
@@ -43,7 +47,7 @@ private slots:
         QCOMPARE(schema.value(QStringLiteral("additionalProperties")).toBool(true), false);
         QCOMPARE(schema.value(QStringLiteral("required")).toArray(), QJsonArray{QStringLiteral("text")});
         const QJsonObject text = schema.value(QStringLiteral("properties")).toObject().value(QStringLiteral("text")).toObject();
-        QCOMPARE(text.value(QStringLiteral("maxLength")).toInt(), 10000);
+        QCOMPARE(text.value(QStringLiteral("maxLength")).toInt(), 20000);
         QCOMPARE(insert.value(QStringLiteral("annotations")).toObject().value(QStringLiteral("readOnlyHint")).toBool(true), false);
     }
 
@@ -56,7 +60,7 @@ private slots:
         QTest::newRow("missing text") << "text.insert" << QJsonObject{} << "missing_argument";
         QTest::newRow("empty text") << "text.insert" << QJsonObject{{"text", ""}} << "invalid_argument";
         QTest::newRow("number text") << "text.insert" << QJsonObject{{"text", 5}} << "invalid_argument";
-        QTest::newRow("too long") << "text.insert" << QJsonObject{{"text", QString(10001, QLatin1Char('a'))}}
+        QTest::newRow("too long") << "text.insert" << QJsonObject{{"text", QString(20001, QLatin1Char('a'))}}
                                   << "argument_too_long";
         QTest::newRow("extra argument") << "edit.undo" << QJsonObject{{"steps", "2"}} << "unknown_argument";
         QTest::newRow("bad kind") << "document.create" << QJsonObject{{"kind", "pdf"}} << "invalid_argument";
@@ -75,7 +79,7 @@ private slots:
 
     void validationAcceptsWellFormedCommands()
     {
-        QVERIFY(validateCommand({QStringLiteral("text.insert"), {{QStringLiteral("text"), QString(10000, QLatin1Char('x'))}},
+        QVERIFY(validateCommand({QStringLiteral("text.insert"), {{QStringLiteral("text"), QString(20000, QLatin1Char('x'))}},
                                  CommandSource::User}).ok);
         QVERIFY(validateCommand({QStringLiteral("document.create"), {{QStringLiteral("kind"), QStringLiteral("text")}},
                                  CommandSource::External}).ok);
@@ -161,23 +165,85 @@ private slots:
                                           model(QStringLiteral("gpt-oss:20b"), 13.8, QStringLiteral("gptoss"), true),
                                           model(QStringLiteral("llama3:8b"), 4.7, QStringLiteral("llama"), false),
                                           model(QStringLiteral("nomic-embed-text:latest"), 0.3, QStringLiteral("nomic-bert"), false)};
-        QCOMPARE(pickInstalledModel(installed, 32 * gb), QStringLiteral("gpt-oss:20b"));
+        const LocalModel qwen8 = model(QStringLiteral("qwen3:8b"), 5.2, QStringLiteral("qwen3"), true);
+        const LocalModel qwen4 = model(QStringLiteral("qwen3:4b"), 2.5, QStringLiteral("qwen3"), true);
+        // This computer: 32 GB memory, a 12 GB graphics card. gpt-oss does not fit
+        // the card and runs mostly on the processor (measured under 1 token/s).
+        QCOMPARE(pickInstalledModel(installed, 32 * gb, 12 * gb), QStringLiteral("granite4.1:3b"));
+        QCOMPARE(pickInstalledModel(installed + QList<LocalModel>{qwen8}, 32 * gb, 12 * gb), QStringLiteral("qwen3:8b"));
+        // A 24 GB card holds gpt-oss: then its size wins over the small model.
+        QCOMPARE(pickInstalledModel(installed, 64 * gb, 24 * gb), QStringLiteral("gpt-oss:20b"));
+        // No graphics card: small models are the fast ones.
+        QCOMPARE(pickInstalledModel(installed + QList<LocalModel>{qwen8, qwen4}, 32 * gb, 0), QStringLiteral("qwen3:4b"));
         QCOMPARE(pickInstalledModel(installed, 16 * gb), QStringLiteral("granite4.1:3b")); // 13.8 GB would not fit
-        QCOMPARE(pickInstalledModel(installed + QList<LocalModel>{model(QStringLiteral("qwen3:8b"), 5.2, QStringLiteral("qwen3"), true)}, 16 * gb),
-                 QStringLiteral("qwen3:8b"));
         QCOMPARE(pickInstalledModel({installed[2], installed[3]}, 16 * gb), QStringLiteral("llama3:8b")); // chat only
         QCOMPARE(pickInstalledModel({installed[3]}, 16 * gb), QString()); // embeddings cannot chat
         QCOMPARE(pickInstalledModel({}, 16 * gb), QString());
 
-        QCOMPARE(recommendDownload(4 * gb).name, QStringLiteral("qwen3:1.7b"));
+        QVERIFY(runsSlowly(installed[1], 12 * gb));
+        QVERIFY(!runsSlowly(qwen8, 12 * gb));
+        QVERIFY(runsSlowly(qwen8, 0)); // on the processor
+        QVERIFY(!runsSlowly(qwen4, 0));
+
+        QCOMPARE(recommendDownload(32 * gb, 12 * gb).name, QStringLiteral("qwen3:8b")); // this computer
+        QCOMPARE(recommendDownload(16 * gb, 6 * gb).name, QStringLiteral("qwen3:4b"));
+        QCOMPARE(recommendDownload(static_cast<qint64>(15.8 * gb), 0).name, QStringLiteral("qwen3:4b")); // no card
         QCOMPARE(recommendDownload(static_cast<qint64>(7.8 * gb)).name, QStringLiteral("qwen3:4b")); // an "8 GB" laptop
-        QCOMPARE(recommendDownload(static_cast<qint64>(15.8 * gb)).name, QStringLiteral("qwen3:8b"));
-        QCOMPARE(recommendDownload(64 * gb).name, QStringLiteral("qwen3:8b"));
-        for (const qint64 memory : {4 * gb, 8 * gb, 16 * gb}) {
-            // Every recommendation fits, so a recommended download is then also picked.
-            const ModelRecommendation recommended = recommendDownload(memory);
-            QVERIFY(recommended.approximateGigabytes * gb < memory * 0.55);
+        QCOMPARE(recommendDownload(4 * gb).name, QStringLiteral("qwen3:1.7b"));
+        QCOMPARE(recommendDownload(64 * gb).name, QStringLiteral("qwen3:4b"));
+        for (const qint64 memory : {4 * gb, 8 * gb, 16 * gb, 32 * gb}) {
+            for (const qint64 video : {0LL, 6 * gb, 12 * gb}) {
+                // Every recommendation fits and runs quickly, so it is then also picked.
+                const ModelRecommendation recommended = recommendDownload(memory, video);
+                QVERIFY(recommended.approximateGigabytes * gb < memory * 0.55);
+                LocalModel downloaded = model(recommended.name, recommended.approximateGigabytes, QStringLiteral("qwen3"), true);
+                QVERIFY2(!runsSlowly(downloaded, video), qPrintable(recommended.name));
+                QCOMPARE(pickInstalledModel(installed + QList<LocalModel>{downloaded}, memory, video), recommended.name);
+            }
         }
+    }
+
+    void failedDownloadsAreExplained()
+    {
+        const QString fakeIp = QStringLiteral(
+            "max retries exceeded: Get \"https://x.r2.cloudflarestorage.com/ollama/...\": redirect target not allowed: "
+            "x.r2.cloudflarestorage.com resolves to non-public 198.18.1.56");
+        QVERIFY(explainPullError(fakeIp).contains(QStringLiteral("Fake-IP")));
+        QVERIFY(explainPullError(fakeIp).contains(QStringLiteral("+.r2.cloudflarestorage.com")));
+        QVERIFY(explainPullError(QStringLiteral("write /models/blobs: no space left on device")).contains(QStringLiteral("磁盘")));
+        QVERIFY(explainPullError(QStringLiteral("pull model manifest: file does not exist")).contains(QStringLiteral("找不到")));
+        QVERIFY(explainPullError(QStringLiteral("dial tcp: i/o timeout")).contains(QStringLiteral("网络")));
+        QCOMPARE(explainPullError(QStringLiteral("something else")), QStringLiteral("something else"));
+    }
+
+    void stoppingAndReasoningModels()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("gpt-oss:test"), 1.0, QStringLiteral("gptoss"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools"), QStringLiteral("thinking")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral("{\"corrections\":[]}")}), FakeOllama::chat({QStringLiteral("晚到的回答")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        LocalAssistant assistant;
+        assistant.refresh();
+        QTRY_VERIFY(assistant.state() == LocalAiState::Ready);
+        QList<QStringList> finished;
+        connect(&assistant, &LocalAssistant::taskFinished, this,
+                [&finished](const QString& id, const QString& text, bool ok, const QString& error) {
+            finished.append({id, text, ok ? QStringLiteral("ok") : QStringLiteral("failed"), error});
+        });
+        // gpt-oss cannot stop reasoning; a schema-constrained answer stalls it, so none is asked for.
+        QVERIFY(assistant.runTask(*findTask(QStringLiteral("proofread")), {QStringLiteral("文档内容"), {}, {}}));
+        QTRY_COMPARE(finished.size(), 1);
+        QVERIFY(!fake.chatRequests().first().contains(QStringLiteral("format")));
+        QCOMPARE(fake.chatRequests().first().value(QStringLiteral("think")).toString(), QStringLiteral("low"));
+
+        // Stop: the task ends at once, as stopped, and the assistant is ready again.
+        QVERIFY(assistant.runTask(*findTask(QStringLiteral("polish")), {QStringLiteral("原文"), {}, {}}));
+        assistant.cancel();
+        QTRY_COMPARE(finished.size(), 2);
+        QCOMPARE(finished[1].at(2), QStringLiteral("failed"));
+        QCOMPARE(finished[1].at(3), QStringLiteral("已停止。"));
+        QVERIFY(assistant.state() == LocalAiState::Ready);
     }
 
     void toolsMirrorTheCommandCatalog()
@@ -318,6 +384,176 @@ private slots:
         QVERIFY(!assistant.ask(QStringLiteral("你好"), QString()));
         QVERIFY(assistant.recommendation().name.startsWith(QStringLiteral("qwen3:")));
         for (const auto& request : fake.requests) QVERIFY(request.first != QStringLiteral("/api/pull")); // never on its own
+    }
+
+    // --- office tasks ---
+
+    void markdownBecomesDocumentFormatting()
+    {
+        const QString html = markdownToHtml(QStringLiteral(
+            "<think>先想想</think># 会议通知\n正文**加粗**和*倾斜*\n- 一\n- 二\n1. 甲\n2) 乙\n"
+            "| 项目 | 数量 |\n|---|---:|\n| 纸 | 3 |\n<script>alert(1)</script>\n---\n> 引用"));
+        QVERIFY(!html.contains(QStringLiteral("先想想")));
+        QVERIFY(html.contains(QStringLiteral("<h1>会议通知</h1>")));
+        QVERIFY(html.contains(QStringLiteral("<p>正文<b>加粗</b>和<i>倾斜</i></p>")));
+        QVERIFY(html.contains(QStringLiteral("<ul><li>一</li><li>二</li></ul>")));
+        QVERIFY(html.contains(QStringLiteral("<ol><li>甲</li><li>乙</li></ol>")));
+        QVERIFY(html.contains(QStringLiteral("<th>项目</th>")));
+        QVERIFY(html.contains(QStringLiteral("<td>3</td>")));
+        QVERIFY(html.contains(QStringLiteral("&lt;script&gt;"))); // text, never markup
+        QVERIFY(!html.contains(QStringLiteral("<script>")));
+        QVERIFY(html.contains(QStringLiteral("<p>引用</p>")));
+        // In a reply bubble a heading is a bold line, not a giant title.
+        QCOMPARE(markdownToHtml(QStringLiteral("## 要点"), MarkdownTarget::Bubble), QStringLiteral("<p><b>要点</b></p>"));
+        // Office text: each line is its own paragraph.
+        QCOMPARE(markdownToHtml(QStringLiteral("尊敬的各位：\n您好")), QStringLiteral("<p>尊敬的各位：</p><p>您好</p>"));
+    }
+
+    void rewritesComeBackClean()
+    {
+        QCOMPARE(cleanRewrite(QStringLiteral("以下是润色后的文字：\n\n“今天**天气**很好。”")), QStringLiteral("今天天气很好。"));
+        QCOMPARE(cleanRewrite(QStringLiteral("第一段。\n\n第二段。")), QStringLiteral("第一段。\n\n第二段。"));
+        QCOMPARE(cleanRewrite(QStringLiteral("```\n## 标题\n```")), QStringLiteral("标题"));
+        // Quotes inside the text are kept.
+        QCOMPARE(cleanRewrite(QStringLiteral("他说“好”，我说“行”。")), QStringLiteral("他说“好”，我说“行”。"));
+        QCOMPARE(cleanRewrite(QStringLiteral("<think>嗯</think>结果")), QStringLiteral("结果"));
+    }
+
+    void tasksAreReadyMadeForOfficeWork()
+    {
+        QCOMPARE(tasksFor(TaskScope::Selection).size(), 6);
+        QCOMPARE(tasksFor(TaskScope::Document).size(), 3);
+        QCOMPARE(tasksFor(TaskScope::Writing).size(), 6);
+        for (const TaskSpec* spec : tasksFor(TaskScope::Writing)) QVERIFY(!spec->placeholder.isEmpty());
+
+        const TaskSpec* translate = findTask(QStringLiteral("translate"));
+        const QString toEnglish = taskMessages(*translate, {QStringLiteral("今天开会"), {}, {}}).last().toObject()
+                                      .value(QStringLiteral("content")).toString();
+        QVERIFY(toEnglish.contains(QStringLiteral("英文")));
+        const QString toChinese = taskMessages(*translate, {QStringLiteral("We meet today."), {}, {}}).last().toObject()
+                                      .value(QStringLiteral("content")).toString();
+        QVERIFY(toChinese.contains(QStringLiteral("简体中文")));
+
+        const QJsonArray polish = taskMessages(*findTask(QStringLiteral("polish")), {QStringLiteral("原文内容"), {}, {}});
+        QVERIFY(polish.first().toObject().value(QStringLiteral("content")).toString().contains(QStringLiteral("不要使用 Markdown")));
+        QVERIFY(polish.last().toObject().value(QStringLiteral("content")).toString().contains(QStringLiteral("原文内容")));
+
+        const QJsonArray draft = taskMessages(*findTask(QStringLiteral("notice")), {{}, QStringLiteral("周五开会"), {}});
+        QVERIFY(draft.first().toObject().value(QStringLiteral("content")).toString().contains(QStringLiteral("【】")));
+        QVERIFY(draft.last().toObject().value(QStringLiteral("content")).toString().contains(QStringLiteral("周五开会")));
+
+        // Long documents are cut, and the model is told so.
+        const QString longText(kTaskTextLimit + 500, QChar(0x5B57));
+        const QString summary = taskMessages(*findTask(QStringLiteral("summary")), {longText, {}, QStringLiteral("报告.docx")})
+                                    .last().toObject().value(QStringLiteral("content")).toString();
+        QVERIFY(summary.contains(QStringLiteral("《报告.docx》")));
+        QVERIFY(summary.contains(QStringLiteral("只提供了前")));
+        QVERIFY(summary.size() < kTaskTextLimit + 400);
+
+        QVERIFY(taskFormat(*findTask(QStringLiteral("proofread"))).value(QStringLiteral("properties")).toObject()
+                    .contains(QStringLiteral("corrections")));
+        QVERIFY(taskFormat(*findTask(QStringLiteral("polish"))).isEmpty());
+        QCOMPARE(contextLengthFor(QJsonArray{QJsonObject{{QStringLiteral("content"), QStringLiteral("短")}}}, false), 4096);
+        QCOMPARE(contextLengthFor(QJsonArray{QJsonObject{{QStringLiteral("content"), QString(10000, QLatin1Char('a'))}}}, false), 16384);
+        QCOMPARE(contextLengthFor(QJsonArray{QJsonObject{{QStringLiteral("content"), QString(90000, QLatin1Char('a'))}}}, true), 32768);
+    }
+
+    void onlyApplicableCorrectionsAreOffered()
+    {
+        const QString document = QStringLiteral("请按排好时间，带好笔计本。");
+        const QString answer = QStringLiteral(
+            "```json\n{\"corrections\":["
+            "{\"original\":\"按排\",\"corrected\":\"安排\",\"reason\":\"错别字\"},"
+            "{\"original\":\"笔计本\",\"corrected\":\"笔记本\",\"reason\":\"错别字\"},"
+            "{\"original\":\"按排\",\"corrected\":\"安排\",\"reason\":\"重复\"},"
+            "{\"original\":\"好时间\",\"corrected\":\"好时间\",\"reason\":\"没改\"},"
+            "{\"original\":\"不存在\",\"corrected\":\"x\",\"reason\":\"编的\"},"
+            "{\"original\":\"\",\"corrected\":\"x\",\"reason\":\"空\"}]}\n```");
+        const QList<Correction> fixes = parseCorrections(answer, document);
+        QCOMPARE(fixes.size(), 2);
+        QCOMPARE(fixes[0].original, QStringLiteral("按排"));
+        QCOMPARE(fixes[1].corrected, QStringLiteral("笔记本"));
+        QVERIFY(parseCorrections(QStringLiteral("没有错误"), document).isEmpty());
+    }
+
+    void newCommandsCheckTheirChoices()
+    {
+        const auto check = [](const QString& name, const QJsonObject& arguments) {
+            return validateCommand({name, arguments, CommandSource::Assistant}).code;
+        };
+        QCOMPARE(check(QStringLiteral("text.insert"), {{"text", "x"}, {"format", "markdown"}, {"position", "after"}}),
+                 QStringLiteral("valid"));
+        QCOMPARE(check(QStringLiteral("text.insert"), {{"text", "x"}, {"format", "html"}}), QStringLiteral("invalid_argument"));
+        QCOMPARE(check(QStringLiteral("text.insert"), {{"text", "x"}, {"position", "start"}}), QStringLiteral("invalid_argument"));
+        QCOMPARE(check(QStringLiteral("selection.replace"), {{"expected", "x"}}), QStringLiteral("missing_argument"));
+        QCOMPARE(check(QStringLiteral("selection.replace"), {{"text", "新"}, {"expected", "旧"}}), QStringLiteral("valid"));
+        QCOMPARE(check(QStringLiteral("document.replaceText"), {{"find", "按排"}, {"replace", "安排"}}), QStringLiteral("valid"));
+        QCOMPARE(check(QStringLiteral("document.replaceText"), {{"find", QString(201, QLatin1Char('a'))}, {"replace", "b"}}),
+                 QStringLiteral("argument_too_long"));
+        QCOMPARE(check(QStringLiteral("document.getText"), {}), QStringLiteral("valid"));
+        QVERIFY(!findCommand(QStringLiteral("document.getText"))->changesDocument);
+        QVERIFY(findCommand(QStringLiteral("selection.replace"))->changesDocument);
+        QString error;
+        QCOMPARE(parseSlashCommand(QStringLiteral("/全文"), &error)->name, QStringLiteral("document.getText"));
+        // The tool schema lists the allowed values.
+        for (const QJsonValue& tool : commandCatalogJson()) {
+            if (tool.toObject().value(QStringLiteral("name")).toString() != QStringLiteral("text.insert")) continue;
+            const QJsonObject format = tool.toObject().value(QStringLiteral("inputSchema")).toObject()
+                                           .value(QStringLiteral("properties")).toObject().value(QStringLiteral("format")).toObject();
+            QCOMPARE(format.value(QStringLiteral("enum")).toArray(), (QJsonArray{QStringLiteral("plain"), QStringLiteral("markdown")}));
+        }
+    }
+
+    void tasksAnswerInOneStepAndTheModelIsWarmedUp()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools"), QStringLiteral("thinking")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral("请大家"), QStringLiteral("准时参会。")}),
+                      FakeOllama::chat({QStringLiteral("{\"corrections\":[]}")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        LocalAssistant assistant;
+        assistant.refresh();
+        QTRY_VERIFY(assistant.state() == LocalAiState::Ready);
+
+        assistant.warmUp();
+        assistant.warmUp(); // loaded already: no second request
+        QTRY_VERIFY(std::any_of(fake.requests.begin(), fake.requests.end(),
+                                [](const auto& request) { return request.first == QStringLiteral("/api/generate"); }));
+        int warmUps = 0;
+        for (const auto& request : fake.requests) {
+            if (request.first != QStringLiteral("/api/generate")) continue;
+            ++warmUps;
+            QCOMPARE(request.second.value(QStringLiteral("model")).toString(), QStringLiteral("fake-qwen3:test"));
+            QCOMPARE(request.second.value(QStringLiteral("keep_alive")).toString(), QStringLiteral("30m"));
+        }
+        QCOMPARE(warmUps, 1);
+
+        QStringList deltas;
+        QList<QStringList> finished;
+        connect(&assistant, &LocalAssistant::taskDelta, this, [&deltas](const QString& text) { deltas.append(text); });
+        connect(&assistant, &LocalAssistant::taskFinished, this,
+                [&finished](const QString& id, const QString& text, bool ok, const QString& error) {
+            finished.append({id, text, ok ? QStringLiteral("ok") : QStringLiteral("failed"), error});
+        });
+        QVERIFY(assistant.runTask(*findTask(QStringLiteral("polish")), {QStringLiteral("大家要准时来开会"), {}, {}}));
+        QCOMPARE(assistant.runningTask(), QStringLiteral("polish"));
+        QVERIFY(!assistant.runTask(*findTask(QStringLiteral("polish")), {QStringLiteral("再来"), {}, {}})); // one at a time
+        QTRY_COMPARE(finished.size(), 1);
+        QCOMPARE(finished[0], (QStringList{QStringLiteral("polish"), QStringLiteral("请大家准时参会。"), QStringLiteral("ok"), QString()}));
+        QCOMPARE(deltas.join(QString()), QStringLiteral("请大家准时参会。"));
+        QVERIFY(assistant.state() == LocalAiState::Ready);
+        const QJsonObject request = fake.chatRequests().first();
+        QVERIFY(!request.contains(QStringLiteral("tools")));
+        QVERIFY(!request.contains(QStringLiteral("format")));
+        QCOMPARE(request.value(QStringLiteral("keep_alive")).toString(), QStringLiteral("30m"));
+        QCOMPARE(request.value(QStringLiteral("options")).toObject().value(QStringLiteral("num_ctx")).toInt(), 4096);
+        QVERIFY(request.value(QStringLiteral("think")).isBool());
+
+        QVERIFY(assistant.runTask(*findTask(QStringLiteral("proofread")), {QStringLiteral("文档内容"), {}, {}}));
+        QTRY_COMPARE(finished.size(), 2);
+        QVERIFY(fake.chatRequests().last().value(QStringLiteral("format")).toObject().contains(QStringLiteral("properties")));
+        QCOMPARE(fake.chatRequests().last().value(QStringLiteral("options")).toObject().value(QStringLiteral("temperature")).toDouble(), 0.0);
     }
 };
 
