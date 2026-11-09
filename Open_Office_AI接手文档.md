@@ -45,13 +45,14 @@
 - CTest 共 84 项通过；编辑器脚本在真实编辑器里逐条验证过；真实会话验证了按钮随选区变化、“较慢”标记、计秒和停止。**完整的校对 / 润色 / 起草还没在真实编辑器里走完**：本机只有很慢的 gpt-oss:20b，推荐的 qwen3:8b 因代理 Fake-IP 没下载成功，用户说稍后自己调整网络。见第 37、38 条。
 
 **内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
-- 已装配的候选：`build/full-source-run-builtin-ai-r2`（宿主 `18bed569…`，构建 `builtin-ai-2`，带 `ai-engine/vulkan` 和 `ai-engine/cpu`）。**它还没有第 39 条最后修的“校对字段顺序”问题**；源码最新构建是 `builtin-ai-4`（CTest 91 项全过），还没装配。
+- 最新候选：`build/full-source-run-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，CTest 91 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-08 装配，第 43 条）。含第 39 条最后修的“校对字段顺序”。旧候选 `-builtin-ai`、`-builtin-ai-r2`（宿主 `18bed569…`，没有该修复）原样保留。
 - 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；侧边会话已与魔搭公布的 SHA256 核对一致，见第 40 条）。4B、8B 没下载（4B 下载时连接被重置）。
-- 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。
+- 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。显存空闲时，校对、润色、正式、总结每项连引擎启动 6–8 秒、每秒约 155 词（第 43 条）。
+- **已知质量问题：** 1.7B 输出不稳定；显存空闲那次润色漏掉了“带好笔记本、认真听讲”一句和落款“行政部”（上一次没漏），改正式时加了原文没有的“笔和”“负责人”。值得做程序检查：结果比原文少了句子或改了实词时提醒用户（第 41、43 条）。
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-08 交接后）：** 第 39 条“接手先做”第 1 步（用 `local_ai_smoke` 在真实引擎上复查校对、润色、正式、总结）已完成，四项都给出了合格结果（第 41 条），但当时显存被 Ollama 占着，每项 47–68 秒。下一步是装配 r3、在真实编辑器里走完整的校对 / 润色 / 起草。**显存提醒：** 2026-11-08 20:20（本机时间）查看时，Ollama 仍载着 gpt-oss:20b（约 10 GB 显存，显卡共用 11.8/12.2 GB），按 Ollama 设置会在 20:43 自动卸载；要提前卸载先问用户。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-08 本机时间 20:30 起）：** 第 39 条“接手先做”的第 1 步（`local_ai_smoke` 复查，第 41、43 条）和 r3 装配（第 43 条）已完成。正在进行真实编辑器会话 `builtin-ai-session3`：r3，样本 `fixtures/results/office-ai-sample-5.docx`，用 r3 自带的 `ai-engine`，只设了 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → 可选起草插入 → `/保存` → 关窗）。结束后用 `scripts/verify_office_ai_session.py builtin-ai-session3 --document fixtures/results/office-ai-sample-5.docx` 核对。经用户同意，已用 Ollama 接口把 gpt-oss:20b 从显存卸载（显存从 11.8 GB 降到 2.6 GB），没有结束 Ollama 进程。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -66,7 +67,7 @@
 | drawingfile | 已重建并通过（`out/drawingfile/pass6`，`drawingfile-functional-pass2.json`）：46 个导出签名一致，两份自建 PDF 的渲染、文字、链接、目录、表单与外观、拆分/另存为、存储接口两版都与官方一致。边界：加载器 JS 模板取自官方生成文件（无公开源码），`drawingfile_native.js` 沿用官方 |
 
 **下一步（待用户确定方向）：**
-0. AI 助手（内置引擎，见第 39 条“接手先做”）：`local_ai_smoke` 复查已完成（第 41 条）；接着在显存空闲时装配 r3（`--ai-engine dependencies/llama.cpp-b12202`），在真实编辑器里走完整流程并用 `scripts/verify_office_ai_session.py` 核对；补上 llama.cpp 的 MIT 许可证原文；之后问用户是否设为默认入口、重新生成安装包。再往后：把命令清单接成真正的 MCP 服务。
+0. AI 助手（内置引擎，见第 39 条“接手先做”）：`local_ai_smoke` 复查和 r3 装配已完成（第 41、43 条）；在真实编辑器里走完整流程并用 `scripts/verify_office_ai_session.py` 核对（进行中，见“正在做”）；补上 llama.cpp 的 MIT 许可证原文；之后问用户是否设为默认入口、重新生成安装包。再往后：把命令清单接成真正的 MCP 服务。
 1. 在一台干净的 Windows 电脑（或虚拟机）上试装安装包；考虑代码签名。
 2. XLSX/PPTX/PDF 的界面流程与回归：打开、新建（目前只开放新建文字文档）、保存、另存为。
 3. 导出为其他格式（如 PDF）：编辑器自己菜单里的导出目前会被取消，见第 26 条。
@@ -954,6 +955,19 @@ python -B scripts/verify_full_source_docx_sample.py
     - **核对结果：** git 工作区干净，与 `origin/main` 同步（最新提交 `8be528b`）；`build/full-source-run-builtin-ai-r3` 还不存在；`build/full-source-host/bin` 是 20:13 的构建（`builtin-ai-4`）；`smoke-*.out` 四份都在；模型目录只有 1.7B；`build_installer.py` 的 `SOURCE` 仍是 `build/full-source-run-local-ai`。
     - **显存：** Ollama（`ollama serve`，20:06 启动）载着 gpt-oss:20b，约 10 GB 显存，到 20:43 自动卸载；显卡共用 11.8/12.2 GB。进程列表里的 `llama-server.exe` 是 Ollama 自己的（路径在 Ollama 安装目录、父进程是 `ollama serve`），不是本软件的内置引擎。没有卸载、没有结束任何进程。
     - **改动：** 只改本文。第 0 节“正在做”和“下一步”第 0 项：复查已完成（第 41 条），并加了显存提醒；第 0 节模型说明：1.7B 的 SHA256 已核对（第 40 条）；顶部“最后更新”时间。没有编译、运行或装配任何东西。
+
+43. **显存空闲时重跑复查，装配 r3（2026-11-08 本机时间 20:22–20:30，Claude Code）：**
+    - **用户要求：** 回答“可以”，同意接着装配 r3，并同意把 gpt-oss:20b 从显存卸载。
+    - **卸载：** `curl --noproxy '*' http://127.0.0.1:11434/api/generate -d '{"model":"gpt-oss:20b","keep_alive":0}'`，回 `done_reason: unload`；`/api/ps` 为空；显存 11.8 GB → 2.6 GB。Ollama 进程没动。
+    - **重跑 `local_ai_smoke`（构建 `builtin-ai-4`，Qwen3 1.7B，`OPEN_OFFICE_AI_ENGINE` 指向 `dependencies/llama.cpp-b12202`）：** 输出在 `build/wasm-source/tmp/smoke-vram-free/*.out`（不在 git 里）。
+      - 校对：8 秒（含引擎启动），每秒 153 词，得到“按排→安排”“笔计本→笔记本”，原始回答字段顺序为 `error`、`fix`、`reason`。
+      - 润色：7 秒，每秒 154 词，两个错别字都改了，**但漏掉了“大家要带好笔计本，认真听讲”这句和落款“行政部”**。第 41 条那次没漏，说明是小模型抽样不稳定。
+      - 正式：7 秒，每秒 158 词，结构完整；加了原文没有的“笔和”（携带笔和笔记本）和“负责人”（各部门负责人）。
+      - 总结：6 秒，每秒 154 词，要点全对；“参加要求”里照抄了原文的错字“笔计本”；这次是平的列表。
+      - 结论：显存空闲时速度没问题，比第 41 条快 7–9 倍。质量问题主要是漏句和添词，建议加程序检查（对比原文句子和实词，结果缺句或改实词时提示），而不是只靠提示词。
+    - **装配：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r3 --build-label builtin-ai-4 --ai-engine dependencies/llama.cpp-b12202`。复制 20,972 个文件，20,971 个逐个与 `build/full-source-run-wasm-candidate` 一致（另一个是被替换的 `OpenOffice.exe`），宿主 SHA256 `7f5cbb10659da14fd1fbcbd84aaa192b371d1a2ee7a0efe6af8214e7f49d8e1c`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r3.json`。
+    - **真实编辑器会话：** 已启动 `builtin-ai-session3`（进程 35580），样本 `fixtures/results/office-ai-sample-5.docx`（从 `office-ai-sample.docx` 新复制，SHA256 `ff48031c…7d7f` 与原样本相同）。没有屏幕控制工具，由用户手动操作；结果见下一条。
+    - **未改动：** 默认入口 `build/full-source-run-local-ai`、各回退和旧候选目录、安装包、需求原文。
 
 ## 附录 A：requirements.md 完整原文
 
