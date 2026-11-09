@@ -987,6 +987,12 @@ python -B scripts/verify_full_source_docx_sample.py
     - **装配 r5：** 第一次运行被用户中途打断，留下没复制完的 `build/.full-source-run-builtin-ai-r5.staging-c4129cb8f17345599b7b2d51498ec7e5`（约 1.6 GB），按规则不删除。随后重新运行同一命令（`--target build/full-source-run-builtin-ai-r5 --build-label builtin-ai-6 --ai-engine dependencies/llama.cpp-b12202`），因为用户另一个项目同时在渲染、硬盘忙，超过 10 分钟，转后台继续；结果见下一条或 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r5.json`。
     - **未改动：** 默认入口、各回退和旧候选目录（含 r3、r4）、安装包、需求原文。
 
+46. **r5 装好；用户问“下载的模型怎么没了”（2026-11-09，Claude Code）：**
+    - **r5：** 后台重跑的装配成功，`build/full-source-run-builtin-ai-r5`，记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r5.json`。这次的临时目录 `.staging-a76a56fe…` 已正常改名成 r5；第一次被打断留下的 `.staging-c4129cb8…` 仍原样保留。
+    - **模型没丢：** `dependencies/local-models/download/` 里有 `Qwen3-1.7B-Q8_0.gguf`（1,834,426,016 字节）和 `Qwen3-4B-Q4_K_M.gguf`（2,497,280,256 字节，2026-11-08 21:04）。4B 是用户在 r3 会话窗口的设置页里下载的：那个窗口带着 `OPEN_OFFICE_MODEL_DIR` 指向这个目录，所以下到了这里；下载器核对 SHA256 后才把 `.part` 改名，文件完整。用户还选了它（注册表 `ai/builtinModel = qwen3-4b`）。
+    - **为什么“没了”：** 用户随后用启动文件直接打开 r4（01:56，没有环境变量），程序按注册表 `ai/modelFolder = D:/models` 找模型。那是 Ollama 的模型目录，没有 GGUF，所以显示没有模型。
+    - **产品问题（还没改）：** 测试用的环境变量会悄悄改变下载位置，设置页存的目录又是另一个地方，用户看不出模型去了哪里。可以考虑：所选目录里找不到模型时，顺便查一下其他已知位置（上次下载的目录、默认目录），找到就提示“在 X 找到 N 个模型，要改用这个位置吗”。
+
 ## 附录 A：requirements.md 完整原文
 
 以下代码块内容按原始字节嵌入，不加行号，不修改标点、编码或换行。
