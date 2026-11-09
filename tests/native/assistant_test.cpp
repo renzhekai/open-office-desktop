@@ -431,6 +431,9 @@ private slots:
         // Quotes inside the text are kept.
         QCOMPARE(cleanRewrite(QStringLiteral("他说“好”，我说“行”。")), QStringLiteral("他说“好”，我说“行”。"));
         QCOMPARE(cleanRewrite(QStringLiteral("<think>嗯</think>结果")), QStringLiteral("结果"));
+        // Markdown's two-space line breaks must not reach the document (seen in a real session).
+        QCOMPARE(cleanRewrite(QStringLiteral("关于开展安全培训的通知  \n各部门：  \n请准时参加。\t\n行政部")),
+                 QStringLiteral("关于开展安全培训的通知\n各部门：\n请准时参加。\n行政部"));
     }
 
     void tasksAreReadyMadeForOfficeWork()

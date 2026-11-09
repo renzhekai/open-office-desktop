@@ -45,14 +45,14 @@
 - CTest 共 84 项通过；编辑器脚本在真实编辑器里逐条验证过；真实会话验证了按钮随选区变化、“较慢”标记、计秒和停止。**完整的校对 / 润色 / 起草还没在真实编辑器里走完**：本机只有很慢的 gpt-oss:20b，推荐的 qwen3:8b 因代理 Fake-IP 没下载成功，用户说稍后自己调整网络。见第 37、38 条。
 
 **内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
-- 最新候选：`build/full-source-run-builtin-ai-r4`（宿主 `05919c83…`，构建 `builtin-ai-5`，CTest 92 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-08 装配，第 44 条）。比 r3 多修了悬浮球快捷按钮被压扁的问题（用户截图发现）。`-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，第 43 条）含第 39 条最后修的“校对字段顺序”，但有按钮被压扁的问题。旧候选 `-builtin-ai`、`-builtin-ai-r2`、`-r3` 原样保留。
+- 最新候选：`build/full-source-run-builtin-ai-r5`（构建 `builtin-ai-6`，CTest 92 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-09 装配，第 45 条）。比 r4 多修了“改写结果行尾多两个空格”。`-builtin-ai-r4`（宿主 `05919c83…`，构建 `builtin-ai-5`，第 44 条）修了悬浮球快捷按钮被压扁（用户截图发现），没在真实编辑器里测过。`-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，第 43 条）含第 39 条最后修的“校对字段顺序”，但有按钮被压扁的问题。旧候选 `-builtin-ai`、`-builtin-ai-r2`、`-r3` 原样保留。
 - 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；侧边会话已与魔搭公布的 SHA256 核对一致，见第 40 条）。4B、8B 没下载（4B 下载时连接被重置）。
 - 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。显存空闲时，校对、润色、正式、总结每项连引擎启动 6–8 秒、每秒约 155 词（第 43 条）。
 - **已知质量问题：** 1.7B 输出不稳定；显存空闲那次润色漏掉了“带好笔记本、认真听讲”一句和落款“行政部”（上一次没漏），改正式时加了原文没有的“笔和”“负责人”。值得做程序检查：结果比原文少了句子或改了实词时提醒用户（第 41、43 条）。
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-08 本机时间 20:50 起）：** `local_ai_smoke` 复查（第 41、43 条）、r3 装配（第 43 条）、按钮压扁修复和 r4 装配（第 44 条）已完成。r3 的会话 `builtin-ai-session3` 作废（Ollama 抢了显存、按钮被压扁），等用户关掉那个窗口。接下来用 r4 开新会话 `builtin-ai-session4`：样本 `fixtures/results/office-ai-sample-6.docx`，用 r4 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4 装配和两处修复（第 43–45 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。正在装配 r5（第 45 条）。之后用 r5 开新会话 `builtin-ai-session4`：样本 `fixtures/results/office-ai-sample-6.docx`，用 r5 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -978,6 +978,14 @@ python -B scripts/verify_full_source_docx_sample.py
     - **装配 r4：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r4 --build-label builtin-ai-5 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `05919c83931b3e150c539fbaa65b154d5d5fa9b9a4c048f2fe91f219972b11d2`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r4.json`。新样本 `fixtures/results/office-ai-sample-6.docx`（SHA256 与原样本相同）。
     - **`builtin-ai-session3`：** 作废，不用于验收；用户正在关窗口，关后证据留在 `evidence/full-source-gui/builtin-ai-session3/`。
     - **未改动：** 默认入口、各回退和旧候选目录（含 r3）、安装包、需求原文。
+
+45. **r3 会话结果；修掉改写结果的行尾空格；装配 r5（2026-11-08 21:11 至 2026-11-09，Claude Code）：**
+    - **`builtin-ai-session3` 结果（r3，退出码 0，`evidence/host-candidate/builtin-ai-session3-result.json`，9 项检查 7 项过）：** 用户选中全文点“纠错”再“替换原文”（`selection.replace` 1 次），没有用“全文校对”；保存是在助手里让 AI 执行的（日志里 `document.save` 来源是 `assistant`），不是 `/保存`。所以“AI 改动与用户保存”一项不过，这是操作路径不同，不是程序缺陷。两个错别字都改对了，38 条编辑器命令全部有回报，日志不含正文。
+    - **发现的缺陷：** 另一项不过是因为保存后的前四段末尾都多了两个空格（如“关于开展安全培训的通知␣␣”）。这是模型按 Markdown 习惯在行尾加的强制换行，`cleanRewrite` 没去掉就写进了文档。修法（`app/assistant/markdown_html.cpp`）：清理改写结果时去掉每行末尾的空格、制表符和不换行空格。`tests/native/assistant_test.cpp` 的清理测试加了这个例子（没有先在旧代码上单独跑一次失败，按代码逻辑旧版会保留这些空格）。另外注意：`cleanRewrite` 最后的 `trimmed()` 会去掉开头的全角空格缩进，这次没改。
+    - **显存：** 关窗后显存仍是 11.6 GB，占用者是用户另一个 Claude 会话在 `D:\claude视频` 跑的 Qwen3-TTS 批处理（`qwen_tts_batch.py`），没有动它；2026-11-09 再查时已跑完，显存 1.7 GB。
+    - **构建 `builtin-ai-6`：** CTest 3 组全过，共 92 项。
+    - **装配 r5：** 第一次运行被用户中途打断，留下没复制完的 `build/.full-source-run-builtin-ai-r5.staging-c4129cb8f17345599b7b2d51498ec7e5`（约 1.6 GB），按规则不删除。随后重新运行同一命令（`--target build/full-source-run-builtin-ai-r5 --build-label builtin-ai-6 --ai-engine dependencies/llama.cpp-b12202`），因为用户另一个项目同时在渲染、硬盘忙，超过 10 分钟，转后台继续；结果见下一条或 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r5.json`。
+    - **未改动：** 默认入口、各回退和旧候选目录（含 r3、r4）、安装包、需求原文。
 
 ## 附录 A：requirements.md 完整原文
 

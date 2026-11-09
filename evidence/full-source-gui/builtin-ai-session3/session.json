@@ -1,0 +1,26 @@
+{
+  "started_at_utc": "2026-11-09T04:28:04.876669+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-builtin-ai-r3\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\full-source-profiles\\builtin-ai-session3",
+    "--smoke-report",
+    "D:\\open office\\evidence\\full-source-gui\\builtin-ai-session3\\launch-report.json",
+    "--open",
+    "D:\\open office\\fixtures\\results\\office-ai-sample-5.docx"
+  ],
+  "profile": "D:\\open office\\build\\full-source-profiles\\builtin-ai-session3",
+  "profile_existed_before": false,
+  "entry_sha256": "7f5cbb10659da14fd1fbcbd84aaa192b371d1a2ee7a0efe6af8214e7f49d8e1c",
+  "stage_manifest_sha256": "1d826cc24ce312e2ee160d9ddad0c42612a69b7144c04e617452863e0f50669a",
+  "runtime": "D:\\open office\\build\\full-source-run-builtin-ai-r3",
+  "wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "host_candidate_marker_sha256": "e58a5fd24f49a794ef283df2c7ffe4dccce8d23524ed27320b07f4c6af7b8e1d",
+  "status": "exited",
+  "document_actions_verified": false,
+  "roundtrip_verified": false,
+  "pid": 35580,
+  "exit_code": 0,
+  "exited_at_utc": "2026-11-09T05:11:14.795838+00:00",
+  "native_events_sha256": "f7542a175ca18d7d711a114f9c6723773e89fcfda3aeb484884d5157d69d6516"
+}

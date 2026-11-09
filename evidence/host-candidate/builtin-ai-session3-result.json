@@ -1,0 +1,117 @@
+{
+  "checked_at_utc": "2026-11-09T05:11:45.663816+00:00",
+  "session": "builtin-ai-session3",
+  "runtime": "D:\\open office\\build\\full-source-run-builtin-ai-r3",
+  "entry_sha256": "7f5cbb10659da14fd1fbcbd84aaa192b371d1a2ee7a0efe6af8214e7f49d8e1c",
+  "journal_sha256": "279b17a1ed8d147c48619a041247df7d619901fa537800df7fd093e944f342f0",
+  "document": "D:\\open office\\fixtures\\results\\office-ai-sample-5.docx",
+  "document_sha256": "d87ba1cc40533551af4b496821c8f1dac8055e32ce3bdf527f7e77a0f1c11420",
+  "paragraphs": [
+    {
+      "text": "关于开展安全培训的通知  ",
+      "style": null
+    },
+    {
+      "text": "各部门：  ",
+      "style": null
+    },
+    {
+      "text": "为了提高大家的安全意识，公司决定于本周五下午三点在三楼会议室开展安全培训，请各部门安排人员准时参加。  ",
+      "style": null
+    },
+    {
+      "text": "大家要带好笔记本，认真听讲，会后每人要交一份心得体会给行政部，下周三之前交。  ",
+      "style": null
+    },
+    {
+      "text": "行政部",
+      "style": null
+    }
+  ],
+  "checks": [
+    {
+      "check": "process_exit_zero",
+      "ok": true,
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "editor_commands_reported_back",
+      "ok": true,
+      "detail": {
+        "accepted": 38,
+        "completed": 38,
+        "failed": []
+      }
+    },
+    {
+      "check": "no_document_operation_failed",
+      "ok": true,
+      "detail": {
+        "failures": []
+      }
+    },
+    {
+      "check": "journal_has_ai_edits_and_user_save",
+      "ok": false,
+      "detail": {
+        "replaceText_ok": 0,
+        "selection_replace_ok": 1,
+        "save_ok": 0,
+        "reads": 37,
+        "insert_ok": 0,
+        "entries": 40
+      }
+    },
+    {
+      "check": "logs_never_contain_document_text",
+      "ok": true,
+      "detail": {
+        "leaked": []
+      }
+    },
+    {
+      "check": "typos_fixed",
+      "ok": true,
+      "detail": {
+        "has_按排": false,
+        "has_笔计本": false,
+        "has_安排": true
+      }
+    },
+    {
+      "check": "untouched_paragraphs_kept",
+      "ok": false,
+      "detail": {
+        "first": [
+          "关于开展安全培训的通知  ",
+          "各部门：  "
+        ],
+        "has_signature": true
+      }
+    },
+    {
+      "check": "selection_was_polished",
+      "ok": true,
+      "detail": {
+        "paragraphs": [
+          "关于开展安全培训的通知  ",
+          "各部门：  ",
+          "为了提高大家的安全意识，公司决定于本周五下午三点在三楼会议室开展安全培训，请各部门安排人员准时参加。  ",
+          "大家要带好笔记本，认真听讲，会后每人要交一份心得体会给行政部，下周三之前交。  ",
+          "行政部"
+        ]
+      }
+    },
+    {
+      "check": "draft_has_real_headings_if_inserted",
+      "ok": true,
+      "detail": {
+        "inserted": 0,
+        "styled_paragraphs": []
+      }
+    }
+  ],
+  "all_ok": false
+}

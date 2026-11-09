@@ -163,9 +163,12 @@ QString cleanRewrite(const QString& text)
     }
     static const QRegularExpression headingMark(QStringLiteral("^\\s*#{1,6}\\s+"));
     static const QRegularExpression emphasis(QStringLiteral("\\*\\*(.+?)\\*\\*|__(.+?)__"));
+    // Markdown ends lines with two spaces to force a break; in the document they are stray spaces.
+    static const QRegularExpression trailingSpace(QStringLiteral("[ \\t\\x{00A0}]+$"));
     for (QString& line : lines) {
         line.remove(headingMark);
         line.replace(emphasis, QStringLiteral("\\1\\2"));
+        line.remove(trailingSpace);
     }
     result = lines.join(QLatin1Char('\n')).trimmed();
     // Quotes around the whole answer, when the answer itself contains no others.
