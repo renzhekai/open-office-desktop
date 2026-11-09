@@ -1022,6 +1022,56 @@ private slots:
         QCOMPARE(fake.chatRequests().size(), 3);
     }
 
+    void quickActionBarFitsChipsThatArriveWhileOpen()
+    {
+        // The selection is read after the ball opens, so its chips arrive while it is open. They used to be
+        // measured before the style sheet reached them; the bar kept that short height and squashed them.
+        QTemporaryDir folder;
+        ScopedEnvironment backend("OPEN_OFFICE_AI_BACKEND", "builtin");
+        ScopedEnvironment engineUrl("OPEN_OFFICE_AI_ENGINE_URL", closedOllamaUrl());
+        ScopedEnvironment directory("OPEN_OFFICE_MODEL_DIR", QFile::encodeName(folder.path()));
+        ControlledEngine engine;
+        openoffice::MainWindow window(&engine);
+        auto* ball = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        window.show();
+        openFixture(window, engine, "text-table.docx");
+        QTRY_VERIFY(ball->isVisible());
+        ball->expand();
+        auto* bar = ball->findChild<QWidget*>(QStringLiteral("assistantActionBar"));
+        auto* context = ball->findChild<QLabel*>(QStringLiteral("assistantContext"));
+        QVERIFY(bar && context);
+        const auto squashed = [bar, context] {
+            QStringList found;
+            if (!bar->isVisible()) found << QStringLiteral("bar hidden");
+            if (context->height() < context->sizeHint().height())
+                found << QStringLiteral("context %1 < %2").arg(context->height()).arg(context->sizeHint().height());
+            int chips = 0;
+            for (QPushButton* chip : bar->findChildren<QPushButton*>(QStringLiteral("assistantChip"))) {
+                ++chips;
+                if (chip->height() < chip->sizeHint().height() || !bar->rect().contains(chip->geometry()))
+                    found << QStringLiteral("%1 %2 < %3").arg(chip->text()).arg(chip->height()).arg(chip->sizeHint().height());
+            }
+            if (!chips) found << QStringLiteral("no chips");
+            return found.join(QStringLiteral("; "));
+        };
+        QTRY_COMPARE(squashed(), QString()); // the chips present when it opened
+
+        const QList<openoffice::AssistantBall::QuickAction> selection{
+            {QStringLiteral("polish"), QStringLiteral("润色")}, {QStringLiteral("proofread"), QStringLiteral("纠错")},
+            {QStringLiteral("shorten"), QStringLiteral("精简")}, {QStringLiteral("expand"), QStringLiteral("扩写")},
+            {QStringLiteral("formal"), QStringLiteral("改正式")}, {QStringLiteral("translate"), QStringLiteral("翻译")}};
+        ball->setQuickActions(QStringLiteral("已选中 114 字：关于开展安全培训的通知各部门：为了提高大家的安全意识，公司决定…"),
+                              selection);
+        QTest::qWait(300); // the new chips are shown and styled on the next turns of the event loop
+        QCOMPARE(squashed(), QString());
+        ball->setQuickActions(QStringLiteral("处理整篇文档"), {{QStringLiteral("draft"), QStringLiteral("起草…")}});
+        QTest::qWait(300);
+        QCOMPARE(squashed(), QString());
+        ball->setQuickActions(QStringLiteral("已选中 4 字：大家要来"), selection);
+        QTest::qWait(300);
+        QCOMPARE(squashed(), QString());
+    }
+
     void aiSettingsListModelsAndMarkTheOneForThisComputer()
     {
         QTemporaryDir folder;

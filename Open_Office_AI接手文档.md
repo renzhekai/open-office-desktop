@@ -45,14 +45,14 @@
 - CTest 共 84 项通过；编辑器脚本在真实编辑器里逐条验证过；真实会话验证了按钮随选区变化、“较慢”标记、计秒和停止。**完整的校对 / 润色 / 起草还没在真实编辑器里走完**：本机只有很慢的 gpt-oss:20b，推荐的 qwen3:8b 因代理 Fake-IP 没下载成功，用户说稍后自己调整网络。见第 37、38 条。
 
 **内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
-- 最新候选：`build/full-source-run-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，CTest 91 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-08 装配，第 43 条）。含第 39 条最后修的“校对字段顺序”。旧候选 `-builtin-ai`、`-builtin-ai-r2`（宿主 `18bed569…`，没有该修复）原样保留。
+- 最新候选：`build/full-source-run-builtin-ai-r4`（宿主 `05919c83…`，构建 `builtin-ai-5`，CTest 92 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-08 装配，第 44 条）。比 r3 多修了悬浮球快捷按钮被压扁的问题（用户截图发现）。`-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，第 43 条）含第 39 条最后修的“校对字段顺序”，但有按钮被压扁的问题。旧候选 `-builtin-ai`、`-builtin-ai-r2`、`-r3` 原样保留。
 - 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；侧边会话已与魔搭公布的 SHA256 核对一致，见第 40 条）。4B、8B 没下载（4B 下载时连接被重置）。
 - 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。显存空闲时，校对、润色、正式、总结每项连引擎启动 6–8 秒、每秒约 155 词（第 43 条）。
 - **已知质量问题：** 1.7B 输出不稳定；显存空闲那次润色漏掉了“带好笔记本、认真听讲”一句和落款“行政部”（上一次没漏），改正式时加了原文没有的“笔和”“负责人”。值得做程序检查：结果比原文少了句子或改了实词时提醒用户（第 41、43 条）。
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-08 本机时间 20:30 起）：** 第 39 条“接手先做”的第 1 步（`local_ai_smoke` 复查，第 41、43 条）和 r3 装配（第 43 条）已完成。正在进行真实编辑器会话 `builtin-ai-session3`：r3，样本 `fixtures/results/office-ai-sample-5.docx`，用 r3 自带的 `ai-engine`，只设了 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → 可选起草插入 → `/保存` → 关窗）。结束后用 `scripts/verify_office_ai_session.py builtin-ai-session3 --document fixtures/results/office-ai-sample-5.docx` 核对。经用户同意，已用 Ollama 接口把 gpt-oss:20b 从显存卸载（显存从 11.8 GB 降到 2.6 GB），没有结束 Ollama 进程。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-08 本机时间 20:50 起）：** `local_ai_smoke` 复查（第 41、43 条）、r3 装配（第 43 条）、按钮压扁修复和 r4 装配（第 44 条）已完成。r3 的会话 `builtin-ai-session3` 作废（Ollama 抢了显存、按钮被压扁），等用户关掉那个窗口。接下来用 r4 开新会话 `builtin-ai-session4`：样本 `fixtures/results/office-ai-sample-6.docx`，用 r4 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -968,6 +968,16 @@ python -B scripts/verify_full_source_docx_sample.py
     - **装配：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r3 --build-label builtin-ai-4 --ai-engine dependencies/llama.cpp-b12202`。复制 20,972 个文件，20,971 个逐个与 `build/full-source-run-wasm-candidate` 一致（另一个是被替换的 `OpenOffice.exe`），宿主 SHA256 `7f5cbb10659da14fd1fbcbd84aaa192b371d1a2ee7a0efe6af8214e7f49d8e1c`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r3.json`。
     - **真实编辑器会话：** 已启动 `builtin-ai-session3`（进程 35580），样本 `fixtures/results/office-ai-sample-5.docx`（从 `office-ai-sample.docx` 新复制，SHA256 `ff48031c…7d7f` 与原样本相同）。没有屏幕控制工具，由用户手动操作；结果见下一条。
     - **未改动：** 默认入口 `build/full-source-run-local-ai`、各回退和旧候选目录、安装包、需求原文。
+
+44. **r3 会话里发现两个问题；修好按钮被压扁，装配 r4（2026-11-08 本机时间 20:32–20:55，Claude Code）：**
+    - **问题 1：打开悬浮球时 Ollama 又载入了 gpt-oss:20b（显存又满，r3 的内置引擎只能用处理器）。** Ollama 日志 `%LOCALAPPDATA%\Ollama\server.log` 显示：20:32:38 r3 依次请求 `/api/version`、`/api/tags`、`/api/generate`（预热），20:32:54 又查了一次，20:32:59 r3 才启动内置引擎。说明 r3 启动时共用设置 `HKCU\Software\Open Office Project\Open Office\ai\useOllama` 是开着的，几秒后又被关掉（多半是用户在设置页取消了“改用 Ollama”，已问用户确认）。代码里只有设置页的勾选会写这个值；测试进程在 `initTestCase` 里用环境变量指定引擎，不读写它。所以不是程序缺陷，是之前某次真实会话留下的设置。现在是 `false`。同一处还存着 `ai/modelFolder = D:/models`（Ollama 的模型目录，里面没有 GGUF），用启动文件直接打开内置引擎版时会显示“没有模型”，要在设置页改位置或设环境变量。已再次卸载 gpt-oss:20b（仍在用户同意的范围内）。
+    - **问题 2（用户截图）：悬浮球里“已选中 114 字：……”那行和下面一排快捷按钮被压扁，只露出上半截。** 根因：新按钮是在已显示的按钮区里创建的，Qt 要到下一轮事件循环才真正显示它们；排版不算隐藏的部件，所以按钮区的高度只算了说明文字那一行，按钮显示出来后只能挤进过矮的区域。第 39 条“按钮行先排版再算高度”的修复没覆盖这种情况。
+      - 新测试 `quickActionBarFitsChipsThatArriveWhileOpen`（`tests/native/native_ui_test.cpp`）：打开悬浮球后换三次按钮，检查说明文字和每个按钮都不比自己需要的高度矮、也不超出按钮区。修复前构建 `ui-bar-red-1` 失败：说明文字被压到 3 像素（需要 12），按钮全部超出按钮区（`build/full-source/host-evidence/ui-bar-red-1`）。
+      - 修复（`app/ui/assistant_ball.cpp`）：新按钮量尺寸前先套用样式（`ensurePolished`），放进行后立刻 `show()`；换下的旧按钮先隐藏再删除；按钮区装事件过滤器，内容变化（`LayoutRequest`）时重新摆放。
+      - 构建 `builtin-ai-5`：CTest 3 组全过，共 92 项（助手 36、契约 21、界面 35）。
+    - **装配 r4：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r4 --build-label builtin-ai-5 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `05919c83931b3e150c539fbaa65b154d5d5fa9b9a4c048f2fe91f219972b11d2`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r4.json`。新样本 `fixtures/results/office-ai-sample-6.docx`（SHA256 与原样本相同）。
+    - **`builtin-ai-session3`：** 作废，不用于验收；用户正在关窗口，关后证据留在 `evidence/full-source-gui/builtin-ai-session3/`。
+    - **未改动：** 默认入口、各回退和旧候选目录（含 r3）、安装包、需求原文。
 
 ## 附录 A：requirements.md 完整原文
 

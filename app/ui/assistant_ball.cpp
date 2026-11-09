@@ -341,6 +341,7 @@ AssistantBall::AssistantBall(QWidget* anchor)
     m_actionRows = new QVBoxLayout;
     m_actionRows->setSpacing(6);
     bar->addLayout(m_actionRows);
+    m_actionBar->installEventFilter(this);
 
     m_input = new QLineEdit(m_content);
     m_input->setObjectName(QStringLiteral("assistantInput"));
@@ -447,6 +448,12 @@ bool AssistantBall::eventFilter(QObject* watched, QEvent* event)
 {
     if (watched == m_scroll->widget() && (event->type() == QEvent::LayoutRequest || event->type() == QEvent::Resize))
         QTimer::singleShot(0, this, [this] { update(); });
+    // The bar is placed by hand, so a change in what it holds (new chips, a new font) must move it.
+    if (watched == m_actionBar && event->type() == QEvent::LayoutRequest)
+        QTimer::singleShot(0, this, [this] {
+            if (m_expanded) layoutContent();
+            update();
+        });
     return QWidget::eventFilter(watched, event);
 }
 
@@ -1068,7 +1075,10 @@ void AssistantBall::rebuildQuickActions()
     while (QLayoutItem* item = m_actionRows->takeAt(0)) {
         if (QLayout* row = item->layout()) {
             while (QLayoutItem* chip = row->takeAt(0)) {
-                if (QWidget* widget = chip->widget()) widget->deleteLater();
+                if (QWidget* widget = chip->widget()) {
+                    widget->hide(); // gone now, not when the deletion comes round
+                    widget->deleteLater();
+                }
                 delete chip;
             }
         }
@@ -1091,6 +1101,7 @@ void AssistantBall::rebuildQuickActions()
         chip->setEnabled(!m_working);
         const QString id = action.id;
         connect(chip, &QPushButton::clicked, this, [this, id] { triggerQuickAction(id); });
+        chip->ensurePolished(); // measured with the style sheet's font and padding
         const int width = chip->sizeHint().width();
         if (!row || used + width > available) {
             row = new QHBoxLayout;
@@ -1100,6 +1111,9 @@ void AssistantBall::rebuildQuickActions()
             used = 0;
         }
         row->insertWidget(row->count() - 1, chip);
+        // A new child of a shown bar stays hidden until a queued show, and layouts skip hidden widgets:
+        // the bar would be measured without its chips and squash them once they appear.
+        chip->show();
         used += width + 6;
     }
     // Lay the new chips out first, so the bar's height covers every row.
