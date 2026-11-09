@@ -56,7 +56,7 @@
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4/r5 装配和两处修复（第 43–46 条）、模型位置固定加迁移功能（第 47 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。r6 已装好（第 47 条），用户在 r6 窗口（会话 `builtin-ai-session4`，进程 35872）里试用时提出了对话方面的新要求（第 48 条），r7 正在装配。接着用 r7（或 r6 窗口的结果） `builtin-ai-session4`（顺便请用户试一次迁移）：样本 `fixtures/results/office-ai-sample-6.docx`，用 r6 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4/r5 装配和两处修复（第 43–46 条）、模型位置固定加迁移功能（第 47 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。r6 已装好（第 47 条），用户在 r6 窗口（会话 `builtin-ai-session4`，进程 35872）里试用时提出了对话方面的新要求（第 48 条），r7 已装好。接着用 r7 开会话 `builtin-ai-session4`（顺便请用户试一次迁移）：样本 `fixtures/results/office-ai-sample-6.docx`，用 r6 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -1027,7 +1027,8 @@ python -B scripts/verify_full_source_docx_sample.py
     - **`/` 列表：** 输入框里以 `/`（或全角 `／`）开头、还没有空格时，在胶囊上方弹出列表：“/新对话”“/历史”在前，然后是 `/命令 /状态 /新建 文档 /保存 /插入 文字 /选中 /全文 /撤销 /重做`，每条带说明；继续打字按开头筛选；↑↓ 选择，回车：要跟文字的（插入、新建）补全成“/插入 ”等着打字，不要的直接执行；Tab 只补全；Esc 只关列表；点选同回车。说明来自新加的 `slashHints()`（`app/assistant/assistant_commands.*`），`/命令` 的列表也加上了这两条。
     - **主窗口（`app/ui/main_window.*`）：** 启动时建一个空对话；打开/新建/保存完成后按上面的规则跟随文档；打开旧对话时，如果它的工作文件不是当前文档，显示一张“工作文件”卡片说明，文件还在就给“打开 文件名”按钮（打开后因为文件一致，不会再换对话）；删除当前对话会清空并开新对话。
     - **测试：** 构建 `conv-4`，CTest 3 组共 98 项全过（助手 37、契约 21、界面 40）。新增：`conversationsAreKeptOnePerFile`（存取、排序、Markdown 和 AI 上下文往返、标题截短、重命名、非法编号、删除其他、内存模式）；`conversationsStartOverKeepHistoryAndFollowTheDocument`（用假的 Ollama：新对话后 AI 请求里没有上一个对话的话；历史列表顺序、当前标记、工作文件；打开旧对话后 AI 请求里有旧对话的问答、没有新对话的；重命名；两次点击删除且文件被删；换文档自动开新对话；新窗口是新对话、旧对话仍在）；`slashListOffersCommandsAndCompletesThem`（全部列出、筛选、回车补全、↓ 回车执行“历史”、Esc 只关列表、未知词和不在开头时不弹）。中间几次失败都是测试写法：Qt 的模拟按键不支持中文字符（`conv-1` 整个界面测试因此中断）；新对话后快捷按钮会马上读一次选区，测试要等空闲；测试引擎异步完成打开，第二次打开要等完成消息。
-    - **装配 r7：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r7 --build-label conv-4 --ai-engine dependencies/llama.cpp-b12202`，后台进行中，结果见 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r7.json`。
+    - **装配 r7：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r7 --build-label conv-4 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `e8ca75428506a60324f316ed7eaaab4ce4414ab3647eff94f10c2021e1293cd2`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r7.json`。
+    - **r6 会话 `builtin-ai-session4` 的结果（`evidence/host-candidate/builtin-ai-session4-result.json`）：** 退出码 0，5 条编辑器命令（4 次读选区、1 次读全文）全部回报，日志不含正文；用户只是试用（提问），没有改正、润色或保存，样本 `office-ai-sample-6.docx` 哈希不变，所以 9 项检查有 3 项不过。用户在这次试用中提出了本条的要求。不算 AI 改文档流程的验收。
     - **还没做：** 真实编辑器里看对话列表和 `/` 列表的样子；对话数量和单个对话长度没设上限（悬浮球只显示最近 40 个气泡）。
 
 ## 附录 A：requirements.md 完整原文

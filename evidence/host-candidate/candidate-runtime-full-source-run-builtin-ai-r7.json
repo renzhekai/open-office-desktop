@@ -1,0 +1,45 @@
+{
+  "kind": "open-office-host-candidate-runtime",
+  "created_utc": "2026-11-09T11:13:21.406894+00:00",
+  "source_runtime": "D:\\open office\\build\\full-source-run-wasm-candidate",
+  "source_wasm_candidate_marker_sha256": "fc9ada15185359858e208348595ab6c80744d37475187cb251605d7499c0cb26",
+  "note": "openoffice-full-source-stage.json and openoffice-wasm-candidate.json are copied unchanged and describe the source runtime; this file lists the only difference; ai-engine/ holds the built-in AI engine (llama.cpp), added after the copy check",
+  "skipped_top_level": [
+    "openoffice-profile"
+  ],
+  "files_copied": 20972,
+  "files_verified_identical": 20971,
+  "host": {
+    "path": "OpenOffice.exe",
+    "previous_sha256": "06440c570995b41d4a1d24e6a65856f2c3c1d6a2611b5806831674e6a6db474d",
+    "sha256": "e8ca75428506a60324f316ed7eaaab4ce4414ab3647eff94f10c2021e1293cd2",
+    "bytes": 1058304,
+    "built_from": "D:\\open office\\build\\full-source-host\\bin\\OpenOffice.exe",
+    "build_label": "conv-4",
+    "build_log_sha256": "8f361274714a3e46daff9f46b0abdd3e595bf4894dd84a2ff3ae3afcfa9a6adb",
+    "ctest_log_sha256": "09e35853a980bfbcc5802325071b2e19feb46864f8dd089bfd3ff1775589d177",
+    "test_results_sha256": {
+      "engine-contract-results.txt": "02349a43b3559ab8ac556678bc53e50ac85c41fbab7545b17886318319c9ee01",
+      "native-ui-results.txt": "09cdfa3beeff23b52017865c2f34d079ce688147de912c27daa69b68f546446a",
+      "assistant-results.txt": "50c5c5109147302e6b49f9bf9e3fdb886e6c6d4388edcc56e6231072ea479708"
+    }
+  },
+  "gui_regression_verified": false,
+  "ai_engine": {
+    "source": "D:\\open office\\dependencies\\llama.cpp-b12202",
+    "builds": {
+      "vulkan": {
+        "from": "win-vulkan-x64",
+        "files": 53,
+        "llama_server_sha256": "e3009ccf4f0623c73d25db49f9f8bdcfd387b053c30adc89d9f48b2f9e88e3f6"
+      },
+      "cpu": {
+        "from": "win-cpu-x64",
+        "files": 52,
+        "llama_server_sha256": "e3009ccf4f0623c73d25db49f9f8bdcfd387b053c30adc89d9f48b2f9e88e3f6"
+      }
+    }
+  },
+  "target": "D:\\open office\\build\\full-source-run-builtin-ai-r7",
+  "marker_sha256": "9a2fd3768e41b67cf6d67a4469556a400aef9fb1722b62e53c1b7921310f7be3"
+}

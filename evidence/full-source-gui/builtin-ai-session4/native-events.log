@@ -1,0 +1,81 @@
+2026-11-09T10:51:50.574Z action=initialized_not_roundtrip_verified event=-1 view=-1 request=0
+2026-11-09T10:51:51.015Z action=host_created event=-1 view=1 request=0
+2026-11-09T10:51:51.015Z action=request_accepted event=-1 view=-1 request=1
+2026-11-09T10:51:51.051Z action=native_event event=1002 view=1 request=1
+2026-11-09T10:51:51.056Z action=native_event event=7050 view=1 request=1
+2026-11-09T10:51:51.149Z action=native_event event=5015 view=1 request=1
+2026-11-09T10:51:51.185Z action=native_event event=7033 view=1 request=1
+2026-11-09T10:51:51.185Z action=native_event event=1002 view=1 request=1
+2026-11-09T10:51:51.298Z action=native_event event=5015 view=1 request=1
+2026-11-09T10:51:51.298Z action=native_event event=5015 view=1 request=1
+2026-11-09T10:51:51.563Z action=native_event event=5015 view=1 request=1
+2026-11-09T10:51:51.581Z action=native_event event=5015 view=1 request=1
+2026-11-09T10:51:51.586Z action=native_event event=5015 view=1 request=1
+2026-11-09T10:51:52.077Z action=native_event event=1013 view=1 request=1
+2026-11-09T10:51:52.191Z action=native_event event=5015 view=1 request=1
+2026-11-09T10:51:52.192Z action=operation_completed event=-1 view=-1 request=1
+2026-11-09T10:51:52.214Z action=native_event event=1013 view=1 request=0
+2026-11-09T10:51:52.305Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.314Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.352Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.363Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:51:52.408Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:51:52.408Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:51:52.411Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.469Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.518Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.561Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.602Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:51:52.643Z action=native_event event=1012 view=1 request=0
+2026-11-09T10:52:05.710Z action=editor_command_accepted command=selection.getText command_request=2
+2026-11-09T10:52:05.735Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:52:05.735Z action=editor_command_completed command=selection.getText command_request=2
+2026-11-09T10:52:07.206Z action=editor_command_accepted command=selection.getText command_request=3
+2026-11-09T10:52:07.220Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:52:07.220Z action=editor_command_completed command=selection.getText command_request=3
+2026-11-09T10:52:20.095Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:52:20.098Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:52:20.877Z action=editor_command_accepted command=selection.getText command_request=4
+2026-11-09T10:52:20.885Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:52:20.885Z action=editor_command_completed command=selection.getText command_request=4
+2026-11-09T10:52:23.906Z action=editor_command_accepted command=document.getText command_request=5
+2026-11-09T10:52:23.911Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:52:23.911Z action=editor_command_completed command=document.getText command_request=5
+2026-11-09T10:52:32.244Z action=editor_command_accepted command=selection.getText command_request=6
+2026-11-09T10:52:32.263Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:52:32.263Z action=editor_command_completed command=selection.getText command_request=6
+2026-11-09T10:57:01.814Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:01.819Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:01.823Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:01.827Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:01.830Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.698Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.703Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.706Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.720Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.723Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.727Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.732Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.736Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.740Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.744Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.748Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.752Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:11.758Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:12.906Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:12.911Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:12.914Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:12.918Z action=native_event event=5015 view=1 request=0
+2026-11-09T10:57:12.920Z action=native_event event=5015 view=1 request=0
+2026-11-09T11:10:11.984Z action=native_event event=5015 view=1 request=0
+2026-11-09T11:10:11.989Z action=native_event event=5015 view=1 request=0
+2026-11-09T11:10:11.994Z action=native_event event=5015 view=1 request=0
+2026-11-09T11:10:11.996Z action=native_event event=5015 view=1 request=0
+2026-11-09T11:10:11.998Z action=native_event event=5015 view=1 request=0
+2026-11-09T11:10:13.129Z action=request_accepted event=-1 view=-1 request=7
+2026-11-09T11:10:13.129Z action=native_event event=2001 view=1 request=7
+2026-11-09T11:10:13.142Z action=native_event event=8000 view=1 request=7
+2026-11-09T11:10:13.142Z action=operation_completed event=-1 view=-1 request=7
+2026-11-09T11:10:13.802Z action=message_loop_returned event=-1 view=-1 request=0
+2026-11-09T11:10:13.905Z action=shutdown_completed event=-1 view=-1 request=0
+2026-11-09T11:10:14.556Z action=shutdown_completed event=-1 view=-1 request=0
