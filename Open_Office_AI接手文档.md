@@ -54,7 +54,7 @@
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4/r5 装配和两处修复（第 43–46 条）、模型位置固定加迁移功能（第 47 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。正在装配 r6（第 47 条）。之后用 r6 开新会话 `builtin-ai-session4`（顺便请用户试一次迁移）：样本 `fixtures/results/office-ai-sample-6.docx`，用 r6 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4/r5 装配和两处修复（第 43–46 条）、模型位置固定加迁移功能（第 47 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。r6 已装好（第 47 条）。接着用 r6 开新会话 `builtin-ai-session4`（顺便请用户试一次迁移）：样本 `fixtures/results/office-ai-sample-6.docx`，用 r6 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -1011,7 +1011,8 @@ python -B scripts/verify_full_source_docx_sample.py
     - **测试：** 构建 `relocate-2`，CTest 3 组共 95 项全过（助手 36、契约 21、界面 38）。新增：模型位置默认在程序目录；设置页没有“更改…”、有“迁移…”、说明写出开发环境变量；`relocationPlanChecksTheChosenFolder`（目标、同盘、各种拒绝）；`relocationHelperMovesTheFolderShortcutsAndUninstallEntry`（用真实脚本搬一个带中文名的替身文件夹：同盘一次、跨盘一次（临时目录在 C 盘，构建目录在 D 盘），核对文件、空文件夹、快捷方式三项、卸载信息四项、无关的卸载项不动，测试注册表项清理掉）；`relocateAsksConfirmsAndClosesWithThePlan`（取消选文件夹、取消确认、确认后窗口关闭并带着计划，且还没移动任何东西）。第一次构建 `relocate-1` 因一个字符串里混入了真换行而编译失败。
     - **真实安装包检查：** `python -I scripts/check_installer_relocation.py inno-1` 通过（`evidence/installer/relocation-check-inno-1.json`）：替身程序的安装包用真实 `.iss` 和真实 AppId 编译（这台电脑没装安装版，先核对过），静默安装、放入假模型和配置、用脚本迁移（同盘改名）、卸载信息四项都指向新位置、从新位置静默卸载后新旧位置都没有残留、卸载信息删除；不搬的那一组卸载后模型和配置也删掉了。跨盘复制在安装版上没有单独测，CTest 里测过。
     - **还没做：** 在真实编辑器里点一次“迁移”（要用户操作）；用大文件夹（约 2 万个文件、带模型）实测跨盘复制的时间；README 还写着 Ollama 版，等内置引擎版设为默认入口时一起改。
-    - **装配 r6：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r6 --build-label relocate-2 --ai-engine dependencies/llama.cpp-b12202`，后台进行中，结果见 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r6.json`。
+    - **装配 r6：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r6 --build-label relocate-2 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `b37743e348aa645e56147be1371f0ecf7fe8690e08f1ec2930e25269a8d909c8`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r6.json`。
+    - **迁移的真实界面测试打算：** 不在 r6 本身上点迁移（会把候选目录搬出 build）；另复制一份 r6 当一次性副本，让用户在副本里点“迁移”。
 
 ## 附录 A：requirements.md 完整原文
 
