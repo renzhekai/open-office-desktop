@@ -1,5 +1,7 @@
 #include "local_assistant.h"
 
+#include "markdown_html.h"
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -267,6 +269,7 @@ bool LocalAssistant::ask(const QString& text, const QString& documentContext)
     m_history.append(QJsonObject{{QStringLiteral("role"), QStringLiteral("user")}, {QStringLiteral("content"), text}});
     m_rounds = 0;
     m_pendingTool.clear();
+    m_writtenThisTurn.clear();
     emit replyStarted();
     send();
     return true;
@@ -354,7 +357,10 @@ void LocalAssistant::handleFinished(quint64 id, bool ok, const QString& content,
         if (lostEngine) refresh(); // the engine stopped meanwhile
         return;
     }
-    QJsonObject message{{QStringLiteral("role"), QStringLiteral("assistant")}, {QStringLiteral("content"), content}};
+    // The last answer of a turn that wrote into the document: no second copy of what was written.
+    const QString answer = toolCalls.isEmpty() && !m_writtenThisTurn.isEmpty()
+        ? withoutEchoedText(content, m_writtenThisTurn) : content;
+    QJsonObject message{{QStringLiteral("role"), QStringLiteral("assistant")}, {QStringLiteral("content"), answer}};
     if (!toolCalls.isEmpty()) message.insert(QStringLiteral("tool_calls"), toolCalls);
     m_history.append(message);
     if (!toolCalls.isEmpty() && m_rounds < kMaxToolRounds) {
@@ -369,7 +375,7 @@ void LocalAssistant::handleFinished(quint64 id, bool ok, const QString& content,
         return;
     }
     setState(LocalAiState::Ready);
-    emit replyFinished(content.trimmed().isEmpty() ? QStringLiteral("（模型没有给出文字回答。）") : content, true);
+    emit replyFinished(answer.trimmed().isEmpty() ? QStringLiteral("（模型没有给出文字回答。）") : answer, true);
 }
 
 QString LocalAssistant::thinkSetting() const
@@ -426,6 +432,8 @@ void LocalAssistant::warmUp()
 void LocalAssistant::commandFinished(const AssistantCommand& command, const CommandOutcome& outcome)
 {
     if (command.source != CommandSource::Assistant || m_pendingTool.isEmpty()) return;
+    if (outcome.ok && (command.name == QStringLiteral("text.insert") || command.name == QStringLiteral("selection.replace")))
+        m_writtenThisTurn << command.arguments.value(QStringLiteral("text")).toString();
     const QJsonObject result{{QStringLiteral("ok"), outcome.ok}, {QStringLiteral("code"), outcome.code},
                              {QStringLiteral("message"), outcome.message}, {QStringLiteral("value"), outcome.value}};
     m_history.append(QJsonObject{{QStringLiteral("role"), QStringLiteral("tool")},

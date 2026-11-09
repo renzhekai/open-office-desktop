@@ -47,7 +47,9 @@
 **内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
 - **模型位置（2026-11-09 用户决定，第 47 条）：** 模型固定下载到软件文件夹里的 `models`，设置页不能再单独改；要换盘就在“本地 AI 设置 → 软件位置 → 迁移到其他位置…”把整个软件（程序、编辑器配置、模型）一起搬走，搬完自动重新打开，快捷方式和卸载信息跟着改。开发版本由 `OPEN_OFFICE_MODEL_DIR` 指到 `dependencies/local-models/download`（`打开最新版.cmd` 等启动文件会自动设）。
 - **对话（2026-11-09 用户要求，第 48 条）：** 每次启动软件、每打开或新建另一份文档，都自动开一个新对话；`/新对话` 或悬浮球里的“新对话”手动开；`/历史` 或“历史”列出以前的对话（标题、工作文件、时间、条数），可以打开（AI 接着记得）、重命名、删除（点两次）、删除其他所有。对话存在程序配置文件夹的 `conversations`，只在本机。输入 `/` 时在输入框上方弹出指令列表，可筛选、↑↓ 选、回车或 Tab 确认。
-- 最新候选：`build/full-source-run-builtin-ai-r7`（构建 `conv-4`，CTest 98 项全过；2026-11-09 装配，第 48 条），在 r6 基础上加了对话和 `/` 列表。
+- **打字提要求（2026-11-09 用户反馈，第 49 条）：** 选中文字后打“详细点”“改正式一些”“翻译成英文”这类修改要求，由程序判定为“按要求改写”，先给结果再选“替换原文/插到后面/复制/重写”；“写一篇…”“帮我起草…”按“按要求起草”先给全文再“插入文档”；提问和其他话照旧对话。模型插入没标格式的 Markdown 时自动按格式插入；插入后的回答不再重复整篇。
+- 最新候选：`build/full-source-run-builtin-ai-r8`（构建 `route-4`，CTest 101 项全过；2026-11-09 装配，第 49 条），在 r7 基础上加了上面的分流。
+- 上一个候选：`build/full-source-run-builtin-ai-r7`（构建 `conv-4`，CTest 98 项全过；2026-11-09 装配，第 48 条），在 r6 基础上加了对话和 `/` 列表。
 - 上一个候选：`build/full-source-run-builtin-ai-r6`（构建 `relocate-2`，CTest 95 项全过；2026-11-09 装配，第 47 条），在 r5 基础上加了上面的模型位置和迁移。
 - 上一个候选：`build/full-source-run-builtin-ai-r5`（构建 `builtin-ai-6`，CTest 92 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-09 装配，第 45 条）。比 r4 多修了“改写结果行尾多两个空格”。`-builtin-ai-r4`（宿主 `05919c83…`，构建 `builtin-ai-5`，第 44 条）修了悬浮球快捷按钮被压扁（用户截图发现），没在真实编辑器里测过。`-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，第 43 条）含第 39 条最后修的“校对字段顺序”，但有按钮被压扁的问题。旧候选 `-builtin-ai`、`-builtin-ai-r2`、`-r3` 原样保留。
 - 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；侧边会话已与魔搭公布的 SHA256 核对一致，见第 40 条）。4B、8B 没下载（4B 下载时连接被重置）。
@@ -170,6 +172,7 @@
 | 2026-11-08 | 查看接手文档；同意装配 r3、卸载 gpt-oss:20b；截图指出悬浮球按钮显示有问题 | 第 42–44 条 |
 | 2026-11-09 | 我记得我下载了一个模型，怎么没了 | 第 46 条：模型在 `dependencies/local-models/download`，软件按旧设置去 `D:/models` 找 |
 | 2026-11-09 | 以后下载模型默认下载在软件本体所在的文件夹中，无法更改文件夹，但是可以去设置中迁移数据文件夹，将整个 openoffice 移动 | 第 47 条：模型固定在软件文件夹的 `models`；设置页去掉“更改…”，加“迁移到其他位置…” |
+| 2026-11-09 | 有点问题：选中一段文字让它详细点，它却给了一大段完整的 md 字，还要在光标处插入，不符合需求 | 第 49 条：程序判定修改要求、改写结果先看再替换；写作要求走起草；Markdown 自动按格式；插入后不重复 |
 | 2026-11-09 | 开新文件后上下文不会重置；新增开启新对话的指令；关闭软件后重新打开自动创建新对话；可以选择历史对话返回原来的对话；能看见对话所在的工作文件；能管理对话；打 / 后显示指令列表 | 第 48 条；另外按“开新文件后上下文不重置”的问题，打开或新建另一份文档时也自动开新对话（已告知用户，可改成只手动） |
 
 ## 3. 目录、代码与运行入口
@@ -1032,6 +1035,19 @@ python -B scripts/verify_full_source_docx_sample.py
     - **还没做：** 真实编辑器里看对话列表和 `/` 列表的样子；对话数量和单个对话长度没设上限（悬浮球只显示最近 40 个气泡）。
     - **r7 会话 `builtin-ai-session5`（`evidence/host-candidate/builtin-ai-session5-result.json`）：** 2026-11-09 11:14:14–11:16:41 UTC，退出码 0；没有任何助手命令、没有保存的对话、样本 `office-ai-sample-7.docx` 哈希不变。不算验收。
     - **更正：** 起初以为用户没用悬浮球。实际上用户 11:14:48 UTC 自己又开了一个 r7 窗口（`build/full-source-run-builtin-ai-r7/OpenOffice.exe`，不经会话记录器，用 r7 目录里的默认配置 `openoffice-profile`），关掉的是我开的那个；11:17:35 内置引擎在用户的窗口里启动（1.7B）。用户关窗后可以从 `build/full-source-run-builtin-ai-r7/openoffice-profile` 的 `assistant-commands.jsonl` 和 `conversations/` 查看试用情况。
+
+49. **打字提的要求由程序分流（2026-11-09，Claude Code）：**
+    - **用户反馈：** “有点问题，我选中一段文字让他详细点，他却给了我一大段完整的md字，还要在光标处插入，这不符合我的需求”（在自己打开的 r7 窗口里，见第 48 条更正）。
+    - **查到的原因（r7 的 `openoffice-profile/assistant-commands.jsonl` 和 `conversations/`）：** “详细点”被当成普通对话交给带工具的模型；1.7B 没用 `selection_replace` 而用了 `text_insert`（默认插在光标处）；其中两次插入没带 `format`，`###`、`**` 原样进了文档；插完后回答又把整篇重复一遍（系统提示里“工具执行后用一句话告诉用户结果”没被遵守）。之前“写一篇文章”也被拆成三次插入、位置不一。
+    - **改法（用程序判定，不交给小模型）：**
+      - `classifyRequest()`（`app/assistant/assistant_tasks.*`）：以 `/` 开头→对话；问题（以？/?/吗/呢/么结尾，或含 什么/为什么/意思/解释/是否/有没有/哪些/多少 等）→对话；“好的/谢谢/收到”等→对话；有选中文字且不超过 60 字→`ReworkSelection`；以（请/帮我/给我）写/起草/拟/撰写/编写/生成 开头→`Write`；其余→对话。
+      - 两个不在快捷按钮里出现的任务（`TaskSpec::offered = false`）：`rework`“按要求改写”（选中文字＋用户原话，沿用改写任务“不用 Markdown、按原文分段、不编造事实”的约束，结果走“替换原文/插到后面/复制/重写”）；`write`“按要求起草”（Markdown，用 `##` 小标题分节，只有必须由用户补充的具体信息才用【】，结果走“插入文档/复制/重写”）。`MainWindow::askLocalAi` 读完全文和选区后按分类启动任务或对话。
+      - 模型提议的 `text.insert` 没带 `format` 但内容像 Markdown（`looksLikeMarkdown`：标题、两条以上列表、**粗体**、表格分隔线）时，按 Markdown 转成真格式插入；只对模型的插入这样做，用户自己 `/插入` 的不变。
+      - `LocalAssistant` 记下这一轮成功插入/替换的文字；这一轮最后的回答若重复了其中两行以上（去掉 Markdown 标记后比较），用 `withoutEchoedText` 去掉重复部分和前面“内容如下：”一类的引导行，什么都不剩时改成“已经写进文档了，可以在文档里查看。需要调整的话告诉我。”；保存进 AI 记忆的也是删减后的。
+    - **测试：** 构建 `route-4`，CTest 3 组共 101 项全过（助手 39、契约 21、界面 41）。新增：`typedRequestsGoWhereThePersonMeant`（17 种说法的分类，两个任务不在快捷按钮里、提示里带上用户原话和原文）；`modelMarkdownAndEchoesAreTidied`（Markdown 识别；用真实会话里的重复回答做例子）；`typedRequestsUseTasksAndModelInsertsAreTidy`（假 Ollama：选中后“详细点”的请求不带工具、“替换原文”发 `selection.replace` 并核对原文；“写一篇…”不带工具、“插入文档”带 `<h1>`；普通对话里模型不带格式的 Markdown 插入变成 `<h2>`，重复的回答变成一句话）。`tests/manual/local_ai_smoke.cpp` 加了第三个参数（用户原话）。
+    - **真实模型（1.7B，显卡，`build/wasm-source/tmp/smoke-route/`，不在 git 里）：** “详细点”5.3 秒，结果是更具体的普通文字、没有 Markdown；“写一篇关于高效学习的短文”第一版提示下 6.4 秒，内容好但把【】当小标题用；改提示后再跑两次（6.4、7.3 秒）：都用 `##` 分节，一次完全干净，一次仍有几处把普通词放进【】并在末尾加了【需补充】——小模型不稳定，结果先给用户看、可“重写”。
+    - **装配 r8：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r8 --build-label route-4 --ai-engine dependencies/llama.cpp-b12202`，后台进行中，结果见 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r8.json`。
+    - **还没做：** 真实编辑器里复查；没有选中文字时的“详细点”仍走对话（不知道指哪段）；分类规则是关键词，遇到没覆盖的说法会走对话。
 
 ## 附录 A：requirements.md 完整原文
 

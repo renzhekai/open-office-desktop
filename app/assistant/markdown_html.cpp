@@ -1,5 +1,7 @@
 #include "markdown_html.h"
 
+#include <QSet>
+
 #include <QList>
 #include <QPair>
 #include <QRegularExpression>
@@ -182,6 +184,68 @@ QString cleanRewrite(const QString& text)
         }
     }
     return result;
+}
+
+namespace {
+
+// A line without Markdown marks, list numbers or leading symbols, for comparing.
+QString plainLine(const QString& line)
+{
+    static const QRegularExpression marks(QStringLiteral("^[\\s#>*+\\-]*(\\d+[.、)）]\\s*)?"));
+    QString text = line;
+    text.remove(marks);
+    text.remove(QStringLiteral("**"));
+    text.remove(QStringLiteral("__"));
+    while (!text.isEmpty() && (text.front().isPunct() || text.front().isSymbol() || text.front().isSpace()))
+        text.remove(0, 1);
+    return text.simplified();
+}
+
+bool markdownBlockLine(const QString& line)
+{
+    static const QRegularExpression block(QStringLiteral("^\\s*(#{1,6}\\s|[-*+]\\s|\\d+[.、)]\\s|\\|)"));
+    return block.match(line).hasMatch();
+}
+
+} // namespace
+
+bool looksLikeMarkdown(const QString& text)
+{
+    static const QRegularExpression heading(QStringLiteral("(^|\\n)\\s*#{1,6}\\s+\\S"));
+    static const QRegularExpression list(QStringLiteral("(^|\\n)\\s*([-*+]|\\d+[.、)])\\s+\\S"));
+    static const QRegularExpression strong(QStringLiteral("\\*\\*[^*\\n]+\\*\\*"));
+    static const QRegularExpression table(QStringLiteral("(^|\\n)\\s*\\|?\\s*:?-{3,}"));
+    if (heading.match(text).hasMatch() || strong.match(text).hasMatch() || table.match(text).hasMatch()) return true;
+    int items = 0;
+    for (auto it = list.globalMatch(text); it.hasNext(); it.next()) ++items;
+    return items >= 2;
+}
+
+QString withoutEchoedText(const QString& reply, const QStringList& written)
+{
+    QSet<QString> writtenLines;
+    for (const QString& text : written)
+        for (const QString& line : text.split(QLatin1Char('\n')))
+            if (const QString plain = plainLine(line); plain.size() >= 6) writtenLines.insert(plain);
+    if (writtenLines.isEmpty()) return reply;
+    const QStringList lines = reply.split(QLatin1Char('\n'));
+    int firstEcho = -1;
+    int echoed = 0;
+    for (int i = 0; i < lines.size(); ++i) {
+        const QString plain = plainLine(lines[i]);
+        if (plain.size() < 6 || !writtenLines.contains(plain)) continue;
+        ++echoed;
+        if (firstEcho < 0) firstEcho = i;
+    }
+    if (echoed < 2 && !(echoed == 1 && writtenLines.size() == 1)) return reply;
+    // Keep what comes before the repeated text and before any heading or list leading into it.
+    QStringList kept;
+    for (int i = 0; i < firstEcho && !markdownBlockLine(lines[i]); ++i) kept << lines[i];
+    while (!kept.isEmpty() && kept.last().trimmed().isEmpty()) kept.removeLast();
+    if (!kept.isEmpty() && (kept.last().trimmed().endsWith(QChar(0xFF1A)) || kept.last().trimmed().endsWith(QLatin1Char(':'))))
+        kept.removeLast(); // "内容如下：" announced the part that is gone
+    const QString head = kept.join(QLatin1Char('\n')).trimmed();
+    return head.isEmpty() ? QStringLiteral("已经写进文档了，可以在文档里查看。需要调整的话告诉我。") : head;
 }
 
 } // namespace openoffice

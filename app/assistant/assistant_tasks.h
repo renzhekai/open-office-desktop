@@ -31,11 +31,23 @@ struct TaskSpec {
     TaskOutput output = TaskOutput::Rewrite;
     QString instruction; // what the model is asked to do
     QString placeholder; // Writing only: what the person should type
+    bool offered = true; // a quick action; false: only reached from what the person typed
 };
 
 const QList<TaskSpec>& taskCatalog();
 const TaskSpec* findTask(const QString& id);
-QList<const TaskSpec*> tasksFor(TaskScope scope);
+QList<const TaskSpec*> tasksFor(TaskScope scope); // the quick actions of a scope
+
+// What something the person typed (not a quick action) asks for. Decided by
+// code, not by the model: a small model given tools tends to insert at the
+// cursor when it should replace the selection, and to split a piece of writing
+// into several inserts.
+enum class RequestKind {
+    Chat,            // a question or anything else: the conversation with tools
+    ReworkSelection, // text is selected and this is an instruction for it ("详细点"): task "rework"
+    Write            // "写一篇…", "帮我起草…": task "write", shown before it goes in
+};
+RequestKind classifyRequest(const QString& text, bool hasSelection);
 
 struct TaskInput {
     QString text;         // the selection, or the document text

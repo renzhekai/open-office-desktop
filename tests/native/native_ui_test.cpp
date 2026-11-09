@@ -1222,6 +1222,71 @@ private slots:
         dialog->close();
     }
 
+    void typedRequestsUseTasksAndModelInsertsAreTidy()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral("扩写以后更加详细的句子。")}),
+                      FakeOllama::chat({QStringLiteral("# 学习方法\n\n- 制定计划\n- 坚持复习")}),
+                      FakeOllama::chat({}, QStringLiteral("text_insert"),
+                                       {{QStringLiteral("text"), QStringLiteral("## 小标题\n- 第一条要点内容\n- 第二条要点内容")}}),
+                      FakeOllama::chat({QStringLiteral("已插入，内容如下：\n\n## 小标题\n- 第一条要点内容\n- 第二条要点内容")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.selectionText = QStringLiteral("原来的句子。");
+        engine.documentText = QStringLiteral("原来的句子。");
+        openoffice::MainWindow window(&engine);
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        const auto button = [panel](const QString& text) -> QPushButton* {
+            QPushButton* found = nullptr;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                if (candidate->text() == text && candidate->isEnabled()) found = candidate;
+            return found;
+        };
+
+        // "详细点" with text selected: a rewrite of that text, shown first, to replace it.
+        panel->submitText(QStringLiteral("详细点"));
+        QTRY_VERIFY(button(QStringLiteral("替换原文")) != nullptr);
+        const QJsonObject rework = fake.chatRequests().first();
+        QVERIFY(!rework.contains(QStringLiteral("tools"))); // no inserting at the cursor on its own
+        const QString reworkUser = rework.value(QStringLiteral("messages")).toArray().last().toObject()
+                                       .value(QStringLiteral("content")).toString();
+        QVERIFY(reworkUser.contains(QStringLiteral("详细点")) && reworkUser.contains(QStringLiteral("原来的句子。")));
+        QCOMPARE(engine.editorCommandCalls, 0);
+        button(QStringLiteral("替换原文"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("selection.replace"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("text")).toString(), QStringLiteral("扩写以后更加详细的句子。"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("expected")).toString(), QStringLiteral("原来的句子。"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已替换选中的文字，可以撤销。"));
+        QTRY_VERIFY(!panel->working());
+
+        // "写一篇…": drafted and shown, then inserted with real formatting in one piece.
+        engine.selectionText.clear();
+        panel->submitText(QStringLiteral("写一篇关于学习的文章"));
+        QTRY_VERIFY(button(QStringLiteral("插入文档")) != nullptr);
+        QVERIFY(!fake.chatRequests().at(1).contains(QStringLiteral("tools")));
+        button(QStringLiteral("插入文档"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
+        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h1>学习方法</h1>")));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 12 个字符。"));
+        QTRY_VERIFY(!panel->working());
+
+        // Anything else is a conversation; Markdown the model did not mark is formatted, and
+        // its answer does not repeat what it wrote.
+        panel->submitText(QStringLiteral("在后面加两条要点"));
+        QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
+        QVERIFY(fake.chatRequests().at(2).contains(QStringLiteral("tools")));
+        button(QStringLiteral("执行"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
+        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h2>小标题</h2>")));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
+        QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("已经写进文档了，可以在文档里查看。需要调整的话告诉我。"));
+        QTRY_VERIFY(!panel->working());
+    }
+
     void conversationsStartOverKeepHistoryAndFollowTheDocument()
     {
         QTemporaryDir folder;

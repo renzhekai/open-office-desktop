@@ -47,6 +47,11 @@ QList<TaskSpec> buildTasks()
         writing("email", "邮件", "写给谁、什么事、希望对方做什么…"),
         writing("leave", "请假条", "请假原因、起止时间、写给谁…"),
         writing("plan", "活动方案", "活动名称、目的、时间地点、人数、预算…"),
+        // Reached from typed requests (classifyRequest), not shown as quick actions.
+        {QStringLiteral("rework"), QStringLiteral("按要求改写"), TaskScope::Selection, TaskOutput::Rewrite, QString(),
+         QString(), false},
+        {QStringLiteral("write"), QStringLiteral("按要求起草"), TaskScope::Writing, TaskOutput::Markdown, QString(),
+         QString(), false},
     };
 }
 
@@ -75,8 +80,29 @@ QList<const TaskSpec*> tasksFor(TaskScope scope)
 {
     QList<const TaskSpec*> result;
     for (const TaskSpec& spec : taskCatalog())
-        if (spec.scope == scope) result.append(&spec);
+        if (spec.scope == scope && spec.offered) result.append(&spec);
     return result;
+}
+
+RequestKind classifyRequest(const QString& text, bool hasSelection)
+{
+    const QString request = text.trimmed();
+    if (request.isEmpty() || request.startsWith(QLatin1Char('/')) || request.startsWith(QChar(0xFF0F)))
+        return RequestKind::Chat;
+    // Questions are answered, whether or not something is selected.
+    static const QRegularExpression question(QStringLiteral(
+        "[？?]\\s*$|[吗呢么]\\s*[。！!]?\\s*$|什么|为什么|为何|怎么样|意思|解释|是否|是不是|对不对|有没有|哪些|哪里|哪个|多少"));
+    if (question.match(request).hasMatch()) return RequestKind::Chat;
+    // Thanks and the like are not instructions, even with text selected.
+    static const QRegularExpression small(QStringLiteral(
+        "^(好的?|好吧|好嘞|谢谢|多谢|感谢|辛苦了|可以了?|行|嗯+|不错|很好|收到|明白|知道了|你好|在吗|ok|OK|Ok)[。！!~～,，]*$"));
+    if (small.match(request).hasMatch()) return RequestKind::Chat;
+    // With text selected, a short instruction is about that text: 详细点, 改得正式一些, 翻译成英文.
+    if (hasSelection && request.size() <= 60) return RequestKind::ReworkSelection;
+    static const QRegularExpression write(QStringLiteral(
+        "^(请你?|麻烦你?|你)?(帮我|给我|替我)?(写|起草|草拟|拟|撰写|编写|生成|写作)"));
+    if (write.match(request).hasMatch()) return RequestKind::Write;
+    return RequestKind::Chat;
 }
 
 bool mostlyChinese(const QString& text)
@@ -101,6 +127,9 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
     bool truncated = false;
     switch (spec.scope) {
     case TaskScope::Selection: {
+        if (spec.id == QStringLiteral("rework"))
+            instruction = QStringLiteral("按用户的要求处理下面这段文字。用户的要求：") + input.detail.trimmed()
+                + QStringLiteral("\n不要编造原文没有的数字、日期、人名等事实。");
         if (spec.id == QStringLiteral("translate")) {
             instruction = mostlyChinese(input.text)
                 ? QStringLiteral("把下面的文字翻译成地道、准确的英文，保持段落数。只输出译文。")
@@ -123,7 +152,11 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
     case TaskScope::Writing:
         system += QStringLiteral("写出可以直接放进文档的正文：用 Markdown 的 # 标题、列表组织结构，格式规范、语气得体。"
                                  "用户没有提供的具体信息（日期、人名、地点、数字等）用【】标出让用户填写，绝不编造。");
-        user = QStringLiteral("请写一份%1。用户提供的信息：\n%2").arg(spec.title, input.detail.trimmed());
+        if (spec.id == QStringLiteral("write")) // anything asked for: articles need no blanks to fill
+            system += QStringLiteral("用 ## 小标题分节，不要用【】做小标题；只有必须由用户补充的具体信息（如日期、人名、金额）才用【】。");
+        user = spec.id == QStringLiteral("write")
+            ? QStringLiteral("请按下面的要求写：\n") + input.detail.trimmed()
+            : QStringLiteral("请写一份%1。用户提供的信息：\n%2").arg(spec.title, input.detail.trimmed());
         break;
     }
     return {QJsonObject{{QStringLiteral("role"), QStringLiteral("system")}, {QStringLiteral("content"), system}},

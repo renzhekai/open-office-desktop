@@ -22,5 +22,11 @@ QString cleanRewrite(const QString& text);
 
 // Drops <think>…</think> reasoning that some models put into the answer.
 QString stripThinking(const QString& text);
+// Headings, lists, bold or tables: text a model meant as Markdown even when it did not say so.
+bool looksLikeMarkdown(const QString& text);
+// After the model wrote text into the document, its answer often repeats it all.
+// Drops the repeated part (and a "内容如下：" line before it); if nothing is left,
+// one sentence saying it is in the document.
+QString withoutEchoedText(const QString& reply, const QStringList& written);
 
 } // namespace openoffice

@@ -478,6 +478,61 @@ private slots:
         QCOMPARE(memory.list().size(), 1);
     }
 
+    void typedRequestsGoWhereThePersonMeant()
+    {
+        QCOMPARE(classifyRequest(QStringLiteral("详细点"), true), RequestKind::ReworkSelection);
+        QCOMPARE(classifyRequest(QStringLiteral("改得正式一些"), true), RequestKind::ReworkSelection);
+        QCOMPARE(classifyRequest(QStringLiteral("翻译成英文"), true), RequestKind::ReworkSelection);
+        QCOMPARE(classifyRequest(QStringLiteral("写一篇文章"), true), RequestKind::ReworkSelection); // the selection wins
+        QCOMPARE(classifyRequest(QStringLiteral("这段话是什么意思"), true), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QStringLiteral("有错别字吗"), true), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QStringLiteral("这样写可以？"), true), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QStringLiteral("谢谢！"), true), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QStringLiteral("好的"), true), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QString(61, QChar(0x5B57)), true), RequestKind::Chat); // long: content, not an instruction
+        QCOMPARE(classifyRequest(QStringLiteral("/插入 你好"), true), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QStringLiteral("详细点"), false), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QStringLiteral("写一篇文章"), false), RequestKind::Write);
+        QCOMPARE(classifyRequest(QStringLiteral("帮我写一封感谢信给王老师"), false), RequestKind::Write);
+        QCOMPARE(classifyRequest(QStringLiteral("请起草一份周报"), false), RequestKind::Write);
+        QCOMPARE(classifyRequest(QStringLiteral("写什么好呢"), false), RequestKind::Chat);
+        QCOMPARE(classifyRequest(QStringLiteral("今天天气怎么样"), false), RequestKind::Chat);
+
+        // Their tasks are not quick actions; the instruction goes to the model with the text.
+        const TaskSpec* rework = findTask(QStringLiteral("rework"));
+        const TaskSpec* write = findTask(QStringLiteral("write"));
+        QVERIFY(rework && !rework->offered && write && !write->offered);
+        QVERIFY(!tasksFor(TaskScope::Selection).contains(rework));
+        QVERIFY(!tasksFor(TaskScope::Writing).contains(write));
+        const QJsonArray reworkMessages = taskMessages(*rework, {QStringLiteral("原来的句子。"), QStringLiteral("详细点"), QString()});
+        const QString reworkUser = reworkMessages.last().toObject().value(QStringLiteral("content")).toString();
+        QVERIFY(reworkUser.contains(QStringLiteral("详细点")) && reworkUser.contains(QStringLiteral("原来的句子。")));
+        QVERIFY(reworkMessages.first().toObject().value(QStringLiteral("content")).toString().contains(QStringLiteral("不要使用 Markdown")));
+        const QString writeUser = taskMessages(*write, {QString(), QStringLiteral("写一篇关于学习的文章"), QString()})
+                                      .last().toObject().value(QStringLiteral("content")).toString();
+        QVERIFY(writeUser.contains(QStringLiteral("写一篇关于学习的文章")));
+    }
+
+    void modelMarkdownAndEchoesAreTidied()
+    {
+        QVERIFY(looksLikeMarkdown(QStringLiteral("## 标题\n正文")));
+        QVERIFY(looksLikeMarkdown(QStringLiteral("- 一\n- 二")));
+        QVERIFY(looksLikeMarkdown(QStringLiteral("这是**重点**。")));
+        QVERIFY(!looksLikeMarkdown(QStringLiteral("普通的一段话。\n第二段。")));
+        QVERIFY(!looksLikeMarkdown(QStringLiteral("- 只有一项")));
+        // Seen in a real session: the whole insert repeated after "内容如下：".
+        const QString written = QStringLiteral("### 一、科学规划\n- 每周制定学习计划：建议使用甘特图或日历工具\n- 分配每日学习时间：采用番茄工作法");
+        QCOMPARE(withoutEchoedText(QStringLiteral("您的文章已插入，内容如下：\n\n# 高效学习法\n\n## 一、科学规划\n"
+                                                  "- **每周制定学习计划**：建议使用甘特图或日历工具   \n- **分配每日学习时间**：采用番茄工作法"),
+                                   {written}),
+                 QStringLiteral("已经写进文档了，可以在文档里查看。需要调整的话告诉我。"));
+        QCOMPARE(withoutEchoedText(QStringLiteral("已插入到文档末尾。\n\n## 一、科学规划\n- 每周制定学习计划：建议使用甘特图或日历工具\n"
+                                                  "- 分配每日学习时间：采用番茄工作法"), {written}),
+                 QStringLiteral("已插入到文档末尾。"));
+        QCOMPARE(withoutEchoedText(QStringLiteral("已经插入。"), {written}), QStringLiteral("已经插入。"));
+        QCOMPARE(withoutEchoedText(QStringLiteral("还需要我补充什么吗？"), {}), QStringLiteral("还需要我补充什么吗？"));
+    }
+
     void tasksAreReadyMadeForOfficeWork()
     {
         QCOMPARE(tasksFor(TaskScope::Selection).size(), 6);

@@ -64,6 +64,7 @@ int main(int argc, char* argv[])
     TaskInput input;
     if (spec->scope == TaskScope::Writing) input.detail = text;
     else input.text = text;
+    if (arguments.size() > 3) input.detail = arguments.at(3); // what the person asked, e.g. "详细点" for rework
     input.documentName = QStringLiteral("smoke.docx");
     if (!assistant.runTask(*spec, input)) return 1;
     QTimer::singleShot(300000, &app, [&] {

@@ -127,6 +127,7 @@ private:
     QJsonArray m_history; // user/assistant/tool messages; the system prompt is added per request
     QString m_context;
     QString m_pendingTool;
+    QStringList m_writtenThisTurn; // texts the model put into the document since the person's message
     quint64 m_chatId = 0;
     int m_rounds = 0;
     QString m_downloadStatus;

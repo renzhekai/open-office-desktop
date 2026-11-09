@@ -862,9 +862,13 @@ void MainWindow::runAssistantCommand(const AssistantCommand& command, CommandDon
         }
         QJsonObject engineArguments = command.arguments;
         // Markdown becomes real formatting: the editor pastes the converted HTML.
+        // A model that wrote Markdown without saying so gets formatting too, not "###" in the text.
+        const QString insertText = command.arguments.value(QStringLiteral("text")).toString();
+        const QString format = command.arguments.value(QStringLiteral("format")).toString();
         if (command.name == QStringLiteral("text.insert")
-            && command.arguments.value(QStringLiteral("format")).toString() == QStringLiteral("markdown"))
-            engineArguments.insert(QStringLiteral("html"), markdownToHtml(command.arguments.value(QStringLiteral("text")).toString()));
+            && (format == QStringLiteral("markdown")
+                || (format.isEmpty() && command.source == CommandSource::Assistant && looksLikeMarkdown(insertText))))
+            engineArguments.insert(QStringLiteral("html"), markdownToHtml(insertText));
         const quint64 requestId = ++m_nextRequestId;
         const EngineResult accepted = m_engine->requestEditorCommand(requestId, command.name, engineArguments);
         if (!accepted.ok) {
@@ -1070,10 +1074,23 @@ void MainWindow::askLocalAi(const QString& text)
             ask(QString(), QString());
             return;
         }
-        readForAssistant(QStringLiteral("document.getText"), [this, ask](const CommandOutcome& document) {
+        readForAssistant(QStringLiteral("document.getText"), [this, ask, text](const CommandOutcome& document) {
             const QString documentText = document.ok ? document.value.value(QStringLiteral("text")).toString() : QString();
-            readForAssistant(QStringLiteral("selection.getText"), [ask, documentText](const CommandOutcome& selection) {
-                ask(documentText, selection.ok ? selection.value.value(QStringLiteral("text")).toString() : QString());
+            readForAssistant(QStringLiteral("selection.getText"), [this, ask, text, documentText](const CommandOutcome& read) {
+                const QString selection = read.ok ? read.value.value(QStringLiteral("text")).toString() : QString();
+                // Instructions for the selection and requests to write something are one-step
+                // tasks whose result is shown first; everything else is a conversation.
+                switch (classifyRequest(text, !selection.trimmed().isEmpty())) {
+                case RequestKind::ReworkSelection:
+                    startTask(*findTask(QStringLiteral("rework")), {selection, text, currentDocumentName()});
+                    return;
+                case RequestKind::Write:
+                    startTask(*findTask(QStringLiteral("write")), {QString(), text, currentDocumentName()});
+                    return;
+                case RequestKind::Chat:
+                    break;
+                }
+                ask(documentText, selection);
             });
         });
     });
