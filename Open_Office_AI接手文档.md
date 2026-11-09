@@ -1046,7 +1046,7 @@ python -B scripts/verify_full_source_docx_sample.py
       - `LocalAssistant` 记下这一轮成功插入/替换的文字；这一轮最后的回答若重复了其中两行以上（去掉 Markdown 标记后比较），用 `withoutEchoedText` 去掉重复部分和前面“内容如下：”一类的引导行，什么都不剩时改成“已经写进文档了，可以在文档里查看。需要调整的话告诉我。”；保存进 AI 记忆的也是删减后的。
     - **测试：** 构建 `route-4`，CTest 3 组共 101 项全过（助手 39、契约 21、界面 41）。新增：`typedRequestsGoWhereThePersonMeant`（17 种说法的分类，两个任务不在快捷按钮里、提示里带上用户原话和原文）；`modelMarkdownAndEchoesAreTidied`（Markdown 识别；用真实会话里的重复回答做例子）；`typedRequestsUseTasksAndModelInsertsAreTidy`（假 Ollama：选中后“详细点”的请求不带工具、“替换原文”发 `selection.replace` 并核对原文；“写一篇…”不带工具、“插入文档”带 `<h1>`；普通对话里模型不带格式的 Markdown 插入变成 `<h2>`，重复的回答变成一句话）。`tests/manual/local_ai_smoke.cpp` 加了第三个参数（用户原话）。
     - **真实模型（1.7B，显卡，`build/wasm-source/tmp/smoke-route/`，不在 git 里）：** “详细点”5.3 秒，结果是更具体的普通文字、没有 Markdown；“写一篇关于高效学习的短文”第一版提示下 6.4 秒，内容好但把【】当小标题用；改提示后再跑两次（6.4、7.3 秒）：都用 `##` 分节，一次完全干净，一次仍有几处把普通词放进【】并在末尾加了【需补充】——小模型不稳定，结果先给用户看、可“重写”。
-    - **装配 r8：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r8 --build-label route-4 --ai-engine dependencies/llama.cpp-b12202`，后台进行中，结果见 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r8.json`。
+    - **装配 r8：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r8 --build-label route-4 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `4e8fe0a774bf69b5f8c47252bc4b7755f11efc893d2ff2a3a51e6a9ab16bdc61`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r8.json`。
     - **还没做：** 真实编辑器里复查；没有选中文字时的“详细点”仍走对话（不知道指哪段）；分类规则是关键词，遇到没覆盖的说法会走对话。
 
 ## 附录 A：requirements.md 完整原文
