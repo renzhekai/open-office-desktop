@@ -88,7 +88,8 @@ endif()
 
 add_library(office_ui STATIC app/ui/main_window.h app/ui/main_window.cpp
     app/ui/assistant_art.h app/ui/assistant_art.cpp app/ui/assistant_ball.h app/ui/assistant_ball.cpp
-    app/ui/ai_settings_dialog.h app/ui/ai_settings_dialog.cpp)
+    app/ui/ai_settings_dialog.h app/ui/ai_settings_dialog.cpp
+    app/ui/relocation.h app/ui/relocation.cpp)
 target_include_directories(office_ui PUBLIC app)
 target_link_libraries(office_ui PUBLIC office_engine office_assistant Qt6::Widgets)
 

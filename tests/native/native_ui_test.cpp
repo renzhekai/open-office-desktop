@@ -4,6 +4,7 @@
 #include "ui/ai_settings_dialog.h"
 #include "ui/assistant_ball.h"
 #include "ui/main_window.h"
+#include "ui/relocation.h"
 
 #include <QAction>
 #include <QAbstractButton>
@@ -18,6 +19,10 @@
 #include <QMessageBox>
 #include <QPointer>
 #include <QPushButton>
+#include <QProcess>
+#include <QSettings>
+#include <QStorageInfo>
+#include <QUuid>
 #include <QStackedWidget>
 #include <QTimer>
 #include <QtTest>
@@ -156,6 +161,118 @@ private:
         action(window, "openDocumentAction")->trigger();
         engine.complete(engine.lastId, openoffice::EngineOperation::Open, true, engine.lastPath);
         QTRY_VERIFY(window.documentOpened());
+    }
+
+    static void answerRelocation(const QString& buttonText)
+    {
+        QTimer::singleShot(0, [buttonText] {
+            auto* box = qobject_cast<QMessageBox*>(QApplication::activeModalWidget());
+            if (!box) return;
+            for (QAbstractButton* button : box->buttons())
+                if (button->text() == buttonText) button->click();
+        });
+    }
+
+    static QString powershell(const QString& script)
+    {
+        QProcess process;
+        process.start(QStringLiteral("powershell.exe"),
+                      {QStringLiteral("-NoProfile"), QStringLiteral("-NonInteractive"), QStringLiteral("-Command"),
+                       QStringLiteral("[Console]::OutputEncoding = [Text.Encoding]::UTF8; ") + script});
+        process.waitForFinished(60000);
+        return QString::fromUtf8(process.readAllStandardOutput()).trimmed();
+    }
+
+    static QString psQuoted(const QString& text)
+    {
+        QString escaped = QDir::toNativeSeparators(text);
+        escaped.replace(QLatin1Char('\''), QStringLiteral("''"));
+        return QLatin1Char('\'') + escaped + QLatin1Char('\'');
+    }
+
+    // Moves a small fake program folder from a temporary folder into `destinationRoot`
+    // with the real helper, and checks the folder, a shortcut and an uninstall entry.
+    static void runRelocationHelper(const QString& destinationRoot)
+    {
+        QTemporaryDir root;
+        QTemporaryDir destinationParent(QDir(destinationRoot).filePath(QStringLiteral("relocation-test-XXXXXX")));
+        QVERIFY(root.isValid() && destinationParent.isValid());
+        const QString source = root.filePath(QStringLiteral("Open Office 程序"));
+        QVERIFY(QDir().mkpath(source + QStringLiteral("/models")));
+        QVERIFY(QDir().mkpath(source + QStringLiteral("/empty-folder")));
+        const auto write = [](const QString& path, const QByteArray& bytes) {
+            QFile file(path);
+            return file.open(QIODevice::WriteOnly) && file.write(bytes) == bytes.size();
+        };
+        QVERIFY(write(source + QStringLiteral("/OpenOffice.exe"), QByteArray(4096, 'x')));
+        QVERIFY(write(source + QStringLiteral("/models/Qwen3-1.7B-Q8_0.gguf"), QByteArray(1 << 20, 'm')));
+        QVERIFY(write(source + QStringLiteral("/unins000.exe"), "u"));
+        const QString links = root.filePath(QStringLiteral("links"));
+        QVERIFY(QDir().mkpath(links + QStringLiteral("/Open Office")));
+        const QString link = links + QStringLiteral("/Open Office/Open Office.lnk");
+        const QString key = QStringLiteral("Software\\Open Office Project Tests\\Uninstall-%1")
+                                .arg(QUuid::createUuid().toString(QUuid::WithoutBraces));
+        const QString app = QDir::toNativeSeparators(source);
+        powershell(QStringLiteral("$s = (New-Object -ComObject WScript.Shell).CreateShortcut(%1); $s.TargetPath = %2; "
+                                  "$s.WorkingDirectory = %3; $s.IconLocation = %4; $s.Save()")
+                       .arg(psQuoted(link), psQuoted(app + QStringLiteral("\\OpenOffice.exe")), psQuoted(app),
+                            psQuoted(app + QStringLiteral("\\OpenOffice.exe,0"))));
+        QVERIFY(QFileInfo::exists(link));
+        {
+            QSettings entry(QStringLiteral("HKEY_CURRENT_USER\\") + key + QStringLiteral("\\App_is1"), QSettings::NativeFormat);
+            entry.setValue(QStringLiteral("Inno Setup: App Path"), app);
+            entry.setValue(QStringLiteral("InstallLocation"), app + QLatin1Char('\\'));
+            entry.setValue(QStringLiteral("UninstallString"), QLatin1Char('"') + app + QStringLiteral("\\unins000.exe\""));
+            entry.setValue(QStringLiteral("DisplayIcon"), app + QStringLiteral("\\OpenOffice.exe"));
+            QSettings other(QStringLiteral("HKEY_CURRENT_USER\\") + key + QStringLiteral("\\Other"), QSettings::NativeFormat);
+            other.setValue(QStringLiteral("InstallLocation"), QStringLiteral("C:\\Somewhere\\Else"));
+        }
+
+        QString error;
+        const openoffice::RelocationPlan plan = openoffice::planRelocation(source, destinationParent.path(), &error);
+        QVERIFY2(plan.valid(), qPrintable(error));
+        QProcess finished; // the "program" has already exited
+        finished.start(QStringLiteral("cmd.exe"), {QStringLiteral("/c"), QStringLiteral("exit")});
+        QVERIFY(finished.waitForStarted());
+        const qint64 pid = finished.processId();
+        QVERIFY(finished.waitForFinished());
+        openoffice::RelocationOptions options;
+        options.shortcutFolders = {links};
+        options.uninstallKey = QStringLiteral("HKCU:\\") + key;
+        options.launch = false;
+        const QString log = root.filePath(QStringLiteral("relocation.log"));
+        QStringList command = openoffice::relocationCommand(plan, pid, log, options);
+        QProcess helper;
+        helper.start(command.takeFirst(), command);
+        QVERIFY(helper.waitForFinished(120000));
+        QCOMPARE(helper.exitCode(), 0);
+
+        const openoffice::RelocationOutcome outcome = openoffice::readRelocationLog(log);
+        QFile logFile(log);
+        QVERIFY(logFile.open(QIODevice::ReadOnly));
+        const QByteArray logText = logFile.readAll();
+        QVERIFY2(outcome.moved && outcome.code == QStringLiteral("moved"), logText.constData());
+        QCOMPARE(QDir::fromNativeSeparators(outcome.target), plan.target);
+        QVERIFY(openoffice::relocationMessage(outcome).contains(QDir::toNativeSeparators(plan.target)));
+        QVERIFY(!QFileInfo::exists(source));
+        QCOMPARE(QFileInfo(plan.target + QStringLiteral("/models/Qwen3-1.7B-Q8_0.gguf")).size(), qint64(1 << 20));
+        QCOMPARE(QFileInfo(plan.target + QStringLiteral("/OpenOffice.exe")).size(), qint64(4096));
+        QVERIFY(QFileInfo(plan.target + QStringLiteral("/empty-folder")).isDir());
+        const QString moved = QDir::toNativeSeparators(plan.target);
+        QCOMPARE(powershell(QStringLiteral("$s = (New-Object -ComObject WScript.Shell).CreateShortcut(%1); "
+                                           "$s.TargetPath + '|' + $s.WorkingDirectory + '|' + $s.IconLocation").arg(psQuoted(link))),
+                 moved + QStringLiteral("\\OpenOffice.exe|") + moved + QLatin1Char('|') + moved + QStringLiteral("\\OpenOffice.exe,0"));
+        {
+            QSettings entry(QStringLiteral("HKEY_CURRENT_USER\\") + key + QStringLiteral("\\App_is1"), QSettings::NativeFormat);
+            QCOMPARE(entry.value(QStringLiteral("Inno Setup: App Path")).toString(), moved);
+            QCOMPARE(entry.value(QStringLiteral("InstallLocation")).toString(), moved + QLatin1Char('\\'));
+            QCOMPARE(entry.value(QStringLiteral("UninstallString")).toString(),
+                     QLatin1Char('"') + moved + QStringLiteral("\\unins000.exe\""));
+            QCOMPARE(entry.value(QStringLiteral("DisplayIcon")).toString(), moved + QStringLiteral("\\OpenOffice.exe"));
+            QSettings other(QStringLiteral("HKEY_CURRENT_USER\\") + key + QStringLiteral("\\Other"), QSettings::NativeFormat);
+            QCOMPARE(other.value(QStringLiteral("InstallLocation")).toString(), QStringLiteral("C:\\Somewhere\\Else"));
+        }
+        QSettings(QStringLiteral("HKEY_CURRENT_USER\\Software\\Open Office Project Tests"), QSettings::NativeFormat).remove(QString());
     }
 
     static void answerClosePrompt(QMessageBox::StandardButton choice)
@@ -1085,7 +1202,12 @@ private slots:
         openoffice::MainWindow window(&engine);
         auto* dialog = window.openAiSettings();
         QVERIFY(dialog->isVisible());
-        QCOMPARE(dialog->folderText(), QDir::toNativeSeparators(QDir::cleanPath(folder.path())));
+        // Shows where the program is (models go with it); no folder of their own to pick.
+        QCOMPARE(dialog->folderText(), QDir::toNativeSeparators(QCoreApplication::applicationDirPath()));
+        QVERIFY(!dialog->findChild<QPushButton*>(QStringLiteral("aiSettingsChangeFolder")));
+        QVERIFY(dialog->findChild<QPushButton*>(QStringLiteral("aiSettingsRelocate")));
+        QVERIFY(dialog->findChild<QLabel*>(QStringLiteral("aiSettingsFolderNote"))->text()
+                    .contains(QDir::toNativeSeparators(QDir::cleanPath(folder.path())))); // the development override is said
         const QStringList rows = dialog->rowTexts();
         QCOMPARE(rows.size(), 3);
         QVERIFY(rows[0].contains(QStringLiteral("Qwen3 1.7B")) && rows[0].contains(QStringLiteral("已下载"))
@@ -1097,6 +1219,69 @@ private slots:
         QVERIFY(dialog->engineText().contains(QStringLiteral("内置引擎")));
         QCOMPARE(window.openAiSettings(), dialog); // one settings window
         dialog->close();
+    }
+
+    void relocationPlanChecksTheChosenFolder()
+    {
+        QTemporaryDir root;
+        QVERIFY(QDir(root.path()).mkpath(QStringLiteral("apps/OpenOffice/models")));
+        QVERIFY(QDir(root.path()).mkpath(QStringLiteral("other/OpenOffice")));
+        QVERIFY(QDir(root.path()).mkpath(QStringLiteral("empty")));
+        const QString source = root.filePath(QStringLiteral("apps/OpenOffice"));
+        QString error;
+        const openoffice::RelocationPlan plan = openoffice::planRelocation(source, root.filePath(QStringLiteral("empty")), &error);
+        QVERIFY2(plan.valid(), qPrintable(error));
+        QCOMPARE(plan.target, QDir::cleanPath(root.filePath(QStringLiteral("empty/OpenOffice"))));
+        QVERIFY(plan.sameVolume);
+        QVERIFY(QDir(root.filePath(QStringLiteral("empty"))).isEmpty(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Hidden));
+        const auto refused = [&](const QString& chosen, const QString& reason) {
+            QString why;
+            return !openoffice::planRelocation(source, chosen, &why).valid() && why.contains(reason);
+        };
+        QVERIFY(refused(root.filePath(QStringLiteral("apps")), QStringLiteral("已经在这个位置")));
+        QVERIFY(refused(root.filePath(QStringLiteral("apps/OpenOffice/models")), QStringLiteral("自己的文件夹里面")));
+        QVERIFY(refused(source, QStringLiteral("自己的文件夹里面")));
+        QVERIFY(refused(root.filePath(QStringLiteral("other")), QStringLiteral("已经存在")));
+        QVERIFY(refused(root.filePath(QStringLiteral("missing")), QStringLiteral("不是一个文件夹")));
+    }
+
+    void relocationHelperMovesTheFolderShortcutsAndUninstallEntry()
+    {
+        // Same drive (a rename) here; another drive (a verified copy) when the build folder is on one.
+        runRelocationHelper(QDir::tempPath());
+        if (QTest::currentTestFailed()) return;
+        if (QStorageInfo(QDir::tempPath()).rootPath().compare(QStorageInfo(QDir::currentPath()).rootPath(), Qt::CaseInsensitive) != 0)
+            runRelocationHelper(QDir::currentPath());
+    }
+
+    void relocateAsksConfirmsAndClosesWithThePlan()
+    {
+        QTemporaryDir destination;
+        ControlledEngine engine;
+        openoffice::MainWindow window(&engine);
+        window.show();
+        QString offered;
+        window.setRelocationFolderChooser([&](const QString& start) {
+            offered = start;
+            return QString();
+        });
+        window.relocateApplication(); // cancelled in the folder dialog
+        QCOMPARE(offered, QFileInfo(QCoreApplication::applicationDirPath()).absolutePath());
+        QVERIFY(!window.relocationPlan().valid());
+
+        window.setRelocationFolderChooser([&](const QString&) { return destination.path(); });
+        answerRelocation(QStringLiteral("取消"));
+        window.relocateApplication();
+        QVERIFY(!window.relocationPlan().valid());
+        QVERIFY(window.isVisible());
+
+        answerRelocation(QStringLiteral("迁移并重新打开"));
+        window.relocateApplication();
+        QVERIFY(window.relocationPlan().valid());
+        QCOMPARE(window.relocationPlan().target,
+                 QDir(destination.path()).filePath(QFileInfo(QCoreApplication::applicationDirPath()).fileName()));
+        QTRY_VERIFY(!window.isVisible()); // it closes; main() starts the helper after the program exits
+        QVERIFY(!QFileInfo::exists(window.relocationPlan().target)); // nothing moved yet
     }
 
     void assistantHostCommandsUseTheWindowsOwnFlows()

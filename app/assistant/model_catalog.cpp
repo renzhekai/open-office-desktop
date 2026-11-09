@@ -2,11 +2,10 @@
 
 #include "ollama_client.h"
 
+#include <QCoreApplication>
 #include <QDir>
 #include <QFileInfo>
 #include <QSettings>
-#include <QStandardPaths>
-#include <QStorageInfo>
 
 namespace openoffice {
 namespace {
@@ -57,39 +56,13 @@ LocalModel asLocalModel(const CatalogModel& model)
     return local;
 }
 
-QString defaultModelFolder()
-{
-    const QString system = QDir::fromNativeSeparators(qEnvironmentVariable("SystemDrive", QStringLiteral("C:"))).toUpper();
-    QString best;
-    qint64 mostFree = 0;
-    for (const QStorageInfo& volume : QStorageInfo::mountedVolumes()) {
-        if (!volume.isValid() || !volume.isReady() || volume.isReadOnly()) continue;
-        const QString root = QDir::fromNativeSeparators(volume.rootPath());
-        if (root.toUpper().startsWith(system)) continue;
-        if (volume.device().startsWith("\\\\")) continue; // network shares are too slow for models
-        if (volume.bytesAvailable() > mostFree) {
-            mostFree = volume.bytesAvailable();
-            best = root;
-        }
-    }
-    // Another drive with room for a few models; otherwise the program's data folder.
-    if (!best.isEmpty() && mostFree > (12LL << 30))
-        return QDir(best).filePath(QStringLiteral("OpenOffice-AI/models"));
-    return QDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation))
-        .filePath(QStringLiteral("OpenOffice/ai-models"));
-}
-
 QString modelFolder()
 {
+    // Development builds share one copy of the models instead of one per runtime folder.
     const QString configured = qEnvironmentVariable("OPEN_OFFICE_MODEL_DIR");
     if (!configured.isEmpty()) return QDir::cleanPath(configured);
-    const QString chosen = settings().value(QStringLiteral("ai/modelFolder")).toString();
-    return chosen.isEmpty() ? defaultModelFolder() : QDir::cleanPath(chosen);
-}
-
-void setModelFolder(const QString& folder)
-{
-    settings().setValue(QStringLiteral("ai/modelFolder"), QDir::cleanPath(folder));
+    // Models live with the program, so moving the program (设置 → 迁移) moves them too.
+    return QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("models"));
 }
 
 QString modelFilePath(const CatalogModel& model)

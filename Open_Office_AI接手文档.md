@@ -45,14 +45,16 @@
 - CTest 共 84 项通过；编辑器脚本在真实编辑器里逐条验证过；真实会话验证了按钮随选区变化、“较慢”标记、计秒和停止。**完整的校对 / 润色 / 起草还没在真实编辑器里走完**：本机只有很慢的 gpt-oss:20b，推荐的 qwen3:8b 因代理 Fake-IP 没下载成功，用户说稍后自己调整网络。见第 37、38 条。
 
 **内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
-- 最新候选：`build/full-source-run-builtin-ai-r5`（构建 `builtin-ai-6`，CTest 92 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-09 装配，第 45 条）。比 r4 多修了“改写结果行尾多两个空格”。`-builtin-ai-r4`（宿主 `05919c83…`，构建 `builtin-ai-5`，第 44 条）修了悬浮球快捷按钮被压扁（用户截图发现），没在真实编辑器里测过。`-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，第 43 条）含第 39 条最后修的“校对字段顺序”，但有按钮被压扁的问题。旧候选 `-builtin-ai`、`-builtin-ai-r2`、`-r3` 原样保留。
+- **模型位置（2026-11-09 用户决定，第 47 条）：** 模型固定下载到软件文件夹里的 `models`，设置页不能再单独改；要换盘就在“本地 AI 设置 → 软件位置 → 迁移到其他位置…”把整个软件（程序、编辑器配置、模型）一起搬走，搬完自动重新打开，快捷方式和卸载信息跟着改。开发版本由 `OPEN_OFFICE_MODEL_DIR` 指到 `dependencies/local-models/download`（`打开最新版.cmd` 等启动文件会自动设）。
+- 最新候选：`build/full-source-run-builtin-ai-r6`（构建 `relocate-2`，CTest 95 项全过；2026-11-09 装配，第 47 条），在 r5 基础上加了上面的模型位置和迁移。
+- 上一个候选：`build/full-source-run-builtin-ai-r5`（构建 `builtin-ai-6`，CTest 92 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-09 装配，第 45 条）。比 r4 多修了“改写结果行尾多两个空格”。`-builtin-ai-r4`（宿主 `05919c83…`，构建 `builtin-ai-5`，第 44 条）修了悬浮球快捷按钮被压扁（用户截图发现），没在真实编辑器里测过。`-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，第 43 条）含第 39 条最后修的“校对字段顺序”，但有按钮被压扁的问题。旧候选 `-builtin-ai`、`-builtin-ai-r2`、`-r3` 原样保留。
 - 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；侧边会话已与魔搭公布的 SHA256 核对一致，见第 40 条）。4B、8B 没下载（4B 下载时连接被重置）。
 - 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。显存空闲时，校对、润色、正式、总结每项连引擎启动 6–8 秒、每秒约 155 词（第 43 条）。
 - **已知质量问题：** 1.7B 输出不稳定；显存空闲那次润色漏掉了“带好笔记本、认真听讲”一句和落款“行政部”（上一次没漏），改正式时加了原文没有的“笔和”“负责人”。值得做程序检查：结果比原文少了句子或改了实词时提醒用户（第 41、43 条）。
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4 装配和两处修复（第 43–45 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。正在装配 r5（第 45 条）。之后用 r5 开新会话 `builtin-ai-session4`：样本 `fixtures/results/office-ai-sample-6.docx`，用 r5 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4/r5 装配和两处修复（第 43–46 条）、模型位置固定加迁移功能（第 47 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。正在装配 r6（第 47 条）。之后用 r6 开新会话 `builtin-ai-session4`（顺便请用户试一次迁移）：样本 `fixtures/results/office-ai-sample-6.docx`，用 r6 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -67,7 +69,7 @@
 | drawingfile | 已重建并通过（`out/drawingfile/pass6`，`drawingfile-functional-pass2.json`）：46 个导出签名一致，两份自建 PDF 的渲染、文字、链接、目录、表单与外观、拆分/另存为、存储接口两版都与官方一致。边界：加载器 JS 模板取自官方生成文件（无公开源码），`drawingfile_native.js` 沿用官方 |
 
 **下一步（待用户确定方向）：**
-0. AI 助手（内置引擎，见第 39 条“接手先做”）：`local_ai_smoke` 复查和 r3 装配已完成（第 41、43 条）；在真实编辑器里走完整流程并用 `scripts/verify_office_ai_session.py` 核对（进行中，见“正在做”）；补上 llama.cpp 的 MIT 许可证原文；之后问用户是否设为默认入口、重新生成安装包。再往后：把命令清单接成真正的 MCP 服务。
+0. AI 助手（内置引擎，见第 39 条“接手先做”）：`local_ai_smoke` 复查和 r3–r6 装配已完成（第 41、43–47 条）；在真实编辑器里走完整流程（含迁移）并用 `scripts/verify_office_ai_session.py` 核对（进行中，见“正在做”）；补上 llama.cpp 的 MIT 许可证原文；之后问用户是否设为默认入口、重新生成安装包。再往后：把命令清单接成真正的 MCP 服务。
 1. 在一台干净的 Windows 电脑（或虚拟机）上试装安装包；考虑代码签名。
 2. XLSX/PPTX/PDF 的界面流程与回归：打开、新建（目前只开放新建文字文档）、保存、另存为。
 3. 导出为其他格式（如 PDF）：编辑器自己菜单里的导出目前会被取消，见第 26 条。
@@ -163,6 +165,9 @@
 | 2026-11-08 | 侧边聊天说他已经告诉你了，你要不退回去按照他这个来 | 侧边会话的交接消息排在队列里，本会话重启时丢了，没收到。问用户后选定：保留办公功能，只把引擎换成内置 llama.cpp，Ollama 只作可选，加模型设置页（第 39 条） |
 | 2026-11-08 | 赶快更新接手文档，我换个智能体继续做 | 写第 39 条并推送；未完成的事列在第 39 条“接手先做” |
 | 2026-11-08 | （在侧边会话里）build 里版本太多，找不到最新版 | 侧边会话新建三个启动文件和 `scripts/open_runtime.py`，本会话核对后记入第 40 条并推送 |
+| 2026-11-08 | 查看接手文档；同意装配 r3、卸载 gpt-oss:20b；截图指出悬浮球按钮显示有问题 | 第 42–44 条 |
+| 2026-11-09 | 我记得我下载了一个模型，怎么没了 | 第 46 条：模型在 `dependencies/local-models/download`，软件按旧设置去 `D:/models` 找 |
+| 2026-11-09 | 以后下载模型默认下载在软件本体所在的文件夹中，无法更改文件夹，但是可以去设置中迁移数据文件夹，将整个 openoffice 移动 | 第 47 条：模型固定在软件文件夹的 `models`；设置页去掉“更改…”，加“迁移到其他位置…” |
 
 ## 3. 目录、代码与运行入口
 
@@ -190,6 +195,8 @@
 | `app/assistant/assistant_commands.*` | 助手命令接口：命令清单、参数校验、来源标记、MCP 形式的工具清单 JSON、斜杠指令解析；不接模型和网络 |
 | `app/ui/assistant_ball.*`、`app/ui/assistant_art.*` | 悬浮球窗口；玻璃球图标、光晕、执行中弧线、连续曲率圆角、模糊阴影、弹簧曲线（全部自绘） |
 | `scripts/verify_assistant_session.py` | 只读核对助手会话：编辑器回报、命令日志不含正文、保存结果 |
+| `app/ui/relocation.*` | 迁移：检查目标位置、算大小、内嵌的 PowerShell 搬家脚本（等程序退出、同盘改名或跨盘复制核对、改快捷方式和卸载信息、重新打开）、读取结果并给中文说明 |
+| `scripts/check_installer_relocation.py` | 用真实安装脚本给一个小的替身程序编译安装包，走“安装 → 迁移 → 从新位置卸载”和“安装 → 卸载”，证据在 `evidence/installer/relocation-check-*.json` |
 | `docs/design/` | 助手图标和形状的真实渲染预览 |
 | `app/engine/onlyoffice_engine_adapter.cpp` | 未启用原生集成时的不可用基线；不能冒充真实编辑 |
 | `tests/native` | 引擎契约/UI 测试；不是 CEF 文档功能回归 |
@@ -991,7 +998,20 @@ python -B scripts/verify_full_source_docx_sample.py
     - **r5：** 后台重跑的装配成功，`build/full-source-run-builtin-ai-r5`，记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r5.json`。这次的临时目录 `.staging-a76a56fe…` 已正常改名成 r5；第一次被打断留下的 `.staging-c4129cb8…` 仍原样保留。
     - **模型没丢：** `dependencies/local-models/download/` 里有 `Qwen3-1.7B-Q8_0.gguf`（1,834,426,016 字节）和 `Qwen3-4B-Q4_K_M.gguf`（2,497,280,256 字节，2026-11-08 21:04）。4B 是用户在 r3 会话窗口的设置页里下载的：那个窗口带着 `OPEN_OFFICE_MODEL_DIR` 指向这个目录，所以下到了这里；下载器核对 SHA256 后才把 `.part` 改名，文件完整。用户还选了它（注册表 `ai/builtinModel = qwen3-4b`）。
     - **为什么“没了”：** 用户随后用启动文件直接打开 r4（01:56，没有环境变量），程序按注册表 `ai/modelFolder = D:/models` 找模型。那是 Ollama 的模型目录，没有 GGUF，所以显示没有模型。
-    - **产品问题（还没改）：** 测试用的环境变量会悄悄改变下载位置，设置页存的目录又是另一个地方，用户看不出模型去了哪里。可以考虑：所选目录里找不到模型时，顺便查一下其他已知位置（上次下载的目录、默认目录），找到就提示“在 X 找到 N 个模型，要改用这个位置吗”。
+    - **产品问题（还没改）：** 测试用的环境变量会悄悄改变下载位置，设置页存的目录又是另一个地方，用户看不出模型去了哪里。可以考虑：所选目录里找不到模型时，顺便查一下其他已知位置（上次下载的目录、默认目录），找到就提示“在 X 找到 N 个模型，要改用这个位置吗”。（第 47 条按用户的决定改成了固定位置，这条建议不再需要。）
+
+47. **模型固定放在软件文件夹，加“迁移”功能（2026-11-09，Claude Code）：**
+    - **用户要求：** “以后下载模型默认下载在软件本体所在的文件夹中，无法更改文件夹，但是可以去设置中迁移数据文件夹，将整个 openoffice 移动”。
+    - **模型位置（`app/assistant/model_catalog.*`）：** `modelFolder()` 改为 `程序目录/models`；`OPEN_OFFICE_MODEL_DIR` 仍可覆盖（开发和测试用）。删掉 `defaultModelFolder()`、`setModelFolder()`，注册表 `ai/modelFolder` 不再读。
+    - **设置页（`app/ui/ai_settings_dialog.*`）：** “模型存放位置 / 更改…”换成“软件位置”：显示程序目录，按钮“打开”“迁移到其他位置…”；说明里写模型在 `models`、现有多少 GB，在 C 盘时提示可以迁移到其他盘，有开发环境变量时直说。悬浮球“下载一个本地模型”卡片的文字同步改了。
+    - **迁移流程（`app/ui/main_window.*`、`app/main.cpp`、`app/ui/relocation.*`）：** 正在下载、文档操作没结束、文档没保存时先拒绝并说明原因；选文件夹（目标是“所选文件夹/程序文件夹名”）；检查：不能是网络位置、不能在自己里面、目标不能已存在、要能写；跨盘时检查空间（程序加模型再多 512 MB）；确认框写明大小、来源和去向。确认后正常关闭窗口；关闭失败或在保存提示里取消时作废。程序完全退出后，`main()` 才启动搬家脚本（`powershell.exe -EncodedCommand`，不受脚本执行策略限制，无窗口，尝试脱离作业对象）。
+    - **搬家脚本（内嵌在 `relocation.cpp`，只用 ASCII）：** 最多等 2 分钟，等程序及其目录里启动的所有进程（编辑器辅助进程、AI 引擎）退出；同盘用改名，跨盘用 robocopy 复制，再核对文件数和总字节，不一致就删掉这次复制出来的东西、原文件夹不动；然后删旧文件夹（删不干净报 `moved-leftover`）；把开始菜单程序和桌面里指向旧位置的快捷方式改到新位置；把卸载信息里 `Inno Setup: App Path` 等于旧位置的那一项的路径值改掉；最后在新位置（失败时在原位置）用 `--relocation-log` 重新打开，程序据此弹出中文结果。
+    - **安装脚本（`installer/OpenOffice.iss`）：** 加 `[UninstallDelete]`，卸载时删 `openoffice-profile` 和 `models`（以前卸载会留下配置）；加 `[Code]`：卸载开始时读卸载信息里的 `Inno Setup: App Path`，卸载结束后如果那里还有 `OpenOffice.exe`（说明搬过家、安装记录里是旧路径），就整个删掉那个文件夹。
+    - **开发启动文件（`scripts/open_runtime.py`）：** 启动时若 `dependencies/local-models/download` 存在且没设环境变量，就设 `OPEN_OFFICE_MODEL_DIR` 指向它，所以 `打开最新版.cmd` 等打开的开发版本都能用已下载的 1.7B 和 4B。
+    - **测试：** 构建 `relocate-2`，CTest 3 组共 95 项全过（助手 36、契约 21、界面 38）。新增：模型位置默认在程序目录；设置页没有“更改…”、有“迁移…”、说明写出开发环境变量；`relocationPlanChecksTheChosenFolder`（目标、同盘、各种拒绝）；`relocationHelperMovesTheFolderShortcutsAndUninstallEntry`（用真实脚本搬一个带中文名的替身文件夹：同盘一次、跨盘一次（临时目录在 C 盘，构建目录在 D 盘），核对文件、空文件夹、快捷方式三项、卸载信息四项、无关的卸载项不动，测试注册表项清理掉）；`relocateAsksConfirmsAndClosesWithThePlan`（取消选文件夹、取消确认、确认后窗口关闭并带着计划，且还没移动任何东西）。第一次构建 `relocate-1` 因一个字符串里混入了真换行而编译失败。
+    - **真实安装包检查：** `python -I scripts/check_installer_relocation.py inno-1` 通过（`evidence/installer/relocation-check-inno-1.json`）：替身程序的安装包用真实 `.iss` 和真实 AppId 编译（这台电脑没装安装版，先核对过），静默安装、放入假模型和配置、用脚本迁移（同盘改名）、卸载信息四项都指向新位置、从新位置静默卸载后新旧位置都没有残留、卸载信息删除；不搬的那一组卸载后模型和配置也删掉了。跨盘复制在安装版上没有单独测，CTest 里测过。
+    - **还没做：** 在真实编辑器里点一次“迁移”（要用户操作）；用大文件夹（约 2 万个文件、带模型）实测跨盘复制的时间；README 还写着 Ollama 版，等内置引擎版设为默认入口时一起改。
+    - **装配 r6：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r6 --build-label relocate-2 --ai-engine dependencies/llama.cpp-b12202`，后台进行中，结果见 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r6.json`。
 
 ## 附录 A：requirements.md 完整原文
 

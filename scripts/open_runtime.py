@@ -12,6 +12,7 @@ right as new candidates are staged or the default entry changes.
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -51,10 +52,19 @@ def default_entry():
     return BUILD / match.group(1) if match else None
 
 
+# Models downloaded during development. Installed copies keep models in their own folder;
+# the build folders here share this one instead of a copy each (OPEN_OFFICE_MODEL_DIR).
+MODELS = ROOT / "dependencies" / "local-models" / "download"
+
+
 def start(item, title):
     print(f"正在启动{title}：{item['folder'].relative_to(ROOT)}（{item['built']:%Y-%m-%d %H:%M} 构建）")
+    env = dict(os.environ)
+    if MODELS.is_dir() and "OPEN_OFFICE_MODEL_DIR" not in env:
+        env["OPEN_OFFICE_MODEL_DIR"] = str(MODELS)
+        print(f"本地 AI 模型用 {MODELS.relative_to(ROOT)}（开发版共用）")
     flags = getattr(subprocess, "DETACHED_PROCESS", 0) | getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
-    subprocess.Popen([str(item["exe"])], cwd=item["folder"], creationflags=flags, close_fds=True)
+    subprocess.Popen([str(item["exe"])], cwd=item["folder"], creationflags=flags, close_fds=True, env=env)
 
 
 def main():

@@ -34,6 +34,7 @@
 #include <QStackedWidget>
 #include <QStandardPaths>
 #include <QStatusBar>
+#include <QStorageInfo>
 #include <QStyle>
 #include <QTimer>
 #include <QToolBar>
@@ -1259,11 +1260,78 @@ AiSettingsDialog* MainWindow::openAiSettings()
     if (!m_aiSettings) {
         m_aiSettings = new AiSettingsDialog(m_localAi, this);
         m_aiSettings->setAttribute(Qt::WA_DeleteOnClose);
+        connect(m_aiSettings, &AiSettingsDialog::relocateRequested, this, &MainWindow::relocateApplication);
     }
     m_aiSettings->show();
     m_aiSettings->raise();
     m_aiSettings->activateWindow();
     return m_aiSettings;
+}
+
+void MainWindow::relocateApplication()
+{
+    QWidget* parent = m_aiSettings ? static_cast<QWidget*>(m_aiSettings) : this;
+    const QString title = QStringLiteral("迁移 Open Office");
+    if (m_localAi->downloader()->active()) {
+        QMessageBox::information(parent, title, QStringLiteral("正在下载模型。请先暂停下载，再迁移。"));
+        return;
+    }
+    if (m_pendingRequestId || m_waitingForSavedState) {
+        QMessageBox::information(parent, title, QStringLiteral("请等当前的文档操作结束后再迁移。"));
+        return;
+    }
+    if (m_documentOpened && (m_documentModified || (m_engine && m_engine->documentModified()))) {
+        QMessageBox::information(parent, title, QStringLiteral("当前文档还有没保存的修改。请先保存，再迁移。"));
+        return;
+    }
+    const QString source = QCoreApplication::applicationDirPath();
+    const QString start = QFileInfo(source).absolutePath();
+    const QString name = QFileInfo(source).fileName();
+    const QString chosen = m_relocationFolderChooser
+        ? m_relocationFolderChooser(start)
+        : QFileDialog::getExistingDirectory(parent, QStringLiteral("选择新位置（会在里面放一个 %1 文件夹）").arg(name), start);
+    if (chosen.isEmpty()) return;
+    QString error;
+    const RelocationPlan plan = planRelocation(source, chosen, &error);
+    if (!plan.valid()) {
+        QMessageBox::warning(parent, title, error);
+        return;
+    }
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    const qint64 bytes = folderBytes(source);
+    QApplication::restoreOverrideCursor();
+    const auto gigabytes = [](qint64 value) { return QString::number(value / double(1LL << 30), 'f', 1); };
+    if (!plan.sameVolume) {
+        const qint64 free = QStorageInfo(chosen).bytesAvailable();
+        if (free >= 0 && free < bytes + (512LL << 20)) {
+            QMessageBox::warning(parent, title, QStringLiteral("软件连同模型约 %1 GB，%2 只剩 %3 GB。请换个位置，或先清理出空间。")
+                                                    .arg(gigabytes(bytes), QDir::toNativeSeparators(chosen), gigabytes(free)));
+            return;
+        }
+    }
+    QMessageBox box(QMessageBox::Question, title,
+                    QStringLiteral("把 Open Office（约 %1 GB，含下载的模型）从\n%2\n搬到\n%3\n\n"
+                                   "Open Office 会先关闭，搬好后自动重新打开，桌面和开始菜单的快捷方式会跟着改。%4搬的时候请不要关电脑。")
+                        .arg(gigabytes(bytes), QDir::toNativeSeparators(source), QDir::toNativeSeparators(plan.target),
+                             plan.sameVolume ? QStringLiteral("在同一个盘里搬，几秒就好。")
+                                             : QStringLiteral("要复制到另一个盘，可能要几分钟。")),
+                    QMessageBox::NoButton, parent);
+    box.setObjectName(QStringLiteral("relocationConfirm"));
+    QPushButton* go = box.addButton(QStringLiteral("迁移并重新打开"), QMessageBox::AcceptRole);
+    box.addButton(QStringLiteral("取消"), QMessageBox::RejectRole);
+    box.exec();
+    if (box.clickedButton() != go) return;
+    m_relocation = plan;
+    if (m_aiSettings) m_aiSettings->close();
+    showFeedback(QStringLiteral("正在关闭，关闭后迁移到 %1…").arg(QDir::toNativeSeparators(plan.target)));
+    QTimer::singleShot(0, this, [this] { close(); });
+}
+
+void MainWindow::dropRelocation()
+{
+    if (!m_relocation.valid()) return;
+    m_relocation = {};
+    QTimer::singleShot(0, this, [this] { showFeedback(QStringLiteral("没有关闭成功，迁移已取消。"), true); });
 }
 
 void MainWindow::showLocalAiCard()
@@ -1290,7 +1358,7 @@ void MainWindow::showLocalAiCard()
                 : QStringLiteral("内存（%1 GB，没有可用的独立显卡）").arg(memory);
             m_assistantBall->showCard(QStringLiteral("下载一个本地模型"),
                 QStringLiteral("本地 AI 需要一个模型文件，只下载一次，之后不联网也能用。按这台电脑的%1，推荐 %2（约 %3 GB，"
-                               "来自魔搭 ModelScope），会放在 %4。也可以在设置里选别的模型或换位置。")
+                               "来自魔搭 ModelScope），会放在软件文件夹里（%4）。也可以在设置里选别的模型，或把整个软件迁移到别的盘。")
                     .arg(hardware, model.title, QString::number(model.gigabytes, 'f', 1),
                          QDir::toNativeSeparators(modelFolder())),
                 {Action{QStringLiteral("下载 ") + model.title, [this] { m_localAi->downloadRecommended(); }}, settings}, false);
@@ -1464,6 +1532,7 @@ quint64 MainWindow::beginRequest(EngineOperation operation)
 void MainWindow::handleRequestAccepted(const EngineResult& result)
 {
     if (!result.ok) {
+        if (m_pendingOperation == EngineOperation::Close) dropRelocation();
         m_pendingRequestId = 0;
         resetCloseAfterSave();
         refreshCapabilities();
@@ -1494,6 +1563,7 @@ void MainWindow::handleOperationFinished(quint64 requestId, EngineOperation oper
     if (operation == EngineOperation::Close) {
         resetCloseAfterSave();
         if (!result.ok) {
+            dropRelocation();
             refreshCapabilities();
             showFeedback(result.message, true);
             return;
@@ -1639,6 +1709,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
         const auto choice = askToSaveChanges(this, QStringLiteral("当前文档有未保存的修改。关闭前是否保存？"));
         if (choice != QMessageBox::Discard) {
             event->ignore();
+            if (choice != QMessageBox::Save) dropRelocation();
             if (choice == QMessageBox::Save) {
                 m_closeAfterSave = true;
                 saveDocument();

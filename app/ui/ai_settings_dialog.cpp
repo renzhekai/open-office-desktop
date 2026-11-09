@@ -3,9 +3,10 @@
 #include "assistant/local_assistant.h"
 
 #include <QCheckBox>
+#include <QCoreApplication>
 #include <QDesktopServices>
 #include <QDir>
-#include <QFileDialog>
+#include <QFileInfo>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -59,20 +60,20 @@ AiSettingsDialog::AiSettingsDialog(LocalAssistant* assistant, QWidget* parent) :
     m_engine = text(QString(), "aiSettingsEngine", this);
     layout->addWidget(m_engine);
 
-    layout->addWidget(text(QStringLiteral("模型存放位置"), "aiSettingsHeading", this));
+    // Models live in the program folder; to put them elsewhere the whole program moves.
+    layout->addWidget(text(QStringLiteral("软件位置"), "aiSettingsHeading", this));
     auto* folderRow = new QHBoxLayout;
     m_folder = text(QString(), "aiSettingsFolder", this);
     m_folder->setTextInteractionFlags(Qt::TextSelectableByMouse);
     folderRow->addWidget(m_folder, 1);
-    auto* change = button(QStringLiteral("更改…"), "aiSettingsChangeFolder", this);
-    connect(change, &QPushButton::clicked, this, &AiSettingsDialog::chooseFolder);
-    folderRow->addWidget(change);
     auto* open = button(QStringLiteral("打开"), "aiSettingsOpenFolder", this);
     connect(open, &QPushButton::clicked, this, [] {
-        QDir().mkpath(modelFolder());
-        QDesktopServices::openUrl(QUrl::fromLocalFile(modelFolder()));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(QCoreApplication::applicationDirPath()));
     });
     folderRow->addWidget(open);
+    auto* move = button(QStringLiteral("迁移到其他位置…"), "aiSettingsRelocate", this);
+    connect(move, &QPushButton::clicked, this, &AiSettingsDialog::relocateRequested);
+    folderRow->addWidget(move);
     layout->addLayout(folderRow);
     m_folderNote = text(QString(), "aiSettingsFolderNote", this);
     layout->addWidget(m_folderNote);
@@ -143,11 +144,23 @@ void AiSettingsDialog::rebuild()
             status += QStringLiteral("，上次每秒约写 %1 个词").arg(qRound(m_ai->lastSpeed()));
         m_engine->setText(QStringLiteral("内置引擎（llama.cpp）· %1 · %2").arg(m_ai->engineText(), status));
     }
-    // Folder.
-    const QString folder = QDir::toNativeSeparators(modelFolder());
-    m_folder->setText(folder);
-    m_folderNote->setText(onSystemDrive(folder) ? QStringLiteral("现在放在系统盘（C 盘）。C 盘空间紧张时，建议换到其他盘。")
-                                                : QStringLiteral("换位置后，以后下载的模型放到新位置；已下载的不会自动搬过去。"));
+    // Where the program, and so the models, are.
+    const QString program = QDir::toNativeSeparators(QCoreApplication::applicationDirPath());
+    m_folder->setText(program);
+    qint64 modelBytes = 0;
+    for (const CatalogModel& model : installedModels()) modelBytes += QFileInfo(modelFilePath(model)).size();
+    const QString models = QDir::toNativeSeparators(modelFolder());
+    QString note;
+    if (!qEnvironmentVariable("OPEN_OFFICE_MODEL_DIR").isEmpty()) {
+        note = QStringLiteral("开发版：模型位置由环境变量 OPEN_OFFICE_MODEL_DIR 指定（%1），迁移只搬软件本身。").arg(models);
+    } else {
+        note = QStringLiteral("下载的模型放在软件文件夹里的 models%1；迁移时会一起搬走。")
+                   .arg(modelBytes > 0 ? QStringLiteral("（现有 %1 GB）").arg(QString::number(modelBytes / double(1LL << 30), 'f', 1))
+                                       : QString());
+        if (onSystemDrive(program))
+            note += QStringLiteral("软件现在在系统盘（C 盘），模型也会占用 C 盘空间（每个 1.8–5 GB）；C 盘紧张时，可以把整个软件迁移到其他盘。");
+    }
+    m_folderNote->setText(note);
     m_ollama->blockSignals(true);
     m_ollama->setChecked(!m_ai->builtin());
     m_ollama->blockSignals(false);
@@ -216,19 +229,6 @@ void AiSettingsDialog::updateProgress()
     const QString progress = m_ai->downloader()->active() ? m_ai->downloader()->progressText() : m_ai->downloadStatus();
     m_progress->setText(progress);
     m_progress->setVisible(!progress.isEmpty());
-}
-
-void AiSettingsDialog::chooseFolder()
-{
-    const QString chosen = QFileDialog::getExistingDirectory(this, QStringLiteral("选择模型存放位置"), modelFolder());
-    if (chosen.isEmpty() || QDir::cleanPath(chosen) == QDir::cleanPath(modelFolder())) return;
-    if (m_ai->downloader()->active()) {
-        QMessageBox::information(this, QStringLiteral("正在下载"), QStringLiteral("请先暂停正在进行的下载，再更改存放位置。"));
-        return;
-    }
-    setModelFolder(chosen);
-    m_ai->refresh();
-    rebuild();
 }
 
 void AiSettingsDialog::confirmDelete(const QString& id)

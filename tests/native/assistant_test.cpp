@@ -662,7 +662,11 @@ private slots:
         QCOMPARE(recommendedCatalogModel(16 * gb, 0).id, QStringLiteral("qwen3-4b"));
         QCOMPARE(recommendedCatalogModel(4 * gb, 0).id, QStringLiteral("qwen3-1.7b"));
         QVERIFY(asLocalModel(*findCatalogModel(QStringLiteral("qwen3-4b"))).tools);
-        QVERIFY(!defaultModelFolder().isEmpty());
+        {
+            // Fixed next to the program; only development builds and tests point elsewhere.
+            ScopedEnvironment unset("OPEN_OFFICE_MODEL_DIR", QByteArray());
+            QCOMPARE(modelFolder(), QDir(QCoreApplication::applicationDirPath()).filePath(QStringLiteral("models")));
+        }
 
         QTemporaryDir folder;
         ScopedEnvironment directory("OPEN_OFFICE_MODEL_DIR", QFile::encodeName(folder.path()));

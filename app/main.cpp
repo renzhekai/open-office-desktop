@@ -1,5 +1,6 @@
 #include "engine/onlyoffice_engine_adapter.h"
 #include "ui/main_window.h"
+#include "ui/relocation.h"
 
 #include <QAction>
 #include <QApplication>
@@ -54,6 +55,7 @@ int main(int argc, char* argv[])
     parser.addOption({QStringLiteral("smoke-report"), QStringLiteral("Write a new JSON launch report; never overwrite."), QStringLiteral("path")});
     parser.addOption({QStringLiteral("snapshot"), QStringLiteral("Write a new PNG of this application's rendered window."), QStringLiteral("path")});
     parser.addOption({QStringLiteral("exit-after-ms"), QStringLiteral("Exit after rendering, for local smoke tests."), QStringLiteral("milliseconds")});
+    parser.addOption({QStringLiteral("relocation-log"), QStringLiteral("Report how moving the program went (started by the move helper)."), QStringLiteral("path")});
     parser.process(app);
     if (parser.isSet(QStringLiteral("select")) && parser.isSet(QStringLiteral("open")))
         parser.showHelp(2);
@@ -90,6 +92,14 @@ int main(int argc, char* argv[])
     if (parser.isSet(QStringLiteral("open")))
         window.selectDocument(parser.value(QStringLiteral("open")));
     window.show();
+    if (parser.isSet(QStringLiteral("relocation-log"))) {
+        const auto outcome = openoffice::readRelocationLog(parser.value(QStringLiteral("relocation-log")));
+        QTimer::singleShot(300, &window, [&window, outcome] {
+            const QString text = openoffice::relocationMessage(outcome);
+            if (outcome.moved) QMessageBox::information(&window, QStringLiteral("迁移完成"), text);
+            else QMessageBox::warning(&window, QStringLiteral("没有迁移"), text);
+        });
+    }
     if (parser.isSet(QStringLiteral("open"))) {
         QTimer::singleShot(0, &window, [&window] {
             if (auto* action = window.findChild<QAction*>(QStringLiteral("openDocumentAction")))
@@ -156,5 +166,13 @@ int main(int argc, char* argv[])
 #ifdef OPEN_OFFICE_WITH_ONLYOFFICE
     engine.shutdownNative();
 #endif
+    // 迁移: the program folder can only move once nothing runs from it; the helper waits for that.
+    const openoffice::RelocationPlan relocation = window.relocationPlan();
+    if (relocation.valid()) {
+        QString error;
+        if (!openoffice::startRelocation(relocation, &error))
+            QMessageBox::warning(nullptr, QStringLiteral("没有迁移"),
+                                 QStringLiteral("没能启动迁移程序（%1）。Open Office 还在原来的位置。").arg(error));
+    }
     return result == 0 && artifactFailure ? 3 : result;
 }

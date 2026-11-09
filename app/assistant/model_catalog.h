@@ -27,12 +27,10 @@ const CatalogModel& recommendedCatalogModel(qint64 memoryBytes, qint64 videoByte
 // As a model the assistant can choose: Qwen3 calls tools and can reason.
 LocalModel asLocalModel(const CatalogModel& model);
 
-// Where models live: OPEN_OFFICE_MODEL_DIR, else the person's choice, else
-// the default: the non-system drive with the most free space (never C:
-// unless it is the only drive).
+// Where models live: the "models" folder next to the program (fixed; the
+// whole program can be moved instead). OPEN_OFFICE_MODEL_DIR overrides it for
+// development builds and tests.
 QString modelFolder();
-QString defaultModelFolder();
-void setModelFolder(const QString& folder);
 QString modelFilePath(const CatalogModel& model);
 bool modelInstalled(const CatalogModel& model);
 QList<CatalogModel> installedModels();

@@ -1,0 +1,125 @@
+{
+  "checked_utc": "2026-11-09T10:46:09.151939+00:00",
+  "label": "inno-1",
+  "script": "D:\\open office\\installer\\OpenOffice.iss",
+  "helper_source": "D:\\open office\\app\\ui\\relocation.cpp",
+  "setup": "D:\\open office\\build\\installer-relocation-check\\inno-1\\OpenOffice-Setup-0.1.0-dev-relocation-check-win64.exe",
+  "moved": {
+    "install": {
+      "exit_code": 0,
+      "entry_seen": true,
+      "entry": {
+        "Inno Setup: Setup Version": "6.7.4",
+        "Inno Setup: App Path": "D:\\open office\\build\\installer-relocation-check\\inno-1\\first\\OpenOffice",
+        "InstallLocation": "D:\\open office\\build\\installer-relocation-check\\inno-1\\first\\OpenOffice\\",
+        "Inno Setup: Icon Group": "Open Office",
+        "Inno Setup: No Icons": 1,
+        "Inno Setup: User": "18268",
+        "Inno Setup: Selected Tasks": "",
+        "Inno Setup: Deselected Tasks": "desktopicon",
+        "Inno Setup: Language": "chs",
+        "DisplayName": "Open Office（开发版）",
+        "DisplayIcon": "D:\\open office\\build\\installer-relocation-check\\inno-1\\first\\OpenOffice\\OpenOffice.exe",
+        "UninstallString": "\"D:\\open office\\build\\installer-relocation-check\\inno-1\\first\\OpenOffice\\unins000.exe\"",
+        "QuietUninstallString": "\"D:\\open office\\build\\installer-relocation-check\\inno-1\\first\\OpenOffice\\unins000.exe\" /SILENT",
+        "DisplayVersion": "0.1.0",
+        "Publisher": "Open Office Project",
+        "NoModify": 1,
+        "NoRepair": 1,
+        "InstallDate": "20261109",
+        "MajorVersion": 0,
+        "MinorVersion": 1,
+        "VersionMajor": 0,
+        "VersionMinor": 1,
+        "EstimatedSize": 6633
+      }
+    },
+    "relocation": {
+      "exit_code": 0,
+      "log": [
+        "SOURCE D:\\open office\\build\\installer-relocation-check\\inno-1\\first\\OpenOffice",
+        "TARGET D:\\open office\\build\\installer-relocation-check\\inno-1\\moved\\OpenOffice",
+        "MOVED rename",
+        "UNINSTALL {ABE6780B-54BF-4D7B-B666-31FA29478AAA}_is1",
+        "RESULT moved"
+      ],
+      "old_folder_gone": true,
+      "new_folder_has_program": true,
+      "model_moved": true,
+      "entry_after_move": {
+        "Inno Setup: Setup Version": "6.7.4",
+        "Inno Setup: App Path": "D:\\open office\\build\\installer-relocation-check\\inno-1\\moved\\OpenOffice",
+        "InstallLocation": "D:\\open office\\build\\installer-relocation-check\\inno-1\\moved\\OpenOffice\\",
+        "Inno Setup: Icon Group": "Open Office",
+        "Inno Setup: No Icons": 1,
+        "Inno Setup: User": "18268",
+        "Inno Setup: Selected Tasks": "",
+        "Inno Setup: Deselected Tasks": "desktopicon",
+        "Inno Setup: Language": "chs",
+        "DisplayName": "Open Office（开发版）",
+        "DisplayIcon": "D:\\open office\\build\\installer-relocation-check\\inno-1\\moved\\OpenOffice\\OpenOffice.exe",
+        "UninstallString": "\"D:\\open office\\build\\installer-relocation-check\\inno-1\\moved\\OpenOffice\\unins000.exe\"",
+        "QuietUninstallString": "\"D:\\open office\\build\\installer-relocation-check\\inno-1\\moved\\OpenOffice\\unins000.exe\" /SILENT",
+        "DisplayVersion": "0.1.0",
+        "Publisher": "Open Office Project",
+        "NoModify": 1,
+        "NoRepair": 1,
+        "InstallDate": "20261109",
+        "MajorVersion": 0,
+        "MinorVersion": 1,
+        "VersionMajor": 0,
+        "VersionMinor": 1,
+        "EstimatedSize": 6633
+      },
+      "entry_points_to_new_place": true
+    },
+    "uninstall": {
+      "exit_code": 0,
+      "entry_removed": true,
+      "folder_removed": true,
+      "left": [],
+      "settled": true
+    },
+    "ok": true
+  },
+  "plain": {
+    "install": {
+      "exit_code": 0,
+      "entry_seen": true,
+      "entry": {
+        "Inno Setup: Setup Version": "6.7.4",
+        "Inno Setup: App Path": "D:\\open office\\build\\installer-relocation-check\\inno-1\\plain\\OpenOffice",
+        "InstallLocation": "D:\\open office\\build\\installer-relocation-check\\inno-1\\plain\\OpenOffice\\",
+        "Inno Setup: Icon Group": "Open Office",
+        "Inno Setup: No Icons": 1,
+        "Inno Setup: User": "18268",
+        "Inno Setup: Selected Tasks": "",
+        "Inno Setup: Deselected Tasks": "desktopicon",
+        "Inno Setup: Language": "chs",
+        "DisplayName": "Open Office（开发版）",
+        "DisplayIcon": "D:\\open office\\build\\installer-relocation-check\\inno-1\\plain\\OpenOffice\\OpenOffice.exe",
+        "UninstallString": "\"D:\\open office\\build\\installer-relocation-check\\inno-1\\plain\\OpenOffice\\unins000.exe\"",
+        "QuietUninstallString": "\"D:\\open office\\build\\installer-relocation-check\\inno-1\\plain\\OpenOffice\\unins000.exe\" /SILENT",
+        "DisplayVersion": "0.1.0",
+        "Publisher": "Open Office Project",
+        "NoModify": 1,
+        "NoRepair": 1,
+        "InstallDate": "20261109",
+        "MajorVersion": 0,
+        "MinorVersion": 1,
+        "VersionMajor": 0,
+        "VersionMinor": 1,
+        "EstimatedSize": 6633
+      }
+    },
+    "uninstall": {
+      "exit_code": 0,
+      "entry_removed": true,
+      "folder_removed": true,
+      "left": [],
+      "settled": true
+    },
+    "ok": true
+  },
+  "ok": true
+}

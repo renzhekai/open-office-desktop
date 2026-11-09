@@ -83,3 +83,34 @@ Name: "{autodesktop}\Open Office"; Filename: "{app}\OpenOffice.exe"; WorkingDir:
 
 [Run]
 Filename: "{app}\OpenOffice.exe"; Description: "{cm:LaunchProgram,Open Office}"; WorkingDir: "{app}"; Flags: nowait postinstall skipifsilent
+
+[UninstallDelete]
+; What the program adds next to itself later: the editor profile and the AI models downloaded in 设置.
+Type: filesandordirs; Name: "{app}\openoffice-profile"
+Type: filesandordirs; Name: "{app}\models"
+
+[Code]
+// 设置 → 迁移 moves the whole program folder and points this uninstall entry at the new
+// place (Inno Setup: App Path). The uninstall log still names the files at the old place,
+// so after a move the program is still there when the logged files are gone: remove it.
+var
+  MovedApp: String;
+
+function InitializeUninstall(): Boolean;
+var
+  Key: String;
+begin
+  Key := 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{ABE6780B-54BF-4D7B-B666-31FA29478AAA}_is1';
+  if not RegQueryStringValue(HKCU, Key, 'Inno Setup: App Path', MovedApp) then
+    if not RegQueryStringValue(HKLM, Key, 'Inno Setup: App Path', MovedApp) then
+      MovedApp := '';
+  MovedApp := RemoveBackslashUnlessRoot(MovedApp);
+  Result := True;
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  if (CurUninstallStep = usPostUninstall) and (Length(MovedApp) > 3)
+     and FileExists(AddBackslash(MovedApp) + 'OpenOffice.exe') then
+    DelTree(MovedApp, True, True, True);
+end;

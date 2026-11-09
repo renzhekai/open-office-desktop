@@ -2,6 +2,7 @@
 
 #include "assistant/assistant_commands.h"
 #include "assistant/assistant_tasks.h"
+#include "ui/relocation.h"
 
 #include <QPointer>
 #include <QHash>
@@ -47,8 +48,14 @@ public:
     // Metadata-only JSON lines (time, source, command, result code); never the
     // inserted or selected text. Empty disables the file log.
     void setAssistantJournalPath(const QString& path) { m_assistantJournalPath = path; }
-    // "本地 AI 设置": engine, model folder, models (download, use, delete), Ollama option.
+    // "本地 AI 设置": engine, program location (迁移), models (download, use, delete), Ollama option.
     AiSettingsDialog* openAiSettings();
+    // 迁移: asks where to, checks it, then closes normally; main() starts the move
+    // once the program has exited (relocationPlan()). The chooser is a test seam.
+    using FolderChooser = std::function<QString(const QString& start)>;
+    void setRelocationFolderChooser(FolderChooser chooser) { m_relocationFolderChooser = std::move(chooser); }
+    void relocateApplication();
+    RelocationPlan relocationPlan() const { return m_relocation; }
 
 protected:
     void closeEvent(QCloseEvent* event) override;
@@ -168,6 +175,9 @@ private:
     QHash<int, int> m_untitledCounts; // Per DocumentKind, like Word's 文档1/文档2.
     DocumentKind m_openedKind;
     SaveDestinationChooser m_saveDestinationChooser;
+    FolderChooser m_relocationFolderChooser;
+    RelocationPlan m_relocation; // set once the person confirmed; cleared if closing fails
+    void dropRelocation();
     std::function<void()> m_replaceAfterSave; // Open/Create to resume after a confirmed save.
     bool m_documentOpened = false;
     bool m_documentModified = false;
