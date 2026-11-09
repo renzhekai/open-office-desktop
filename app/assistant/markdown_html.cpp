@@ -172,6 +172,10 @@ QString cleanRewrite(const QString& text)
         line.replace(emphasis, QStringLiteral("\\1\\2"));
         line.remove(trailingSpace);
     }
+    // A closing note about the answer ("（注：以上内容……）") is not part of the text.
+    static const QRegularExpression note(QStringLiteral("^[（(]?\\s*(注|备注|说明|提示)\\s*[：:]"));
+    while (lines.size() > 1 && (lines.last().trimmed().isEmpty() || note.match(lines.last().trimmed()).hasMatch()))
+        lines.removeLast();
     result = lines.join(QLatin1Char('\n')).trimmed();
     // Quotes around the whole answer, when the answer itself contains no others.
     const QList<QPair<QChar, QChar>> quotes{{QChar(0x201C), QChar(0x201D)}, {QLatin1Char('"'), QLatin1Char('"')},

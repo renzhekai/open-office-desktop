@@ -49,10 +49,19 @@ enum class RequestKind {
 };
 RequestKind classifyRequest(const QString& text, bool hasSelection);
 
+// The quick action an instruction for the selection amounts to ("详细一点" is
+// 扩写), so a small model gets that task's plain instruction, with a length
+// target, besides the person's own words. Empty when none fits.
+QString presetForInstruction(const QString& request);
+// True when a rewrite did not really change the text: the same words (spacing,
+// punctuation and list marks aside), or, for 扩写, hardly any longer.
+bool rewriteUnchanged(const QString& original, const QString& result, const QString& preset);
+
 struct TaskInput {
     QString text;         // the selection, or the document text
     QString detail;       // Writing: what the person typed
     QString documentName; // for context only
+    bool insist = false;  // a second try: the first result was the original again
 };
 
 // Characters of document text a task sends to the model at most.

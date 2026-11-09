@@ -1254,8 +1254,9 @@ private slots:
         QVERIFY(!rework.contains(QStringLiteral("tools"))); // no inserting at the cursor on its own
         const QString reworkUser = rework.value(QStringLiteral("messages")).toArray().last().toObject()
                                        .value(QStringLiteral("content")).toString();
-        QVERIFY(reworkUser.contains(QStringLiteral("详细点")) && reworkUser.contains(QStringLiteral("原来的句子。")));
+        QVERIFY(reworkUser.contains(QStringLiteral("扩写到")) && reworkUser.contains(QStringLiteral("原来的句子。")));
         QCOMPARE(engine.editorCommandCalls, 0);
+        QTRY_VERIFY(!panel->working()); // the quick actions read the selection right after a result
         button(QStringLiteral("替换原文"))->click();
         QCOMPARE(engine.lastCommandName, QStringLiteral("selection.replace"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("text")).toString(), QStringLiteral("扩写以后更加详细的句子。"));
@@ -1268,6 +1269,7 @@ private slots:
         panel->submitText(QStringLiteral("写一篇关于学习的文章"));
         QTRY_VERIFY(button(QStringLiteral("插入文档")) != nullptr);
         QVERIFY(!fake.chatRequests().at(1).contains(QStringLiteral("tools")));
+        QTRY_VERIFY(!panel->working()); // the quick actions read the selection right after a result
         button(QStringLiteral("插入文档"))->click();
         QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
         QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h1>学习方法</h1>")));
@@ -1279,12 +1281,58 @@ private slots:
         panel->submitText(QStringLiteral("在后面加两条要点"));
         QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
         QVERIFY(fake.chatRequests().at(2).contains(QStringLiteral("tools")));
-        button(QStringLiteral("执行"))->click();
+        button(QStringLiteral("执行"))->click(); // the answer waits for this, so the ball stays busy
         QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
         QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h2>小标题</h2>")));
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
         QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("已经写进文档了，可以在文档里查看。需要调整的话告诉我。"));
         QTRY_VERIFY(!panel->working());
+    }
+
+    void reworkThatChangesNothingIsTriedAgainThenExplained()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral("原来的句子。")}),
+                      FakeOllama::chat({QStringLiteral("扩写以后更加详细、具体而充实的句子。")}),
+                      FakeOllama::chat({QStringLiteral("原来的句子。")}),
+                      FakeOllama::chat({QStringLiteral("原来的句子！")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.selectionText = QStringLiteral("原来的句子。");
+        engine.documentText = QStringLiteral("原来的句子。");
+        openoffice::MainWindow window(&engine);
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        const auto replaceButtons = [panel] {
+            int count = 0;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                count += candidate->text() == QStringLiteral("替换原文") ? 1 : 0;
+            return count;
+        };
+        const auto userText = [&fake](int request) {
+            return fake.chatRequests().at(request).value(QStringLiteral("messages")).toArray().last().toObject()
+                .value(QStringLiteral("content")).toString();
+        };
+
+        // The original came back: tried once more, told plainly, and only that result is offered.
+        panel->submitText(QStringLiteral("详细一定啊"));
+        QTRY_COMPARE(replaceButtons(), 1);
+        QCOMPARE(fake.chatRequests().size(), 2);
+        QVERIFY(userText(0).contains(QStringLiteral("扩写到")) && userText(0).contains(QStringLiteral("【原文开始】\n原来的句子。")));
+        QVERIFY(userText(1).contains(QStringLiteral("明显不同")));
+        QCOMPARE(panel->lastMessageText(), QStringLiteral("扩写以后更加详细、具体而充实的句子。"));
+        QTRY_VERIFY(!panel->working());
+
+        // Twice the original: said so, with 重试, and nothing new to replace.
+        panel->submitText(QStringLiteral("详细一定啊"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("两次都没有真正改动")));
+        QCOMPARE(fake.chatRequests().size(), 4);
+        QCOMPARE(replaceButtons(), 1);
+        QTRY_VERIFY(!panel->working());
+        QCOMPARE(engine.editorCommandCalls, 0);
     }
 
     void conversationsStartOverKeepHistoryAndFollowTheDocument()

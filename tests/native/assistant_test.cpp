@@ -432,6 +432,10 @@ private slots:
         // Quotes inside the text are kept.
         QCOMPARE(cleanRewrite(QStringLiteral("他说“好”，我说“行”。")), QStringLiteral("他说“好”，我说“行”。"));
         QCOMPARE(cleanRewrite(QStringLiteral("<think>嗯</think>结果")), QStringLiteral("结果"));
+        // A note about the answer at its end is dropped (seen with the 1.7B model).
+        QCOMPARE(cleanRewrite(QStringLiteral("第一段。\n\n第二段。\n\n（注：以上内容基于现有信息进行合理扩展。）")),
+                 QStringLiteral("第一段。\n\n第二段。"));
+        QCOMPARE(cleanRewrite(QStringLiteral("注意安全。")), QStringLiteral("注意安全。")); // a sentence, not a note
         // Markdown's two-space line breaks must not reach the document (seen in a real session).
         QCOMPARE(cleanRewrite(QStringLiteral("关于开展安全培训的通知  \n各部门：  \n请准时参加。\t\n行政部")),
                  QStringLiteral("关于开展安全培训的通知\n各部门：\n请准时参加。\n行政部"));
@@ -506,11 +510,53 @@ private slots:
         QVERIFY(!tasksFor(TaskScope::Writing).contains(write));
         const QJsonArray reworkMessages = taskMessages(*rework, {QStringLiteral("原来的句子。"), QStringLiteral("详细点"), QString()});
         const QString reworkUser = reworkMessages.last().toObject().value(QStringLiteral("content")).toString();
-        QVERIFY(reworkUser.contains(QStringLiteral("详细点")) && reworkUser.contains(QStringLiteral("原来的句子。")));
+        QVERIFY(reworkUser.contains(QStringLiteral("扩写到")) && reworkUser.contains(QStringLiteral("原来的句子。")));
         QVERIFY(reworkMessages.first().toObject().value(QStringLiteral("content")).toString().contains(QStringLiteral("不要使用 Markdown")));
         const QString writeUser = taskMessages(*write, {QString(), QStringLiteral("写一篇关于学习的文章"), QString()})
                                       .last().toObject().value(QStringLiteral("content")).toString();
         QVERIFY(writeUser.contains(QStringLiteral("写一篇关于学习的文章")));
+    }
+
+    void reworkInstructionsAreMadePlainAndCheckedForChange()
+    {
+        QCOMPARE(presetForInstruction(QStringLiteral("详细一定啊")), QStringLiteral("expand")); // as typed in a real session
+        QCOMPARE(presetForInstruction(QStringLiteral("再具体些")), QStringLiteral("expand"));
+        QCOMPARE(presetForInstruction(QStringLiteral("短一点")), QStringLiteral("shorten"));
+        QCOMPARE(presetForInstruction(QStringLiteral("改得正式点")), QStringLiteral("formal"));
+        QCOMPARE(presetForInstruction(QStringLiteral("翻译成英文")), QStringLiteral("translate"));
+        QCOMPARE(presetForInstruction(QStringLiteral("用中文写得详细点")), QStringLiteral("expand"));
+        QCOMPARE(presetForInstruction(QStringLiteral("改一下错别字")), QStringLiteral("correct"));
+        QCOMPARE(presetForInstruction(QStringLiteral("换个说法")), QString());
+
+        const QString original = QStringLiteral("6. 结语\n·\t人工智能需以开放心态拥抱变革，同时坚守伦理底线\n"
+                                                "·\t未来依赖技术与社会制度协同，方能成为推动人类文明进步的引擎");
+        TaskInput input{original, QStringLiteral("详细一定啊"), QString()};
+        const auto user = [](const TaskInput& in) {
+            return taskMessages(*findTask(QStringLiteral("rework")), in).last().toObject().value(QStringLiteral("content")).toString();
+        };
+        // 扩写's instruction with a number of characters (the original has 58), and the person's words.
+        QVERIFY(user(input).contains(QStringLiteral("不要加入原文没有的具体数字")));
+        QVERIFY2(user(input).contains(QStringLiteral("原文约 58 字，扩写到 116 字左右，最多不超过 174 字")), qPrintable(user(input)));
+        QVERIFY(!user(input).contains(QStringLiteral("详细一定啊"))); // just 扩写: the words would only mislead
+        QVERIFY(user(input).contains(QStringLiteral("【原文开始】\n6. 结语")));
+        QVERIFY(!user(input).contains(QStringLiteral("明显不同")));
+        input.detail = QStringLiteral("详细一点，再加上具体的例子");
+        QVERIFY(user(input).contains(QStringLiteral("不是要修改的文字）：详细一点，再加上具体的例子")));
+        input.detail = QStringLiteral("详细一定啊");
+        input.insist = true;
+        QVERIFY(user(input).contains(QStringLiteral("明显不同")));
+        input.detail = QStringLiteral("短一点");
+        QVERIFY(user(input).contains(QStringLiteral("精简到 29 字左右")));
+
+        // What the 1.7B model gave back in that session: the same words without the list marks.
+        QVERIFY(rewriteUnchanged(original, QStringLiteral("6. 结语\n人工智能需以开放心态拥抱变革，同时坚守伦理底线\n"
+                                                          "未来依赖技术与社会制度协同，方能成为推动人类文明进步的引擎"),
+                                 QStringLiteral("expand")));
+        QVERIFY(rewriteUnchanged(QStringLiteral("今天开会。"), QStringLiteral("今天开会！"), QStringLiteral("polish")));
+        QVERIFY(rewriteUnchanged(QStringLiteral("大家要带好笔记本。"), QStringLiteral("大家都要带好笔记本。"), QStringLiteral("expand")));
+        QVERIFY(!rewriteUnchanged(QStringLiteral("大家要带好笔记本。"),
+                                  QStringLiteral("请各位参会人员携带笔记本，认真听讲并做好记录，会后整理要点。"), QStringLiteral("expand")));
+        QVERIFY(!rewriteUnchanged(QStringLiteral("请大家准时参加。"), QStringLiteral("请各位准时出席。"), QStringLiteral("formal")));
     }
 
     void modelMarkdownAndEchoesAreTidied()

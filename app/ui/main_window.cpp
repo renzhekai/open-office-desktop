@@ -1213,6 +1213,27 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
             return;
         }
         const QString original = m_lastTaskInput.text;
+        // A small model sometimes hands the original back. Then there is nothing to replace:
+        // try once more, told plainly; after that say so instead of offering a no-op.
+        const QString preset = spec->id == QStringLiteral("rework") ? presetForInstruction(m_lastTaskInput.detail) : spec->id;
+        if (rewriteUnchanged(original, result, preset)) {
+            if (preset == QStringLiteral("correct")) {
+                m_assistantBall->endReply(QStringLiteral("没有发现需要改的地方。"), true);
+                return;
+            }
+            if (!m_lastTaskInput.insist) {
+                m_assistantBall->endReply(QStringLiteral("这次的结果和原文几乎一样，换个说法再改一次…"), true);
+                TaskInput again = m_lastTaskInput;
+                again.insist = true;
+                whenLocalAiReady([this, spec, again] { startTask(*spec, again); });
+                return;
+            }
+            m_assistantBall->endReply(
+                QStringLiteral("模型两次都没有真正改动这段文字（小模型有时会照抄原文）。可以换个说法再试，"
+                               "比如“扩写成两倍长”“加上具体的例子”，或者用上面的快捷按钮。"),
+                false, {Action{QStringLiteral("重试"), retry}});
+            return;
+        }
         m_assistantBall->endReply(result, true, {
             Action{QStringLiteral("替换原文"), [this, result, original] {
                 runAssistantCommand({QStringLiteral("selection.replace"),

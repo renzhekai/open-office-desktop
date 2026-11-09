@@ -3,6 +3,7 @@
 #include "markdown_html.h"
 
 #include <QJsonDocument>
+#include <QPair>
 #include <QRegularExpression>
 #include <QSet>
 
@@ -25,7 +26,8 @@ QList<TaskSpec> buildTasks()
         selection("polish", "润色", "润色下面的文字：语句更通顺，用词更准确，保持原意、语气和段落数不变。"),
         selection("correct", "纠错", "改正下面文字中的错别字、标点错误和语病。没有错的地方保持原样，不要改变风格和段落数。"),
         selection("shorten", "精简", "把下面的文字精简到原来的一半左右，保留关键信息和原意。"),
-        selection("expand", "扩写", "把下面的文字扩写得更充实、具体，长度约为原来的两倍。不要编造原文没有的数字、日期、人名等事实。"),
+        selection("expand", "扩写", "把下面的文字扩写得更充实、具体：可以解释含义、补充理由、举一般性的例子，"
+                                      "但不要加入原文没有的具体数字、年份、人名、机构、法规或文件名称。"),
         selection("formal", "正式", "把下面的文字改写成正式、得体的书面语，适合在工作中使用，保持原意和段落数。"),
         selection("translate", "翻译", ""), // the direction depends on the text
         {QStringLiteral("summary"), QStringLiteral("总结全文"), TaskScope::Document, TaskOutput::Markdown,
@@ -84,6 +86,39 @@ QList<const TaskSpec*> tasksFor(TaskScope scope)
     return result;
 }
 
+QString presetForInstruction(const QString& request)
+{
+    static const QList<QPair<QString, QRegularExpression>> presets{
+        {QStringLiteral("translate"), QRegularExpression(QStringLiteral("翻译|译成|译为|英文|英语"))},
+        {QStringLiteral("shorten"), QRegularExpression(QStringLiteral("精简|简短|简洁|简练|短一?[点些]|缩短|压缩|删减|概括"))},
+        {QStringLiteral("expand"), QRegularExpression(QStringLiteral("详细|具体|展开|充实|丰富|扩写|扩充|多写|写多|长一?[点些]|补充"))},
+        {QStringLiteral("correct"), QRegularExpression(QStringLiteral("纠错|改错|错别字|错字|病句|语病|标点"))},
+        {QStringLiteral("formal"), QRegularExpression(QStringLiteral("正式|书面|官方|公文|得体|专业"))},
+        {QStringLiteral("polish"), QRegularExpression(QStringLiteral("润色|通顺|流畅|优美|好听|顺一?[点些]"))},
+    };
+    for (const auto& [id, pattern] : presets)
+        if (pattern.match(request).hasMatch()) return id;
+    return {};
+}
+
+bool rewriteUnchanged(const QString& original, const QString& result, const QString& preset)
+{
+    const auto words = [](const QString& text) {
+        QString kept;
+        for (const QChar c : text)
+            if (!c.isSpace() && !c.isPunct() && !c.isSymbol()) kept += c;
+        return kept;
+    };
+    const QString before = words(original);
+    const QString after = words(result);
+    if (before.isEmpty()) return false;
+    if (after == before) return true;
+    // Dropping or adding a word or two is not a rewrite either.
+    const bool contained = after.contains(before) || before.contains(after);
+    if (contained && qAbs(after.size() - before.size()) * 10 < before.size()) return true;
+    return preset == QStringLiteral("expand") && after.size() * 100 < before.size() * 115;
+}
+
 RequestKind classifyRequest(const QString& text, bool hasSelection)
 {
     const QString request = text.trimmed();
@@ -127,17 +162,40 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
     bool truncated = false;
     switch (spec.scope) {
     case TaskScope::Selection: {
-        if (spec.id == QStringLiteral("rework"))
-            instruction = QStringLiteral("按用户的要求处理下面这段文字。用户的要求：") + input.detail.trimmed()
-                + QStringLiteral("\n不要编造原文没有的数字、日期、人名等事实。");
-        if (spec.id == QStringLiteral("translate")) {
+        // A typed instruction that matches a quick action gets that action's instruction too.
+        const QString preset = spec.id == QStringLiteral("rework") ? presetForInstruction(input.detail) : spec.id;
+        if (const TaskSpec* base = findTask(preset); base && base->scope == TaskScope::Selection && base->id != QStringLiteral("rework"))
+            instruction = base->instruction;
+        if (preset == QStringLiteral("translate")) {
             instruction = mostlyChinese(input.text)
                 ? QStringLiteral("把下面的文字翻译成地道、准确的英文，保持段落数。只输出译文。")
                 : QStringLiteral("把下面的文字翻译成通顺、准确的简体中文，保持段落数。只输出译文。");
         }
+        if (spec.id == QStringLiteral("rework")) {
+            // A short request that is just a quick action ("详细一定啊") adds nothing but a chance
+            // that a small model reworks those words instead of the text; longer ones may say more.
+            const QString words = input.detail.trimmed();
+            if (instruction.isEmpty()) instruction = QStringLiteral("按用户的要求修改下面的原文。");
+            if (preset.isEmpty() || words.size() > 8)
+                instruction += QStringLiteral("\n用户的要求（这只是要求，不是要修改的文字）：") + words;
+            instruction += QStringLiteral("\n不要编造原文没有的数字、日期、人名等事实。");
+        }
+        // Small models follow a number of characters far better than "about twice as long".
+        int characters = 0;
+        for (const QChar c : input.text) characters += c.isSpace() ? 0 : 1;
+        if (preset == QStringLiteral("expand"))
+            instruction += QStringLiteral("\n原文约 %1 字，扩写到 %2 字左右，最多不超过 %3 字。")
+                               .arg(characters).arg(qMax(2 * characters, 60)).arg(qMax(3 * characters, 100));
+        else if (preset == QStringLiteral("shorten"))
+            instruction += QStringLiteral("\n原文约 %1 字，精简到 %2 字左右。").arg(characters).arg(qMax(characters / 2, 10));
+        if (input.insist) {
+            instruction += QStringLiteral("\n注意：上一次的结果和原文几乎一模一样。这次必须真正按要求修改，结果要和原文有明显不同。");
+        }
         system += QStringLiteral("输出要直接替换用户选中的原文，所以不要使用 Markdown 符号（如 #、**、-），"
                                  "按原文的段落分行。");
-        user = instruction + QStringLiteral("\n\n原文：\n") + clipped(input.text, &truncated);
+        user = spec.id == QStringLiteral("rework")
+            ? instruction + QStringLiteral("\n\n【原文开始】\n") + clipped(input.text, &truncated) + QStringLiteral("\n【原文结束】")
+            : instruction + QStringLiteral("\n\n原文：\n") + clipped(input.text, &truncated);
         break;
     }
     case TaskScope::Document: {
