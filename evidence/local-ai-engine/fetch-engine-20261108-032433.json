@@ -1,0 +1,22 @@
+{
+  "kind": "local-ai-engine-dependencies",
+  "approved": "2026-11-08, per item, in chat",
+  "started_utc": "2026-11-08T11:19:00.164184+00:00",
+  "files": [
+    {
+      "name": "llama-b12202-bin-win-vulkan-x64.zip",
+      "source": "https://github.com/ggml-org/llama.cpp/releases/download/b12202/llama-b12202-bin-win-vulkan-x64.zip",
+      "bytes": 37715166,
+      "sha256": "ab526ddd4cacca463b73a385ede310c9888818d084efb57f3d113b4d3e79c404",
+      "extracted_to": "D:\\open office\\dependencies\\llama.cpp-b12202\\win-vulkan-x64"
+    },
+    {
+      "name": "llama-b12202-bin-win-cpu-x64.zip",
+      "source": "https://github.com/ggml-org/llama.cpp/releases/download/b12202/llama-b12202-bin-win-cpu-x64.zip",
+      "bytes": 24759273,
+      "sha256": "75d108e6f91907638fef0cbdf4cc230e56bd9eac71bbffb209ae8da1f932590e",
+      "extracted_to": "D:\\open office\\dependencies\\llama.cpp-b12202\\win-cpu-x64"
+    }
+  ],
+  "finished_utc": "2026-11-08T11:24:33.799726+00:00"
+}

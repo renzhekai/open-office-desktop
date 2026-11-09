@@ -1,12 +1,20 @@
 #include "assistant/assistant_commands.h"
 #include "assistant/assistant_tasks.h"
+#include "assistant/engine_client.h"
 #include "assistant/local_assistant.h"
+#include "assistant/local_engine.h"
 #include "assistant/markdown_html.h"
+#include "assistant/model_catalog.h"
+#include "assistant/model_downloader.h"
 #include "assistant/ollama_client.h"
 #include "fake_ollama.h"
 
+#include <QCryptographicHash>
+#include <QDir>
+#include <QFile>
 #include <QJsonArray>
 #include <QSet>
+#include <QTemporaryDir>
 #include <QtTest>
 
 #include <algorithm>
@@ -17,6 +25,12 @@ class AssistantTest final : public QObject {
     Q_OBJECT
 
 private slots:
+    void initTestCase()
+    {
+        // The Ollama tests below talk to a fake Ollama; the built-in engine tests switch back themselves.
+        qputenv("OPEN_OFFICE_AI_BACKEND", "ollama");
+    }
+
     void catalogNamesAreUniqueAndDescribed()
     {
         QSet<QString> names;
@@ -453,6 +467,11 @@ private slots:
         QVERIFY(taskFormat(*findTask(QStringLiteral("proofread"))).value(QStringLiteral("properties")).toObject()
                     .contains(QStringLiteral("corrections")));
         QVERIFY(taskFormat(*findTask(QStringLiteral("polish"))).isEmpty());
+        // The engine writes fields in schema order (QJsonObject sorts keys): the wrong text must come first.
+        const QJsonObject item = taskFormat(*findTask(QStringLiteral("proofread"))).value(QStringLiteral("properties")).toObject()
+                                     .value(QStringLiteral("corrections")).toObject().value(QStringLiteral("items")).toObject();
+        QCOMPARE(item.value(QStringLiteral("properties")).toObject().keys(),
+                 (QStringList{QStringLiteral("error"), QStringLiteral("fix"), QStringLiteral("reason")}));
         QCOMPARE(contextLengthFor(QJsonArray{QJsonObject{{QStringLiteral("content"), QStringLiteral("短")}}}, false), 4096);
         QCOMPARE(contextLengthFor(QJsonArray{QJsonObject{{QStringLiteral("content"), QString(10000, QLatin1Char('a'))}}}, false), 16384);
         QCOMPARE(contextLengthFor(QJsonArray{QJsonObject{{QStringLiteral("content"), QString(90000, QLatin1Char('a'))}}}, true), 32768);
@@ -460,7 +479,7 @@ private slots:
 
     void onlyApplicableCorrectionsAreOffered()
     {
-        const QString document = QStringLiteral("请按排好时间，带好笔计本。");
+        const QString document = QStringLiteral("请按排好时间，带好笔计本。这是我们的的目标。");
         const QString answer = QStringLiteral(
             "```json\n{\"corrections\":["
             "{\"original\":\"按排\",\"corrected\":\"安排\",\"reason\":\"错别字\"},"
@@ -468,11 +487,15 @@ private slots:
             "{\"original\":\"按排\",\"corrected\":\"安排\",\"reason\":\"重复\"},"
             "{\"original\":\"好时间\",\"corrected\":\"好时间\",\"reason\":\"没改\"},"
             "{\"original\":\"不存在\",\"corrected\":\"x\",\"reason\":\"编的\"},"
-            "{\"original\":\"\",\"corrected\":\"x\",\"reason\":\"空\"}]}\n```");
+            "{\"original\":\"\",\"corrected\":\"x\",\"reason\":\"空\"},"
+            "{\"original\":\"按排好时间\",\"corrected\":\"按排\",\"reason\":\"只删字\"},"
+            "{\"original\":\"的的\",\"corrected\":\"的\",\"reason\":\"重复\"}]}\n```");
         const QList<Correction> fixes = parseCorrections(answer, document);
-        QCOMPARE(fixes.size(), 2);
+        QCOMPARE(fixes.size(), 3);
         QCOMPARE(fixes[0].original, QStringLiteral("按排"));
         QCOMPARE(fixes[1].corrected, QStringLiteral("笔记本"));
+        QCOMPARE(fixes[2].corrected, QStringLiteral("的")); // removing a doubled word is a real fix
+        // "按排好时间 -> 按排" only drops words and keeps the typo: never offered.
         QVERIFY(parseCorrections(QStringLiteral("没有错误"), document).isEmpty());
     }
 
@@ -554,6 +577,197 @@ private slots:
         QTRY_COMPARE(finished.size(), 2);
         QVERIFY(fake.chatRequests().last().value(QStringLiteral("format")).toObject().contains(QStringLiteral("properties")));
         QCOMPARE(fake.chatRequests().last().value(QStringLiteral("options")).toObject().value(QStringLiteral("temperature")).toDouble(), 0.0);
+    }
+
+    // --- built-in engine (llama.cpp server) ---
+
+    void engineMessagesUseTheOpenAiShape()
+    {
+        const QJsonArray messages{
+            QJsonObject{{"role", "user"}, {"content", "插入你好"}},
+            QJsonObject{{"role", "assistant"}, {"content", ""},
+                        {"tool_calls", QJsonArray{QJsonObject{{"function", QJsonObject{{"name", "text_insert"},
+                                                                                         {"arguments", QJsonObject{{"text", "你好"}}}}}}}}},
+            QJsonObject{{"role", "tool"}, {"tool_name", "text_insert"}, {"content", "{\"ok\":true}"}}};
+        const QJsonArray converted = EngineClient::toOpenAiMessages(messages);
+        const QJsonObject call = converted.at(1).toObject().value("tool_calls").toArray().first().toObject();
+        QCOMPARE(call.value("type").toString(), QStringLiteral("function"));
+        QVERIFY(!call.value("id").toString().isEmpty());
+        QCOMPARE(call.value("function").toObject().value("arguments").toString(), QStringLiteral("{\"text\":\"你好\"}"));
+        const QJsonObject result = converted.at(2).toObject();
+        QCOMPARE(result.value("tool_call_id").toString(), call.value("id").toString()); // the answer matches its call
+        QVERIFY(!result.contains("tool_name"));
+
+        ChatOptions options;
+        options.think = QStringLiteral("false");
+        options.format = taskFormat(*findTask(QStringLiteral("proofread")));
+        const QJsonObject body = EngineClient::requestBody(messages, options);
+        QVERIFY(body.value("stream").toBool());
+        QCOMPARE(body.value("chat_template_kwargs").toObject().value("enable_thinking").toBool(true), false);
+        QCOMPARE(body.value("response_format").toObject().value("type").toString(), QStringLiteral("json_schema"));
+        QVERIFY(body.value("response_format").toObject().value("json_schema").toObject().value("schema").isObject());
+        QVERIFY(!body.contains("tools"));
+    }
+
+    void engineStreamsAnswersAndToolCalls()
+    {
+        FakeOllama fake;
+        fake.chats = {FakeOllama::sse({QStringLiteral("你"), QStringLiteral("好")}, {}, {}, 37.5),
+                      FakeOllama::sse({}, QStringLiteral("text_insert"), {{"text", "你好世界"}})};
+        EngineClient client;
+        client.setEndpoint(QUrl(QString::fromLatin1(fake.url())), QStringLiteral("secret"));
+        QStringList deltas;
+        QList<QJsonArray> calls;
+        QStringList contents;
+        connect(&client, &ChatClient::chatDelta, this, [&deltas](quint64, const QString& text) { deltas.append(text); });
+        connect(&client, &ChatClient::chatFinished, this,
+                [&calls, &contents](quint64, bool ok, const QString& content, const QJsonArray& toolCalls, const QString&) {
+            QVERIFY(ok);
+            contents.append(content);
+            calls.append(toolCalls);
+        });
+        client.chat(QString(), QJsonArray{QJsonObject{{"role", "user"}, {"content", "你好"}}}, {});
+        QTRY_COMPARE(contents.size(), 1);
+        QCOMPARE(deltas.join(QString()), QStringLiteral("你好"));
+        QCOMPARE(client.lastTokensPerSecond(), 37.5);
+        QCOMPARE(fake.requestHeaders.first().value("authorization"), QByteArray("Bearer secret"));
+        client.chat(QString(), QJsonArray{QJsonObject{{"role", "user"}, {"content", "插入"}}}, {});
+        QTRY_COMPARE(contents.size(), 2);
+        const QJsonObject function = calls.at(1).first().toObject().value("function").toObject();
+        QCOMPARE(function.value("name").toString(), QStringLiteral("text_insert"));
+        QCOMPARE(function.value("arguments").toObject().value("text").toString(), QStringLiteral("你好世界")); // pieces joined
+        QCOMPARE(calls.at(1).first().toObject().value("id").toString(), QStringLiteral("call_7"));
+    }
+
+    void engineUsesTheGraphicsCardNotIntegratedGraphics()
+    {
+        const QString list = QStringLiteral(
+            "Available devices:\n"
+            "  Vulkan0: Intel(R) Graphics (18366 MiB, 17598 MiB free)\n"
+            "  Vulkan1: NVIDIA GeForce RTX 5070 Ti Laptop GPU (11944 MiB, 11176 MiB free)\n");
+        QCOMPARE(LocalEngine::pickDevice(list, QStringLiteral("NVIDIA GeForce RTX 5070 Ti Laptop GPU")), QStringLiteral("Vulkan1"));
+        QCOMPARE(LocalEngine::pickDevice(list, QString()), QStringLiteral("Vulkan1")); // never the integrated one
+        QCOMPARE(LocalEngine::pickDevice(QStringLiteral("  Vulkan0: Intel(R) Graphics (18366 MiB, 1 MiB free)\n"), QString()),
+                 QString());
+    }
+
+    void catalogFitsTheComputerAndItsDisks()
+    {
+        const qint64 gb = 1LL << 30;
+        QCOMPARE(supportedModels().size(), 3);
+        QCOMPARE(recommendedCatalogModel(32 * gb, 12 * gb).id, QStringLiteral("qwen3-8b"));
+        QCOMPARE(recommendedCatalogModel(16 * gb, 0).id, QStringLiteral("qwen3-4b"));
+        QCOMPARE(recommendedCatalogModel(4 * gb, 0).id, QStringLiteral("qwen3-1.7b"));
+        QVERIFY(asLocalModel(*findCatalogModel(QStringLiteral("qwen3-4b"))).tools);
+        QVERIFY(!defaultModelFolder().isEmpty());
+
+        QTemporaryDir folder;
+        ScopedEnvironment directory("OPEN_OFFICE_MODEL_DIR", QFile::encodeName(folder.path()));
+        QCOMPARE(modelFolder(), QDir::cleanPath(folder.path()));
+        QVERIFY(installedModels().isEmpty());
+        QFile part(folder.filePath(QStringLiteral("Qwen3-4B-Q4_K_M.gguf.part")));
+        QVERIFY(part.open(QIODevice::WriteOnly));
+        part.close();
+        QVERIFY(installedModels().isEmpty()); // an unfinished download is not a model
+        QFile model(folder.filePath(QStringLiteral("Qwen3-4B-Q4_K_M.gguf")));
+        QVERIFY(model.open(QIODevice::WriteOnly));
+        model.close();
+        QCOMPARE(installedModels().size(), 1);
+        QCOMPARE(installedModels().first().id, QStringLiteral("qwen3-4b"));
+    }
+
+    void builtinEngineStartsOnFirstUseAndAnswers()
+    {
+        FakeOllama fake;
+        fake.replies.insert(QStringLiteral("/health"), R"({"status":"ok"})");
+        fake.chats = {FakeOllama::sse({QStringLiteral("请大家"), QStringLiteral("准时参会。")})};
+        QTemporaryDir folder;
+        QFile model(folder.filePath(QStringLiteral("Qwen3-4B-Q4_K_M.gguf")));
+        QVERIFY(model.open(QIODevice::WriteOnly));
+        model.close();
+        ScopedEnvironment backend("OPEN_OFFICE_AI_BACKEND", "builtin");
+        ScopedEnvironment engineUrl("OPEN_OFFICE_AI_ENGINE_URL", fake.url());
+        ScopedEnvironment directory("OPEN_OFFICE_MODEL_DIR", QFile::encodeName(folder.path()));
+        LocalAssistant assistant;
+        QVERIFY(assistant.builtin());
+        assistant.refresh();
+        QVERIFY(assistant.state() == LocalAiState::Ready);
+        QCOMPARE(assistant.model(), QStringLiteral("qwen3-4b"));
+        QVERIFY(assistant.statusText().contains(QStringLiteral("qwen3-4b")));
+        QList<QStringList> finished;
+        connect(&assistant, &LocalAssistant::taskFinished, this,
+                [&finished](const QString& id, const QString& text, bool ok, const QString& error) {
+            finished.append({id, text, ok ? QStringLiteral("ok") : QStringLiteral("failed"), error});
+        });
+        QVERIFY(assistant.runTask(*findTask(QStringLiteral("polish")), {QStringLiteral("大家要准时来开会"), {}, {}}));
+        QTRY_COMPARE(finished.size(), 1);
+        QCOMPARE(finished[0].at(1), QStringLiteral("请大家准时参会。"));
+        QCOMPARE(finished[0].at(2), QStringLiteral("ok"));
+        QVERIFY(assistant.engine()->isReady());
+        const QJsonObject request = fake.chatRequests().first();
+        // A small model reasons briefly where the engine is fast (a graphics card); otherwise it answers directly.
+        if (assistant.videoMemory() > 0) QVERIFY(!request.contains("chat_template_kwargs"));
+        else QCOMPARE(request.value("chat_template_kwargs").toObject().value("enable_thinking").toBool(true), false);
+        QVERIFY(request.contains("response_format") == false); // polish answers in plain text
+        QCOMPARE(assistant.lastSpeed(), 42.0);
+    }
+
+    void modelDownloadsResumeAndAreVerified()
+    {
+        const QByteArray payload = QByteArray(300000, 'x') + "end";
+        QString sha = QString::fromLatin1(QCryptographicHash::hash(payload, QCryptographicHash::Sha256).toHex());
+        FakeOllama fake;
+        fake.handler = [&payload, &sha](const QString& path, const QMap<QByteArray, QByteArray>& headers, FakeOllama::Response* response) {
+            if (path == QStringLiteral("/api/v1/models/Qwen/Qwen3-1.7B-GGUF/repo/files")) {
+                response->body = QJsonDocument(QJsonObject{{"Data", QJsonObject{{"Files", QJsonArray{QJsonObject{
+                    {"Name", "Qwen3-1.7B-Q8_0.gguf"}, {"Size", double(payload.size())}, {"Sha256", sha}}}}}}})
+                                     .toJson(QJsonDocument::Compact);
+                return true;
+            }
+            if (path == QStringLiteral("/models/Qwen/Qwen3-1.7B-GGUF/resolve/master/Qwen3-1.7B-Q8_0.gguf")) {
+                const QByteArray range = headers.value("range");
+                const qint64 from = range.startsWith("bytes=") ? range.mid(6).split('-').first().toLongLong() : 0;
+                response->status = from > 0 ? 206 : 200;
+                response->body = payload.mid(from);
+                return true;
+            }
+            return false;
+        };
+        QTemporaryDir folder;
+        ScopedEnvironment source("OPEN_OFFICE_MODEL_SOURCE", fake.url());
+        const CatalogModel& model = *findCatalogModel(QStringLiteral("qwen3-1.7b"));
+        QFile part(QDir(folder.path()).filePath(model.file + QStringLiteral(".part")));
+        QVERIFY(part.open(QIODevice::WriteOnly));
+        part.write(payload.left(1000)); // an earlier, interrupted download
+        part.close();
+
+        ModelDownloader downloader;
+        QList<QStringList> results;
+        connect(&downloader, &ModelDownloader::finished, this, [&results](const QString& id, bool ok, const QString& message) {
+            results.append({id, ok ? QStringLiteral("ok") : QStringLiteral("failed"), message});
+        });
+        downloader.start(model, folder.path());
+        QVERIFY(downloader.active());
+        QTRY_COMPARE(results.size(), 1);
+        QCOMPARE(results[0].at(1), QStringLiteral("ok"));
+        QFile done(QDir(folder.path()).filePath(model.file));
+        QVERIFY(done.open(QIODevice::ReadOnly));
+        QCOMPARE(done.readAll(), payload);
+        done.close();
+        QVERIFY(!QFile::exists(part.fileName()));
+        bool resumed = false;
+        for (const auto& headers : fake.requestHeaders) resumed = resumed || headers.value("range") == "bytes=1000-";
+        QVERIFY(resumed); // continued, not started over
+
+        // A file that does not match the published SHA256 is thrown away, never used.
+        QVERIFY(QFile::remove(done.fileName()));
+        sha = QStringLiteral("00");
+        downloader.start(model, folder.path());
+        QTRY_COMPARE(results.size(), 2);
+        QCOMPARE(results[1].at(1), QStringLiteral("failed"));
+        QVERIFY(results[1].at(2).contains(QStringLiteral("核对没通过")));
+        QVERIFY(!QFile::exists(done.fileName()));
+        QVERIFY(!QFile::exists(part.fileName()));
     }
 };
 

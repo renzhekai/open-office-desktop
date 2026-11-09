@@ -12,9 +12,11 @@
 #include <QJsonObject>
 #include <QList>
 #include <QPair>
+#include <QMap>
 #include <QTcpServer>
 #include <QTcpSocket>
 
+#include <functional>
 #include <memory>
 
 class FakeOllama {
@@ -72,18 +74,60 @@ public:
         return stream;
     }
 
+    // One streamed answer of the built-in engine (OpenAI server-sent events):
+    // content pieces, then optionally one tool call whose arguments arrive in two pieces.
+    static QByteArray sse(const QStringList& pieces, const QString& tool = QString(), const QJsonObject& arguments = {},
+                          double tokensPerSecond = 42)
+    {
+        QByteArray stream;
+        const auto event = [&stream](const QJsonObject& chunk) {
+            stream += "data: " + QJsonDocument(chunk).toJson(QJsonDocument::Compact) + "\n\n";
+        };
+        const auto delta = [](const QJsonObject& value) {
+            return QJsonObject{{QStringLiteral("choices"), QJsonArray{QJsonObject{{QStringLiteral("index"), 0},
+                                                                                  {QStringLiteral("delta"), value}}}}};
+        };
+        for (const QString& piece : pieces) event(delta({{QStringLiteral("content"), piece}}));
+        if (!tool.isEmpty()) {
+            const QString text = QString::fromUtf8(QJsonDocument(arguments).toJson(QJsonDocument::Compact));
+            const int half = text.size() / 2;
+            event(delta({{QStringLiteral("tool_calls"), QJsonArray{QJsonObject{
+                {QStringLiteral("index"), 0}, {QStringLiteral("id"), QStringLiteral("call_7")}, {QStringLiteral("type"), QStringLiteral("function")},
+                {QStringLiteral("function"), QJsonObject{{QStringLiteral("name"), tool}, {QStringLiteral("arguments"), text.left(half)}}}}}}}));
+            event(delta({{QStringLiteral("tool_calls"), QJsonArray{QJsonObject{
+                {QStringLiteral("index"), 0}, {QStringLiteral("function"), QJsonObject{{QStringLiteral("arguments"), text.mid(half)}}}}}}}));
+        }
+        QJsonObject last = delta({});
+        QJsonObject choice = last.value(QStringLiteral("choices")).toArray().first().toObject();
+        choice.insert(QStringLiteral("finish_reason"), tool.isEmpty() ? QStringLiteral("stop") : QStringLiteral("tool_calls"));
+        last.insert(QStringLiteral("choices"), QJsonArray{choice});
+        last.insert(QStringLiteral("timings"), QJsonObject{{QStringLiteral("predicted_per_second"), tokensPerSecond}});
+        event(last);
+        stream += "data: [DONE]\n\n";
+        return stream;
+    }
+
     QList<QJsonObject> chatRequests() const
     {
         QList<QJsonObject> result;
         for (const auto& request : requests)
-            if (request.first == QStringLiteral("/api/chat")) result.append(request.second);
+            if (request.first == QStringLiteral("/api/chat") || request.first == QStringLiteral("/v1/chat/completions"))
+                result.append(request.second);
         return result;
     }
+
+    struct Response {
+        int status = 200;
+        QByteArray body;
+    };
+    // Optional: answers a request before the canned replies (path without the query; lower-case header names).
+    std::function<bool(const QString& path, const QMap<QByteArray, QByteArray>& headers, Response* response)> handler;
 
     QTcpServer server;
     QHash<QString, QByteArray> replies;
     QList<QByteArray> chats;
     QList<QPair<QString, QJsonObject>> requests;
+    QList<QMap<QByteArray, QByteArray>> requestHeaders;
 
 private:
     void serve(QTcpSocket* socket, QByteArray& buffer)
@@ -96,13 +140,26 @@ private:
         for (const QByteArray& line : head.split('\n'))
             if (line.trimmed().toLower().startsWith("content-length:")) length = line.mid(15).trimmed().toInt();
         if (buffer.size() < headerEnd + 4 + length) return;
-        const QString path = QString::fromLatin1(head.split(' ').value(1));
+        const QString target = QString::fromLatin1(head.split(' ').value(1));
+        const QString path = target.section(QLatin1Char('?'), 0, 0);
+        QMap<QByteArray, QByteArray> headers;
+        for (const QByteArray& line : head.split('\n').mid(1)) {
+            const int colon = line.indexOf(':');
+            if (colon > 0) headers.insert(line.left(colon).trimmed().toLower(), line.mid(colon + 1).trimmed());
+        }
         requests.append({path, QJsonDocument::fromJson(buffer.mid(headerEnd + 4, length)).object()});
+        requestHeaders.append(headers);
         buffer.clear();
-        const QByteArray body = path == QStringLiteral("/api/chat") && !chats.isEmpty() ? chats.takeFirst() : replies.value(path);
-        socket->write((body.isEmpty() ? QByteArray("HTTP/1.1 404 Not Found") : QByteArray("HTTP/1.1 200 OK"))
-                      + "\r\nContent-Type: application/json\r\nContent-Length: " + QByteArray::number(body.size())
-                      + "\r\nConnection: close\r\n\r\n" + body);
+        Response response;
+        if (!(handler && handler(path, headers, &response))) {
+            const bool chat = path == QStringLiteral("/api/chat") || path == QStringLiteral("/v1/chat/completions");
+            response.body = chat && !chats.isEmpty() ? chats.takeFirst() : replies.value(path);
+            response.status = response.body.isEmpty() ? 404 : 200;
+        }
+        const QByteArray reason = response.status == 200 ? "OK" : response.status == 206 ? "Partial Content" : "Error";
+        socket->write("HTTP/1.1 " + QByteArray::number(response.status) + ' ' + reason
+                      + "\r\nContent-Type: application/json\r\nContent-Length: " + QByteArray::number(response.body.size())
+                      + "\r\nConnection: close\r\n\r\n" + response.body);
         socket->disconnectFromHost();
     }
 };

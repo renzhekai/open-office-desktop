@@ -3,6 +3,7 @@
 #include "assistant/local_assistant.h"
 #include "assistant/markdown_html.h"
 #include "engine/office_engine.h"
+#include "ui/ai_settings_dialog.h"
 #include "ui/assistant_art.h"
 #include "ui/assistant_ball.h"
 
@@ -514,14 +515,7 @@ void MainWindow::buildInterface()
     // The local AI is detected lazily: only when the person opens the ball.
     m_localAi = new LocalAssistant(this);
     connect(m_assistantBall, &AssistantBall::freeTextSubmitted, this, &MainWindow::askLocalAi);
-    connect(m_assistantBall, &AssistantBall::setupRequested, this, [this] {
-        if (m_localAi->state() == LocalAiState::Unknown) {
-            m_cardOnNextState = true;
-            m_localAi->refresh();
-        } else {
-            showLocalAiCard();
-        }
-    });
+    connect(m_assistantBall, &AssistantBall::setupRequested, this, [this] { openAiSettings(); });
     connect(m_assistantBall, &AssistantBall::opened, this, [this] {
         if (m_localAi->state() == LocalAiState::Unknown) m_localAi->refresh();
         else m_localAi->warmUp(); // the first answer should not wait for the model to load
@@ -972,11 +966,10 @@ void MainWindow::adviseIfSlow()
     if (advice.isEmpty()) return;
     m_speedAdviceShown = true;
     QList<AssistantBall::CardAction> actions;
-    if (!m_localAi->recommendationInstalled() && m_localAi->recommendation().name != m_localAi->model()) {
-        const ModelRecommendation better = m_localAi->recommendation();
-        actions.append({QStringLiteral("下载 ") + better.name, [this] { m_localAi->downloadRecommended(); }});
+    if (!m_localAi->recommendationInstalled() && m_localAi->recommendedName() != m_localAi->model()) {
+        actions.append({QStringLiteral("下载 ") + m_localAi->recommendedName(), [this] { m_localAi->downloadRecommended(); }});
     } else if (m_localAi->recommendationInstalled()) {
-        const QString better = m_localAi->recommendation().name;
+        const QString better = m_localAi->recommendedName();
         actions.append({QStringLiteral("改用 ") + better, [this, better] {
             m_localAi->setModel(better);
             showLocalAiCard();
@@ -1101,12 +1094,8 @@ void MainWindow::showQuickActionsFor(const QString& selection)
 void MainWindow::runQuickAction(const QString& id)
 {
     if (id == QStringLiteral("setup")) {
-        if (m_localAi->state() == LocalAiState::Unknown) {
-            m_cardOnNextState = true;
-            m_localAi->refresh();
-        } else {
-            showLocalAiCard();
-        }
+        if (m_localAi->state() == LocalAiState::Unknown) m_localAi->refresh();
+        openAiSettings();
         return;
     }
     if (id == QStringLiteral("draft")) {
@@ -1265,6 +1254,18 @@ void MainWindow::applyRemainingCorrections(int fixed)
         QStringLiteral("已改正 ") + QString::number(fixed) + QStringLiteral(" 处。改得不对的地方可以用撤销恢复。"), {}, true);
 }
 
+AiSettingsDialog* MainWindow::openAiSettings()
+{
+    if (!m_aiSettings) {
+        m_aiSettings = new AiSettingsDialog(m_localAi, this);
+        m_aiSettings->setAttribute(Qt::WA_DeleteOnClose);
+    }
+    m_aiSettings->show();
+    m_aiSettings->raise();
+    m_aiSettings->activateWindow();
+    return m_aiSettings;
+}
+
 void MainWindow::showLocalAiCard()
 {
     using Action = AssistantBall::CardAction;
@@ -1272,6 +1273,55 @@ void MainWindow::showLocalAiCard()
         m_cardOnNextState = true;
         m_localAi->refresh();
     }};
+    const auto settings = Action{QStringLiteral("打开设置"), [this] { openAiSettings(); }};
+    if (m_localAi->builtin()) {
+        switch (m_localAi->state()) {
+        case LocalAiState::NotInstalled:
+            m_assistantBall->showCard(QStringLiteral("找不到内置 AI 引擎"),
+                QStringLiteral("程序目录里没有 ai-engine 文件夹，可能安装不完整。可以重新安装 Open Office；"
+                               "也可以在设置的“高级”里改用本机的 Ollama。"), {settings}, false);
+            return;
+        case LocalAiState::NoModel: {
+            const CatalogModel& model = recommendedCatalogModel(m_localAi->memory(), m_localAi->videoMemory());
+            const QString memory = QString::number(m_localAi->memory() / double(1LL << 30), 'f', 0);
+            const QString hardware = m_localAi->videoMemory() > 0
+                ? QStringLiteral("显卡（%1 GB 显存）和内存（%2 GB）")
+                      .arg(QString::number(m_localAi->videoMemory() / double(1LL << 30), 'f', 0), memory)
+                : QStringLiteral("内存（%1 GB，没有可用的独立显卡）").arg(memory);
+            m_assistantBall->showCard(QStringLiteral("下载一个本地模型"),
+                QStringLiteral("本地 AI 需要一个模型文件，只下载一次，之后不联网也能用。按这台电脑的%1，推荐 %2（约 %3 GB，"
+                               "来自魔搭 ModelScope），会放在 %4。也可以在设置里选别的模型或换位置。")
+                    .arg(hardware, model.title, QString::number(model.gigabytes, 'f', 1),
+                         QDir::toNativeSeparators(modelFolder())),
+                {Action{QStringLiteral("下载 ") + model.title, [this] { m_localAi->downloadRecommended(); }}, settings}, false);
+            return;
+        }
+        case LocalAiState::Ready: {
+            QString text = QStringLiteral("正在使用 %1（内置引擎，%2）。对话和文档内容只在这台电脑上处理。")
+                               .arg(m_localAi->model(), m_localAi->engineText());
+            QList<Action> actions{settings};
+            const QString advice = m_localAi->speedAdvice();
+            if (!advice.isEmpty()) {
+                text += QLatin1Char('\n') + advice;
+                if (!m_localAi->recommendationInstalled() && m_localAi->recommendedName() != m_localAi->model())
+                    actions.prepend(Action{QStringLiteral("下载 ") + m_localAi->recommendedName(),
+                                           [this] { m_localAi->downloadRecommended(); }});
+            }
+            m_assistantBall->showCard(QStringLiteral("本地 AI 已就绪"), text, actions, advice.isEmpty());
+            return;
+        }
+        case LocalAiState::Downloading:
+            m_assistantBall->showCard(QStringLiteral("正在下载模型"), m_localAi->statusText(), {settings}, true);
+            return;
+        case LocalAiState::Thinking:
+            m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("本地 AI 还在处理上一个请求。"), {}, true);
+            return;
+        default:
+            m_cardOnNextState = true;
+            m_localAi->refresh();
+            return;
+        }
+    }
     switch (m_localAi->state()) {
     case LocalAiState::NotInstalled:
         m_assistantBall->showCard(QStringLiteral("安装本地 AI 引擎"),
@@ -1295,7 +1345,7 @@ void MainWindow::showLocalAiCard()
              }}, recheck}, false);
         return;
     case LocalAiState::NoModel: {
-        const ModelRecommendation model = m_localAi->recommendation();
+        const ModelRecommendation model = m_localAi->recommendation(); // Ollama's own model names
         const QString memory = QString::number(m_localAi->memory() / double(1LL << 30), 'f', 0);
         const QString hardware = m_localAi->videoMemory() > 0
             ? QStringLiteral("显卡（%1 GB 显存）和内存（%2 GB）")
@@ -1328,9 +1378,9 @@ void MainWindow::showLocalAiCard()
         const QString advice = m_localAi->speedAdvice();
         if (!advice.isEmpty()) {
             text += QLatin1Char('\n') + advice;
-            const ModelRecommendation better = m_localAi->recommendation();
-            if (!m_localAi->recommendationInstalled() && better.name != m_localAi->model())
-                actions.prepend(Action{QStringLiteral("下载 ") + better.name, [this] { m_localAi->downloadRecommended(); }});
+            if (!m_localAi->recommendationInstalled() && m_localAi->recommendedName() != m_localAi->model())
+                actions.prepend(Action{QStringLiteral("下载 ") + m_localAi->recommendedName(),
+                                       [this] { m_localAi->downloadRecommended(); }});
         }
         m_assistantBall->showCard(QStringLiteral("本地 AI 已就绪"), text, actions, advice.isEmpty());
         return;

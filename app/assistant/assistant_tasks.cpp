@@ -37,8 +37,9 @@ QList<TaskSpec> buildTasks()
          QString()},
         {QStringLiteral("proofread"), QStringLiteral("全文校对"), TaskScope::Document, TaskOutput::Corrections,
          QStringLiteral("校对这份文档，找出错别字、用错的词、标点错误和明显的语病。只报告确定的错误，不要改写风格，"
-                        "不要报告没有错的地方。每条给出：original（原文中出错的最短片段，必须和原文一字不差，"
-                        "通常 2 到 15 个字）、corrected（改正后的片段）、reason（简短原因）。没有错误时 corrections 为空数组。"),
+                        "不要报告没有错的地方。每条依次给出：error（原文中出错的最短片段，必须和原文一字不差，"
+                        "通常 2 到 15 个字）、fix（改正后的片段）、reason（简短原因）。没有错误时 corrections 为空数组。"
+                        "例如原文有“请按装好软件”，应回答 {\"corrections\":[{\"error\":\"按装\",\"fix\":\"安装\",\"reason\":\"错别字\"}]}。"),
          QString()},
         writing("notice", "通知", "通知什么事？时间、地点、对象…"),
         writing("minutes", "会议纪要", "会议主题、时间、参会人、讨论了什么…"),
@@ -135,10 +136,14 @@ QJsonObject taskFormat(const TaskSpec& spec)
     const QJsonObject text{{QStringLiteral("type"), QStringLiteral("string")}};
     const QJsonObject item{
         {QStringLiteral("type"), QStringLiteral("object")},
-        {QStringLiteral("properties"), QJsonObject{{QStringLiteral("original"), text},
-                                                   {QStringLiteral("corrected"), text},
+        // The engine writes the fields in the schema's order, and QJsonObject sorts
+        // keys: the names are chosen so that sorting keeps "the wrong text" before
+        // "the fix". With "corrected" before "original", small models copied the
+        // typo into the fix (measured with Qwen3 1.7B on the built-in engine).
+        {QStringLiteral("properties"), QJsonObject{{QStringLiteral("error"), text},
+                                                   {QStringLiteral("fix"), text},
                                                    {QStringLiteral("reason"), text}}},
-        {QStringLiteral("required"), QJsonArray{QStringLiteral("original"), QStringLiteral("corrected"), QStringLiteral("reason")}}};
+        {QStringLiteral("required"), QJsonArray{QStringLiteral("error"), QStringLiteral("fix"), QStringLiteral("reason")}}};
     return {{QStringLiteral("type"), QStringLiteral("object")},
             {QStringLiteral("properties"), QJsonObject{{QStringLiteral("corrections"),
                 QJsonObject{{QStringLiteral("type"), QStringLiteral("array")}, {QStringLiteral("items"), item}}}}},
@@ -170,12 +175,23 @@ QList<Correction> parseCorrections(const QString& answer, const QString& documen
     QSet<QString> seen;
     for (const QJsonValue& value : items) {
         const QJsonObject item = value.toObject();
-        Correction correction{item.value(QStringLiteral("original")).toString().trimmed(),
-                              item.value(QStringLiteral("corrected")).toString().trimmed(),
+        // "error"/"fix" from the schema; "original"/"corrected" from engines that ignore it.
+        const auto field = [&item](const char* name, const char* fallback) {
+            const QString given = item.value(QLatin1String(name)).toString();
+            return (given.isEmpty() ? item.value(QLatin1String(fallback)).toString() : given).trimmed();
+        };
+        Correction correction{field("error", "original"), field("fix", "corrected"),
                               item.value(QStringLiteral("reason")).toString().trimmed()};
         if (correction.original.isEmpty() || correction.corrected.isEmpty()) continue;
         if (correction.original == correction.corrected) continue;
         if (correction.original.size() > 60 || correction.corrected.size() > 80) continue;
+        // A fix that only deletes text is accepted when it removes a doubled word ("的的" -> "的");
+        // small models otherwise "fix" a typo by dropping the words after it.
+        if (correction.corrected.size() < correction.original.size() && correction.original.contains(correction.corrected)) {
+            QString removed = correction.original;
+            removed.replace(removed.indexOf(correction.corrected), correction.corrected.size(), QString());
+            if (!correction.original.contains(removed + removed)) continue;
+        }
         if (!documentText.contains(correction.original)) continue; // must be found to be fixed
         if (seen.contains(correction.original)) continue;
         seen.insert(correction.original);

@@ -44,7 +44,12 @@
 - 快慢：按显卡显存选模型和推荐下载；太慢时标“较慢”并说明原因、给下载按钮；“正在思考”计秒；发送键变 ■ 可停止；下载失败用中文说明（例如代理 Fake-IP）。
 - CTest 共 84 项通过；编辑器脚本在真实编辑器里逐条验证过；真实会话验证了按钮随选区变化、“较慢”标记、计秒和停止。**完整的校对 / 润色 / 起草还没在真实编辑器里走完**：本机只有很慢的 gpt-oss:20b，推荐的 qwen3:8b 因代理 Fake-IP 没下载成功，用户说稍后自己调整网络。见第 37、38 条。
 
-**正在做：** 无进行中的任务。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
+- 已装配的候选：`build/full-source-run-builtin-ai-r2`（宿主 `18bed569…`，构建 `builtin-ai-2`，带 `ai-engine/vulkan` 和 `ai-engine/cpu`）。**它还没有第 39 条最后修的“校对字段顺序”问题**；源码最新构建是 `builtin-ai-4`（CTest 91 项全过），还没装配。
+- 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；魔搭的 SHA256 还没在线核对成功）。4B、8B 没下载。
+- 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。
+
+**正在做（2026-11-08 交接时）：** 用 `tests/manual/local_ai_smoke.cpp` 在真实引擎上复查四个任务（第 39 条“接手先做”），然后装配 r3、在真实编辑器里走完整的校对 / 润色 / 起草。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -59,7 +64,7 @@
 | drawingfile | 已重建并通过（`out/drawingfile/pass6`，`drawingfile-functional-pass2.json`）：46 个导出签名一致，两份自建 PDF 的渲染、文字、链接、目录、表单与外观、拆分/另存为、存储接口两版都与官方一致。边界：加载器 JS 模板取自官方生成文件（无公开源码），`drawingfile_native.js` 沿用官方 |
 
 **下一步（待用户确定方向）：**
-0. AI 助手：**用户已决定 Office 不再用 Ollama，改用内置引擎**（llama.cpp，另一个会话在做：引擎已下到 `dependencies/llama.cpp-b12202`，测试模型 `Qwen3-1.7B-Q8_0.gguf`、`Qwen3-4B-Q4_K_M.gguf` 由用户自己下载到 `dependencies/local-models/download`，再用 `python -I scripts/fetch_local_ai_dependencies.py models` 核对 SHA256）。办公助手（第 37、38 条）的任务、编辑器命令和界面与后端无关，接内置引擎时只需替换 `ollama_client.*` 和 `local_assistant.*` 里检测、下载、对话的部分；两个会话不要同时改这些文件。接好后用 `scripts/verify_office_ai_session.py` 走完整的校对 / 润色 / 起草，再问用户是否设为默认入口、重新生成安装包。之后：把命令清单接成真正的 MCP 服务。
+0. AI 助手（内置引擎，见第 39 条“接手先做”）：先用 `local_ai_smoke` 复查校对、润色、正式、总结；再装配 r3（`--ai-engine dependencies/llama.cpp-b12202`），在真实编辑器里走完整流程并用 `scripts/verify_office_ai_session.py` 核对；补上 llama.cpp 的 MIT 许可证原文；之后问用户是否设为默认入口、重新生成安装包。再往后：把命令清单接成真正的 MCP 服务。
 1. 在一台干净的 Windows 电脑（或虚拟机）上试装安装包；考虑代码签名。
 2. XLSX/PPTX/PDF 的界面流程与回归：打开、新建（目前只开放新建文字文档）、保存、另存为。
 3. 导出为其他格式（如 PDF）：编辑器自己菜单里的导出目前会被取消，见第 26 条。
@@ -152,6 +157,8 @@
 | 2026-11-08 | 不要关闭 TUN，我自己稍后试试；跳过这步 | 没碰网络设置，跳过模型下载，验证改为只验证不依赖新模型的部分 |
 | 2026-11-08 | 给我下载方式，我自己下，还有用中文 | 先按 Ollama 给了下载方法（错的，见下一条）；之后的回复全部用中文 |
 | 2026-11-08 | 我不是说 office 不用 ollama 了吗 | 这条决定是在另一个会话（准备内置 llama.cpp 引擎）里说的，本会话之前不知道。撤回 Ollama 的下载方法，改给内置引擎测试模型的下载方式；“下一步”第 0 项已改 |
+| 2026-11-08 | 侧边聊天说他已经告诉你了，你要不退回去按照他这个来 | 侧边会话的交接消息排在队列里，本会话重启时丢了，没收到。问用户后选定：保留办公功能，只把引擎换成内置 llama.cpp，Ollama 只作可选，加模型设置页（第 39 条） |
+| 2026-11-08 | 赶快更新接手文档，我换个智能体继续做 | 写第 39 条并推送；未完成的事列在第 39 条“接手先做” |
 
 ## 3. 目录、代码与运行入口
 
@@ -886,6 +893,40 @@ python -B scripts/verify_full_source_docx_sample.py
       - r3 只比 r2 多一行：任务结束后也会弹“回答有点慢？”，由界面测试覆盖，没有再做真实会话。
     - **新增脚本：** `scripts/verify_office_ai_session.py`：等下载好合适的模型后，用来核对完整的办公助手会话（两个错别字已改、润色已替换、起草带标题样式、日志不含正文）。
     - **未做：** 完整的校对、润色、起草真实会话；没设为默认入口，没打安装包。
+
+39. **内置 AI 引擎：llama.cpp 取代 Ollama（2026-11-08）：**
+    - **用户的决定（侧边会话“btw: 有没有办法让一个轻量ai也能快速达到我的目前…”里做的，交接消息没送到本会话，后来用户转告）：** 改用内置引擎，Ollama 只作可选；本地模型是可选项，做一个设置页：列出支持的模型，能下载、删除、选存放位置；安装包不自带模型；默认不放 C 盘；按电脑实测分档；能用程序做的不交给 AI，交给 AI 的活要短。用户选择保留第 37、38 条的办公功能，只换引擎。
+    - **侧边会话做的准备：** `scripts/fetch_local_ai_dependencies.py`（逐项批准的下载：llama.cpp b12202 官方 Windows 版、魔搭上 Qwen 官方 GGUF；校对 SHA256）、`evidence/local-ai-engine/`；引擎在 `dependencies/llama.cpp-b12202/{win-vulkan-x64,win-cpu-x64}`。它提醒：官方压缩包里没有 llama.cpp 的 MIT 许可证原文，随软件分发前要补上。
+    - **先查清楚的事实：**
+      - Ollama 存的 gpt-oss 是它自己的变体格式（架构名 `gptoss`），官方 llama.cpp 读不了。
+      - `llama-server` b12202 提供 OpenAI 兼容接口；`--device` 选设备，`--fit on` 自动适配显存，`--offline` 不联网，`--api-key` 防止本机别的程序调用，`--reasoning-budget` 限制推理长度。本机看到两个设备：Vulkan0 是 NVIDIA 12 GB，Vulkan1 是 Intel 核显（显示 18 GB 共享内存）；只用独显。
+      - 1.7B 模型实测（关推理）：普通回答 0.1 秒、每秒约 173 词；工具调用正确；带 JSON 结构的校对 0.5 秒。但关推理时润色会原样照抄、校对漏字；开推理（约 900 字的推理，2.5–6 秒）后润色合格、两个错别字都找到。
+    - **新代码：**
+      - `app/assistant/chat_client.h`：两种引擎共用的对话接口（`LocalModel`、`ChatOptions` 也移到这里）。
+      - `app/assistant/engine_client.*`：内置引擎客户端，流式回答、工具调用（参数分片拼接）、JSON 结构回答、`timings.predicted_per_second` 记速度；消息格式在助手格式和 OpenAI 格式之间转换（工具结果对上 `tool_call_id`）。
+      - `app/assistant/local_engine.*`：启动和停止 `llama-server`。程序目录的 `ai-engine/vulkan`、`ai-engine/cpu`（开发时可用 `OPEN_OFFICE_AI_ENGINE` 指到 `dependencies/llama.cpp-b12202`）；有独显时先 `--list-devices`，按 Windows 报的显卡名选设备，不用核显；没有独显用 CPU 版（`-c 8192`，一半线程）；只听 127.0.0.1 随机端口、一次性密钥、`--offline`、`--reasoning-budget 1024`、不弹控制台窗口；每 0.5 秒查 `/health`，4 分钟没好算失败；失败原因翻成中文；程序退出时结束引擎。测试用 `OPEN_OFFICE_AI_ENGINE_URL` 直接连已有的服务。
+      - `app/assistant/model_catalog.*`：支持的模型 Qwen3 1.7B（Q8_0，1.8 GB）、4B（Q4_K_M，2.5 GB）、8B（Q4_K_M，5.0 GB），来自魔搭 `Qwen/Qwen3-*-GGUF`；推荐沿用第 38 条按显存的分档；存放位置：`OPEN_OFFICE_MODEL_DIR` > 设置 `ai/modelFolder` > 默认（系统盘以外、可用空间最大且超过 12 GB 的盘上的 `OpenOffice-AI/models`，没有才放用户数据目录）；`ai/builtinModel` 记住选的模型；`ai/useOllama`（或 `OPEN_OFFICE_AI_BACKEND=ollama|builtin`）切换引擎。
+      - `app/assistant/model_downloader.*`：先查魔搭文件信息（大小、SHA256），写 `.part`、断点续传（Range）、下载前查磁盘空间、下完在后台线程算 SHA256，对上才改名；出错用中文说明。
+      - `LocalAssistant` 重写：默认内置引擎；第一次用时启动引擎（状态显示“正在启动内置引擎…”），请求等引擎好了再发；打开球时预先启动；下载、删除、改用模型；停止键在等引擎时也能停。推理开关：小模型（< 3.5 GB）在快的引擎上（有独显，或实测每秒 40 词以上）开推理，否则关；gpt-oss 仍是 Ollama 那套。
+      - `app/ui/ai_settings_dialog.*`：“本地 AI 设置”：引擎和显卡、启动状态、上次速度；存放位置（更改、打开，放在 C 盘时提示）；三个模型的大小、用途、“适合这台电脑”标记、下载/暂停/使用/删除（删除先确认）；高级里的“改用本机已安装的 Ollama”。悬浮球的“本地 AI”按钮和卡片里的“打开设置”都打开它。
+      - 卡片：内置引擎有自己的“找不到内置引擎 / 下载一个本地模型（推荐、大小、存放位置）/ 本地 AI 已就绪”。
+      - `scripts/stage_host_candidate_runtime.py` 加 `--ai-engine`：把两个版本复制成 `ai-engine/vulkan`、`ai-engine/cpu`，逐个核对 SHA256，记进标记文件。
+      - `tests/manual/local_ai_smoke.cpp`（目标 `local_ai_smoke`，不进 CTest）：用真实引擎和真实模型跑一个任务，打印原始回答和程序的理解。
+    - **真实会话发现并修掉的问题：**
+      - `builtin-ai-session1`（候选 `-builtin-ai`，宿主 `6c5caf26…`）：设置页显示正确（独显、已启动、1.7B 正在使用、8B 标“适合这台电脑”）；校对给出“按排人员 → 按排”这种只删字的错改，润色原样照抄；起草菜单换两行按钮时按钮那一排被压扁。修法：只删字的改正只在删掉重复字（“的的→的”）时才给；校对说明里加一个例子；小模型开推理；按钮行先排版再算高度。会话里一次失误把“/保存”粘进了文档，已撤销，样本哈希未变。
+      - `builtin-ai-session2`（候选 `-builtin-ai-r2`，宿主 `18bed569…`）：校对说“没有发现”。用 `local_ai_smoke` 查到原因：Qt 的 `QJsonObject` 会把键按字母排序，结构里 `corrected` 排在 `original` 前，引擎按结构顺序生成，小模型先写“改正”再写“原文”，就把错字原样抄进了改正。已把字段改名为 `error`、`fix`、`reason`（排序后顺序正确），解析时兼容旧名，并加了测试锁住顺序。这个修复在构建 `builtin-ai-4` 里，**还没装配、没在真实会话里验证**。
+      - 另外：两个引擎同时占用显卡时会慢到 90 秒以上（只是测试时的情况）。
+    - **测试：** 助手 36 项、界面 34 项、契约 21 项，共 91 项全过（构建 `builtin-ai-4`）。新增：消息格式转换、真实格式的流式回答和工具调用、设备选择、模型目录与存放位置、内置引擎首次使用即启动并回答、下载续传与 SHA256、设置页、校对字段顺序。原有 Ollama 测试改为显式 `OPEN_OFFICE_AI_BACKEND=ollama`。
+    - **接手先做：**
+      1. 复查四个任务（在项目根目录、Git Bash 里）：
+         `export PATH="/d/Qt/6.11.1/msvc2022_64/bin:$PATH"; export OPEN_OFFICE_AI_ENGINE="D:/open office/dependencies/llama.cpp-b12202" OPEN_OFFICE_MODEL_DIR="D:/open office/dependencies/local-models/download"; ./build/full-source-host/bin/local_ai_smoke.exe proofread build/wasm-source/tmp/smoke-document.txt`（再换 `polish`、`formal`、`summary`）。期望校对给出“按排→安排”“笔计本→笔记本”。交接时校对已复查通过：原始回答字段顺序正确，程序得到这两条改正；但用了 52 秒、每秒约 10 个词，因为当时 Ollama 还占着 9.5 GB 显存（较早的 Ollama 版候选窗口把 gpt-oss:20b 载入了），显卡只剩约 0.6 GB，引擎大部分只能用处理器算。测速前先确认显存空闲（`nvidia-smi`；Ollama 的模型可用 `curl --noproxy '*' http://127.0.0.1:11434/api/generate -d '{"model":"gpt-oss:20b","keep_alive":0}'` 卸载，先问用户是否还在用）。润色、正式、总结三项交接时还在跑，结果在 `build/wasm-source/tmp/smoke-*.out`。以后可以考虑：显存被别的程序占满时，在界面上说明原因。
+      2. `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r3 --build-label builtin-ai-4 --ai-engine dependencies/llama.cpp-b12202`，再用 `run_full_source_gui_session.py`（加环境变量 `OPEN_OFFICE_MODEL_DIR`，或在设置页里选文件夹）走完整流程，样本复制 `fixtures/results/office-ai-sample.docx` 成新文件；用 `scripts/verify_office_ai_session.py` 核对。
+      3. 往 `ai-engine` 补 llama.cpp 的 MIT 许可证原文（需要用户批准下载或给出来源），并写进第三方说明。
+      4. 1.7B 模型的 SHA256 还没和魔搭公布值核对（魔搭接口连接被重置）。
+      5. 问用户：是否把内置引擎版设为默认入口、重新生成安装包（安装包会带 `ai-engine`，约多 60 MB，不带模型）。
+    - **桌面操作注意：** 每次工具调用之间 Claude 窗口会抢焦点，悬浮球随之收起；点球和往输入框粘贴要放在同一批操作里，否则会粘进文档。设置页第一次点击只会把它提到前面。
+    - **没提交的文件（不是本会话建的，来源不明，留给建它们的人）：** `打开最新版.cmd`、`打开稳定版.cmd`、`版本一览.cmd`、`scripts/open_runtime.py`。
+    - **未改动：** 默认入口 `build/full-source-run-local-ai`、各回退目录、安装包、需求原文。
 
 ## 附录 A：requirements.md 完整原文
 

@@ -75,7 +75,11 @@ add_library(office_assistant STATIC app/assistant/assistant_commands.h app/assis
     app/assistant/ollama_client.h app/assistant/ollama_client.cpp
     app/assistant/local_assistant.h app/assistant/local_assistant.cpp
     app/assistant/markdown_html.h app/assistant/markdown_html.cpp
-    app/assistant/assistant_tasks.h app/assistant/assistant_tasks.cpp)
+    app/assistant/assistant_tasks.h app/assistant/assistant_tasks.cpp
+    app/assistant/chat_client.h app/assistant/engine_client.h app/assistant/engine_client.cpp
+    app/assistant/local_engine.h app/assistant/local_engine.cpp
+    app/assistant/model_catalog.h app/assistant/model_catalog.cpp
+    app/assistant/model_downloader.h app/assistant/model_downloader.cpp)
 target_include_directories(office_assistant PUBLIC app)
 target_link_libraries(office_assistant PUBLIC Qt6::Core Qt6::Network)
 if(WIN32)
@@ -83,7 +87,8 @@ if(WIN32)
 endif()
 
 add_library(office_ui STATIC app/ui/main_window.h app/ui/main_window.cpp
-    app/ui/assistant_art.h app/ui/assistant_art.cpp app/ui/assistant_ball.h app/ui/assistant_ball.cpp)
+    app/ui/assistant_art.h app/ui/assistant_art.cpp app/ui/assistant_ball.h app/ui/assistant_ball.cpp
+    app/ui/ai_settings_dialog.h app/ui/ai_settings_dialog.cpp)
 target_include_directories(office_ui PUBLIC app)
 target_link_libraries(office_ui PUBLIC office_engine office_assistant Qt6::Widgets)
 
@@ -104,6 +109,9 @@ if(BUILD_TESTING)
     add_executable(assistant_test tests/native/assistant_test.cpp)
     target_link_libraries(assistant_test PRIVATE office_assistant Qt6::Test)
     add_test(NAME assistant COMMAND assistant_test -o assistant-results.txt,txt)
+    # Manual end-to-end check of the built-in AI with a real engine and model; not run by CTest.
+    add_executable(local_ai_smoke tests/manual/local_ai_smoke.cpp)
+    target_link_libraries(local_ai_smoke PRIVATE office_assistant)
     set_tests_properties(engine_contract native_ui assistant PROPERTIES
         ENVIRONMENT "QT_QPA_PLATFORM=offscreen"
         WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")

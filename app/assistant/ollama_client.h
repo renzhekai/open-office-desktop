@@ -1,5 +1,7 @@
 #pragma once
 
+#include "assistant/chat_client.h"
+
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QList>
@@ -13,28 +15,11 @@ class QNetworkAccessManager;
 
 namespace openoffice {
 
-struct LocalModel {
-    QString name;
-    qint64 bytes = 0;
-    QString family;
-    QString parameterSize;
-    bool tools = false;    // can call the assistant's commands
-    bool thinking = false; // has a reasoning phase before answering
-};
-
-// One chat request's settings besides the model and the messages.
-struct ChatOptions {
-    QJsonArray tools;    // functions the model may call; empty: none
-    QString think;       // "" omits the field; otherwise "low", "false"...
-    QJsonObject format;  // a JSON schema for structured output; empty: free text
-    int contextLength = 0; // num_ctx; 0 leaves Ollama's default
-    double temperature = 0.3;
-};
-
-// Client for an Ollama server on this computer. It only ever talks to a
+// Client for an Ollama server on this computer (optional: the assistant uses
+// its built-in engine unless the person chooses Ollama in the AI settings). It only ever talks to a
 // loopback address, never through a proxy, and drops models that Ollama
 // forwards to a cloud service, so prompts and document text stay local.
-class OllamaClient : public QObject {
+class OllamaClient : public ChatClient {
     Q_OBJECT
 
 public:
@@ -49,21 +34,19 @@ public:
     void probe();      // -> probed
     void listModels(); // -> modelsListed
     // Streams one chat turn; the model stays loaded for a while afterwards.
-    quint64 chat(const QString& model, const QJsonArray& messages, const ChatOptions& options);
+    quint64 chat(const QString& model, const QJsonArray& messages, const ChatOptions& options) override;
     // Loads the model in the background so the first answer comes sooner.
     void warmUp(const QString& model);
-    void cancelChat();
+    void cancelChat() override;
     void pull(const QString& model); // -> pullProgress*, pullFinished
     void cancelPull();
     bool pulling() const { return m_pull; }
     // Generation speed of the last finished chat (tokens per second); 0 when unknown.
-    double lastTokensPerSecond() const { return m_tokensPerSecond; }
+    double lastTokensPerSecond() const override { return m_tokensPerSecond; }
 
 signals:
     void probed(bool running, QString version);
     void modelsListed(QList<openoffice::LocalModel> models, QString error);
-    void chatDelta(quint64 id, QString content);
-    void chatFinished(quint64 id, bool ok, QString content, QJsonArray toolCalls, QString error);
     void pullProgress(QString status, qint64 completed, qint64 total);
     void pullFinished(bool ok, QString error);
 
@@ -84,6 +67,12 @@ qint64 totalPhysicalMemory();
 // Dedicated memory of the largest graphics card; 0 when there is none or it is
 // too small to run a model (integrated graphics share the system memory).
 qint64 totalVideoMemory();
+// The largest graphics card: its name (to pick it in the engine) and dedicated memory.
+struct GpuInfo {
+    QString name;
+    qint64 bytes = 0;
+};
+GpuInfo largestGpu();
 // A model answers quickly only when it fits the graphics card entirely; without
 // one, only small models are fast enough on the processor.
 bool runsSlowly(const LocalModel& model, qint64 videoBytes);

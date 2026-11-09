@@ -3,6 +3,7 @@
 #include "assistant/assistant_commands.h"
 #include "assistant/assistant_tasks.h"
 
+#include <QPointer>
 #include <QHash>
 #include <QMainWindow>
 #include <QString>
@@ -20,6 +21,7 @@ class QVBoxLayout;
 namespace openoffice {
 
 class AssistantBall;
+class AiSettingsDialog;
 class LocalAssistant;
 class OfficeEngine;
 enum class DocumentKind;
@@ -45,6 +47,8 @@ public:
     // Metadata-only JSON lines (time, source, command, result code); never the
     // inserted or selected text. Empty disables the file log.
     void setAssistantJournalPath(const QString& path) { m_assistantJournalPath = path; }
+    // "本地 AI 设置": engine, model folder, models (download, use, delete), Ollama option.
+    AiSettingsDialog* openAiSettings();
 
 protected:
     void closeEvent(QCloseEvent* event) override;
@@ -129,6 +133,7 @@ private:
     QList<Correction> m_corrections;  // the latest proofreading result
     QList<int> m_correctionState;     // 0 not applied, 1 applied, 2 failed
     bool m_speedAdviceShown = false;  // the "slow model" card appears once per session
+    QPointer<AiSettingsDialog> m_aiSettings;
     QString waitHint() const;
     void adviseIfSlow();
     QAction* m_createTextAction = nullptr;

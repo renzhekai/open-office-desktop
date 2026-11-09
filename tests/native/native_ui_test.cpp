@@ -1,6 +1,7 @@
 #include "engine/onlyoffice_engine_adapter.h"
 #include "fake_ollama.h"
 #include "ui/assistant_art.h"
+#include "ui/ai_settings_dialog.h"
 #include "ui/assistant_ball.h"
 #include "ui/main_window.h"
 
@@ -10,6 +11,8 @@
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QPainter>
+#include <QDir>
+#include <QFile>
 #include <QTemporaryDir>
 #include <QLabel>
 #include <QMessageBox>
@@ -168,8 +171,10 @@ private slots:
     {
         // Deterministic panel: no spring or fade animations under test.
         qputenv("OPEN_OFFICE_REDUCED_MOTION", "1");
-        // No real local AI under test: nothing listens at this address.
+        // No real local AI under test: nothing listens at this address. The
+        // assistant tests below drive the Ollama path; one test switches to the built-in engine.
         qputenv("OPEN_OFFICE_OLLAMA_URL", closedOllamaUrl());
+        qputenv("OPEN_OFFICE_AI_BACKEND", "ollama");
     }
 
     void unavailableEngineDisablesOfficeActions()
@@ -1015,6 +1020,33 @@ private slots:
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
         QTRY_VERIFY(!panel->working());
         QCOMPARE(fake.chatRequests().size(), 3);
+    }
+
+    void aiSettingsListModelsAndMarkTheOneForThisComputer()
+    {
+        QTemporaryDir folder;
+        QFile model(folder.filePath(QStringLiteral("Qwen3-1.7B-Q8_0.gguf")));
+        QVERIFY(model.open(QIODevice::WriteOnly));
+        model.close();
+        ScopedEnvironment backend("OPEN_OFFICE_AI_BACKEND", "builtin");
+        ScopedEnvironment engineUrl("OPEN_OFFICE_AI_ENGINE_URL", closedOllamaUrl()); // an engine is "there", never started
+        ScopedEnvironment directory("OPEN_OFFICE_MODEL_DIR", QFile::encodeName(folder.path()));
+        ControlledEngine engine;
+        openoffice::MainWindow window(&engine);
+        auto* dialog = window.openAiSettings();
+        QVERIFY(dialog->isVisible());
+        QCOMPARE(dialog->folderText(), QDir::toNativeSeparators(QDir::cleanPath(folder.path())));
+        const QStringList rows = dialog->rowTexts();
+        QCOMPARE(rows.size(), 3);
+        QVERIFY(rows[0].contains(QStringLiteral("Qwen3 1.7B")) && rows[0].contains(QStringLiteral("已下载"))
+                && rows[0].contains(QStringLiteral("[删除]")));
+        QVERIFY(rows[1].contains(QStringLiteral("[下载]")) && rows[2].contains(QStringLiteral("[下载]")));
+        int marked = 0;
+        for (const QString& row : rows) marked += row.contains(QStringLiteral("适合这台电脑")) ? 1 : 0;
+        QCOMPARE(marked, 1);
+        QVERIFY(dialog->engineText().contains(QStringLiteral("内置引擎")));
+        QCOMPARE(window.openAiSettings(), dialog); // one settings window
+        dialog->close();
     }
 
     void assistantHostCommandsUseTheWindowsOwnFlows()

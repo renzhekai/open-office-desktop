@@ -1102,6 +1102,9 @@ void AssistantBall::rebuildQuickActions()
         row->insertWidget(row->count() - 1, chip);
         used += width + 6;
     }
+    // Lay the new chips out first, so the bar's height covers every row.
+    m_actionBar->layout()->invalidate();
+    m_actionBar->layout()->activate();
     m_actionBar->adjustSize();
     if (m_expanded) layoutContent();
     update();

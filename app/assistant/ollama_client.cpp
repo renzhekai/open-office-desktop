@@ -55,7 +55,7 @@ QString errorText(QNetworkReply* reply)
 
 } // namespace
 
-OllamaClient::OllamaClient(QObject* parent) : QObject(parent), m_base(defaultBaseUrl())
+OllamaClient::OllamaClient(QObject* parent) : ChatClient(parent), m_base(defaultBaseUrl())
 {
     m_network = new QNetworkAccessManager(this);
     m_network->setProxy(QNetworkProxy::NoProxy); // loopback traffic must never go through a proxy
@@ -267,24 +267,33 @@ qint64 totalPhysicalMemory()
     return 8LL * 1024 * 1024 * 1024;
 }
 
-qint64 totalVideoMemory()
+GpuInfo largestGpu()
 {
-    qint64 largest = 0;
+    GpuInfo largest;
 #ifdef Q_OS_WIN
     IDXGIFactory1* factory = nullptr;
     if (SUCCEEDED(::CreateDXGIFactory1(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(&factory))) && factory) {
         IDXGIAdapter1* adapter = nullptr;
         for (UINT index = 0; factory->EnumAdapters1(index, &adapter) != DXGI_ERROR_NOT_FOUND; ++index) {
             DXGI_ADAPTER_DESC1 description{};
-            if (SUCCEEDED(adapter->GetDesc1(&description)) && !(description.Flags & DXGI_ADAPTER_FLAG_SOFTWARE))
-                largest = qMax<qint64>(largest, static_cast<qint64>(description.DedicatedVideoMemory));
+            if (SUCCEEDED(adapter->GetDesc1(&description)) && !(description.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
+                && static_cast<qint64>(description.DedicatedVideoMemory) > largest.bytes) {
+                largest.bytes = static_cast<qint64>(description.DedicatedVideoMemory);
+                largest.name = QString::fromWCharArray(description.Description).trimmed();
+            }
             adapter->Release();
         }
         factory->Release();
     }
 #endif
-    // Integrated graphics report a small carve-out; local models do not run on them.
-    return largest >= (3LL << 30) ? largest : 0;
+    // Integrated graphics report a small carve-out; they do not count as a card for models.
+    if (largest.bytes < (3LL << 30)) return {};
+    return largest;
+}
+
+qint64 totalVideoMemory()
+{
+    return largestGpu().bytes;
 }
 
 bool runsSlowly(const LocalModel& model, qint64 videoBytes)

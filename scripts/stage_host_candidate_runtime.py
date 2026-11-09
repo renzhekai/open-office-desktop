@@ -10,8 +10,14 @@ verified file by file, then renamed. Nothing in the source runtime is modified; 
 never overwritten. The marker openoffice-host-candidate.json records the replaced host and the build
 and test logs it came from.
 
+With --ai-engine <llama.cpp folder> the built-in AI engine is added as ai-engine/vulkan and
+ai-engine/cpu (from the release folders win-vulkan-x64 and win-cpu-x64), each file checked again
+after copying and recorded in the marker.
+
 Usage:
     python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-host-saveas --build-label new-saveas-2
+    python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai \
+        --build-label builtin-ai-1 --ai-engine dependencies/llama.cpp-b12202
 """
 
 import argparse
@@ -48,7 +54,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--target", type=Path, required=True)
     parser.add_argument("--build-label", required=True)
+    parser.add_argument("--ai-engine", type=Path, help="llama.cpp release folder with win-vulkan-x64 and win-cpu-x64")
     args = parser.parse_args()
+    engine_source = None
+    if args.ai_engine:
+        engine_source = args.ai_engine if args.ai_engine.is_absolute() else ROOT / args.ai_engine
+        for build in ("win-vulkan-x64", "win-cpu-x64"):
+            if not (engine_source / build / "llama-server.exe").is_file():
+                sys.exit(f"{engine_source / build} has no llama-server.exe")
     if not re.fullmatch(r"[a-z0-9-]+", args.build_label):
         parser.error("build label must contain lowercase alphanumeric/hyphen")
     target = args.target if args.target.is_absolute() else ROOT / args.target
@@ -105,6 +118,24 @@ def main():
         sys.exit(f"verification failed: {mismatches} mismatches, {verified} verified, {copied} copied; "
                  f"staging kept at {staging}")
 
+    engine_record = None
+    if engine_source:
+        engine_record = {"source": str(engine_source), "builds": {}}
+        for build, folder in (("win-vulkan-x64", "vulkan"), ("win-cpu-x64", "cpu")):
+            source_dir = engine_source / build
+            target_dir = staging / "ai-engine" / folder
+            files = 0
+            for dirpath, _, filenames in os.walk(source_dir):
+                rel = Path(dirpath).relative_to(source_dir)
+                (target_dir / rel).mkdir(parents=True, exist_ok=True)
+                for name in filenames:
+                    shutil.copy2(Path(dirpath) / name, target_dir / rel / name)
+                    if sha256(target_dir / rel / name) != sha256(Path(dirpath) / name):
+                        sys.exit(f"engine copy verification failed: {rel / name}; staging kept at {staging}")
+                    files += 1
+            engine_record["builds"][folder] = {"from": build, "files": files,
+                                               "llama_server_sha256": sha256(target_dir / "llama-server.exe")}
+
     marker = {
         "kind": "open-office-host-candidate-runtime",
         "created_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -121,6 +152,9 @@ def main():
                  "test_results_sha256": {p.name: sha256(p) for p in TEST_RESULTS}},
         "gui_regression_verified": False,
     }
+    if engine_record:
+        marker["ai_engine"] = engine_record
+        marker["note"] += "; ai-engine/ holds the built-in AI engine (llama.cpp), added after the copy check"
     (staging / MARKER).write_text(json.dumps(marker, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     staging.rename(target)
     EVIDENCE.mkdir(parents=True, exist_ok=True)
