@@ -1063,7 +1063,7 @@ python -B scripts/verify_full_source_docx_sample.py
       - `cleanRewrite` 去掉结尾的“（注：…）”“说明：…”等附注行。
     - **真实模型（1.7B，用户的原文和原话，`build/wasm-source/tmp/smoke-route/conclusion-*.out`）：** 加指令后先跑 4 次（`conclusion-1..3`、`-insist`）都改了，但写了 700–1000 字并编造“全球 70% 研发资金”“新加坡智慧交通 2030”等，有一次加了“（注：…）”；加字数和“不编造”后跑 3 次（`-v2`），有两次扩写的是用户原话“详细一定啊”本身——因为原话被放进了提示；去掉短原话、加原文框后跑 3 次（`-v3`）：都扩写原文，5.1–6.5 秒，153–229 字（目标 116、上限 174），没有编造具体数字或机构，例子是一般性的；两个“·”项被合成一段（改写结果不用列表符号）。
     - **测试：** 构建 `rework-7`，CTest 3 组共 103 项全过（助手 40、契约 21、界面 42），界面测试另连跑 3 遍都过。新增：`reworkInstructionsAreMadePlainAndCheckedForChange`（说法对应、字数、短原话不进提示、长原话带标注、原文框、`insist`、用真实会话的输出判“没改动”）；`reworkThatChangesNothingIsTriedAgainThenExplained`（假 Ollama：第一次原样→自动再试→只出现一个“替换原文”；两次都原样→说明且不新增“替换原文”、编辑器零命令）；`cleanRewrite` 去附注。中间失败：`rework-1` 是试验程序里变量先用后声明；`rework-3` 是界面测试还在找旧指令的“两倍”；`rework-5/6` 是界面测试在结果刚出来的瞬间点按钮，正赶上快捷按钮读选区被判“正忙”（真人不会这么快，测试里改为先等空闲；“执行”那一步本来就在等确认，不能等空闲）。
-    - **装配 r9：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r9 --build-label rework-7 --ai-engine dependencies/llama.cpp-b12202`，后台进行中，结果见 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r9.json`。
+    - **装配 r9：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r9 --build-label rework-7 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `0ae28b21edb39c8c6bb1b79a48c27696707b00a1d89f9e87958b1788356c2d60`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r9.json`。
     - **还没做：** 真实编辑器复查；改写结果不保留“·”列表格式；1.7B 仍可能超字数；4B 效果应更好但没测。
 
 ## 附录 A：requirements.md 完整原文
