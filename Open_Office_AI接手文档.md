@@ -942,6 +942,13 @@ python -B scripts/verify_full_source_docx_sample.py
     - **注意：** 用这些文件打开内置引擎版时，模型默认找 `D:\OpenOffice-AI\models`（这台电脑的默认位置），而用户下载的 1.7B 在 `dependencies\local-models\download`。第一次要在“本地 AI 设置 → 更改…”里选那个文件夹，或把模型文件移过去。
     - **侧边会话同时告知：** `Qwen3-1.7B-Q8_0.gguf` 已下载完并核对 SHA256 无误（补充第 39 条“接手先做”第 4 点：已核对）；`Qwen3-4B-Q4_K_M.gguf` 下载时连接被重置、还没开始，重新运行 `python -I scripts/fetch_local_ai_dependencies.py models` 可续上（下载前确认仍在用户批准范围内）。
 
+41. **交接时的真实引擎复查结果（2026-11-08，`local_ai_smoke`，构建 `builtin-ai-4`，Qwen3 1.7B，当时显存被 Ollama 占着，每秒约 8–10 词）：**
+    - 校对：52 秒，给出“按排→安排”“笔计本→笔记本”，字段顺序正确（第 39 条的修复有效）。
+    - 润色：68 秒，两个错别字都改了，语句更正式，段落保留。
+    - 正式：47 秒，整体合格，但把“笔记本”写成了“笔记本电脑”（小模型编造）；可考虑在这类任务后用程序比对，提醒“改动了原文的实词”。
+    - 总结：56 秒，主旨和要点（时间、地点、要求、截止）都对；`markdownToHtml` 不支持缩进的子列表，子项被摊平成同一层，可改进。
+    - 结果原文在 `build/wasm-source/tmp/smoke-*.out`（不在 git 里）。显存空闲时同样的任务应在几秒内完成（见第 39 条）。
+
 ## 附录 A：requirements.md 完整原文
 
 以下代码块内容按原始字节嵌入，不加行号，不修改标点、编码或换行。
