@@ -1030,7 +1030,8 @@ python -B scripts/verify_full_source_docx_sample.py
     - **装配 r7：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r7 --build-label conv-4 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `e8ca75428506a60324f316ed7eaaab4ce4414ab3647eff94f10c2021e1293cd2`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r7.json`。
     - **r6 会话 `builtin-ai-session4` 的结果（`evidence/host-candidate/builtin-ai-session4-result.json`）：** 退出码 0，5 条编辑器命令（4 次读选区、1 次读全文）全部回报，日志不含正文；用户只是试用（提问），没有改正、润色或保存，样本 `office-ai-sample-6.docx` 哈希不变，所以 9 项检查有 3 项不过。用户在这次试用中提出了本条的要求。不算 AI 改文档流程的验收。
     - **还没做：** 真实编辑器里看对话列表和 `/` 列表的样子；对话数量和单个对话长度没设上限（悬浮球只显示最近 40 个气泡）。
-    - **r7 会话 `builtin-ai-session5`（`evidence/host-candidate/builtin-ai-session5-result.json`）：** 2026-11-09 11:14:14–11:16:41 UTC，退出码 0；没有任何助手命令、没有保存的对话、样本 `office-ai-sample-7.docx` 哈希不变，说明这次没有用悬浮球。不算验收，已问用户原因。
+    - **r7 会话 `builtin-ai-session5`（`evidence/host-candidate/builtin-ai-session5-result.json`）：** 2026-11-09 11:14:14–11:16:41 UTC，退出码 0；没有任何助手命令、没有保存的对话、样本 `office-ai-sample-7.docx` 哈希不变。不算验收。
+    - **更正：** 起初以为用户没用悬浮球。实际上用户 11:14:48 UTC 自己又开了一个 r7 窗口（`build/full-source-run-builtin-ai-r7/OpenOffice.exe`，不经会话记录器，用 r7 目录里的默认配置 `openoffice-profile`），关掉的是我开的那个；11:17:35 内置引擎在用户的窗口里启动（1.7B）。用户关窗后可以从 `build/full-source-run-builtin-ai-r7/openoffice-profile` 的 `assistant-commands.jsonl` 和 `conversations/` 查看试用情况。
 
 ## 附录 A：requirements.md 完整原文
 
