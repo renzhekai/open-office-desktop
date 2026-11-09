@@ -1,6 +1,6 @@
 # Open Office AI 接手文档（持续维护）
 
-最后更新（UTC）：2026-11-07，更新者：Claude Code（Opus 5.5）  
+最后更新（UTC）：2026-11-09T04:20Z（本机时间 2026-11-08 20:20），更新者：Claude Code（Opus 5.5）  
 项目根目录：`D:\open office`  
 初版：2026-11-03T04:53:07Z 由 Codex 生成，依据当时读取的项目文件和用户指令。此后由接手智能体持续维护，初版校验记录的适用范围见第 11 节。
 
@@ -46,12 +46,12 @@
 
 **内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
 - 已装配的候选：`build/full-source-run-builtin-ai-r2`（宿主 `18bed569…`，构建 `builtin-ai-2`，带 `ai-engine/vulkan` 和 `ai-engine/cpu`）。**它还没有第 39 条最后修的“校对字段顺序”问题**；源码最新构建是 `builtin-ai-4`（CTest 91 项全过），还没装配。
-- 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；魔搭的 SHA256 还没在线核对成功）。4B、8B 没下载。
+- 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；侧边会话已与魔搭公布的 SHA256 核对一致，见第 40 条）。4B、8B 没下载（4B 下载时连接被重置）。
 - 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-08 交接时）：** 用 `tests/manual/local_ai_smoke.cpp` 在真实引擎上复查四个任务（第 39 条“接手先做”），然后装配 r3、在真实编辑器里走完整的校对 / 润色 / 起草。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-08 交接后）：** 第 39 条“接手先做”第 1 步（用 `local_ai_smoke` 在真实引擎上复查校对、润色、正式、总结）已完成，四项都给出了合格结果（第 41 条），但当时显存被 Ollama 占着，每项 47–68 秒。下一步是装配 r3、在真实编辑器里走完整的校对 / 润色 / 起草。**显存提醒：** 2026-11-08 20:20（本机时间）查看时，Ollama 仍载着 gpt-oss:20b（约 10 GB 显存，显卡共用 11.8/12.2 GB），按 Ollama 设置会在 20:43 自动卸载；要提前卸载先问用户。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -66,7 +66,7 @@
 | drawingfile | 已重建并通过（`out/drawingfile/pass6`，`drawingfile-functional-pass2.json`）：46 个导出签名一致，两份自建 PDF 的渲染、文字、链接、目录、表单与外观、拆分/另存为、存储接口两版都与官方一致。边界：加载器 JS 模板取自官方生成文件（无公开源码），`drawingfile_native.js` 沿用官方 |
 
 **下一步（待用户确定方向）：**
-0. AI 助手（内置引擎，见第 39 条“接手先做”）：先用 `local_ai_smoke` 复查校对、润色、正式、总结；再装配 r3（`--ai-engine dependencies/llama.cpp-b12202`），在真实编辑器里走完整流程并用 `scripts/verify_office_ai_session.py` 核对；补上 llama.cpp 的 MIT 许可证原文；之后问用户是否设为默认入口、重新生成安装包。再往后：把命令清单接成真正的 MCP 服务。
+0. AI 助手（内置引擎，见第 39 条“接手先做”）：`local_ai_smoke` 复查已完成（第 41 条）；接着在显存空闲时装配 r3（`--ai-engine dependencies/llama.cpp-b12202`），在真实编辑器里走完整流程并用 `scripts/verify_office_ai_session.py` 核对；补上 llama.cpp 的 MIT 许可证原文；之后问用户是否设为默认入口、重新生成安装包。再往后：把命令清单接成真正的 MCP 服务。
 1. 在一台干净的 Windows 电脑（或虚拟机）上试装安装包；考虑代码签名。
 2. XLSX/PPTX/PDF 的界面流程与回归：打开、新建（目前只开放新建文字文档）、保存、另存为。
 3. 导出为其他格式（如 PDF）：编辑器自己菜单里的导出目前会被取消，见第 26 条。
@@ -948,6 +948,12 @@ python -B scripts/verify_full_source_docx_sample.py
     - 正式：47 秒，整体合格，但把“笔记本”写成了“笔记本电脑”（小模型编造）；可考虑在这类任务后用程序比对，提醒“改动了原文的实词”。
     - 总结：56 秒，主旨和要点（时间、地点、要求、截止）都对；`markdownToHtml` 不支持缩进的子列表，子项被摊平成同一层，可改进。
     - 结果原文在 `build/wasm-source/tmp/smoke-*.out`（不在 git 里）。显存空闲时同样的任务应在几秒内完成（见第 39 条）。
+
+42. **新会话只读核对，改正速览里过时的说法（2026-11-09T04:20Z，本机时间 2026-11-08 20:20，Claude Code）：**
+    - **用户要求：** 查看接手文档。
+    - **核对结果：** git 工作区干净，与 `origin/main` 同步（最新提交 `8be528b`）；`build/full-source-run-builtin-ai-r3` 还不存在；`build/full-source-host/bin` 是 20:13 的构建（`builtin-ai-4`）；`smoke-*.out` 四份都在；模型目录只有 1.7B；`build_installer.py` 的 `SOURCE` 仍是 `build/full-source-run-local-ai`。
+    - **显存：** Ollama（`ollama serve`，20:06 启动）载着 gpt-oss:20b，约 10 GB 显存，到 20:43 自动卸载；显卡共用 11.8/12.2 GB。进程列表里的 `llama-server.exe` 是 Ollama 自己的（路径在 Ollama 安装目录、父进程是 `ollama serve`），不是本软件的内置引擎。没有卸载、没有结束任何进程。
+    - **改动：** 只改本文。第 0 节“正在做”和“下一步”第 0 项：复查已完成（第 41 条），并加了显存提醒；第 0 节模型说明：1.7B 的 SHA256 已核对（第 40 条）；顶部“最后更新”时间。没有编译、运行或装配任何东西。
 
 ## 附录 A：requirements.md 完整原文
 
