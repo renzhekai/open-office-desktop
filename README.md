@@ -37,6 +37,8 @@
 
 ## 启动（不安装，直接从项目运行）
 
+找不到版本时，双击项目根目录的启动文件：`打开稳定版.cmd`（默认入口）、`打开最新版.cmd`（最近构建的版本，可能还没验证完）、`版本一览.cmd`（列出全部版本）。
+
 在资源管理器中打开 `D:\open office\build\full-source-run-local-ai`，双击 **OpenOffice.exe**。默认启动和文件选择可用已验证（[首页记录](evidence/full-source-gui/local-ai-default-home/session.json)）；不需要命令行参数。
 
 1. 打开现有文档：点击“选择本地文件”，选一个 DOCX，再点“打开所选文件”，等界面确认文档就绪。
