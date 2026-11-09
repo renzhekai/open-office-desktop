@@ -2,6 +2,7 @@
 
 #include "assistant/assistant_commands.h"
 #include "assistant/assistant_tasks.h"
+#include "assistant/conversation_store.h"
 #include "ui/relocation.h"
 
 #include <QPointer>
@@ -56,6 +57,11 @@ public:
     void setRelocationFolderChooser(FolderChooser chooser) { m_relocationFolderChooser = std::move(chooser); }
     void relocateApplication();
     RelocationPlan relocationPlan() const { return m_relocation; }
+    // Conversations with the assistant are kept in this folder (the profile's
+    // "conversations"); without one they live only while the window is open.
+    // Each start of the program, and each other document, begins a new one.
+    void setConversationFolder(const QString& folder) { m_conversations = ConversationStore(folder); }
+    const Conversation& conversation() const { return m_conversation; } // test seam
 
 protected:
     void closeEvent(QCloseEvent* event) override;
@@ -178,6 +184,16 @@ private:
     FolderChooser m_relocationFolderChooser;
     RelocationPlan m_relocation; // set once the person confirmed; cleared if closing fails
     void dropRelocation();
+    ConversationStore m_conversations;
+    Conversation m_conversation;
+    void startConversation(); // empty, about the current document; the old one stays in 历史
+    void recordConversationMessage(const ConversationMessage& message);
+    void saveConversation();
+    void showConversations();
+    void openConversation(const QString& id);
+    void renameConversation(const QString& id, const QString& title);
+    void deleteConversation(const QString& id);
+    void followDocumentWithConversation(EngineOperation operation, const QString& previousPath);
     std::function<void()> m_replaceAfterSave; // Open/Create to resume after a confirmed save.
     bool m_documentOpened = false;
     bool m_documentModified = false;

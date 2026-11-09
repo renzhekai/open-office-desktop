@@ -111,6 +111,29 @@ QString kindFromWord(const QString& word)
 
 } // namespace
 
+QList<SlashHint> slashHints()
+{
+    static const QList<QPair<QString, QString>> usages{
+        {QStringLiteral("assistant.listCommands"), QStringLiteral("/命令")},
+        {QStringLiteral("document.status"), QStringLiteral("/状态")},
+        {QStringLiteral("document.create"), QStringLiteral("/新建 文档")},
+        {QStringLiteral("document.save"), QStringLiteral("/保存")},
+        {QStringLiteral("text.insert"), QStringLiteral("/插入 文字")},
+        {QStringLiteral("selection.getText"), QStringLiteral("/选中")},
+        {QStringLiteral("document.getText"), QStringLiteral("/全文")},
+        {QStringLiteral("edit.undo"), QStringLiteral("/撤销")},
+        {QStringLiteral("edit.redo"), QStringLiteral("/重做")},
+    };
+    QList<SlashHint> hints;
+    for (const auto& [name, usage] : usages) {
+        const CommandSpec* spec = findCommand(name);
+        if (!spec) continue;
+        hints.append({usage.mid(1).section(QLatin1Char(' '), 0, 0), name, usage, spec->description,
+                      usage.contains(QLatin1Char(' '))});
+    }
+    return hints;
+}
+
 const QList<CommandSpec>& commandCatalog()
 {
     static const QList<CommandSpec> catalog = buildCatalog();

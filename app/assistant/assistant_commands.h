@@ -76,4 +76,15 @@ QJsonArray commandCatalogJson();
 // is a slash command that cannot be parsed. This is not language understanding.
 std::optional<AssistantCommand> parseSlashCommand(const QString& text, QString* error);
 
+// What the panel's "/" list offers for the catalog commands people type: the
+// word, how to use it and what it does. (The panel adds its own, such as /新对话.)
+struct SlashHint {
+    QString word;    // "插入"
+    QString command; // "text.insert"
+    QString usage;   // "/插入 文字"
+    QString description;
+    bool takesText = false; // something follows the word
+};
+QList<SlashHint> slashHints();
+
 } // namespace openoffice

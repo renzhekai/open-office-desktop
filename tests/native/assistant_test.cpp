@@ -1,3 +1,4 @@
+#include "assistant/conversation_store.h"
 #include "assistant/assistant_commands.h"
 #include "assistant/assistant_tasks.h"
 #include "assistant/engine_client.h"
@@ -434,6 +435,47 @@ private slots:
         // Markdown's two-space line breaks must not reach the document (seen in a real session).
         QCOMPARE(cleanRewrite(QStringLiteral("关于开展安全培训的通知  \n各部门：  \n请准时参加。\t\n行政部")),
                  QStringLiteral("关于开展安全培训的通知\n各部门：\n请准时参加。\n行政部"));
+    }
+
+    void conversationsAreKeptOnePerFile()
+    {
+        QTemporaryDir folder;
+        ConversationStore store(folder.path());
+        Conversation first = ConversationStore::create(QStringLiteral("D:/文档/通知.docx"), QStringLiteral("通知.docx"));
+        first.title = ConversationStore::titleFrom(QStringLiteral("/插入 一段很长很长的文字，用来看看标题会不会被截短到二十四个字以内"));
+        QCOMPARE(first.title, QStringLiteral("插入 一段很长很长的文字，用来看看标题会不会被截…"));
+        first.messages = {{QStringLiteral("user"), QString(), QStringLiteral("你好"), true, false},
+                          {QStringLiteral("assistant"), QStringLiteral("本地 AI"), QStringLiteral("**你好**"), true, true}};
+        first.modelHistory = QJsonArray{QJsonObject{{QStringLiteral("role"), QStringLiteral("user")},
+                                                    {QStringLiteral("content"), QStringLiteral("你好")}}};
+        QVERIFY(store.save(first));
+        Conversation second = ConversationStore::create(QString(), QStringLiteral("未命名文档 1"));
+        second.updated = first.updated.addSecs(60);
+        second.messages = {{QStringLiteral("user"), QString(), QStringLiteral("再见"), true, false}};
+        QVERIFY(store.save(second));
+
+        const QList<Conversation> listed = ConversationStore(folder.path()).list(); // read back from the files
+        QCOMPARE(listed.size(), 2);
+        QCOMPARE(listed[0].id, second.id); // newest first
+        const Conversation& back = listed[1];
+        QCOMPARE(back.documentPath, QStringLiteral("D:/文档/通知.docx"));
+        QCOMPARE(back.messages.size(), 2);
+        QVERIFY(back.messages[1].markdown);
+        QCOMPARE(back.modelHistory, first.modelHistory);
+
+        QVERIFY(store.rename(first.id, QStringLiteral("  我起的名字 ")));
+        QCOMPARE(store.load(first.id)->title, QStringLiteral("我起的名字"));
+        QVERIFY(store.load(first.id)->titleChosen);
+        QVERIFY(!store.load(QStringLiteral("../evil")));  // ids are never paths
+        QVERIFY(!store.remove(QStringLiteral("..\\x")));
+        QCOMPARE(store.removeAllExcept(second.id), 1);
+        QCOMPARE(store.list().size(), 1);
+        QVERIFY(store.remove(second.id));
+        QVERIFY(store.list().isEmpty());
+
+        ConversationStore memory; // no folder: kept while the program runs
+        QVERIFY(memory.save(first));
+        QCOMPARE(memory.list().size(), 1);
     }
 
     void tasksAreReadyMadeForOfficeWork()

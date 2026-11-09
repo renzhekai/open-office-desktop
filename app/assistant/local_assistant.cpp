@@ -512,6 +512,13 @@ void LocalAssistant::setBackend(bool ollama)
     refresh();
 }
 
+void LocalAssistant::setConversation(const QJsonArray& history)
+{
+    m_history = history; // the window switches only while no answer is running
+    m_pendingTool.clear();
+    m_rounds = 0;
+}
+
 void LocalAssistant::cancel()
 {
     if (m_waitingForEngine) {

@@ -86,6 +86,7 @@ int main(int argc, char* argv[])
     window.resize(1240, 800);
 #ifdef OPEN_OFFICE_WITH_ONLYOFFICE
     window.setAssistantJournalPath(QDir(profileRoot).filePath(QStringLiteral("assistant-commands.jsonl")));
+    window.setConversationFolder(QDir(profileRoot).filePath(QStringLiteral("conversations")));
 #endif
     if (parser.isSet(QStringLiteral("select")))
         window.selectDocument(parser.value(QStringLiteral("select")));

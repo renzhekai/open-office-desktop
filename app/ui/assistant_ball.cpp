@@ -15,6 +15,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QLineF>
+#include <QListWidget>
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QPainter>
@@ -84,20 +85,44 @@ void claimKeyboardFocus(QWidget* widget)
 #endif
 }
 
+struct PanelCommand {
+    QString word;
+    QString usage;
+    QString description;
+};
+
+const QList<PanelCommand>& panelCommands()
+{
+    static const QList<PanelCommand> commands{
+        {QStringLiteral("新对话"), QStringLiteral("/新对话"), QStringLiteral("开始一个新对话；现在这个留在历史里")},
+        {QStringLiteral("历史"), QStringLiteral("/历史"), QStringLiteral("查看、打开、重命名或删除以前的对话")},
+    };
+    return commands;
+}
+
+// Two clicks to delete: the first turns the button into "确认删除" for a few seconds.
+void confirmTwice(QPushButton* button, const std::function<void()>& action)
+{
+    const QString resting = button->text();
+    QObject::connect(button, &QPushButton::clicked, button, [button, resting, action] {
+        if (button->property("armed").toBool()) {
+            action();
+            return;
+        }
+        button->setProperty("armed", true);
+        button->setText(QStringLiteral("确认删除"));
+        QTimer::singleShot(3000, button, [button, resting] {
+            button->setProperty("armed", false);
+            button->setText(resting);
+        });
+    });
+}
+
 QString slashExample(const QString& name)
 {
-    static const QHash<QString, QString> examples{
-        {QStringLiteral("assistant.listCommands"), QStringLiteral("/命令")},
-        {QStringLiteral("document.status"), QStringLiteral("/状态")},
-        {QStringLiteral("document.create"), QStringLiteral("/新建 文档")},
-        {QStringLiteral("document.save"), QStringLiteral("/保存")},
-        {QStringLiteral("text.insert"), QStringLiteral("/插入 文字")},
-        {QStringLiteral("selection.getText"), QStringLiteral("/选中")},
-        {QStringLiteral("document.getText"), QStringLiteral("/全文")},
-        {QStringLiteral("edit.undo"), QStringLiteral("/撤销")},
-        {QStringLiteral("edit.redo"), QStringLiteral("/重做")},
-    };
-    return examples.value(name);
+    for (const SlashHint& hint : slashHints())
+        if (hint.command == name) return hint.usage;
+    return {};
 }
 
 QLabel* label(const QString& text, const char* name, QWidget* parent)
@@ -335,9 +360,28 @@ AssistantBall::AssistantBall(QWidget* anchor)
     auto* bar = new QVBoxLayout(m_actionBar);
     bar->setContentsMargins(6, 2, 6, 2);
     bar->setSpacing(6);
+    auto* contextRow = new QHBoxLayout;
+    contextRow->setSpacing(2);
     m_actionContext = label(QString(), "assistantContext", m_actionBar);
     m_actionContext->setWordWrap(false);
-    bar->addWidget(m_actionContext);
+    contextRow->addWidget(m_actionContext, 1);
+    m_newConversation = new QPushButton(QStringLiteral("新对话"), m_actionBar);
+    m_history = new QPushButton(QStringLiteral("历史"), m_actionBar);
+    for (QPushButton* link : {m_newConversation, m_history}) {
+        link->setObjectName(QStringLiteral("assistantLink"));
+        link->setCursor(Qt::PointingHandCursor);
+        contextRow->addWidget(link);
+    }
+    m_newConversation->setToolTip(QStringLiteral("开始一个新对话（/新对话）"));
+    m_history->setToolTip(QStringLiteral("以前的对话（/历史）"));
+    connect(m_newConversation, &QPushButton::clicked, this, [this] {
+        if (!m_working) emit newConversationRequested();
+    });
+    connect(m_history, &QPushButton::clicked, this, [this] {
+        if (m_listShown) hideConversationList();
+        else if (!m_working) emit conversationListRequested();
+    });
+    bar->addLayout(contextRow);
     m_actionRows = new QVBoxLayout;
     m_actionRows->setSpacing(6);
     bar->addLayout(m_actionRows);
@@ -352,6 +396,29 @@ AssistantBall::AssistantBall(QWidget* anchor)
     m_input->setMaxLength(20000 + 8); // the insert limit plus the command word
     connect(m_input, &QLineEdit::returnPressed, this, &AssistantBall::submit);
     connect(m_input, &QLineEdit::textChanged, this, &AssistantBall::updateSendState);
+    connect(m_input, &QLineEdit::textChanged, this, &AssistantBall::updateSlashList);
+    m_input->installEventFilter(this); // arrow keys, Tab and Enter for the "/" list
+
+    // The "/" list: every command with what it does, narrowed as the person types.
+    m_slashList = new QListWidget(m_content);
+    m_slashList->setObjectName(QStringLiteral("assistantSlashList"));
+    m_slashList->setFocusPolicy(Qt::NoFocus); // typing stays in the capsule
+    m_slashList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_slashList->setUniformItemSizes(true);
+    m_slashList->hide();
+    connect(m_slashList, &QListWidget::itemClicked, this, [this](QListWidgetItem* item) {
+        m_slashList->setCurrentItem(item);
+        acceptSlash(true);
+    });
+
+    // The conversation list takes the bubbles' place in the scroll area while shown.
+    m_listPage = new QWidget(m_content);
+    m_listPage->setObjectName(QStringLiteral("assistantConversations"));
+    m_listPage->hide();
+    m_listPage->installEventFilter(this);
+    m_listRows = new QVBoxLayout(m_listPage);
+    m_listRows->setContentsMargins(4, 4, 4, 4);
+    m_listRows->setSpacing(8);
     m_send = new SendButton(m_content);
     connect(m_send, &QAbstractButton::clicked, this, &AssistantBall::submit);
 
@@ -446,6 +513,33 @@ QRectF AssistantBall::historyRect() const
 
 bool AssistantBall::eventFilter(QObject* watched, QEvent* event)
 {
+    // Esc while renaming a conversation keeps the old name (and the capsule open).
+    if (event->type() == QEvent::KeyPress && watched->objectName() == QStringLiteral("assistantRename")
+        && static_cast<QKeyEvent*>(event)->key() == Qt::Key_Escape) {
+        auto* editor = static_cast<QWidget*>(watched);
+        if (QWidget* card = editor->parentWidget())
+            if (auto* title = card->findChild<QLabel*>(QStringLiteral("assistantBubbleTitle"))) title->show();
+        editor->hide();
+        editor->deleteLater();
+        return true;
+    }
+    if (watched == m_input && event->type() == QEvent::KeyPress && m_slashList->isVisible()) {
+        const int key = static_cast<QKeyEvent*>(event)->key();
+        const int rows = m_slashList->count();
+        if (key == Qt::Key_Down || key == Qt::Key_Up) {
+            const int step = key == Qt::Key_Down ? 1 : rows - 1;
+            m_slashList->setCurrentRow((qMax(0, m_slashList->currentRow()) + step) % rows);
+            return true;
+        }
+        if (key == Qt::Key_Tab || key == Qt::Key_Return || key == Qt::Key_Enter) {
+            acceptSlash(key != Qt::Key_Tab);
+            return true;
+        }
+        if (key == Qt::Key_Escape) {
+            m_slashList->hide();
+            return true;
+        }
+    }
     if (watched == m_scroll->widget() && (event->type() == QEvent::LayoutRequest || event->type() == QEvent::Resize))
         QTimer::singleShot(0, this, [this] { update(); });
     // The bar is placed by hand, so a change in what it holds (new chips, a new font) must move it.
@@ -491,6 +585,7 @@ void AssistantBall::layoutContent()
     const int top = m_openUp ? 10 : barTop + barHeight + 4;
     const int bottom = m_openUp ? barTop - 4 : height() - 10;
     m_scroll->setGeometry(QRect(left, top, width, qMax(0, bottom - top)));
+    if (m_slashList->isVisible()) placeSlashList();
 }
 
 void AssistantBall::setBallVisible(bool visible)
@@ -850,9 +945,20 @@ void AssistantBall::submitText(const QString& text)
 {
     if (m_working) return;
     if (!m_expanded) expand();
+    m_slashList->hide();
+    const bool slash = text.trimmed().startsWith(QLatin1Char('/')) || text.trimmed().startsWith(QChar(0xFF0F));
+    const QString word = slash ? text.trimmed().mid(1).trimmed() : QString();
+    if (slash && (word == QStringLiteral("新对话") || word.compare(QStringLiteral("newchat"), Qt::CaseInsensitive) == 0)) {
+        emit newConversationRequested();
+        return;
+    }
+    if (slash && (word == QStringLiteral("历史") || word == QStringLiteral("历史对话")
+                  || word.compare(QStringLiteral("history"), Qt::CaseInsensitive) == 0)) {
+        emit conversationListRequested();
+        return;
+    }
     m_welcome->hide();
     addUserMessage(text);
-    const bool slash = text.trimmed().startsWith(QLatin1Char('/')) || text.trimmed().startsWith(QChar(0xFF0F));
     if (!m_draftId.isEmpty() && !slash) {
         const QString id = m_draftId;
         setDraftMode(QString(), QString(), QString());
@@ -866,6 +972,7 @@ void AssistantBall::submitText(const QString& text)
     }
     if (!error.isEmpty()) {
         addAssistantMessage(QStringLiteral("无法识别的指令"), error, false);
+        record(QStringLiteral("assistant"), QStringLiteral("无法识别的指令"), error, false);
         return;
     }
     emit freeTextSubmitted(text); // for the local AI; the window answers either way
@@ -964,7 +1071,10 @@ void AssistantBall::endReply(const QString& text, bool ok)
 {
     m_waitTimer->stop();
     if (!m_replyRow) {
-        if (!text.trimmed().isEmpty()) addAssistantMessage(QStringLiteral("本地 AI"), text, ok);
+        if (!text.trimmed().isEmpty()) {
+            addAssistantMessage(QStringLiteral("本地 AI"), text, ok);
+            record(QStringLiteral("assistant"), QStringLiteral("本地 AI"), text, ok);
+        }
         return;
     }
     const QString finalText = !text.trimmed().isEmpty() ? text : m_replyText;
@@ -982,8 +1092,10 @@ void AssistantBall::endReply(const QString& text, bool ok)
             m_replyBody->setText(finalText);
             fitWidth(m_replyBody, kTextWidth);
         }
+        const QString title = m_replyTitle ? m_replyTitle->text() : QStringLiteral("本地 AI");
         if (!ok && m_replyTitle) m_replyTitle->setText(m_replyTitle->text() + QStringLiteral(" · 没有完成"));
         m_lastMessageText = finalText;
+        record(QStringLiteral("assistant"), title, finalText, ok, m_replyMarkdown && ok);
     }
     m_replyRow = nullptr;
     m_replyBody = nullptr;
@@ -1087,7 +1199,10 @@ void AssistantBall::rebuildQuickActions()
     const QString context = m_draftId.isEmpty()
         ? m_quickContext
         : QStringLiteral("起草「%1」：在下面写几句要点，按回车生成（Esc 取消）").arg(m_draftTitle);
-    m_actionContext->setText(m_actionContext->fontMetrics().elidedText(context, Qt::ElideRight, kWidth - kBox - 40));
+    m_newConversation->ensurePolished();
+    m_history->ensurePolished();
+    const int links = m_newConversation->sizeHint().width() + m_history->sizeHint().width() + 8;
+    m_actionContext->setText(m_actionContext->fontMetrics().elidedText(context, Qt::ElideRight, kWidth - kBox - 40 - links));
     m_actionContext->setToolTip(context);
     // Chips flow into rows as wide as the bar.
     const int available = kWidth - kBox - 30;
@@ -1153,6 +1268,11 @@ void AssistantBall::showCorrections(const QString& title, const QList<Correction
     if (!m_expanded) expand();
     m_welcome->hide();
     addAssistantMessage(title, QStringLiteral("找到 %1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。").arg(items.size()), true);
+    QStringList found{QStringLiteral("找到 %1 处可能的问题：").arg(items.size())};
+    for (const CorrectionItem& item : items)
+        found << item.original + QStringLiteral(" → ") + item.corrected
+                     + (item.reason.isEmpty() ? QString() : QStringLiteral("（%1）").arg(item.reason));
+    record(QStringLiteral("assistant"), title, found.join(QLatin1Char('\n')), true);
     QWidget* bubble = nullptr;
     auto* inner = lastBubbleLayout(&bubble);
     if (!inner || !bubble) return;
@@ -1218,11 +1338,15 @@ void AssistantBall::showOutcome(const AssistantCommand& command, const CommandOu
             const QString example = slashExample(entry.name);
             lines << entry.title + QStringLiteral("  ") + (example.isEmpty() ? QStringLiteral("（供 AI 使用）") : example);
         }
+        for (const PanelCommand& command : panelCommands()) lines.prepend(command.description + QStringLiteral("  ") + command.usage);
         text = outcome.message + QLatin1Char('\n') + lines.join(QLatin1Char('\n'));
     } else if (outcome.ok && command.name == QStringLiteral("selection.getText")) {
         quote = outcome.value.value(QStringLiteral("text")).toString();
     }
     addAssistantMessage(title, text, outcome.ok, quote);
+    record(QStringLiteral("assistant"), title,
+           quote.isEmpty() ? text : text + QStringLiteral("\n\n") + (quote.size() > 600 ? quote.left(600) + QStringLiteral("…") : quote),
+           outcome.ok);
 }
 
 void AssistantBall::addUserMessage(const QString& text)
@@ -1241,6 +1365,7 @@ void AssistantBall::addUserMessage(const QString& text)
     rowLayout->addWidget(bubble);
     m_lastMessageText = text;
     appendMessage(row);
+    record(QStringLiteral("user"), QString(), text, true);
 }
 
 void AssistantBall::addAssistantMessage(const QString& title, const QString& text, bool ok, const QString& quote)
@@ -1305,6 +1430,7 @@ void AssistantBall::setMessageFlow(bool upward)
 
 void AssistantBall::appendMessage(QWidget* row)
 {
+    hideConversationList();
     const bool trailingStretch = m_messages->count() > 0
         && m_messages->itemAt(m_messages->count() - 1)->spacerItem();
     m_messages->insertWidget(trailingStretch ? m_messages->count() - 1 : m_messages->count(), row);
@@ -1358,6 +1484,7 @@ void AssistantBall::updateSendState()
     m_send->setEnabled(stop || (!m_working && !m_input->text().trimmed().isEmpty()));
     for (QPushButton* chip : m_actionBar->findChildren<QPushButton*>(QStringLiteral("assistantChip")))
         chip->setEnabled(!m_working);
+    m_newConversation->setEnabled(!m_working);
 }
 
 void AssistantBall::applyStyle()
@@ -1386,7 +1513,15 @@ void AssistantBall::applyStyle()
         QPushButton#assistantPrimary:disabled, QPushButton#assistantSecondary:disabled { background: %4; color: %2; }
         QPushButton#assistantPrimary:focus, QPushButton#assistantSecondary:focus { border: 2px solid %7; padding: 4px 12px; }
         QLineEdit#assistantInput { background: transparent; border: none; color: %1; font-size: 14px; selection-background-color: %7; }
-        QScrollArea#assistantScroll, QWidget#assistantMessages { background: transparent; border: none; }
+        QScrollArea#assistantScroll, QWidget#assistantMessages, QWidget#assistantConversations { background: transparent; border: none; }
+        QPushButton#assistantLink { background: transparent; color: %7; border: none; padding: 2px 5px; font-size: 12px; min-height: 0; }
+        QPushButton#assistantLink:hover { color: %1; }
+        QPushButton#assistantLink:disabled { color: %2; }
+        QLabel#assistantListMeta { font-size: 12px; color: %2; }
+        QLineEdit#assistantRename { background: %5; border: 1px solid %7; border-radius: 6px; padding: 2px 6px; color: %1; font-size: 13px; }
+        QListWidget#assistantSlashList { background: %3; border: 1px solid %4; border-radius: 12px; padding: 4px; color: %1; font-size: 13px; outline: 0; }
+        QListWidget#assistantSlashList::item { padding: 6px 8px; border-radius: 8px; }
+        QListWidget#assistantSlashList::item:selected { background: %7; color: #FFFFFF; }
         QScrollArea#assistantScroll QScrollBar:vertical { width: 6px; background: transparent; margin: 2px; }
         QScrollArea#assistantScroll QScrollBar::handle:vertical { background: %4; border-radius: 3px; min-height: 30px; }
         QScrollArea#assistantScroll QScrollBar::add-line:vertical, QScrollArea#assistantScroll QScrollBar::sub-line:vertical { height: 0; }
@@ -1394,6 +1529,260 @@ void AssistantBall::applyStyle()
     )").arg(c.text.name(), c.secondary.name(), c.quote.name(), rgba(c.hairline), c.chip.name(), c.chipHover.name(),
             c.accentA.name()));
     update();
+}
+
+void AssistantBall::record(const QString& role, const QString& title, const QString& text, bool ok, bool markdown)
+{
+    if (m_restoring || text.trimmed().isEmpty()) return;
+    emit messageRecorded(ConversationMessage{role, title, text, ok, markdown});
+}
+
+void AssistantBall::clearConversation()
+{
+    hideConversationList();
+    if (m_replyRow) {
+        m_waitTimer->stop();
+        m_replyRow = nullptr;
+        m_replyBody = nullptr;
+        m_replyTitle = nullptr;
+        m_replyText.clear();
+    }
+    for (int i = m_messages->count() - 1; i >= 0; --i) {
+        QWidget* widget = m_messages->itemAt(i)->widget();
+        if (!widget || widget == m_welcome) continue;
+        delete m_messages->takeAt(i);
+        widget->deleteLater();
+    }
+    m_correctionButtons.clear();
+    m_correctionAll = nullptr;
+    m_lastMessageText.clear();
+    m_welcome->show();
+    update();
+}
+
+void AssistantBall::restoreConversation(const QList<ConversationMessage>& messages)
+{
+    clearConversation();
+    if (messages.isEmpty()) return;
+    if (!m_expanded) expand();
+    m_welcome->hide();
+    m_restoring = true;
+    for (const ConversationMessage& message : messages) {
+        if (message.role == QStringLiteral("user")) {
+            addUserMessage(message.text);
+            continue;
+        }
+        addAssistantMessage(message.title.isEmpty() ? QStringLiteral("本地 AI") : message.title, message.text, message.ok);
+        if (message.markdown) {
+            QWidget* bubble = nullptr;
+            lastBubbleLayout(&bubble);
+            if (auto* body = bubble ? bubble->findChild<QLabel*>(QStringLiteral("assistantBody")) : nullptr) {
+                body->setTextFormat(Qt::RichText);
+                body->setText(markdownToHtml(message.text, MarkdownTarget::Bubble));
+                body->setMinimumWidth(kTextWidth);
+            }
+        }
+    }
+    m_restoring = false;
+}
+
+void AssistantBall::showConversationList(const QList<ConversationEntry>& entries)
+{
+    if (!m_expanded) expand();
+    m_slashList->hide();
+    while (QLayoutItem* item = m_listRows->takeAt(0)) {
+        if (QWidget* widget = item->widget()) {
+            widget->hide();
+            widget->deleteLater();
+        }
+        delete item;
+    }
+    if (m_openUp) m_listRows->addStretch(1); // the list sits next to the capsule, as the bubbles do
+
+    auto* header = new QWidget(m_listPage);
+    auto* headerLayout = new QHBoxLayout(header);
+    headerLayout->setContentsMargins(6, 0, 2, 0);
+    headerLayout->addWidget(label(QStringLiteral("历史对话"), "assistantHeadline", header), 1);
+    auto* back = new QPushButton(QStringLiteral("返回"), header);
+    back->setObjectName(QStringLiteral("assistantLink"));
+    back->setCursor(Qt::PointingHandCursor);
+    connect(back, &QPushButton::clicked, this, &AssistantBall::hideConversationList);
+    headerLayout->addWidget(back);
+    m_listRows->addWidget(header);
+
+    if (entries.isEmpty())
+        m_listRows->addWidget(label(QStringLiteral("还没有保存的对话。和 AI 说过话的对话会自动存在这里（只在这台电脑上）。"),
+                                    "assistantListMeta", m_listPage));
+    for (const ConversationEntry& entry : entries) {
+        auto* card = new Bubble(false, &m_dark, m_listPage);
+        card->setObjectName(QStringLiteral("assistantConversation"));
+        card->setProperty("conversationId", entry.id);
+        auto* inner = new QVBoxLayout(card);
+        inner->setContentsMargins(14, 10, 14, 10);
+        inner->setSpacing(4);
+        auto* title = label(entry.title.isEmpty() ? QStringLiteral("（没有标题）") : entry.title, "assistantBubbleTitle", card);
+        title->setWordWrap(false);
+        title->setText(title->fontMetrics().elidedText(title->text(), Qt::ElideRight, kTextWidth));
+        inner->addWidget(title);
+        QStringList meta{QStringLiteral("工作文件：") + (entry.document.isEmpty() ? QStringLiteral("未保存的新文档") : entry.document),
+                         entry.when, QStringLiteral("%1 条").arg(entry.messages)};
+        if (entry.current) meta.prepend(QStringLiteral("当前对话"));
+        inner->addWidget(label(meta.join(QStringLiteral(" · ")), "assistantListMeta", card));
+        auto* buttons = new QHBoxLayout;
+        buttons->setSpacing(8);
+        const QString id = entry.id;
+        if (!entry.current) {
+            auto* open = new QPushButton(QStringLiteral("打开"), card);
+            open->setObjectName(QStringLiteral("assistantPrimary"));
+            open->setCursor(Qt::PointingHandCursor);
+            connect(open, &QPushButton::clicked, this, [this, id] { emit conversationOpenRequested(id); });
+            buttons->addWidget(open);
+        }
+        auto* rename = new QPushButton(QStringLiteral("重命名"), card);
+        rename->setObjectName(QStringLiteral("assistantSecondary"));
+        rename->setCursor(Qt::PointingHandCursor);
+        auto* remove = new QPushButton(QStringLiteral("删除"), card);
+        remove->setObjectName(QStringLiteral("assistantSecondary"));
+        remove->setCursor(Qt::PointingHandCursor);
+        buttons->addWidget(rename);
+        buttons->addWidget(remove);
+        buttons->addStretch(1);
+        inner->addLayout(buttons);
+        // Renaming happens in place: Enter keeps the new name, Esc keeps the old one.
+        connect(rename, &QPushButton::clicked, this, [this, card, title, inner, id, entry] {
+            if (card->findChild<QLineEdit*>(QStringLiteral("assistantRename"))) return;
+            auto* editor = new QLineEdit(entry.title, card);
+            editor->setObjectName(QStringLiteral("assistantRename"));
+            editor->setMaxLength(60);
+            editor->selectAll();
+            title->hide();
+            inner->insertWidget(0, editor);
+            editor->setFocus();
+            connect(editor, &QLineEdit::returnPressed, this, [this, editor, id] {
+                const QString name = editor->text().simplified();
+                if (!name.isEmpty()) emit conversationRenameRequested(id, name);
+            });
+            editor->installEventFilter(this);
+        });
+        confirmTwice(remove, [this, id] { emit conversationDeleteRequested(id); });
+        m_listRows->addWidget(card);
+    }
+    if (entries.size() > 1) {
+        auto* others = new QPushButton(QStringLiteral("删除其他所有对话"), m_listPage);
+        others->setObjectName(QStringLiteral("assistantLink"));
+        others->setCursor(Qt::PointingHandCursor);
+        confirmTwice(others, [this] { emit otherConversationsDeleteRequested(); });
+        m_listRows->addWidget(others, 0, Qt::AlignLeft);
+    }
+    if (!m_openUp) m_listRows->addStretch(1);
+
+    if (!m_listShown) {
+        m_messagesPage = m_scroll->takeWidget(); // kept as it is, with its bubbles
+        m_messagesPage->setParent(m_content);
+        m_messagesPage->hide();
+        m_scroll->setWidget(m_listPage);
+        m_listShown = true;
+        m_history->setText(QStringLiteral("返回"));
+    }
+    m_listPage->show();
+    QTimer::singleShot(0, this, [this] {
+        m_scroll->verticalScrollBar()->setValue(m_openUp ? m_scroll->verticalScrollBar()->maximum() : 0);
+        update();
+    });
+}
+
+void AssistantBall::hideConversationList()
+{
+    if (!m_listShown) return;
+    m_listShown = false;
+    m_listPage = m_scroll->takeWidget();
+    m_listPage->setParent(m_content);
+    m_listPage->hide();
+    m_scroll->setWidget(m_messagesPage);
+    m_messagesPage = nullptr;
+    m_history->setText(QStringLiteral("历史"));
+    QTimer::singleShot(0, this, [this] {
+        m_scroll->verticalScrollBar()->setValue(m_scroll->verticalScrollBar()->maximum());
+        update();
+    });
+}
+
+QStringList AssistantBall::conversationListTexts() const
+{
+    QStringList rows;
+    if (!m_listShown) return rows;
+    for (QWidget* card : m_listPage->findChildren<QWidget*>(QStringLiteral("assistantConversation"))) {
+        if (card->isHidden()) continue;
+        QStringList parts;
+        for (QLabel* text : card->findChildren<QLabel*>())
+            if (!text->isHidden()) parts << text->text();
+        rows << parts.join(QStringLiteral(" | "));
+    }
+    return rows;
+}
+
+QStringList AssistantBall::slashSuggestions() const
+{
+    QStringList words;
+    if (!m_slashList->isVisible()) return words;
+    for (int i = 0; i < m_slashList->count(); ++i) words << m_slashList->item(i)->data(Qt::UserRole).toString();
+    return words;
+}
+
+void AssistantBall::updateSlashList()
+{
+    const QString text = m_input->text();
+    const bool slash = text.startsWith(QLatin1Char('/')) || text.startsWith(QChar(0xFF0F));
+    const QString typed = slash ? text.mid(1) : QString();
+    if (!slash || typed.contains(QLatin1Char(' ')) || !m_draftId.isEmpty() || m_working) {
+        m_slashList->hide();
+        return;
+    }
+    m_slashList->clear();
+    const auto offer = [this, &typed](const QString& word, const QString& usage, const QString& description, bool takesText) {
+        if (!typed.isEmpty() && !word.startsWith(typed, Qt::CaseInsensitive)) return;
+        auto* item = new QListWidgetItem(usage + QStringLiteral("    ") + description, m_slashList);
+        item->setData(Qt::UserRole, word);
+        item->setData(Qt::UserRole + 1, takesText);
+        item->setToolTip(description);
+    };
+    for (const PanelCommand& command : panelCommands()) offer(command.word, command.usage, command.description, false);
+    for (const SlashHint& hint : slashHints()) offer(hint.word, hint.usage, hint.description, hint.takesText);
+    if (m_slashList->count() == 0) {
+        m_slashList->hide();
+        return;
+    }
+    m_slashList->setCurrentRow(0);
+    placeSlashList();
+    m_slashList->show();
+    m_slashList->raise();
+}
+
+void AssistantBall::placeSlashList()
+{
+    const QRectF capsule = capsuleRect().translated(-m_content->pos());
+    const int row = qMax(28, m_slashList->sizeHintForRow(0));
+    const int height = qMin(m_slashList->count(), 7) * row + 12;
+    const int left = qRound(capsule.left()) + 4;
+    const int width = qMax(200, qRound(capsule.width()) - 8);
+    const int top = m_openUp ? qRound(capsule.top()) - 6 - height : qRound(capsule.bottom()) + 6;
+    m_slashList->setGeometry(left, qMax(0, top), width, height);
+}
+
+void AssistantBall::acceptSlash(bool run)
+{
+    QListWidgetItem* item = m_slashList->currentItem();
+    if (!item) return;
+    const QString word = item->data(Qt::UserRole).toString();
+    const bool takesText = item->data(Qt::UserRole + 1).toBool();
+    m_slashList->hide();
+    if (takesText) { // the rest is typed by the person
+        m_input->setText(QLatin1Char('/') + word + QLatin1Char(' '));
+        m_input->setFocus();
+        return;
+    }
+    m_input->setText(QLatin1Char('/') + word);
+    if (run) submit();
 }
 
 } // namespace openoffice

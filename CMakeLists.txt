@@ -79,7 +79,8 @@ add_library(office_assistant STATIC app/assistant/assistant_commands.h app/assis
     app/assistant/chat_client.h app/assistant/engine_client.h app/assistant/engine_client.cpp
     app/assistant/local_engine.h app/assistant/local_engine.cpp
     app/assistant/model_catalog.h app/assistant/model_catalog.cpp
-    app/assistant/model_downloader.h app/assistant/model_downloader.cpp)
+    app/assistant/model_downloader.h app/assistant/model_downloader.cpp
+    app/assistant/conversation_store.h app/assistant/conversation_store.cpp)
 target_include_directories(office_assistant PUBLIC app)
 target_link_libraries(office_assistant PUBLIC Qt6::Core Qt6::Network)
 if(WIN32)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "assistant/assistant_commands.h"
+#include "assistant/conversation_store.h"
 
 #include <QElapsedTimer>
 #include <QPair>
@@ -11,6 +12,7 @@
 
 class QLabel;
 class QLineEdit;
+class QListWidget;
 class QPushButton;
 class QScrollArea;
 class QTimer;
@@ -104,6 +106,26 @@ public:
     void markCorrection(int index, bool ok);
     int correctionCount() const { return m_correctionButtons.size(); }
 
+    // Conversations. Each bubble worth keeping is reported through
+    // messageRecorded; the window keeps it with the conversation.
+    void clearConversation(); // a new conversation: only the welcome remains
+    void restoreConversation(const QList<ConversationMessage>& messages); // shown again, not reported again
+    // The saved conversations, shown in place of the bubbles until one is opened or 返回.
+    struct ConversationEntry {
+        QString id;
+        QString title;
+        QString document; // the work file's name
+        QString when;     // "今天 14:30"
+        int messages = 0;
+        bool current = false;
+    };
+    void showConversationList(const QList<ConversationEntry>& entries);
+    void hideConversationList();
+    bool conversationListShown() const { return m_listShown; }
+    QStringList conversationListTexts() const; // test seam: each row's title and details
+    // The "/" list above the capsule for what has been typed so far.
+    QStringList slashSuggestions() const; // test seam: the words offered, in order
+
 signals:
     void commandSubmitted(openoffice::AssistantCommand command);
     void freeTextSubmitted(QString text);
@@ -114,6 +136,13 @@ signals:
     void draftSubmitted(QString id, QString text);
     void correctionRequested(int index);
     void allCorrectionsRequested();
+    void messageRecorded(openoffice::ConversationMessage message);
+    void newConversationRequested();
+    void conversationListRequested();
+    void conversationOpenRequested(QString id);
+    void conversationRenameRequested(QString id, QString title);
+    void conversationDeleteRequested(QString id);
+    void otherConversationsDeleteRequested();
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -150,6 +179,10 @@ private:
     void setMessageFlow(bool upward);
     void applyStyle();
     void updateSendState();
+    void record(const QString& role, const QString& title, const QString& text, bool ok, bool markdown = false);
+    void updateSlashList();
+    void placeSlashList();
+    void acceptSlash(bool run);
 
     QPointer<QWidget> m_anchor;
     QPointer<QWidget> m_area;
@@ -175,6 +208,14 @@ private:
     QPointer<QPushButton> m_correctionAll;
     QLineEdit* m_input = nullptr;
     SendButton* m_send = nullptr;
+    bool m_restoring = false;     // bubbles shown again from a saved conversation are not reported
+    QWidget* m_messagesPage = nullptr; // the bubbles, kept while the conversation list is shown
+    QWidget* m_listPage = nullptr;
+    QVBoxLayout* m_listRows = nullptr;
+    bool m_listShown = false;
+    QPushButton* m_newConversation = nullptr;
+    QPushButton* m_history = nullptr;
+    QListWidget* m_slashList = nullptr;
     QTimer* m_timer = nullptr;
     QElapsedTimer m_clock;
     QVariantAnimation* m_expandAnimation = nullptr;

@@ -16,6 +16,7 @@
 #include <QFile>
 #include <QTemporaryDir>
 #include <QLabel>
+#include <QLineEdit>
 #include <QMessageBox>
 #include <QPointer>
 #include <QPushButton>
@@ -1219,6 +1220,161 @@ private slots:
         QVERIFY(dialog->engineText().contains(QStringLiteral("内置引擎")));
         QCOMPARE(window.openAiSettings(), dialog); // one settings window
         dialog->close();
+    }
+
+    void conversationsStartOverKeepHistoryAndFollowTheDocument()
+    {
+        QTemporaryDir folder;
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral("第一次的回答。")}),
+                      FakeOllama::chat({QStringLiteral("第二次的回答。")}),
+                      FakeOllama::chat({QStringLiteral("接着第一次聊。")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.documentText = QStringLiteral("正文。");
+        openoffice::MainWindow window(&engine);
+        window.setConversationFolder(folder.path());
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        const auto said = [&fake](int request) {
+            QString text;
+            for (const QJsonValue& message : fake.chatRequests().at(request).value(QStringLiteral("messages")).toArray())
+                if (message.toObject().value(QStringLiteral("role")).toString() != QStringLiteral("system"))
+                    text += message.toObject().value(QStringLiteral("content")).toString() + QLatin1Char('\n');
+            return text;
+        };
+        const auto cardButton = [panel](const QString& id, const QString& text) -> QPushButton* {
+            for (QWidget* card : panel->findChildren<QWidget*>(QStringLiteral("assistantConversation"))) {
+                if (card->isHidden() || card->property("conversationId").toString() != id) continue;
+                for (QPushButton* button : card->findChildren<QPushButton*>())
+                    if (button->text() == text) return button;
+            }
+            return nullptr;
+        };
+
+        const QString firstId = window.conversation().id;
+        panel->submitText(QStringLiteral("第一个问题"));
+        QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("第一次的回答。"));
+        QTRY_VERIFY(!panel->working());
+        QCOMPARE(window.conversation().messages.size(), 2);
+        QCOMPARE(window.conversation().title, QStringLiteral("第一个问题"));
+        QCOMPARE(window.conversation().documentName, QStringLiteral("text-table.docx"));
+        QVERIFY(QFileInfo::exists(QDir(folder.path()).filePath(firstId + QStringLiteral(".json"))));
+
+        // /新对话: the bubbles and what the AI remembers start over; the old one is kept.
+        panel->submitText(QStringLiteral("/新对话"));
+        QTRY_VERIFY(!panel->working()); // the quick actions read the selection again
+        const QString secondId = window.conversation().id;
+        QVERIFY(secondId != firstId);
+        QVERIFY(window.conversation().messages.isEmpty());
+        QVERIFY(panel->lastMessageText().isEmpty());
+        panel->submitText(QStringLiteral("第二个问题"));
+        QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("第二次的回答。"));
+        QTRY_VERIFY(!panel->working());
+        QVERIFY(said(1).contains(QStringLiteral("第二个问题")));
+        QVERIFY(!said(1).contains(QStringLiteral("第一个问题")));
+
+        // 历史: newest first, with the work file; the current one is marked.
+        panel->submitText(QStringLiteral("/历史"));
+        QVERIFY(panel->conversationListShown());
+        QStringList rows = panel->conversationListTexts();
+        QCOMPARE(rows.size(), 2);
+        QVERIFY2(rows[0].contains(QStringLiteral("第二个问题")) && rows[0].contains(QStringLiteral("当前对话"))
+                     && rows[0].contains(QStringLiteral("工作文件：text-table.docx")), qPrintable(rows[0]));
+        QVERIFY(rows[1].contains(QStringLiteral("第一个问题")) && !rows[1].contains(QStringLiteral("当前对话")));
+        QVERIFY(!cardButton(secondId, QStringLiteral("打开"))); // already open
+
+        // Opening the first brings its bubbles back, and the AI continues it.
+        cardButton(firstId, QStringLiteral("打开"))->click();
+        QCOMPARE(window.conversation().id, firstId);
+        QVERIFY(!panel->conversationListShown());
+        QCOMPARE(panel->lastMessageText(), QStringLiteral("第一次的回答。")); // same document: no work-file note
+        QTRY_VERIFY(!panel->working());
+        panel->submitText(QStringLiteral("接着问"));
+        QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("接着第一次聊。"));
+        QTRY_VERIFY(!panel->working());
+        QVERIFY(said(2).contains(QStringLiteral("第一个问题")) && said(2).contains(QStringLiteral("第一次的回答。")));
+        QVERIFY(!said(2).contains(QStringLiteral("第二个问题")));
+        QCOMPARE(window.conversation().messages.size(), 4);
+
+        // Rename in place, then delete with two clicks.
+        panel->submitText(QStringLiteral("/历史"));
+        cardButton(secondId, QStringLiteral("重命名"))->click();
+        auto* editor = panel->findChild<QLineEdit*>(QStringLiteral("assistantRename"));
+        QVERIFY(editor);
+        editor->setText(QStringLiteral("改过的名字"));
+        QTest::keyClick(editor, Qt::Key_Return);
+        QTRY_VERIFY(panel->conversationListTexts().join(QLatin1Char('\n')).contains(QStringLiteral("改过的名字")));
+        cardButton(secondId, QStringLiteral("删除"))->click();
+        QCOMPARE(panel->conversationListTexts().size(), 2); // the first click only asks
+        cardButton(secondId, QStringLiteral("确认删除"))->click();
+        QTRY_COMPARE(panel->conversationListTexts().size(), 1);
+        QVERIFY(!QFileInfo::exists(QDir(folder.path()).filePath(secondId + QStringLiteral(".json"))));
+
+        // Another document begins its own conversation; 另存为 does not.
+        panel->hideConversationList();
+        const int opened = engine.openCalls;
+        openFixture(window, engine, "values-formula.xlsx");
+        QCOMPARE(engine.openCalls, opened + 1);
+        QTRY_VERIFY(window.conversation().id != firstId); // the completion arrives a moment later
+        QVERIFY(window.conversation().messages.isEmpty());
+        QCOMPARE(window.conversation().documentName, QStringLiteral("values-formula.xlsx"));
+        QVERIFY(panel->lastMessageText().isEmpty());
+
+        // A new start of the program begins a new conversation; the old ones are still there.
+        ControlledEngine engineAgain;
+        openoffice::MainWindow again(&engineAgain);
+        again.setConversationFolder(folder.path());
+        QVERIFY(again.conversation().messages.isEmpty());
+        QVERIFY(again.conversation().id != firstId);
+        openoffice::ConversationStore store(folder.path());
+        QCOMPARE(store.list().size(), 1);
+        QCOMPARE(store.list().first().id, firstId);
+        QCOMPARE(store.list().first().messages.size(), 4);
+    }
+
+    void slashListOffersCommandsAndCompletesThem()
+    {
+        ControlledEngine engine;
+        openoffice::MainWindow window(&engine);
+        window.show();
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        QTRY_VERIFY(panel->isVisible());
+        panel->expand();
+        auto* input = panel->findChild<QLineEdit*>(QStringLiteral("assistantInput"));
+        QVERIFY(input);
+        QTest::keyClicks(input, QStringLiteral("/"));
+        const QStringList offered = panel->slashSuggestions();
+        QVERIFY2(offered.size() >= 10, qPrintable(offered.join(QLatin1Char(','))));
+        QCOMPARE(offered.mid(0, 2), (QStringList{QStringLiteral("新对话"), QStringLiteral("历史")}));
+        QVERIFY(offered.contains(QStringLiteral("保存")) && offered.contains(QStringLiteral("插入")));
+        input->insert(QStringLiteral("插")); // typed text that is not ASCII
+        QCOMPARE(panel->slashSuggestions(), QStringList{QStringLiteral("插入")});
+        QTest::keyClick(input, Qt::Key_Return); // a command that takes text: completed, not run
+        QCOMPARE(input->text(), QStringLiteral("/插入 "));
+        QVERIFY(panel->slashSuggestions().isEmpty());
+
+        input->clear();
+        QTest::keyClicks(input, QStringLiteral("/"));
+        QTest::keyClick(input, Qt::Key_Down); // 历史
+        QTest::keyClick(input, Qt::Key_Return);
+        QVERIFY(panel->conversationListShown()); // run at once
+        QVERIFY(input->text().isEmpty());
+
+        QTest::keyClicks(input, QStringLiteral("/"));
+        QTest::keyClick(input, Qt::Key_Escape); // closes the list, not the capsule
+        QVERIFY(panel->slashSuggestions().isEmpty());
+        QVERIFY(panel->expanded());
+        input->clear();
+        QTest::keyClicks(input, QStringLiteral("/zz"));
+        QVERIFY(panel->slashSuggestions().isEmpty());
+        input->clear();
+        input->setText(QStringLiteral("你好 /"));
+        QVERIFY(panel->slashSuggestions().isEmpty()); // only at the start
     }
 
     void relocationPlanChecksTheChosenFolder()

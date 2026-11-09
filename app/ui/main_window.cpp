@@ -534,6 +534,21 @@ void MainWindow::buildInterface()
     connect(m_assistantBall, &AssistantBall::allCorrectionsRequested, this, [this] { applyRemainingCorrections(0); });
     connect(m_assistantBall, &AssistantBall::stopRequested, this, [this] { m_localAi->cancel(); });
     showQuickActionsFor(QString());
+    // Conversations: what the ball shows is kept; a new one begins with each start and each other document.
+    m_conversation = ConversationStore::create(QString(), QString());
+    connect(m_assistantBall, &AssistantBall::messageRecorded, this, &MainWindow::recordConversationMessage);
+    connect(m_assistantBall, &AssistantBall::newConversationRequested, this, [this] {
+        startConversation();
+        refreshQuickActions();
+    });
+    connect(m_assistantBall, &AssistantBall::conversationListRequested, this, &MainWindow::showConversations);
+    connect(m_assistantBall, &AssistantBall::conversationOpenRequested, this, &MainWindow::openConversation);
+    connect(m_assistantBall, &AssistantBall::conversationRenameRequested, this, &MainWindow::renameConversation);
+    connect(m_assistantBall, &AssistantBall::conversationDeleteRequested, this, &MainWindow::deleteConversation);
+    connect(m_assistantBall, &AssistantBall::otherConversationsDeleteRequested, this, [this] {
+        m_conversations.removeAllExcept(m_conversation.id);
+        showConversations();
+    });
     connect(m_localAi, &LocalAssistant::stateChanged, this, [this] {
         const LocalAiState state = m_localAi->state();
         m_assistantBall->setStatus(m_localAi->statusText(), state == LocalAiState::Ready || state == LocalAiState::Thinking);
@@ -568,6 +583,10 @@ void MainWindow::buildInterface()
         m_assistantBall->beginReply(QStringLiteral("本地 AI"), true);
     });
     connect(m_localAi, &LocalAssistant::replyDelta, m_assistantBall, &AssistantBall::appendReply);
+    connect(m_localAi, &LocalAssistant::replyFinished, this, [this] {
+        m_conversation.modelHistory = m_localAi->conversation();
+        saveConversation();
+    });
     connect(m_localAi, &LocalAssistant::replyFinished, this, [this](const QString& text, bool ok) {
         m_assistantBall->endReply(text, ok);
         updateAssistantWorking();
@@ -1334,6 +1353,122 @@ void MainWindow::dropRelocation()
     QTimer::singleShot(0, this, [this] { showFeedback(QStringLiteral("没有关闭成功，迁移已取消。"), true); });
 }
 
+void MainWindow::startConversation()
+{
+    m_conversation = ConversationStore::create(m_openedPath, m_documentOpened ? currentDocumentName() : QString());
+    m_localAi->setConversation({}); // the AI forgets the old one; it stays in 历史
+    m_assistantBall->clearConversation();
+}
+
+void MainWindow::recordConversationMessage(const ConversationMessage& message)
+{
+    if (m_conversation.messages.isEmpty() && m_conversation.documentName.isEmpty() && m_documentOpened) {
+        m_conversation.documentPath = m_openedPath;
+        m_conversation.documentName = currentDocumentName();
+    }
+    m_conversation.messages.append(message);
+    if (!m_conversation.titleChosen && m_conversation.title.isEmpty())
+        m_conversation.title = ConversationStore::titleFrom(message.role == QStringLiteral("user") ? message.text : message.title);
+    m_conversation.updated = QDateTime::currentDateTime();
+    m_conversation.modelHistory = m_localAi->conversation();
+    saveConversation();
+}
+
+void MainWindow::saveConversation()
+{
+    if (m_conversation.messages.isEmpty()) return; // an empty conversation is not kept
+    if (!m_conversations.save(m_conversation))
+        showFeedback(QStringLiteral("对话没能保存到 %1。").arg(QDir::toNativeSeparators(m_conversations.folder())), true);
+}
+
+void MainWindow::showConversations()
+{
+    const QDate today = QDate::currentDate();
+    const auto when = [today](const QDateTime& time) {
+        const QDateTime local = time.toLocalTime();
+        const QString clock = local.toString(QStringLiteral("HH:mm"));
+        if (local.date() == today) return QStringLiteral("今天 ") + clock;
+        if (local.date() == today.addDays(-1)) return QStringLiteral("昨天 ") + clock;
+        if (local.date().year() == today.year()) return local.toString(QStringLiteral("M月d日 ")) + clock;
+        return local.toString(QStringLiteral("yyyy年M月d日"));
+    };
+    QList<AssistantBall::ConversationEntry> entries;
+    for (const Conversation& saved : m_conversations.list())
+        entries.append({saved.id, saved.title, saved.documentName, when(saved.updated), int(saved.messages.size()),
+                        saved.id == m_conversation.id});
+    m_assistantBall->showConversationList(entries);
+}
+
+void MainWindow::openConversation(const QString& id)
+{
+    if (m_assistantBall->working()) return; // the buttons are off then; an answer must finish first
+    const auto loaded = m_conversations.load(id);
+    if (!loaded) {
+        showConversations(); // deleted meanwhile
+        return;
+    }
+    m_conversation = *loaded;
+    m_localAi->setConversation(m_conversation.modelHistory);
+    m_assistantBall->restoreConversation(m_conversation.messages);
+    // Say which file it was about when that is not the open document.
+    if (sameFile(m_conversation.documentPath, m_openedPath)) return;
+    const QString name = m_conversation.documentName.isEmpty() ? QStringLiteral("一份未保存的新文档") : m_conversation.documentName;
+    QList<AssistantBall::CardAction> actions;
+    const QString path = m_conversation.documentPath;
+    if (!path.isEmpty() && QFileInfo::exists(path))
+        actions.append({QStringLiteral("打开 ") + QFileInfo(path).fileName(), [this, path] {
+                            selectDocument(path);
+                            openSelectedDocument();
+                        }});
+    m_assistantBall->showCard(QStringLiteral("工作文件"),
+                              QStringLiteral("这个对话是关于 %1 的，现在打开的是 %2。")
+                                  .arg(name, m_documentOpened ? currentDocumentName() : QStringLiteral("首页")),
+                              actions);
+}
+
+void MainWindow::renameConversation(const QString& id, const QString& title)
+{
+    if (id == m_conversation.id) {
+        m_conversation.title = title;
+        m_conversation.titleChosen = true;
+        saveConversation();
+    } else {
+        m_conversations.rename(id, title);
+    }
+    showConversations();
+}
+
+void MainWindow::deleteConversation(const QString& id)
+{
+    m_conversations.remove(id);
+    if (id == m_conversation.id) startConversation(); // its bubbles go too
+    showConversations();
+}
+
+void MainWindow::followDocumentWithConversation(EngineOperation operation, const QString& previousPath)
+{
+    const QString name = currentDocumentName();
+    if (operation == EngineOperation::Save) {
+        // 另存为 renames the document the conversation is about; it stays the same conversation.
+        if (m_conversation.documentPath.isEmpty() || sameFile(m_conversation.documentPath, previousPath)) {
+            m_conversation.documentPath = m_openedPath;
+            m_conversation.documentName = name;
+            saveConversation();
+        }
+        return;
+    }
+    if (operation != EngineOperation::Open && operation != EngineOperation::Create) return;
+    // Another document begins its own conversation (the old one is in 历史), unless this
+    // conversation is about the document just opened.
+    if (!m_conversation.messages.isEmpty() && !sameFile(m_openedPath, m_conversation.documentPath)) {
+        startConversation();
+        return;
+    }
+    m_conversation.documentPath = m_openedPath;
+    m_conversation.documentName = name;
+    saveConversation();
+}
+
 void MainWindow::showLocalAiCard()
 {
     using Action = AssistantBall::CardAction;
@@ -1588,6 +1723,7 @@ void MainWindow::handleOperationFinished(quint64 requestId, EngineOperation oper
         showFeedback(QStringLiteral("编辑引擎返回的完成信息不完整，未标记操作成功。"), true);
         return;
     }
+    const QString previousPath = m_openedPath;
     m_openedPath = path;
     m_openedKind = kind;
     if (operation == EngineOperation::Create) {
@@ -1598,6 +1734,7 @@ void MainWindow::handleOperationFinished(quint64 requestId, EngineOperation oper
     m_documentModified = m_engine->documentModified();
     updateDocumentTitle();
     refreshCapabilities();
+    followDocumentWithConversation(operation, previousPath);
     if (operation == EngineOperation::Save) {
         if ((m_closeAfterSave || m_replaceAfterSave) && m_documentModified) {
             awaitSavedState();

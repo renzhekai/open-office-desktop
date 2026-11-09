@@ -74,6 +74,10 @@ public:
     bool deleteModel(const QString& id, QString* error);
     void setBackend(bool ollama); // remembered; then detects again
     void cancel(); // stops the running answer or task, and an Ollama download
+    // What the model remembers of the current conversation (user, assistant and
+    // tool messages). A new conversation passes {}, a reopened one its saved history.
+    QJsonArray conversation() const { return m_history; }
+    void setConversation(const QJsonArray& history); // only while no answer is running
 
     // Where the Ollama desktop app is installed, if anywhere.
     static QString ollamaAppPath();

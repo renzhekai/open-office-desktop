@@ -46,7 +46,9 @@
 
 **内置 AI 引擎（2026-11-08，用户决定 Office 不再用 Ollama，改用软件自带的 llama.cpp；Ollama 只作可选）：** 代码已完成并通过测试，**还没有设为默认入口，也没进安装包**。详见第 13 节第 39 条。
 - **模型位置（2026-11-09 用户决定，第 47 条）：** 模型固定下载到软件文件夹里的 `models`，设置页不能再单独改；要换盘就在“本地 AI 设置 → 软件位置 → 迁移到其他位置…”把整个软件（程序、编辑器配置、模型）一起搬走，搬完自动重新打开，快捷方式和卸载信息跟着改。开发版本由 `OPEN_OFFICE_MODEL_DIR` 指到 `dependencies/local-models/download`（`打开最新版.cmd` 等启动文件会自动设）。
-- 最新候选：`build/full-source-run-builtin-ai-r6`（构建 `relocate-2`，CTest 95 项全过；2026-11-09 装配，第 47 条），在 r5 基础上加了上面的模型位置和迁移。
+- **对话（2026-11-09 用户要求，第 48 条）：** 每次启动软件、每打开或新建另一份文档，都自动开一个新对话；`/新对话` 或悬浮球里的“新对话”手动开；`/历史` 或“历史”列出以前的对话（标题、工作文件、时间、条数），可以打开（AI 接着记得）、重命名、删除（点两次）、删除其他所有。对话存在程序配置文件夹的 `conversations`，只在本机。输入 `/` 时在输入框上方弹出指令列表，可筛选、↑↓ 选、回车或 Tab 确认。
+- 最新候选：`build/full-source-run-builtin-ai-r7`（构建 `conv-4`，CTest 98 项全过；2026-11-09 装配，第 48 条），在 r6 基础上加了对话和 `/` 列表。
+- 上一个候选：`build/full-source-run-builtin-ai-r6`（构建 `relocate-2`，CTest 95 项全过；2026-11-09 装配，第 47 条），在 r5 基础上加了上面的模型位置和迁移。
 - 上一个候选：`build/full-source-run-builtin-ai-r5`（构建 `builtin-ai-6`，CTest 92 项全过，带 `ai-engine/vulkan` 和 `ai-engine/cpu`；2026-11-09 装配，第 45 条）。比 r4 多修了“改写结果行尾多两个空格”。`-builtin-ai-r4`（宿主 `05919c83…`，构建 `builtin-ai-5`，第 44 条）修了悬浮球快捷按钮被压扁（用户截图发现），没在真实编辑器里测过。`-builtin-ai-r3`（宿主 `7f5cbb10…`，构建 `builtin-ai-4`，第 43 条）含第 39 条最后修的“校对字段顺序”，但有按钮被压扁的问题。旧候选 `-builtin-ai`、`-builtin-ai-r2`、`-r3` 原样保留。
 - 引擎：`dependencies/llama.cpp-b12202`（官方 Vulkan 版和 CPU 版，已核对 SHA256）。测试模型：`dependencies/local-models/download/Qwen3-1.7B-Q8_0.gguf`（1.83 GB，用户自己下载；侧边会话已与魔搭公布的 SHA256 核对一致，见第 40 条）。4B、8B 没下载（4B 下载时连接被重置）。
 - 本机实测（RTX 5070 Ti Laptop 12 GB）：1.7B 模型 1.6–4.6 秒就绪，每秒约 170–185 个词；gpt-oss:20b 走 Ollama 时每秒不到 1 个词。显存空闲时，校对、润色、正式、总结每项连引擎启动 6–8 秒、每秒约 155 词（第 43 条）。
@@ -54,7 +56,7 @@
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
-**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4/r5 装配和两处修复（第 43–46 条）、模型位置固定加迁移功能（第 47 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。r6 已装好（第 47 条）。接着用 r6 开新会话 `builtin-ai-session4`（顺便请用户试一次迁移）：样本 `fixtures/results/office-ai-sample-6.docx`，用 r6 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
+**正在做（2026-11-09）：** `local_ai_smoke` 复查（第 41、43 条）、r3/r4/r5 装配和两处修复（第 43–46 条）、模型位置固定加迁移功能（第 47 条）已完成；r3 会话 `builtin-ai-session3` 的结果见第 45 条。r6 已装好（第 47 条），用户在 r6 窗口（会话 `builtin-ai-session4`，进程 35872）里试用时提出了对话方面的新要求（第 48 条），r7 正在装配。接着用 r7（或 r6 窗口的结果） `builtin-ai-session4`（顺便请用户试一次迁移）：样本 `fixtures/results/office-ai-sample-6.docx`，用 r6 自带的 `ai-engine`，只设 `OPEN_OFFICE_MODEL_DIR`；本会话没有屏幕控制工具，由用户手动操作（全文校对 → 全部改正 → 选第三段润色 → 替换原文 → `/保存` → 关窗），之后用 `scripts/verify_office_ai_session.py builtin-ai-session4 --document fixtures/results/office-ai-sample-6.docx` 核对。开会话前先查显存（`nvidia-smi`）：用户另一个项目 `D:\claude视频` 会跑 Qwen3-TTS，占约 9 GB 显存，那时内置引擎只能用处理器。更早的记录：2026-11-06 已完成新建、另存为、同进程换文档：
 - 宿主 `54b84083…` 通过两组 CTest（契约 21 项、界面 24 项）和 r2 真实编辑器复查（8 项全过）。
 - 已设为默认入口，README 已改。
 
@@ -168,6 +170,7 @@
 | 2026-11-08 | 查看接手文档；同意装配 r3、卸载 gpt-oss:20b；截图指出悬浮球按钮显示有问题 | 第 42–44 条 |
 | 2026-11-09 | 我记得我下载了一个模型，怎么没了 | 第 46 条：模型在 `dependencies/local-models/download`，软件按旧设置去 `D:/models` 找 |
 | 2026-11-09 | 以后下载模型默认下载在软件本体所在的文件夹中，无法更改文件夹，但是可以去设置中迁移数据文件夹，将整个 openoffice 移动 | 第 47 条：模型固定在软件文件夹的 `models`；设置页去掉“更改…”，加“迁移到其他位置…” |
+| 2026-11-09 | 开新文件后上下文不会重置；新增开启新对话的指令；关闭软件后重新打开自动创建新对话；可以选择历史对话返回原来的对话；能看见对话所在的工作文件；能管理对话；打 / 后显示指令列表 | 第 48 条；另外按“开新文件后上下文不重置”的问题，打开或新建另一份文档时也自动开新对话（已告知用户，可改成只手动） |
 
 ## 3. 目录、代码与运行入口
 
@@ -196,6 +199,7 @@
 | `app/ui/assistant_ball.*`、`app/ui/assistant_art.*` | 悬浮球窗口；玻璃球图标、光晕、执行中弧线、连续曲率圆角、模糊阴影、弹簧曲线（全部自绘） |
 | `scripts/verify_assistant_session.py` | 只读核对助手会话：编辑器回报、命令日志不含正文、保存结果 |
 | `app/ui/relocation.*` | 迁移：检查目标位置、算大小、内嵌的 PowerShell 搬家脚本（等程序退出、同盘改名或跨盘复制核对、改快捷方式和卸载信息、重新打开）、读取结果并给中文说明 |
+| `app/assistant/conversation_store.*` | 对话存储：每个对话一个 JSON（消息、AI 记忆、工作文件、标题），原子写入；编号只能是固定格式，不会被当成路径 |
 | `scripts/check_installer_relocation.py` | 用真实安装脚本给一个小的替身程序编译安装包，走“安装 → 迁移 → 从新位置卸载”和“安装 → 卸载”，证据在 `evidence/installer/relocation-check-*.json` |
 | `docs/design/` | 助手图标和形状的真实渲染预览 |
 | `app/engine/onlyoffice_engine_adapter.cpp` | 未启用原生集成时的不可用基线；不能冒充真实编辑 |
@@ -1013,6 +1017,18 @@ python -B scripts/verify_full_source_docx_sample.py
     - **还没做：** 在真实编辑器里点一次“迁移”（要用户操作）；用大文件夹（约 2 万个文件、带模型）实测跨盘复制的时间；README 还写着 Ollama 版，等内置引擎版设为默认入口时一起改。
     - **装配 r6：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r6 --build-label relocate-2 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `b37743e348aa645e56147be1371f0ecf7fe8690e08f1ec2930e25269a8d909c8`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r6.json`。
     - **迁移的真实界面测试打算：** 不在 r6 本身上点迁移（会把候选目录搬出 build）；另复制一份 r6 当一次性副本，让用户在副本里点“迁移”。
+
+48. **对话：新对话、历史对话、工作文件、`/` 指令列表（2026-11-09，Claude Code）：**
+    - **用户要求：** “开新文件后上下文不会重置，我需要你新增一个开启新对话的指令，关闭软件后重新打开会自动创建一个新对话，也可以选择历史对话返回原来的对话，也可以看见对话所在的工作文件，也可以管理对话，增加打/后显示指令列表”。
+    - **我做的选择（已告知用户，可推翻）：** 打开或新建另一份文档时也自动开新对话（旧的进历史）；另存为只改工作文件名，不换对话；打开的文档就是对话的工作文件时不换。对话内容存本机（含用户和 AI 说的话，可能有文档片段），与只记元数据的命令日志分开。“新对话”“历史”是悬浮球自己的指令，不进 AI 的工具清单。
+    - **存储（`app/assistant/conversation_store.*`）：** `程序配置文件夹/conversations/<编号>.json`（`main.cpp` 用 `openoffice-profile` 下的 `conversations`；没有文件夹时只在内存里，测试用）。内容：标题（用户改过的不再自动替换）、工作文件路径和名称、创建/更新时间、气泡（角色、标题、文字、成败、是否 Markdown）、AI 的上下文 `modelHistory`。`QSaveFile` 写入；编号必须是 `yyyyMMdd-HHmmss-6位十六进制`，`../` 之类直接拒绝。空对话不保存。
+    - **AI 记忆（`LocalAssistant::conversation()` / `setConversation()`）：** 新对话传空，打开旧对话传它保存的上下文；只在没有回答进行时切换（按钮在忙时禁用）。
+    - **悬浮球（`app/ui/assistant_ball.*`）：** 快捷按钮那一行的说明文字右边加“新对话”“历史”两个文字按钮（显示历史时“历史”变“返回”）。每个要保留的气泡通过 `messageRecorded` 报给主窗口：用户的话、AI 最终回答（带标题和 Markdown 标记）、指令结果（选中文字的引文最多 600 字）、校对清单（逐条写成文字）、无法识别的指令；设置卡片和“正在思考”不记。历史列表临时替换滚动区里的气泡（`takeWidget`/`setWidget`，原气泡原样保留），每条是一张卡：标题、“当前对话 · 工作文件：… · 今天 14:30 · N 条”、打开/重命名/删除；重命名就地编辑（回车保存，Esc 取消且不收起悬浮球）；删除和“删除其他所有对话”都要点两次（第一次变“确认删除”，3 秒后复原）。恢复旧对话时不再重复记录。新气泡到来时自动回到对话。
+    - **`/` 列表：** 输入框里以 `/`（或全角 `／`）开头、还没有空格时，在胶囊上方弹出列表：“/新对话”“/历史”在前，然后是 `/命令 /状态 /新建 文档 /保存 /插入 文字 /选中 /全文 /撤销 /重做`，每条带说明；继续打字按开头筛选；↑↓ 选择，回车：要跟文字的（插入、新建）补全成“/插入 ”等着打字，不要的直接执行；Tab 只补全；Esc 只关列表；点选同回车。说明来自新加的 `slashHints()`（`app/assistant/assistant_commands.*`），`/命令` 的列表也加上了这两条。
+    - **主窗口（`app/ui/main_window.*`）：** 启动时建一个空对话；打开/新建/保存完成后按上面的规则跟随文档；打开旧对话时，如果它的工作文件不是当前文档，显示一张“工作文件”卡片说明，文件还在就给“打开 文件名”按钮（打开后因为文件一致，不会再换对话）；删除当前对话会清空并开新对话。
+    - **测试：** 构建 `conv-4`，CTest 3 组共 98 项全过（助手 37、契约 21、界面 40）。新增：`conversationsAreKeptOnePerFile`（存取、排序、Markdown 和 AI 上下文往返、标题截短、重命名、非法编号、删除其他、内存模式）；`conversationsStartOverKeepHistoryAndFollowTheDocument`（用假的 Ollama：新对话后 AI 请求里没有上一个对话的话；历史列表顺序、当前标记、工作文件；打开旧对话后 AI 请求里有旧对话的问答、没有新对话的；重命名；两次点击删除且文件被删；换文档自动开新对话；新窗口是新对话、旧对话仍在）；`slashListOffersCommandsAndCompletesThem`（全部列出、筛选、回车补全、↓ 回车执行“历史”、Esc 只关列表、未知词和不在开头时不弹）。中间几次失败都是测试写法：Qt 的模拟按键不支持中文字符（`conv-1` 整个界面测试因此中断）；新对话后快捷按钮会马上读一次选区，测试要等空闲；测试引擎异步完成打开，第二次打开要等完成消息。
+    - **装配 r7：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r7 --build-label conv-4 --ai-engine dependencies/llama.cpp-b12202`，后台进行中，结果见 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r7.json`。
+    - **还没做：** 真实编辑器里看对话列表和 `/` 列表的样子；对话数量和单个对话长度没设上限（悬浮球只显示最近 40 个气泡）。
 
 ## 附录 A：requirements.md 完整原文
 
