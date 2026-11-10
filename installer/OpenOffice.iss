@@ -75,6 +75,10 @@ Source: "{#CrtDir}\msvcp140_1.dll"; DestDir: "{app}\converter"; Flags: ignorever
 Source: "{#CrtDir}\msvcp140_2.dll"; DestDir: "{app}\converter"; Flags: ignoreversion
 Source: "{#CrtDir}\vcruntime140.dll"; DestDir: "{app}\converter"; Flags: ignoreversion
 Source: "{#CrtDir}\vcruntime140_1.dll"; DestDir: "{app}\converter"; Flags: ignoreversion
+#if DirExists(SourceDir + "\ai-engine")
+; The built-in AI engine's licences (MIT and others), which must travel with it.
+Source: "third-party\llama.cpp-LICENSES.txt"; DestDir: "{app}\ai-engine"; Flags: ignoreversion
+#endif
 
 [Icons]
 Name: "{group}\Open Office"; Filename: "{app}\OpenOffice.exe"; WorkingDir: "{app}"

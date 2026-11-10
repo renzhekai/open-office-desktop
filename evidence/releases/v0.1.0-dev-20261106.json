@@ -1,0 +1,37 @@
+{
+  "tag": "v0.1.0-dev-20261106",
+  "title": "Open Office 0.1.0 开发版 2026-11-06",
+  "url": "https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261106",
+  "prerelease": true,
+  "commit": "43fe956086cc0a58415c9c058ad1377d5cadf24c",
+  "repository": "renzhekai/open-office-desktop",
+  "started_utc": "2026-11-10T04:00:29.121157+00:00",
+  "finished_utc": "2026-11-10T04:05:54.517032+00:00",
+  "assets": [
+    {
+      "name": "OpenOffice-Setup-0.1.0-dev-20261106-win64.exe",
+      "bytes": 594438784,
+      "sha256": "9c6b4d02587407a8f9aac6f917e2c980fedd6d25e66a4f5f145baa3839242763",
+      "uploaded_bytes": 594438784
+    },
+    {
+      "name": "OpenOffice-Setup-0.1.0-dev-20261106-win64.exe.sha256.txt",
+      "bytes": 113,
+      "sha256": "69cb5fa1ca986ae121c049199476627a1221d7e8b8a10e1a20a3692f718c8f77",
+      "uploaded_bytes": 113
+    },
+    {
+      "name": "OpenOffice-portable-win64-20261106.zip",
+      "bytes": 757500827,
+      "sha256": "5874d211c2b1a610fa67a50f30896b542e2fa2840d011943b669d4b563512304",
+      "uploaded_bytes": 757500827
+    },
+    {
+      "name": "OpenOffice-portable-win64-20261106.zip.sha256.txt",
+      "bytes": 106,
+      "sha256": "5cb5b8ed71c4c6493068f1022d42992e6f926679608ca8509fb333a0ed2137c5",
+      "uploaded_bytes": 106
+    }
+  ],
+  "all_uploaded_intact": true
+}

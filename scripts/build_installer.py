@@ -26,13 +26,14 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "build" / "full-source-run-local-ai"  # the default entry; --source overrides
+SOURCE = ROOT / "build" / "full-source-run-builtin-ai-r9"  # the default entry; --source overrides
 CRT = Path(r"D:\Microsoft Visual Studio\18\Community\VC\Redist\MSVC\14.51.36231\x64\Microsoft.VC145.CRT")
 CRT_FILES = ["msvcp140.dll", "msvcp140_1.dll", "msvcp140_2.dll", "vcruntime140.dll", "vcruntime140_1.dll"]
 CRT_DESTINATIONS = ["", "converter"]
 ISCC = ROOT / "dependencies" / "innosetup-6.7.4" / "install" / "ISCC.exe"
 SCRIPT = ROOT / "installer" / "OpenOffice.iss"
 TEXT_FILES = [SCRIPT, ROOT / "installer" / "ChineseSimplified.isl", ROOT / "installer" / "安装前说明.txt"]
+ENGINE_LICENSES = ROOT / "installer" / "third-party" / "llama.cpp-LICENSES.txt"  # installed into ai-engine
 DIST = ROOT / "dist"
 EVIDENCE = ROOT / "evidence" / "installer"
 CHECK = ROOT / "build" / "installer-check"
@@ -135,6 +136,12 @@ def test_installer(setup, report):
     test["installed_files"] = len(installed_files)
     test["file_mismatches"] = mismatches[:20]
     test["extra_files"] = sorted(installed_files - expected)
+    expected_extra = ["unins000.dat", "unins000.exe"]
+    if (SOURCE / "ai-engine").is_dir():
+        expected_extra.append("ai-engine/llama.cpp-LICENSES.txt")
+        licence = app / "ai-engine" / "llama.cpp-LICENSES.txt"
+        test["engine_licenses_installed"] = licence.is_file() and sha256(licence) == sha256(ENGINE_LICENSES)
+    test["expected_extra_files"] = sorted(expected_extra)
 
     smoke = target / "launch-report.json"
     env = {key: os.environ[key] for key in ("SystemRoot", "SystemDrive", "WINDIR", "USERPROFILE", "USERNAME",
@@ -165,7 +172,8 @@ def test_installer(setup, report):
                          "remaining_files": len(remaining),
                          "remaining_outside_profile": [p for p in remaining if not p.startswith("openoffice-profile/")][:20]}
     test["ok"] = (install.returncode == 0 and bool(test["uninstall_entry_after_install"]) and not mismatches
-                  and test["extra_files"] == ["unins000.dat", "unins000.exe"]
+                  and test["extra_files"] == test["expected_extra_files"]
+                  and test.get("engine_licenses_installed", True)
                   and exit_code == 0 and bool(launch) and launch.get("engine_connected") is True
                   and test["launch"]["crt_loaded_from_app"] and test["launch"]["default_profile_created"]
                   and test["uninstall"]["entry_removed"] and not test["uninstall"]["remaining_outside_profile"])
@@ -258,6 +266,7 @@ def main():
         "crt_license": "Visual Studio Distributable Code: files in VC\\Redist may be distributed unmodified with "
                        "the program (https://learn.microsoft.com/en-us/visualstudio/releases/2026/redistribution)",
         "script_sha256": {p.name: sha256(p) for p in TEXT_FILES},
+        "engine_licenses_sha256": sha256(ENGINE_LICENSES) if (SOURCE / "ai-engine").is_dir() else None,
         "iscc_log": str(log_path),
         "tested_on_other_machine": False,
     }

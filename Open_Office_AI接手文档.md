@@ -12,18 +12,22 @@
 - 本文必须保持 LF 换行。在 Windows 上用 Python 改本文时，用 `write_bytes` 或 `open(..., newline="\n")`；`write_text` 会把整份改成 CRLF，校验会失败（2026-11-04 踩过一次）。
 - 和用户交流全部用中文，包括摘要、问题和按钮。
 - 每次更新都要同步到 git 和 GitHub（用户 2026-11-07 要求）：改完、测完、更新本文后，在项目根目录提交并推送到 GitHub 仓库 `open-office-desktop`。提交前确认 `.gitignore` 仍挡住 build/、dist/、upstream/、dependencies/ 和 evidence 里 5 MB 以上的文件；提交邮箱用仓库本地配置的 GitHub 隐私邮箱，不改全局 git 配置。
+- **每次修改完都要出安装包并发布（用户 2026-11-09 要求）：** 用最新版本出安装包（`python -I scripts/build_installer.py --test`），同时把默认入口（`build_installer.py` 的 `SOURCE`）指向这个最新版本；推代码后用 `python -I scripts/publish_release.py <安装包> --notes <说明>` 发到 GitHub Releases（用 Git 已保存的凭据，只在调用时传给 `gh`），**每个版本都留在 GitHub**；发布成功后删除本机 `dist/` 里以前的安装包。测试版本目录、测试会话等用户没让删，不要删。
+- **项目根目录还有一份 `交接文档.md`（用户全局规则，2026-11-09 起）：** 按固定八项（用户要求、项目要求、当前进度、已完成、正在进行、未完成/待办、接手要点和坑、更新日志）写的简明版。每轮结束前和本文一起更新；本文保留详细历史。
 
 ## 0. 当前速览
 
 **最终目标：** 用户自己的 Windows 开源办公软件。第一版不含 AI，功能接近 Microsoft Office，所有功能免费，文件兼容性高；第二阶段再加本地部署的 AI 助手和专用 MCP。底座已定为 ONLYOFFICE v10.0.0，保留其署名和标识。详见第 2 节和附录 A。
 
-**已经达到：** 默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
+**默认入口（2026-11-09 起）：** `build/full-source-run-builtin-ai-r9`（按用户规则“每次装最新版”，与安装包一致；第 51 条）。以后每次修改后都换成新的最新版本。
 
-**安装包（2026-11-07 第二次生成）：** `dist/OpenOffice-Setup-0.1.0-dev-20261107-2-win64.exe`（SHA256 `aa91dbeb…2656`），装的是默认入口 `build/full-source-run-local-ai`（带悬浮球和本地 AI）。
-- 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载。
-- 本机静默安装、逐文件比对、启动、卸载测试通过（第 13 节第 34 条）。
-- 旧包原样保留：`…-20261107-win64.exe`（装 r7）、`…-20261106-win64.exe`（装 r2）、便携包 `dist/OpenOffice-portable-win64-20261106.zip`（r2）。
-- 都没有数字签名，也没在别的电脑上测过。见第 13 节第 28、31、34 条。
+**已经达到：** 上一个默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
+
+**安装包（2026-11-09，发布在 GitHub Releases）：** `OpenOffice-Setup-0.1.0-dev-20261109-win64.exe`（627,732,938 字节，SHA256 `974460e3156af3189cd8230ed1339850c634899fdbae12421b77e2767314c0d7`），装的是 r9，另带 `ai-engine\llama.cpp-LICENSES.txt`。
+- 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载；卸载会删除配置和模型，迁移过的安装也能删干净（第 47 条）。
+- 本机静默安装、逐文件比对（21,091 个文件）、启动、卸载测试通过（第 51 条）。
+- 以前的安装包（11-06 带便携包、11-07、11-07-2）已补传到 Releases，每个版本一个发布；本机 `dist/` 只留最新的。
+- 都没有数字签名，也没在别的电脑上测过。
 
 **代码仓库（2026-11-07 用户要求“把代码放入 git 和在 GitHub 建立仓库”）：** <https://github.com/renzhekai/open-office-desktop>（公开，AGPL-3.0，分支 `main`，远端名 `origin`）。项目根目录就是工作区。放代码、文档和 5 MB 以下的证据；安装包、运行目录、源码树和下载的工具都不进 git。提交邮箱是仓库本地配置的 GitHub 隐私邮箱。每次更新都要提交并推送（见“维护规则”，第 35、36 条）。
 
@@ -174,9 +178,11 @@
 | 2026-11-08 | 查看接手文档；同意装配 r3、卸载 gpt-oss:20b；截图指出悬浮球按钮显示有问题 | 第 42–44 条 |
 | 2026-11-09 | 我记得我下载了一个模型，怎么没了 | 第 46 条：模型在 `dependencies/local-models/download`，软件按旧设置去 `D:/models` 找 |
 | 2026-11-09 | 以后下载模型默认下载在软件本体所在的文件夹中，无法更改文件夹，但是可以去设置中迁移数据文件夹，将整个 openoffice 移动 | 第 47 条：模型固定在软件文件夹的 `models`；设置页去掉“更改…”，加“迁移到其他位置…” |
-| 2026-11-09 | 我让他详细一点但是他没有改动 | 第 50 条：r8 里模型原样照抄；改成明确指令＋字数、检查有无改动并自动重试 |
-| 2026-11-09 | 有点问题：选中一段文字让它详细点，它却给了一大段完整的 md 字，还要在光标处插入，不符合需求 | 第 49 条：程序判定修改要求、改写结果先看再替换；写作要求走起草；Markdown 自动按格式；插入后不重复 |
 | 2026-11-09 | 开新文件后上下文不会重置；新增开启新对话的指令；关闭软件后重新打开自动创建新对话；可以选择历史对话返回原来的对话；能看见对话所在的工作文件；能管理对话；打 / 后显示指令列表 | 第 48 条；另外按“开新文件后上下文不重置”的问题，打开或新建另一份文档时也自动开新对话（已告知用户，可改成只手动） |
+| 2026-11-09 | 有点问题：选中一段文字让它详细点，它却给了一大段完整的 md 字，还要在光标处插入，不符合需求 | 第 49 条：程序判定修改要求、改写结果先看再替换；写作要求走起草；Markdown 自动按格式；插入后不重复 |
+| 2026-11-09 | 我让他详细一点但是他没有改动 | 第 50 条：r8 里模型原样照抄；改成明确指令＋字数、检查有无改动并自动重试 |
+| 2026-11-09 | 继续加强 AI 助手：自己留测试接口自己测；做 MCP 让助手能改样式；表格没选中时也要自己规划哪里改、一点点改；样例要多样，不能针对样例适配 | 第 51 条起：先做发布流程（下一行），再按“测试接口 → 结构/样式命令和 MCP → 规划后逐条改 → 多样样例实测”的顺序做 |
+| 2026-11-09 | 每次修改完都要出一版安装包，把代码和安装包推送到 GitHub，推送完删除不需要的测试文件和以前的安装包；追问后选定：用已保存凭据、GitHub 保留每个版本的安装包、本机只删旧安装包、每次装最新版 | 写进“维护规则”和记忆；第 51 条 |
 
 ## 3. 目录、代码与运行入口
 
@@ -1065,6 +1071,16 @@ python -B scripts/verify_full_source_docx_sample.py
     - **测试：** 构建 `rework-7`，CTest 3 组共 103 项全过（助手 40、契约 21、界面 42），界面测试另连跑 3 遍都过。新增：`reworkInstructionsAreMadePlainAndCheckedForChange`（说法对应、字数、短原话不进提示、长原话带标注、原文框、`insist`、用真实会话的输出判“没改动”）；`reworkThatChangesNothingIsTriedAgainThenExplained`（假 Ollama：第一次原样→自动再试→只出现一个“替换原文”；两次都原样→说明且不新增“替换原文”、编辑器零命令）；`cleanRewrite` 去附注。中间失败：`rework-1` 是试验程序里变量先用后声明；`rework-3` 是界面测试还在找旧指令的“两倍”；`rework-5/6` 是界面测试在结果刚出来的瞬间点按钮，正赶上快捷按钮读选区被判“正忙”（真人不会这么快，测试里改为先等空闲；“执行”那一步本来就在等确认，不能等空闲）。
     - **装配 r9：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r9 --build-label rework-7 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致，宿主 `0ae28b21edb39c8c6bb1b79a48c27696707b00a1d89f9e87958b1788356c2d60`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r9.json`。
     - **还没做：** 真实编辑器复查；改写结果不保留“·”列表格式；1.7B 仍可能超字数；4B 效果应更好但没测。
+
+51. **每次修改都出安装包并发布；补 llama.cpp 许可证；默认入口改为 r9（2026-11-09，Claude Code）：**
+    - **用户要求：** “每次修改完都要出一版安装包并将代码和安装包推送至github，推送完后都要删除不需要的测试文件以及以前的安装包”。追问后选定：用 Git 已保存的凭据发布；GitHub 上保留每个版本的安装包；本机只删旧安装包（测试版本目录、测试会话等没选，不删）；每次装最新版。同时用户提出了 AI 助手加强的新需求（见第 2.4 节和 `交接文档.md` 第 6 节），排在这之后做。另：用户全局规则要求项目根目录有 `交接文档.md`，已新建。
+    - **为什么用 Releases：** 安装包约 600 MB，GitHub 仓库单文件上限 100 MB；Releases 单文件上限 2 GB。本机 `gh` 2.103.3 没登录，用 `git credential fill` 取 Git 凭据管理器里已存的 github.com 凭据，只放进那一次 `gh` 调用的环境变量（账号 renzhekai）。
+    - **许可证：** 公开发布就是分发，llama.cpp（MIT）要求附许可证原文。b12202 的 `llama-server.exe` 不支持 `--license`；改用 Ollama 自带的 `LLAMA_CPP_VENDORS_LICENSE`（llama.cpp 和它内置的 cpp-httplib、nlohmann json 等库的许可证原文合集），加一段说明后存为 `installer/third-party/llama.cpp-LICENSES.txt`；`installer/OpenOffice.iss` 在有 `ai-engine` 时把它装进 `{app}\ai-engine`；`scripts/build_installer.py` 的安装测试把它列为预期多出的文件并核对哈希。ONLYOFFICE（AGPL）的署名照旧，源码就是本仓库，底座版本见 `sources.lock.json`。
+    - **默认入口：** `scripts/build_installer.py` 的 `SOURCE` 改为 `build/full-source-run-builtin-ai-r9`（`打开稳定版.cmd` 跟着变）；README 改了入口、安装、卸载说明，加了“AI 助手（当前版本）”一节。
+    - **安装包：** 第一次 `build_installer.py --test` 被用户打断，留下 366 MB 的不完整安装包（没有记录、没有测试安装），删掉后重编。第二次通过：`dist/OpenOffice-Setup-0.1.0-dev-20261109-win64.exe`，627,732,938 字节，SHA256 `974460e3…c0d7`，编译 199 秒；静默安装 51 秒，21,091 个文件无一不符，多出的正好是卸载程序两件和许可证，许可证哈希一致；装好后启动退出码 0、引擎连上、VC++ 从程序目录加载；卸载后卸载信息删除、目录里一个文件也不剩。记录 `evidence/installer/OpenOffice-Setup-0.1.0-dev-20261109-win64.json`。
+    - **发布脚本 `scripts/publish_release.py`：** 核对安装包和 `.sha256.txt`；标签 `v<版本>-dev-<日期>`，已存在就停；建预发布并上传；上传后按名称核对大小；记录到 `evidence/releases/<标签>.json`。
+    - **补传旧安装包：** 11-06（附便携包）、11-07、11-07-2 三个以前从没上过 GitHub，直接删就没了；按“GitHub 保留每个版本”先各建一个发布补传（说明里注明“补传、构建时还没有代码仓库/挂在 11-09 的代码上”），确认后再删本机的。结果见下一条。
+    - **整理：** 详细接手文档用户指令表最后几行之前被我插成了倒序，已理成时间正序。
 
 ## 附录 A：requirements.md 完整原文
 
