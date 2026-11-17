@@ -996,6 +996,7 @@ void AssistantBall::showCard(const QString& title, const QString& text, const QL
     if (!m_expanded) expand();
     m_welcome->hide();
     addAssistantMessage(title, text, ok);
+    emit cardShown(title, text, ok);
     if (actions.isEmpty()) return;
     // The new card is the last row; give it a row of buttons.
     QWidget* bubble = nullptr;

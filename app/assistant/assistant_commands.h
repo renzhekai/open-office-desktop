@@ -21,7 +21,14 @@ enum class CommandSource {
     Unknown    // never guessed: callers that cannot tell must say Unknown
 };
 
-enum class ArgumentType { String, DocumentKind, Choice };
+enum class ArgumentType {
+    String,
+    DocumentKind,
+    Choice,
+    Integer, // a JSON number (or a string of digits) between minimum and maximum
+    Boolean, // true or false (or the strings "true"/"false")
+    Color    // "#RRGGBB" (the # may be left out); "none" too where the description says so
+};
 
 struct CommandArgument {
     QString name;
@@ -30,6 +37,9 @@ struct CommandArgument {
     int maxLength = 0; // String only; 0 = no limit
     QString description;
     QStringList choices; // Choice only: the allowed values
+    int minimum = 0;     // Integer only
+    int maximum = 0;     // Integer only
+    bool allowNone = false; // Color only: "none" removes the color
 };
 
 // Where a command runs: the host window (document lifecycle) or the embedded

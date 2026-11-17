@@ -14,6 +14,7 @@
 #include <QFileInfo>
 #include <QHash>
 #include <QJsonDocument>
+#include <QRegularExpression>
 #include <QPointer>
 #include <QSet>
 #include <QStackedLayout>
@@ -115,7 +116,10 @@ const QStringList& editorCommandNames()
     static const QStringList names{QStringLiteral("text.insert"), QStringLiteral("selection.getText"),
                                    QStringLiteral("selection.replace"), QStringLiteral("document.getText"),
                                    QStringLiteral("document.replaceText"), QStringLiteral("edit.undo"),
-                                   QStringLiteral("edit.redo")};
+                                   QStringLiteral("edit.redo"), QStringLiteral("document.outline"),
+                                   QStringLiteral("table.read"), QStringLiteral("table.setCell"),
+                                   QStringLiteral("format.cells"), QStringLiteral("format.paragraphs"),
+                                   QStringLiteral("format.text"), QStringLiteral("selection.select")};
     return names;
 }
 
@@ -127,7 +131,43 @@ struct EngineArgument {
     bool required;
     int maxLength;
     QStringList choices;
+    char kind = 's'; // s text, i integer (minimum..maximum), b true/false, c color #RRGGBB, n color or "none"
+    int minimum = 0;
+    int maximum = 0;
 };
+
+EngineArgument table(bool required) { return {"table", required, 0, {}, 'i', 1, 200}; }
+EngineArgument flag(const char* name) { return {name, false, 0, {}, 'b'}; }
+EngineArgument fontSize() { return {"fontSize", false, 0, {}, 'i', 6, 72}; }
+EngineArgument align()
+{
+    return {"align", false, 0, {QStringLiteral("left"), QStringLiteral("center"), QStringLiteral("right"), QStringLiteral("justify")}};
+}
+
+bool engineValueValid(const EngineArgument& argument, const QJsonValue& value)
+{
+    static const QRegularExpression hex(QStringLiteral("^#?[0-9A-Fa-f]{6}$"));
+    switch (argument.kind) {
+    case 'i': {
+        bool ok = value.isDouble();
+        double number = value.toDouble();
+        if (value.isString()) number = value.toString().trimmed().toInt(&ok);
+        return ok && number == static_cast<double>(static_cast<qint64>(number)) && number >= argument.minimum
+            && (argument.maximum <= 0 || number <= argument.maximum);
+    }
+    case 'b':
+        return value.isBool() || value.toString() == QStringLiteral("true") || value.toString() == QStringLiteral("false");
+    case 'c':
+    case 'n':
+        return value.isString() && (hex.match(value.toString()).hasMatch() || (argument.kind == 'n' && value.toString() == QStringLiteral("none")));
+    default: {
+        if (!value.isString()) return false;
+        const QString text = value.toString();
+        if (argument.maxLength > 0 && text.size() > argument.maxLength) return false;
+        return argument.choices.isEmpty() || argument.choices.contains(text);
+    }
+    }
+}
 
 const QHash<QString, QList<EngineArgument>>& editorCommandArguments()
 {
@@ -139,8 +179,43 @@ const QHash<QString, QList<EngineArgument>>& editorCommandArguments()
           {"html", false, 400000, {}}}},
         {QStringLiteral("selection.replace"), {{"text", true, 20000, {}}, {"expected", false, 20000, {}}}},
         {QStringLiteral("document.replaceText"), {{"find", true, 200, {}}, {"replace", true, 200, {}}}},
+        {QStringLiteral("table.read"), {table(true)}},
+        {QStringLiteral("table.setCell"), {table(true), {"row", true, 0, {}, 'i', 1, 500}, {"column", true, 0, {}, 'i', 1, 100},
+                                           {"text", true, 2000, {}}}},
+        {QStringLiteral("format.cells"), {table(true), {"rows", false, 40, {}}, {"columns", false, 40, {}}, flag("bold"),
+                                          flag("italic"), fontSize(), {"color", false, 0, {}, 'c'}, {"fill", false, 0, {}, 'n'},
+                                          align()}},
+        {QStringLiteral("format.paragraphs"), {{"paragraphs", true, 40, {}}, flag("bold"), flag("italic"), fontSize(),
+                                               {"color", false, 0, {}, 'c'}, align(),
+                                               {"style", false, 0, {QStringLiteral("heading1"), QStringLiteral("heading2"),
+                                                                    QStringLiteral("heading3"), QStringLiteral("normal")}}}},
+        {QStringLiteral("format.text"), {{"find", true, 200, {}}, flag("bold"), flag("italic"), flag("underline"), fontSize(),
+                                         {"color", false, 0, {}, 'c'},
+                                         {"highlight", false, 0, {QStringLiteral("yellow"), QStringLiteral("green"),
+                                                                  QStringLiteral("cyan"), QStringLiteral("magenta"),
+                                                                  QStringLiteral("red"), QStringLiteral("blue"),
+                                                                  QStringLiteral("lightGray"), QStringLiteral("none")}}}},
+        {QStringLiteral("selection.select"), {{"find", false, 200, {}}, {"paragraph", false, 0, {}, 'i', 1, 100000},
+                                              table(false), {"row", false, 0, {}, 'i', 1, 500},
+                                              {"column", false, 0, {}, 'i', 1, 100}}},
     };
     return arguments;
+}
+
+// Formatting commands must say what to change; selection.select needs exactly one target.
+bool editorArgumentsComplete(const QString& name, const QJsonObject& arguments)
+{
+    static const QStringList formats{QStringLiteral("bold"), QStringLiteral("italic"), QStringLiteral("underline"),
+                                     QStringLiteral("fontSize"), QStringLiteral("color"), QStringLiteral("fill"),
+                                     QStringLiteral("align"), QStringLiteral("highlight"), QStringLiteral("style")};
+    if (name.startsWith(QStringLiteral("format.")))
+        return std::any_of(formats.begin(), formats.end(), [&arguments](const QString& key) { return arguments.contains(key); });
+    if (name == QStringLiteral("selection.select")) {
+        const int ways = (arguments.contains(QStringLiteral("find")) ? 1 : 0)
+            + (arguments.contains(QStringLiteral("paragraph")) ? 1 : 0) + (arguments.contains(QStringLiteral("table")) ? 1 : 0);
+        return ways == 1;
+    }
+    return true;
 }
 
 bool editorArgumentsValid(const QString& name, const QJsonObject& arguments)
@@ -149,13 +224,13 @@ bool editorArgumentsValid(const QString& name, const QJsonObject& arguments)
     for (auto it = arguments.begin(); it != arguments.end(); ++it) {
         const auto known = std::find_if(allowed.begin(), allowed.end(),
                                         [&it](const EngineArgument& argument) { return it.key() == QLatin1String(argument.name); });
-        if (known == allowed.end() || !it.value().isString()) return false;
-        const QString text = it.value().toString();
-        if (known->maxLength > 0 && text.size() > known->maxLength) return false;
-        if (!known->choices.isEmpty() && !known->choices.contains(text)) return false;
+        if (known == allowed.end() || !engineValueValid(*known, it.value())) return false;
     }
-    for (const EngineArgument& argument : allowed)
-        if (argument.required && arguments.value(QLatin1String(argument.name)).toString().isEmpty()) return false;
+    for (const EngineArgument& argument : allowed) {
+        const QJsonValue value = arguments.value(QLatin1String(argument.name));
+        if (argument.required && (value.isUndefined() || (value.isString() && value.toString().isEmpty()))) return false;
+    }
+    if (!editorArgumentsComplete(name, arguments)) return false;
     if (name == QStringLiteral("text.insert") && arguments.value(QStringLiteral("format")).toString() == QStringLiteral("markdown")
         && arguments.value(QStringLiteral("html")).toString().isEmpty())
         return false; // Markdown is converted by the host before it reaches the editor
@@ -166,6 +241,142 @@ QString jsValue(const QJsonObject& arguments, const char* name)
 {
     const QJsonValue value = arguments.value(QLatin1String(name));
     return value.isString() ? jsString(value.toString()) : QStringLiteral("null");
+}
+
+// Helpers for the structure and style commands. Built on the editor's document
+// builder API (AscBuilder: the API of its macros and plugins). Changes run the way
+// the editor runs a plugin command: runBuilderScript opens one undoable action,
+// _afterEvalCommand recalculates and redraws, onEndBuilderScript closes it.
+const char* const kStructureHelpers = R"JS(
+var blocks=function(){var d=B.GetDocument(),n=d.GetElementsCount(),out=[];for(var i=0;i<n;i++)out.push(d.GetElement(i));return out;};
+var kinds=function(kind){var all=blocks(),out=[];for(var i=0;i<all.length;i++)if(all[i].GetClassType()===kind)out.push(all[i]);return out;};
+var span=function(spec,count){var s=String(spec===undefined||spec===null?'all':spec).replace(/\s+/g,'');
+  var out=[];if(s===''||s==='all'){for(var i=0;i<count;i++)out.push(i);return out;}
+  var parts=s.split(',');for(var j=0;j<parts.length;j++){var m=/^(\d+)(?:-(\d+))?$/.exec(parts[j]);if(!m)return null;
+    var a=+m[1],b=m[2]?+m[2]:a;if(a<1||b<a||b>count)return null;for(var k=a;k<=b;k++)if(out.indexOf(k-1)<0)out.push(k-1);}
+  return out;};
+var cellText=function(cell){return String(cell.GetContent().GetText({})||'').replace(/\r\n?/g,'\n').replace(/[\t\n]+$/,'');};
+var rgb=function(hex){var h=String(hex).replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];};
+var hexOf=function(c){var x=function(v){v=(v|0).toString(16).toUpperCase();return v.length<2?'0'+v:v;};return '#'+x(c.r)+x(c.g)+x(c.b);};
+var bool=function(v){return v===true||v==='true';};
+var has=function(v){return v!==undefined&&v!==null&&v!=='';};
+var textFormat=function(range,a){if(!range)return 0;var n=0;
+  if(has(a.bold)){range.SetBold(bool(a.bold));n++;}
+  if(has(a.italic)){range.SetItalic(bool(a.italic));n++;}
+  if(has(a.underline)){range.SetUnderline(bool(a.underline));n++;}
+  if(has(a.fontSize)){range.SetFontSize(+a.fontSize);n++;}
+  if(has(a.color)){var c=rgb(a.color);range.SetColor(c[0],c[1],c[2]);n++;}
+  if(has(a.highlight)){range.SetHighlight(a.highlight);n++;}
+  return n;};
+var alignOf=function(v){return v==='justify'?'both':v;};
+var edit=function(change,code){var settled=false,finish=function(ok,c,v){if(settled)return;settled=true;reply(ok,c,v);};
+  var guard=setTimeout(function(){finish(false,'editor_locked',null);},10000);
+  api.runBuilderScript(function(){var value=null,error=null;api._beforeEvalCommand();
+    try{value=change();}catch(e){error=String((e&&e.message)||e).slice(0,200);}
+    var end=function(){api.onEndBuilderScript(function(){clearTimeout(guard);
+      if(error)finish(false,'edit_failed',error);
+      else if(value&&value.refused)finish(false,value.refused,value);
+      else finish(true,value&&value.code?value.code:code,value);});};
+    if(!AscCommon.History.Is_LastPointEmpty())api._afterEvalCommand(end);else end();},'');};
+if(!B){reply(false,'editor_not_ready',null);return;}
+)JS";
+
+const char* const kOutlineScript = R"JS(
+var all=blocks(),out=[],tp=0,tt=0,cursor=null,curPara=null,curCell=null;
+try{if(logic){var cp=logic.GetCurrentParagraph();var ap=cp&&B.GetByInternalId(cp.GetId());
+  if(ap){var cc=ap.GetParentTableCell&&ap.GetParentTableCell();if(cc)curCell=cc;else curPara=ap.GetInternalId();}}}catch(x){}
+for(var i=0;i<all.length;i++){var e=all[i],k=e.GetClassType();
+  if(k==='paragraph'){tp++;if(out.length<400){var st=e.GetStyle(),t=String(e.GetText({Numbering:true})||'').replace(/[\r\n]+$/,'');
+      out.push({id:'P'+tp,style:st?st.GetName():'',text:t.slice(0,160),length:t.length});}
+    if(curPara&&e.GetInternalId()===curPara)cursor={paragraph:tp};}
+  else if(k==='table'){tt++;var rows=e.GetRowsCount(),cols=0,first=[];for(var r=0;r<rows;r++)cols=Math.max(cols,e.GetRow(r).GetCellsCount());
+    var r0=e.GetRow(0);for(var c=0;c<r0.GetCellsCount();c++)first.push(cellText(r0.GetCell(c)).replace(/\n/g,' ').slice(0,40));
+    if(out.length<400)out.push({id:'T'+tt,rows:rows,columns:cols,firstRow:first});
+    if(curCell){var pt=curCell.GetParentTable();if(pt&&pt.GetInternalId()===e.GetInternalId())
+      cursor={table:tt,row:curCell.GetRowIndex()+1,column:curCell.GetIndex()+1};}}}
+reply(true,'outline',{blocks:out,paragraphs:tp,tables:tt,cursor:cursor,truncated:out.length>=400});
+)JS";
+
+const char* const kTableReadScript = R"JS(
+var tables=kinds('table'),e=tables[+args.table-1];
+if(!e){reply(false,'no_table',{table:+args.table,tables:tables.length});return;}
+var rows=[],cells=0,columns=0;
+for(var r=0;r<e.GetRowsCount();r++){var row=e.GetRow(r),list=[];columns=Math.max(columns,row.GetCellsCount());
+  for(var c=0;c<row.GetCellsCount();c++){var cell=row.GetCell(c),p=cell.GetContent().GetElement(0),info={text:cellText(cell).slice(0,300)};
+    if(++cells>2000){info.text='';}
+    try{var run=p&&p.GetElement(0),cp=run&&run.Run&&run.Run.Get_CompiledPr&&run.Run.Get_CompiledPr(false);
+      if(cp){if(cp.Bold)info.bold=true;if(cp.Italic)info.italic=true;}
+      else if(run&&run.GetTextPr){var tp=run.GetTextPr();if(tp.GetBold())info.bold=true;if(tp.GetItalic())info.italic=true;}}catch(x){}
+    try{var jc=p&&p.GetJc&&p.GetJc();if(jc&&jc!=='left')info.align=jc==='both'?'justify':jc;}catch(x){}
+    try{var sh=cell.Cell&&cell.Cell.Get_Shd&&cell.Cell.Get_Shd();
+      if(sh&&sh.Value===Asc.c_oAscShdClear&&sh.Color&&!sh.Color.Auto){var f=hexOf(sh.Color);if(f!=='#FFFFFF')info.fill=f;}}catch(x){}
+    list.push(info);}
+  rows.push(list);}
+reply(true,'table',{table:+args.table,rowsCount:rows.length,columns:columns,rows:rows,truncated:cells>2000});
+)JS";
+
+const char* const kSetCellScript = R"JS(
+var t=+args.table,r=+args.row,c=+args.column,text=String(args.text);
+edit(function(){var tables=kinds('table'),e=tables[t-1];
+  if(!e)return{refused:'no_table',table:t,tables:tables.length};
+  if(r>e.GetRowsCount()||c>e.GetRow(r-1).GetCellsCount())return{refused:'no_cell',table:t,row:r,column:c};
+  var cell=e.GetRow(r-1).GetCell(c-1),content=cell.GetContent(),first=content.GetElement(0),before=cellText(cell);
+  if(before===text.replace(/\r\n?/g,'\n'))return{code:'unchanged',table:t,row:r,column:c};
+  var pr=null;try{var run=first.GetElement(0);if(run&&run.GetTextPr)pr=run.GetTextPr();}catch(x){}
+  while(content.GetElementsCount()>1)content.RemoveElement(1);
+  first.RemoveAllElements();
+  var put=function(p,line){var run=B.CreateRun();run.AddText(line);if(pr)run.SetTextPr(pr);p.AddElement(run);};
+  var lines=text.replace(/\r\n?/g,'\n').split('\n');put(first,lines[0]);
+  for(var i=1;i<lines.length;i++){var np=B.CreateParagraph();put(np,lines[i]);content.Push(np);}
+  return{table:t,row:r,column:c,before:before.slice(0,200)};},'cell_set');
+)JS";
+
+const char* const kFormatCellsScript = R"JS(
+var a=args,t=+a.table,tables=kinds('table'),e=tables[t-1];
+if(!e){reply(false,'no_table',{table:t,tables:tables.length});return;}
+var rows=span(a.rows,e.GetRowsCount());if(!rows||!rows.length){reply(false,'bad_range',{what:'rows'});return;}
+var targets=[];for(var i=0;i<rows.length;i++){var row=e.GetRow(rows[i]),cols=span(a.columns,row.GetCellsCount());
+  if(!cols){reply(false,'bad_range',{what:'columns'});return;}for(var j=0;j<cols.length;j++)targets.push(row.GetCell(cols[j]));}
+if(!targets.length){reply(false,'bad_range',{what:'columns'});return;}
+edit(function(){for(var i=0;i<targets.length;i++){var cell=targets[i],content=cell.GetContent();
+    textFormat(content.GetRange(),a);
+    if(has(a.align))for(var q=0;q<content.GetElementsCount();q++){var el=content.GetElement(q);if(el.GetClassType()==='paragraph')el.SetJc(alignOf(a.align));}
+    if(has(a.fill)){if(a.fill==='none')cell.SetShd('nil',255,255,255,true);else{var f=rgb(a.fill);cell.SetShd('clear',f[0],f[1],f[2],false);}}}
+  return{table:t,cells:targets.length};},'formatted');
+)JS";
+
+const char* const kFormatParagraphsScript = R"JS(
+var a=args,ps=kinds('paragraph'),idx=span(a.paragraphs,ps.length);
+if(!idx||!idx.length){reply(false,'bad_range',{what:'paragraphs',paragraphs:ps.length});return;}
+var style=null;if(has(a.style)){style=B.GetDocument().GetStyle({heading1:'Heading 1',heading2:'Heading 2',heading3:'Heading 3',normal:'Normal'}[a.style]);
+  if(!style){reply(false,'no_style',{style:a.style});return;}}
+edit(function(){for(var i=0;i<idx.length;i++){var p=ps[idx[i]];if(style)p.SetStyle(style);if(has(a.align))p.SetJc(alignOf(a.align));textFormat(p.GetRange(),a);}
+  return{paragraphs:idx.length};},'formatted');
+)JS";
+
+const char* const kFormatTextScript = R"JS(
+var a=args,found=B.GetDocument().Search(String(a.find),true)||[];
+if(!found.length){reply(false,'not_found',{find:a.find});return;}
+edit(function(){var n=Math.min(found.length,100);for(var i=0;i<n;i++)textFormat(found[i],a);return{count:n,total:found.length};},'formatted');
+)JS";
+
+const char* const kSelectScript = R"JS(
+var a=args;
+if(has(a.find)){var f=B.GetDocument().Search(String(a.find),true);if(!f||!f.length){reply(false,'not_found',{find:a.find});return;}
+  f[0].Select();reply(true,'selected',{what:'text'});return;}
+if(has(a.paragraph)){var ps=kinds('paragraph'),p=ps[+a.paragraph-1];if(!p){reply(false,'no_paragraph',{paragraph:+a.paragraph,paragraphs:ps.length});return;}
+  p.Select();reply(true,'selected',{what:'paragraph',paragraph:+a.paragraph});return;}
+var tables=kinds('table'),e=tables[+a.table-1];if(!e){reply(false,'no_table',{table:+a.table,tables:tables.length});return;}
+var r=+(a.row||1),c=+(a.column||1);
+if(r>e.GetRowsCount()||c>e.GetRow(r-1).GetCellsCount()){reply(false,'no_cell',{table:+a.table,row:r,column:c});return;}
+var range=e.GetRow(r-1).GetCell(c-1).GetContent().GetRange();if(range)range.Select();
+reply(true,'selected',{what:'cell',table:+a.table,row:r,column:c});
+)JS";
+
+QString structureScript(const char* script, const QJsonObject& arguments)
+{
+    return QStringLiteral("var args=") + QString::fromUtf8(QJsonDocument(arguments).toJson(QJsonDocument::Compact))
+        + QLatin1Char(';') + QString::fromUtf8(kStructureHelpers) + QString::fromUtf8(script);
 }
 
 // The editor answers through AscDesktopEditor.execCommand("openoffice:command"),
@@ -239,6 +450,20 @@ QString editorCommandScript(quint64 id, const QString& name, const QJsonObject& 
             "if(!n){clear();reply(false,'not_found',{find:f});return;}"
             "logic.ReplaceSearchElement(rp,true,null,false);clear();reply(true,'replaced',{count:n});")
                    .arg(jsValue(arguments, "find"), jsValue(arguments, "replace"));
+    } else if (name == QStringLiteral("document.outline")) {
+        body = structureScript(kOutlineScript, arguments);
+    } else if (name == QStringLiteral("table.read")) {
+        body = structureScript(kTableReadScript, arguments);
+    } else if (name == QStringLiteral("table.setCell")) {
+        body = structureScript(kSetCellScript, arguments);
+    } else if (name == QStringLiteral("format.cells")) {
+        body = structureScript(kFormatCellsScript, arguments);
+    } else if (name == QStringLiteral("format.paragraphs")) {
+        body = structureScript(kFormatParagraphsScript, arguments);
+    } else if (name == QStringLiteral("format.text")) {
+        body = structureScript(kFormatTextScript, arguments);
+    } else if (name == QStringLiteral("selection.select")) {
+        body = structureScript(kSelectScript, arguments);
     } else if (name == QStringLiteral("edit.undo")) {
         body = QStringLiteral("if(api.asc_getCanUndo&&!api.asc_getCanUndo()){reply(false,'nothing_to_undo',null);return;}"
                               "api.Undo();reply(true,'undone',null);");
@@ -307,13 +532,38 @@ QString commandMessage(const QString& code, const QJsonObject& value, const QStr
     if (code == QStringLiteral("replaced_selection")) return QStringLiteral("已替换选中的文字，可以撤销。");
     if (code == QStringLiteral("replaced"))
         return QStringLiteral("已替换 %1 处，可以撤销。").arg(value.value(QStringLiteral("count")).toInt());
-    if (code == QStringLiteral("not_found")) return QStringLiteral("文档里没有找到要替换的文字，可能已经改过了。");
+    if (code == QStringLiteral("not_found")) return QStringLiteral("文档里没有找到这段文字，可能已经改过了。");
     if (code == QStringLiteral("no_selection")) return QStringLiteral("请先在文档里选中要修改的文字。");
     if (code == QStringLiteral("selection_changed"))
         return QStringLiteral("选中的内容和原来不一样了。请重新选中原文再试，或用“插到后面”。");
     if (code == QStringLiteral("replace_timeout")) return QStringLiteral("编辑器没有及时完成替换，请检查文档后再试。");
     if (code == QStringLiteral("no_position")) return QStringLiteral("找不到可以插入的位置。");
     if (code == QStringLiteral("invalid_argument")) return QStringLiteral("命令参数无效。");
+    if (code == QStringLiteral("outline"))
+        return QStringLiteral("已读取文档结构：%1 段、%2 张表格。")
+            .arg(value.value(QStringLiteral("paragraphs")).toInt()).arg(value.value(QStringLiteral("tables")).toInt());
+    if (code == QStringLiteral("table"))
+        return QStringLiteral("已读取第 %1 张表格（%2 行 %3 列）。").arg(value.value(QStringLiteral("table")).toInt())
+            .arg(value.value(QStringLiteral("rowsCount")).toInt()).arg(value.value(QStringLiteral("columns")).toInt());
+    if (code == QStringLiteral("cell_set"))
+        return QStringLiteral("已修改第 %1 张表格第 %2 行第 %3 列，可以撤销。").arg(value.value(QStringLiteral("table")).toInt())
+            .arg(value.value(QStringLiteral("row")).toInt()).arg(value.value(QStringLiteral("column")).toInt());
+    if (code == QStringLiteral("unchanged")) return QStringLiteral("这一格本来就是这些文字，没有改动。");
+    if (code == QStringLiteral("formatted")) {
+        if (value.contains(QStringLiteral("cells")))
+            return QStringLiteral("已设置 %1 个单元格的格式，可以撤销。").arg(value.value(QStringLiteral("cells")).toInt());
+        if (value.contains(QStringLiteral("paragraphs")))
+            return QStringLiteral("已设置 %1 段的格式，可以撤销。").arg(value.value(QStringLiteral("paragraphs")).toInt());
+        return QStringLiteral("已设置 %1 处文字的格式，可以撤销。").arg(value.value(QStringLiteral("count")).toInt());
+    }
+    if (code == QStringLiteral("selected")) return QStringLiteral("已选中。");
+    if (code == QStringLiteral("no_table")) return QStringLiteral("文档里没有这张表格。");
+    if (code == QStringLiteral("no_cell")) return QStringLiteral("表格里没有这一格。");
+    if (code == QStringLiteral("no_paragraph")) return QStringLiteral("文档里没有这一段。");
+    if (code == QStringLiteral("bad_range")) return QStringLiteral("行、列或段落的范围写得不对。");
+    if (code == QStringLiteral("no_style")) return QStringLiteral("文档里没有这个样式。");
+    if (code == QStringLiteral("editor_locked")) return QStringLiteral("文档现在不能修改（可能正被锁定），请稍后再试。");
+    if (code == QStringLiteral("edit_failed")) return QStringLiteral("编辑器修改时出错：") + detail.left(200);
     if (code == QStringLiteral("editor_not_ready")) return QStringLiteral("编辑器尚未就绪。");
     return QStringLiteral("编辑器执行命令时出错：") + detail.left(300);
 }

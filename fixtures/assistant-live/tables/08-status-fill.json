@@ -1,0 +1,65 @@
+{
+  "name": "项目进度：点进表格说“已完成的行标浅绿色底色”",
+  "document": "fixtures/assistant-samples/project-status.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "selection.select",
+      "args": {
+        "table": 1,
+        "row": 2,
+        "column": 1
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把状态是已完成的那几行加上浅绿色底色"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C1-R2C4",
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R4C1-R4C4",
+      "filled": false
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R6C1-R6C4",
+      "filled": false
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": []
+    }
+  ]
+}

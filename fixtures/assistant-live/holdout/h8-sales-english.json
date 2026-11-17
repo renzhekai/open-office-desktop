@@ -1,0 +1,57 @@
+{
+  "name": "（留出）英文销售表：英文要求检查合计",
+  "document": "fixtures/assistant-samples/holdout/sales-en.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "selection.select",
+      "args": {
+        "table": 1,
+        "row": 2,
+        "column": 1
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "Check whether the totals in this table are correct and fix any mistakes."
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 5,
+      "equals": "310"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R3C5"
+      ],
+      "someChanged": true
+    }
+  ]
+}

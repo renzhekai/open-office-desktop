@@ -47,6 +47,10 @@ QString systemPrompt(const QString& context)
         "- 往文档里写新内容：text_insert，format 用 markdown，position 用 after；只写正文，不要加解释；\n"
         "- 修改用户选中的文字：selection_replace，text 是改好的文字，expected 填原来选中的文字；\n"
         "- 把文档里某个词或句子改掉：document_replaceText；\n"
+        "- 改几个字的格式（加粗、颜色、字号、突出显示）：format_text，find 填要改的那几个字；\n"
+        "- 改整段的格式或改成标题：先用 document_outline 看段落编号（P1、P2…），再用 format_paragraphs；\n"
+        "- 改表格：先用 document_outline 找表格编号，table_read 看每个单元格，再用 table_setCell 改一格的文字、"
+        "format_cells 改格式，一处一处改，不要整张表重写；\n"
         "- 撤销刚才的修改：edit_undo。\n"
         "工具执行后，用一句话告诉用户结果。");
     if (!context.isEmpty()) prompt += QStringLiteral("\n\n") + context;

@@ -1,0 +1,49 @@
+{
+  "name": "英文规格表：英文要求，表头加粗加灰底，价格列右对齐",
+  "document": "fixtures/assistant-samples/product-specs.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "In the table, make the header row bold with a light gray background, and right-align the Price column."
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R1C1-R1C4",
+      "bold": true,
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C4-R4C4",
+      "align": "right"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": []
+    }
+  ]
+}

@@ -7,7 +7,13 @@
 #include <QRegularExpression>
 #include <QSet>
 
+#include <QHash>
+#include <QLocale>
+#include <QPair>
+
 #include <algorithm>
+#include <cmath>
+#include <functional>
 
 namespace openoffice {
 namespace {
@@ -53,6 +59,16 @@ QList<TaskSpec> buildTasks()
         {QStringLiteral("rework"), QStringLiteral("按要求改写"), TaskScope::Selection, TaskOutput::Rewrite, QString(),
          QString(), false},
         {QStringLiteral("write"), QStringLiteral("按要求起草"), TaskScope::Writing, TaskOutput::Markdown, QString(),
+         QString(), false},
+        {QStringLiteral("table"), QStringLiteral("修改表格"), TaskScope::Table, TaskOutput::TablePlan, QString(),
+         QString(), false},
+        // The second look of a table check: the cells' words, proofread like a document.
+        {QStringLiteral("tableProofread"), QStringLiteral("修改表格"), TaskScope::Document, TaskOutput::Corrections,
+         QStringLiteral("下面是一张表格里各个单元格的文字，每行是一格，冒号前是这一列的名称。找出单元格文字里的错别字和用错的词"
+                        "（常见的是同音字、形近字），只报告确定的错误，不要改写，不要报告没有错的地方，人名、型号、邮箱、网址不算错。"
+                        "每条依次给出：error（出错的最短片段，必须和原文一字不差）、fix（改正后的正确写法，必须和 error 不同）、"
+                        "reason（简短原因）。没有错误时 corrections 为空数组。"
+                        "例如有一格是“按装费”，应回答 {\"corrections\":[{\"error\":\"按装\",\"fix\":\"安装\",\"reason\":\"错别字\"}]}。"),
          QString(), false},
     };
 }
@@ -119,15 +135,93 @@ bool rewriteUnchanged(const QString& original, const QString& result, const QStr
     return preset == QStringLiteral("expand") && after.size() * 100 < before.size() * 115;
 }
 
+bool isQuestion(const QString& request)
+{
+    static const QRegularExpression question(QStringLiteral(
+        "[？?]\\s*$|[吗呢么]\\s*[。！!]?\\s*$|什么|为什么|为何|怎么样|意思|解释|是否|是不是|对不对|有没有|哪些|哪里|哪个|多少"));
+    return question.match(request.trimmed()).hasMatch();
+}
+
+bool tableRequest(const QString& request, bool cursorInTable)
+{
+    const QString text = request.trimmed();
+    if (text.isEmpty() || text.startsWith(QLatin1Char('/')) || text.startsWith(QChar(0xFF0F))) return false;
+    static const QRegularExpression names(QStringLiteral("表格|表头|单元格|这张表|这个表|整张表|表里|表中|[第\\d一二三四五六七八九十]+张表"));
+    static const QRegularExpression check(QStringLiteral("检查|核对|看看|看一下|有没有.{0,6}(错|问题)|算错|写错|错误|对不对"));
+    static const QRegularExpression writing(QStringLiteral("^(请你?|帮我|给我)?((写|起草|生成)|(做|画|列)一?[张个份])"));
+    if (writing.match(text).hasMatch()) return false; // "做一个表格" makes a new one, "写一段…" is writing
+    if (!names.match(text).hasMatch() && !cursorInTable) return false;
+    return !isQuestion(text) || check.match(text).hasMatch();
+}
+
+int tableNumberIn(const QString& request)
+{
+    static const QRegularExpression number(QStringLiteral("第\\s*([0-9一二三四五六七八九十]+)\\s*[张个]?\\s*表|表\\s*([0-9]+)|\\bT([0-9]+)\\b"));
+    const QRegularExpressionMatch match = number.match(request);
+    if (!match.hasMatch()) return 0;
+    QString digits = match.captured(1) + match.captured(2) + match.captured(3);
+    static const QString chinese = QStringLiteral("一二三四五六七八九十");
+    if (digits.size() == 1 && chinese.contains(digits)) return chinese.indexOf(digits) + 1;
+    return digits.toInt();
+}
+
+TableGrid tableGridFrom(const QJsonObject& tableRead)
+{
+    TableGrid grid;
+    for (const QJsonValue& rowValue : tableRead.value(QStringLiteral("rows")).toArray()) {
+        QList<TableCell> row;
+        for (const QJsonValue& cellValue : rowValue.toArray()) {
+            const QJsonObject cell = cellValue.toObject();
+            row.append({cell.value(QStringLiteral("text")).toString().trimmed(), cell.value(QStringLiteral("bold")).toBool(),
+                        cell.value(QStringLiteral("italic")).toBool(), cell.value(QStringLiteral("align")).toString(),
+                        cell.value(QStringLiteral("fill")).toString().toUpper()});
+        }
+        grid.append(row);
+    }
+    return grid;
+}
+
+QString tableForPrompt(const TableGrid& grid, int table, int maxCells)
+{
+    int columns = 0;
+    for (const auto& row : grid) columns = qMax(columns, int(row.size()));
+    QStringList lines{QStringLiteral("表格 T%1，%2 行 %3 列。每格写成 R行号C列号：文字，方括号里是现有格式；空着的格写“（空）”。")
+                          .arg(table).arg(grid.size()).arg(columns)};
+    int shown = 0;
+    for (int r = 0; r < grid.size() && shown < maxCells; ++r)
+        for (int c = 0; c < grid[r].size() && shown < maxCells; ++c, ++shown) {
+            const TableCell& cell = grid[r][c];
+            QStringList format;
+            if (cell.bold) format << QStringLiteral("加粗");
+            if (cell.italic) format << QStringLiteral("斜体");
+            if (cell.align == QStringLiteral("center")) format << QStringLiteral("居中");
+            if (cell.align == QStringLiteral("right")) format << QStringLiteral("右对齐");
+            if (!cell.fill.isEmpty()) format << QStringLiteral("底色 ") + cell.fill;
+            QString text = cell.text.simplified();
+            if (text.size() > 80) text = text.left(80) + QStringLiteral("…");
+            lines << QStringLiteral("R%1C%2：%3").arg(r + 1).arg(c + 1).arg(text.isEmpty() ? QStringLiteral("（空）") : text)
+                         + (format.isEmpty() ? QString() : QStringLiteral(" [") + format.join(QStringLiteral("、")) + QLatin1Char(']'));
+        }
+    if (shown >= maxCells) lines << QStringLiteral("（表格较大，只列出了前 %1 格。）").arg(maxCells);
+    return lines.join(QLatin1Char('\n'));
+}
+
+QString tablePlace(int firstRow, int firstColumn, int lastRow, int lastColumn)
+{
+    const auto part = [](int first, int last, const QString& unit) {
+        return first == last ? QStringLiteral("第 %1 %2").arg(first).arg(unit)
+                             : QStringLiteral("第 %1–%2 %3").arg(first).arg(last).arg(unit);
+    };
+    return part(firstRow, lastRow, QStringLiteral("行")) + part(firstColumn, lastColumn, QStringLiteral("列"));
+}
+
 RequestKind classifyRequest(const QString& text, bool hasSelection)
 {
     const QString request = text.trimmed();
     if (request.isEmpty() || request.startsWith(QLatin1Char('/')) || request.startsWith(QChar(0xFF0F)))
         return RequestKind::Chat;
     // Questions are answered, whether or not something is selected.
-    static const QRegularExpression question(QStringLiteral(
-        "[？?]\\s*$|[吗呢么]\\s*[。！!]?\\s*$|什么|为什么|为何|怎么样|意思|解释|是否|是不是|对不对|有没有|哪些|哪里|哪个|多少"));
-    if (question.match(request).hasMatch()) return RequestKind::Chat;
+    if (isQuestion(request)) return RequestKind::Chat;
     // Thanks and the like are not instructions, even with text selected.
     static const QRegularExpression small(QStringLiteral(
         "^(好的?|好吧|好嘞|谢谢|多谢|感谢|辛苦了|可以了?|行|嗯+|不错|很好|收到|明白|知道了|你好|在吗|ok|OK|Ok)[。！!~～,，]*$"));
@@ -207,6 +301,22 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
         if (spec.output == TaskOutput::Markdown) system += QStringLiteral("可以使用 Markdown 的列表和表格。");
         break;
     }
+    case TaskScope::Table:
+        system = QStringLiteral("你是 Open Office 里的表格修改助手，运行在用户自己的电脑上。按用户的要求检查一张表格，"
+                                "列出需要修改的地方，由程序一处一处地改。只输出 JSON。");
+        user = QStringLiteral("用户的要求：") + input.detail.trimmed() + QStringLiteral("\n\n") + input.text + QStringLiteral(
+            "\n\n请列出修改计划 plan，每一项：\n"
+            "- cells：要改的格，例如 R2C3；改格式时也可以写一行或一列的范围，例如 R1C1-R1C4。\n"
+            "- change：text（改文字）、bold（加粗）、italic（斜体）、align（对齐）、fill（底色）、color（文字颜色）、fontSize（字号）之一。\n"
+            "- value：text 时是这一格完整的新文字；bold、italic 时是 true 或 false；align 是 left、center 或 right；"
+            "fill、color 是 #RRGGBB（fill 也可以是 none）；fontSize 是数字。\n"
+            "- reason：一句话说明为什么改。\n"
+            "规则：只列真正需要改的格，没问题的不要列，不要把整张表重写；改文字只改错的或不统一的地方，其余文字保持不变；"
+            "不要编造表里没有的数据，算错的数按表里的数重新算；最多 20 项。没有需要改的，plan 就是空的。");
+        if (checkRequest(input.detail))
+            user += QStringLiteral("\n用户要你检查时，逐格看：文字有没有错别字或用错的词，同一列的写法是否统一，"
+                                   "邮箱、电话、日期等的写法有没有明显错误；数字算得对不对以程序核算的结果为准。");
+        break;
     case TaskScope::Writing:
         system += QStringLiteral("写出可以直接放进文档的正文：用 Markdown 的 # 标题、列表组织结构，格式规范、语气得体。"
                                  "用户没有提供的具体信息（日期、人名、地点、数字等）用【】标出让用户填写，绝不编造。");
@@ -223,6 +333,27 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
 
 QJsonObject taskFormat(const TaskSpec& spec)
 {
+    if (spec.output == TaskOutput::TablePlan) {
+        const QJsonObject text{{QStringLiteral("type"), QStringLiteral("string")}};
+        // Sorted keys: cells, change, reason, value (where, what, why, then the new value).
+        const QJsonObject item{
+            {QStringLiteral("type"), QStringLiteral("object")},
+            {QStringLiteral("properties"),
+             QJsonObject{{QStringLiteral("cells"), text},
+                         {QStringLiteral("change"), QJsonObject{{QStringLiteral("type"), QStringLiteral("string")},
+                                                                {QStringLiteral("enum"), QJsonArray{QStringLiteral("text"), QStringLiteral("bold"),
+                                                                                                    QStringLiteral("italic"), QStringLiteral("align"),
+                                                                                                    QStringLiteral("fill"), QStringLiteral("color"),
+                                                                                                    QStringLiteral("fontSize")}}}},
+                         {QStringLiteral("reason"), text},
+                         {QStringLiteral("value"), text}}},
+            {QStringLiteral("required"), QJsonArray{QStringLiteral("cells"), QStringLiteral("change"), QStringLiteral("reason"),
+                                                    QStringLiteral("value")}}};
+        return {{QStringLiteral("type"), QStringLiteral("object")},
+                {QStringLiteral("properties"), QJsonObject{{QStringLiteral("plan"),
+                    QJsonObject{{QStringLiteral("type"), QStringLiteral("array")}, {QStringLiteral("items"), item}}}}},
+                {QStringLiteral("required"), QJsonArray{QStringLiteral("plan")}}};
+    }
     if (spec.output != TaskOutput::Corrections) return {};
     const QJsonObject text{{QStringLiteral("type"), QStringLiteral("string")}};
     const QJsonObject item{
@@ -251,6 +382,1149 @@ int contextLengthFor(const QJsonArray& messages, bool withTools)
     int length = 4096;
     while (length < needed && length < 32768) length *= 2;
     return length;
+}
+
+namespace {
+
+// The model's word for a change, as the schema names it.
+QString planChange(const QString& given)
+{
+    const QString change = given.trimmed().toLower().remove(QLatin1Char(' ')).remove(QLatin1Char('_'));
+    if (change == QStringLiteral("fontsize") || change == QStringLiteral("size") || change.contains(QStringLiteral("字号")))
+        return QStringLiteral("fontSize");
+    if (change == QStringLiteral("bold") || change.contains(QStringLiteral("加粗")) || change.contains(QStringLiteral("粗体")))
+        return QStringLiteral("bold");
+    if (change == QStringLiteral("italic") || change.contains(QStringLiteral("斜体"))) return QStringLiteral("italic");
+    if (change.startsWith(QStringLiteral("align")) || change.contains(QStringLiteral("对齐"))) return QStringLiteral("align");
+    if (change == QStringLiteral("fill") || change.contains(QStringLiteral("background")) || change.contains(QStringLiteral("shading"))
+        || change.contains(QStringLiteral("底色")) || change.contains(QStringLiteral("背景")) || change.contains(QStringLiteral("填充")))
+        return QStringLiteral("fill");
+    if (change == QStringLiteral("color") || change.contains(QStringLiteral("colour")) || change.contains(QStringLiteral("颜色")))
+        return QStringLiteral("color");
+    if (change == QStringLiteral("text") || change == QStringLiteral("value") || change == QStringLiteral("content")
+        || change.contains(QStringLiteral("文字")) || change.contains(QStringLiteral("内容")))
+        return QStringLiteral("text");
+    return change;
+}
+
+struct CellRange {
+    int r1 = 0, c1 = 0, r2 = 0, c2 = 0; // 1-based, inclusive
+};
+
+// "R2C3", "R1C1-R1C4", "R1", "C2", and lists of them ("R3C3,R5C3", "R2C4、R3C4"):
+// the rectangles that lie inside the table.
+QList<CellRange> planCells(const QString& given, const TableGrid& grid)
+{
+    static const QRegularExpression aroundDash(QStringLiteral("\\s*([-:~至到—–])\\s*"));
+    static const QRegularExpression separators(QStringLiteral("[,，;；、\\s]+"));
+    static const QRegularExpression single(QStringLiteral("^R(\\d+)C(\\d+)$"));
+    static const QRegularExpression rectangle(QStringLiteral("^R(\\d+)C(\\d+)[-:~至到—–]R(\\d+)C(\\d+)$"));
+    static const QRegularExpression wholeRow(QStringLiteral("^R(\\d+)$"));
+    static const QRegularExpression wholeColumn(QStringLiteral("^C(\\d+)$"));
+    QString cells = given.toUpper().trimmed();
+    cells.replace(aroundDash, QStringLiteral("\\1"));
+    const int rows = grid.size();
+    QList<CellRange> result;
+    for (const QString& part : cells.split(separators, Qt::SkipEmptyParts)) {
+        CellRange range;
+        QRegularExpressionMatch m;
+        if ((m = single.match(part)).hasMatch()) {
+            range.r1 = range.r2 = m.captured(1).toInt();
+            range.c1 = range.c2 = m.captured(2).toInt();
+        } else if ((m = rectangle.match(part)).hasMatch()) {
+            range.r1 = qMin(m.captured(1).toInt(), m.captured(3).toInt());
+            range.r2 = qMax(m.captured(1).toInt(), m.captured(3).toInt());
+            range.c1 = qMin(m.captured(2).toInt(), m.captured(4).toInt());
+            range.c2 = qMax(m.captured(2).toInt(), m.captured(4).toInt());
+        } else if ((m = wholeRow.match(part)).hasMatch()) {
+            range.r1 = range.r2 = m.captured(1).toInt();
+            range.c1 = 1;
+            range.c2 = range.r1 >= 1 && range.r1 <= rows ? int(grid[range.r1 - 1].size()) : 0;
+        } else if ((m = wholeColumn.match(part)).hasMatch()) {
+            range.c1 = range.c2 = m.captured(1).toInt();
+            range.r1 = 1;
+            range.r2 = rows;
+        } else {
+            continue;
+        }
+        if (range.r1 < 1 || range.r2 > rows || range.c1 < 1 || range.c2 < range.c1) continue;
+        bool inside = true;
+        for (int r = range.r1; r <= range.r2; ++r) inside = inside && range.c2 <= grid[r - 1].size();
+        if (inside) result.append(range);
+    }
+    return result;
+}
+
+// "bold: true", "align：center", "fill = #D9E2F3": the value without its name.
+QString bareValue(const QString& value)
+{
+    static const QRegularExpression named(QStringLiteral("^\\s*[A-Za-z\\x{4e00}-\\x{9fa5}]{1,10}\\s*[:：=]\\s*"));
+    QString bare = value.trimmed();
+    bare.remove(named);
+    return bare.trimmed();
+}
+
+// A color the model wrote as #RRGGBB anywhere in the value, or by name. Cell fills
+// get light shades (text stays readable); text colors get strong ones.
+QString planColor(const QString& value, bool fill)
+{
+    static const QRegularExpression hex(QStringLiteral("#?\\b([0-9A-Fa-f]{6})\\b"));
+    const QRegularExpressionMatch match = hex.match(value);
+    if (match.hasMatch()) return QLatin1Char('#') + match.captured(1).toUpper();
+    const QString name = value.toLower();
+    struct Named {
+        QStringList words;
+        const char* light;
+        const char* strong;
+    };
+    static const QList<Named> colors{
+        {{QStringLiteral("灰"), QStringLiteral("gray"), QStringLiteral("grey")}, "#D9D9D9", "#7F7F7F"},
+        {{QStringLiteral("蓝"), QStringLiteral("blue")}, "#DDEBF7", "#0070C0"},
+        {{QStringLiteral("绿"), QStringLiteral("green")}, "#E2EFDA", "#00B050"},
+        {{QStringLiteral("黄"), QStringLiteral("yellow")}, "#FFF2CC", "#BF8F00"},
+        {{QStringLiteral("橙"), QStringLiteral("orange")}, "#FCE4D6", "#ED7D31"},
+        {{QStringLiteral("粉"), QStringLiteral("pink")}, "#FCE4EC", "#E91E63"},
+        {{QStringLiteral("紫"), QStringLiteral("purple")}, "#E4DFEC", "#7030A0"},
+        {{QStringLiteral("红"), QStringLiteral("red")}, "#F8CBAD", "#C00000"},
+        {{QStringLiteral("黑"), QStringLiteral("black")}, "#BFBFBF", "#000000"},
+        {{QStringLiteral("白"), QStringLiteral("white")}, "#FFFFFF", "#FFFFFF"},
+    };
+    for (const Named& color : colors)
+        for (const QString& word : color.words)
+            if (name.contains(word)) return QString::fromLatin1(fill ? color.light : color.strong);
+    return {};
+}
+
+// Points, or a Chinese size name (小四 is 12 pt).
+int planFontSize(const QString& value)
+{
+    static const QList<QPair<QString, double>> names{
+        {QStringLiteral("小初"), 36}, {QStringLiteral("初号"), 42}, {QStringLiteral("小一"), 24}, {QStringLiteral("一号"), 26},
+        {QStringLiteral("小二"), 18}, {QStringLiteral("二号"), 22}, {QStringLiteral("小三"), 15}, {QStringLiteral("三号"), 16},
+        {QStringLiteral("小四"), 12}, {QStringLiteral("四号"), 14}, {QStringLiteral("小五"), 9}, {QStringLiteral("五号"), 10.5},
+        {QStringLiteral("六号"), 7.5}};
+    for (const auto& name : names)
+        if (value.contains(name.first)) return qRound(name.second);
+    static const QRegularExpression number(QStringLiteral("(\\d+(?:\\.\\d+)?)"));
+    const QRegularExpressionMatch match = number.match(value);
+    return match.hasMatch() ? qRound(match.captured(1).toDouble()) : 0;
+}
+
+// The value only repeats what the cells say ("序号" for R1C1, "事项|负责人|备注" for a header).
+bool restatesCells(const QString& value, const TableGrid& grid, int r1, int c1, int r2, int c2)
+{
+    static const QRegularExpression separators(QStringLiteral("[|,，、/;；\\s]+"));
+    QSet<QString> texts;
+    for (int r = r1; r <= r2; ++r)
+        for (int c = c1; c <= c2; ++c) texts.insert(grid[r - 1][c - 1].text.simplified());
+    if (texts.contains(value.simplified()) && !value.trimmed().isEmpty()) return true;
+    const QStringList parts = value.split(separators, Qt::SkipEmptyParts);
+    if (parts.isEmpty()) return false;
+    for (const QString& part : parts)
+        if (!texts.contains(part.simplified())) return false;
+    return true;
+}
+
+} // namespace
+
+QList<PlannedEdit> parseTablePlan(const QString& answer, const TableGrid& grid, int table, const QString& request)
+{
+    QString json = stripThinking(answer).trimmed();
+    const int start = json.indexOf(QLatin1Char('{'));
+    const int end = json.lastIndexOf(QLatin1Char('}'));
+    if (start < 0 || end <= start) return {};
+    const QJsonArray items = QJsonDocument::fromJson(json.mid(start, end - start + 1).toUtf8()).object()
+                                 .value(QStringLiteral("plan")).toArray();
+    // Small models word the same thing many ways ("bold: true", "居中", "浅蓝色",
+    // "R3C3,R5C3"); what they mean is taken, then checked against the table.
+    static const QRegularExpression negative(QStringLiteral("false|\\bno\\b|\\boff\\b|取消|不要|不加|去掉|去除|否|^0$"),
+                                             QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression textName(QStringLiteral("^\\s*(text|value|文字|内容)\\s*[:：=]\\s*"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression positive(QStringLiteral("^(true|yes|on|1|是|要|加粗|粗体|bold|italic|斜体)?[。.!！]?$"),
+                                             QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression namedPart(QStringLiteral("^\\s*([A-Za-z\\x{4e00}-\\x{9fa5}]{1,10})\\s*[:：=]\\s*(.+?)\\s*$"));
+    static const QRegularExpression partSeparator(QStringLiteral("[;；]"));
+    QList<PlannedEdit> plan;
+    QSet<QString> seen;
+    for (const QJsonValue& entry : items) {
+        const QJsonObject item = entry.toObject();
+        const QJsonValue rawValue = item.value(QStringLiteral("value"));
+        const QString rawText = rawValue.isString() ? rawValue.toString()
+            : rawValue.isBool() ? (rawValue.toBool() ? QStringLiteral("true") : QStringLiteral("false"))
+            : rawValue.isDouble() ? QString::number(rawValue.toDouble()) : QString();
+        const QString reason = item.value(QStringLiteral("reason")).toString().trimmed();
+        // One item may carry several format changes: "bold: true; fill: #D3D3D3".
+        QList<QPair<QString, QString>> changes{{planChange(item.value(QStringLiteral("change")).toString()), rawText}};
+        const QStringList parts = rawText.split(partSeparator, Qt::SkipEmptyParts);
+        if (parts.size() > 1) {
+            static const QStringList formats{QStringLiteral("bold"), QStringLiteral("italic"), QStringLiteral("align"),
+                                             QStringLiteral("fill"), QStringLiteral("color"), QStringLiteral("fontSize")};
+            QList<QPair<QString, QString>> split;
+            for (const QString& part : parts) {
+                const QRegularExpressionMatch named = namedPart.match(part);
+                if (!named.hasMatch() || !formats.contains(planChange(named.captured(1)))) break;
+                split.append({planChange(named.captured(1)), named.captured(2)});
+            }
+            if (split.size() == parts.size() && formats.contains(changes.first().first)) changes = split;
+        }
+        for (const auto& pair : changes) {
+        const QString value = pair.second;
+        for (const CellRange& range : planCells(item.value(QStringLiteral("cells")).toString(), grid)) {
+            if (plan.size() >= 20) return plan;
+            const int r1 = range.r1, c1 = range.c1, r2 = range.r2, c2 = range.c2;
+            // A fill or color whose value is no color: "fill: 已完成" says where, and the color
+            // is the one the request names; in a request with no color at all, "fill: 未到" is
+            // 填 as in "write in", a text change.
+            QString change = pair.first;
+            QString requestColor;
+            if ((change == QStringLiteral("fill") || change == QStringLiteral("color")) && !request.isEmpty()
+                && planColor(bareValue(value), change == QStringLiteral("fill")).isEmpty()) {
+                static const QRegularExpression colorWords(QStringLiteral("色|底|背景|\\bcolou?r|\\bbackground|\\bshading|\\bhighlight"),
+                                                           QRegularExpression::CaseInsensitiveOption);
+                if (colorWords.match(request).hasMatch()) requestColor = planColor(request, change == QStringLiteral("fill"));
+                else if (change == QStringLiteral("fill")) change = QStringLiteral("text");
+            }
+            const auto targets = [&](const std::function<bool(const TableCell&)>& already) {
+                for (int r = r1; r <= r2; ++r)
+                    for (int c = c1; c <= c2; ++c)
+                        if (!already(grid[r - 1][c - 1])) return true;
+                return false; // every cell is already like that
+            };
+            QJsonObject arguments{{QStringLiteral("table"), table},
+                                  {QStringLiteral("rows"), r1 == r2 ? QString::number(r1) : QStringLiteral("%1-%2").arg(r1).arg(r2)},
+                                  {QStringLiteral("columns"), c1 == c2 ? QString::number(c1) : QStringLiteral("%1-%2").arg(c1).arg(c2)}};
+            PlannedEdit edit{tablePlace(r1, c1, r2, c2), QString(), QString(), reason, {}};
+            if (change == QStringLiteral("text")) {
+                if (r1 != r2 || c1 != c2) continue; // text goes one cell at a time
+                const QString before = grid[r1 - 1][c1 - 1].text;
+                QString text = value.trimmed();
+                text.remove(textName);
+                text = text.trimmed();
+                if (text.isEmpty() || text == before.trimmed()) continue;
+                // Formats written into the text ("text:'小计';bold:True") are not text.
+                static const QRegularExpression serialized(QStringLiteral("\\b(bold|italic|fill|align|colou?r|font ?size)\\s*[:：=]"),
+                                                           QRegularExpression::CaseInsensitiveOption);
+                if (serialized.match(text).hasMatch()) continue;
+                edit.before = before;
+                edit.after = text;
+                edit.command = {QStringLiteral("table.setCell"), {{QStringLiteral("table"), table}, {QStringLiteral("row"), r1},
+                                                                  {QStringLiteral("column"), c1}, {QStringLiteral("text"), text}},
+                                CommandSource::Assistant};
+            } else if (change == QStringLiteral("bold") || change == QStringLiteral("italic")) {
+                // "true", "加粗", or the cell's own text again (the model restating where): on;
+                // "false", "取消": off; anything else ("单价" for a cell that says 12) is a
+                // confused item and is dropped.
+                const QString bare = bareValue(value);
+                bool on = true;
+                if (negative.match(bare).hasMatch()) on = false;
+                else if (!positive.match(bare).hasMatch() && !restatesCells(bare, grid, r1, c1, r2, c2)) continue;
+                const bool bold = change == QStringLiteral("bold");
+                if (!targets([&](const TableCell& cell) { return (bold ? cell.bold : cell.italic) == on; })) continue;
+                arguments.insert(change, on);
+                edit.after = on ? (bold ? QStringLiteral("加粗") : QStringLiteral("斜体"))
+                                : (bold ? QStringLiteral("取消加粗") : QStringLiteral("取消斜体"));
+            } else if (change == QStringLiteral("align")) {
+                const QString word = bareValue(value).toLower();
+                QString align;
+                if (word.contains(QStringLiteral("center")) || word.contains(QStringLiteral("centre")) || word.contains(QStringLiteral("middle"))
+                    || word.contains(QStringLiteral("居中")) || word.contains(QStringLiteral("中间")))
+                    align = QStringLiteral("center");
+                else if (word.contains(QStringLiteral("right")) || word.contains(QStringLiteral("右"))) align = QStringLiteral("right");
+                else if (word.contains(QStringLiteral("justify")) || word.contains(QStringLiteral("两端"))) align = QStringLiteral("justify");
+                else if (word.contains(QStringLiteral("left")) || word.contains(QStringLiteral("左"))) align = QStringLiteral("left");
+                if (align.isEmpty()) continue;
+                if (!targets([&](const TableCell& cell) { return (cell.align.isEmpty() ? QStringLiteral("left") : cell.align) == align; })) continue;
+                arguments.insert(QStringLiteral("align"), align);
+                edit.after = align == QStringLiteral("center") ? QStringLiteral("居中") : align == QStringLiteral("right") ? QStringLiteral("右对齐")
+                    : align == QStringLiteral("justify") ? QStringLiteral("两端对齐") : QStringLiteral("左对齐");
+            } else if (change == QStringLiteral("fill") || change == QStringLiteral("color")) {
+                const bool fill = change == QStringLiteral("fill");
+                const QString word = bareValue(value);
+                const bool none = fill && (word.compare(QStringLiteral("none"), Qt::CaseInsensitive) == 0 || word.contains(QStringLiteral("无"))
+                                           || word.contains(QStringLiteral("去掉")) || word.contains(QStringLiteral("取消")));
+                QString chosen = none ? QStringLiteral("none") : planColor(word, fill);
+                if (chosen.isEmpty()) chosen = requestColor;
+                if (chosen.isEmpty()) continue;
+                if (fill && !targets([&](const TableCell& cell) { return none ? cell.fill.isEmpty() : cell.fill == chosen; })) continue;
+                arguments.insert(change, chosen);
+                edit.after = !fill ? QStringLiteral("文字颜色 ") + chosen : none ? QStringLiteral("去掉底色") : QStringLiteral("底色 ") + chosen;
+            } else if (change == QStringLiteral("fontSize")) {
+                const int size = planFontSize(bareValue(value));
+                if (size < 6 || size > 72) continue;
+                arguments.insert(QStringLiteral("fontSize"), size);
+                edit.after = QStringLiteral("字号 %1").arg(size);
+            } else {
+                continue;
+            }
+            if (edit.command.name.isEmpty()) edit.command = {QStringLiteral("format.cells"), arguments, CommandSource::Assistant};
+            const QString key = QStringLiteral("%1,%2,%3,%4|").arg(r1).arg(c1).arg(r2).arg(c2) + change + QLatin1Char('|') + edit.after;
+            if (seen.contains(key)) continue;
+            seen.insert(key);
+            plan.append(edit);
+        }
+        }
+    }
+    return plan;
+}
+
+bool cellNumber(const QString& text, double* value)
+{
+    // One number, with at most a currency sign before it and a short unit after it.
+    static const QRegularExpression number(QStringLiteral(
+        "^[¥￥$€£\\s]*([-+]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)(?:\\.\\d+)?)\\s*[^\\d\\s.,:：/\\\\\\-]{0,4}$"));
+    const QRegularExpressionMatch match = number.match(text.trimmed());
+    if (!match.hasMatch()) return false;
+    QString digits = match.captured(1);
+    digits.remove(QLatin1Char(','));
+    bool ok = false;
+    const double parsed = digits.toDouble(&ok);
+    if (ok && value) *value = parsed;
+    return ok;
+}
+
+namespace {
+
+bool sameNumber(double a, double b)
+{
+    return std::fabs(a - b) <= std::max(0.011, std::fabs(b) * 1e-6);
+}
+
+// The cell's text with its number replaced by value: "¥80.00" -> "¥60.00", "80" -> "60".
+QString withNumber(const QString& original, double value)
+{
+    static const QRegularExpression digits(QStringLiteral("[-+]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)(?:\\.(\\d+))?"));
+    const QRegularExpressionMatch match = digits.match(original);
+    int decimals = match.hasMatch() ? int(match.captured(1).size()) : 0;
+    while (decimals < 4 && std::fabs(value * std::pow(10.0, decimals) - std::round(value * std::pow(10.0, decimals))) > 1e-6)
+        ++decimals;
+    QLocale grouped(QLocale::English, QLocale::UnitedStates);
+    if (match.hasMatch() && match.captured(0).contains(QLatin1Char(','))) grouped.setNumberOptions({});
+    else grouped.setNumberOptions(QLocale::OmitGroupSeparator);
+    const QString number = grouped.toString(value, 'f', decimals);
+    if (!match.hasMatch()) return number;
+    QString result = original.trimmed();
+    const QRegularExpressionMatch inTrimmed = digits.match(result);
+    result.replace(inTrimmed.capturedStart(0), inTrimmed.capturedLength(0), number);
+    return result;
+}
+
+QString header(const TableGrid& grid, int column) // 1-based; the first row's text, short
+{
+    if (grid.isEmpty() || column < 1 || column > grid.first().size()) return {};
+    const QString text = grid.first()[column - 1].text.simplified();
+    double ignored = 0;
+    return text.size() > 12 || cellNumber(text, &ignored) ? QString() : text;
+}
+
+QString columnsText(const QList<int>& columns)
+{
+    if (columns.size() > 2 && columns.last() - columns.first() == columns.size() - 1)
+        return QStringLiteral("第 %1–%2 列").arg(columns.first()).arg(columns.last());
+    QStringList parts;
+    for (int column : columns) parts << QString::number(column);
+    return QStringLiteral("第 ") + parts.join(QStringLiteral("、")) + QStringLiteral(" 列");
+}
+
+// "单价 × 数量", "语文 + 数学 + 英语"; empty when a column has no header.
+QString formulaWords(const TableGrid& grid, const TableFormula& formula)
+{
+    QString words;
+    for (int i = 0; i < formula.from.size(); ++i) {
+        const QString name = header(grid, formula.from[i]);
+        if (name.isEmpty()) return {};
+        if (i) words += formula.product ? QStringLiteral(" × ") : formula.signs.value(i, 1) < 0 ? QStringLiteral(" − ") : QStringLiteral(" + ");
+        words += name;
+    }
+    return words;
+}
+
+// "第 2 列 × 第 3 列", "第 2–4 列之和", "第 2 列 + 第 3 列 − 第 4 列".
+QString formulaColumns(const TableFormula& formula)
+{
+    if (formula.product) return QStringLiteral("第 %1 列 × 第 %2 列").arg(formula.from.value(0)).arg(formula.from.value(1));
+    if (!formula.signs.contains(-1)) return columnsText(formula.from) + QStringLiteral("之和");
+    QString text;
+    for (int i = 0; i < formula.from.size(); ++i) {
+        if (i) text += formula.signs.value(i, 1) < 0 ? QStringLiteral(" − ") : QStringLiteral(" + ");
+        text += QStringLiteral("第 %1 列").arg(formula.from[i]);
+    }
+    return text;
+}
+
+} // namespace
+
+QList<TableFormula> tableFormulas(const TableGrid& grid)
+{
+    const int rows = grid.size();
+    int columns = 0;
+    for (const auto& row : grid) columns = qMax(columns, int(row.size()));
+    QList<QList<double>> number(rows, QList<double>(columns, 0));
+    QList<QList<bool>> has(rows, QList<bool>(columns, false));
+    for (int r = 0; r < rows; ++r)
+        for (int c = 0; c < grid[r].size(); ++c) has[r][c] = cellNumber(grid[r][c].text, &number[r][c]);
+
+    struct Candidate {
+        QList<int> from; // 0-based
+        bool product = false;
+        QList<int> signs; // a sum's: +1 or -1 per column
+    };
+    QList<TableFormula> result;
+    for (int k = 0; k < columns; ++k) {
+        QList<Candidate> candidates;
+        for (int a = 0; a < columns; ++a)
+            for (int b = a + 1; b < columns; ++b)
+                if (a != k && b != k) candidates.append({{a, b}, true});
+        for (int s = 0; s + 1 < k; ++s) { // the columns just before it: s .. k-1, at least two
+            Candidate sum{{}, false, {}};
+            for (int c = s; c < k; ++c) {
+                sum.from.append(c);
+                sum.signs.append(1);
+            }
+            candidates.append(sum);
+        }
+        // Then with some of them subtracted (余额 = 上期 + 收入 − 支出), up to five columns.
+        for (int s = qMax(0, k - 5); s + 1 < k; ++s) {
+            const int width = k - s;
+            for (int mask = 1; mask < (1 << (width - 1)); ++mask) {
+                Candidate sum{{}, false, {}};
+                for (int c = s; c < k; ++c) {
+                    sum.from.append(c);
+                    sum.signs.append(c > s && (mask >> (c - s - 1)) & 1 ? -1 : 1);
+                }
+                candidates.append(sum);
+            }
+        }
+        int bestHolds = 0;
+        TableFormula best;
+        for (const Candidate& candidate : candidates) {
+            int support = 0;
+            int holds = 0;
+            QList<TableFormula::Fix> wrong;
+            for (int r = 0; r < rows; ++r) {
+                if (!has[r][k]) continue;
+                bool all = true;
+                double value = candidate.product ? 1 : 0;
+                for (int i = 0; i < candidate.from.size(); ++i) {
+                    const int c = candidate.from[i];
+                    all = all && has[r][c];
+                    value = candidate.product ? value * number[r][c] : value + candidate.signs.value(i, 1) * number[r][c];
+                }
+                if (!all) continue;
+                ++support;
+                if (sameNumber(number[r][k], value)) ++holds;
+                else wrong.append({r + 1, grid[r][k].text, withNumber(grid[r][k].text, value)});
+            }
+            // Evidence: at least three rows, two of them right, and most of them; a formula
+            // that subtracts is one of many tried, so it needs three right rows.
+            const int needed = candidate.signs.contains(-1) ? 3 : 2;
+            if (support < 3 || holds < needed || holds * 10 < support * 6) continue;
+            if (holds <= bestHolds) continue; // the first, simplest one wins a tie
+            bestHolds = holds;
+            best = TableFormula{k + 1, {}, candidate.product, candidate.signs, wrong};
+            for (int c : candidate.from) best.from.append(c + 1);
+        }
+        if (bestHolds) result.append(best);
+    }
+    return result;
+}
+
+QString formulaFacts(const TableGrid& grid, const QList<TableFormula>& formulas)
+{
+    if (formulas.isEmpty()) return {};
+    QStringList lines{QStringLiteral("程序已经核算过表里的数，下面的结果是准确的：照它改，不要自己重新计算，也不要改算对了的数。")};
+    for (const TableFormula& formula : formulas) {
+        const QString target = header(grid, formula.column);
+        QString line = QStringLiteral("- 第 %1 列%2 = %3%4").arg(formula.column)
+            .arg(target.isEmpty() ? QString() : QStringLiteral("（%1）").arg(target))
+            .arg(formulaColumns(formula))
+            .arg(formulaWords(grid, formula).isEmpty() ? QString() : QStringLiteral("（%1）").arg(formulaWords(grid, formula)));
+        if (formula.wrong.isEmpty()) line += QStringLiteral("：每一行都算对了。");
+        else {
+            QStringList fixes;
+            for (const TableFormula::Fix& fix : formula.wrong)
+                fixes << QStringLiteral("R%1C%2 应为 %3（表里写的是 %4）").arg(fix.row).arg(formula.column).arg(fix.after, fix.before);
+            line += QStringLiteral("：") + fixes.join(QStringLiteral("；")) + QStringLiteral("。");
+        }
+        lines << line;
+    }
+    return lines.join(QLatin1Char('\n'));
+}
+
+bool checkRequest(const QString& request)
+{
+    static const QRegularExpression check(QStringLiteral(
+        "检查|核对|核算|校对|审核|算错|算对|计算|对不对|有没有.{0,8}(错|问题)|错误|写错|有错|改正|纠正|修正|更正|"
+        "\\b(check|verify|fix|correct|wrong|mistakes?|errors?)\\b"), QRegularExpression::CaseInsensitiveOption);
+    return check.match(request).hasMatch();
+}
+
+QList<PlannedEdit> withFormulaFixes(const QList<PlannedEdit>& plan, const TableGrid& grid, int table,
+                                    const QList<TableFormula>& formulas, bool addMissing)
+{
+    // Every number a formula touches: in a row where it holds, nobody has a reason to
+    // change it; in a row where it does not, the program knows the right value.
+    QHash<QPair<int, int>, QString> rightText; // (row, column) of a wrong result -> its text
+    QHash<QPair<int, int>, double> rightValue;
+    QSet<QPair<int, int>> settled;             // numbers in rows where the formula holds
+    for (const TableFormula& formula : formulas) {
+        QSet<int> wrongRows;
+        for (const TableFormula::Fix& fix : formula.wrong) {
+            wrongRows.insert(fix.row);
+            rightText.insert({fix.row, formula.column}, fix.after);
+            double value = 0;
+            cellNumber(fix.after, &value);
+            rightValue.insert({fix.row, formula.column}, value);
+        }
+        for (int r = 1; r <= grid.size(); ++r) {
+            if (wrongRows.contains(r)) continue;
+            double ignored = 0;
+            const auto& row = grid[r - 1];
+            if (formula.column > row.size() || !cellNumber(row[formula.column - 1].text, &ignored)) continue;
+            bool all = true;
+            for (int c : formula.from) all = all && c <= row.size() && cellNumber(row[c - 1].text, &ignored);
+            if (!all) continue;
+            settled.insert({r, formula.column});
+            for (int c : formula.from) settled.insert({r, c});
+        }
+    }
+    QList<PlannedEdit> kept;
+    QSet<QPair<int, int>> covered;
+    for (PlannedEdit edit : plan) {
+        if (edit.command.name == QStringLiteral("table.setCell")) {
+            const QPair<int, int> cell{edit.command.arguments.value(QStringLiteral("row")).toInt(),
+                                       edit.command.arguments.value(QStringLiteral("column")).toInt()};
+            if (settled.contains(cell)) continue; // a number that adds up
+            if (rightText.contains(cell)) {
+                double written = 0;
+                if (!cellNumber(edit.after, &written) || !sameNumber(written, rightValue.value(cell))) continue; // miscalculated
+                // Right, and written the way the column is ("37.5" -> "¥37.50").
+                edit.after = rightText.value(cell);
+                edit.command.arguments.insert(QStringLiteral("text"), edit.after);
+                covered.insert(cell);
+            }
+        }
+        kept.append(edit);
+    }
+    if (!addMissing) return kept;
+    QList<PlannedEdit> fixes;
+    for (const TableFormula& formula : formulas)
+        for (const TableFormula::Fix& fix : formula.wrong) {
+            if (covered.contains({fix.row, formula.column})) continue;
+            const QString words = formulaWords(grid, formula);
+            const QString how = !words.isEmpty() ? words : formulaColumns(formula);
+            fixes.append({tablePlace(fix.row, formula.column, fix.row, formula.column), fix.before, fix.after,
+                          QStringLiteral("按“%1”算，应为 %2").arg(how, fix.after),
+                          {QStringLiteral("table.setCell"), {{QStringLiteral("table"), table}, {QStringLiteral("row"), fix.row},
+                                                             {QStringLiteral("column"), formula.column}, {QStringLiteral("text"), fix.after}},
+                           CommandSource::Assistant}});
+        }
+    return fixes + kept;
+}
+
+QList<PlannedEdit> withSameCleanup(const QList<PlannedEdit>& plan, const TableGrid& grid, int table, const QString& request)
+{
+    static const QRegularExpression uniform(QStringLiteral("统一|一致|规范|整理|\\b(consistent|uniform|normali[sz]e)\\b"),
+                                            QRegularExpression::CaseInsensitiveOption);
+    if (!uniform.match(request).hasMatch()) return plan;
+    static const QString separators = QStringLiteral(" -－—–.·/()（）　");
+    // What was taken out of `before` to give `after`, if only separators were.
+    const auto removed = [](const QString& before, const QString& after, QString* taken) {
+        int i = 0;
+        for (const QChar character : before) {
+            if (i < after.size() && after[i] == character) ++i;
+            else if (separators.contains(character)) { if (!taken->contains(character)) *taken += character; }
+            else return false;
+        }
+        return i == after.size() && !taken->isEmpty();
+    };
+    struct Column {
+        bool allCleanups = true;
+        QString taken;
+        QSet<int> lengths;
+        bool digits = true;
+        QSet<int> rows;
+    };
+    QHash<int, Column> columns;
+    for (const PlannedEdit& edit : plan) {
+        if (edit.command.name != QStringLiteral("table.setCell")) continue;
+        const int column = edit.command.arguments.value(QStringLiteral("column")).toInt();
+        Column& info = columns[column];
+        info.rows.insert(edit.command.arguments.value(QStringLiteral("row")).toInt());
+        QString taken;
+        if (!removed(edit.before.trimmed(), edit.after, &taken)) {
+            info.allCleanups = false;
+            continue;
+        }
+        for (const QChar character : taken) if (!info.taken.contains(character)) info.taken += character;
+        info.lengths.insert(edit.after.size());
+        for (const QChar character : edit.after) info.digits = info.digits && character.isDigit();
+    }
+    QList<PlannedEdit> result = plan;
+    for (auto it = columns.begin(); it != columns.end(); ++it) {
+        const Column& info = it.value();
+        if (!info.allCleanups || info.taken.isEmpty() || info.lengths.size() != 1) continue;
+        const int column = it.key();
+        const int length = *info.lengths.begin();
+        for (int r = 2; r <= grid.size(); ++r) { // the first row is the header
+            if (info.rows.contains(r) || column > grid[r - 1].size()) continue;
+            // Any separators may go ("138 0013 8000" after the model did "137-0013-7000"),
+            // as long as what is left has the shape of the model's results.
+            const QString before = grid[r - 1][column - 1].text.trimmed();
+            QString after;
+            for (const QChar character : before)
+                if (!separators.contains(character)) after += character;
+            bool digits = true;
+            for (const QChar character : after) digits = digits && character.isDigit();
+            if (after == before || after.size() != length || (info.digits && !digits)) continue;
+            result.append({tablePlace(r, column, r, column), before, after, QStringLiteral("和这一列其他格的整理方式一样"),
+                           {QStringLiteral("table.setCell"), {{QStringLiteral("table"), table}, {QStringLiteral("row"), r},
+                                                              {QStringLiteral("column"), column}, {QStringLiteral("text"), after}},
+                            CommandSource::Assistant}});
+        }
+    }
+    return result.size() > 20 ? result.mid(0, 20) : result;
+}
+
+namespace {
+
+bool singleNumber(const QString& text)
+{
+    bool ok = false;
+    text.toInt(&ok);
+    return ok;
+}
+
+// The request names this header as a column: "价格列", "金额那一列", "the Price column".
+bool namesColumn(const QString& request, const QString& header)
+{
+    if (header.isEmpty()) return false;
+    const QRegularExpression column(QRegularExpression::escape(header) + QStringLiteral("\\s*(那一?|这一?|整)?\\s*(列|colum)"),
+                                    QRegularExpression::CaseInsensitiveOption);
+    return column.match(request).hasMatch();
+}
+
+QString argumentKey(const AssistantCommand& command)
+{
+    return command.name + QString::fromUtf8(QJsonDocument(command.arguments).toJson(QJsonDocument::Compact));
+}
+
+} // namespace
+
+QList<PlannedEdit> withRequestedScope(const QList<PlannedEdit>& plan, const TableGrid& grid, int table, const QString& request)
+{
+    static const QRegularExpression rowWord(QStringLiteral("行|\\brows?\\b"), QRegularExpression::CaseInsensitiveOption);
+    QList<PlannedEdit> result;
+    QSet<QString> seen;
+    for (PlannedEdit edit : plan) {
+        if (edit.command.name == QStringLiteral("format.cells")) {
+            const QString rows = edit.command.arguments.value(QStringLiteral("rows")).toString();
+            const QString columns = edit.command.arguments.value(QStringLiteral("columns")).toString();
+            if (singleNumber(rows) && singleNumber(columns)) {
+                const int r = rows.toInt();
+                const int c = columns.toInt();
+                if (r >= 1 && r <= grid.size() && c >= 1 && c <= grid[r - 1].size()) {
+                    const QString text = grid[r - 1][c - 1].text.simplified();
+                    const int width = int(grid[r - 1].size());
+                    if (r >= 2 && !text.isEmpty() && rowWord.match(request).hasMatch() && request.contains(text, Qt::CaseInsensitive)) {
+                        // "状态是已完成的那几行": the row of a cell whose text the request names.
+                        edit.command.arguments.insert(QStringLiteral("columns"), QStringLiteral("1-%1").arg(width));
+                        edit.place = tablePlace(r, 1, r, width);
+                    } else if (r == 1 && namesColumn(request, text)) {
+                        // "价格列右对齐": the column whose header the request names as a column.
+                        edit.command.arguments.insert(QStringLiteral("rows"), QStringLiteral("1-%1").arg(grid.size()));
+                        edit.place = tablePlace(1, c, int(grid.size()), c);
+                    }
+                }
+            }
+        }
+        const QString key = argumentKey(edit.command);
+        if (seen.contains(key)) continue;
+        seen.insert(key);
+        result.append(edit);
+    }
+
+    // Formats the request names that the plan left out ("加粗居中，加浅蓝底色" with only
+    // bold and fill planned): added where the plan formats, when the request is about
+    // one place (no rows or columns of their own).
+    QString place = request;
+    place.remove(QRegularExpression(QStringLiteral("表头行|标题行|header row|heading row"), QRegularExpression::CaseInsensitiveOption));
+    if (QRegularExpression(QStringLiteral("行|列|\\brows?\\b|\\bcolumns?\\b"), QRegularExpression::CaseInsensitiveOption)
+            .match(place).hasMatch())
+        return result;
+    const PlannedEdit* target = nullptr;
+    int area = 0;
+    const auto size = [](const QString& spec, int count) {
+        if (spec == QStringLiteral("all") || spec.isEmpty()) return count;
+        const QStringList ends = spec.split(QLatin1Char('-'));
+        return ends.size() == 2 ? ends[1].toInt() - ends[0].toInt() + 1 : 1;
+    };
+    int columnsCount = 0;
+    for (const auto& row : grid) columnsCount = qMax(columnsCount, int(row.size()));
+    for (const PlannedEdit& edit : result) {
+        if (edit.command.name != QStringLiteral("format.cells")) continue;
+        const int cells = size(edit.command.arguments.value(QStringLiteral("rows")).toString(), int(grid.size()))
+            * size(edit.command.arguments.value(QStringLiteral("columns")).toString(), columnsCount);
+        if (cells > area) {
+            area = cells;
+            target = &edit;
+        }
+    }
+    if (!target) return result;
+    struct Wanted {
+        QString key;
+        QJsonValue value;
+        QString words;
+    };
+    QList<Wanted> wanted;
+    const auto asks = [&request](const char* pattern) {
+        return QRegularExpression(QString::fromUtf8(pattern), QRegularExpression::CaseInsensitiveOption).match(request).hasMatch();
+    };
+    if (asks("(?<!不|取消|别)(加粗|粗体)|\\bbold\\b")) wanted.append({QStringLiteral("bold"), true, QStringLiteral("加粗")});
+    if (asks("(?<!不|取消|别)斜体|\\bitalic")) wanted.append({QStringLiteral("italic"), true, QStringLiteral("斜体")});
+    if (asks("居中|\\bcent(er|re)")) wanted.append({QStringLiteral("align"), QStringLiteral("center"), QStringLiteral("居中")});
+    else if (asks("右对齐|靠右|right[- ]?align|align(ed)? (to the )?right")) wanted.append({QStringLiteral("align"), QStringLiteral("right"), QStringLiteral("右对齐")});
+    else if (asks("左对齐|靠左|left[- ]?align|align(ed)? (to the )?left")) wanted.append({QStringLiteral("align"), QStringLiteral("left"), QStringLiteral("左对齐")});
+    const QString fill = planColor(request, true);
+    if (!fill.isEmpty() && asks("底色|背景|填充|底纹|\\bbackground|\\bshading|\\bfill")
+        && !asks("文字颜色|字体颜色|字的颜色|\\btext colou?r|\\bfont colou?r"))
+        wanted.append({QStringLiteral("fill"), fill, QStringLiteral("底色 ") + fill});
+    QList<PlannedEdit> added;
+    for (const Wanted& want : wanted) {
+        bool planned = false;
+        for (const PlannedEdit& edit : result)
+            planned = planned || (edit.command.name == QStringLiteral("format.cells") && edit.command.arguments.contains(want.key));
+        if (planned) continue;
+        PlannedEdit edit{target->place, QString(), want.words, QStringLiteral("你要求了“%1”").arg(want.words), target->command};
+        QJsonObject arguments{{QStringLiteral("table"), table},
+                              {QStringLiteral("rows"), target->command.arguments.value(QStringLiteral("rows"))},
+                              {QStringLiteral("columns"), target->command.arguments.value(QStringLiteral("columns"))},
+                              {want.key, want.value}};
+        edit.command.arguments = arguments;
+        added.append(edit);
+    }
+    return result + added;
+}
+
+namespace {
+
+QRegularExpression phrase(const char* pattern)
+{
+    return QRegularExpression(QString::fromUtf8(pattern), QRegularExpression::CaseInsensitiveOption);
+}
+
+// "第三", "12": a 1-based number; 0 when it is not one.
+int ordinal(const QString& text)
+{
+    static const QString digits = QStringLiteral("一二三四五六七八九");
+    if (text == QStringLiteral("十")) return 10;
+    if (text.size() == 2 && text.startsWith(QStringLiteral("十")) && digits.contains(text[1])) return 10 + digits.indexOf(text[1]) + 1;
+    if (text.size() == 1 && digits.contains(text)) return digits.indexOf(text) + 1;
+    return text.toInt();
+}
+
+// A header's words without a unit in brackets: "单价（元）" -> "单价".
+QString headerCore(const QString& header)
+{
+    QString core = header.simplified();
+    core.remove(QRegularExpression(QStringLiteral("[（(][^）)]*[）)]")));
+    return core.trimmed();
+}
+
+struct ClauseTarget {
+    QList<int> rows; // 1-based, sorted; empty with columns set: every row
+    QList<int> columns; // 1-based; empty: every column
+    bool found = false;
+};
+
+ClauseTarget clauseTarget(const QString& clause, const TableGrid& grid)
+{
+    ClauseTarget target;
+    const int rows = grid.size();
+    QSet<int> rowSet;
+    QSet<int> columnSet;
+    if (phrase("整张表|全表|整个表格?|所有单元格|全部单元格|\\bwhole table|\\bentire table|\\ball cells").match(clause).hasMatch()) {
+        target.found = true;
+        return target; // everything
+    }
+    if (phrase("表头|标题行|首行|第一行|\\bheaders?( row)?\\b|\\bheading row|\\btop row|\\bfirst row").match(clause).hasMatch())
+        rowSet.insert(1);
+    static const QRegularExpression numberedRows(QStringLiteral("第\\s*([0-9一二三四五六七八九十]+)\\s*(?:[到至~—–-]\\s*第?\\s*([0-9一二三四五六七八九十]+)\\s*)?行"));
+    for (auto it = numberedRows.globalMatch(clause); it.hasNext();) {
+        const QRegularExpressionMatch match = it.next();
+        const int first = ordinal(match.captured(1));
+        const int last = match.captured(2).isEmpty() ? first : ordinal(match.captured(2));
+        for (int r = first; r >= 1 && r <= last && r <= rows; ++r) rowSet.insert(r);
+    }
+    static const QRegularExpression numberedColumns(QStringLiteral("第\\s*([0-9一二三四五六七八九十]+)\\s*列"));
+    for (auto it = numberedColumns.globalMatch(clause); it.hasNext();) {
+        const int column = ordinal(it.next().captured(1));
+        if (column >= 1) columnSet.insert(column);
+    }
+    // A column by its header: "小计那一列", "the Price column".
+    if (!grid.isEmpty())
+        for (int c = 1; c <= grid.first().size(); ++c) {
+            const QString core = headerCore(grid.first()[c - 1].text);
+            if (core.size() >= 2 && namesColumn(clause, core)) columnSet.insert(c);
+        }
+    // Rows by what a cell says: "已取消的预约整行", "状态是已完成的那几行", "张三所在的行".
+    static const QRegularExpression byText(QStringLiteral(
+        "([^，,。的是为把将在和与及]{1,12}?)(?:的[^，,。行]{0,6}?(?:整行|那几行|那些行|这几行|这些行|所有行|各行|一行|行)|所在的?行)"));
+    const QRegularExpressionMatch condition = byText.match(clause);
+    if (condition.hasMatch()) {
+        const QString wanted = condition.captured(1).trimmed();
+        QSet<int> exact, containing;
+        for (int r = 2; r <= rows; ++r)
+            for (const TableCell& cell : grid[r - 1]) {
+                const QString text = cell.text.simplified();
+                if (text.isEmpty()) continue;
+                if (text == wanted) exact.insert(r);
+                else if (text.contains(wanted)) containing.insert(r);
+            }
+        const QSet<int>& found = exact.isEmpty() ? containing : exact;
+        if (!found.isEmpty()) {
+            rowSet.unite(found);
+        }
+    }
+    if (rowSet.isEmpty() && columnSet.isEmpty()) return target;
+    target.found = true;
+    target.rows = QList<int>(rowSet.begin(), rowSet.end());
+    std::sort(target.rows.begin(), target.rows.end());
+    target.columns = QList<int>(columnSet.begin(), columnSet.end());
+    std::sort(target.columns.begin(), target.columns.end());
+    return target;
+}
+
+struct ClauseFormat {
+    QString key;
+    QJsonValue value;
+    QString words;
+};
+
+QList<ClauseFormat> clauseFormats(const QString& clause, bool* unclear)
+{
+    QList<ClauseFormat> formats;
+    if (phrase("取消加粗|去掉加粗|不要加粗|不加粗|\\bunbold|\\bnot bold").match(clause).hasMatch())
+        formats.append({QStringLiteral("bold"), false, QStringLiteral("取消加粗")});
+    else if (phrase("加粗|粗体|\\bbold").match(clause).hasMatch())
+        formats.append({QStringLiteral("bold"), true, QStringLiteral("加粗")});
+    if (phrase("取消斜体|去掉斜体|不要斜体").match(clause).hasMatch())
+        formats.append({QStringLiteral("italic"), false, QStringLiteral("取消斜体")});
+    else if (phrase("斜体|倾斜|\\bitalics?\\b").match(clause).hasMatch())
+        formats.append({QStringLiteral("italic"), true, QStringLiteral("斜体")});
+    if (phrase("居中|中间对齐|\\bcent(er|re)(ed)?\\b").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("center"), QStringLiteral("居中")});
+    else if (phrase("右对齐|靠右|right[- ]align|align(ed)? (to the )?right").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("right"), QStringLiteral("右对齐")});
+    else if (phrase("左对齐|靠左|left[- ]align|align(ed)? (to the )?left").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("left"), QStringLiteral("左对齐")});
+    else if (phrase("两端对齐|\\bjustif").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("justify"), QStringLiteral("两端对齐")});
+    const bool textColor = phrase("文字颜色|字体颜色|字的颜色|色的字|色字|字体.{0,4}色|标红|\\btext colou?r|\\bfont colou?r|\\bin red\\b").match(clause).hasMatch();
+    if (phrase("去掉底色|取消底色|去掉背景|取消背景|不要底色|\\bno background|\\bremove .{0,12}(background|shading)").match(clause).hasMatch()) {
+        formats.append({QStringLiteral("fill"), QStringLiteral("none"), QStringLiteral("去掉底色")});
+    } else if (!textColor && phrase("底色|背景|填充|底纹|(标|涂|填|改)成?.{0,4}色|色.{0,2}(标出|标记)|\\bbackground|\\bshading|\\bhighlight|\\bfill").match(clause).hasMatch()) {
+        const QString color = planColor(clause, true);
+        if (color.isEmpty()) *unclear = true;
+        else formats.append({QStringLiteral("fill"), color, QStringLiteral("底色 ") + color});
+    }
+    if (textColor) {
+        const QString color = planColor(clause, false);
+        if (color.isEmpty()) *unclear = true;
+        else formats.append({QStringLiteral("color"), color, QStringLiteral("文字颜色 ") + color});
+    }
+    static const QRegularExpression size(QStringLiteral(
+        "字号.{0,4}?(\\d+(?:\\.\\d+)?|小?[初一二三四五六]号?)|(\\d+(?:\\.\\d+)?)\\s*(?:pt|磅|号字)|font size (?:of |to )?(\\d+)"),
+        QRegularExpression::CaseInsensitiveOption);
+    const QRegularExpressionMatch sized = size.match(clause);
+    if (sized.hasMatch()) {
+        const int points = planFontSize(sized.captured(0).mid(sized.captured(0).startsWith(QStringLiteral("字号")) ? 2 : 0));
+        if (points >= 6 && points <= 72) formats.append({QStringLiteral("fontSize"), points, QStringLiteral("字号 %1").arg(points)});
+        else *unclear = true;
+    }
+    return formats;
+}
+
+QString numbersText(const QList<int>& numbers, const QString& unit)
+{
+    if (numbers.size() > 1 && numbers.last() - numbers.first() == numbers.size() - 1)
+        return QStringLiteral("第 %1–%2 %3").arg(numbers.first()).arg(numbers.last()).arg(unit);
+    QStringList parts;
+    for (int number : numbers) parts << QString::number(number);
+    return QStringLiteral("第 %1 %2").arg(parts.join(QStringLiteral("、")), unit);
+}
+
+QString numbersSpec(const QList<int>& numbers)
+{
+    if (numbers.size() > 1 && numbers.last() - numbers.first() == numbers.size() - 1)
+        return QStringLiteral("%1-%2").arg(numbers.first()).arg(numbers.last());
+    QStringList parts;
+    for (int number : numbers) parts << QString::number(number);
+    return parts.join(QLatin1Char(','));
+}
+
+} // namespace
+
+QList<PlannedEdit> requestedFormats(const QString& request, const TableGrid& grid, int table, bool* allUnderstood)
+{
+    *allUnderstood = true;
+    static const QRegularExpression separators(QStringLiteral("[，,；;。！!？?\\n]|\\band\\b|然后|并且|同时|另外|再"),
+                                               QRegularExpression::CaseInsensitiveOption);
+    int width = 0;
+    for (const auto& row : grid) width = qMax(width, int(row.size()));
+    QList<PlannedEdit> edits;
+    ClauseTarget current;
+    for (const QString& part : request.split(separators, Qt::SkipEmptyParts)) {
+        const QString clause = part.trimmed();
+        if (clause.isEmpty()) continue;
+        bool unclear = false;
+        const QList<ClauseFormat> formats = clauseFormats(clause, &unclear);
+        const ClauseTarget target = clauseTarget(clause, grid);
+        if (target.found) current = target; // a clause without a place goes on the last one named
+        if (unclear) *allUnderstood = false;
+        if (formats.isEmpty()) continue;
+        if (!current.found) {
+            *allUnderstood = false;
+            continue;
+        }
+        QList<int> rows = current.rows;
+        QList<int> columns = current.columns;
+        if (rows.isEmpty()) for (int r = 1; r <= grid.size(); ++r) rows.append(r);
+        if (columns.isEmpty()) for (int c = 1; c <= width; ++c) columns.append(c);
+        QJsonObject arguments{{QStringLiteral("table"), table}, {QStringLiteral("rows"), numbersSpec(rows)},
+                              {QStringLiteral("columns"), numbersSpec(columns)}};
+        QStringList done;
+        for (const ClauseFormat& format : formats) {
+            // Nothing that is already so in every one of those cells.
+            bool already = true;
+            for (int r : rows)
+                for (int c : columns) {
+                    if (r > grid.size() || c > grid[r - 1].size()) continue;
+                    const TableCell& cell = grid[r - 1][c - 1];
+                    if (format.key == QStringLiteral("bold")) already = already && cell.bold == format.value.toBool();
+                    else if (format.key == QStringLiteral("italic")) already = already && cell.italic == format.value.toBool();
+                    else if (format.key == QStringLiteral("align"))
+                        already = already && (cell.align.isEmpty() ? QStringLiteral("left") : cell.align) == format.value.toString();
+                    else if (format.key == QStringLiteral("fill"))
+                        already = already && (format.value.toString() == QStringLiteral("none") ? cell.fill.isEmpty() : cell.fill == format.value.toString());
+                    else already = false; // text color and size are not read back
+                }
+            if (already) continue;
+            arguments.insert(format.key, format.value);
+            done << format.words;
+        }
+        if (done.isEmpty()) continue;
+        const QString place = rows.size() == grid.size() && columns.size() == width ? QStringLiteral("整张表格")
+            : rows.size() == grid.size() ? numbersText(columns, QStringLiteral("列"))
+            : columns.size() == width ? numbersText(rows, QStringLiteral("行"))
+            : numbersText(rows, QStringLiteral("行")) + numbersText(columns, QStringLiteral("列"));
+        edits.append({place, QString(), done.join(QStringLiteral("、")), QStringLiteral("按你的要求：%1").arg(clause.left(40)),
+                      {QStringLiteral("format.cells"), arguments, CommandSource::Assistant}});
+    }
+    return edits;
+}
+
+QList<PlannedEdit> withRequestedFormats(const QList<PlannedEdit>& plan, const TableGrid& grid, int table, const QString& request)
+{
+    bool allUnderstood = true;
+    const QList<PlannedEdit> program = requestedFormats(request, grid, table, &allUnderstood);
+    if (program.isEmpty()) return plan;
+    QSet<QString> covered;
+    for (const PlannedEdit& edit : program)
+        for (auto it = edit.command.arguments.begin(); it != edit.command.arguments.end(); ++it) covered.insert(it.key());
+    QList<PlannedEdit> result = program;
+    for (const PlannedEdit& edit : plan) {
+        if (edit.command.name == QStringLiteral("format.cells")) {
+            if (allUnderstood) continue; // the program read every format the request asks for
+            bool onlyCovered = true;
+            for (const QString& key : {QStringLiteral("bold"), QStringLiteral("italic"), QStringLiteral("align"), QStringLiteral("fill"),
+                                       QStringLiteral("color"), QStringLiteral("fontSize")})
+                onlyCovered = onlyCovered && (!edit.command.arguments.contains(key) || covered.contains(key));
+            if (onlyCovered) continue;
+        }
+        result.append(edit);
+    }
+    return result;
+}
+
+bool cellDate(const QString& text, CellDate* date)
+{
+    static const QList<QRegularExpression> patterns{
+        QRegularExpression(QStringLiteral("^(\\d{4})\\s*[-/.]\\s*(\\d{1,2})\\s*[-/.]\\s*(\\d{1,2})$")),
+        QRegularExpression(QStringLiteral("^(\\d{4})\\s*年\\s*(\\d{1,2})\\s*月\\s*(\\d{1,2})\\s*[日号]$")),
+        QRegularExpression(QStringLiteral("^()(\\d{1,2})\\s*月\\s*(\\d{1,2})\\s*[日号]$")),
+        QRegularExpression(QStringLiteral("^()(\\d{1,2})/(\\d{1,2})$"))};
+    for (const QRegularExpression& pattern : patterns) {
+        const QRegularExpressionMatch match = pattern.match(text.trimmed());
+        if (!match.hasMatch()) continue;
+        const CellDate found{match.captured(1).toInt(), match.captured(2).toInt(), match.captured(3).toInt()};
+        if (found.month < 1 || found.month > 12 || found.day < 1 || found.day > 31) return false;
+        if (found.year && (found.year < 1900 || found.year > 2100)) return false;
+        if (date) *date = found;
+        return true;
+    }
+    return false;
+}
+
+QList<PlannedEdit> withDateStyle(const QList<PlannedEdit>& plan, const TableGrid& grid, int table, const QString& request)
+{
+    // The style the request shows: the earliest date written in it.
+    static const QRegularExpression unify(QStringLiteral("统一|改成|改为|写成|换成|格式|一律|都用|\\bformat\\b|\\bconsistent"),
+                                          QRegularExpression::CaseInsensitiveOption);
+    if (!unify.match(request).hasMatch()) return plan;
+    enum Style { Dashed, Slashed, Dotted, ChineseFull, ChineseShort, MonthSlashDay };
+    struct Example {
+        QRegularExpression pattern;
+        Style style;
+    };
+    static const QList<Example> examples{
+        {QRegularExpression(QStringLiteral("(\\d{4})年(\\d{1,2})月(\\d{1,2})[日号]")), ChineseFull},
+        {QRegularExpression(QStringLiteral("(\\d{4})-(\\d{1,2})-(\\d{1,2})")), Dashed},
+        {QRegularExpression(QStringLiteral("(\\d{4})/(\\d{1,2})/(\\d{1,2})")), Slashed},
+        {QRegularExpression(QStringLiteral("(\\d{4})\\.(\\d{1,2})\\.(\\d{1,2})")), Dotted},
+        {QRegularExpression(QStringLiteral("()(\\d{1,2})月(\\d{1,2})[日号]")), ChineseShort},
+        {QRegularExpression(QStringLiteral("()(?<![\\d/])(\\d{1,2})/(\\d{1,2})(?![\\d/])")), MonthSlashDay}};
+    int at = -1;
+    Style style = Dashed;
+    bool padded = false;
+    QString example;
+    for (const Example& candidate : examples) {
+        const QRegularExpressionMatch match = candidate.pattern.match(request);
+        if (!match.hasMatch() || (at >= 0 && match.capturedStart(0) >= at)) continue;
+        at = int(match.capturedStart(0));
+        style = candidate.style;
+        example = match.captured(0);
+        padded = (match.captured(2).size() == 2 && match.captured(2).startsWith(QLatin1Char('0')))
+            || (match.captured(3).size() == 2 && match.captured(3).startsWith(QLatin1Char('0')))
+            || ((style == Dashed || style == Slashed || style == Dotted) && match.captured(2).size() == 2 && match.captured(3).size() == 2);
+    }
+    if (at < 0) return plan;
+    const auto two = [padded](int value) { return padded ? QStringLiteral("%1").arg(value, 2, 10, QLatin1Char('0')) : QString::number(value); };
+    const auto written = [&](const CellDate& date) -> QString {
+        switch (style) {
+        case ChineseShort: return QStringLiteral("%1月%2日").arg(two(date.month), two(date.day));
+        case MonthSlashDay: return QStringLiteral("%1/%2").arg(two(date.month), two(date.day));
+        default: break;
+        }
+        if (!date.year) return {};
+        if (style == ChineseFull) return QStringLiteral("%1年%2月%3日").arg(date.year).arg(two(date.month), two(date.day));
+        const QChar separator = style == Dashed ? QLatin1Char('-') : style == Slashed ? QLatin1Char('/') : QLatin1Char('.');
+        return QString::number(date.year) + separator + two(date.month) + separator + two(date.day);
+    };
+    // Date columns: two or more dates below the header. A date without a year takes the
+    // year most of the column has.
+    QHash<QPair<int, int>, QString> right;
+    for (int c = 1; c <= 100; ++c) {
+        QList<QPair<int, CellDate>> dates;
+        QHash<int, int> years;
+        for (int r = 2; r <= grid.size(); ++r) {
+            CellDate date;
+            if (c <= grid[r - 1].size() && cellDate(grid[r - 1][c - 1].text, &date)) {
+                dates.append({r, date});
+                if (date.year) ++years[date.year];
+            }
+        }
+        if (dates.size() < 2) continue;
+        int year = 0;
+        for (auto it = years.begin(); it != years.end(); ++it)
+            if (!year || it.value() > years.value(year)) year = it.key();
+        for (auto [r, date] : dates) {
+            if (!date.year) date.year = year;
+            const QString text = written(date);
+            if (!text.isEmpty()) right.insert({r, c}, text);
+        }
+    }
+    if (right.isEmpty()) return plan;
+    QList<PlannedEdit> result;
+    for (int r = 2; r <= grid.size(); ++r)
+        for (int c = 1; c <= grid[r - 1].size(); ++c) {
+            const QString text = right.value({r, c});
+            const QString before = grid[r - 1][c - 1].text.trimmed();
+            if (text.isEmpty() || text == before) continue;
+            result.append({tablePlace(r, c, r, c), before, text, QStringLiteral("统一写成“%1”的格式").arg(example),
+                           {QStringLiteral("table.setCell"), {{QStringLiteral("table"), table}, {QStringLiteral("row"), r},
+                                                              {QStringLiteral("column"), c}, {QStringLiteral("text"), text}},
+                            CommandSource::Assistant}});
+        }
+    // The program writes the dates; the model's own date edits (it copies the example) go.
+    for (const PlannedEdit& edit : plan) {
+        const QPair<int, int> cell{edit.command.arguments.value(QStringLiteral("row")).toInt(),
+                                   edit.command.arguments.value(QStringLiteral("column")).toInt()};
+        if (edit.command.name == QStringLiteral("table.setCell") && right.contains(cell)) continue;
+        result.append(edit);
+    }
+    return result.size() > 20 ? result.mid(0, 20) : result;
+}
+
+QString tableTexts(const TableGrid& grid)
+{
+    // Each cell with its column's name ("品名：笔计本"): a word alone is easy to misread.
+    QStringList lines;
+    QSet<QString> seen;
+    int size = 0;
+    for (int r = 0; r < grid.size(); ++r)
+        for (int c = 0; c < grid[r].size(); ++c) {
+            const QString text = grid[r][c].text.simplified();
+            double ignored = 0;
+            if (text.isEmpty() || seen.contains(text) || cellNumber(text, &ignored) || cellDate(text, nullptr)) continue;
+            seen.insert(text);
+            const QString name = r > 0 && c < grid.first().size() ? grid.first()[c].text.simplified() : QString();
+            const QString line = name.isEmpty() || name == text ? text : name + QStringLiteral("：") + text;
+            size += line.size() + 1;
+            if (size > 4000) return lines.join(QLatin1Char('\n'));
+            lines << line;
+        }
+    return lines.join(QLatin1Char('\n'));
+}
+
+QList<PlannedEdit> withTypoFixes(const QList<PlannedEdit>& plan, const QList<Correction>& corrections, const TableGrid& grid, int table)
+{
+    QSet<QPair<int, int>> edited;
+    for (const PlannedEdit& edit : plan)
+        if (edit.command.name == QStringLiteral("table.setCell"))
+            edited.insert({edit.command.arguments.value(QStringLiteral("row")).toInt(),
+                           edit.command.arguments.value(QStringLiteral("column")).toInt()});
+    QList<PlannedEdit> result = plan;
+    for (Correction correction : corrections) {
+        // The model may quote the column's name too ("品名：笔计本"): only the cell's part counts.
+        for (QString* text : {&correction.original, &correction.corrected}) {
+            const int colon = text->indexOf(QStringLiteral("："));
+            if (colon >= 0) *text = text->mid(colon + 1).trimmed();
+        }
+        if (correction.original.isEmpty() || correction.original == correction.corrected) continue;
+        for (int r = 1; r <= grid.size(); ++r)
+            for (int c = 1; c <= grid[r - 1].size(); ++c) {
+                const QString before = grid[r - 1][c - 1].text.trimmed();
+                if (edited.contains({r, c}) || !before.contains(correction.original)) continue;
+                QString after = before;
+                after.replace(correction.original, correction.corrected);
+                if (after == before) continue;
+                edited.insert({r, c});
+                result.append({tablePlace(r, c, r, c), before, after,
+                               correction.reason.isEmpty() ? QStringLiteral("错别字") : correction.reason,
+                               {QStringLiteral("table.setCell"), {{QStringLiteral("table"), table}, {QStringLiteral("row"), r},
+                                                                  {QStringLiteral("column"), c}, {QStringLiteral("text"), after}},
+                                CommandSource::Assistant}});
+            }
+    }
+    return result.size() > 20 ? result.mid(0, 20) : result;
+}
+
+int tableMentionedIn(const QString& request, const QJsonArray& outlineBlocks)
+{
+    int table = 0;
+    for (const QJsonValue& value : outlineBlocks) {
+        const QJsonObject block = value.toObject();
+        if (!block.value(QStringLiteral("id")).toString().startsWith(QLatin1Char('T'))) continue;
+        ++table;
+        for (const QJsonValue& cell : block.value(QStringLiteral("firstRow")).toArray()) {
+            const QString name = cell.toString().simplified();
+            double ignored = 0;
+            if (name.size() >= 2 && name.size() <= 12 && !cellNumber(name, &ignored)
+                && request.contains(name, Qt::CaseInsensitive))
+                return table;
+        }
+    }
+    return 0;
 }
 
 QList<Correction> parseCorrections(const QString& answer, const QString& documentText)

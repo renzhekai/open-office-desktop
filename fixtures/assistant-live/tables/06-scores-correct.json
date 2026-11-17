@@ -1,0 +1,27 @@
+{
+  "name": "成绩表（全对）：检查总分，不应该改任何地方",
+  "document": "fixtures/assistant-samples/scores-correct.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "检查一下这张表的总分对不对"
+      },
+      "expect": {
+        "ok": true,
+        "saidIncludes": [
+          "没有需要修改的地方"
+        ]
+      }
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": []
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "name": "培训安排：日期统一写成“11月3日”",
+  "document": "fixtures/assistant-samples/course-schedule.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把表格里的日期统一写成“11月3日”这种格式"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 2,
+      "column": 1,
+      "matches": "11月0?3日"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 1,
+      "matches": "11月0?4日"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 4,
+      "column": 1,
+      "matches": "11月0?5日"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 5,
+      "column": 1,
+      "matches": "11月0?6日"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R2C1",
+        "R3C1",
+        "R4C1",
+        "R5C1"
+      ],
+      "someChanged": true
+    }
+  ]
+}

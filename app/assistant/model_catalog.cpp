@@ -85,6 +85,9 @@ QList<CatalogModel> installedModels()
 
 QString chosenBuiltinModel()
 {
+    // Tests pick the model without touching the person's settings.
+    const QString configured = qEnvironmentVariable("OPEN_OFFICE_AI_MODEL");
+    if (!configured.isEmpty()) return configured;
     return settings().value(QStringLiteral("ai/builtinModel")).toString();
 }
 

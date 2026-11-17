@@ -1,0 +1,74 @@
+{
+  "name": "通讯录：手机号统一成 11 位数字，邮箱写错的改正",
+  "document": "fixtures/assistant-samples/contacts.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "整理一下通讯录表格：手机号统一写成11位数字，邮箱写错的改正"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 2,
+      "column": 3,
+      "equals": "13800138000"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 4,
+      "column": 3,
+      "equals": "13700137000"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 5,
+      "column": 3,
+      "equals": "13600136000"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 4,
+      "equals": "lina@example.com"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R2C3",
+        "R3C3",
+        "R4C3",
+        "R5C3",
+        "R2C4",
+        "R3C4",
+        "R4C4",
+        "R5C4"
+      ],
+      "someChanged": true
+    }
+  ]
+}

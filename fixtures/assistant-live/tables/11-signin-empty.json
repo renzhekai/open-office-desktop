@@ -1,0 +1,65 @@
+{
+  "name": "签到表：点进表格说“空着的签到格填上未到”",
+  "document": "fixtures/assistant-samples/meeting-signin.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "selection.select",
+      "args": {
+        "table": 1,
+        "row": 2,
+        "column": 3
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "签到那一列空着的格子都填上“未到”"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 3,
+      "equals": "未到"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 5,
+      "column": 3,
+      "equals": "未到"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R3C3",
+        "R5C3"
+      ],
+      "someChanged": true
+    }
+  ]
+}

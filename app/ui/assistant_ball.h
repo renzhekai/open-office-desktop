@@ -137,6 +137,8 @@ signals:
     void correctionRequested(int index);
     void allCorrectionsRequested();
     void messageRecorded(openoffice::ConversationMessage message);
+    // A card (status, result or question) was shown; cards are not kept with the conversation.
+    void cardShown(QString title, QString text, bool ok);
     void newConversationRequested();
     void conversationListRequested();
     void conversationOpenRequested(QString id);

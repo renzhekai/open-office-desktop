@@ -1,0 +1,1572 @@
+{
+  "label": "holdout-1",
+  "started_utc": "2026-11-16T04:31:56.086687+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\holdout-1\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "(settings)",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "（留出）报销单：点进表格说“核对一下，有问题就改”（小计算错、错别字）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.1
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 3,
+              "column": 2
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 2,
+              "row": 3,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.09
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "帮我核对一下这张报销单，有问题就改"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 198.00305484085283
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261115-203158-dd5465",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/01-expense.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "帮我核对一下这张报销单，有问题就改",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 1 处可能的问题：\n第 2 行第 5 列：125 → 135（小计（元）应更正为135（原值125））",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 11.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 11.92
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 198.00305484085283
+            },
+            "buttons": [],
+            "conversation": "20261115-203158-dd5465",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/01-expense.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.0
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 5,
+            "equals": "135"
+          },
+          "actual": "135",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 2,
+            "equals": "办公用品"
+          },
+          "actual": "办工用品",
+          "problems": [
+            "R3C2 is '办工用品', expected '办公用品'"
+          ],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C5",
+              "R3C2"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R2C5"
+          ],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\01-expense.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\01-expense.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h1-expense-check.json"
+    },
+    {
+      "name": "（留出）报销单：小计那一列加粗，表头加灰色底色",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把小计那一列加粗，表头加上灰色底色"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 182.90253481395308
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261115-203214-09df4c",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/02-expense.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 2 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1-R1C5\",\n      \"change\": \"fill\",\n      \"reason\": \"设置表头单元格为灰色底色以突出表头区域\",\n      \"value\": \"fill:#DDDDDD\"\n    },\n    {\n      \"cells\": \"R1C5\",\n      \"change\": \"text\",\n      \"reason\": \"将小计列标题改为'小计'并加粗\",\n      \"value\": \"text:'小计';bold:True\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把小计那一列加粗，表头加上灰色底色",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 2 处可能的问题：\n第 1 行第 1–5 列 → 底色 #DDDDDD（设置表头单元格为灰色底色以突出表头区域）\n第 1 行第 5 列：小计（元） → '小计';bold:True（将小计列标题改为'小计'并加粗）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 4,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 4.13
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 182.90253481395308
+            },
+            "buttons": [],
+            "conversation": "20261115-203214-09df4c",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/02-expense.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1-R1C5\",\n      \"change\": \"fill\",\n      \"reason\": \"设置表头单元格为灰色底色以突出表头区域\",\n      \"value\": \"fill:#DDDDDD\"\n    },\n    {\n      \"cells\": \"R1C5\",\n      \"change\": \"text\",\n      \"reason\": \"将小计列标题改为'小计'并加粗\",\n      \"value\": \"text:'小计';bold:True\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.0
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C5-R5C5",
+            "bold": true
+          },
+          "problems": [
+            "R2C5 bold is False",
+            "R3C5 bold is False",
+            "R4C5 bold is False",
+            "R5C5 bold is False"
+          ],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R1C1-R1C5",
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C1-R5C4",
+            "filled": false
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [],
+            "someChanged": false
+          },
+          "changed": [
+            "R1C5"
+          ],
+          "problems": [
+            "cells changed that should not: ['R1C5']"
+          ],
+          "seconds": 0.01
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\02-expense.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\02-expense.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h2-expense-format.json"
+    },
+    {
+      "name": "（留出）值班表：日期全部改成 2026-11-16 这种写法",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "日期全部改成 2026-11-16 这种写法"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 179.21565353835024
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261115-203221-4cf486",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/03-duty.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 3 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从2026/11/16改为2026-11-16，需加粗显示日期格式\",\n      \"value\": \"2026-11-16\"\n    },\n    {\n      \"cells\": \"R3C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从11月17日改为2026-11-17，需加粗显示日期格式\",\n      \"value\": \"2026-11-17\"\n    },\n    {\n      \"cells\": \"R5C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从2026年11月19日改为2026-11-19，需加粗显示日期格式\",\n      \"value\": \"2026-11-19\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "日期全部改成 2026-11-16 这种写法",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 3 处可能的问题：\n第 2 行第 1 列：2026/11/16 → 2026-11-16（统一写成“2026-11-16”的格式）\n第 3 行第 1 列：11月17日 → 2026-11-17（统一写成“2026-11-16”的格式）\n第 5 行第 1 列：2026年11月19日 → 2026-11-19（统一写成“2026-11-16”的格式）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 7,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 7.13
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 179.21565353835024
+            },
+            "buttons": [],
+            "conversation": "20261115-203221-4cf486",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/03-duty.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 3 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从2026/11/16改为2026-11-16，需加粗显示日期格式\",\n      \"value\": \"2026-11-16\"\n    },\n    {\n      \"cells\": \"R3C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从11月17日改为2026-11-17，需加粗显示日期格式\",\n      \"value\": \"2026-11-17\"\n    },\n    {\n      \"cells\": \"R5C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从2026年11月19日改为2026-11-19，需加粗显示日期格式\",\n      \"value\": \"2026-11-19\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 3 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.02
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 1,
+            "equals": "2026-11-16"
+          },
+          "actual": "2026-11-16",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 1,
+            "equals": "2026-11-17"
+          },
+          "actual": "2026-11-17",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 4,
+            "column": 1,
+            "equals": "2026-11-18"
+          },
+          "actual": "2026-11-18",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 5,
+            "column": 1,
+            "equals": "2026-11-19"
+          },
+          "actual": "2026-11-19",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C1",
+              "R3C1",
+              "R5C1"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R2C1",
+            "R3C1",
+            "R5C1"
+          ],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\03-duty.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\03-duty.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h3-duty-dates.json"
+    },
+    {
+      "name": "（留出）值班表：联系电话统一成 11 位数字",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "联系电话统一成11位数字，去掉空格和横线"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 186.93010687126784
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261115-203231-8160af",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/04-duty.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 3 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C4\",\n      \"change\": \"text\",\n      \"reason\": \"去除横线并统一为11位数字\",\n      \"value\": \"13912345678\"\n    },\n    {\n      \"cells\": \"R3C4\",\n      \"change\": \"text\",\n      \"reason\": \"去除空格并统一为11位数字\",\n      \"value\": \"13587654321\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "联系电话统一成11位数字，去掉空格和横线",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 3 处可能的问题：\n第 2 行第 4 列：139-1234-5678 → 13912345678（去除横线并统一为11位数字）\n第 3 行第 4 列：135 8765 4321 → 13587654321（去除空格并统一为11位数字）\n第 5 行第 4 列：137 1111 2222 → 13711112222（和这一列其他格的整理方式一样）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 3.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 3.88
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 186.93010687126784
+            },
+            "buttons": [],
+            "conversation": "20261115-203231-8160af",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/04-duty.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 3 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C4\",\n      \"change\": \"text\",\n      \"reason\": \"去除横线并统一为11位数字\",\n      \"value\": \"13912345678\"\n    },\n    {\n      \"cells\": \"R3C4\",\n      \"change\": \"text\",\n      \"reason\": \"去除空格并统一为11位数字\",\n      \"value\": \"13587654321\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 3 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 4,
+            "equals": "13912345678"
+          },
+          "actual": "13912345678",
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 4,
+            "equals": "13587654321"
+          },
+          "actual": "13587654321",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 5,
+            "column": 4,
+            "equals": "13711112222"
+          },
+          "actual": "13711112222",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C4",
+              "R3C4",
+              "R5C4"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R2C4",
+            "R3C4",
+            "R5C4"
+          ],
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\04-duty.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\04-duty.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h4-duty-phones.json"
+    },
+    {
+      "name": "（留出）库存表：点进表格问“期末库存有没有算错”（减法，程序不算）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 1
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 1,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.07
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "看看期末库存有没有算错"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 204.70987433551116
+            },
+            "buttons": [],
+            "conversation": "20261115-203238-ed29e4",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/holdout-1/05-inventory.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "按这个要求，第 1 张表格没有需要修改的地方。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "看看期末库存有没有算错",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "按这个要求，第 1 张表格没有需要修改的地方。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 7,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [
+            "no button '全部改正' (buttons: [])"
+          ],
+          "seconds": 7.14
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "no_button",
+            "message": "没有可以按的“全部改正”。",
+            "ok": false
+          },
+          "isError": true,
+          "problems": [
+            "expected ok=True, got isError=True"
+          ],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 4,
+            "column": 5,
+            "equals": "35"
+          },
+          "actual": "45",
+          "problems": [
+            "R4C5 is '45', expected '35'"
+          ],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R4C5"
+            ],
+            "someChanged": true
+          },
+          "changed": [],
+          "problems": [
+            "nothing changed"
+          ],
+          "seconds": 0.03
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\05-inventory.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\05-inventory.docx",
+        "message": "文档没有新的修改，无需再次写入。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h5-inventory-check.json"
+    },
+    {
+      "name": "（留出）会议室预约：已取消的整行标浅灰色",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.07
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 2
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 2,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把已取消的预约整行标成浅灰色"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 191.29500340807152
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261115-203247-d99747",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/06-booking.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 3 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C4\",\n      \"change\": \"fill\",\n      \"reason\": \"将已取消预约状态行背景色改为浅灰色\",\n      \"value\": \"#D3D3D3\"\n    },\n    {\n      \"cells\": \"R3C4\",\n      \"change\": \"fill\",\n      \"reason\": \"将已取消预约状态行背景色改为浅灰色\",\n      \"value\": \"#D3D3D3\"\n    },\n    {\n      \"cells\": \"R5C4\",\n      \"change\": \"fill\",\n      \"reason\": \"将已取消预约状态行背景色改为浅灰色\",\n      \"value\": \"#D3D3D3\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把已取消的预约整行标成浅灰色",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 3 处可能的问题：\n第 2 行第 4 列 → 底色 #D3D3D3（将已取消预约状态行背景色改为浅灰色）\n第 3 行第 1–4 列 → 底色 #D3D3D3（将已取消预约状态行背景色改为浅灰色）\n第 5 行第 1–4 列 → 底色 #D3D3D3（将已取消预约状态行背景色改为浅灰色）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 4,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 4.14
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 191.29500340807152
+            },
+            "buttons": [],
+            "conversation": "20261115-203247-d99747",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/06-booking.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 3 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C4\",\n      \"change\": \"fill\",\n      \"reason\": \"将已取消预约状态行背景色改为浅灰色\",\n      \"value\": \"#D3D3D3\"\n    },\n    {\n      \"cells\": \"R3C4\",\n      \"change\": \"fill\",\n      \"reason\": \"将已取消预约状态行背景色改为浅灰色\",\n      \"value\": \"#D3D3D3\"\n    },\n    {\n      \"cells\": \"R5C4\",\n      \"change\": \"fill\",\n      \"reason\": \"将已取消预约状态行背景色改为浅灰色\",\n      \"value\": \"#D3D3D3\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 3 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.02
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R3C1-R3C4",
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R5C1-R5C4",
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C1-R2C4",
+            "filled": false
+          },
+          "problems": [
+            "R2C4 has fill #D3D3D3"
+          ],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R4C1-R4C4",
+            "filled": false
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [],
+            "someChanged": false
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\06-booking.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\06-booking.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h6-booking-rows.json"
+    },
+    {
+      "name": "（留出）会议室预约：问有没有错别字（没有，不应改任何地方）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.08
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 3
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 3,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "帮我看看这张表有没有错别字"
+            },
+            "expect": {
+              "ok": true,
+              "saidIncludes": [
+                "没有需要修改的地方"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 202.8833470238356
+            },
+            "buttons": [],
+            "conversation": "20261115-203254-953f5b",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/holdout-1/07-booking.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "按这个要求，第 1 张表格没有需要修改的地方。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "帮我看看这张表有没有错别字",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "按这个要求，第 1 张表格没有需要修改的地方。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 7.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 7.88
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [],
+            "someChanged": false
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\07-booking.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\07-booking.docx",
+        "message": "文档没有新的修改，无需再次写入。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h7-booking-no-typos.json"
+    },
+    {
+      "name": "（留出）英文销售表：英文要求检查合计",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 1
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 1,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "Check whether the totals in this table are correct and fix any mistakes."
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 204.56115794956344
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261115-203303-0b5f4b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/08-sales-en.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\"corrections\": []}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "Check whether the totals in this table are correct and fix any mistakes.",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 1 处可能的问题：\n第 3 行第 5 列：300 → 310（按“Q1 + Q2 + Q3”算，应为 310）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 9,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 9.13
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 204.56115794956344
+            },
+            "buttons": [],
+            "conversation": "20261115-203303-0b5f4b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/holdout-1/08-sales-en.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\"corrections\": []}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 5,
+            "equals": "310"
+          },
+          "actual": "310",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R3C5"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R3C5"
+          ],
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\holdout-1\\08-sales-en.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\holdout-1\\08-sales-en.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\holdout\\h8-sales-english.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait"
+  ],
+  "final_state": {
+    "ai": {
+      "builtin": true,
+      "model": "qwen3-1.7b",
+      "state": "ready",
+      "tokensPerSecond": 204.56115794956344
+    },
+    "conversation": "20261115-203303-0b5f4b",
+    "conversationMessages": 2,
+    "document": "D:/open office/build/assistant-live/holdout-1/08-sales-en.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+    "quickActions": [
+      "polish",
+      "correct",
+      "shorten",
+      "expand",
+      "formal",
+      "translate"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-16T04:33:14.694441+00:00",
+  "ok": false
+}

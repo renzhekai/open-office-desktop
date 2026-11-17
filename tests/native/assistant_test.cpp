@@ -482,6 +482,491 @@ private slots:
         QCOMPARE(memory.list().size(), 1);
     }
 
+    void structureAndStyleCommandsTakeTypedArguments()
+    {
+        const auto check = [](const QString& name, const QJsonObject& arguments) {
+            return validateCommand({name, arguments, CommandSource::Assistant});
+        };
+        QVERIFY(check(QStringLiteral("table.setCell"), {{QStringLiteral("table"), 1}, {QStringLiteral("row"), 2},
+                                                         {QStringLiteral("column"), 3}, {QStringLiteral("text"), QStringLiteral("1200")}}).ok);
+        // Small models often quote numbers; that is accepted.
+        QVERIFY(check(QStringLiteral("table.setCell"), {{QStringLiteral("table"), QStringLiteral("1")}, {QStringLiteral("row"), QStringLiteral("2")},
+                                                         {QStringLiteral("column"), QStringLiteral("3")}, {QStringLiteral("text"), QStringLiteral("x")}}).ok);
+        QCOMPARE(check(QStringLiteral("table.setCell"), {{QStringLiteral("table"), 0}, {QStringLiteral("row"), 2},
+                                                          {QStringLiteral("column"), 3}, {QStringLiteral("text"), QStringLiteral("x")}}).code,
+                 QStringLiteral("invalid_argument"));
+        QCOMPARE(check(QStringLiteral("table.setCell"), {{QStringLiteral("table"), 1.5}, {QStringLiteral("row"), 2},
+                                                          {QStringLiteral("column"), 3}, {QStringLiteral("text"), QStringLiteral("x")}}).code,
+                 QStringLiteral("invalid_argument"));
+        QVERIFY(check(QStringLiteral("format.cells"), {{QStringLiteral("table"), 1}, {QStringLiteral("rows"), QStringLiteral("1")},
+                                                        {QStringLiteral("bold"), true}, {QStringLiteral("fill"), QStringLiteral("#D9E2F3")},
+                                                        {QStringLiteral("align"), QStringLiteral("center")}}).ok);
+        QVERIFY(check(QStringLiteral("format.cells"), {{QStringLiteral("table"), 1}, {QStringLiteral("fill"), QStringLiteral("none")}}).ok);
+        QCOMPARE(check(QStringLiteral("format.cells"), {{QStringLiteral("table"), 1}, {QStringLiteral("color"), QStringLiteral("none")}}).code,
+                 QStringLiteral("invalid_argument")); // text color cannot be "none"
+        QCOMPARE(check(QStringLiteral("format.cells"), {{QStringLiteral("table"), 1}, {QStringLiteral("bold"), QStringLiteral("yes")}}).code,
+                 QStringLiteral("invalid_argument"));
+        QCOMPARE(check(QStringLiteral("format.cells"), {{QStringLiteral("table"), 1}, {QStringLiteral("color"), QStringLiteral("red")}}).code,
+                 QStringLiteral("invalid_argument"));
+        QVERIFY(check(QStringLiteral("format.paragraphs"), {{QStringLiteral("paragraphs"), QStringLiteral("2-3")},
+                                                            {QStringLiteral("style"), QStringLiteral("heading2")}}).ok);
+        QCOMPARE(check(QStringLiteral("format.text"), {{QStringLiteral("find"), QStringLiteral("重要")}, {QStringLiteral("fontSize"), 100}}).code,
+                 QStringLiteral("invalid_argument"));
+
+        // As tools: real JSON types, so a model or MCP client sends numbers and booleans.
+        QHash<QString, QJsonObject> tools;
+        for (const QJsonValue& tool : commandCatalogJson()) tools.insert(tool.toObject().value(QStringLiteral("name")).toString(), tool.toObject());
+        const auto property = [&tools](const QString& tool, const QString& name) {
+            return tools.value(tool).value(QStringLiteral("inputSchema")).toObject().value(QStringLiteral("properties")).toObject()
+                .value(name).toObject();
+        };
+        QCOMPARE(property(QStringLiteral("table.setCell"), QStringLiteral("row")).value(QStringLiteral("type")).toString(), QStringLiteral("integer"));
+        QCOMPARE(property(QStringLiteral("table.setCell"), QStringLiteral("row")).value(QStringLiteral("minimum")).toInt(), 1);
+        QCOMPARE(property(QStringLiteral("format.cells"), QStringLiteral("bold")).value(QStringLiteral("type")).toString(), QStringLiteral("boolean"));
+        QVERIFY(property(QStringLiteral("format.cells"), QStringLiteral("fill")).value(QStringLiteral("pattern")).toString().contains(QStringLiteral("none")));
+        const auto readOnly = [&tools](const QString& tool) {
+            return tools.value(tool).value(QStringLiteral("annotations")).toObject().value(QStringLiteral("readOnlyHint")).toBool();
+        };
+        QVERIFY(readOnly(QStringLiteral("document.outline")) && readOnly(QStringLiteral("table.read")) && readOnly(QStringLiteral("selection.select")));
+        QVERIFY(!readOnly(QStringLiteral("table.setCell")) && !readOnly(QStringLiteral("format.cells")) && !readOnly(QStringLiteral("format.text")));
+    }
+
+    void tablePlansAreCheckedAgainstTheTable()
+    {
+        const auto cell = [](const QString& text, bool bold = false) {
+            QJsonObject object{{QStringLiteral("text"), text}};
+            if (bold) object.insert(QStringLiteral("bold"), true);
+            return object;
+        };
+        const TableGrid grid = tableGridFrom({{QStringLiteral("rows"), QJsonArray{
+            QJsonArray{cell(QStringLiteral("品名")), cell(QStringLiteral("单价")), cell(QStringLiteral("数量")), cell(QStringLiteral("金额"))},
+            QJsonArray{cell(QStringLiteral("笔计本")), cell(QStringLiteral("12")), cell(QStringLiteral("10")), cell(QStringLiteral("120"))},
+            QJsonArray{cell(QStringLiteral("签字笔")), cell(QStringLiteral("3")), cell(QStringLiteral("20")), cell(QString())}}}});
+        const QString prompt = tableForPrompt(grid, 1);
+        QVERIFY(prompt.contains(QStringLiteral("表格 T1，3 行 4 列")));
+        QVERIFY(prompt.contains(QStringLiteral("R2C1：笔计本")));
+        QVERIFY(prompt.contains(QStringLiteral("R3C4：（空）")));
+        QCOMPARE(tablePlace(1, 1, 1, 4), QStringLiteral("第 1 行第 1–4 列"));
+        QCOMPARE(tablePlace(2, 3, 5, 3), QStringLiteral("第 2–5 行第 3 列"));
+
+        const QString answer = QStringLiteral(R"({"plan":[
+            {"cells":"R2C1","change":"text","reason":"错别字","value":"笔记本"},
+            {"cells":"R3C4","change":"text","reason":"3×20=60","value":"60"},
+            {"cells":"R1C1-R1C4","change":"bold","reason":"表头加粗","value":"true"},
+            {"cells":"R1","change":"align","reason":"表头居中","value":"居中"},
+            {"cells":"C2","change":"align","reason":"数字右对齐","value":"right"},
+            {"cells":"R2C2","change":"text","reason":"没变","value":"12"},
+            {"cells":"R9C9","change":"text","reason":"没有这格","value":"x"},
+            {"cells":"R2C1-R2C2","change":"text","reason":"文字只能一格一格改","value":"x"},
+            {"cells":"r1c1","change":"fill","reason":"底色","value":"#d9e2f3"},
+            {"cells":"R1C1","change":"fill","reason":"不是颜色","value":"好看一点"},
+            {"cells":"R2C4","change":"fontSize","reason":"太大","value":"100"},
+            {"cells":"R1C1-R1C4","change":"bold","reason":"重复","value":true},
+            {"cells":"R2C3","change":"underline","reason":"不支持","value":"true"}]})");
+        const QList<PlannedEdit> plan = parseTablePlan(answer, grid, 1);
+        QCOMPARE(plan.size(), 6);
+        QCOMPARE(plan[0].command.name, QStringLiteral("table.setCell"));
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("row")).toInt(), 2);
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("text")).toString(), QStringLiteral("笔记本"));
+        QCOMPARE(plan[0].place, QStringLiteral("第 2 行第 1 列"));
+        QCOMPARE(plan[0].before, QStringLiteral("笔计本"));
+        QCOMPARE(plan[1].command.arguments.value(QStringLiteral("column")).toInt(), 4);
+        QCOMPARE(plan[2].command.name, QStringLiteral("format.cells"));
+        QCOMPARE(plan[2].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("1"));
+        QCOMPARE(plan[2].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1-4"));
+        QVERIFY(plan[2].command.arguments.value(QStringLiteral("bold")).toBool());
+        QCOMPARE(plan[3].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("center"));
+        QCOMPARE(plan[4].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("1-3"));
+        QCOMPARE(plan[4].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("2"));
+        QCOMPARE(plan[5].command.arguments.value(QStringLiteral("fill")).toString(), QStringLiteral("#D9E2F3"));
+        for (const PlannedEdit& edit : plan) QVERIFY(validateCommand(edit.command).ok);
+
+        // Nothing that is already so: a bold header stays as it is.
+        const TableGrid boldHeader = tableGridFrom({{QStringLiteral("rows"), QJsonArray{
+            QJsonArray{cell(QStringLiteral("姓名"), true), cell(QStringLiteral("电话"), true)}}}});
+        QVERIFY(parseTablePlan(QStringLiteral(R"({"plan":[{"cells":"R1","change":"bold","reason":"r","value":"true"}]})"), boldHeader, 2).isEmpty());
+        QVERIFY(parseTablePlan(QStringLiteral("不是 JSON"), grid, 1).isEmpty());
+
+        // The ways a small model really words a plan (Qwen3 1.7B on the built-in engine):
+        // "bold: true", "align: center", color names, cell lists, Chinese font sizes.
+        const QList<PlannedEdit> worded = parseTablePlan(QStringLiteral(R"({"plan":[
+            {"cells":"R1C1-R1C4","change":"bold","reason":"r","value":"bold: true"},
+            {"cells":"R1C1 - R1C4","change":"align","reason":"r","value":"align: center"},
+            {"cells":"R1","change":"fill","reason":"r","value":"浅蓝色"},
+            {"cells":"R2C4，R3C4","change":"text","reason":"r","value":"text: 0"},
+            {"cells":"R2C2、R3C2","change":"对齐","reason":"r","value":"右对齐"},
+            {"cells":"R2C1","change":"fontSize","reason":"r","value":"小四"},
+            {"cells":"R3C1","change":"color","reason":"r","value":"red"},
+            {"cells":"R1C1-R1C4","change":"bold","reason":"r","value":"取消加粗"}]})"), grid, 1);
+        QCOMPARE(worded.size(), 9);
+        QVERIFY(worded[0].command.arguments.value(QStringLiteral("bold")).toBool());
+        QCOMPARE(worded[1].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("center"));
+        QCOMPARE(worded[1].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1-4"));
+        QCOMPARE(worded[2].command.arguments.value(QStringLiteral("fill")).toString(), QStringLiteral("#DDEBF7")); // light, for a fill
+        QCOMPARE(worded[3].command.arguments.value(QStringLiteral("row")).toInt(), 2); // a list: one change per cell
+        QCOMPARE(worded[3].command.arguments.value(QStringLiteral("text")).toString(), QStringLiteral("0"));
+        QCOMPARE(worded[4].command.arguments.value(QStringLiteral("row")).toInt(), 3);
+        QCOMPARE(worded[5].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("right"));
+        QCOMPARE(worded[6].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("3"));
+        QCOMPARE(worded[7].command.arguments.value(QStringLiteral("fontSize")).toInt(), 12);
+        QCOMPARE(worded[8].command.arguments.value(QStringLiteral("color")).toString(), QStringLiteral("#C00000")); // strong, for text
+        // "取消加粗" on a header that is not bold: nothing to do, so it is not listed.
+        for (const PlannedEdit& edit : worded) QVERIFY(validateCommand(edit.command).ok);
+
+        // When a typed request is about a table.
+        QVERIFY(tableRequest(QStringLiteral("帮我检查一下表格"), false));
+        QVERIFY(tableRequest(QStringLiteral("把表头加粗居中"), false));
+        QVERIFY(tableRequest(QStringLiteral("看看平均分有没有算错"), true));
+        QVERIFY(tableRequest(QStringLiteral("帮我改改"), true));
+        QVERIFY(!tableRequest(QStringLiteral("帮我改改"), false));
+        QVERIFY(!tableRequest(QStringLiteral("这张表是什么意思？"), true));
+        QVERIFY(!tableRequest(QStringLiteral("做一个表格"), false));
+        QVERIFY(!tableRequest(QStringLiteral("/保存"), true));
+        QCOMPARE(tableNumberIn(QStringLiteral("把第二张表格的表头加粗")), 2);
+        QCOMPARE(tableNumberIn(QStringLiteral("表3里的数字右对齐")), 3);
+        QCOMPARE(tableNumberIn(QStringLiteral("检查 T2")), 2);
+        QCOMPARE(tableNumberIn(QStringLiteral("把表头加粗")), 0);
+
+        const TaskSpec* task = findTask(QStringLiteral("table"));
+        QVERIFY(task && !task->offered && task->output == TaskOutput::TablePlan);
+        const QJsonArray messages = taskMessages(*task, {prompt, QStringLiteral("帮我检查一下表格"), QString()});
+        const QString user = messages.last().toObject().value(QStringLiteral("content")).toString();
+        QVERIFY(user.contains(QStringLiteral("帮我检查一下表格")) && user.contains(QStringLiteral("R2C1：笔计本"))
+                && user.contains(QStringLiteral("不要把整张表重写")));
+        const QJsonObject schema = taskFormat(*task);
+        QVERIFY(schema.value(QStringLiteral("properties")).toObject().contains(QStringLiteral("plan")));
+    }
+
+    void tableArithmeticIsTheProgramsJob()
+    {
+        // Tables unlike the live-test samples: money with signs and decimals, thousands separators.
+        const auto grid = [](const QList<QStringList>& rows) {
+            QJsonArray array;
+            for (const QStringList& row : rows) {
+                QJsonArray cells;
+                for (const QString& text : row) cells.append(QJsonObject{{QStringLiteral("text"), text}});
+                array.append(cells);
+            }
+            return tableGridFrom({{QStringLiteral("rows"), array}});
+        };
+        double value = 0;
+        QVERIFY(cellNumber(QStringLiteral("¥8.50"), &value) && value == 8.5);
+        QVERIFY(cellNumber(QStringLiteral("1,200"), &value) && value == 1200);
+        QVERIFY(cellNumber(QStringLiteral("85 g"), &value) && value == 85);
+        QVERIFY(cellNumber(QStringLiteral("120元"), &value) && value == 120);
+        for (const char* text : {"2026-11-04", "09:00-11:30", "11月3日", "AA x1", "138 0013 8000", "", "M350 Pro"})
+            QVERIFY2(!cellNumber(QString::fromUtf8(text), &value), text);
+
+        const TableGrid expenses = grid({{QStringLiteral("项目"), QStringLiteral("单价"), QStringLiteral("数量"), QStringLiteral("小计")},
+                                         {QStringLiteral("打印纸"), QStringLiteral("¥25.00"), QStringLiteral("4"), QStringLiteral("¥100.00")},
+                                         {QStringLiteral("墨盒"), QStringLiteral("¥180.00"), QStringLiteral("2"), QStringLiteral("¥360.00")},
+                                         {QStringLiteral("快递"), QStringLiteral("¥12.50"), QStringLiteral("3"), QStringLiteral("¥36.50")},
+                                         {QStringLiteral("胶带"), QStringLiteral("¥4.00"), QStringLiteral("6"), QStringLiteral("¥24.00")}});
+        QList<TableFormula> formulas = tableFormulas(expenses);
+        QCOMPARE(formulas.size(), 1);
+        QCOMPARE(formulas[0].column, 4);
+        QVERIFY(formulas[0].product);
+        QCOMPARE(formulas[0].from, (QList<int>{2, 3}));
+        QCOMPARE(formulas[0].wrong.size(), 1);
+        QCOMPARE(formulas[0].wrong[0].row, 4);
+        QCOMPARE(formulas[0].wrong[0].after, QStringLiteral("¥37.50")); // written the way the column is
+        const QString facts = formulaFacts(expenses, formulas);
+        QVERIFY2(facts.contains(QStringLiteral("第 4 列（小计） = 第 2 列 × 第 3 列（单价 × 数量）")), qPrintable(facts));
+        QVERIFY2(facts.contains(QStringLiteral("R4C4 应为 ¥37.50（表里写的是 ¥36.50）")), qPrintable(facts));
+
+        // The model's plan is held to it: a miscalculation and a change to a number that
+        // adds up are dropped; a right answer is kept in the column's own format.
+        const QString answer = QStringLiteral(R"({"plan":[
+            {"cells":"R4C4","change":"text","reason":"算错","value":"¥38.00"},
+            {"cells":"R2C4","change":"text","reason":"看着不对","value":"¥90.00"},
+            {"cells":"R3C1","change":"text","reason":"写全","value":"墨盒（黑色）"},
+            {"cells":"R1","change":"bold","reason":"表头","value":"true"}]})");
+        QList<PlannedEdit> plan = withFormulaFixes(parseTablePlan(answer, expenses, 1), expenses, 1, formulas, true);
+        QCOMPARE(plan.size(), 3);
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("text")).toString(), QStringLiteral("¥37.50"));
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("row")).toInt(), 4);
+        QVERIFY(plan[0].reason.contains(QStringLiteral("单价 × 数量")));
+        QCOMPARE(plan[1].after, QStringLiteral("墨盒（黑色）"));
+        QCOMPARE(plan[2].command.name, QStringLiteral("format.cells"));
+        // Not asked to check: nothing is added, the wrong numbers still go.
+        plan = withFormulaFixes(parseTablePlan(answer, expenses, 1), expenses, 1, formulas, false);
+        QCOMPARE(plan.size(), 2);
+        // The model got it right: one change, not two, with the column's sign kept.
+        plan = withFormulaFixes(parseTablePlan(QStringLiteral(R"({"plan":[{"cells":"R4C4","change":"text","reason":"r","value":"37.5"}]})"),
+                                               expenses, 1), expenses, 1, formulas, true);
+        QCOMPARE(plan.size(), 1);
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("text")).toString(), QStringLiteral("¥37.50"));
+        for (const PlannedEdit& edit : plan) QVERIFY(validateCommand(edit.command).ok);
+
+        // A sum of the columns before it, with thousands separators.
+        const TableGrid sales = grid({{QStringLiteral("门店"), QStringLiteral("一月"), QStringLiteral("二月"), QStringLiteral("三月"), QStringLiteral("季度合计")},
+                                      {QStringLiteral("东区"), QStringLiteral("1,200"), QStringLiteral("1,350"), QStringLiteral("1,100"), QStringLiteral("3,650")},
+                                      {QStringLiteral("西区"), QStringLiteral("980"), QStringLiteral("1,020"), QStringLiteral("1,005"), QStringLiteral("3,005")},
+                                      {QStringLiteral("南区"), QStringLiteral("1,500"), QStringLiteral("1,480"), QStringLiteral("1,620"), QStringLiteral("4,500")}});
+        formulas = tableFormulas(sales);
+        QCOMPARE(formulas.size(), 1);
+        QVERIFY(!formulas[0].product);
+        QCOMPARE(formulas[0].from, (QList<int>{2, 3, 4}));
+        QCOMPARE(formulas[0].wrong.size(), 1);
+        QCOMPARE(formulas[0].wrong[0].after, QStringLiteral("4,600"));
+        QVERIFY(formulaFacts(sales, formulas).contains(QStringLiteral("第 2–4 列之和")));
+
+        // A balance: last month + income − spending (one row wrong: 500 + 300 − 420 is 380).
+        const TableGrid balance = grid({{QStringLiteral("账户"), QStringLiteral("上月"), QStringLiteral("收入"), QStringLiteral("支出"), QStringLiteral("余额")},
+                                        {QStringLiteral("现金"), QStringLiteral("1200"), QStringLiteral("800"), QStringLiteral("650"), QStringLiteral("1350")},
+                                        {QStringLiteral("备用金"), QStringLiteral("500"), QStringLiteral("300"), QStringLiteral("420"), QStringLiteral("280")},
+                                        {QStringLiteral("活动经费"), QStringLiteral("2000"), QStringLiteral("0"), QStringLiteral("760"), QStringLiteral("1240")},
+                                        {QStringLiteral("零用"), QStringLiteral("90"), QStringLiteral("60"), QStringLiteral("35"), QStringLiteral("115")}});
+        formulas = tableFormulas(balance);
+        QCOMPARE(formulas.size(), 1);
+        QCOMPARE(formulas[0].column, 5);
+        QCOMPARE(formulas[0].signs, (QList<int>{1, 1, -1}));
+        QCOMPARE(formulas[0].wrong.size(), 1);
+        QCOMPARE(formulas[0].wrong[0].row, 3);
+        QCOMPARE(formulas[0].wrong[0].after, QStringLiteral("380"));
+        QVERIFY2(formulaFacts(balance, formulas).contains(QStringLiteral("第 2 列 + 第 3 列 − 第 4 列（上月 + 收入 − 支出）")),
+                 qPrintable(formulaFacts(balance, formulas)));
+        plan = withFormulaFixes({}, balance, 1, formulas, true);
+        QCOMPARE(plan.size(), 1);
+        QVERIFY(plan[0].reason.contains(QStringLiteral("上月 + 收入 − 支出")));
+
+        // Too little evidence (two rows), or no relation at all: nothing is claimed.
+        QVERIFY(tableFormulas(grid({{QStringLiteral("a"), QStringLiteral("b"), QStringLiteral("c")},
+                                    {QStringLiteral("2"), QStringLiteral("3"), QStringLiteral("6")},
+                                    {QStringLiteral("4"), QStringLiteral("5"), QStringLiteral("20")}})).isEmpty());
+        QVERIFY(tableFormulas(grid({{QStringLiteral("姓名"), QStringLiteral("年龄"), QStringLiteral("工号")},
+                                    {QStringLiteral("甲"), QStringLiteral("31"), QStringLiteral("1024")},
+                                    {QStringLiteral("乙"), QStringLiteral("27"), QStringLiteral("1187")},
+                                    {QStringLiteral("丙"), QStringLiteral("45"), QStringLiteral("1302")}})).isEmpty());
+
+        QVERIFY(checkRequest(QStringLiteral("帮我检查一下这个表格")));
+        QVERIFY(checkRequest(QStringLiteral("看看总分有没有算错")));
+        QVERIFY(checkRequest(QStringLiteral("Please check the totals")));
+        QVERIFY(!checkRequest(QStringLiteral("把表头加粗居中")));
+        QVERIFY(!checkRequest(QStringLiteral("In the table, make the header row bold")));
+
+        // Naming a column points at its table; a request to write something is not about one.
+        const QJsonArray blocks{QJsonObject{{QStringLiteral("id"), QStringLiteral("P1")}},
+                                QJsonObject{{QStringLiteral("id"), QStringLiteral("T1")},
+                                            {QStringLiteral("firstRow"), QJsonArray{QStringLiteral("姓名"), QStringLiteral("1"), QStringLiteral("总分")}}},
+                                QJsonObject{{QStringLiteral("id"), QStringLiteral("T2")},
+                                            {QStringLiteral("firstRow"), QJsonArray{QStringLiteral("事项"), QStringLiteral("负责人")}}}};
+        QCOMPARE(tableMentionedIn(QStringLiteral("看看总分有没有算错"), blocks), 1);
+        QCOMPARE(tableMentionedIn(QStringLiteral("负责人都写全名"), blocks), 2);
+        QCOMPARE(tableMentionedIn(QStringLiteral("第1条要改"), blocks), 0); // a number is not a name
+        QVERIFY(!tableRequest(QStringLiteral("帮我写一段关于总分的说明"), true));
+    }
+
+    void aCleanUpTheModelBeganIsFinished()
+    {
+        const auto grid = [](const QList<QStringList>& rows) {
+            QJsonArray array;
+            for (const QStringList& row : rows) {
+                QJsonArray cells;
+                for (const QString& text : row) cells.append(QJsonObject{{QStringLiteral("text"), text}});
+                array.append(cells);
+            }
+            return tableGridFrom({{QStringLiteral("rows"), array}});
+        };
+        const TableGrid phones = grid({{QStringLiteral("单位"), QStringLiteral("座机"), QStringLiteral("邮箱")},
+                                       {QStringLiteral("总部"), QStringLiteral("010-6552-1234"), QStringLiteral("hq@example.cn")},
+                                       {QStringLiteral("上海"), QStringLiteral("021 5478 9900"), QStringLiteral("sh@example,cn")},
+                                       {QStringLiteral("深圳"), QStringLiteral("0755-8833-112"), QStringLiteral("sz@example.cn")},
+                                       {QStringLiteral("成都"), QStringLiteral("已停用"), QStringLiteral("cd@example.cn")},
+                                       {QStringLiteral("杭州"), QStringLiteral("0571 8800 99"), QStringLiteral("hz@example,cn")}});
+        const QString answer = QStringLiteral(R"({"plan":[
+            {"cells":"R2C2","change":"text","reason":"去掉横线","value":"01065521234"},
+            {"cells":"R3C2","change":"text","reason":"去掉空格","value":"02154789900"},
+            {"cells":"R3C3","change":"text","reason":"逗号改点","value":"sh@example.cn"}]})");
+        const QList<PlannedEdit> model = parseTablePlan(answer, phones, 1);
+        QCOMPARE(model.size(), 3);
+        const QList<PlannedEdit> plan = withSameCleanup(model, phones, 1, QStringLiteral("座机号码统一写成纯数字"));
+        // Row 4 becomes 11 digits like the others; row 6 would be 10 digits, so it is left
+        // to the person; "已停用" has nothing to take out; the e-mail column was not a clean-up.
+        QCOMPARE(plan.size(), 4);
+        QCOMPARE(plan[3].command.arguments.value(QStringLiteral("row")).toInt(), 4);
+        QCOMPARE(plan[3].command.arguments.value(QStringLiteral("column")).toInt(), 2);
+        QCOMPARE(plan[3].after, QStringLiteral("07558833112"));
+        QVERIFY(validateCommand(plan[3].command).ok);
+        // Not asked to make anything uniform: the plan stays the model's.
+        QCOMPARE(withSameCleanup(model, phones, 1, QStringLiteral("把上海的座机改对")).size(), 3);
+    }
+
+    void theRequestDecidesWhereAndHow()
+    {
+        const auto grid = [](const QList<QStringList>& rows) {
+            QJsonArray array;
+            for (const QStringList& row : rows) {
+                QJsonArray cells;
+                for (const QString& text : row) cells.append(QJsonObject{{QStringLiteral("text"), text}});
+                array.append(cells);
+            }
+            return tableGridFrom({{QStringLiteral("rows"), array}});
+        };
+        const TableGrid orders = grid({{QStringLiteral("订单号"), QStringLiteral("客户"), QStringLiteral("发货日期"), QStringLiteral("状态"), QStringLiteral("金额")},
+                                       {QStringLiteral("A-01"), QStringLiteral("华东"), QStringLiteral("2026/3/7"), QStringLiteral("已发货"), QStringLiteral("300")},
+                                       {QStringLiteral("A-02"), QStringLiteral("华南"), QStringLiteral("3月9日"), QStringLiteral("待发货"), QStringLiteral("120")},
+                                       {QStringLiteral("A-03"), QStringLiteral("华北"), QStringLiteral("2026.03.12"), QStringLiteral("已发货"), QStringLiteral("80")}});
+        // A confused item ("bold" with a value that is neither yes/no nor the cell's text) is dropped;
+        // the cell's own text, or "bold: true; fill: …", counts.
+        QList<PlannedEdit> plan = parseTablePlan(QStringLiteral(R"({"plan":[
+            {"cells":"R2C5","change":"bold","reason":"r","value":"单价"},
+            {"cells":"R1C1","change":"bold","reason":"r","value":"订单号"},
+            {"cells":"R1C2-R1C5","change":"bold","reason":"r","value":"客户|发货日期|状态|金额"},
+            {"cells":"R3C1","change":"bold","reason":"r","value":"italic: true; fill: #EEEEEE"}]})"), orders, 1);
+        QCOMPARE(plan.size(), 4);
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1"));
+        QCOMPARE(plan[1].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("2-5"));
+        QVERIFY(plan[2].command.arguments.value(QStringLiteral("italic")).toBool());
+        QCOMPARE(plan[3].command.arguments.value(QStringLiteral("fill")).toString(), QStringLiteral("#EEEEEE"));
+
+        // "已发货的行": the cell the model marked goes to its whole row; "金额那一列": the header goes to the column.
+        plan = parseTablePlan(QStringLiteral(R"({"plan":[
+            {"cells":"R2C4","change":"fill","reason":"r","value":"#E2EFDA"},
+            {"cells":"R4C4","change":"fill","reason":"r","value":"#E2EFDA"}]})"), orders, 1);
+        plan = withRequestedScope(plan, orders, 1, QStringLiteral("已发货的行都标成浅绿色"));
+        QCOMPARE(plan.size(), 2);
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1-5"));
+        QCOMPARE(plan[0].place, QStringLiteral("第 2 行第 1–5 列"));
+        plan = parseTablePlan(QStringLiteral(R"({"plan":[{"cells":"R1C5","change":"align","reason":"r","value":"right"}]})"), orders, 1);
+        plan = withRequestedScope(plan, orders, 1, QStringLiteral("金额那一列右对齐"));
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("1-4"));
+        // Formats the request names but the plan left out, added on the plan's place.
+        plan = parseTablePlan(QStringLiteral(R"({"plan":[{"cells":"R1C1-R1C5","change":"fill","reason":"r","value":"#FFF2CC"}]})"), orders, 1);
+        plan = withRequestedScope(plan, orders, 1, QStringLiteral("表头加粗、居中，底色用浅黄色"));
+        QCOMPARE(plan.size(), 3);
+        QVERIFY(plan[1].command.arguments.value(QStringLiteral("bold")).toBool());
+        QCOMPARE(plan[1].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1-5"));
+        QCOMPARE(plan[2].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("center"));
+        for (const PlannedEdit& edit : plan) QVERIFY(validateCommand(edit.command).ok);
+        // A request about rows or columns of its own is not completed by guesswork.
+        QCOMPARE(withRequestedScope(parseTablePlan(QStringLiteral(R"({"plan":[{"cells":"R1","change":"bold","reason":"r","value":"true"}]})"), orders, 1),
+                                    orders, 1, QStringLiteral("表头加粗，金额列右对齐")).size(), 1);
+
+        // Dates are rewritten by the program, in the style the request shows.
+        CellDate date;
+        QVERIFY(cellDate(QStringLiteral("2026/3/7"), &date) && date.year == 2026 && date.month == 3 && date.day == 7);
+        QVERIFY(cellDate(QStringLiteral("3月9日"), &date) && date.year == 0 && date.day == 9);
+        QVERIFY(!cellDate(QStringLiteral("2026/13/40"), &date));
+        QVERIFY(!cellDate(QStringLiteral("09:00-11:30"), &date));
+        const QList<PlannedEdit> model = parseTablePlan(QStringLiteral(R"({"plan":[
+            {"cells":"R2C3","change":"text","reason":"抄了例子","value":"2026-03-01"},
+            {"cells":"R2C2","change":"text","reason":"写全","value":"华东区"}]})"), orders, 1);
+        plan = withDateStyle(model, orders, 1, QStringLiteral("发货日期统一写成 2026-03-01 这样"));
+        QCOMPARE(plan.size(), 4);
+        QCOMPARE(plan[0].after, QStringLiteral("2026-03-07"));
+        QCOMPARE(plan[1].after, QStringLiteral("2026-03-09")); // the column's year
+        QCOMPARE(plan[2].after, QStringLiteral("2026-03-12"));
+        QCOMPARE(plan[3].after, QStringLiteral("华东区"));
+        plan = withDateStyle({}, orders, 1, QStringLiteral("日期都改成“3月1日”的写法"));
+        QCOMPARE(plan.size(), 2);
+        QCOMPARE(plan[0].after, QStringLiteral("3月7日"));
+        QCOMPARE(plan[1].after, QStringLiteral("3月12日"));
+        QVERIFY(withDateStyle(model, orders, 1, QStringLiteral("把客户写全")).size() == 2); // no date style asked for
+
+        // Typos found by proofreading the cells' words become cell edits.
+        const TableGrid items = grid({{QStringLiteral("名称"), QStringLiteral("备注")},
+                                      {QStringLiteral("按装费"), QStringLiteral("含上门按装")},
+                                      {QStringLiteral("运费"), QStringLiteral("12")}});
+        const QString words = tableTexts(items);
+        QVERIFY(words.contains(QStringLiteral("按装费")) && !words.contains(QStringLiteral("12")));
+        const QList<Correction> typos = parseCorrections(
+            QStringLiteral(R"({"corrections":[{"error":"按装","fix":"安装","reason":"错别字"}]})"), words);
+        plan = withTypoFixes({}, typos, items, 1);
+        QCOMPARE(plan.size(), 2);
+        QCOMPARE(plan[0].after, QStringLiteral("安装费"));
+        QCOMPARE(plan[1].after, QStringLiteral("含上门安装"));
+        QVERIFY(words.contains(QStringLiteral("备注：含上门按装"))); // each cell with its column's name
+        // The model quoting the column's name, or "fixing" a word into itself.
+        plan = withTypoFixes({}, {Correction{QStringLiteral("名称：按装费"), QStringLiteral("名称：安装费"), QString()},
+                                  Correction{QStringLiteral("运费"), QStringLiteral("运费"), QString()}}, items, 1);
+        QCOMPARE(plan.size(), 1);
+        QCOMPARE(plan[0].after, QStringLiteral("安装费"));
+        const TaskSpec* proofread = findTask(QStringLiteral("tableProofread"));
+        QVERIFY(proofread && !proofread->offered && proofread->output == TaskOutput::Corrections);
+    }
+
+    void theProgramReadsFormatRequestsItself()
+    {
+        const auto grid = [](const QList<QStringList>& rows) {
+            QJsonArray array;
+            for (const QStringList& row : rows) {
+                QJsonArray cells;
+                for (const QString& text : row) cells.append(QJsonObject{{QStringLiteral("text"), text}});
+                array.append(cells);
+            }
+            return tableGridFrom({{QStringLiteral("rows"), array}});
+        };
+        const TableGrid tasks = grid({{QStringLiteral("任务"), QStringLiteral("负责人"), QStringLiteral("进度（%）"), QStringLiteral("状态")},
+                                      {QStringLiteral("采购"), QStringLiteral("钱多多"), QStringLiteral("100"), QStringLiteral("已结束")},
+                                      {QStringLiteral("布展"), QStringLiteral("孙小美"), QStringLiteral("40"), QStringLiteral("进行中")},
+                                      {QStringLiteral("宣传"), QStringLiteral("阿土伯"), QStringLiteral("100"), QStringLiteral("已结束")},
+                                      {QStringLiteral("复盘"), QStringLiteral("钱多多"), QStringLiteral("0"), QStringLiteral("未开始")}});
+        bool understood = false;
+        // A clause without a place goes on the one before it.
+        QList<PlannedEdit> edits = requestedFormats(QStringLiteral("表头加粗、居中，然后加个浅紫色背景"), tasks, 3, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits.size(), 2);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("1"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1-4"));
+        QVERIFY(edits[0].command.arguments.value(QStringLiteral("bold")).toBool());
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("center"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("fill")).toString(), QStringLiteral("#E4DFEC"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("table")).toInt(), 3);
+        // A column by its header (the unit in brackets aside), rows by what a cell says.
+        edits = requestedFormats(QStringLiteral("进度那一列右对齐；已结束的任务整行标成浅灰色"), tasks, 1, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits.size(), 2);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("3"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("1-5"));
+        QCOMPARE(edits[0].place, QStringLiteral("第 3 列"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("2,4"));
+        QCOMPARE(edits[1].place, QStringLiteral("第 2、4 行"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("fill")).toString(), QStringLiteral("#D9D9D9"));
+        // Numbered rows and columns, text color, size; English.
+        edits = requestedFormats(QStringLiteral("第2到3行的字标红，第四列字号改成小四"), tasks, 1, &understood);
+        QCOMPARE(edits.size(), 2);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("2-3"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("color")).toString(), QStringLiteral("#C00000"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("4"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("fontSize")).toInt(), 12);
+        const TableGrid people = grid({{QStringLiteral("Name"), QStringLiteral("Team"), QStringLiteral("Status")},
+                                       {QStringLiteral("Ann"), QStringLiteral("A"), QStringLiteral("Open")},
+                                       {QStringLiteral("Bo"), QStringLiteral("B"), QStringLiteral("Closed")}});
+        edits = requestedFormats(QStringLiteral("Make the header row italic, and center the Status column."), people, 1, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits.size(), 2);
+        QVERIFY(edits[0].command.arguments.value(QStringLiteral("italic")).toBool());
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("3"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("center"));
+        for (const PlannedEdit& edit : edits) QVERIFY(validateCommand(edit.command).ok);
+        // A format with no place, or a fill with no color, is not understood: the model's plan stays.
+        edits = requestedFormats(QStringLiteral("加个底色"), tasks, 1, &understood);
+        QVERIFY(!understood && edits.isEmpty());
+        // No format asked for (a check, filling in text): nothing from the program.
+        QVERIFY(requestedFormats(QStringLiteral("空着的状态格都填上待定"), tasks, 1, &understood).isEmpty());
+        QVERIFY(requestedFormats(QStringLiteral("帮我检查一下表格"), tasks, 1, &understood).isEmpty());
+
+        // The program's formats replace the model's confused ones; the model's text changes stay.
+        const QList<PlannedEdit> model = parseTablePlan(QStringLiteral(R"({"plan":[
+            {"cells":"R2C4","change":"fill","reason":"r","value":"已结束"},
+            {"cells":"R3C2","change":"text","reason":"r","value":"孙小梅"},
+            {"cells":"R1C4","change":"text","reason":"r","value":"text:'状态';bold:True"}]})"),
+            tasks, 1, QStringLiteral("已结束的行标成浅灰色，孙小美的名字改成孙小梅"));
+        QCOMPARE(model.size(), 2); // the serialized "text" is dropped
+        QCOMPARE(model[0].command.arguments.value(QStringLiteral("fill")).toString(), QStringLiteral("#D9D9D9")); // the request's color
+        const QList<PlannedEdit> plan = withRequestedFormats(model, tasks, 1, QStringLiteral("已结束的行标成浅灰色，孙小美的名字改成孙小梅"));
+        QCOMPARE(plan.size(), 2);
+        QCOMPARE(plan[0].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("2,4"));
+        QCOMPARE(plan[1].after, QStringLiteral("孙小梅"));
+        // "fill" with a word in a request with no color at all: 填 as in write in.
+        const QList<PlannedEdit> written = parseTablePlan(QStringLiteral(R"({"plan":[{"cells":"R5C3","change":"fill","reason":"r","value":"待定"}]})"),
+                                                          tasks, 1, QStringLiteral("没开始的进度填上待定"));
+        QCOMPARE(written.size(), 1);
+        QCOMPARE(written[0].command.name, QStringLiteral("table.setCell"));
+        QCOMPARE(written[0].after, QStringLiteral("待定"));
+    }
+
     void typedRequestsGoWhereThePersonMeant()
     {
         QCOMPARE(classifyRequest(QStringLiteral("详细点"), true), RequestKind::ReworkSelection);

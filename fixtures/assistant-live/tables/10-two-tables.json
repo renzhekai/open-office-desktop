@@ -1,0 +1,59 @@
+{
+  "name": "两张表：只把第二张表的表头加粗、加浅黄底色",
+  "document": "fixtures/assistant-samples/two-tables.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "check": "snapshot",
+      "table": 2
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把第二张表格的表头加粗，加上浅黄色底色"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "format",
+      "table": 2,
+      "cells": "R1C1-R1C3",
+      "bold": true,
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R1C1-R1C2",
+      "bold": false,
+      "filled": false
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": []
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 2,
+      "cells": []
+    }
+  ]
+}

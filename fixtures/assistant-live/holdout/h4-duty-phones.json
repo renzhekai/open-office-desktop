@@ -1,0 +1,62 @@
+{
+  "name": "（留出）值班表：联系电话统一成 11 位数字",
+  "document": "fixtures/assistant-samples/holdout/duty.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "联系电话统一成11位数字，去掉空格和横线"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 2,
+      "column": 4,
+      "equals": "13912345678"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 4,
+      "equals": "13587654321"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 5,
+      "column": 4,
+      "equals": "13711112222"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R2C4",
+        "R3C4",
+        "R5C4"
+      ],
+      "someChanged": true
+    }
+  ]
+}

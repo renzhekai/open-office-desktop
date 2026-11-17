@@ -1,0 +1,57 @@
+{
+  "name": "项目进度：状态统一成“已完成 / 进行中 / 未开始”",
+  "document": "fixtures/assistant-samples/project-status.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把表格里的状态统一成三种写法：已完成、进行中、未开始"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 3,
+      "equals": "已完成"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 5,
+      "column": 3,
+      "equals": "已完成"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R2C3",
+        "R3C3",
+        "R4C3",
+        "R5C3",
+        "R6C3"
+      ],
+      "someChanged": true
+    }
+  ]
+}

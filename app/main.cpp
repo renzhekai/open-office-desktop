@@ -1,5 +1,6 @@
 #include "engine/onlyoffice_engine_adapter.h"
 #include "ui/main_window.h"
+#include "ui/mcp_server.h"
 #include "ui/relocation.h"
 
 #include <QAction>
@@ -55,6 +56,9 @@ int main(int argc, char* argv[])
     parser.addOption({QStringLiteral("smoke-report"), QStringLiteral("Write a new JSON launch report; never overwrite."), QStringLiteral("path")});
     parser.addOption({QStringLiteral("snapshot"), QStringLiteral("Write a new PNG of this application's rendered window."), QStringLiteral("path")});
     parser.addOption({QStringLiteral("exit-after-ms"), QStringLiteral("Exit after rendering, for local smoke tests."), QStringLiteral("milliseconds")});
+    parser.addOption({QStringLiteral("mcp-port"), QStringLiteral("Serve the assistant's commands over MCP on 127.0.0.1 (0: any free port); "
+                                                                 "the URL and token go to mcp-endpoint.json in the profile."), QStringLiteral("port")});
+    parser.addOption({QStringLiteral("mcp-test"), QStringLiteral("With --mcp-port: also the test tools that drive the assistant like a person.")});
     parser.addOption({QStringLiteral("relocation-log"), QStringLiteral("Report how moving the program went (started by the move helper)."), QStringLiteral("path")});
     parser.process(app);
     if (parser.isSet(QStringLiteral("select")) && parser.isSet(QStringLiteral("open")))
@@ -87,6 +91,14 @@ int main(int argc, char* argv[])
 #ifdef OPEN_OFFICE_WITH_ONLYOFFICE
     window.setAssistantJournalPath(QDir(profileRoot).filePath(QStringLiteral("assistant-commands.jsonl")));
     window.setConversationFolder(QDir(profileRoot).filePath(QStringLiteral("conversations")));
+    if (parser.isSet(QStringLiteral("mcp-port"))) {
+        auto* mcp = new openoffice::McpServer(&window, parser.isSet(QStringLiteral("mcp-test")), &window);
+        QString error;
+        const QString endpoint = QDir(profileRoot).filePath(QStringLiteral("mcp-endpoint.json"));
+        if (!mcp->listen(static_cast<quint16>(parser.value(QStringLiteral("mcp-port")).toUInt()), &error)
+            || !mcp->writeEndpoint(endpoint, &error))
+            qWarning().noquote() << "MCP server not started:" << error;
+    }
 #endif
     if (parser.isSet(QStringLiteral("select")))
         window.selectDocument(parser.value(QStringLiteral("select")));

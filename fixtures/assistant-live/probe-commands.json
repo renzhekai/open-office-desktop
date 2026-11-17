@@ -1,0 +1,29 @@
+{
+  "name": "结构和样式命令在真实编辑器里的探测（text-table.docx）",
+  "document": "fixtures/generated/text-table.docx",
+  "steps": [
+    {"tool": "document.outline", "expect": {"ok": true, "valueIncludes": ["T1", "P1", "Open Office 兼容性样本"]}},
+    {"tool": "table.read", "args": {"table": 1}, "expect": {"ok": true, "valueIncludes": ["项目", "办公套件"]}},
+    {"check": "snapshot", "table": 1},
+    {"tool": "table.setCell", "args": {"table": 1, "row": 2, "column": 2, "text": "12"}, "expect": {"ok": true, "code": "cell_set"}},
+    {"check": "cell", "table": 1, "row": 2, "column": 2, "equals": "12"},
+    {"check": "unchangedExcept", "table": 1, "cells": ["R2C2"], "someChanged": true},
+    {"tool": "table.setCell", "args": {"table": 1, "row": 2, "column": 2, "text": "12"}, "expect": {"ok": true, "code": "unchanged"}},
+    {"tool": "format.cells", "args": {"table": 1, "rows": "1", "bold": true, "fill": "#D9E2F3", "align": "center"}, "expect": {"ok": true, "code": "formatted"}},
+    {"tool": "table.read", "args": {"table": 1}, "expect": {"ok": true, "valueIncludes": ["\"bold\":true", "#D9E2F3", "\"align\":\"center\""]}},
+    {"tool": "format.paragraphs", "args": {"paragraphs": "1", "style": "heading1"}, "expect": {"ok": true}},
+    {"tool": "format.paragraphs", "args": {"paragraphs": "2", "align": "right", "italic": true}, "expect": {"ok": true}},
+    {"tool": "format.text", "args": {"find": "English", "color": "#C00000", "bold": true}, "expect": {"ok": true, "code": "formatted"}},
+    {"tool": "document.outline", "expect": {"ok": true, "valueIncludes": ["Heading 1"]}},
+    {"tool": "selection.select", "args": {"table": 1, "row": 2, "column": 1}, "expect": {"ok": true}},
+    {"tool": "selection.getText", "expect": {"ok": true, "valueIncludes": ["办公套件"]}},
+    {"tool": "selection.select", "args": {"find": "普通文字"}, "expect": {"ok": true}},
+    {"tool": "selection.getText", "expect": {"ok": true, "valueIncludes": ["普通文字"]}},
+    {"tool": "edit.undo", "expect": {"ok": true}},
+    {"tool": "edit.undo", "expect": {"ok": true}},
+    {"tool": "table.setCell", "args": {"table": 9, "row": 1, "column": 1, "text": "x"}, "expect": {"ok": false, "code": "no_table"}},
+    {"tool": "table.setCell", "args": {"table": 1, "row": 9, "column": 1, "text": "x"}, "expect": {"ok": false, "code": "no_cell"}},
+    {"tool": "format.cells", "args": {"table": 1, "rows": "5-7", "bold": true}, "expect": {"ok": false, "code": "bad_range"}},
+    {"tool": "format.text", "args": {"find": "文档里没有的字", "bold": true}, "expect": {"ok": false, "code": "not_found"}}
+  ]
+}

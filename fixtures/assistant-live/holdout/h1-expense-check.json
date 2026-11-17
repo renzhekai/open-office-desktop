@@ -1,0 +1,65 @@
+{
+  "name": "（留出）报销单：点进表格说“核对一下，有问题就改”（小计算错、错别字）",
+  "document": "fixtures/assistant-samples/holdout/expense.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "selection.select",
+      "args": {
+        "table": 1,
+        "row": 3,
+        "column": 2
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "帮我核对一下这张报销单，有问题就改"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 2,
+      "column": 5,
+      "equals": "135"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 2,
+      "equals": "办公用品"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R2C5",
+        "R3C2"
+      ],
+      "someChanged": true
+    }
+  ]
+}

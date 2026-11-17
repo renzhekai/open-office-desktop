@@ -1,0 +1,69 @@
+{
+  "name": "（留出）值班表：日期全部改成 2026-11-16 这种写法",
+  "document": "fixtures/assistant-samples/holdout/duty.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "日期全部改成 2026-11-16 这种写法"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 2,
+      "column": 1,
+      "equals": "2026-11-16"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 3,
+      "column": 1,
+      "equals": "2026-11-17"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 4,
+      "column": 1,
+      "equals": "2026-11-18"
+    },
+    {
+      "check": "cell",
+      "table": 1,
+      "row": 5,
+      "column": 1,
+      "equals": "2026-11-19"
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [
+        "R2C1",
+        "R3C1",
+        "R5C1"
+      ],
+      "someChanged": true
+    }
+  ]
+}

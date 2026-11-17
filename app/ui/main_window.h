@@ -62,6 +62,20 @@ public:
     // Each start of the program, and each other document, begins a new one.
     void setConversationFolder(const QString& folder) { m_conversations = ConversationStore(folder); }
     const Conversation& conversation() const { return m_conversation; } // test seam
+    // For the MCP server (app/ui/mcp_server.*): commands from another program, and what
+    // its test tools need to drive and watch the assistant like a person would.
+    void runExternalCommand(const AssistantCommand& command, std::function<void(const CommandOutcome&)> done)
+    {
+        runAssistantCommand(command, std::move(done), true);
+    }
+    AssistantBall* assistantBall() const { return m_assistantBall; }
+    LocalAssistant* localAssistant() const { return m_localAi; }
+    bool documentBusy() const { return m_pendingRequestId != 0 || m_waitingForSavedState; }
+    // Anything the assistant has started and not finished: a command, a queued read,
+    // a request waiting for the local AI to be detected or started, or an answer.
+    bool assistantBusy() const;
+    QString lastTaskAnswer() const { return m_lastTaskAnswer; } // the model's raw answer, for tests
+    QString openedDocumentPath() const { return m_openedPath; }
 
 protected:
     void closeEvent(QCloseEvent* event) override;
@@ -96,7 +110,7 @@ private:
     using CommandDone = std::function<void(const CommandOutcome&)>;
     // done receives the outcome instead of the model; quiet commands show no bubble.
     void runAssistantCommand(const AssistantCommand& command, CommandDone done, bool quiet);
-    void readForAssistant(const QString& name, CommandDone done); // a quiet read done for the AI
+    void readForAssistant(const QString& name, CommandDone done, const QJsonObject& arguments = {}); // a quiet read for the AI
     void whenLocalAiReady(std::function<void()> action);
     void refreshQuickActions(); // reads the selection, then offers the matching actions
     void showQuickActionsFor(const QString& selection);
@@ -106,7 +120,7 @@ private:
     void applyCorrection(int index, std::function<void(bool)> done);
     void applyRemainingCorrections(int fixed);
     void startHostCommand(const AssistantCommand& command, EngineOperation expected,
-                          const std::function<void()>& action);
+                          const std::function<void()>& action, CommandDone done, bool quiet);
     void finishAssistantCommand(const AssistantCommand& command, const CommandOutcome& outcome,
                                 const CommandDone& done = {}, bool quiet = false);
     void handleEditorCommandFinished(quint64 requestId, const EngineResult& result, const QJsonObject& value);
@@ -138,13 +152,26 @@ private:
     quint64 m_assistantEditorRequest = 0;      // editor command awaiting completion
     quint64 m_assistantHostRequest = 0;        // host open/save/create awaiting completion
     QString m_assistantJournalPath;
-    CommandDone m_assistantDone;      // receives the running editor command's outcome, if set
-    bool m_assistantQuiet = false;    // the running editor command shows no bubble
+    CommandDone m_assistantDone;      // receives the running editor or host command's outcome, if set
+    bool m_assistantQuiet = false;    // the running editor or host command shows no bubble
     QList<std::function<void()>> m_assistantQueue; // waits behind a quiet read (or a quiet read waits)
     QString m_lastTaskId;             // the latest office task and what it worked on
     TaskInput m_lastTaskInput;
-    QList<Correction> m_corrections;  // the latest proofreading result
+    // The latest list of one-by-one edits (proofreading fixes or a table plan): each
+    // is one command, applied alone or in order by "全部改正", each its own undo step.
+    QList<AssistantCommand> m_edits;
+    QString m_editsTitle;
     QList<int> m_correctionState;     // 0 not applied, 1 applied, 2 failed
+    // The table a "修改表格" plan is for, as it was read.
+    TableGrid m_planGrid;
+    int m_planTable = 0;
+    QString m_lastTaskAnswer;
+    QString m_planRequest;              // what the person asked for that table
+    QList<TableFormula> m_planFormulas; // its arithmetic, as the program found it
+    void planTableChanges(const QString& request, int table);
+    void showTablePlan(const QList<PlannedEdit>& plan); // the checked plan, change by change
+    QList<PlannedEdit> m_pendingPlan; // the plan while the table's words are proofread
+    void routeTypedRequest(const QString& text, const QString& documentText, const QString& selection);
     bool m_speedAdviceShown = false;  // the "slow model" card appears once per session
     QPointer<AiSettingsDialog> m_aiSettings;
     QString waitHint() const;

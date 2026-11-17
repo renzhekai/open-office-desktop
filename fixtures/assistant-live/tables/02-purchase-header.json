@@ -1,0 +1,51 @@
+{
+  "name": "采购清单：表头加粗、居中、浅蓝底色（只改格式）",
+  "document": "fixtures/assistant-samples/purchase-list.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把表格的表头加粗居中，再加一个浅蓝色的底色"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R1C1-R1C5",
+      "bold": true,
+      "align": "center",
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C1-R6C5",
+      "bold": false,
+      "filled": false
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": []
+    }
+  ]
+}

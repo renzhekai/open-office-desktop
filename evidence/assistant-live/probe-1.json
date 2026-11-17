@@ -1,0 +1,20 @@
+{
+  "label": "probe-1",
+  "started_utc": "2026-11-10T04:20:49.760778+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-host\\bin\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\probe-1\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test",
+    "--onlyoffice-runtime",
+    "D:\\open office\\build\\full-source-run-builtin-ai-r9"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-builtin-ai-r9",
+  "exe": "D:\\open office\\build\\full-source-host\\bin\\OpenOffice.exe",
+  "scenarios": [],
+  "error": "RuntimeError('no MCP endpoint (exit code 3221226505)')",
+  "finished_utc": "2026-11-10T04:20:53.102019+00:00",
+  "ok": false
+}

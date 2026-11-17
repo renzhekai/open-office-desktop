@@ -20,6 +20,41 @@ const QStringList& documentKinds()
     return kinds;
 }
 
+CommandArgument tableArgument()
+{
+    return {QStringLiteral("table"), ArgumentType::Integer, true, 0,
+            QStringLiteral("表格编号，从 1 开始（document.outline 里的 T 后面的数字）。"), {}, 1, 200};
+}
+
+CommandArgument rangeArgument(const QString& name, const QString& what)
+{
+    return {name, ArgumentType::String, false, 40, QStringLiteral("哪些%1：1、2-4、1,3 或 all（默认 all）。").arg(what)};
+}
+
+CommandArgument boolArgument(const QString& name, const QString& what)
+{
+    return {name, ArgumentType::Boolean, false, 0, QStringLiteral("true 设为%1，false 取消%1。").arg(what)};
+}
+
+CommandArgument fontSizeArgument()
+{
+    return {QStringLiteral("fontSize"), ArgumentType::Integer, false, 0, QStringLiteral("字号（磅），6 到 72。"), {}, 6, 72};
+}
+
+CommandArgument colorArgument(const QString& name, const QString& what, bool allowNone)
+{
+    CommandArgument argument{name, ArgumentType::Color, false, 0,
+                             QStringLiteral("%1，写成 #RRGGBB，例如 #C00000%2。").arg(what, allowNone ? QStringLiteral("；none 为去掉") : QString())};
+    argument.allowNone = allowNone;
+    return argument;
+}
+
+CommandArgument alignArgument()
+{
+    return {QStringLiteral("align"), ArgumentType::Choice, false, 0, QStringLiteral("对齐：left、center、right 或 justify。"),
+            {QStringLiteral("left"), QStringLiteral("center"), QStringLiteral("right"), QStringLiteral("justify")}};
+}
+
 QList<CommandSpec> buildCatalog()
 {
     using A = CommandArgument;
@@ -60,6 +95,55 @@ QList<CommandSpec> buildCatalog()
          {A{QStringLiteral("find"), ArgumentType::String, true, 200, QStringLiteral("要查找的文字，1 到 200 个字符。")},
           A{QStringLiteral("replace"), ArgumentType::String, true, 200, QStringLiteral("替换成的文字，1 到 200 个字符。")}},
          CommandTarget::Editor, true, true},
+        {QStringLiteral("document.outline"), QStringLiteral("读取文档结构"),
+         QStringLiteral("按顺序列出文档的段落（P1、P2…，带样式名和开头文字）和表格（T1、T2…，行数、列数和第一行），"
+                        "并说明光标在哪一段或哪个单元格。修改格式或表格前，先用它找到位置。"),
+         {}, CommandTarget::Editor, true, false},
+        {QStringLiteral("table.read"), QStringLiteral("读取表格"),
+         QStringLiteral("读取第 table 张表格的每个单元格：文字（按 R行C列 编号），以及是否加粗、对齐方式和底色。"),
+         {tableArgument()}, CommandTarget::Editor, true, false},
+        {QStringLiteral("table.setCell"), QStringLiteral("修改单元格"),
+         QStringLiteral("把第 table 张表格第 row 行第 column 列单元格的文字换成 text，保留原来的字体格式。只改这一格，可用撤销恢复。"),
+         {tableArgument(), A{QStringLiteral("row"), ArgumentType::Integer, true, 0, QStringLiteral("行号，从 1 开始。"), {}, 1, 500},
+          A{QStringLiteral("column"), ArgumentType::Integer, true, 0, QStringLiteral("列号，从 1 开始。"), {}, 1, 100},
+          A{QStringLiteral("text"), ArgumentType::String, true, 2000, QStringLiteral("单元格的新文字，1 到 2000 个字符。")}},
+         CommandTarget::Editor, true, true},
+        {QStringLiteral("format.cells"), QStringLiteral("设置单元格格式"),
+         QStringLiteral("给第 table 张表格里 rows 行与 columns 列交叉处的单元格设置格式（加粗、斜体、字号、文字颜色、底色、对齐）。"
+                        "rows、columns 写成 1、2-4、1,3 或 all（默认 all）。只给出要改的那几项格式。可用撤销恢复。"),
+         {tableArgument(), rangeArgument(QStringLiteral("rows"), QStringLiteral("行")),
+          rangeArgument(QStringLiteral("columns"), QStringLiteral("列")), boolArgument(QStringLiteral("bold"), QStringLiteral("加粗")),
+          boolArgument(QStringLiteral("italic"), QStringLiteral("斜体")), fontSizeArgument(),
+          colorArgument(QStringLiteral("color"), QStringLiteral("文字颜色"), false),
+          colorArgument(QStringLiteral("fill"), QStringLiteral("单元格底色"), true), alignArgument()},
+         CommandTarget::Editor, true, true},
+        {QStringLiteral("format.paragraphs"), QStringLiteral("设置段落格式"),
+         QStringLiteral("给 paragraphs 指定的段落（按 document.outline 的 P 编号，写成 3、2-5 或 1,4）设置格式：加粗、斜体、字号、"
+                        "文字颜色、对齐，或改成标题/正文样式。只给出要改的那几项。可用撤销恢复。"),
+         {A{QStringLiteral("paragraphs"), ArgumentType::String, true, 40, QStringLiteral("段落编号：3、2-5 或 1,4。")},
+          boolArgument(QStringLiteral("bold"), QStringLiteral("加粗")), boolArgument(QStringLiteral("italic"), QStringLiteral("斜体")),
+          fontSizeArgument(), colorArgument(QStringLiteral("color"), QStringLiteral("文字颜色"), false), alignArgument(),
+          A{QStringLiteral("style"), ArgumentType::Choice, false, 0, QStringLiteral("段落样式：heading1、heading2、heading3 或 normal（正文）。"),
+            {QStringLiteral("heading1"), QStringLiteral("heading2"), QStringLiteral("heading3"), QStringLiteral("normal")}}},
+         CommandTarget::Editor, true, true},
+        {QStringLiteral("format.text"), QStringLiteral("设置文字格式"),
+         QStringLiteral("找到文档里所有与 find 完全相同的文字（最多 100 处），设置加粗、斜体、下划线、字号、颜色或突出显示。可用撤销恢复。"),
+         {A{QStringLiteral("find"), ArgumentType::String, true, 200, QStringLiteral("要设置格式的文字，1 到 200 个字符。")},
+          boolArgument(QStringLiteral("bold"), QStringLiteral("加粗")), boolArgument(QStringLiteral("italic"), QStringLiteral("斜体")),
+          boolArgument(QStringLiteral("underline"), QStringLiteral("下划线")), fontSizeArgument(),
+          colorArgument(QStringLiteral("color"), QStringLiteral("文字颜色"), false),
+          A{QStringLiteral("highlight"), ArgumentType::Choice, false, 0, QStringLiteral("突出显示的颜色，none 为去掉。"),
+            {QStringLiteral("yellow"), QStringLiteral("green"), QStringLiteral("cyan"), QStringLiteral("magenta"),
+             QStringLiteral("red"), QStringLiteral("blue"), QStringLiteral("lightGray"), QStringLiteral("none")}}},
+         CommandTarget::Editor, true, true},
+        {QStringLiteral("selection.select"), QStringLiteral("选中"),
+         QStringLiteral("在编辑器里选中一处内容：find 为第一处相同的文字；paragraph 为第几段；table、row、column 为某个单元格。只给出其中一种。"),
+         {A{QStringLiteral("find"), ArgumentType::String, false, 200, QStringLiteral("要选中的文字。")},
+          A{QStringLiteral("paragraph"), ArgumentType::Integer, false, 0, QStringLiteral("段落编号（P 后面的数字）。"), {}, 1, 100000},
+          A{QStringLiteral("table"), ArgumentType::Integer, false, 0, QStringLiteral("表格编号（T 后面的数字）。"), {}, 1, 200},
+          A{QStringLiteral("row"), ArgumentType::Integer, false, 0, QStringLiteral("行号。"), {}, 1, 500},
+          A{QStringLiteral("column"), ArgumentType::Integer, false, 0, QStringLiteral("列号。"), {}, 1, 100}},
+         CommandTarget::Editor, true, false},
         {QStringLiteral("edit.undo"), QStringLiteral("撤销"),
          QStringLiteral("撤销编辑器中的上一步操作。"), {}, CommandTarget::Editor, true, true},
         {QStringLiteral("edit.redo"), QStringLiteral("重做"),
@@ -157,6 +241,21 @@ QString sourceName(CommandSource source)
     }
 }
 
+bool integerArgument(const QJsonValue& value, int minimum, int maximum)
+{
+    double number = 0;
+    if (value.isDouble()) {
+        number = value.toDouble();
+    } else if (value.isString()) { // small models often quote numbers
+        bool ok = false;
+        number = value.toString().trimmed().toInt(&ok);
+        if (!ok) return false;
+    } else {
+        return false;
+    }
+    return number == static_cast<double>(static_cast<qint64>(number)) && number >= minimum && (maximum <= 0 || number <= maximum);
+}
+
 CommandOutcome validateCommand(const AssistantCommand& command)
 {
     const CommandSpec* spec = findCommand(command.name);
@@ -173,9 +272,27 @@ CommandOutcome validateCommand(const AssistantCommand& command)
                 return failure("missing_argument", QStringLiteral("缺少参数 %1。").arg(argument.name));
             continue;
         }
+        if (argument.type == ArgumentType::Integer) {
+            if (!integerArgument(value, argument.minimum, argument.maximum))
+                return failure("invalid_argument", QStringLiteral("参数 %1 必须是 %2 到 %3 之间的整数。")
+                                                      .arg(argument.name).arg(argument.minimum).arg(argument.maximum));
+            continue;
+        }
+        if (argument.type == ArgumentType::Boolean) {
+            if (!value.isBool() && value.toString() != QStringLiteral("true") && value.toString() != QStringLiteral("false"))
+                return failure("invalid_argument", QStringLiteral("参数 %1 只能是 true 或 false。").arg(argument.name));
+            continue;
+        }
         if (!value.isString())
             return failure("invalid_argument", QStringLiteral("参数 %1 必须是文字。").arg(argument.name));
         const QString text = value.toString();
+        if (argument.type == ArgumentType::Color) {
+            static const QRegularExpression hex(QStringLiteral("^#?[0-9A-Fa-f]{6}$"));
+            if (!hex.match(text).hasMatch() && !(argument.allowNone && text == QStringLiteral("none")))
+                return failure("invalid_argument", QStringLiteral("参数 %1 要写成 #RRGGBB 形式的颜色%2。")
+                                                      .arg(argument.name, argument.allowNone ? QStringLiteral("或 none") : QString()));
+            continue;
+        }
         if (argument.required && text.isEmpty())
             return failure("invalid_argument", QStringLiteral("参数 %1 不能为空。").arg(argument.name));
         if (argument.maxLength > 0 && text.size() > argument.maxLength)
@@ -197,13 +314,22 @@ QJsonArray commandCatalogJson()
         for (const CommandArgument& argument : spec.arguments) {
             QJsonObject property{{QStringLiteral("type"), QStringLiteral("string")},
                                  {QStringLiteral("description"), argument.description}};
+            if (argument.type == ArgumentType::Integer) {
+                property.insert(QStringLiteral("type"), QStringLiteral("integer"));
+                property.insert(QStringLiteral("minimum"), argument.minimum);
+                if (argument.maximum > 0) property.insert(QStringLiteral("maximum"), argument.maximum);
+            }
+            if (argument.type == ArgumentType::Boolean) property.insert(QStringLiteral("type"), QStringLiteral("boolean"));
+            if (argument.type == ArgumentType::Color)
+                property.insert(QStringLiteral("pattern"), argument.allowNone ? QStringLiteral("^(#?[0-9A-Fa-f]{6}|none)$")
+                                                                              : QStringLiteral("^#?[0-9A-Fa-f]{6}$"));
             if (argument.type == ArgumentType::DocumentKind)
                 property.insert(QStringLiteral("enum"), QJsonArray::fromStringList(documentKinds()));
             if (argument.type == ArgumentType::Choice)
                 property.insert(QStringLiteral("enum"), QJsonArray::fromStringList(argument.choices));
             if (argument.maxLength > 0) property.insert(QStringLiteral("maxLength"), argument.maxLength);
             if (argument.required) {
-                property.insert(QStringLiteral("minLength"), 1);
+                if (argument.type == ArgumentType::String) property.insert(QStringLiteral("minLength"), 1);
                 required.append(argument.name);
             }
             properties.insert(argument.name, property);

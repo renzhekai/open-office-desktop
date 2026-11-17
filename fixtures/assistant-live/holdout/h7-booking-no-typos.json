@@ -1,0 +1,39 @@
+{
+  "name": "（留出）会议室预约：问有没有错别字（没有，不应改任何地方）",
+  "document": "fixtures/assistant-samples/holdout/booking.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "selection.select",
+      "args": {
+        "table": 1,
+        "row": 2,
+        "column": 3
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "帮我看看这张表有没有错别字"
+      },
+      "expect": {
+        "ok": true,
+        "saidIncludes": [
+          "没有需要修改的地方"
+        ]
+      }
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [],
+      "someChanged": false
+    }
+  ]
+}

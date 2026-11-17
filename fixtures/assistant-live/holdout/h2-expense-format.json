@@ -1,0 +1,55 @@
+{
+  "name": "（留出）报销单：小计那一列加粗，表头加灰色底色",
+  "document": "fixtures/assistant-samples/holdout/expense.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把小计那一列加粗，表头加上灰色底色"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C5-R5C5",
+      "bold": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R1C1-R1C5",
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C1-R5C4",
+      "filled": false
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [],
+      "someChanged": false
+    }
+  ]
+}

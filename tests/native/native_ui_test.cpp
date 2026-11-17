@@ -4,6 +4,7 @@
 #include "ui/ai_settings_dialog.h"
 #include "ui/assistant_ball.h"
 #include "ui/main_window.h"
+#include "ui/mcp_server.h"
 #include "ui/relocation.h"
 
 #include <QAction>
@@ -20,6 +21,9 @@
 #include <QMessageBox>
 #include <QPointer>
 #include <QPushButton>
+#include <QEventLoop>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include <QProcess>
 #include <QSettings>
 #include <QStorageInfo>
@@ -81,6 +85,17 @@ public:
             });
             return {true, QStringLiteral("test"), QStringLiteral("test read")};
         }
+        if (answerReads && (name == QStringLiteral("document.outline") || name == QStringLiteral("table.read"))) {
+            // The structure reads too: by default a document without tables.
+            ++readCalls;
+            const QJsonObject value = name == QStringLiteral("document.outline") ? outlineValue : tableValue;
+            QTimer::singleShot(0, this, [this, id, name, value] {
+                emit editorCommandFinished(id, {true, name == QStringLiteral("table.read") ? QStringLiteral("table") : QStringLiteral("outline"),
+                                                QStringLiteral("read")}, value);
+            });
+            lastReadArguments = arguments;
+            return {true, QStringLiteral("test"), QStringLiteral("test read")};
+        }
         ++editorCommandCalls;
         lastCommandId = id;
         lastCommandName = name;
@@ -118,9 +133,15 @@ public:
     QStringList editorCommands{QStringLiteral("text.insert"), QStringLiteral("selection.getText"),
                                QStringLiteral("selection.replace"), QStringLiteral("document.getText"),
                                QStringLiteral("document.replaceText"), QStringLiteral("edit.undo"),
-                               QStringLiteral("edit.redo")};
+                               QStringLiteral("edit.redo"), QStringLiteral("document.outline"),
+                               QStringLiteral("table.read"), QStringLiteral("table.setCell"),
+                               QStringLiteral("format.cells"), QStringLiteral("format.paragraphs"),
+                               QStringLiteral("format.text"), QStringLiteral("selection.select")};
     int editorCommandCalls = 0;
     bool answerReads = false; // answer document/selection reads automatically, outside editorCommandCalls
+    QJsonObject outlineValue{{QStringLiteral("paragraphs"), 1}, {QStringLiteral("tables"), 0}, {QStringLiteral("blocks"), QJsonArray()}};
+    QJsonObject tableValue;
+    QJsonObject lastReadArguments;
     QString documentText;
     QString selectionText;
     int readCalls = 0;
@@ -1094,7 +1115,8 @@ private slots:
                     .toString().contains(QStringLiteral("大家要准时来开会")));
         QCOMPARE(engine.editorCommandCalls, 0); // nothing changes before the person chooses
         button(QStringLiteral("替换原文"))->click();
-        QCOMPARE(engine.editorCommandCalls, 1);
+        // A quiet read of the selection may still be running; the replacement waits its turn.
+        QTRY_COMPARE(engine.editorCommandCalls, 1);
         QCOMPARE(engine.lastCommandName, QStringLiteral("selection.replace"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("text")).toString(), QStringLiteral("请大家准时参加会议。"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("expected")).toString(), QStringLiteral("大家要准时来开会"));
@@ -1107,7 +1129,7 @@ private slots:
         QTRY_COMPARE(panel->correctionCount(), 1);
         QVERIFY(fake.chatRequests().at(1).value(QStringLiteral("format")).isObject()); // structured answer
         button(QStringLiteral("改"))->click();
-        QCOMPARE(engine.editorCommandCalls, 2);
+        QTRY_COMPARE(engine.editorCommandCalls, 2); // after a quiet read that may still be running
         QCOMPARE(engine.lastCommandName, QStringLiteral("document.replaceText"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("find")).toString(), QStringLiteral("按排"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("replace")).toString(), QStringLiteral("安排"));
@@ -1130,7 +1152,7 @@ private slots:
         QVERIFY(fake.chatRequests().at(2).value(QStringLiteral("messages")).toArray().last().toObject()
                     .value(QStringLiteral("content")).toString().contains(QStringLiteral("周五下午三点三楼安全会")));
         button(QStringLiteral("插入文档"))->click();
-        QCOMPARE(engine.editorCommandCalls, 3);
+        QTRY_COMPARE(engine.editorCommandCalls, 3);
         QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("format")).toString(), QStringLiteral("markdown"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("position")).toString(), QStringLiteral("after"));
@@ -1287,6 +1309,89 @@ private slots:
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
         QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("已经写进文档了，可以在文档里查看。需要调整的话告诉我。"));
         QTRY_VERIFY(!panel->working());
+    }
+
+    void tableRequestsArePlannedAndAppliedOneByOne()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral(R"({"plan":[{"cells":"R2C1","change":"text","reason":"错别字","value":"笔记本"},)"
+                                                        R"({"cells":"R1C1-R1C3","change":"bold","reason":"表头","value":"true"},)"
+                                                        R"({"cells":"R2C2","change":"text","reason":"没变","value":"10"}]})")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.outlineValue = {{QStringLiteral("tables"), 1}, {QStringLiteral("paragraphs"), 2},
+                               {QStringLiteral("cursor"), QJsonObject{{QStringLiteral("table"), 1}, {QStringLiteral("row"), 2},
+                                                                      {QStringLiteral("column"), 1}}}};
+        const auto cell = [](const QString& text) { return QJsonObject{{QStringLiteral("text"), text}}; };
+        engine.tableValue = {{QStringLiteral("table"), 1}, {QStringLiteral("rows"), QJsonArray{
+            QJsonArray{cell(QStringLiteral("品名")), cell(QStringLiteral("数量")), cell(QStringLiteral("单价"))},
+            QJsonArray{cell(QStringLiteral("笔计本")), cell(QStringLiteral("10")), cell(QStringLiteral("12"))}}}};
+        openoffice::MainWindow window(&engine);
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        const auto button = [panel](const QString& text) -> QPushButton* {
+            QPushButton* found = nullptr;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                if (candidate->text() == text && candidate->isEnabled()) found = candidate;
+            return found;
+        };
+
+        // The cursor is in the table: the table is read and planned, not rewritten.
+        panel->submitText(QStringLiteral("帮我检查一下这个表格"));
+        QTRY_COMPARE(panel->correctionCount(), 2); // the no-op is dropped
+        QCOMPARE(engine.lastReadArguments.value(QStringLiteral("table")).toInt(), 1);
+        const QJsonObject request = fake.chatRequests().first();
+        QVERIFY(!request.contains(QStringLiteral("tools")));
+        QVERIFY(request.value(QStringLiteral("format")).toObject().value(QStringLiteral("properties")).toObject().contains(QStringLiteral("plan")));
+        const QString user = request.value(QStringLiteral("messages")).toArray().last().toObject().value(QStringLiteral("content")).toString();
+        QVERIFY(user.contains(QStringLiteral("R2C1：笔计本")) && user.contains(QStringLiteral("帮我检查一下这个表格")));
+        QCOMPARE(engine.editorCommandCalls, 0); // nothing changes before the person chooses
+
+        // 全部改正: one change after another, each its own command.
+        QTRY_VERIFY(!panel->working());
+        button(QStringLiteral("全部改正"))->click();
+        QTRY_COMPARE(engine.lastCommandName, QStringLiteral("table.setCell"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("text")).toString(), QStringLiteral("笔记本"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已修改第 1 张表格第 2 行第 1 列，可以撤销。"));
+        QTRY_COMPARE(engine.lastCommandName, QStringLiteral("format.cells"));
+        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("bold")).toBool());
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1-3"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已设置 3 个单元格的格式，可以撤销。"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("已改好 2 处")));
+        QTRY_VERIFY(!panel->working());
+
+        // Two tables and the cursor in neither: ask which one; "第 2 张表格" says it.
+        engine.outlineValue = {{QStringLiteral("tables"), 2}, {QStringLiteral("paragraphs"), 3}};
+        panel->submitText(QStringLiteral("把表格的表头加粗"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("请先把光标点进")));
+        QTRY_VERIFY(!panel->working());
+        // The program reads "表头加粗" itself: a header that is bold already needs nothing...
+        const auto boldCell = [](const QString& text) { return QJsonObject{{QStringLiteral("text"), text}, {QStringLiteral("bold"), true}}; };
+        engine.tableValue = {{QStringLiteral("table"), 2}, {QStringLiteral("rows"), QJsonArray{
+            QJsonArray{boldCell(QStringLiteral("事项")), boldCell(QStringLiteral("负责人"))},
+            QJsonArray{cell(QStringLiteral("布置")), cell(QStringLiteral("孙悦"))}}}};
+        fake.chats = {FakeOllama::chat({QStringLiteral(R"({"plan":[]})")})};
+        panel->submitText(QStringLiteral("把第 2 张表格的表头加粗"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("没有需要修改的地方")));
+        QCOMPARE(engine.lastReadArguments.value(QStringLiteral("table")).toInt(), 2);
+        QTRY_VERIFY(!panel->working());
+        // ...a plain one is made bold even when the model plans nothing.
+        engine.tableValue = {{QStringLiteral("table"), 2}, {QStringLiteral("rows"), QJsonArray{
+            QJsonArray{cell(QStringLiteral("事项")), cell(QStringLiteral("负责人"))},
+            QJsonArray{cell(QStringLiteral("布置")), cell(QStringLiteral("孙悦"))}}}};
+        fake.chats = {FakeOllama::chat({QStringLiteral(R"({"plan":[]})")})};
+        panel->submitText(QStringLiteral("把第 2 张表格的表头加粗"));
+        QTRY_COMPARE(panel->correctionCount(), 1);
+        button(QStringLiteral("全部改正"))->click();
+        QTRY_COMPARE(engine.lastCommandName, QStringLiteral("format.cells"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("table")).toInt(), 2);
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("rows")).toString(), QStringLiteral("1"));
+        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("bold")).toBool());
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已设置 2 个单元格的格式，可以撤销。"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("已改好 1 处")));
     }
 
     void reworkThatChangesNothingIsTriedAgainThenExplained()
@@ -1488,6 +1593,146 @@ private slots:
         input->clear();
         input->setText(QStringLiteral("你好 /"));
         QVERIFY(panel->slashSuggestions().isEmpty()); // only at the start
+    }
+
+    // A JSON-RPC request to the MCP server; returns the HTTP status and the body.
+    static QPair<int, QJsonObject> mcpPost(openoffice::McpServer& server, const QJsonObject& message, const QByteArray& token,
+                                           const QList<QPair<QByteArray, QByteArray>>& headers = {})
+    {
+        QNetworkAccessManager network;
+        QNetworkRequest request(QUrl(QStringLiteral("http://127.0.0.1:%1/mcp").arg(server.port())));
+        request.setHeader(QNetworkRequest::ContentTypeHeader, QByteArrayLiteral("application/json"));
+        if (!token.isEmpty()) request.setRawHeader("Authorization", "Bearer " + token);
+        for (const auto& header : headers) request.setRawHeader(header.first, header.second);
+        QNetworkReply* reply = network.post(request, QJsonDocument(message).toJson(QJsonDocument::Compact));
+        QEventLoop loop;
+        QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        QTimer::singleShot(300000, &loop, &QEventLoop::quit);
+        loop.exec();
+        const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        const QJsonObject body = QJsonDocument::fromJson(reply->readAll()).object();
+        reply->deleteLater();
+        return {status, body};
+    }
+
+    static QJsonObject rpc(int id, const QString& method, const QJsonObject& params = {})
+    {
+        return {{QStringLiteral("jsonrpc"), QStringLiteral("2.0")}, {QStringLiteral("id"), id},
+                {QStringLiteral("method"), method}, {QStringLiteral("params"), params}};
+    }
+
+    static QJsonObject mcpCall(openoffice::McpServer& server, int id, const QString& tool, const QJsonObject& arguments = {})
+    {
+        return mcpPost(server, rpc(id, QStringLiteral("tools/call"), {{QStringLiteral("name"), tool}, {QStringLiteral("arguments"), arguments}}),
+                       server.token().toLatin1()).second.value(QStringLiteral("result")).toObject();
+    }
+
+    void mcpServerServesTheCommandsOnlyToThisComputer()
+    {
+        ControlledEngine engine;
+        openoffice::MainWindow window(&engine);
+        openFixture(window, engine, "text-table.docx");
+        openoffice::McpServer server(&window, false);
+        QString error;
+        QVERIFY2(server.listen(0, &error), qPrintable(error));
+        const QByteArray token = server.token().toLatin1();
+        QCOMPARE(token.size(), 64);
+
+        // Refused: no token, a wrong one, a web page's origin. A local origin is fine.
+        QCOMPARE(mcpPost(server, rpc(1, QStringLiteral("ping")), {}).first, 401);
+        QCOMPARE(mcpPost(server, rpc(1, QStringLiteral("ping")), QByteArray(64, 'a')).first, 401);
+        QCOMPARE(mcpPost(server, rpc(1, QStringLiteral("ping")), token, {{"Origin", "http://evil.example"}}).first, 403);
+        QCOMPARE(mcpPost(server, rpc(1, QStringLiteral("ping")), token,
+                         {{"Origin", "http://127.0.0.1:" + QByteArray::number(server.port())}}).first, 200);
+
+        const auto initialize = mcpPost(server, rpc(1, QStringLiteral("initialize"), {{QStringLiteral("protocolVersion"), QStringLiteral("2025-06-18")}}), token);
+        QCOMPARE(initialize.first, 200);
+        const QJsonObject info = initialize.second.value(QStringLiteral("result")).toObject();
+        QCOMPARE(info.value(QStringLiteral("protocolVersion")).toString(), QStringLiteral("2025-06-18"));
+        QCOMPARE(info.value(QStringLiteral("serverInfo")).toObject().value(QStringLiteral("name")).toString(), QStringLiteral("open-office"));
+        QVERIFY(info.value(QStringLiteral("capabilities")).toObject().contains(QStringLiteral("tools")));
+        QCOMPARE(mcpPost(server, {{QStringLiteral("jsonrpc"), QStringLiteral("2.0")}, {QStringLiteral("method"), QStringLiteral("notifications/initialized")}},
+                         token).first, 202);
+
+        QStringList names;
+        for (const QJsonValue& tool : mcpPost(server, rpc(2, QStringLiteral("tools/list")), token).second.value(QStringLiteral("result")).toObject()
+                 .value(QStringLiteral("tools")).toArray())
+            names << tool.toObject().value(QStringLiteral("name")).toString();
+        QVERIFY(names.contains(QStringLiteral("table.setCell")) && names.contains(QStringLiteral("format.cells"))
+                && names.contains(QStringLiteral("document.outline")));
+        QVERIFY(!names.contains(QStringLiteral("test.ask"))); // test tools only when asked for
+
+        // A host command, then an editor command the editor answers a moment later.
+        const QJsonObject status = mcpCall(server, 3, QStringLiteral("document.status"));
+        QVERIFY(!status.value(QStringLiteral("isError")).toBool());
+        QVERIFY(status.value(QStringLiteral("structuredContent")).toObject().value(QStringLiteral("ok")).toBool());
+        QTimer::singleShot(300, &window, [&engine] {
+            engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已读取第 1 张表格（2 行 2 列）。"),
+                                   {{QStringLiteral("rowsCount"), 2}});
+        });
+        const QJsonObject table = mcpCall(server, 4, QStringLiteral("table.read"), {{QStringLiteral("table"), 1}});
+        QCOMPARE(engine.lastCommandName, QStringLiteral("table.read"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("table")).toInt(), 1);
+        QVERIFY(!table.value(QStringLiteral("isError")).toBool());
+        QCOMPARE(table.value(QStringLiteral("structuredContent")).toObject().value(QStringLiteral("value")).toObject()
+                     .value(QStringLiteral("rowsCount")).toInt(), 2);
+        QVERIFY(table.value(QStringLiteral("content")).toArray().first().toObject().value(QStringLiteral("text")).toString()
+                    .contains(QStringLiteral("rowsCount")));
+
+        // Mistakes come back as tool errors; unknown methods as JSON-RPC errors.
+        const QJsonObject wrong = mcpCall(server, 5, QStringLiteral("table.setCell"), {{QStringLiteral("table"), 0}});
+        QVERIFY(wrong.value(QStringLiteral("isError")).toBool());
+        QCOMPARE(mcpCall(server, 6, QStringLiteral("test.ask"), {{QStringLiteral("text"), QStringLiteral("x")}})
+                     .value(QStringLiteral("structuredContent")).toObject().value(QStringLiteral("code")).toString(),
+                 QStringLiteral("unknown_tool"));
+        QCOMPARE(mcpPost(server, rpc(7, QStringLiteral("resources/list")), token).second.value(QStringLiteral("error")).toObject()
+                     .value(QStringLiteral("code")).toInt(), -32601);
+    }
+
+    void mcpTestToolsDriveTheAssistantLikeAPerson()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral("更加详细具体的一句话，包含原来的意思。")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.selectionText = QStringLiteral("原来的句子。");
+        engine.documentText = QStringLiteral("原来的句子。");
+        openoffice::MainWindow window(&engine);
+        openFixture(window, engine, "text-table.docx");
+        openoffice::McpServer server(&window, true);
+        QString error;
+        QVERIFY2(server.listen(0, &error), qPrintable(error));
+
+        const QJsonObject asked = mcpCall(server, 1, QStringLiteral("test.ask"), {{QStringLiteral("text"), QStringLiteral("详细点")}})
+                                      .value(QStringLiteral("structuredContent")).toObject();
+        QVERIFY2(asked.value(QStringLiteral("ok")).toBool(), QJsonDocument(asked).toJson().constData());
+        QVERIFY(asked.value(QStringLiteral("buttons")).toArray().contains(QStringLiteral("替换原文")));
+        const QJsonArray said = asked.value(QStringLiteral("said")).toArray();
+        QCOMPARE(said.first().toObject().value(QStringLiteral("text")).toString(), QStringLiteral("详细点"));
+        QCOMPARE(said.last().toObject().value(QStringLiteral("text")).toString(), QStringLiteral("更加详细具体的一句话，包含原来的意思。"));
+
+        // Pressing a reply button runs its command; the editor answers a moment later.
+        QTimer::singleShot(500, &window, [&engine] {
+            engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已替换选中的文字，可以撤销。"));
+        });
+        const QJsonObject pressed = mcpCall(server, 2, QStringLiteral("test.press"), {{QStringLiteral("button"), QStringLiteral("替换原文")}})
+                                        .value(QStringLiteral("structuredContent")).toObject();
+        QVERIFY2(pressed.value(QStringLiteral("ok")).toBool(), QJsonDocument(pressed).toJson().constData());
+        QCOMPARE(engine.lastCommandName, QStringLiteral("selection.replace"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("text")).toString(), QStringLiteral("更加详细具体的一句话，包含原来的意思。"));
+
+        const QJsonObject state = mcpCall(server, 3, QStringLiteral("test.state")).value(QStringLiteral("structuredContent")).toObject();
+        QVERIFY(state.value(QStringLiteral("documentOpened")).toBool());
+        QCOMPARE(state.value(QStringLiteral("ai")).toObject().value(QStringLiteral("state")).toString(), QStringLiteral("ready"));
+        QCOMPARE(mcpCall(server, 4, QStringLiteral("test.quick"), {{QStringLiteral("id"), QStringLiteral("no-such")}})
+                     .value(QStringLiteral("structuredContent")).toObject().value(QStringLiteral("code")).toString(),
+                 QStringLiteral("no_quick_action"));
+        QCOMPARE(mcpCall(server, 5, QStringLiteral("test.press"), {{QStringLiteral("button"), QStringLiteral("不存在的按钮")}})
+                     .value(QStringLiteral("structuredContent")).toObject().value(QStringLiteral("code")).toString(),
+                 QStringLiteral("no_button"));
     }
 
     void relocationPlanChecksTheChosenFolder()

@@ -1,0 +1,72 @@
+{
+  "name": "（留出）会议室预约：已取消的整行标浅灰色",
+  "document": "fixtures/assistant-samples/holdout/booking.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "selection.select",
+      "args": {
+        "table": 1,
+        "row": 2,
+        "column": 2
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把已取消的预约整行标成浅灰色"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "全部改正"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R3C1-R3C4",
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R5C1-R5C4",
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C1-R2C4",
+      "filled": false
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R4C1-R4C4",
+      "filled": false
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [],
+      "someChanged": false
+    }
+  ]
+}

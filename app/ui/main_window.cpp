@@ -602,7 +602,8 @@ void MainWindow::buildInterface()
     });
     connect(m_localAi, &LocalAssistant::taskDelta, this, [this](const QString& text) {
         const TaskSpec* spec = findTask(m_localAi->runningTask());
-        if (spec && spec->output == TaskOutput::Corrections) return; // raw JSON is not for reading
+        if (spec && (spec->output == TaskOutput::Corrections || spec->output == TaskOutput::TablePlan))
+            return; // raw JSON is not for reading
         m_assistantBall->appendReply(text);
     });
     connect(m_localAi, &LocalAssistant::taskFinished, this, &MainWindow::finishTask);
@@ -821,9 +822,9 @@ void MainWindow::runAssistantCommand(const AssistantCommand& command)
     runAssistantCommand(command, {}, false);
 }
 
-void MainWindow::readForAssistant(const QString& name, CommandDone done)
+void MainWindow::readForAssistant(const QString& name, CommandDone done, const QJsonObject& arguments)
 {
-    runAssistantCommand({name, {}, CommandSource::Assistant}, std::move(done), true);
+    runAssistantCommand({name, arguments, CommandSource::Assistant}, std::move(done), true);
 }
 
 void MainWindow::runAssistantCommand(const AssistantCommand& command, CommandDone done, bool quiet)
@@ -909,14 +910,14 @@ void MainWindow::runAssistantCommand(const AssistantCommand& command, CommandDon
             finishNow({false, QStringLiteral("create_unsupported"), QStringLiteral("当前版本只开放新建文字文档。"), {}});
             return;
         }
-        startHostCommand(command, EngineOperation::Create, [this, kind] { createDocument(kind); });
+        startHostCommand(command, EngineOperation::Create, [this, kind] { createDocument(kind); }, std::move(done), quiet);
     } else if (command.name == QStringLiteral("document.save")) {
-        startHostCommand(command, EngineOperation::Save, [this] { saveDocument(); });
+        startHostCommand(command, EngineOperation::Save, [this] { saveDocument(); }, std::move(done), quiet);
     }
 }
 
 void MainWindow::startHostCommand(const AssistantCommand& command, EngineOperation expected,
-                                  const std::function<void()>& action)
+                                  const std::function<void()>& action, CommandDone done, bool quiet)
 {
     // Host commands go through the same UI paths as the toolbar, so prompts,
     // dialogs and dirty-state protection stay with the person.
@@ -925,16 +926,19 @@ void MainWindow::startHostCommand(const AssistantCommand& command, EngineOperati
     if (m_pendingRequestId > before && m_pendingOperation == expected) {
         m_assistantHostRequest = m_pendingRequestId;
         m_assistantCommand = command;
+        // Whoever asked (the MCP server, a reply card) hears when it is really done.
+        m_assistantDone = std::move(done);
+        m_assistantQuiet = quiet;
         m_assistantBall->setWorking(true);
         return;
     }
     if (m_pendingRequestId > before) {
         finishAssistantCommand(command, {false, QStringLiteral("deferred"),
-            QStringLiteral("已先开始保存当前文档；保存完成后会继续，结果见窗口状态。"), {}});
+            QStringLiteral("已先开始保存当前文档；保存完成后会继续，结果见窗口状态。"), {}}, done, quiet);
         return;
     }
     finishAssistantCommand(command, {false, QStringLiteral("not_started"),
-        QStringLiteral("没有开始：") + m_feedbackLabel->text(), {}});
+        QStringLiteral("没有开始：") + m_feedbackLabel->text(), {}}, done, quiet);
 }
 
 void MainWindow::handleEditorCommandFinished(quint64 requestId, const EngineResult& result, const QJsonObject& value)
@@ -1002,6 +1006,14 @@ void MainWindow::adviseIfSlow()
     m_assistantBall->showCard(QStringLiteral("回答有点慢？"), advice, actions, false);
 }
 
+bool MainWindow::assistantBusy() const
+{
+    if (m_assistantEditorRequest || m_assistantHostRequest || !m_assistantQueue.isEmpty() || m_whenReady) return true;
+    if (!m_localAi) return false;
+    const LocalAiState state = m_localAi->state();
+    return state == LocalAiState::Checking || state == LocalAiState::Thinking;
+}
+
 void MainWindow::updateAssistantWorking()
 {
     const bool thinking = m_localAi && m_localAi->state() == LocalAiState::Thinking;
@@ -1066,34 +1078,81 @@ void MainWindow::askLocalAi(const QString& text)
 {
     whenLocalAiReady([this, text] {
         // The model answers about the real document: its text and the selection go along.
-        const auto ask = [this, text](const QString& documentText, const QString& selection) {
-            if (!m_localAi->ask(text, assistantContext(documentText, selection))) showLocalAiCard();
-            updateAssistantWorking();
-        };
         if (!m_documentOpened) {
-            ask(QString(), QString());
+            if (!m_localAi->ask(text, assistantContext(QString(), QString()))) showLocalAiCard();
+            updateAssistantWorking();
             return;
         }
-        readForAssistant(QStringLiteral("document.getText"), [this, ask, text](const CommandOutcome& document) {
+        readForAssistant(QStringLiteral("document.getText"), [this, text](const CommandOutcome& document) {
             const QString documentText = document.ok ? document.value.value(QStringLiteral("text")).toString() : QString();
-            readForAssistant(QStringLiteral("selection.getText"), [this, ask, text, documentText](const CommandOutcome& read) {
+            readForAssistant(QStringLiteral("selection.getText"), [this, text, documentText](const CommandOutcome& read) {
                 const QString selection = read.ok ? read.value.value(QStringLiteral("text")).toString() : QString();
-                // Instructions for the selection and requests to write something are one-step
-                // tasks whose result is shown first; everything else is a conversation.
-                switch (classifyRequest(text, !selection.trimmed().isEmpty())) {
-                case RequestKind::ReworkSelection:
-                    startTask(*findTask(QStringLiteral("rework")), {selection, text, currentDocumentName()});
-                    return;
-                case RequestKind::Write:
-                    startTask(*findTask(QStringLiteral("write")), {QString(), text, currentDocumentName()});
-                    return;
-                case RequestKind::Chat:
-                    break;
-                }
-                ask(documentText, selection);
+                // A request about a table is planned on the table itself (it needs the
+                // document's structure: is the cursor in a table, how many are there).
+                readForAssistant(QStringLiteral("document.outline"), [this, text, documentText, selection](const CommandOutcome& outline) {
+                    const QJsonObject cursor = outline.value.value(QStringLiteral("cursor")).toObject();
+                    const int tables = outline.value.value(QStringLiteral("tables")).toInt();
+                    const bool inTable = cursor.contains(QStringLiteral("table"));
+                    const bool multiCell = selection.contains(QLatin1Char('\t'));
+                    // Naming a column ("总分有没有算错") points at its table too.
+                    const int named = tableMentionedIn(text, outline.value.value(QStringLiteral("blocks")).toArray());
+                    if (outline.ok && tables > 0 && tableRequest(text, inTable || named)
+                        && (selection.trimmed().isEmpty() || inTable || multiCell)) {
+                        int table = tableNumberIn(text);
+                        if (!table) table = inTable ? cursor.value(QStringLiteral("table")).toInt() : named ? named : tables == 1 ? 1 : 0;
+                        if (table < 1 || table > tables) {
+                            m_assistantBall->showCard(QStringLiteral("修改表格"),
+                                QStringLiteral("文档里有 %1 张表格。请先把光标点进要改的那张表格再说一次，或者说“第 2 张表格……”。").arg(tables),
+                                {}, true);
+                            updateAssistantWorking();
+                            return;
+                        }
+                        planTableChanges(text, table);
+                        return;
+                    }
+                    routeTypedRequest(text, documentText, selection);
+                });
             });
         });
     });
+}
+
+void MainWindow::routeTypedRequest(const QString& text, const QString& documentText, const QString& selection)
+{
+    // Instructions for the selection and requests to write something are one-step
+    // tasks whose result is shown first; everything else is a conversation.
+    switch (classifyRequest(text, !selection.trimmed().isEmpty())) {
+    case RequestKind::ReworkSelection:
+        startTask(*findTask(QStringLiteral("rework")), {selection, text, currentDocumentName()});
+        return;
+    case RequestKind::Write:
+        startTask(*findTask(QStringLiteral("write")), {QString(), text, currentDocumentName()});
+        return;
+    case RequestKind::Chat:
+        break;
+    }
+    if (!m_localAi->ask(text, assistantContext(documentText, selection))) showLocalAiCard();
+    updateAssistantWorking();
+}
+
+void MainWindow::planTableChanges(const QString& request, int table)
+{
+    readForAssistant(QStringLiteral("table.read"), [this, request, table](const CommandOutcome& read) {
+        if (!read.ok) {
+            m_assistantBall->showCard(QStringLiteral("修改表格"), read.message, {}, false);
+            updateAssistantWorking();
+            return;
+        }
+        m_planGrid = tableGridFrom(read.value);
+        m_planTable = table;
+        m_planRequest = request;
+        // The program checks the arithmetic; the model gets the results as facts.
+        m_planFormulas = tableFormulas(m_planGrid);
+        QString prompt = tableForPrompt(m_planGrid, table);
+        if (checkRequest(request) && !m_planFormulas.isEmpty())
+            prompt += QStringLiteral("\n\n") + formulaFacts(m_planGrid, m_planFormulas);
+        startTask(*findTask(QStringLiteral("table")), {prompt, request, currentDocumentName()});
+    }, {{QStringLiteral("table"), table}});
 }
 
 void MainWindow::refreshQuickActions()
@@ -1194,6 +1253,7 @@ void MainWindow::startTask(const TaskSpec& spec, const TaskInput& input)
 void MainWindow::finishTask(const QString& id, const QString& text, bool ok, const QString& error)
 {
     updateAssistantWorking();
+    m_lastTaskAnswer = text;
     QTimer::singleShot(0, this, [this] { adviseIfSlow(); }); // after the result, never before it
     const TaskSpec* spec = findTask(id);
     if (!spec) return;
@@ -1202,6 +1262,11 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
         m_assistantBall->addRequest(QStringLiteral("再来一次"));
         whenLocalAiReady([this, spec] { startTask(*spec, m_lastTaskInput); });
     };
+    if (!ok && id == QStringLiteral("tableProofread")) {
+        m_assistantBall->endReply(QString(), true); // the plan stands without the typo check
+        showTablePlan(m_pendingPlan);
+        return;
+    }
     if (!ok) {
         m_assistantBall->endReply(error, false, {Action{QStringLiteral("重试"), retry}});
         return;
@@ -1269,29 +1334,76 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
     }
     // Corrections: only fixes that can really be found in the document are offered.
     m_assistantBall->endReply(QString(), true); // the "thinking" bubble gives way to the list
-    m_corrections = parseCorrections(text, m_lastTaskInput.text);
-    m_correctionState = QList<int>(m_corrections.size(), 0);
-    if (m_corrections.isEmpty()) {
+    if (spec->output == TaskOutput::TablePlan) {
+        // A table plan: checked against the table as it was read, then offered change by change.
+        // What the program can do itself, it does: the arithmetic (held to, and completed
+        // when the person asked for a check), dates in the style asked for, a column clean-up
+        // the model began, and the rows, columns and formats the request names.
+        const bool check = checkRequest(m_planRequest);
+        QList<PlannedEdit> plan = withFormulaFixes(parseTablePlan(text, m_planGrid, m_planTable, m_planRequest), m_planGrid, m_planTable,
+                                                   m_planFormulas, check);
+        plan = withSameCleanup(plan, m_planGrid, m_planTable, m_planRequest);
+        plan = withDateStyle(plan, m_planGrid, m_planTable, m_planRequest);
+        plan = withRequestedFormats(plan, m_planGrid, m_planTable, m_planRequest); // formats the program reads itself
+        plan = withRequestedScope(plan, m_planGrid, m_planTable, m_planRequest);
+        // A check also looks for typos: the cells' words are proofread, the way that works for documents.
+        const QString words = check ? tableTexts(m_planGrid) : QString();
+        if (!words.isEmpty()) {
+            m_pendingPlan = plan;
+            startTask(*findTask(QStringLiteral("tableProofread")), {words, QString(), currentDocumentName()});
+            return;
+        }
+        showTablePlan(plan);
+        return;
+    }
+    if (id == QStringLiteral("tableProofread")) {
+        showTablePlan(withTypoFixes(m_pendingPlan, parseCorrections(text, m_lastTaskInput.text), m_planGrid, m_planTable));
+        return;
+    }
+    const QList<Correction> corrections = parseCorrections(text, m_lastTaskInput.text);
+    m_edits.clear();
+    m_editsTitle = spec->title;
+    for (const Correction& correction : corrections)
+        m_edits.append({QStringLiteral("document.replaceText"),
+                        {{QStringLiteral("find"), correction.original}, {QStringLiteral("replace"), correction.corrected}},
+                        CommandSource::Assistant});
+    m_correctionState = QList<int>(m_edits.size(), 0);
+    if (m_edits.isEmpty()) {
         m_assistantBall->showCard(spec->title, QStringLiteral("没有发现明显的错别字、标点错误或语病。"), {}, true);
         return;
     }
     QList<AssistantBall::CorrectionItem> items;
-    for (const Correction& correction : m_corrections)
+    for (const Correction& correction : corrections)
         items.append({correction.original, correction.corrected, correction.reason});
     m_assistantBall->showCorrections(spec->title, items);
 }
 
+void MainWindow::showTablePlan(const QList<PlannedEdit>& plan)
+{
+    m_edits.clear();
+    m_editsTitle = QStringLiteral("修改表格");
+    QList<AssistantBall::CorrectionItem> items;
+    for (const PlannedEdit& edit : plan) {
+        m_edits.append(edit.command);
+        const QString before = edit.before.size() > 40 ? edit.before.left(40) + QStringLiteral("…") : edit.before;
+        items.append({edit.before.isEmpty() ? edit.place : edit.place + QStringLiteral("：") + before, edit.after, edit.reason});
+    }
+    m_correctionState = QList<int>(m_edits.size(), 0);
+    if (m_edits.isEmpty()) {
+        m_assistantBall->showCard(m_editsTitle, QStringLiteral("按这个要求，第 %1 张表格没有需要修改的地方。").arg(m_planTable), {}, true);
+        return;
+    }
+    m_assistantBall->showCorrections(m_editsTitle, items);
+}
+
 void MainWindow::applyCorrection(int index, std::function<void(bool)> done)
 {
-    if (index < 0 || index >= m_corrections.size()) return;
+    if (index < 0 || index >= m_edits.size()) return;
     if (m_correctionState[index] == 1) {
         done(true);
         return;
     }
-    const Correction correction = m_corrections[index];
-    runAssistantCommand({QStringLiteral("document.replaceText"),
-                         {{QStringLiteral("find"), correction.original}, {QStringLiteral("replace"), correction.corrected}},
-                         CommandSource::Assistant},
+    runAssistantCommand(m_edits[index],
                         [this, index, done](const CommandOutcome& outcome) {
                             if (index < m_correctionState.size()) m_correctionState[index] = outcome.ok ? 1 : 2;
                             done(outcome.ok);
@@ -1300,7 +1412,7 @@ void MainWindow::applyCorrection(int index, std::function<void(bool)> done)
 
 void MainWindow::applyRemainingCorrections(int fixed)
 {
-    for (int i = 0; i < m_corrections.size(); ++i) {
+    for (int i = 0; i < m_edits.size(); ++i) {
         if (m_correctionState[i] != 0) continue;
         applyCorrection(i, [this, i, fixed](bool ok) {
             m_assistantBall->markCorrection(i, ok);
@@ -1308,8 +1420,8 @@ void MainWindow::applyRemainingCorrections(int fixed)
         });
         return;
     }
-    m_assistantBall->showCard(QStringLiteral("全文校对"),
-        QStringLiteral("已改正 ") + QString::number(fixed) + QStringLiteral(" 处。改得不对的地方可以用撤销恢复。"), {}, true);
+    m_assistantBall->showCard(m_editsTitle.isEmpty() ? QStringLiteral("全文校对") : m_editsTitle,
+        QStringLiteral("已改好 ") + QString::number(fixed) + QStringLiteral(" 处，每处都可以用撤销恢复。"), {}, true);
 }
 
 AiSettingsDialog* MainWindow::openAiSettings()
@@ -1731,7 +1843,11 @@ void MainWindow::handleOperationFinished(quint64 requestId, EngineOperation oper
         CommandOutcome outcome{result.ok, result.code, result.message, {}};
         if (result.ok && !path.isEmpty()) outcome.value.insert(QStringLiteral("file"), QFileInfo(path).fileName());
         const AssistantCommand command = m_assistantCommand;
-        QTimer::singleShot(0, this, [this, command, outcome] { finishAssistantCommand(command, outcome); });
+        const CommandDone done = std::move(m_assistantDone);
+        m_assistantDone = {};
+        const bool quiet = m_assistantQuiet;
+        m_assistantQuiet = false;
+        QTimer::singleShot(0, this, [this, command, outcome, done, quiet] { finishAssistantCommand(command, outcome, done, quiet); });
     }
     if (operation == EngineOperation::Close) {
         resetCloseAfterSave();
