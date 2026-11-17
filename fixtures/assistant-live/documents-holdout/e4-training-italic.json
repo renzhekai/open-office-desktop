@@ -1,0 +1,34 @@
+{
+  "name": "（留出）培训安排：第二段改成斜体",
+  "document": "fixtures/assistant-samples/documents-holdout/training.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "第二段改成斜体"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 2,
+      "italic": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 3,
+      "italic": false
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

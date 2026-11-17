@@ -119,7 +119,8 @@ const QStringList& editorCommandNames()
                                    QStringLiteral("edit.redo"), QStringLiteral("document.outline"),
                                    QStringLiteral("table.read"), QStringLiteral("table.setCell"),
                                    QStringLiteral("format.cells"), QStringLiteral("format.paragraphs"),
-                                   QStringLiteral("format.text"), QStringLiteral("selection.select")};
+                                   QStringLiteral("format.text"), QStringLiteral("selection.select"),
+                                   QStringLiteral("format.read"), QStringLiteral("format.selection")};
     return names;
 }
 
@@ -195,6 +196,15 @@ const QHash<QString, QList<EngineArgument>>& editorCommandArguments()
                                                                   QStringLiteral("cyan"), QStringLiteral("magenta"),
                                                                   QStringLiteral("red"), QStringLiteral("blue"),
                                                                   QStringLiteral("lightGray"), QStringLiteral("none")}}}},
+        {QStringLiteral("format.read"), {{"find", true, 200, {}}}},
+        {QStringLiteral("format.selection"), {flag("bold"), flag("italic"), flag("underline"), fontSize(),
+                                              {"color", false, 0, {}, 'c'}, align(),
+                                              {"highlight", false, 0, {QStringLiteral("yellow"), QStringLiteral("green"),
+                                                                     QStringLiteral("cyan"), QStringLiteral("magenta"),
+                                                                     QStringLiteral("red"), QStringLiteral("blue"),
+                                                                     QStringLiteral("lightGray"), QStringLiteral("none")}},
+                                              {"style", false, 0, {QStringLiteral("heading1"), QStringLiteral("heading2"),
+                                                                 QStringLiteral("heading3"), QStringLiteral("normal")}}}},
         {QStringLiteral("selection.select"), {{"find", false, 200, {}}, {"paragraph", false, 0, {}, 'i', 1, 100000},
                                               table(false), {"row", false, 0, {}, 'i', 1, 500},
                                               {"column", false, 0, {}, 'i', 1, 100}}},
@@ -208,7 +218,7 @@ bool editorArgumentsComplete(const QString& name, const QJsonObject& arguments)
     static const QStringList formats{QStringLiteral("bold"), QStringLiteral("italic"), QStringLiteral("underline"),
                                      QStringLiteral("fontSize"), QStringLiteral("color"), QStringLiteral("fill"),
                                      QStringLiteral("align"), QStringLiteral("highlight"), QStringLiteral("style")};
-    if (name.startsWith(QStringLiteral("format.")))
+    if (name.startsWith(QStringLiteral("format.")) && name != QStringLiteral("format.read"))
         return std::any_of(formats.begin(), formats.end(), [&arguments](const QString& key) { return arguments.contains(key); });
     if (name == QStringLiteral("selection.select")) {
         const int ways = (arguments.contains(QStringLiteral("find")) ? 1 : 0)
@@ -258,13 +268,16 @@ var span=function(spec,count){var s=String(spec===undefined||spec===null?'all':s
 var cellText=function(cell){return String(cell.GetContent().GetText({})||'').replace(/\r\n?/g,'\n').replace(/[\t\n]+$/,'');};
 var rgb=function(hex){var h=String(hex).replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];};
 var hexOf=function(c){var x=function(v){v=(v|0).toString(16).toUpperCase();return v.length<2?'0'+v:v;};return '#'+x(c.r)+x(c.g)+x(c.b);};
+var looks=function(range){var o={};if(!range)return o;try{var t=range.private_GetTextPr();
+  if(t.Bold)o.bold=true;if(t.Italic)o.italic=true;if(t.Underline)o.underline=true;if(t.FontSize!==undefined)o.size=t.FontSize;
+  if(t.Color&&!t.Color.Auto){var h=hexOf(t.Color);if(h!=='#000000')o.color=h;}if(t.HighLight&&t.HighLight!==-1)o.highlight=true;}catch(x){}return o;};
 var bool=function(v){return v===true||v==='true';};
 var has=function(v){return v!==undefined&&v!==null&&v!=='';};
 var textFormat=function(range,a){if(!range)return 0;var n=0;
   if(has(a.bold)){range.SetBold(bool(a.bold));n++;}
   if(has(a.italic)){range.SetItalic(bool(a.italic));n++;}
   if(has(a.underline)){range.SetUnderline(bool(a.underline));n++;}
-  if(has(a.fontSize)){range.SetFontSize(+a.fontSize);n++;}
+  if(has(a.fontSize)){range.SetFontSize(2*(+a.fontSize));n++;}
   if(has(a.color)){var c=rgb(a.color);range.SetColor(c[0],c[1],c[2]);n++;}
   if(has(a.highlight)){range.SetHighlight(a.highlight);n++;}
   return n;};
@@ -287,7 +300,9 @@ try{if(logic){var cp=logic.GetCurrentParagraph();var ap=cp&&B.GetByInternalId(cp
   if(ap){var cc=ap.GetParentTableCell&&ap.GetParentTableCell();if(cc)curCell=cc;else curPara=ap.GetInternalId();}}}catch(x){}
 for(var i=0;i<all.length;i++){var e=all[i],k=e.GetClassType();
   if(k==='paragraph'){tp++;if(out.length<400){var st=e.GetStyle(),t=String(e.GetText({Numbering:true})||'').replace(/[\r\n]+$/,'');
-      out.push({id:'P'+tp,style:st?st.GetName():'',text:t.slice(0,160),length:t.length});}
+      var o={id:'P'+tp,style:st?st.GetName():'',text:t.slice(0,160),length:t.length},lk=t.length?looks(e.GetRange()):{};
+      for(var k in lk)o[k]=lk[k];try{var jc=e.GetJc();if(jc&&jc!=='left')o.align=jc==='both'?'justify':jc;}catch(x){}
+      out.push(o);}
     if(curPara&&e.GetInternalId()===curPara)cursor={paragraph:tp};}
   else if(k==='table'){tt++;var rows=e.GetRowsCount(),cols=0,first=[];for(var r=0;r<rows;r++)cols=Math.max(cols,e.GetRow(r).GetCellsCount());
     var r0=e.GetRow(0);for(var c=0;c<r0.GetCellsCount();c++)first.push(cellText(r0.GetCell(c)).replace(/\n/g,' ').slice(0,40));
@@ -354,10 +369,26 @@ edit(function(){for(var i=0;i<idx.length;i++){var p=ps[idx[i]];if(style)p.SetSty
   return{paragraphs:idx.length};},'formatted');
 )JS";
 
+const char* const kFormatReadScript = R"JS(
+var found=B.GetDocument().Search(String(args.find),true)||[],list=[];
+for(var i=0;i<found.length&&i<20;i++)list.push(looks(found[i]));
+reply(found.length>0,found.length?'format_read':'not_found',{find:args.find,count:found.length,occurrences:list});
+)JS";
+
 const char* const kFormatTextScript = R"JS(
 var a=args,found=B.GetDocument().Search(String(a.find),true)||[];
 if(!found.length){reply(false,'not_found',{find:a.find});return;}
 edit(function(){var n=Math.min(found.length,100);for(var i=0;i<n;i++)textFormat(found[i],a);return{count:n,total:found.length};},'formatted');
+)JS";
+
+const char* const kFormatSelectionScript = R"JS(
+var a=args,r=B.GetDocument().GetRangeBySelect();
+if(!r||!String(r.GetText()||'').replace(/\s+/g,'')){reply(false,'no_selection',null);return;}
+var style=null;if(has(a.style)){style=B.GetDocument().GetStyle({heading1:'Heading 1',heading2:'Heading 2',heading3:'Heading 3',normal:'Normal'}[a.style]);
+  if(!style){reply(false,'no_style',{style:a.style});return;}}
+edit(function(){textFormat(r,a);var ps=(style||has(a.align))?(r.GetAllParagraphs()||[]):[];
+  for(var i=0;i<ps.length;i++){if(style)ps[i].SetStyle(style);if(has(a.align))ps[i].SetJc(alignOf(a.align));}
+  return{selection:true};},'formatted');
 )JS";
 
 const char* const kSelectScript = R"JS(
@@ -462,6 +493,10 @@ QString editorCommandScript(quint64 id, const QString& name, const QJsonObject& 
         body = structureScript(kFormatParagraphsScript, arguments);
     } else if (name == QStringLiteral("format.text")) {
         body = structureScript(kFormatTextScript, arguments);
+    } else if (name == QStringLiteral("format.read")) {
+        body = structureScript(kFormatReadScript, arguments);
+    } else if (name == QStringLiteral("format.selection")) {
+        body = structureScript(kFormatSelectionScript, arguments);
     } else if (name == QStringLiteral("selection.select")) {
         body = structureScript(kSelectScript, arguments);
     } else if (name == QStringLiteral("edit.undo")) {
@@ -539,6 +574,8 @@ QString commandMessage(const QString& code, const QJsonObject& value, const QStr
     if (code == QStringLiteral("replace_timeout")) return QStringLiteral("编辑器没有及时完成替换，请检查文档后再试。");
     if (code == QStringLiteral("no_position")) return QStringLiteral("找不到可以插入的位置。");
     if (code == QStringLiteral("invalid_argument")) return QStringLiteral("命令参数无效。");
+    if (code == QStringLiteral("format_read"))
+        return QStringLiteral("找到 %1 处，已读取格式。").arg(value.value(QStringLiteral("count")).toInt());
     if (code == QStringLiteral("outline"))
         return QStringLiteral("已读取文档结构：%1 段、%2 张表格。")
             .arg(value.value(QStringLiteral("paragraphs")).toInt()).arg(value.value(QStringLiteral("tables")).toInt());
@@ -554,6 +591,7 @@ QString commandMessage(const QString& code, const QJsonObject& value, const QStr
             return QStringLiteral("已设置 %1 个单元格的格式，可以撤销。").arg(value.value(QStringLiteral("cells")).toInt());
         if (value.contains(QStringLiteral("paragraphs")))
             return QStringLiteral("已设置 %1 段的格式，可以撤销。").arg(value.value(QStringLiteral("paragraphs")).toInt());
+        if (value.contains(QStringLiteral("selection"))) return QStringLiteral("已设置选中文字的格式，可以撤销。");
         return QStringLiteral("已设置 %1 处文字的格式，可以撤销。").arg(value.value(QStringLiteral("count")).toInt());
     }
     if (code == QStringLiteral("selected")) return QStringLiteral("已选中。");

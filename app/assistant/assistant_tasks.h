@@ -183,6 +183,27 @@ QList<Correction> parseCorrections(const QString& answer, const QString& documen
 //   left out are added where the plan formats most, when the request is about one place.
 QList<PlannedEdit> withRequestedScope(const QList<PlannedEdit>& plan, const TableGrid& grid, int table, const QString& request);
 
+// A paragraph as document.outline reports it.
+struct OutlineParagraph {
+    int number = 0; // the P number (every top-level paragraph counts, empty ones too)
+    QString text;
+    QString style;  // "Heading 1", "Normal", or empty
+    bool bold = false;
+    bool italic = false;
+    QString align;  // empty: left
+    double size = 0; // points; 0: mixed or not known
+    QString color;  // "#RRGGBB"; empty: automatic or mixed
+};
+QList<OutlineParagraph> outlineParagraphs(const QJsonArray& blocks);
+// Formats the program reads from a request about a document's paragraphs or words, clause
+// by clause, with no model: where (标题、第 N 段、最后 N 段、“X”开头的段落、含有“X”的段落、
+// 文中所有“X”、全文, or the selection when nothing else is named) and how (加粗、斜体、下划线、
+// 对齐、字号、文字颜色、突出显示、一/二/三级标题、正文样式). Paragraphs are counted as people
+// count them: those with text. understood is false when a clause asks for a format the
+// program cannot place or apply there; then the request goes to the model.
+QList<PlannedEdit> requestedDocumentFormats(const QString& request, const QList<OutlineParagraph>& paragraphs,
+                                            bool hasSelection, bool* understood);
+
 // Dates are the program's job too. "2026-11-04", "2026/11/4", "2026年11月4日", "11月4日", "11/4".
 struct CellDate {
     int year = 0; // 0: not written

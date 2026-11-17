@@ -1,0 +1,29 @@
+{
+  "name": "（留出）培训安排：所有“注意”改成红色",
+  "document": "fixtures/assistant-samples/documents-holdout/training.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把所有的“注意”改成红色"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "text",
+      "find": "注意",
+      "color": "red"
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "通知：标题加粗居中、字号二号",
+  "document": "fixtures/assistant-samples/documents/notice.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把标题加粗、居中，字号改成二号"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 1,
+      "bold": true,
+      "align": "center",
+      "size": 22
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 2,
+      "bold": false
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

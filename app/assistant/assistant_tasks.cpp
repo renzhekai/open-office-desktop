@@ -1323,6 +1323,319 @@ QList<PlannedEdit> requestedFormats(const QString& request, const TableGrid& gri
     return edits;
 }
 
+QList<OutlineParagraph> outlineParagraphs(const QJsonArray& blocks)
+{
+    QList<OutlineParagraph> paragraphs;
+    for (const QJsonValue& value : blocks) {
+        const QJsonObject block = value.toObject();
+        const QString id = block.value(QStringLiteral("id")).toString();
+        if (!id.startsWith(QLatin1Char('P'))) continue;
+        paragraphs.append({id.mid(1).toInt(), block.value(QStringLiteral("text")).toString(), block.value(QStringLiteral("style")).toString(),
+                           block.value(QStringLiteral("bold")).toBool(), block.value(QStringLiteral("italic")).toBool(),
+                           block.value(QStringLiteral("align")).toString(), block.value(QStringLiteral("size")).toDouble(),
+                           block.value(QStringLiteral("color")).toString()});
+    }
+    return paragraphs;
+}
+
+namespace {
+
+// The formats a clause about a document asks for. A color is the text's, unless the
+// clause says background or highlight (paragraphs have no fill: that is a highlight).
+QList<ClauseFormat> documentClauseFormats(const QString& clause, bool* unclear)
+{
+    QList<ClauseFormat> formats;
+    if (phrase("取消加粗|去掉加粗|不要加粗|不加粗|\\bunbold|\\bnot bold").match(clause).hasMatch())
+        formats.append({QStringLiteral("bold"), false, QStringLiteral("取消加粗")});
+    else if (phrase("加粗|粗体|\\bbold").match(clause).hasMatch())
+        formats.append({QStringLiteral("bold"), true, QStringLiteral("加粗")});
+    if (phrase("取消斜体|去掉斜体").match(clause).hasMatch())
+        formats.append({QStringLiteral("italic"), false, QStringLiteral("取消斜体")});
+    else if (phrase("斜体|倾斜|\\bitalics?\\b").match(clause).hasMatch())
+        formats.append({QStringLiteral("italic"), true, QStringLiteral("斜体")});
+    if (phrase("取消下划线|去掉下划线").match(clause).hasMatch())
+        formats.append({QStringLiteral("underline"), false, QStringLiteral("去掉下划线")});
+    else if (phrase("下划线|\\bunderline").match(clause).hasMatch())
+        formats.append({QStringLiteral("underline"), true, QStringLiteral("下划线")});
+    if (phrase("居中|中间对齐|\\bcent(er|re)(ed)?\\b").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("center"), QStringLiteral("居中")});
+    else if (phrase("右对齐|靠右|right[- ]align|align(ed)? (to the )?right").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("right"), QStringLiteral("右对齐")});
+    else if (phrase("左对齐|靠左|left[- ]align|align(ed)? (to the )?left").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("left"), QStringLiteral("左对齐")});
+    else if (phrase("两端对齐|\\bjustif").match(clause).hasMatch())
+        formats.append({QStringLiteral("align"), QStringLiteral("justify"), QStringLiteral("两端对齐")});
+    struct Style {
+        const char* pattern;
+        const char* value;
+        const char* words;
+    };
+    static const Style styles[] = {{"(一|1)\\s*级标题|标题\\s*1|\\bheading\\s*1", "heading1", "一级标题"},
+                                   {"(二|2)\\s*级标题|标题\\s*2|\\bheading\\s*2", "heading2", "二级标题"},
+                                   {"(三|3)\\s*级标题|标题\\s*3|\\bheading\\s*3", "heading3", "三级标题"},
+                                   {"正文样式|改成正文|改为正文|恢复成?正文|\\bnormal style", "normal", "正文样式"}};
+    for (const Style& style : styles)
+        if (phrase(style.pattern).match(clause).hasMatch()) {
+            formats.append({QStringLiteral("style"), QString::fromLatin1(style.value), QString::fromUtf8(style.words)});
+            break;
+        }
+    if (phrase("去掉(突出显示|高亮|底色|背景)|取消(突出显示|高亮)").match(clause).hasMatch()) {
+        formats.append({QStringLiteral("highlight"), QStringLiteral("none"), QStringLiteral("去掉突出显示")});
+    } else if (phrase("突出显示|高亮|底色|背景|标黄|标绿|涂黄|\\bhighlight|\\bbackground").match(clause).hasMatch()) {
+        const QString name = clause.toLower();
+        QString color = QStringLiteral("yellow");
+        if (name.contains(QStringLiteral("绿")) || name.contains(QStringLiteral("green"))) color = QStringLiteral("green");
+        else if (name.contains(QStringLiteral("蓝")) || name.contains(QStringLiteral("青")) || name.contains(QStringLiteral("blue")) || name.contains(QStringLiteral("cyan"))) color = QStringLiteral("cyan");
+        else if (name.contains(QStringLiteral("灰")) || name.contains(QStringLiteral("gray")) || name.contains(QStringLiteral("grey"))) color = QStringLiteral("lightGray");
+        else if (name.contains(QStringLiteral("粉")) || name.contains(QStringLiteral("紫")) || name.contains(QStringLiteral("pink"))) color = QStringLiteral("magenta");
+        else if (name.contains(QStringLiteral("红")) || name.contains(QStringLiteral("red"))) color = QStringLiteral("red");
+        formats.append({QStringLiteral("highlight"), color, QStringLiteral("突出显示")});
+    } else if (phrase("[红蓝绿黄橙紫灰黑]色|标红|红字|\\b(red|blue|green|orange|purple|gr[ae]y|black)\\b").match(clause).hasMatch()) {
+        const QString color = planColor(clause, false);
+        if (color.isEmpty()) *unclear = true;
+        else formats.append({QStringLiteral("color"), color, QStringLiteral("文字颜色 ") + color});
+    }
+    static const QRegularExpression size(QStringLiteral(
+        "字号.{0,4}?(\\d+(?:\\.\\d+)?|小?[初一二三四五六]号?)|(\\d+(?:\\.\\d+)?)\\s*(?:pt|磅|号字)|font size (?:of |to )?(\\d+)|"
+        "(?:改成|改为|设为|用)(小?[初一二三四五六]号)"),
+        QRegularExpression::CaseInsensitiveOption);
+    const QRegularExpressionMatch sized = size.match(clause);
+    if (sized.hasMatch()) {
+        const int points = planFontSize(sized.captured(0).mid(sized.captured(0).startsWith(QStringLiteral("字号")) ? 2 : 0));
+        if (points >= 6 && points <= 72) formats.append({QStringLiteral("fontSize"), points, QStringLiteral("字号 %1").arg(points)});
+        else *unclear = true;
+    }
+    return formats;
+}
+
+struct DocumentTarget {
+    QList<int> paragraphs; // P numbers
+    QStringList texts;     // words to find
+    bool found = false;
+};
+
+DocumentTarget documentClauseTarget(const QString& clause, const QList<OutlineParagraph>& paragraphs)
+{
+    DocumentTarget target;
+    QList<const OutlineParagraph*> written; // as people count paragraphs: those with text
+    for (const OutlineParagraph& paragraph : paragraphs)
+        if (!paragraph.text.trimmed().isEmpty()) written.append(&paragraph);
+    const int count = written.size();
+    // Style words name a format, not a place: "改成二级标题" is not about "the title".
+    QString place = clause;
+    place.remove(phrase("(一|二|三|1|2|3)\\s*级标题|标题\\s*[123]|\\bheading\\s*[123]|标题样式|正文样式"));
+    QStringList quoted;
+    static const QRegularExpression quote(QStringLiteral("[“\"「『‘']([^”\"」』’']{1,30})[”\"」』’']"));
+    for (auto it = quote.globalMatch(place); it.hasNext();) quoted << it.next().captured(1).trimmed();
+    QSet<int> chosen;
+    const auto add = [&chosen](const OutlineParagraph* paragraph) { chosen.insert(paragraph->number); };
+    static const QRegularExpression starts(QStringLiteral("开头|打头|\\bstart(s|ing)? with|\\bbegin(s|ning)? with"),
+                                           QRegularExpression::CaseInsensitiveOption);
+    if (starts.match(place).hasMatch()) {
+        QStringList beginnings = quoted;
+        static const QRegularExpression marker(QStringLiteral("（[一二三四五六七八九十\\d]+）|\\([一二三四五六七八九十\\d]+\\)|[一二三四五六七八九十]+、|\\d+[.、]"));
+        if (beginnings.isEmpty())
+            for (auto it = marker.globalMatch(place); it.hasNext();) beginnings << it.next().captured(0);
+        for (const OutlineParagraph* paragraph : written)
+            for (const QString& beginning : beginnings)
+                if (!beginning.isEmpty() && paragraph->text.trimmed().startsWith(beginning)) add(paragraph);
+    } else if (!quoted.isEmpty() && phrase("(含有|包含|带有|有).{0,8}(段|行|paragraph)|\\bparagraphs? (that )?contain").match(place).hasMatch()) {
+        for (const OutlineParagraph* paragraph : written)
+            for (const QString& word : quoted)
+                if (paragraph->text.contains(word)) add(paragraph);
+    } else if (!quoted.isEmpty()) {
+        target.texts = quoted;
+        target.found = true;
+        return target;
+    }
+    static const QRegularExpression containing(QStringLiteral("(?:含有|包含|带有)([^的，,。“”\"]{1,12})的(?:段落|段|那几段|这几段|行)"));
+    const QRegularExpressionMatch contains = containing.match(place);
+    if (chosen.isEmpty() && contains.hasMatch())
+        for (const OutlineParagraph* paragraph : written)
+            if (paragraph->text.contains(contains.captured(1).trimmed())) add(paragraph);
+    // Numbered: 第 3 段, 第三段到第四段, 最后两段, 倒数第二段.
+    static const QRegularExpression numbered(QStringLiteral(
+        "第\\s*([0-9一二三四五六七八九十]+)\\s*(?:段|行)?\\s*(?:[到至~—–-]\\s*第?\\s*([0-9一二三四五六七八九十]+)\\s*)?(?:段|行)"));
+    for (auto it = numbered.globalMatch(place); it.hasNext();) {
+        const QRegularExpressionMatch match = it.next();
+        const int first = ordinal(match.captured(1));
+        const int last = match.captured(2).isEmpty() ? first : ordinal(match.captured(2));
+        for (int n = first; n >= 1 && n <= last && n <= count; ++n) add(written[n - 1]);
+    }
+    static const QRegularExpression fromEnd(QStringLiteral("倒数第\\s*([0-9一二三四五六七八九十两]+)\\s*(?:段|行)"));
+    const QRegularExpressionMatch back = fromEnd.match(place);
+    if (back.hasMatch()) {
+        const int n = back.captured(1) == QStringLiteral("两") ? 2 : ordinal(back.captured(1));
+        if (n >= 1 && n <= count) add(written[count - n]);
+    } else {
+        static const QRegularExpression last(QStringLiteral("最后\\s*([0-9一二三四五六七八九十两]*)\\s*(?:段|行)|末段|\\bthe last paragraph"),
+                                             QRegularExpression::CaseInsensitiveOption);
+        const QRegularExpressionMatch tail = last.match(place);
+        if (tail.hasMatch()) {
+            const QString words = tail.captured(1);
+            const int n = words.isEmpty() ? 1 : words == QStringLiteral("两") ? 2 : ordinal(words);
+            for (int i = qMax(0, count - n); i < count; ++i) add(written[i]);
+        }
+    }
+    static const QRegularExpression english(QStringLiteral("\\b(first|second|third|fourth|fifth) paragraph|\\bparagraph (\\d+)"),
+                                            QRegularExpression::CaseInsensitiveOption);
+    for (auto it = english.globalMatch(place); it.hasNext();) {
+        const QRegularExpressionMatch match = it.next();
+        static const QStringList words{QStringLiteral("first"), QStringLiteral("second"), QStringLiteral("third"),
+                                       QStringLiteral("fourth"), QStringLiteral("fifth")};
+        const int n = match.captured(2).isEmpty() ? int(words.indexOf(match.captured(1).toLower())) + 1 : match.captured(2).toInt();
+        if (n >= 1 && n <= count) add(written[n - 1]);
+    }
+    // The title: the first paragraph with text ("小标题", "所有标题" are not it).
+    if (phrase("(?<![小副各级所有每个子])标题|大标题|题目|\\bthe title\\b|\\btitle\\b").match(place).hasMatch() && count)
+        add(written.first());
+    if (phrase("全文|全部段落|所有段落|每一?段|整篇|整个文档|全部文字|所有文字|\\bwhole document|\\ball (the )?(text|paragraphs)|\\bevery paragraph")
+            .match(place).hasMatch())
+        for (const OutlineParagraph* paragraph : written) add(paragraph);
+    if (chosen.isEmpty()) return target;
+    target.paragraphs = QList<int>(chosen.begin(), chosen.end());
+    std::sort(target.paragraphs.begin(), target.paragraphs.end());
+    target.found = true;
+    return target;
+}
+
+} // namespace
+
+QList<PlannedEdit> requestedDocumentFormats(const QString& request, const QList<OutlineParagraph>& paragraphs,
+                                            bool hasSelection, bool* understood)
+{
+    *understood = false;
+    static const QRegularExpression separators(QStringLiteral("[，,；;。！!？?\\n]|\\band\\b|然后|并且|同时|另外|再"),
+                                               QRegularExpression::CaseInsensitiveOption);
+    QHash<int, int> shown; // P number -> its place as people count
+    for (const OutlineParagraph& paragraph : paragraphs)
+        if (!paragraph.text.trimmed().isEmpty()) shown.insert(paragraph.number, int(shown.size()) + 1);
+    QHash<int, const OutlineParagraph*> byNumber;
+    for (const OutlineParagraph& paragraph : paragraphs) byNumber.insert(paragraph.number, &paragraph);
+    QList<PlannedEdit> edits;
+    DocumentTarget current;
+    bool clear = true;
+    bool anyFormat = false;
+    // A request with quotes keeps its separators inside them: split outside quotes only.
+    QString masked = request;
+    bool inQuote = false;
+    for (QChar& character : masked) {
+        if (character == QChar(0x201C) || character == QChar(0x300C)) inQuote = true;
+        else if (character == QChar(0x201D) || character == QChar(0x300D)) inQuote = false;
+        else if (inQuote && QStringLiteral("，,；;。").contains(character)) character = QChar(0x2063);
+    }
+    for (QString clause : masked.split(separators, Qt::SkipEmptyParts)) {
+        clause.replace(QChar(0x2063), QStringLiteral("，"));
+        clause = clause.trimmed();
+        if (clause.isEmpty()) continue;
+        const QList<ClauseFormat> formats = documentClauseFormats(clause, &clear) ;
+        const DocumentTarget target = documentClauseTarget(clause, paragraphs);
+        if (target.found) current = target;
+        if (formats.isEmpty()) continue;
+        anyFormat = true;
+        if (!current.found) {
+            if (!hasSelection) {
+                clear = false;
+                continue;
+            }
+            // Nothing named: the selection.
+            QJsonObject arguments;
+            QStringList done;
+            for (const ClauseFormat& format : formats) {
+                arguments.insert(format.key, format.value);
+                done << format.words;
+            }
+            edits.append({QStringLiteral("选中的文字"), QString(), done.join(QStringLiteral("、")),
+                          QStringLiteral("按你的要求：%1").arg(clause.left(40)),
+                          {QStringLiteral("format.selection"), arguments, CommandSource::Assistant}});
+            continue;
+        }
+        if (!current.texts.isEmpty()) {
+            // Words: text formats only (no alignment or paragraph style for a few words).
+            QJsonObject arguments;
+            QStringList done;
+            for (const ClauseFormat& format : formats) {
+                if (format.key == QStringLiteral("align") || format.key == QStringLiteral("style")) {
+                    clear = false;
+                    continue;
+                }
+                arguments.insert(format.key, format.value);
+                done << format.words;
+            }
+            if (done.isEmpty()) continue;
+            for (const QString& text : current.texts) {
+                QJsonObject withFind = arguments;
+                withFind.insert(QStringLiteral("find"), text);
+                edits.append({QStringLiteral("文中所有“%1”").arg(text), QString(), done.join(QStringLiteral("、")),
+                              QStringLiteral("按你的要求：%1").arg(clause.left(40)),
+                              {QStringLiteral("format.text"), withFind, CommandSource::Assistant}});
+            }
+            continue;
+        }
+        // Paragraphs: no underline or highlight for whole paragraphs (the model may do those).
+        QJsonObject arguments;
+        QStringList done;
+        for (const ClauseFormat& format : formats) {
+            if (format.key == QStringLiteral("underline") || format.key == QStringLiteral("highlight")) {
+                clear = false;
+                continue;
+            }
+            bool already = true;
+            for (int number : current.paragraphs) {
+                const OutlineParagraph* paragraph = byNumber.value(number);
+                if (!paragraph) continue;
+                if (format.key == QStringLiteral("bold")) already = already && paragraph->bold == format.value.toBool();
+                else if (format.key == QStringLiteral("italic")) already = already && paragraph->italic == format.value.toBool();
+                else if (format.key == QStringLiteral("align"))
+                    already = already && (paragraph->align.isEmpty() ? QStringLiteral("left") : paragraph->align) == format.value.toString();
+                else if (format.key == QStringLiteral("fontSize")) already = already && qFuzzyCompare(paragraph->size, format.value.toDouble());
+                else if (format.key == QStringLiteral("style")) {
+                    const QString wanted = format.value.toString();
+                    const QString name = wanted == QStringLiteral("normal") ? QStringLiteral("Normal")
+                        : QStringLiteral("Heading ") + wanted.right(1);
+                    already = already && (paragraph->style == name || (wanted == QStringLiteral("normal") && paragraph->style.isEmpty()));
+                } else already = false;
+            }
+            if (already) continue;
+            arguments.insert(format.key, format.value);
+            done << format.words;
+        }
+        if (done.isEmpty()) continue;
+        QList<int> people;
+        for (int number : current.paragraphs) people << shown.value(number);
+        QStringList numbers;
+        for (int number : current.paragraphs) numbers << QString::number(number);
+        arguments.insert(QStringLiteral("paragraphs"), numbers.join(QLatin1Char(',')));
+        QString place = numbersText(people, QStringLiteral("段"));
+        if (current.paragraphs.size() == 1 && byNumber.value(current.paragraphs.first())) {
+            QString text = byNumber.value(current.paragraphs.first())->text.simplified();
+            place += QStringLiteral("（%1）").arg(text.size() > 12 ? text.left(12) + QStringLiteral("…") : text);
+        }
+        edits.append({place, QString(), done.join(QStringLiteral("、")), QStringLiteral("按你的要求：%1").arg(clause.left(40)),
+                      {QStringLiteral("format.paragraphs"), arguments, CommandSource::Assistant}});
+    }
+    *understood = anyFormat && clear;
+    // One item per place: "标题加粗、居中，字号改成三号" is one change of the title.
+    QList<PlannedEdit> merged;
+    for (const PlannedEdit& edit : edits) {
+        const auto where = [](const AssistantCommand& command) {
+            return command.name + QLatin1Char('|') + command.arguments.value(QStringLiteral("paragraphs")).toString()
+                + QLatin1Char('|') + command.arguments.value(QStringLiteral("find")).toString();
+        };
+        PlannedEdit* same = nullptr;
+        for (PlannedEdit& earlier : merged)
+            if (where(earlier.command) == where(edit.command)) same = &earlier;
+        if (!same) {
+            merged.append(edit);
+            continue;
+        }
+        for (auto it = edit.command.arguments.begin(); it != edit.command.arguments.end(); ++it)
+            same->command.arguments.insert(it.key(), it.value());
+        same->after += QStringLiteral("、") + edit.after;
+    }
+    return merged;
+}
+
 QList<PlannedEdit> withRequestedFormats(const QList<PlannedEdit>& plan, const TableGrid& grid, int table, const QString& request)
 {
     bool allUnderstood = true;

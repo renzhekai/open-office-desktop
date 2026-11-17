@@ -1,0 +1,39 @@
+{
+  "name": "纪要：全文字号改成小四",
+  "document": "fixtures/assistant-samples/documents/minutes.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "全文字号改成小四"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 1,
+      "size": 12
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 5,
+      "size": 12
+    },
+    {
+      "check": "paragraph",
+      "paragraph": -1,
+      "size": 12
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

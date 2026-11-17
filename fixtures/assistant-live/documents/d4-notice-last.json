@@ -1,0 +1,39 @@
+{
+  "name": "通知：最后两段右对齐",
+  "document": "fixtures/assistant-samples/documents/notice.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "最后两段右对齐"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": -1,
+      "align": "right"
+    },
+    {
+      "check": "paragraph",
+      "paragraph": -2,
+      "align": "right"
+    },
+    {
+      "check": "paragraph",
+      "paragraph": -3,
+      "align": "left"
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

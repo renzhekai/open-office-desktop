@@ -1,0 +1,35 @@
+{
+  "name": "英文报告：标题一级标题居中，所有 deadline 加粗",
+  "document": "fixtures/assistant-samples/documents/report-en.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "Make the title Heading 1 and center it, and make every \"deadline\" bold."
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 1,
+      "style": "Heading 1",
+      "align": "center"
+    },
+    {
+      "check": "text",
+      "find": "deadline",
+      "bold": true
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

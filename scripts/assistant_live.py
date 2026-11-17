@@ -13,6 +13,10 @@ evidence/assistant-live/<label>.json.
 Scenario file (JSON):
     {"name": "...", "document": "fixtures/assistant-samples/x.docx",
      "steps": [{"tool": "table.read", "args": {"table": 1}, "expect": {"ok": true}}, ...]}
+Document checks: {"check": "paragraph", "paragraph": 1 | -1, or "contains"/"startsWith": "...",
+"style": "Heading 1", "bold": true, "align": "center", "size": 12, "color": "#C00000" or "red"},
+{"check": "text", "find": "...", same format keys (every occurrence)}, {"check": "textSnapshot"} and
+{"check": "textUnchanged"}. {"apply": true} presses 全部改正, or 执行 for each command asked.
 Expectations: ok (true/false), code, saidIncludes (text in what the assistant said),
 buttonsInclude (button titles), valueIncludes (text in the JSON of the tool's value).
 A step may also be {"check": "cell", "table": 1, "row": 2, "column": 3, "equals": "..."} or
@@ -153,13 +157,120 @@ def run_scenario(mcp, scenario, work, number):
     return record
 
 
+def looks_like(actual, step, name):
+    """Compares a paragraph's or a text's format with what a step expects."""
+    problems = []
+    for key in ("bold", "italic", "underline", "highlight"):
+        if key in step and bool(actual.get(key)) != step[key]:
+            problems.append(f"{name} {key} is {bool(actual.get(key))}")
+    if "align" in step and actual.get("align", "left") != step["align"]:
+        problems.append(f"{name} align is {actual.get('align')!r}")
+    if "style" in step:
+        plain = ("", "Normal")  # an unstyled paragraph reads as either
+        style = actual.get("style", "")
+        if not (style == step["style"] or (style in plain and step["style"] in plain)):
+            problems.append(f"{name} style is {style!r}")
+    if "size" in step and actual.get("size") != step["size"]:
+        problems.append(f"{name} size is {actual.get('size')}")
+    if "color" in step:
+        color = actual.get("color") or ""
+        if step["color"] == "red":  # any clear red
+            ok = len(color) == 7 and int(color[1:3], 16) >= 150 and int(color[3:5], 16) < 100 and int(color[5:7], 16) < 100
+        else:
+            ok = color.upper() == step["color"].upper()
+        if not ok:
+            problems.append(f"{name} color is {color or 'automatic'}")
+    return problems
+
+
+def words_of(text):
+    """The document's words: document.getText gives Markdown, where a heading gains "# " and
+    bold text "**"; formats are checked on their own, so those marks are left out here."""
+    lines = []
+    for line in (text or "").split("\n"):
+        line = re.sub(r"^#{1,6}\s+", "", line)
+        lines.append(line.replace("**", "").replace("__", ""))
+    return "\n".join(lines)
+
+
+def paragraphs_of(mcp):
+    content, error = mcp.call("document.outline")
+    if error:
+        return None
+    return [block for block in content.get("value", {}).get("blocks", []) if block.get("id", "").startswith("P")]
+
+
+def run_document_check(mcp, step, entry, before):
+    problems = []
+    if step["check"] == "paragraph":
+        paragraphs = paragraphs_of(mcp)
+        if paragraphs is None:
+            return ["the outline cannot be read"]
+        texts = [p for p in paragraphs if p.get("text", "").strip()]
+        if "paragraph" in step:  # the Nth paragraph with text, as people count; -1 is the last
+            index = step["paragraph"]
+            chosen = texts[index - 1] if index > 0 and index <= len(texts) else texts[index] if index < 0 and -index <= len(texts) else None
+            chosen = [chosen] if chosen else []
+        elif "startsWith" in step:
+            chosen = [p for p in texts if p["text"].strip().startswith(step["startsWith"])]
+        else:
+            chosen = [p for p in texts if step["contains"] in p["text"]]
+        if not chosen:
+            return [f"no paragraph for {step}"]
+        entry["actual"] = chosen
+        for paragraph in chosen:
+            problems += looks_like(paragraph, step, paragraph["id"] + " " + paragraph["text"][:12])
+    elif step["check"] == "text":
+        content, error = mcp.call("format.read", {"find": step["find"]})
+        if error:
+            return [f"{step['find']!r} not found"]
+        occurrences = content.get("value", {}).get("occurrences", [])
+        entry["actual"] = occurrences
+        for number, occurrence in enumerate(occurrences, 1):
+            problems += looks_like(occurrence, step, f"{step['find']}#{number}")
+    elif step["check"] == "textSnapshot":
+        content, _ = mcp.call("document.getText")
+        before["text"] = words_of(content.get("value", {}).get("text"))
+    elif step["check"] == "textUnchanged":
+        content, _ = mcp.call("document.getText")
+        if words_of(content.get("value", {}).get("text")) != before.get("text"):
+            problems.append("the document's text changed")
+    return problems
+
+
+def apply_changes(mcp, entry):
+    """Applies what the assistant offers, as a person would: 全部改正 on a list, 执行 on each
+    command the model asks to run (up to ten)."""
+    pressed = []
+    state, _ = mcp.call("test.state")
+    content = {"buttons": []}
+    for _ in range(10):
+        content, error = mcp.call("test.press", {"button": "全部改正"})
+        if not error:
+            pressed.append("全部改正")
+            break
+        content, error = mcp.call("test.press", {"button": "执行"})
+        if error:
+            break
+        pressed.append("执行")
+        if not content.get("waitingForConfirmation"):
+            break
+    entry["pressed"] = pressed
+    entry["result"] = content
+    return [] if pressed else ["nothing to apply (no 全部改正 or 执行)"]
+
+
 def run_step(mcp, step, entry, before):
     """One step; returns its problems (empty when it went as expected)."""
+    if step.get("apply"):
+        return apply_changes(mcp, entry)
     if "check" not in step:
         content, error = mcp.call(step["tool"], step.get("args", {}))
         entry["result"] = content
         entry["isError"] = error
         return check_expectation(step.get("expect", {}), content, error)
+    if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged"):
+        return run_document_check(mcp, step, entry, before)
     table = step.get("table", 1)
     grid = table_grid(mcp, table)
     problems = []

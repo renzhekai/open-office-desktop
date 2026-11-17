@@ -1,0 +1,34 @@
+{
+  "name": "纪要：含有“负责人”的段落都加粗",
+  "document": "fixtures/assistant-samples/documents/minutes.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把含有“负责人”的段落都加粗"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "contains": "负责人",
+      "bold": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 1,
+      "bold": false
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

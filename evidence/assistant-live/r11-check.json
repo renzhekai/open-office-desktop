@@ -1,0 +1,1114 @@
+{
+  "label": "r11-check",
+  "started_utc": "2026-11-17T04:53:40.480420+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-builtin-ai-r11\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\r11-check\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-builtin-ai-r11",
+  "model": "(settings)",
+  "exe": "D:\\open office\\build\\full-source-run-builtin-ai-r11\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "结构和样式命令在真实编辑器里的探测（text-table.docx）",
+      "steps": [
+        {
+          "step": {
+            "tool": "document.outline",
+            "expect": {
+              "ok": true,
+              "valueIncludes": [
+                "T1",
+                "P1",
+                "Open Office 兼容性样本"
+              ]
+            }
+          },
+          "result": {
+            "code": "outline",
+            "message": "已读取文档结构：3 段、1 张表格。",
+            "ok": true,
+            "value": {
+              "blocks": [
+                {
+                  "bold": true,
+                  "id": "P1",
+                  "length": 17,
+                  "size": 16,
+                  "style": "Normal",
+                  "text": "Open Office 兼容性样本"
+                },
+                {
+                  "id": "P2",
+                  "length": 23,
+                  "size": 12,
+                  "style": "",
+                  "text": "中文与 English 123；标点：，。！？"
+                },
+                {
+                  "id": "P3",
+                  "length": 10,
+                  "size": 12,
+                  "style": "",
+                  "text": "普通文字 + 粗斜体"
+                },
+                {
+                  "columns": 2,
+                  "firstRow": [
+                    "项目",
+                    "数量"
+                  ],
+                  "id": "T1",
+                  "rows": 2
+                }
+              ],
+              "cursor": {
+                "paragraph": 1
+              },
+              "paragraphs": 3,
+              "tables": 1,
+              "truncated": false
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.09
+        },
+        {
+          "step": {
+            "tool": "table.read",
+            "args": {
+              "table": 1
+            },
+            "expect": {
+              "ok": true,
+              "valueIncludes": [
+                "项目",
+                "办公套件"
+              ]
+            }
+          },
+          "result": {
+            "code": "table",
+            "message": "已读取第 1 张表格（2 行 2 列）。",
+            "ok": true,
+            "value": {
+              "columns": 2,
+              "rows": [
+                [
+                  {
+                    "text": "项目"
+                  },
+                  {
+                    "text": "数量"
+                  }
+                ],
+                [
+                  {
+                    "text": "办公套件"
+                  },
+                  {
+                    "text": "3"
+                  }
+                ]
+              ],
+              "rowsCount": 2,
+              "table": 1,
+              "truncated": false
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "tool": "table.setCell",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 2,
+              "text": "12"
+            },
+            "expect": {
+              "ok": true,
+              "code": "cell_set"
+            }
+          },
+          "result": {
+            "code": "cell_set",
+            "message": "已修改第 1 张表格第 2 行第 2 列，可以撤销。",
+            "ok": true,
+            "value": {
+              "before": "3",
+              "column": 2,
+              "row": 2,
+              "table": 1
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 2,
+            "equals": "12"
+          },
+          "actual": "12",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C2"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R2C2"
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "tool": "table.setCell",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 2,
+              "text": "12"
+            },
+            "expect": {
+              "ok": true,
+              "code": "unchanged"
+            }
+          },
+          "result": {
+            "code": "unchanged",
+            "message": "这一格本来就是这些文字，没有改动。",
+            "ok": true,
+            "value": {
+              "code": "unchanged",
+              "column": 2,
+              "row": 2,
+              "table": 1
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "format.cells",
+            "args": {
+              "table": 1,
+              "rows": "1",
+              "bold": true,
+              "fill": "#D9E2F3",
+              "align": "center"
+            },
+            "expect": {
+              "ok": true,
+              "code": "formatted"
+            }
+          },
+          "result": {
+            "code": "formatted",
+            "message": "已设置 2 个单元格的格式，可以撤销。",
+            "ok": true,
+            "value": {
+              "cells": 2,
+              "table": 1
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "table.read",
+            "args": {
+              "table": 1
+            },
+            "expect": {
+              "ok": true,
+              "valueIncludes": [
+                "\"bold\":true",
+                "#D9E2F3",
+                "\"align\":\"center\""
+              ]
+            }
+          },
+          "result": {
+            "code": "table",
+            "message": "已读取第 1 张表格（2 行 2 列）。",
+            "ok": true,
+            "value": {
+              "columns": 2,
+              "rows": [
+                [
+                  {
+                    "align": "center",
+                    "bold": true,
+                    "fill": "#D9E2F3",
+                    "text": "项目"
+                  },
+                  {
+                    "align": "center",
+                    "bold": true,
+                    "fill": "#D9E2F3",
+                    "text": "数量"
+                  }
+                ],
+                [
+                  {
+                    "text": "办公套件"
+                  },
+                  {
+                    "text": "12"
+                  }
+                ]
+              ],
+              "rowsCount": 2,
+              "table": 1,
+              "truncated": false
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "format.paragraphs",
+            "args": {
+              "paragraphs": "1",
+              "style": "heading1"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "formatted",
+            "message": "已设置 1 段的格式，可以撤销。",
+            "ok": true,
+            "value": {
+              "paragraphs": 1
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "tool": "format.paragraphs",
+            "args": {
+              "paragraphs": "2",
+              "align": "right",
+              "italic": true
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "formatted",
+            "message": "已设置 1 段的格式，可以撤销。",
+            "ok": true,
+            "value": {
+              "paragraphs": 1
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "format.text",
+            "args": {
+              "find": "English",
+              "color": "#C00000",
+              "bold": true
+            },
+            "expect": {
+              "ok": true,
+              "code": "formatted"
+            }
+          },
+          "result": {
+            "code": "formatted",
+            "message": "已设置 1 处文字的格式，可以撤销。",
+            "ok": true,
+            "value": {
+              "count": 1,
+              "total": 1
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "document.outline",
+            "expect": {
+              "ok": true,
+              "valueIncludes": [
+                "Heading 1"
+              ]
+            }
+          },
+          "result": {
+            "code": "outline",
+            "message": "已读取文档结构：3 段、1 张表格。",
+            "ok": true,
+            "value": {
+              "blocks": [
+                {
+                  "bold": true,
+                  "id": "P1",
+                  "length": 17,
+                  "size": 16,
+                  "style": "Heading 1",
+                  "text": "Open Office 兼容性样本"
+                },
+                {
+                  "align": "right",
+                  "id": "P2",
+                  "italic": true,
+                  "length": 23,
+                  "size": 12,
+                  "style": "",
+                  "text": "中文与 English 123；标点：，。！？"
+                },
+                {
+                  "id": "P3",
+                  "length": 10,
+                  "size": 12,
+                  "style": "",
+                  "text": "普通文字 + 粗斜体"
+                },
+                {
+                  "columns": 2,
+                  "firstRow": [
+                    "项目",
+                    "数量"
+                  ],
+                  "id": "T1",
+                  "rows": 2
+                }
+              ],
+              "cursor": {
+                "paragraph": 1
+              },
+              "paragraphs": 3,
+              "tables": 1,
+              "truncated": false
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 1
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 1,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "tool": "selection.getText",
+            "expect": {
+              "ok": true,
+              "valueIncludes": [
+                "办公套件"
+              ]
+            }
+          },
+          "result": {
+            "code": "ok",
+            "message": "已读取选中文字（6 个字符）。",
+            "ok": true,
+            "value": {
+              "length": 6,
+              "paragraphs": 1,
+              "text": "办公套件\r\n",
+              "truncated": false
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "find": "普通文字"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "what": "text"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "selection.getText",
+            "expect": {
+              "ok": true,
+              "valueIncludes": [
+                "普通文字"
+              ]
+            }
+          },
+          "result": {
+            "code": "ok",
+            "message": "已读取选中文字（4 个字符）。",
+            "ok": true,
+            "value": {
+              "length": 4,
+              "paragraphs": 1,
+              "text": "普通文字",
+              "truncated": false
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "edit.undo",
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "undone",
+            "message": "已撤销上一步。",
+            "ok": true,
+            "value": {}
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "edit.undo",
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "undone",
+            "message": "已撤销上一步。",
+            "ok": true,
+            "value": {}
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "table.setCell",
+            "args": {
+              "table": 9,
+              "row": 1,
+              "column": 1,
+              "text": "x"
+            },
+            "expect": {
+              "ok": false,
+              "code": "no_table"
+            }
+          },
+          "result": {
+            "code": "no_table",
+            "message": "文档里没有这张表格。",
+            "ok": false,
+            "value": {}
+          },
+          "isError": true,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "table.setCell",
+            "args": {
+              "table": 1,
+              "row": 9,
+              "column": 1,
+              "text": "x"
+            },
+            "expect": {
+              "ok": false,
+              "code": "no_cell"
+            }
+          },
+          "result": {
+            "code": "no_cell",
+            "message": "表格里没有这一格。",
+            "ok": false,
+            "value": {}
+          },
+          "isError": true,
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "tool": "format.cells",
+            "args": {
+              "table": 1,
+              "rows": "5-7",
+              "bold": true
+            },
+            "expect": {
+              "ok": false,
+              "code": "bad_range"
+            }
+          },
+          "result": {
+            "code": "bad_range",
+            "message": "行、列或段落的范围写得不对。",
+            "ok": false,
+            "value": {}
+          },
+          "isError": true,
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "format.text",
+            "args": {
+              "find": "文档里没有的字",
+              "bold": true
+            },
+            "expect": {
+              "ok": false,
+              "code": "not_found"
+            }
+          },
+          "result": {
+            "code": "not_found",
+            "message": "文档里没有找到这段文字，可能已经改过了。",
+            "ok": false,
+            "value": {}
+          },
+          "isError": true,
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\r11-check\\01-text-table.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\r11-check\\01-text-table.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\probe-commands.json"
+    },
+    {
+      "name": "通知：标题加粗居中、字号二号",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.1
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把标题加粗、居中，字号改成二号"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261116-205341-5fe0d1",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/r11-check/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把标题加粗、居中，字号改成二号",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 1 处可能的问题：\n第 1 段（关于开展年度消防安全检查…） → 加粗、居中、字号 22（按你的要求：把标题加粗、居中）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.44
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261116-205341-5fe0d1",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/r11-check/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "bold": true,
+            "align": "center",
+            "size": 22
+          },
+          "actual": [
+            {
+              "align": "center",
+              "bold": true,
+              "id": "P1",
+              "length": 15,
+              "size": 22,
+              "style": "Normal",
+              "text": "关于开展年度消防安全检查的通知"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 2,
+            "bold": false
+          },
+          "actual": [
+            {
+              "id": "P2",
+              "length": 4,
+              "size": 10,
+              "style": "",
+              "text": "各部门："
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\r11-check\\02-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\r11-check\\02-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d1-notice-title.json"
+    },
+    {
+      "name": "成绩表：点进表格问“总分有没有算错”（一处错）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.18
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 3,
+              "column": 1
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 1,
+              "row": 3,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.07
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "看看总分有没有算错"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 184.57836318962612
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261116-205350-67f614",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/r11-check/03-scores.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "看看总分有没有算错",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 1 处可能的问题：\n第 2 行第 5 列：255 → 265（总分应为语文+数学+英语之和（88+92+85=265），当前值为255）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 8.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 8.63
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 184.57836318962612
+            },
+            "buttons": [],
+            "conversation": "20261116-205350-67f614",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/r11-check/03-scores.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.0
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 5,
+            "equals": "265"
+          },
+          "actual": "265",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C5"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R2C5"
+          ],
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\r11-check\\03-scores.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\r11-check\\03-scores.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\05-scores-wrong.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait"
+  ],
+  "final_state": {
+    "ai": {
+      "builtin": true,
+      "model": "qwen3-1.7b",
+      "state": "ready",
+      "tokensPerSecond": 184.57836318962612
+    },
+    "conversation": "20261116-205350-67f614",
+    "conversationMessages": 2,
+    "document": "D:/open office/build/assistant-live/r11-check/03-scores.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+    "quickActions": [
+      "polish",
+      "correct",
+      "shorten",
+      "expand",
+      "formal",
+      "translate"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-17T04:54:01.625799+00:00",
+  "ok": true
+}

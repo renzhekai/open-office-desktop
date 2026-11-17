@@ -1,0 +1,39 @@
+{
+  "name": "（留出）培训安排：（一）（二）（三）开头的段落改成三级标题",
+  "document": "fixtures/assistant-samples/documents-holdout/training.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "（一）（二）（三）开头的那几段改成三级标题"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "startsWith": "（一）",
+      "style": "Heading 3"
+    },
+    {
+      "check": "paragraph",
+      "startsWith": "（二）",
+      "style": "Heading 3"
+    },
+    {
+      "check": "paragraph",
+      "startsWith": "（三）",
+      "style": "Heading 3"
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

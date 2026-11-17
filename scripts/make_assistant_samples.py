@@ -206,11 +206,72 @@ HOLDOUT = {
 }
 
 
+# Documents of plain paragraphs for format requests (headings, words, whole paragraphs).
+DOCUMENTS = {
+    "notice.docx": document(*[paragraph(text) for text in [
+        "关于开展年度消防安全检查的通知",
+        "各部门：",
+        "为切实做好消防安全工作，公司决定开展年度消防安全检查。现将有关事项通知如下：",
+        "一、检查时间",
+        "11月20日至11月24日，各部门自查截止日期为11月22日。",
+        "二、检查内容",
+        "消防通道是否畅通、灭火器是否在有效期内、电源线路是否老化。",
+        "三、工作要求",
+        "各部门负责人要高度重视，注意排查死角，自查报告请于截止日期前提交行政部。",
+        "行政部",
+        "2026年11月16日"]]),
+    "minutes.docx": document(*[paragraph(text) for text in [
+        "产品周会会议纪要",
+        "时间：2026年11月12日 14:00",
+        "地点：三楼会议室",
+        "参会人：陈晨、林悦、周航、吴桐",
+        "1. 上周进展",
+        "官网改版完成视觉设计，负责人：郑洁。",
+        "2. 本周计划",
+        "完成前端开发，负责人：黄磊；接口联调，负责人：高远。",
+        "3. 风险",
+        "测试人手不足，可能影响上线时间。"]]),
+    "report-en.docx": document(*[paragraph(text) for text in [
+        "Quarterly Operations Report",
+        "Summary",
+        "Shipments grew 12% compared with the previous quarter. The warehouse deadline for inventory counts is December 5.",
+        "Next Steps",
+        "Hire two temporary packers. Confirm the deadline with the logistics partner.",
+        "Prepared by the Operations Team"]]),
+}
+
+# Held out for paragraphs: written after the paragraph rules, never tuned on.
+DOCUMENTS_HOLDOUT = {
+    "training.docx": document(*[paragraph(text) for text in [
+        "新员工入职培训安排",
+        "培训对象：2026年11月入职的全体新员工",
+        "（一）培训时间",
+        "11月25日上午9:00开始，请提前十分钟签到。",
+        "（二）培训地点",
+        "公司二楼大会议室，注意携带工牌。",
+        "（三）注意事项",
+        "培训期间请将手机调至静音，注意遵守会场纪律。",
+        "人力资源部"]]),
+    "letter.docx": document(*[paragraph(text) for text in [
+        "致客户的一封信",
+        "尊敬的客户：",
+        "感谢您一直以来对我们的支持。张三经理将于下月起负责贵司的对接工作。",
+        "如有任何问题，请联系张三，或拨打客服电话。",
+        "此致",
+        "敬礼",
+        "华东销售部"]]),
+}
+
+
 def main():
     for name, xml in SAMPLES.items():
         print(write(name, xml).relative_to(ROOT))
     for name, xml in HOLDOUT.items():
         print(write("holdout/" + name, xml).relative_to(ROOT))
+    for name, xml in DOCUMENTS.items():
+        print(write("documents/" + name, xml).relative_to(ROOT))
+    for name, xml in DOCUMENTS_HOLDOUT.items():
+        print(write("documents-holdout/" + name, xml).relative_to(ROOT))
 
 
 if __name__ == "__main__":

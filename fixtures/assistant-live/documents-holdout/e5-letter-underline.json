@@ -1,0 +1,29 @@
+{
+  "name": "（留出）客户信：文中的“张三”都加下划线",
+  "document": "fixtures/assistant-samples/documents-holdout/letter.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把文中的“张三”都加下划线"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "text",
+      "find": "张三",
+      "underline": true
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

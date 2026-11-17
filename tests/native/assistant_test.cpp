@@ -886,6 +886,82 @@ private slots:
         QVERIFY(proofread && !proofread->offered && proofread->output == TaskOutput::Corrections);
     }
 
+    void theProgramReadsDocumentFormatRequestsItself()
+    {
+        // An outline as document.outline reports it: P numbers count empty paragraphs too.
+        const auto block = [](int number, const QString& text, const QJsonObject& extra = {}) {
+            QJsonObject object{{QStringLiteral("id"), QStringLiteral("P%1").arg(number)}, {QStringLiteral("text"), text},
+                               {QStringLiteral("style"), QString()}};
+            for (auto it = extra.begin(); it != extra.end(); ++it) object.insert(it.key(), it.value());
+            return object;
+        };
+        const QList<OutlineParagraph> paragraphs = outlineParagraphs(QJsonArray{
+            block(1, QStringLiteral("年终表彰大会议程"), {{QStringLiteral("bold"), true}}),
+            block(2, QString()),
+            block(3, QStringLiteral("第一部分 领导致辞")),
+            block(4, QStringLiteral("请各位于下午两点前入场，入场时出示工牌。")),
+            QJsonObject{{QStringLiteral("id"), QStringLiteral("T1")}},
+            block(5, QStringLiteral("第二部分 颁奖")),
+            block(6, QStringLiteral("颁奖顺序以名单为准，获奖者请提前到后台候场。")),
+            block(7, QStringLiteral("办公室"), {{QStringLiteral("align"), QStringLiteral("right")}})});
+        QCOMPARE(paragraphs.size(), 7);
+        QCOMPARE(paragraphs[6].number, 7);
+        bool understood = false;
+        // The title: the first paragraph with text; bold already, so only the rest is planned.
+        QList<PlannedEdit> edits = requestedDocumentFormats(QStringLiteral("标题加粗、居中，字号改成三号"), paragraphs, false, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits.size(), 1);
+        QCOMPARE(edits[0].command.name, QStringLiteral("format.paragraphs"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("paragraphs")).toString(), QStringLiteral("1"));
+        QVERIFY(!edits[0].command.arguments.contains(QStringLiteral("bold")));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("center"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("fontSize")).toInt(), 16);
+        QVERIFY(edits[0].place.startsWith(QStringLiteral("第 1 段（年终表彰")));
+        // Paragraphs counted as people count them: the empty one does not count.
+        edits = requestedDocumentFormats(QStringLiteral("第二段和第四段改成二级标题"), paragraphs, false, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("paragraphs")).toString(), QStringLiteral("3,5"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("style")).toString(), QStringLiteral("heading2"));
+        QCOMPARE(edits[0].place, QStringLiteral("第 2、4 段"));
+        // "…开头的", quoted or not; "含有…的段落"; "最后一段" already right-aligned.
+        edits = requestedDocumentFormats(QStringLiteral("“第一部分”“第二部分”开头的段落加粗"), paragraphs, false, &understood);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("paragraphs")).toString(), QStringLiteral("3,5"));
+        edits = requestedDocumentFormats(QStringLiteral("把含有“工牌”的段落改成斜体"), paragraphs, false, &understood);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("paragraphs")).toString(), QStringLiteral("4"));
+        QVERIFY(edits[0].command.arguments.value(QStringLiteral("italic")).toBool());
+        edits = requestedDocumentFormats(QStringLiteral("最后一段右对齐"), paragraphs, false, &understood);
+        QVERIFY(understood && edits.isEmpty());
+        // Words: every one found; a color is the text's; highlight on words is fine.
+        edits = requestedDocumentFormats(QStringLiteral("把文中的“候场”标成蓝色，“工牌”加黄色突出显示"), paragraphs, false, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits.size(), 2);
+        QCOMPARE(edits[0].command.name, QStringLiteral("format.text"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("find")).toString(), QStringLiteral("候场"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("color")).toString(), QStringLiteral("#0070C0"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("highlight")).toString(), QStringLiteral("yellow"));
+        // Nothing named: the selection, if there is one; otherwise the model decides.
+        edits = requestedDocumentFormats(QStringLiteral("加粗，改成红色"), paragraphs, true, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits.size(), 1);
+        QCOMPARE(edits[0].command.name, QStringLiteral("format.selection"));
+        QVERIFY(edits[0].command.arguments.value(QStringLiteral("bold")).toBool());
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("color")).toString(), QStringLiteral("#C00000"));
+        requestedDocumentFormats(QStringLiteral("加粗"), paragraphs, false, &understood);
+        QVERIFY(!understood);
+        // Not a format request, or a format the program cannot put there.
+        requestedDocumentFormats(QStringLiteral("帮我总结一下这份文档"), paragraphs, false, &understood);
+        QVERIFY(!understood);
+        requestedDocumentFormats(QStringLiteral("第三段加下划线"), paragraphs, false, &understood);
+        QVERIFY(!understood); // whole paragraphs have no underline command: the model's turn
+        // English.
+        edits = requestedDocumentFormats(QStringLiteral("Make the title Heading 1, and make every \"badge\" italic."), paragraphs, false, &understood);
+        QVERIFY(understood);
+        QCOMPARE(edits.size(), 2);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("style")).toString(), QStringLiteral("heading1"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("find")).toString(), QStringLiteral("badge"));
+        for (const PlannedEdit& edit : edits) QVERIFY(validateCommand(edit.command).ok);
+    }
+
     void theProgramReadsFormatRequestsItself()
     {
         const auto grid = [](const QList<QStringList>& rows) {

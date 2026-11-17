@@ -1,0 +1,34 @@
+{
+  "name": "（留出）客户信：第三段到第四段字号 14 磅",
+  "document": "fixtures/assistant-samples/documents-holdout/letter.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "第三段到第四段的字号改成14磅"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 3,
+      "size": 14
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 4,
+      "size": 14
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

@@ -170,6 +170,8 @@ private:
     QList<TableFormula> m_planFormulas; // its arithmetic, as the program found it
     void planTableChanges(const QString& request, int table);
     void showTablePlan(const QList<PlannedEdit>& plan); // the checked plan, change by change
+    // Any list of one-by-one changes (a table plan, a format plan): 改 each, or 全部改正.
+    void showPlan(const QString& title, const QString& nothingToDo, const QList<PlannedEdit>& plan);
     QList<PlannedEdit> m_pendingPlan; // the plan while the table's words are proofread
     void routeTypedRequest(const QString& text, const QString& documentText, const QString& selection);
     bool m_speedAdviceShown = false;  // the "slow model" card appears once per session

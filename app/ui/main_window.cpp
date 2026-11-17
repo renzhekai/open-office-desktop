@@ -1110,6 +1110,18 @@ void MainWindow::askLocalAi(const QString& text)
                         planTableChanges(text, table);
                         return;
                     }
+                    // A format request the program can read itself ("把标题加粗居中", "文中所有“截止日期”
+                    // 标红", or "加粗" with text selected) needs no model: the changes are listed at once.
+                    const bool selected = !selection.trimmed().isEmpty();
+                    if (outline.ok && !isQuestion(text) && classifyRequest(text, selected) != RequestKind::Write) {
+                        bool understood = false;
+                        const QList<PlannedEdit> formats = requestedDocumentFormats(
+                            text, outlineParagraphs(outline.value.value(QStringLiteral("blocks")).toArray()), selected, &understood);
+                        if (understood) {
+                            showPlan(QStringLiteral("修改格式"), QStringLiteral("这些地方已经是这个格式了，不用改。"), formats);
+                            return;
+                        }
+                    }
                     routeTypedRequest(text, documentText, selection);
                 });
             });
@@ -1380,8 +1392,13 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
 
 void MainWindow::showTablePlan(const QList<PlannedEdit>& plan)
 {
+    showPlan(QStringLiteral("修改表格"), QStringLiteral("按这个要求，第 %1 张表格没有需要修改的地方。").arg(m_planTable), plan);
+}
+
+void MainWindow::showPlan(const QString& title, const QString& nothingToDo, const QList<PlannedEdit>& plan)
+{
     m_edits.clear();
-    m_editsTitle = QStringLiteral("修改表格");
+    m_editsTitle = title;
     QList<AssistantBall::CorrectionItem> items;
     for (const PlannedEdit& edit : plan) {
         m_edits.append(edit.command);
@@ -1390,10 +1407,12 @@ void MainWindow::showTablePlan(const QList<PlannedEdit>& plan)
     }
     m_correctionState = QList<int>(m_edits.size(), 0);
     if (m_edits.isEmpty()) {
-        m_assistantBall->showCard(m_editsTitle, QStringLiteral("按这个要求，第 %1 张表格没有需要修改的地方。").arg(m_planTable), {}, true);
+        m_assistantBall->showCard(m_editsTitle, nothingToDo, {}, true);
+        updateAssistantWorking();
         return;
     }
     m_assistantBall->showCorrections(m_editsTitle, items);
+    updateAssistantWorking();
 }
 
 void MainWindow::applyCorrection(int index, std::function<void(bool)> done)

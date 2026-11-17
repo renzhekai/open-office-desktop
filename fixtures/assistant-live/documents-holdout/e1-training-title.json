@@ -1,0 +1,30 @@
+{
+  "name": "（留出）培训安排：标题居中、小二",
+  "document": "fixtures/assistant-samples/documents-holdout/training.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "标题居中，字号改成小二"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 1,
+      "align": "center",
+      "size": 18
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}
