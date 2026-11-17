@@ -17,6 +17,7 @@
 #include <QLineF>
 #include <QListWidget>
 #include <QMainWindow>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPainterPath>
@@ -365,6 +366,16 @@ AssistantBall::AssistantBall(QWidget* anchor)
     m_actionContext = label(QString(), "assistantContext", m_actionBar);
     m_actionContext->setWordWrap(false);
     contextRow->addWidget(m_actionContext, 1);
+    // Which model answers: a list to switch, grouped 本机 / 云端 / Ollama.
+    m_modelButton = new QPushButton(QStringLiteral("模型"), m_actionBar);
+    m_modelButton->setObjectName(QStringLiteral("assistantLink"));
+    m_modelButton->setCursor(Qt::PointingHandCursor);
+    m_modelButton->setToolTip(QStringLiteral("切换模型：本机模型、云端模型"));
+    m_modelButton->setMaximumWidth(180);
+    contextRow->addWidget(m_modelButton);
+    connect(m_modelButton, &QPushButton::clicked, this, [this] {
+        if (!m_working) showModelMenu();
+    });
     m_newConversation = new QPushButton(QStringLiteral("新对话"), m_actionBar);
     m_history = new QPushButton(QStringLiteral("历史"), m_actionBar);
     for (QPushButton* link : {m_newConversation, m_history}) {
@@ -1260,7 +1271,59 @@ void AssistantBall::addRequest(const QString& text)
     addUserMessage(text);
 }
 
-void AssistantBall::showCorrections(const QString& title, const QList<CorrectionItem>& items)
+void AssistantBall::setModelChoices(const QList<ModelChoice>& choices, const QString& currentLabel, const QString& where)
+{
+    m_modelChoices = choices;
+    const QString label = currentLabel.isEmpty() ? QStringLiteral("选择模型") : currentLabel;
+    m_modelButton->setText(fontMetrics().elidedText(label, Qt::ElideRight, 150) + QStringLiteral(" ▾"));
+    m_modelButton->setToolTip(QStringLiteral("现在用：%1%2。点这里切换模型").arg(label, where.isEmpty() ? QString() : QStringLiteral("（%1）").arg(where)));
+}
+
+QString AssistantBall::modelButtonText() const
+{
+    return m_modelButton->text();
+}
+
+void AssistantBall::chooseModel(const QString& key)
+{
+    if (key == QStringLiteral("setup")) {
+        emit setupRequested();
+        return;
+    }
+    if (!key.isEmpty()) emit modelChosen(key);
+}
+
+QMenu* AssistantBall::showModelMenu()
+{
+    if (m_modelMenu) m_modelMenu->close();
+    auto* menu = new QMenu(this);
+    menu->setObjectName(QStringLiteral("assistantModelMenu"));
+    menu->setAttribute(Qt::WA_DeleteOnClose);
+    m_modelMenu = menu;
+    QString group;
+    for (const ModelChoice& choice : m_modelChoices) {
+        if (choice.group != group) {
+            group = choice.group;
+            menu->addSection(group);
+        }
+        QAction* action = menu->addAction(choice.note.isEmpty() ? choice.label
+                                                                : choice.label + QStringLiteral("   ") + choice.note);
+        action->setCheckable(!choice.key.isEmpty() && choice.key != QStringLiteral("setup"));
+        action->setChecked(choice.current);
+        action->setEnabled(choice.enabled && !choice.key.isEmpty());
+        action->setData(choice.key);
+        const QString key = choice.key;
+        connect(action, &QAction::triggered, this, [this, key] { chooseModel(key); });
+    }
+    menu->addSeparator();
+    QAction* manage = menu->addAction(QStringLiteral("管理模型…（下载本机模型、添加云端模型）"));
+    manage->setData(QStringLiteral("setup"));
+    connect(manage, &QAction::triggered, this, [this] { chooseModel(QStringLiteral("setup")); });
+    menu->popup(m_modelButton->mapToGlobal(QPoint(0, m_modelButton->height())));
+    return menu;
+}
+
+void AssistantBall::showCorrections(const QString& title, const QList<CorrectionItem>& items, const QString& intro)
 {
     for (const QPointer<QPushButton>& button : m_correctionButtons)
         if (button) button->setEnabled(false); // only the newest list can still be applied
@@ -1268,8 +1331,9 @@ void AssistantBall::showCorrections(const QString& title, const QList<Correction
     m_correctionButtons.clear();
     if (!m_expanded) expand();
     m_welcome->hide();
-    addAssistantMessage(title, QStringLiteral("找到 %1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。").arg(items.size()), true);
-    QStringList found{QStringLiteral("找到 %1 处可能的问题：").arg(items.size())};
+    addAssistantMessage(title, intro.isEmpty() ? QStringLiteral("找到 %1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。").arg(items.size())
+                                               : intro, true);
+    QStringList found{intro.isEmpty() ? QStringLiteral("找到 %1 处可能的问题：").arg(items.size()) : intro};
     for (const CorrectionItem& item : items)
         found << item.original + QStringLiteral(" → ") + item.corrected
                      + (item.reason.isEmpty() ? QString() : QStringLiteral("（%1）").arg(item.reason));

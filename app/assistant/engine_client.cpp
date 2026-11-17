@@ -1,7 +1,9 @@
 #include "engine_client.h"
 
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QMap>
+#include <QNetworkProxyFactory>
 #include <QNetworkAccessManager>
 #include <QNetworkProxy>
 #include <QNetworkReply>
@@ -18,11 +20,35 @@ struct ToolCallParts {
     QString arguments; // streamed in pieces
 };
 
-QString errorFrom(const QByteArray& body, QNetworkReply* reply)
+// A cloud service goes through the proxy the system is set to use.
+class SystemProxies final : public QNetworkProxyFactory {
+public:
+    QList<QNetworkProxy> queryProxy(const QNetworkProxyQuery& query) override { return systemProxyForQuery(query); }
+};
+
+QString errorFrom(const QByteArray& body, QNetworkReply* reply, const QString& service)
 {
     const QJsonObject object = QJsonDocument::fromJson(body).object();
     const QJsonValue error = object.value(QStringLiteral("error"));
     const QString message = error.isObject() ? error.toObject().value(QStringLiteral("message")).toString() : error.toString();
+    const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (!service.isEmpty()) {
+        // What people can do about it first; the service's own words after.
+        QString meaning;
+        if (status == 401 || status == 403) meaning = QStringLiteral("API Key 不对、过期，或没有使用这个模型的权限。");
+        else if (status == 404) meaning = QStringLiteral("接口地址或模型名称不对。");
+        else if (status == 402 || status == 429) meaning = QStringLiteral("请求太频繁，或账户额度用完了。");
+        else if (status >= 500) meaning = QStringLiteral("服务暂时出问题了，请稍后再试。");
+        else if (reply->error() == QNetworkReply::HostNotFoundError || reply->error() == QNetworkReply::ConnectionRefusedError)
+            meaning = QStringLiteral("连不上，请检查网络和接口地址。");
+        else if (reply->error() == QNetworkReply::TimeoutError || reply->error() == QNetworkReply::OperationCanceledError)
+            meaning = QStringLiteral("没有及时响应。");
+        else if (reply->error() == QNetworkReply::SslHandshakeFailedError)
+            meaning = QStringLiteral("安全连接失败，请检查网络或代理设置。");
+        QString text = service + QStringLiteral("：") + (meaning.isEmpty() ? reply->errorString() : meaning);
+        if (!message.isEmpty()) text += QStringLiteral("（") + message.left(200) + QStringLiteral("）");
+        return text;
+    }
     if (!message.isEmpty()) return QStringLiteral("内置引擎返回错误：") + message;
     switch (reply->error()) {
     case QNetworkReply::ConnectionRefusedError:
@@ -48,6 +74,45 @@ void EngineClient::setEndpoint(const QUrl& base, const QString& apiKey)
 {
     m_base = base;
     m_key = apiKey;
+}
+
+void EngineClient::setCloud(const QString& serviceName)
+{
+    m_service = serviceName;
+    if (cloud()) m_network->setProxyFactory(new SystemProxies); // the manager owns it
+    else m_network->setProxy(QNetworkProxy::NoProxy);
+}
+
+QUrl EngineClient::serviceUrl(const QUrl& base, const QString& path)
+{
+    QUrl url = base;
+    QString basePath = url.path();
+    while (basePath.endsWith(QLatin1Char('/'))) basePath.chop(1);
+    url.setPath(basePath + QLatin1Char('/') + path);
+    return url;
+}
+
+void EngineClient::fetchModels()
+{
+    QNetworkRequest request(serviceUrl(m_base, QStringLiteral("models")));
+    if (!m_key.isEmpty()) request.setRawHeader("Authorization", "Bearer " + m_key.toUtf8());
+    request.setTransferTimeout(20000);
+    QNetworkReply* reply = m_network->get(request);
+    connect(reply, &QNetworkReply::finished, this, [this, reply] {
+        reply->deleteLater();
+        const QByteArray body = reply->readAll();
+        const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+        if (reply->error() != QNetworkReply::NoError || status >= 400) {
+            emit modelsFetched({}, errorFrom(body, reply, m_service.isEmpty() ? QStringLiteral("服务") : m_service));
+            return;
+        }
+        QStringList models;
+        for (const QJsonValue& value : QJsonDocument::fromJson(body).object().value(QStringLiteral("data")).toArray()) {
+            const QString id = value.toObject().value(QStringLiteral("id")).toString();
+            if (!id.isEmpty() && !models.contains(id)) models.append(id);
+        }
+        emit modelsFetched(models, models.isEmpty() ? QStringLiteral("服务没有列出模型，请手动填写模型名称。") : QString());
+    });
 }
 
 QJsonArray EngineClient::toOpenAiMessages(const QJsonArray& messages)
@@ -86,6 +151,19 @@ QJsonArray EngineClient::toOpenAiMessages(const QJsonArray& messages)
     return result;
 }
 
+QJsonObject EngineClient::cloudRequestBody(const QString& model, const QJsonArray& messages, const ChatOptions& options)
+{
+    QJsonObject body{{QStringLiteral("model"), model},
+                     {QStringLiteral("messages"), toOpenAiMessages(messages)},
+                     {QStringLiteral("stream"), true},
+                     {QStringLiteral("temperature"), options.temperature},
+                     {QStringLiteral("max_tokens"), 4096}};
+    if (!options.tools.isEmpty()) body.insert(QStringLiteral("tools"), options.tools);
+    // No JSON schema or reasoning switch: services differ in what they accept, and the
+    // program reads the JSON out of the answer anyway.
+    return body;
+}
+
 QJsonObject EngineClient::requestBody(const QJsonArray& messages, const ChatOptions& options)
 {
     QJsonObject body{{QStringLiteral("messages"), toOpenAiMessages(messages)},
@@ -108,16 +186,18 @@ QJsonObject EngineClient::requestBody(const QJsonArray& messages, const ChatOpti
 
 quint64 EngineClient::chat(const QString& model, const QJsonArray& messages, const ChatOptions& options)
 {
-    Q_UNUSED(model); // the engine serves the one model it was started with
+    // The engine serves the one model it was started with; a cloud service is told which.
     cancelChat();
     const quint64 id = ++m_chatId;
     QUrl url = m_base;
-    url.setPath(QStringLiteral("/v1/chat/completions"));
+    if (cloud()) url = serviceUrl(m_base, QStringLiteral("chat/completions"));
+    else url.setPath(QStringLiteral("/v1/chat/completions"));
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
-    request.setRawHeader("Authorization", "Bearer " + m_key.toUtf8());
+    if (!m_key.isEmpty()) request.setRawHeader("Authorization", "Bearer " + m_key.toUtf8());
     request.setTransferTimeout(300000); // inactivity limit; streamed bytes keep it alive
-    QNetworkReply* reply = m_network->post(request, QJsonDocument(requestBody(messages, options)).toJson(QJsonDocument::Compact));
+    const QJsonObject body = cloud() ? cloudRequestBody(model, messages, options) : requestBody(messages, options);
+    QNetworkReply* reply = m_network->post(request, QJsonDocument(body).toJson(QJsonDocument::Compact));
     m_chat = reply;
 
     auto buffer = std::make_shared<QByteArray>();
@@ -191,9 +271,10 @@ quint64 EngineClient::chat(const QString& model, const QJsonArray& messages, con
         }
         const int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         if (!failure->isEmpty()) {
-            emit chatFinished(id, false, *content, toolCalls, QStringLiteral("内置引擎返回错误：") + *failure);
+            emit chatFinished(id, false, *content, toolCalls,
+                              (cloud() ? m_service + QStringLiteral(" 返回错误：") : QStringLiteral("内置引擎返回错误：")) + *failure);
         } else if ((reply->error() != QNetworkReply::NoError && !*done) || (status >= 400)) {
-            emit chatFinished(id, false, *content, toolCalls, errorFrom(*raw, reply));
+            emit chatFinished(id, false, *content, toolCalls, errorFrom(*raw, reply, m_service));
         } else {
             emit chatFinished(id, true, *content, toolCalls, QString());
         }

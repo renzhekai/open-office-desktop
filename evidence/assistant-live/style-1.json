@@ -1,0 +1,547 @@
+{
+  "label": "style-1",
+  "started_utc": "2026-11-17T09:55:53.374791+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\style-1\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "(settings)",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "采购清单：没点进表格，说“帮我优化一下样式”（用户截图的情况）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.1
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "帮我优化一下样式"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-015554-b4f1a3",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/style-1/01-purchase-list.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "按常用的样式，建议改 5 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "帮我优化一下样式",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "按常用的样式，建议改 5 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 1 张表格的表头 → 加粗、底色 #D9E2F3、居中（表头醒目一些，便于阅读）\n第 1 张表格第 1 列（序号） → 右对齐（数字右对齐，个位对齐好比较）\n第 1 张表格第 3 列（单价（元）） → 右对齐（数字右对齐，个位对齐好比较）\n第 1 张表格第 4 列（数量） → 右对齐（数字右对齐，个位对齐好比较）\n第 1 张表格第 5 列（金额（元）） → 右对齐（数字右对齐，个位对齐好比较）",
+                "title": "优化样式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.4
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-015554-b4f1a3",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/style-1/01-purchase-list.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 5 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 5 处，每处都可以用撤销恢复。",
+                "title": "优化样式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R1C1-R1C5",
+            "bold": true,
+            "align": "center",
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C3-R6C5",
+            "align": "right"
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C2-R6C2",
+            "align": "left"
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "align": "center",
+            "bold": true
+          },
+          "actual": [
+            {
+              "align": "center",
+              "bold": true,
+              "id": "P1",
+              "length": 11,
+              "size": 16,
+              "style": "Normal",
+              "text": "十一月办公用品采购清单"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [],
+            "someChanged": false
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\style-1\\01-purchase-list.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\style-1\\01-purchase-list.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\style\\s1-purchase-vague.json"
+    },
+    {
+      "name": "通知：说“帮我优化一下排版”",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.13
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "帮我优化一下排版"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-015600-b4eef1",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/style-1/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "按常用的样式，建议改 3 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "帮我优化一下排版",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "按常用的样式，建议改 3 处。可以逐条改，也可以全部改正；改完都能撤销。\n标题（关于开展年度消防安全检查） → 加粗、字号 18、居中（标题居中、醒目）\n小标题（第 4、6、8 段） → 加粗（分出层次）\n落款 → 右对齐（落款（单位、日期）靠右）",
+                "title": "优化样式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.16
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-015600-b4eef1",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/style-1/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 3 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 3 处，每处都可以用撤销恢复。",
+                "title": "优化样式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.04
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "align": "center",
+            "bold": true,
+            "size": 18
+          },
+          "actual": [
+            {
+              "align": "center",
+              "bold": true,
+              "id": "P1",
+              "length": 15,
+              "size": 18,
+              "style": "Normal",
+              "text": "关于开展年度消防安全检查的通知"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "一、",
+            "bold": true
+          },
+          "actual": [
+            {
+              "bold": true,
+              "id": "P4",
+              "length": 6,
+              "size": 10,
+              "style": "",
+              "text": "一、检查时间"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "三、",
+            "bold": true
+          },
+          "actual": [
+            {
+              "bold": true,
+              "id": "P8",
+              "length": 6,
+              "size": 10,
+              "style": "",
+              "text": "三、工作要求"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -1,
+            "align": "right"
+          },
+          "actual": [
+            {
+              "align": "right",
+              "id": "P11",
+              "length": 11,
+              "size": 10,
+              "style": "",
+              "text": "2026年11月16日"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -2,
+            "align": "right"
+          },
+          "actual": [
+            {
+              "align": "right",
+              "id": "P10",
+              "length": 3,
+              "size": 10,
+              "style": "",
+              "text": "行政部"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 3,
+            "bold": false,
+            "align": "left"
+          },
+          "actual": [
+            {
+              "id": "P3",
+              "length": 38,
+              "size": 10,
+              "style": "",
+              "text": "为切实做好消防安全工作，公司决定开展年度消防安全检查。现将有关事项通知如下："
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\style-1\\02-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\style-1\\02-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\style\\s2-notice-vague.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-4b",
+      "modelKey": "builtin:qwen3-4b",
+      "state": "ready",
+      "tokensPerSecond": 0
+    },
+    "conversation": "20261117-015600-b4eef1",
+    "conversationMessages": 2,
+    "document": "D:/open office/build/assistant-live/style-1/02-notice.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已改好 3 处，每处都可以用撤销恢复。",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-17T09:56:04.170619+00:00",
+  "ok": true
+}

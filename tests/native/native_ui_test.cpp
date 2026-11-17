@@ -7,8 +7,12 @@
 #include "ui/mcp_server.h"
 #include "ui/relocation.h"
 
+#include "assistant/model_catalog.h"
+
 #include <QAction>
 #include <QAbstractButton>
+#include <QMenu>
+#include <QTemporaryFile>
 #include <QCloseEvent>
 #include <QFileInfo>
 #include <QJsonDocument>
@@ -314,6 +318,158 @@ private slots:
         // assistant tests below drive the Ollama path; one test switches to the built-in engine.
         qputenv("OPEN_OFFICE_OLLAMA_URL", closedOllamaUrl());
         qputenv("OPEN_OFFICE_AI_BACKEND", "ollama");
+        // Settings go to a file of the tests' own, never the person's.
+        QVERIFY(m_settings.isValid());
+        qputenv("OPEN_OFFICE_SETTINGS_FILE", QFile::encodeName(m_settings.filePath(QStringLiteral("settings.ini"))));
+    }
+
+    void theModelListSwitchesAndAsksOnceBeforeCloud()
+    {
+        openoffice::aiSettings().clear();
+        QTemporaryDir folder;
+        QFile model(folder.filePath(QStringLiteral("Qwen3-1.7B-Q8_0.gguf")));
+        QVERIFY(model.open(QIODevice::WriteOnly));
+        model.close();
+        ScopedEnvironment backend("OPEN_OFFICE_AI_BACKEND", QByteArray()); // the model list decides
+        ScopedEnvironment engineUrl("OPEN_OFFICE_AI_ENGINE_URL", closedOllamaUrl()); // an engine is "there", never started
+        ScopedEnvironment directory("OPEN_OFFICE_MODEL_DIR", QFile::encodeName(folder.path()));
+        FakeOllama cloud; // an OpenAI-compatible service
+        cloud.chats = {FakeOllama::sse({QStringLiteral("云端的回答")})};
+        QString error;
+        QVERIFY(openoffice::saveCloudProvider({QStringLiteral("fake"), QStringLiteral("Fake Cloud"), QString::fromLatin1(cloud.url() + "/v1"),
+                                               {QStringLiteral("fake-model")}}, QStringLiteral("test-key"), &error));
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.documentText = QStringLiteral("正文。");
+        engine.outlineValue = {{QStringLiteral("tables"), 0}, {QStringLiteral("paragraphs"), 1}};
+        openoffice::MainWindow window(&engine);
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        const auto button = [panel](const QString& text) -> QPushButton* {
+            QPushButton* found = nullptr;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                if (candidate->text() == text && candidate->isEnabled()) found = candidate;
+            return found;
+        };
+        panel->expand();
+        QTRY_VERIFY(panel->modelButtonText().contains(QStringLiteral("1.7B")));
+        // The list: grouped, the model in use ticked, a way to manage models.
+        QMenu* menu = panel->showModelMenu();
+        QStringList lines;
+        for (QAction* action : menu->actions()) lines << action->text() + (action->isChecked() ? QStringLiteral(" ✓") : QString());
+        QVERIFY2(lines.contains(QStringLiteral("本机模型")) && lines.contains(QStringLiteral("云端模型")), qPrintable(lines.join(QLatin1Char('|'))));
+        QVERIFY(std::any_of(lines.begin(), lines.end(), [](const QString& line) { return line.startsWith(QStringLiteral("Qwen3 1.7B")) && line.endsWith(QStringLiteral(" ✓")); }));
+        QVERIFY(std::any_of(lines.begin(), lines.end(), [](const QString& line) { return line.startsWith(QStringLiteral("fake-model")); }));
+        QVERIFY(std::any_of(lines.begin(), lines.end(), [](const QString& line) { return line.startsWith(QStringLiteral("管理模型")); }));
+        QVERIFY(!lines.contains(QStringLiteral("Ollama 模型"))); // the Ollama option is off
+        menu->close();
+
+        // A cloud service is asked about once, saying what goes where.
+        panel->chooseModel(QStringLiteral("cloud:fake/fake-model"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("Fake Cloud")) && panel->lastMessageText().contains(QStringLiteral("发给")));
+        QVERIFY(!window.localAssistant()->cloud()); // nothing switched before the person agrees
+        button(QStringLiteral("切换"))->click();
+        QTRY_VERIFY(window.localAssistant()->cloud());
+        QTRY_VERIFY(panel->modelButtonText().contains(QStringLiteral("fake-model")));
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("云端")));
+        // It answers from the service.
+        QTRY_VERIFY(!panel->working());
+        panel->submitText(QStringLiteral("你好"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("云端的回答")));
+        QCOMPARE(cloud.requestHeaders.last().value("authorization"), QByteArray("Bearer test-key"));
+        QTRY_VERIFY(!panel->working());
+        // Back to the local model, and to the cloud again: no second question.
+        panel->chooseModel(QStringLiteral("builtin:qwen3-1.7b"));
+        QTRY_VERIFY(window.localAssistant()->builtin());
+        panel->chooseModel(QStringLiteral("cloud:fake/fake-model"));
+        QTRY_VERIFY(window.localAssistant()->cloud());
+        openoffice::aiSettings().clear();
+    }
+
+    void cloudServicesAreAddedInTheSettings()
+    {
+        openoffice::aiSettings().clear();
+        FakeOllama cloud;
+        cloud.replies.insert(QStringLiteral("/v1/models"), R"({"data":[{"id":"fake-model"},{"id":"fake-large"}]})");
+        openoffice::CloudProviderDialog dialog({}, nullptr);
+        dialog.fill(QStringLiteral("Fake Cloud"), QStringLiteral("http://api.example.com/v1"), QStringLiteral("k"), QStringLiteral("m"));
+        QVERIFY(!dialog.save());
+        QVERIFY(dialog.statusText().contains(QStringLiteral("https")));
+        dialog.fill(QStringLiteral("Fake Cloud"), QString::fromLatin1(cloud.url() + "/v1"), QStringLiteral("test-key"), QString());
+        QVERIFY(!dialog.save());
+        QVERIFY(dialog.statusText().contains(QStringLiteral("模型")));
+        dialog.fetchModels();
+        QTRY_VERIFY(dialog.modelsText().contains(QStringLiteral("fake-large")));
+        QCOMPARE(cloud.requests.last().first, QStringLiteral("/v1/models"));
+        QCOMPARE(cloud.requestHeaders.last().value("authorization"), QByteArray("Bearer test-key"));
+        QVERIFY(dialog.save());
+        QCOMPARE(openoffice::cloudProviders().size(), 1);
+        QCOMPARE(openoffice::cloudProviders().first().models.size(), 2);
+        QCOMPARE(openoffice::cloudApiKey(dialog.provider().id), QStringLiteral("test-key"));
+        // The settings page lists it, never the key itself.
+        ScopedEnvironment backend("OPEN_OFFICE_AI_BACKEND", "builtin");
+        ControlledEngine engine;
+        openoffice::MainWindow window(&engine);
+        auto* settings = window.openAiSettings();
+        const QStringList rows = settings->cloudRowTexts();
+        QCOMPARE(rows.size(), 1);
+        QVERIFY(rows.first().contains(QStringLiteral("Fake Cloud")) && rows.first().contains(QStringLiteral("已加密保存")));
+        QVERIFY(!rows.first().contains(QStringLiteral("test-key")));
+        settings->close();
+        openoffice::aiSettings().clear();
+    }
+
+    void badCommandsNeverReachThePersonAndChangesAreDescribed()
+    {
+        // The user's screenshot: "设置单元格格式" with no format, which failed only after "执行".
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        fake.chats = {FakeOllama::chat({}, QStringLiteral("format_cells"), {{QStringLiteral("table"), 1}}),
+                      FakeOllama::chat({}, QStringLiteral("format_paragraphs"),
+                                       {{QStringLiteral("paragraphs"), QStringLiteral("1")}, {QStringLiteral("bold"), true}}),
+                      FakeOllama::chat({QStringLiteral("好的，不改了。")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        engine.documentText = QStringLiteral("标题\n正文。");
+        engine.outlineValue = {{QStringLiteral("tables"), 0}, {QStringLiteral("paragraphs"), 2}};
+        openoffice::MainWindow window(&engine);
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        const auto buttons = [panel](const QString& text) {
+            int count = 0;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                if (candidate->text() == text && candidate->isVisible()) ++count;
+            return count;
+        };
+        panel->expand();
+        panel->submitText(QStringLiteral("处理一下这个文档"));
+        // The bad command went back to the model; the person sees only the good one, described.
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("第 1 段：加粗")));
+        QCOMPARE(buttons(QStringLiteral("执行")), 1);
+        QVERIFY(QString::fromUtf8(QJsonDocument(fake.chatRequests().at(1)).toJson()).contains(QStringLiteral("没有说要设置哪种格式")));
+        QCOMPARE(engine.editorCommandCalls, 0);
+    }
+
+    void vagueStyleRequestsGetDefaultsWithoutAModel()
+    {
+        // No local AI at all (nothing listens): the program's own style still works.
+        ControlledEngine engine;
+        engine.answerReads = true;
+        const auto block = [](int number, const QString& text) {
+            return QJsonObject{{QStringLiteral("id"), QStringLiteral("P%1").arg(number)}, {QStringLiteral("text"), text}};
+        };
+        engine.outlineValue = {{QStringLiteral("tables"), 0}, {QStringLiteral("paragraphs"), 4},
+                               {QStringLiteral("blocks"), QJsonArray{block(1, QStringLiteral("周例会安排")), block(2, QStringLiteral("一、时间")),
+                                                                     block(3, QStringLiteral("每周一上午九点。")), block(4, QStringLiteral("行政部"))}}};
+        openoffice::MainWindow window(&engine);
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        openFixture(window, engine, "text-table.docx");
+        panel->expand();
+        panel->submitText(QStringLiteral("帮我优化一下样式"));
+        QTRY_COMPARE(panel->correctionCount(), 3); // title, subheading, closing line
+        QVERIFY(window.localAssistant()->state() != openoffice::LocalAiState::Thinking); // no model was asked
     }
 
     void unavailableEngineDisablesOfficeActions()
@@ -1237,8 +1393,9 @@ private slots:
                 && rows[0].contains(QStringLiteral("[删除]")));
         QVERIFY(rows[1].contains(QStringLiteral("[下载]")) && rows[2].contains(QStringLiteral("[下载]")));
         int marked = 0;
-        for (const QString& row : rows) marked += row.contains(QStringLiteral("适合这台电脑")) ? 1 : 0;
+        for (const QString& row : rows) marked += row.contains(QStringLiteral("推荐")) ? 1 : 0;
         QCOMPARE(marked, 1);
+        QVERIFY(rows[1].contains(QStringLiteral("Qwen3 4B")) && rows[1].contains(QStringLiteral("推荐"))); // 4B is the recommendation
         QVERIFY(dialog->engineText().contains(QStringLiteral("内置引擎")));
         QCOMPARE(window.openAiSettings(), dialog); // one settings window
         dialog->close();
@@ -1821,6 +1978,8 @@ private slots:
         QVERIFY(panel->lastMessageText().startsWith(QStringLiteral("没有开始")));
         QVERIFY(!panel->working());
 
+        // The document is read first (an editor answers reads), then the missing AI is explained.
+        engine.answerReads = true;
         const int before = panel->messageCount();
         panel->submitText(QStringLiteral("帮我写一段总结"));
         // No local AI here: the answer is a setup card, never a made-up reply.
@@ -1861,6 +2020,9 @@ private slots:
         QCOMPARE(engine.closeCalls, 0);
         QVERIFY(window.isVisible());
     }
+
+private:
+    QTemporaryDir m_settings; // its settings.ini: a file QSettings may replace (a QTemporaryFile may not be)
 };
 
 QTEST_MAIN(NativeUiTest)

@@ -1,0 +1,57 @@
+{
+  "name": "采购清单：没点进表格，说“帮我优化一下样式”（用户截图的情况）",
+  "document": "fixtures/assistant-samples/purchase-list.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "帮我优化一下样式"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R1C1-R1C5",
+      "bold": true,
+      "align": "center",
+      "filled": true
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C3-R6C5",
+      "align": "right"
+    },
+    {
+      "check": "format",
+      "table": 1,
+      "cells": "R2C2-R6C2",
+      "align": "left"
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 1,
+      "align": "center",
+      "bold": true
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [],
+      "someChanged": false
+    }
+  ]
+}

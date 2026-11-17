@@ -171,7 +171,13 @@ private:
     void planTableChanges(const QString& request, int table);
     void showTablePlan(const QList<PlannedEdit>& plan); // the checked plan, change by change
     // Any list of one-by-one changes (a table plan, a format plan): 改 each, or 全部改正.
-    void showPlan(const QString& title, const QString& nothingToDo, const QList<PlannedEdit>& plan);
+    void showPlan(const QString& title, const QString& nothingToDo, const QList<PlannedEdit>& plan, const QString& intro = QString());
+    // "帮我优化一下样式": the program's default style for one table, every table or the document.
+    void offerDefaultStyle(const QJsonObject& outline, int table, bool allTables);
+    // The model list: kept up to date; a pick switches (cloud services: asked once first).
+    void updateModelList();
+    void switchModel(const QString& key);
+    void applyModelSwitch(const QString& key);
     QList<PlannedEdit> m_pendingPlan; // the plan while the table's words are proofread
     void routeTypedRequest(const QString& text, const QString& documentText, const QString& selection);
     bool m_speedAdviceShown = false;  // the "slow model" card appears once per session

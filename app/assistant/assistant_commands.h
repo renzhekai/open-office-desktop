@@ -76,6 +76,11 @@ QString sourceName(CommandSource source);
 // ok=true when the command names a catalog entry and its arguments match the
 // schema exactly (no unknown, missing or mistyped arguments, length limits).
 CommandOutcome validateCommand(const AssistantCommand& command);
+// "加粗、居中、底色 #D9E2F3": the formats a format command sets, for people.
+QString formatWords(const QJsonObject& arguments);
+// What a command will change, for the person to confirm ("第 1 张表格第 1 行、所有列：加粗、居中");
+// empty for commands that have their own preview (insert, replace).
+QString describeCommand(const AssistantCommand& command);
 
 // The catalog as tool descriptions (name, title, description, inputSchema),
 // the shape an MCP tools/list response uses. Not an MCP server by itself.

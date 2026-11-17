@@ -336,9 +336,11 @@ ModelRecommendation recommendDownload(qint64 memoryBytes, qint64 videoBytes)
 {
     const double video = videoBytes / double(1LL << 30);
     const double memory = memoryBytes / double(1LL << 30);
-    if (video >= 7.5 && memory >= 12.0) return {QStringLiteral("qwen3:8b"), 5.2};
-    if (video >= 4.5 && memory >= 7.5) return {QStringLiteral("qwen3:4b"), 2.5};
-    // On the processor: the 4b model still answers at a usable pace with enough memory.
+    // 4B is the recommendation (user's decision, 2026-11-16): in this project's tests it
+    // got every table and paragraph job right where 1.7B missed some, and it fits a 4 GB
+    // card or answers at a usable pace on the processor with enough memory. 8B stays
+    // available in the settings for those who want it.
+    if (video >= 3.5 && memory >= 6.0) return {QStringLiteral("qwen3:4b"), 2.5};
     if (memory >= 7.5) return {QStringLiteral("qwen3:4b"), 2.5};
     return {QStringLiteral("qwen3:1.7b"), 1.4};
 }

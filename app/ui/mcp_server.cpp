@@ -327,6 +327,9 @@ QJsonArray McpServer::tools() const
                           {QStringLiteral("timeoutSeconds"), timeout}}, {QStringLiteral("id")}));
     list.append(testTool(QStringLiteral("test.wait"), QStringLiteral("测试用：等助手做完手上的事。"),
                          {{QStringLiteral("timeoutSeconds"), timeout}}));
+    list.append(testTool(QStringLiteral("test.model"), QStringLiteral("测试用：换成模型列表里的这个模型（不弹出云端确认），等它就绪。"),
+                         {{QStringLiteral("key"), stringProperty(QStringLiteral("builtin:<id>、ollama:<名称> 或 cloud:<服务>/<模型>。"))}},
+                         {QStringLiteral("key")}));
     return list;
 }
 
@@ -390,6 +393,13 @@ void McpServer::callTestTool(const QString& name, const QJsonObject& arguments, 
             done(toolResult(report, !ready));
         });
         timer->start(250);
+        return;
+    }
+    if (name == QStringLiteral("test.model")) {
+        LocalAssistant* ai = m_window->localAssistant();
+        if (!ai || !ai->chooseModel(arguments.value(QStringLiteral("key")).toString()))
+            return fail(QStringLiteral("cannot_switch"), QStringLiteral("现在不能换这个模型。"));
+        waitForAssistant(m_said.size(), timeoutMs, done);
         return;
     }
     if (name == QStringLiteral("test.wait")) {
@@ -528,6 +538,10 @@ QJsonObject McpServer::stateReport() const
         state.insert(QStringLiteral("ai"), QJsonObject{{QStringLiteral("state"), aiStateName(ai->state())},
                                                        {QStringLiteral("model"), ai->model()},
                                                        {QStringLiteral("builtin"), ai->builtin()},
+                                                       {QStringLiteral("modelKey"), ai->currentModelKey()},
+                                                       {QStringLiteral("backend"), ai->cloud() ? QStringLiteral("cloud")
+                                                                                    : ai->builtin() ? QStringLiteral("builtin")
+                                                                                                    : QStringLiteral("ollama")},
                                                        {QStringLiteral("tokensPerSecond"), ai->lastSpeed()}});
     if (AssistantBall* ball = m_window->assistantBall()) {
         state.insert(QStringLiteral("working"), ball->working() || m_window->assistantBusy());

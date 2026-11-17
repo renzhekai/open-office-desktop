@@ -1,0 +1,60 @@
+{
+  "name": "通知：说“帮我优化一下排版”",
+  "document": "fixtures/assistant-samples/documents/notice.docx",
+  "steps": [
+    {
+      "check": "textSnapshot"
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "帮我优化一下排版"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "全部改正"
+        ]
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 1,
+      "align": "center",
+      "bold": true,
+      "size": 18
+    },
+    {
+      "check": "paragraph",
+      "startsWith": "一、",
+      "bold": true
+    },
+    {
+      "check": "paragraph",
+      "startsWith": "三、",
+      "bold": true
+    },
+    {
+      "check": "paragraph",
+      "paragraph": -1,
+      "align": "right"
+    },
+    {
+      "check": "paragraph",
+      "paragraph": -2,
+      "align": "right"
+    },
+    {
+      "check": "paragraph",
+      "paragraph": 3,
+      "bold": false,
+      "align": "left"
+    },
+    {
+      "check": "textUnchanged"
+    }
+  ]
+}

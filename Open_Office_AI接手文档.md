@@ -1,6 +1,6 @@
 # Open Office AI 接手文档（持续维护）
 
-最后更新：2026-11-16（本机时间），更新者：Claude Code（Opus 5.5），第 55 条  
+最后更新：2026-11-17（本机时间），更新者：Claude Code（Opus 5.5），第 57 条  
 项目根目录：`D:\open office`  
 初版：2026-11-03T04:53:07Z 由 Codex 生成，依据当时读取的项目文件和用户指令。此后由接手智能体持续维护，初版校验记录的适用范围见第 11 节。
 
@@ -19,11 +19,11 @@
 
 **最终目标：** 用户自己的 Windows 开源办公软件。第一版不含 AI，功能接近 Microsoft Office，所有功能免费，文件兼容性高；第二阶段再加本地部署的 AI 助手和专用 MCP。底座已定为 ONLYOFFICE v10.0.0，保留其署名和标识。详见第 2 节和附录 A。
 
-**默认入口（2026-11-16 起）：** `build/full-source-run-builtin-ai-r11`（按用户规则“每次装最新版”，与安装包一致；第 55 条）。以后每次修改后都换成新的最新版本。之前是 r10（同日，第 53 条）、r9（2026-11-09，第 51 条）。
+**默认入口（2026-11-17 起）：** `build/full-source-run-builtin-ai-r12`（按用户规则“每次装最新版”，与安装包一致；第 57 条）。以后每次修改后都换成新的最新版本。之前是 r11、r10（2026-11-16，第 55、53 条）、r9（2026-11-09，第 51 条）。
 
 **已经达到：** 上一个默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
 
-**安装包（2026-11-16 第二版，发布在 GitHub Releases）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
+**安装包（2026-11-17，发布在 GitHub Releases）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
 - 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载；卸载会删除配置和模型，迁移过的安装也能删干净（第 47 条）。
 - 本机静默安装、逐文件比对（21,091 个文件）、启动、卸载测试通过（r10 第 53 条，r9 第 51 条）。
 - 以前的安装包（11-06 带便携包、11-07、11-07-2）已补传到 Releases，每个版本一个发布；本机 `dist/` 只留最新的。
@@ -53,7 +53,8 @@
 - **对话（2026-11-09 用户要求，第 48 条）：** 每次启动软件、每打开或新建另一份文档，都自动开一个新对话；`/新对话` 或悬浮球里的“新对话”手动开；`/历史` 或“历史”列出以前的对话（标题、工作文件、时间、条数），可以打开（AI 接着记得）、重命名、删除（点两次）、删除其他所有。对话存在程序配置文件夹的 `conversations`，只在本机。输入 `/` 时在输入框上方弹出指令列表，可筛选、↑↓ 选、回车或 Tab 确认。
 - **打字提要求（2026-11-09 用户反馈，第 49 条）：** 选中文字后打“详细点”“改正式一些”“翻译成英文”这类修改要求，由程序判定为“按要求改写”，先给结果再选“替换原文/插到后面/复制/重写”；“写一篇…”“帮我起草…”按“按要求起草”先给全文再“插入文档”；提问和其他话照旧对话。模型插入没标格式的 Markdown 时自动按格式插入；插入后的回答不再重复整篇。
 - **改写没改动（2026-11-09 用户反馈，第 50 条）：** “详细一点”这类说法会换成对应快捷操作的明确指令（含具体字数），短要求不再把原话塞进提示；结果和原文一样时自动再改一次，两次都一样就如实说明并给“重试”。
-- 最新版本：`build/full-source-run-builtin-ai-r11`（构建 `live-14`，CTest 113 项全过；2026-11-16 装配，第 55 条），在 r10 基础上加了下面“AI 助手改段落和文字格式”，并修了字号只有一半的问题。
+- 最新版本：`build/full-source-run-builtin-ai-r12`（构建 `live-16`，CTest 122 项全过；2026-11-17 装配，第 57 条），在 r11 基础上：推荐 4B、云端模型（API Key＋Base URL）、助手里的模型列表、“优化样式”给默认计划、模型提出的坏命令先拦下、确认卡片写清改什么。
+- 上一个：`build/full-source-run-builtin-ai-r11`（构建 `live-14`，CTest 113 项全过；2026-11-16 装配，第 55 条），在 r10 基础上加了下面“AI 助手改段落和文字格式”，并修了字号只有一半的问题。
 - 上一个：`build/full-source-run-builtin-ai-r10`（构建 `live-13`，CTest 112 项全过；2026-11-16 装配，第 53 条），在 r9 基础上加了下面“AI 助手改表格”。
 - 上一个：`build/full-source-run-builtin-ai-r9`（构建 `rework-7`，CTest 103 项全过；2026-11-09 装配，第 50 条），在 r8 基础上加了上面的修正。
 - 上一个候选：`build/full-source-run-builtin-ai-r8`（构建 `route-4`，CTest 101 项全过；2026-11-09 装配，第 49 条），在 r7 基础上加了打字要求分流。
@@ -76,6 +77,14 @@
 - 选中文字后说“加粗”“改成红色”就是给选中的文字设格式（以前会被当成“按要求改写”）。
 - 程序读不懂的格式要求才交给模型对话（旧方式，1.7B 在 7 个段落场景里只对 1 个）。
 - 实测（1.7B）：调试 7/7、留出 7/7；表格两组复查 10/11、7/8（还是那两处错别字）。
+
+**模型：本机、云端、Ollama 随时切换（2026-11-16～17，用户要求，第 57 条）：** r12。
+- 推荐模型改为 4B（显卡 ≥3.5 GB 且内存 ≥6 GB，或内存 ≥7.5 GB；更小的电脑仍推荐 1.7B）。设置页标“推荐”。用户自己机器上的选择（1.7B）没有替他改。
+- 助手输入框上方“新对话”左边是模型按钮（显示当前模型名），点开是分组列表：本机模型（已下载的）、云端模型（每个服务商的模型）、打开 Ollama 选项时还有 Ollama 模型；最后是“管理模型…”。
+- 云端模型：设置页“云端模型（API Key）”里添加：名称、接口地址（Base URL，要 https；本机服务可用 http://127.0.0.1）、API Key、模型名称（可点“获取模型列表”）。任何兼容 OpenAI `/chat/completions` 的服务都行（DeepSeek、通义千问、Kimi、OpenAI…）。API Key 用 Windows 数据保护（DPAPI）加密保存，设置里看不到明文。第一次切到某个服务商时，助手先说明“提问、选中的文字和相关文档内容会发给它”，点“切换”才换。
+- Ollama 选项的意思变了：从“改用 Ollama”变成“在模型列表里显示 Ollama 的模型”。
+- 用户截图的问题（“优化样式”→ 设置单元格格式 → 命令参数无效）：模型提出的命令先检查参数，坏的直接退回给模型改，不再让人点“执行”；确认卡片写清楚改哪里、改成什么；“优化样式/美化/排版好看点”这类笼统要求由程序给一套默认样式（表头加粗居中加浅色底、数字列右对齐、序号居中；标题居中加粗加大、编号小标题加粗、落款右对齐），一条条列出，不用模型。
+- 改格式、默认样式这些程序自己能做的，现在不下载模型也能用（先读文档，需要模型时才等模型）。
 
 **找版本（2026-11-08，用户说 build 里版本太多、找不到最新版）：** 项目根目录的 `打开最新版.cmd`（最近构建的版本，可能是还没验证完的候选）、`打开稳定版.cmd`（默认入口，即 `scripts/build_installer.py` 里 `SOURCE` 指的目录）、`版本一览.cmd`（列出全部可运行版本，新的在上，标出“最新”和“稳定版·默认入口”）。见第 40 条。
 
@@ -201,6 +210,8 @@
 | 2026-11-14 | 查看最新 | 只读核对：上一个智能体 11-09 停在 MCP 实测超时，改动没提交 |
 | 2026-11-14～16 | 接着做；请再试一次（几次） | 第 53 条：修好实测超时，表格“先规划再逐格改”在真实编辑器里调到 4B 全过；用户中途叫停“程序自己做 N 位数字和空格填写”，没做 |
 | 2026-11-16 | 继续（没回答“要不要把 4B 设为推荐”，保持 1.7B） | 第 55 条：段落和文字格式由程序读懂直接列出，选中文字可设格式，修字号一半的问题；装配 r11 |
+| 2026-11-16 | 改为推荐4b，然后可以加入apikey，可以通过接入模型供应商的api和baseurl来增加云端模型，增加快速切换模型的模型列表，分为本机模型和云端模型，如果打开了本机ollama选项则有ollama模型 | 第 57 条：r12 |
+| 2026-11-17 | （截图）“帮我优化一下样式”→“助手想要设置单元格格式”→ 执行 →“命令参数无效” | 第 57 条：坏命令先拦下、卡片写清、笼统样式要求给默认计划 |
 
 ## 3. 目录、代码与运行入口
 
@@ -1148,6 +1159,21 @@ python -B scripts/verify_full_source_docx_sample.py
     - **用户新要求（原话）：** “改为推荐4b，然后可以加入apikey，可以通过接入模型供应商的api和baseurl来增加云端模型，增加快速切换模型的模型列表，分为本机模型和云端模型，如果打开了本机ollama选项则有ollama模型”。这是用户自己改了“AI 只在本机运行”的边界：云端模型会把提问和相关文档内容发给服务商，界面要讲清楚，切换前问一次；API Key 用 Windows 数据保护加密保存。
     - **用户反馈（截图）：** 在 r11 里说“帮我优化一下样式”，走了旧的对话方式，模型提出“设置单元格格式”，卡片只显示命令的通用说明，点“执行”后“命令参数无效”。要改：模型提出的命令先检查参数，不对就让模型改、不让用户确认坏命令；确认卡片写清楚要改什么；“优化样式/美化/好看一点”这类笼统要求由程序给一套默认的格式计划。
     - 这些在做，见第 57 条。
+
+57. **推荐 4B、云端模型、模型列表；修“优化样式”失败；装配 r12（2026-11-16～17，Claude Code）：**
+    - **用户要求（原话见第 2 节表格）：** 推荐 4B；能加 API Key、通过服务商的 API 和 Base URL 增加云端模型；助手里能快速切换模型，分本机模型和云端模型，打开 Ollama 选项时还有 Ollama 模型。另外截图反馈“帮我优化一下样式”失败（第 56 条）。
+    - **当前模型（`model_catalog`）：** 一个设置 `ai/activeModel`：`builtin:<id>`、`ollama:<名称>`、`cloud:<服务商 id>/<模型>`。没设过时按旧设置推出来（以前开了“用 Ollama”就是 Ollama）。测试可用 `OPEN_OFFICE_AI_ACTIVE`；旧的 `OPEN_OFFICE_AI_BACKEND=builtin|ollama` 仍有效。`aiSettings()` 统一取设置；`OPEN_OFFICE_SETTINGS_FILE` 让测试把设置写进自己的 INI 文件——两组测试的 `initTestCase` 现在都这样做，不再碰用户的注册表（以前下载、选模型的测试会写用户的设置）。
+    - **云端服务（新文件 `app/assistant/cloud_models.*`）：** `ai/cloudProviders`（JSON：id、名称、Base URL、模型名）；Key 存 `ai/cloudKey/<id>`，值是 `dpapi:` 开头的 CryptProtectData 密文（带本程序的附加熵，`crypt32` 链接）；`ai/cloudConfirmed/<id>` 记“已同意发给它”。Base URL 必须 https，只有 127.0.0.1/localhost 可以 http。删除服务商同时删 Key 和同意记录。
+    - **请求（`EngineClient::setCloud`）：** 同一个兼容 OpenAI 的客户端，云端模式下：地址是 `<Base URL>/chat/completions`；请求带 `model`；不发引擎专用的 `chat_template_kwargs`、`reasoning_effort`、`response_format`（各家支持不一，程序本来就会从回答里取 JSON）；走系统代理（内置引擎仍然不走代理）。错误按状态码说人话（401/403 Key 不对或没权限、404 地址或模型名不对、402/429 额度或太频繁、5xx 服务问题、连不上、超时、安全连接失败），后面附服务商原话。`fetchModels()` 读 `<Base URL>/models` 给“获取模型列表”。
+    - **助手（`LocalAssistant`）：** `AiBackend { Builtin, Ollama, Cloud }` 取代原来的“是否内置”；`modelChoices()` 给分组列表；`chooseModel(key)` 切换并记住（回答中不能切）；`setOllamaEnabled()` 取代 `setBackend()`：只是让 Ollama 的模型出现在列表里，关掉时如果正用 Ollama 就回到内置模型。云端时系统提示改成“你通过云端服务运行，用户已同意…”，不调整推理设置，不预热。换了模型来源（本机↔云端↔Ollama）对话上下文从头开始（各家的消息格式不同），界面会说。
+    - **界面：** 悬浮球“新对话”左边的模型按钮和分组菜单（`showModelMenu`、`chooseModel`、`modelChoices` 是测试接口）；切到云端前问一次；设置页改名“AI 模型设置”，加“云端模型（API Key）”一节（列表、修改、删除、添加）和 `CloudProviderDialog`（名称、接口地址、API Key 密码框、模型名、获取模型列表、说明发送范围；修改时 Key 留空就不改）。本机模型的“使用”按钮在用云端或 Ollama 时也能直接换回本机。MCP 的 `test.state` 多了 `modelKey`、`backend`，测试工具多了 `test.model`（不弹确认）。
+    - **截图问题：** `validateCommand` 现在还查：格式命令至少给一种格式；`selection.select` 只能给一种位置；`rows/columns/paragraphs` 要写成 1、2-4、1,3 或 all。`handleProposedCommand` 先查，不合格的悄悄退回模型（模型能看到原因），不出“执行”卡片；合格的卡片用 `describeCommand()` 写清（例如“第 1 张表格第 1 行、第 1–4 列：加粗、底色 #D9E2F3、居中”）。“优化/美化/调整…样式/格式/排版”“好看点”等不点名格式的要求（`vagueStyleRequest` 且没有 `namesAFormat`）由 `offerDefaultStyle` 给默认计划：光标所在或点名的表格；说到“表格”就每张表；否则整篇文档加每张表。
+    - **顺序调整：** 打开了文档时，先读文档（全文、选区、结构），程序能做的（默认样式、段落和文字格式）直接做；要模型的（表格计划、改写、起草、对话）才等模型就绪。所以没下载模型也能用改格式。
+    - **测试：** 构建 `live-15`、`live-16`，CTest 3 组共 122 项全过（契约 21、界面 49、助手 52）。新增：`cloudProvidersKeepTheirKeysSealed`（地址规则、模型名拆分、id、DPAPI 往返且设置文件里没有明文、篡改后取不出、改时不丢 Key、删除连带 Key 和同意记录）、`cloudRequestsAreOpenAiShaped`、`aCloudModelAnswersThroughItsService`（假服务：路径、Bearer Key、模型名、系统提示、401 的说法、切回本机、Ollama 分组）、`badCommandsAreCaughtAndChangesDescribed`、`vagueStyleRequestsGetTheProgramsDefaults`；界面 `theModelListSwitchesAndAsksOnceBeforeCloud`、`cloudServicesAreAddedInTheSettings`、`badCommandsNeverReachThePersonAndChangesAreDescribed`（截图的情形）、`vagueStyleRequestsGetDefaultsWithoutAModel`。旧测试按新行为改了两处（设置页标“推荐”且是 4B；宿主命令测试的假编辑器要回答读取）。
+    - **真实编辑器实测：** 默认样式两个场景（`style-1`：采购清单“帮我优化一下样式”列出 5 处并全部生效；通知“帮我优化一下排版”3 处）全过。云端路径：在本机用 llama.cpp 起一个兼容 OpenAI 的服务（4B，只听 127.0.0.1，测试完已关），设成云端服务商，跑 4 个表格场景（`cloud-1`）全过，最终状态 `cloud:local/qwen3-4b`。全部回归（1.7B，`final-*`）：调试表格 `final-tables` 10/11（没过的那项：只要求“已完成的行标浅绿底色”，1.7B 又顺手把“完成/done”改成“已完成”），留出表格 8/8，段落调试 7/7，段落留出 7/7，默认样式 2/2。加上“只要求格式时丢掉模型的文字改动”（`asksForTextChanges`）后重编 `live-16`，两组表格复跑 `final2-tables` 11/11、`final2-holdout` 8/8。
+    - **装配 r12：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r12 --build-label live-16 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致（另一个是换上的新宿主），宿主 `2404848b3e10fc43c372214c61f2a438ad92270c2b8111241c3918074c92bb90`（和实测用的一模一样）；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r12.json`。在 r12 上复跑命令探测、默认样式（采购清单）、成绩表三个场景（`evidence/assistant-live/r12-check.json`）全过，r12 里没有留下配置或模型文件。
+    - **安装包和发布：** `SOURCE` 改为 r12；`OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`，627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`；编译 73 秒；静默安装 46 秒，21,091 个文件无一不符，多出的正好是卸载程序两件和许可证；启动退出码 0、引擎连上；卸载后一个文件也不剩；记录 `evidence/installer/OpenOffice-Setup-0.1.0-dev-20261117-win64.json`。代码推送后发布为 `v0.1.0-dev-20261117`，见第 58 条。
+    - **没做/要注意：** 没有接真正的外网服务商测试（不替用户填 Key）；设置页和模型菜单的样子没有在屏幕上看过（测试接口都验证了）；云端模型不支持 JSON schema 约束，表格计划靠从回答里取 JSON；用户机器上的模型选择仍是 1.7B，要用 4B 在模型列表里点一下（安装版要先在设置里下载 4B）。
 
 ## 附录 A：requirements.md 完整原文
 

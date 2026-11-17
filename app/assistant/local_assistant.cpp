@@ -27,20 +27,19 @@ QString gigabytes(qint64 bytes)
 // The Ollama model the person chose; it lives with the person's account.
 QString savedModel()
 {
-    return QSettings(QSettings::UserScope, QStringLiteral("Open Office Project"), QStringLiteral("Open Office"))
-        .value(QStringLiteral("ai/model")).toString();
+    return aiSettings().value(QStringLiteral("ai/model")).toString();
 }
 
 void saveModel(const QString& name)
 {
-    QSettings(QSettings::UserScope, QStringLiteral("Open Office Project"), QStringLiteral("Open Office"))
-        .setValue(QStringLiteral("ai/model"), name);
+    aiSettings().setValue(QStringLiteral("ai/model"), name);
 }
 
-QString systemPrompt(const QString& context)
+QString systemPrompt(const QString& context, bool cloud)
 {
-    QString prompt = QStringLiteral(
-        "你是 Open Office 文字处理软件里的办公助手，运行在用户自己的电脑上，不联网。"
+    QString prompt = QStringLiteral("你是 Open Office 文字处理软件里的办公助手。") + (cloud
+        ? QStringLiteral("你通过云端服务运行，用户已同意把提问和文档内容发给这个服务。")
+        : QStringLiteral("你运行在用户自己的电脑上，不联网。")) + QStringLiteral(
         "用简体中文回答，简洁、友好，面向不熟悉电脑的人；可以用 Markdown 列表和表格。\n"
         "下面附有当前文档的内容和用户选中的文字。回答关于文档的问题时以它为准，不要编造文档里没有的内容。\n"
         "只是回答问题时直接回答，不要调用工具。用户要你修改文档时才调用工具，不要假装已经改了：\n"
@@ -64,21 +63,28 @@ LocalAssistant::LocalAssistant(QObject* parent)
 {
     m_client = new OllamaClient(this);
     m_engineClient = new EngineClient(this);
+    m_cloudClient = new EngineClient(this);
     m_engine = new LocalEngine(this);
     m_downloader = new ModelDownloader(this);
-    m_builtin = !useOllama();
 
-    // Ollama (optional): detection and its own model downloads.
+    // Ollama (optional): detection, its models for the list, and its own downloads.
     connect(m_client, &OllamaClient::probed, this, [this](bool running, const QString&) {
-        if (m_builtin) return;
-        if (!running) {
-            setState(ollamaAppPath().isEmpty() ? LocalAiState::NotInstalled : LocalAiState::NotRunning);
+        m_ollamaRunning = running;
+        if (running) {
+            m_client->listModels();
             return;
         }
-        m_client->listModels();
+        m_ollamaModels.clear();
+        emit modelsChanged();
+        if (m_backend != AiBackend::Ollama) return;
+        setState(ollamaAppPath().isEmpty() ? LocalAiState::NotInstalled : LocalAiState::NotRunning);
     });
     connect(m_client, &OllamaClient::modelsListed, this, [this](const QList<LocalModel>& models, const QString& error) {
-        if (m_builtin) return;
+        m_ollamaModels = error.isEmpty() ? models : QList<LocalModel>();
+        if (m_backend != AiBackend::Ollama) {
+            emit modelsChanged();
+            return;
+        }
         if (!error.isEmpty()) {
             setState(LocalAiState::NotRunning);
             return;
@@ -117,6 +123,13 @@ LocalAssistant::LocalAssistant(QObject* parent)
     });
     connect(m_engineClient, &ChatClient::chatDelta, this, [this](quint64 id, const QString& text) {
         if (activeClient() == m_engineClient) handleDelta(id, text);
+    });
+    connect(m_cloudClient, &ChatClient::chatDelta, this, [this](quint64 id, const QString& text) {
+        if (activeClient() == m_cloudClient) handleDelta(id, text);
+    });
+    connect(m_cloudClient, &ChatClient::chatFinished, this,
+            [this](quint64 id, bool ok, const QString& content, const QJsonArray& toolCalls, const QString& error) {
+        if (activeClient() == m_cloudClient) handleFinished(id, ok, content, toolCalls, error);
     });
     connect(m_client, &ChatClient::chatFinished, this,
             [this](quint64 id, bool ok, const QString& content, const QJsonArray& toolCalls, const QString& error) {
@@ -160,12 +173,26 @@ LocalAssistant::LocalAssistant(QObject* parent)
 
 ChatClient* LocalAssistant::activeClient() const
 {
-    return m_builtin ? static_cast<ChatClient*>(m_engineClient) : static_cast<ChatClient*>(m_client);
+    switch (m_backend) {
+    case AiBackend::Builtin: return m_engineClient;
+    case AiBackend::Cloud: return m_cloudClient;
+    case AiBackend::Ollama: break;
+    }
+    return m_client;
 }
 
 QString LocalAssistant::statusText() const
 {
-    if (m_builtin) {
+    if (m_backend == AiBackend::Cloud) {
+        switch (m_state) {
+        case LocalAiState::NoModel: return QStringLiteral("云端模型的设置不完整（接口地址或模型名称）");
+        case LocalAiState::Ready:
+            return QStringLiteral("云端模型 %1 · %2 · 提问和文档内容会发给它").arg(m_model, m_cloudName);
+        case LocalAiState::Thinking: return QStringLiteral("%1 正在思考…").arg(m_model);
+        default: return QStringLiteral("云端模型 %1").arg(m_model);
+        }
+    }
+    if (builtin()) {
         switch (m_state) {
         case LocalAiState::Checking: return QStringLiteral("正在检查本地 AI…");
         case LocalAiState::NotInstalled: return QStringLiteral("这个版本没有带内置 AI 引擎");
@@ -201,18 +228,133 @@ void LocalAssistant::setState(LocalAiState state)
 void LocalAssistant::refresh()
 {
     if (m_state == LocalAiState::Thinking || m_client->pulling()) return;
-    const bool builtin = !useOllama();
-    if (builtin != m_builtin) {
-        m_builtin = builtin;
-        m_history = {}; // a new engine starts a new conversation
-        m_engine->stop();
+    const QString key = activeModelKey();
+    AiBackend backend = AiBackend::Builtin;
+    if (key.startsWith(QStringLiteral("cloud:"))) backend = AiBackend::Cloud;
+    else if (key.startsWith(QStringLiteral("ollama:")) && useOllama()) backend = AiBackend::Ollama;
+    if (backend != m_backend) {
+        m_backend = backend;
+        m_history = {}; // another engine starts a new conversation (their message shapes differ)
+        m_engine->stop(); // frees the memory the built-in model took
     }
-    if (m_builtin) {
+    switch (m_backend) {
+    case AiBackend::Builtin:
         refreshBuiltin();
+        if (useOllama()) m_client->probe(); // Ollama's models, for the list
+        return;
+    case AiBackend::Cloud:
+        refreshCloud(key.mid(6));
+        if (useOllama()) m_client->probe();
+        return;
+    case AiBackend::Ollama:
+        setState(LocalAiState::Checking);
+        m_client->probe();
         return;
     }
-    setState(LocalAiState::Checking);
-    m_client->probe();
+}
+
+void LocalAssistant::refreshCloud(const QString& providerAndModel)
+{
+    const int slash = providerAndModel.indexOf(QLatin1Char('/'));
+    const QString id = providerAndModel.left(slash);
+    const QString model = slash < 0 ? QString() : providerAndModel.mid(slash + 1);
+    const std::optional<CloudProvider> provider = findCloudProvider(id);
+    m_models.clear();
+    if (!provider || model.isEmpty()) {
+        m_model.clear();
+        m_cloudId.clear();
+        m_cloudName.clear();
+        setState(LocalAiState::NoModel);
+        emit modelsChanged();
+        return;
+    }
+    QStringList names = provider->models;
+    if (!names.contains(model)) names.append(model);
+    for (const QString& name : names) {
+        LocalModel entry;
+        entry.name = name;
+        entry.family = QStringLiteral("cloud");
+        entry.tools = true;
+        m_models.append(entry);
+    }
+    m_model = model;
+    m_cloudId = provider->id;
+    m_cloudName = provider->name;
+    m_cloudClient->setEndpoint(QUrl(provider->baseUrl), cloudApiKey(provider->id));
+    m_cloudClient->setCloud(provider->name);
+    setState(LocalAiState::Ready);
+    emit modelsChanged();
+}
+
+QString LocalAssistant::currentModelKey() const
+{
+    switch (m_backend) {
+    case AiBackend::Builtin: return QStringLiteral("builtin:") + m_model;
+    case AiBackend::Ollama: return QStringLiteral("ollama:") + m_model;
+    case AiBackend::Cloud: return QStringLiteral("cloud:") + m_cloudId + QLatin1Char('/') + m_model;
+    }
+    return {};
+}
+
+QList<ModelChoice> LocalAssistant::modelChoices() const
+{
+    QList<ModelChoice> choices;
+    const QString active = currentModelKey();
+    const QString recommended = recommendedCatalogModel(m_memory, m_video).id;
+    const QString builtinGroup = QStringLiteral("本机模型");
+    if (!m_engine->available()) {
+        choices.append({QString(), builtinGroup, QStringLiteral("这个版本没有带内置引擎"), QString(), false, false});
+    } else {
+        const QList<CatalogModel> installed = installedModels();
+        for (const CatalogModel& model : installed) {
+            const QString key = QStringLiteral("builtin:") + model.id;
+            QString note = QString::number(model.gigabytes, 'f', 1) + QStringLiteral(" GB");
+            if (model.id == recommended) note += QStringLiteral(" · 推荐");
+            choices.append({key, builtinGroup, model.title, note, key == active, true});
+        }
+        if (installed.isEmpty())
+            choices.append({QStringLiteral("setup"), builtinGroup, QStringLiteral("下载本机模型…"),
+                            QStringLiteral("推荐 ") + recommendedCatalogModel(m_memory, m_video).title, false, true});
+    }
+    for (const CloudProvider& provider : cloudProviders())
+        for (const QString& name : provider.models) {
+            const QString key = QStringLiteral("cloud:") + provider.id + QLatin1Char('/') + name;
+            choices.append({key, QStringLiteral("云端模型"), name, provider.name, key == active, true});
+        }
+    if (useOllama()) {
+        const QString group = QStringLiteral("Ollama 模型");
+        if (!m_ollamaRunning)
+            choices.append({QString(), group, QStringLiteral("Ollama 没有运行"), QString(), false, false});
+        for (const LocalModel& model : m_ollamaModels) {
+            const QString key = QStringLiteral("ollama:") + model.name;
+            choices.append({key, group, model.name, model.parameterSize, key == active, true});
+        }
+    }
+    return choices;
+}
+
+bool LocalAssistant::chooseModel(const QString& key)
+{
+    if (m_state == LocalAiState::Thinking || m_waitingForEngine) return false;
+    if (key.startsWith(QStringLiteral("builtin:"))) setChosenBuiltinModel(key.mid(8));
+    else if (key.startsWith(QStringLiteral("ollama:"))) saveModel(key.mid(7));
+    else if (!key.startsWith(QStringLiteral("cloud:"))) return false;
+    setActiveModelKey(key);
+    m_warmed.invalidate();
+    refresh();
+    return true;
+}
+
+void LocalAssistant::setOllamaEnabled(bool enabled)
+{
+    setUseOllama(enabled);
+    if (!enabled) {
+        m_ollamaModels.clear();
+        m_ollamaRunning = false;
+        if (activeModelKey().startsWith(QStringLiteral("ollama:")))
+            setActiveModelKey(QStringLiteral("builtin:") + chosenBuiltinModel());
+    }
+    refresh();
 }
 
 void LocalAssistant::refreshBuiltin()
@@ -246,11 +388,15 @@ void LocalAssistant::setModel(const QString& name)
 {
     if (!std::any_of(m_models.begin(), m_models.end(), [&name](const LocalModel& model) { return model.name == name; }))
         return;
-    if (m_builtin) {
+    if (builtin()) {
         setChosenBuiltinModel(name);
+        setActiveModelKey(QStringLiteral("builtin:") + name);
         if (name != m_model) m_engine->stop(); // frees the memory; the next request loads the new one
-    } else {
+    } else if (m_backend == AiBackend::Ollama) {
         saveModel(name);
+        setActiveModelKey(QStringLiteral("ollama:") + name);
+    } else {
+        return; // a cloud model is chosen from the list
     }
     m_model = name;
     m_warmed.invalidate();
@@ -288,7 +434,7 @@ void LocalAssistant::send()
             m_history.removeFirst();
     }
     QJsonArray messages{QJsonObject{{QStringLiteral("role"), QStringLiteral("system")},
-                                    {QStringLiteral("content"), systemPrompt(m_context)}}};
+                                    {QStringLiteral("content"), systemPrompt(m_context, cloud())}}};
     for (const QJsonValue& message : m_history) messages.append(message);
     const LocalModel model = currentModel();
     ChatOptions options;
@@ -301,8 +447,12 @@ void LocalAssistant::send()
 void LocalAssistant::dispatch(const QJsonArray& messages, const ChatOptions& options)
 {
     setState(LocalAiState::Thinking);
-    if (!m_builtin) {
+    if (m_backend == AiBackend::Ollama) {
         m_chatId = m_client->chat(m_model, messages, options);
+        return;
+    }
+    if (m_backend == AiBackend::Cloud) {
+        m_chatId = m_cloudClient->chat(m_model, messages, options);
         return;
     }
     const CatalogModel* model = findCatalogModel(m_model);
@@ -345,7 +495,7 @@ void LocalAssistant::handleFinished(quint64 id, bool ok, const QString& content,
     const bool stopped = m_cancelled;
     m_cancelled = false;
     const QString failure = stopped ? QStringLiteral("已停止。")
-        : error.isEmpty() ? QStringLiteral("本地模型没有完成。") : error;
+        : error.isEmpty() ? (cloud() ? QStringLiteral("云端模型没有完成。") : QStringLiteral("本地模型没有完成。")) : error;
     const bool lostEngine = error.startsWith(QStringLiteral("连接不到")) || error.contains(QStringLiteral("没有在运行"));
     if (!m_task.isEmpty()) {
         const QString task = m_task;
@@ -389,7 +539,8 @@ QString LocalAssistant::thinkSetting() const
     // misses typos; with a short reasoning phase it does both well. So small models
     // reason where the engine is fast (a graphics card, or 40+ tokens/s measured);
     // on a slow processor, and for the larger model, answers come directly.
-    if (m_builtin) {
+    if (cloud()) return {}; // the service decides; the request does not name reasoning
+    if (builtin()) {
         const LocalModel model = currentModel();
         const bool small = model.bytes > 0 && model.bytes < static_cast<qint64>(3.5 * (1LL << 30));
         const double speed = lastSpeed();
@@ -422,8 +573,8 @@ bool LocalAssistant::runTask(const TaskSpec& spec, const TaskInput& input)
 
 void LocalAssistant::warmUp()
 {
-    if (m_state != LocalAiState::Ready || m_model.isEmpty()) return;
-    if (m_builtin) {
+    if (m_state != LocalAiState::Ready || m_model.isEmpty() || cloud()) return;
+    if (builtin()) {
         const CatalogModel* model = findCatalogModel(m_model);
         if (model && !m_engine->isReady() && !m_engine->isStarting()) m_engine->start(modelFilePath(*model));
         return;
@@ -455,24 +606,28 @@ void LocalAssistant::commandDeclined(const AssistantCommand& command)
 
 QString LocalAssistant::recommendedName() const
 {
-    return m_builtin ? recommendedCatalogModel(m_memory, m_video).id : recommendation().name;
+    return m_backend != AiBackend::Ollama ? recommendedCatalogModel(m_memory, m_video).id : recommendation().name;
 }
 
 double LocalAssistant::recommendedGigabytes() const
 {
-    return m_builtin ? recommendedCatalogModel(m_memory, m_video).gigabytes : recommendation().approximateGigabytes;
+    return m_backend != AiBackend::Ollama ? recommendedCatalogModel(m_memory, m_video).gigabytes : recommendation().approximateGigabytes;
 }
 
 bool LocalAssistant::recommendationInstalled() const
 {
     const QString name = recommendedName();
+    if (m_backend != AiBackend::Ollama) {
+        const CatalogModel* model = findCatalogModel(name);
+        return model && modelInstalled(*model);
+    }
     return std::any_of(m_models.begin(), m_models.end(), [&name](const LocalModel& model) { return model.name == name; });
 }
 
 void LocalAssistant::downloadRecommended()
 {
     if (m_state != LocalAiState::NoModel && m_state != LocalAiState::Ready) return;
-    if (m_builtin) {
+    if (m_backend != AiBackend::Ollama) {
         downloadModel(recommendedName());
         return;
     }
@@ -518,12 +673,6 @@ bool LocalAssistant::deleteModel(const QString& id, QString* error)
     return true;
 }
 
-void LocalAssistant::setBackend(bool ollama)
-{
-    setUseOllama(ollama);
-    refresh();
-}
-
 void LocalAssistant::setConversation(const QJsonArray& history)
 {
     m_history = history; // the window switches only while no answer is running
@@ -550,7 +699,8 @@ double LocalAssistant::lastSpeed() const
 
 QString LocalAssistant::engineText() const
 {
-    if (!m_builtin) return QStringLiteral("Ollama");
+    if (cloud()) return QStringLiteral("云端：") + m_cloudName;
+    if (m_backend == AiBackend::Ollama) return QStringLiteral("Ollama");
     if (!m_engine->deviceText().isEmpty()) return m_engine->deviceText();
     const GpuInfo card = largestGpu();
     return card.bytes > 0 ? QStringLiteral("显卡 ") + card.name : QStringLiteral("处理器");
@@ -559,7 +709,7 @@ QString LocalAssistant::engineText() const
 bool LocalAssistant::slowModel() const
 {
     const LocalModel model = currentModel();
-    if (model.name.isEmpty()) return false;
+    if (model.name.isEmpty() || cloud()) return false;
     const double speed = lastSpeed();
     return runsSlowly(model, m_video) || (speed > 0 && speed < 5);
 }
@@ -581,7 +731,7 @@ QString LocalAssistant::speedAdvice() const
     if (recommendationInstalled()) return advice + QStringLiteral("本机已有更合适的 %1，可以改用它。").arg(better);
     return advice + QStringLiteral("推荐下载 %1（约 %2 GB，来自%3），它%4，回答会快很多；下载完会自动改用它。")
                         .arg(better, QString::number(recommendedGigabytes(), 'f', 1),
-                             m_builtin ? QStringLiteral("魔搭 ModelScope") : QStringLiteral(" Ollama 官方模型库"),
+                             builtin() ? QStringLiteral("魔搭 ModelScope") : QStringLiteral(" Ollama 官方模型库"),
                              m_video > 0 ? QStringLiteral("能整个放进显卡") : QStringLiteral("大小适合这台电脑"));
 }
 

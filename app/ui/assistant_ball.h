@@ -2,6 +2,7 @@
 
 #include "assistant/assistant_commands.h"
 #include "assistant/conversation_store.h"
+#include "assistant/local_assistant.h"
 
 #include <QElapsedTimer>
 #include <QPair>
@@ -13,6 +14,7 @@
 class QLabel;
 class QLineEdit;
 class QListWidget;
+class QMenu;
 class QPushButton;
 class QScrollArea;
 class QTimer;
@@ -102,7 +104,15 @@ public:
         QString corrected;
         QString reason;
     };
-    void showCorrections(const QString& title, const QList<CorrectionItem>& items);
+    // intro: the line above the list; empty: "找到 N 处可能的问题…" (for fixes).
+    void showCorrections(const QString& title, const QList<CorrectionItem>& items, const QString& intro = QString());
+    // The model list (the button left of 新对话): its groups, and the label of the model in use.
+    void setModelChoices(const QList<ModelChoice>& choices, const QString& currentLabel, const QString& where = QString());
+    QList<ModelChoice> modelChoices() const { return m_modelChoices; }
+    QString modelButtonText() const;
+    // What picking a line in the list does (test seam): modelChosen, or setupRequested for "setup".
+    void chooseModel(const QString& key);
+    QMenu* showModelMenu(); // opens the list under the button; returns it (test seam)
     void markCorrection(int index, bool ok);
     int correctionCount() const { return m_correctionButtons.size(); }
 
@@ -140,6 +150,7 @@ signals:
     // A card (status, result or question) was shown; cards are not kept with the conversation.
     void cardShown(QString title, QString text, bool ok);
     void newConversationRequested();
+    void modelChosen(QString key);
     void conversationListRequested();
     void conversationOpenRequested(QString id);
     void conversationRenameRequested(QString id, QString title);
@@ -217,6 +228,9 @@ private:
     bool m_listShown = false;
     QPushButton* m_newConversation = nullptr;
     QPushButton* m_history = nullptr;
+    QPushButton* m_modelButton = nullptr;
+    QList<ModelChoice> m_modelChoices;
+    QPointer<QMenu> m_modelMenu;
     QListWidget* m_slashList = nullptr;
     QTimer* m_timer = nullptr;
     QElapsedTimer m_clock;

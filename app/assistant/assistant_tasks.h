@@ -204,6 +204,20 @@ QList<OutlineParagraph> outlineParagraphs(const QJsonArray& blocks);
 QList<PlannedEdit> requestedDocumentFormats(const QString& request, const QList<OutlineParagraph>& paragraphs,
                                             bool hasSelection, bool* understood);
 
+// "帮我优化一下样式", "美化表格", "排版好看点": a request about style that names no format.
+bool vagueStyleRequest(const QString& request);
+// A request that names a format (加粗、居中、底色、字号…): then the readers above decide.
+bool namesAFormat(const QString& request);
+// The request asks for wording to change (改成、统一、填上、替换、检查…), not only formats.
+// A request that names formats and no such thing gets no text changes from the model.
+bool asksForTextChanges(const QString& request);
+// The program's default style, offered change by change (each only where it is not so yet):
+// a table gets a bold, centred header with a light fill and right-aligned number columns;
+// a document gets its title centred, bold and larger, its numbered subheadings (一、 （一）
+// 1.) bold, and a closing department name or date right-aligned.
+QList<PlannedEdit> defaultTableStyle(const TableGrid& grid, int table);
+QList<PlannedEdit> defaultDocumentStyle(const QList<OutlineParagraph>& paragraphs);
+
 // Dates are the program's job too. "2026-11-04", "2026/11/4", "2026年11月4日", "11月4日", "11/4".
 struct CellDate {
     int year = 0; // 0: not written

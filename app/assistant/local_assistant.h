@@ -2,6 +2,7 @@
 
 #include "assistant/assistant_commands.h"
 #include "assistant/assistant_tasks.h"
+#include "assistant/cloud_models.h"
 #include "assistant/engine_client.h"
 #include "assistant/local_engine.h"
 #include "assistant/model_catalog.h"
@@ -15,6 +16,20 @@
 namespace openoffice {
 
 enum class LocalAiState { Unknown, Checking, NotInstalled, NotRunning, NoModel, Downloading, Ready, Thinking };
+
+// Where answers come from: the built-in engine (default), the person's Ollama (when
+// that option is on in the settings), or a cloud service they added (API key).
+enum class AiBackend { Builtin, Ollama, Cloud };
+
+// One line of the model list next to the input box.
+struct ModelChoice {
+    QString key;   // "builtin:qwen3-4b", "ollama:qwen3:8b", "cloud:<provider>/<model>"; "setup": open the settings
+    QString group; // 本机模型, 云端模型, Ollama 模型
+    QString label;
+    QString note;  // size, the service's name...
+    bool current = false;
+    bool enabled = true;
+};
 
 // The local AI behind the assistant ball. By default it runs the built-in
 // engine (LocalEngine: llama.cpp shipped with the program) on a model the
@@ -32,7 +47,16 @@ public:
     OllamaClient* client() const { return m_client; }
     LocalEngine* engine() const { return m_engine; }
     ModelDownloader* downloader() const { return m_downloader; }
-    bool builtin() const { return m_builtin; }
+    bool builtin() const { return m_backend == AiBackend::Builtin; }
+    AiBackend backend() const { return m_backend; }
+    bool cloud() const { return m_backend == AiBackend::Cloud; }
+    QString cloudServiceName() const { return m_cloudName; }
+    // The model list: installed built-in models, every cloud service's models, and
+    // Ollama's models when that option is on.
+    QList<ModelChoice> modelChoices() const;
+    QString currentModelKey() const;
+    // Switches to a model from the list (remembered). False while an answer runs.
+    bool chooseModel(const QString& key);
     LocalAiState state() const { return m_state; }
     QString model() const { return m_model; }
     QList<LocalModel> models() const { return m_models; }
@@ -72,7 +96,9 @@ public:
     void downloadModel(const QString& id);
     void cancelDownload();
     bool deleteModel(const QString& id, QString* error);
-    void setBackend(bool ollama); // remembered; then detects again
+    // The Ollama option: shows Ollama's models in the list (remembered). Turning it off
+    // while an Ollama model answers goes back to the built-in engine.
+    void setOllamaEnabled(bool enabled);
     void cancel(); // stops the running answer or task, and an Ollama download
     // What the model remembers of the current conversation (user, assistant and
     // tool messages). A new conversation passes {}, a reopened one its saved history.
@@ -103,6 +129,7 @@ signals:
 private:
     void setState(LocalAiState state);
     void refreshBuiltin();
+    void refreshCloud(const QString& providerAndModel);
     void send();
     void dispatch(const QJsonArray& messages, const ChatOptions& options);
     void finishWithError(const QString& message);
@@ -114,9 +141,14 @@ private:
 
     OllamaClient* m_client = nullptr;
     EngineClient* m_engineClient = nullptr;
+    EngineClient* m_cloudClient = nullptr;
+    QString m_cloudId;   // the cloud service now in use
+    QString m_cloudName;
+    QList<LocalModel> m_ollamaModels; // for the model list, whichever engine answers
+    bool m_ollamaRunning = false;
     LocalEngine* m_engine = nullptr;
     ModelDownloader* m_downloader = nullptr;
-    bool m_builtin = true;
+    AiBackend m_backend = AiBackend::Builtin;
     LocalAiState m_state = LocalAiState::Unknown;
     QList<LocalModel> m_models;
     QString m_model;

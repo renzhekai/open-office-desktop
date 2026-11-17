@@ -1,0 +1,1415 @@
+{
+  "label": "final-documents",
+  "started_utc": "2026-11-17T10:02:44.224973+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\final-documents\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "(settings)",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "通知：标题加粗居中、字号二号",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.11
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把标题加粗、居中，字号改成二号"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-020245-87d43f",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/01-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把标题加粗、居中，字号改成二号",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 1 段（关于开展年度消防安全检查…） → 加粗、居中、字号 22（按你的要求：把标题加粗、居中）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.37
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-020245-87d43f",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/01-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "bold": true,
+            "align": "center",
+            "size": 22
+          },
+          "actual": [
+            {
+              "align": "center",
+              "bold": true,
+              "id": "P1",
+              "length": 15,
+              "size": 22,
+              "style": "Normal",
+              "text": "关于开展年度消防安全检查的通知"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 2,
+            "bold": false
+          },
+          "actual": [
+            {
+              "id": "P2",
+              "length": 4,
+              "size": 10,
+              "style": "",
+              "text": "各部门："
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\final-documents\\01-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\final-documents\\01-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d1-notice-title.json"
+    },
+    {
+      "name": "通知：文中所有“截止日期”标红加粗",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.15
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把文中所有的“截止日期”标红加粗"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-020251-c4cc11",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把文中所有的“截止日期”标红加粗",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n文中所有“截止日期” → 加粗、文字颜色 #C00000（按你的要求：把文中所有的“截止日期”标红加粗）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.12
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-020251-c4cc11",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "text",
+            "find": "截止日期",
+            "bold": true,
+            "color": "red"
+          },
+          "actual": [
+            {
+              "bold": true,
+              "color": "#C00000",
+              "size": 10
+            },
+            {
+              "bold": true,
+              "color": "#C00000",
+              "size": 10
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "text",
+            "find": "行政部",
+            "bold": false
+          },
+          "actual": [
+            {
+              "size": 10
+            },
+            {
+              "size": 10
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\final-documents\\02-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\final-documents\\02-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d2-notice-words.json"
+    },
+    {
+      "name": "通知：一、二、三开头的小标题改成二级标题",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.07
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把“一、”“二、”“三、”开头的小标题都改成二级标题"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-020255-5839d1",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/03-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把“一、”“二、”“三、”开头的小标题都改成二级标题",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 4、6、8 段 → 二级标题（按你的要求：把“一、”“二、”“三、”开头的小标题都改成二级标题）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.11
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-020255-5839d1",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/03-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "一、",
+            "style": "Heading 2"
+          },
+          "actual": [
+            {
+              "color": "#0F4761",
+              "id": "P4",
+              "length": 6,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "一、检查时间"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "二、",
+            "style": "Heading 2"
+          },
+          "actual": [
+            {
+              "color": "#0F4761",
+              "id": "P6",
+              "length": 6,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "二、检查内容"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "三、",
+            "style": "Heading 2"
+          },
+          "actual": [
+            {
+              "color": "#0F4761",
+              "id": "P8",
+              "length": 6,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "三、工作要求"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "style": ""
+          },
+          "actual": [
+            {
+              "id": "P1",
+              "length": 15,
+              "size": 10,
+              "style": "Normal",
+              "text": "关于开展年度消防安全检查的通知"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\final-documents\\03-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\final-documents\\03-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d3-notice-headings.json"
+    },
+    {
+      "name": "通知：最后两段右对齐",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "最后两段右对齐"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-020259-4dbb6b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/04-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "最后两段右对齐",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 10–11 段 → 右对齐（按你的要求：最后两段右对齐）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.15
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-020259-4dbb6b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/04-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.04
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -1,
+            "align": "right"
+          },
+          "actual": [
+            {
+              "align": "right",
+              "id": "P11",
+              "length": 11,
+              "size": 10,
+              "style": "",
+              "text": "2026年11月16日"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -2,
+            "align": "right"
+          },
+          "actual": [
+            {
+              "align": "right",
+              "id": "P10",
+              "length": 3,
+              "size": 10,
+              "style": "",
+              "text": "行政部"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -3,
+            "align": "left"
+          },
+          "actual": [
+            {
+              "id": "P9",
+              "length": 36,
+              "size": 10,
+              "style": "",
+              "text": "各部门负责人要高度重视，注意排查死角，自查报告请于截止日期前提交行政部。"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\final-documents\\04-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\final-documents\\04-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d4-notice-last.json"
+    },
+    {
+      "name": "纪要：含有“负责人”的段落都加粗",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把含有“负责人”的段落都加粗"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-020303-c8fb16",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/05-minutes.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把含有“负责人”的段落都加粗",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 6、8 段 → 加粗（按你的要求：把含有“负责人”的段落都加粗）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.13
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-020303-c8fb16",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/05-minutes.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.0
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "contains": "负责人",
+            "bold": true
+          },
+          "actual": [
+            {
+              "bold": true,
+              "id": "P6",
+              "length": 18,
+              "size": 10,
+              "style": "",
+              "text": "官网改版完成视觉设计，负责人：郑洁。"
+            },
+            {
+              "bold": true,
+              "id": "P8",
+              "length": 26,
+              "size": 10,
+              "style": "",
+              "text": "完成前端开发，负责人：黄磊；接口联调，负责人：高远。"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "bold": false
+          },
+          "actual": [
+            {
+              "id": "P1",
+              "length": 8,
+              "size": 10,
+              "style": "Normal",
+              "text": "产品周会会议纪要"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\final-documents\\05-minutes.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\final-documents\\05-minutes.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d5-minutes-contains.json"
+    },
+    {
+      "name": "纪要：全文字号改成小四",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "全文字号改成小四"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-020307-da0a34",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/06-minutes.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "全文字号改成小四",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 1–10 段 → 字号 12（按你的要求：全文字号改成小四）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.13
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-020307-da0a34",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/06-minutes.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.0
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "size": 12
+          },
+          "actual": [
+            {
+              "id": "P1",
+              "length": 8,
+              "size": 12,
+              "style": "Normal",
+              "text": "产品周会会议纪要"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 5,
+            "size": 12
+          },
+          "actual": [
+            {
+              "id": "P5",
+              "length": 7,
+              "size": 12,
+              "style": "",
+              "text": "1. 上周进展"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -1,
+            "size": 12
+          },
+          "actual": [
+            {
+              "id": "P10",
+              "length": 16,
+              "size": 12,
+              "style": "",
+              "text": "测试人手不足，可能影响上线时间。"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\final-documents\\06-minutes.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\final-documents\\06-minutes.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d6-minutes-size.json"
+    },
+    {
+      "name": "英文报告：标题一级标题居中，所有 deadline 加粗",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "Make the title Heading 1 and center it, and make every \"deadline\" bold."
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261117-020311-f129c7",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/07-report-en.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 2 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "Make the title Heading 1 and center it, and make every \"deadline\" bold.",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 2 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 1 段（Quarterly Op…） → 一级标题、居中（按你的要求：Make the title Heading 1）\n文中所有“deadline” → 加粗（按你的要求：make every \"deadline\" bold.）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.12
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261117-020311-f129c7",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/final-documents/07-report-en.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "style": "Heading 1",
+            "align": "center"
+          },
+          "actual": [
+            {
+              "align": "center",
+              "color": "#0F4761",
+              "id": "P1",
+              "length": 27,
+              "size": 20,
+              "style": "Heading 1",
+              "text": "Quarterly Operations Report"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "text",
+            "find": "deadline",
+            "bold": true
+          },
+          "actual": [
+            {
+              "bold": true,
+              "size": 10
+            },
+            {
+              "bold": true,
+              "size": 10
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.04
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\final-documents\\07-report-en.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\final-documents\\07-report-en.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents\\d7-report-english.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-4b",
+      "modelKey": "builtin:qwen3-4b",
+      "state": "ready",
+      "tokensPerSecond": 0
+    },
+    "conversation": "20261117-020311-f129c7",
+    "conversationMessages": 2,
+    "document": "D:/open office/build/assistant-live/final-documents/07-report-en.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-17T10:03:14.636083+00:00",
+  "ok": true
+}

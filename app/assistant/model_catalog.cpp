@@ -12,10 +12,37 @@ namespace {
 
 QSettings settings()
 {
-    return QSettings(QSettings::UserScope, QStringLiteral("Open Office Project"), QStringLiteral("Open Office"));
+    return aiSettings();
 }
 
 } // namespace
+
+QSettings aiSettings()
+{
+    // Tests keep their settings in a file of their own, never the person's.
+    const QString file = qEnvironmentVariable("OPEN_OFFICE_SETTINGS_FILE");
+    if (!file.isEmpty()) return QSettings(file, QSettings::IniFormat);
+    return QSettings(QSettings::UserScope, QStringLiteral("Open Office Project"), QStringLiteral("Open Office"));
+}
+
+QString activeModelKey()
+{
+    const QString given = qEnvironmentVariable("OPEN_OFFICE_AI_ACTIVE");
+    if (!given.isEmpty()) return given;
+    const QString backend = qEnvironmentVariable("OPEN_OFFICE_AI_BACKEND");
+    if (backend == QStringLiteral("ollama")) return QStringLiteral("ollama:") + settings().value(QStringLiteral("ai/model")).toString();
+    if (backend == QStringLiteral("builtin")) return QStringLiteral("builtin:") + chosenBuiltinModel();
+    const QString saved = settings().value(QStringLiteral("ai/activeModel")).toString();
+    if (!saved.isEmpty()) return saved;
+    // Before the model list: "use Ollama" meant answering with Ollama.
+    return useOllama() ? QStringLiteral("ollama:") + settings().value(QStringLiteral("ai/model")).toString()
+                       : QStringLiteral("builtin:") + chosenBuiltinModel();
+}
+
+void setActiveModelKey(const QString& key)
+{
+    settings().setValue(QStringLiteral("ai/activeModel"), key);
+}
 
 const QList<CatalogModel>& supportedModels()
 {

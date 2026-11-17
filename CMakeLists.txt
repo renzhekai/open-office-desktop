@@ -80,11 +80,12 @@ add_library(office_assistant STATIC app/assistant/assistant_commands.h app/assis
     app/assistant/local_engine.h app/assistant/local_engine.cpp
     app/assistant/model_catalog.h app/assistant/model_catalog.cpp
     app/assistant/model_downloader.h app/assistant/model_downloader.cpp
-    app/assistant/conversation_store.h app/assistant/conversation_store.cpp)
+    app/assistant/conversation_store.h app/assistant/conversation_store.cpp
+    app/assistant/cloud_models.h app/assistant/cloud_models.cpp)
 target_include_directories(office_assistant PUBLIC app)
 target_link_libraries(office_assistant PUBLIC Qt6::Core Qt6::Network)
 if(WIN32)
-    target_link_libraries(office_assistant PRIVATE dxgi)
+    target_link_libraries(office_assistant PRIVATE dxgi crypt32) # crypt32: API keys kept with DPAPI
 endif()
 
 add_library(office_ui STATIC app/ui/main_window.h app/ui/main_window.cpp

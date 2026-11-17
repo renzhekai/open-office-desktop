@@ -1,6 +1,8 @@
 #include "main_window.h"
 
 #include "assistant/local_assistant.h"
+
+#include <memory>
 #include "assistant/markdown_html.h"
 #include "engine/office_engine.h"
 #include "ui/ai_settings_dialog.h"
@@ -549,8 +551,11 @@ void MainWindow::buildInterface()
         m_conversations.removeAllExcept(m_conversation.id);
         showConversations();
     });
+    connect(m_assistantBall, &AssistantBall::modelChosen, this, &MainWindow::switchModel);
+    connect(m_localAi, &LocalAssistant::modelsChanged, this, &MainWindow::updateModelList);
     connect(m_localAi, &LocalAssistant::stateChanged, this, [this] {
         const LocalAiState state = m_localAi->state();
+        updateModelList();
         m_assistantBall->setStatus(m_localAi->statusText(), state == LocalAiState::Ready || state == LocalAiState::Thinking);
         updateAssistantWorking();
         if (state == LocalAiState::Checking || state == LocalAiState::Thinking) return;
@@ -1076,13 +1081,21 @@ void MainWindow::whenLocalAiReady(std::function<void()> action)
 
 void MainWindow::askLocalAi(const QString& text)
 {
-    whenLocalAiReady([this, text] {
-        // The model answers about the real document: its text and the selection go along.
-        if (!m_documentOpened) {
+    // The model answers about the real document: its text and the selection go along.
+    if (!m_documentOpened) {
+        whenLocalAiReady([this, text] {
             if (!m_localAi->ask(text, assistantContext(QString(), QString()))) showLocalAiCard();
             updateAssistantWorking();
-            return;
-        }
+        });
+        return;
+    }
+    if (m_localAi->state() == LocalAiState::Thinking) {
+        m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("助手还在处理上一个请求。"), {}, false);
+        return;
+    }
+    // The document is read first: what the program can do itself (formats, the default
+    // style) needs no model at all, so it works before any model is downloaded.
+    {
         readForAssistant(QStringLiteral("document.getText"), [this, text](const CommandOutcome& document) {
             const QString documentText = document.ok ? document.value.value(QStringLiteral("text")).toString() : QString();
             readForAssistant(QStringLiteral("selection.getText"), [this, text, documentText](const CommandOutcome& read) {
@@ -1094,6 +1107,15 @@ void MainWindow::askLocalAi(const QString& text)
                     const int tables = outline.value.value(QStringLiteral("tables")).toInt();
                     const bool inTable = cursor.contains(QStringLiteral("table"));
                     const bool multiCell = selection.contains(QLatin1Char('\t'));
+                    // "帮我优化一下样式": the program's default style, change by change.
+                    if (outline.ok && vagueStyleRequest(text) && !namesAFormat(text) && !isQuestion(text)) {
+                        const int tableInRequest = tableNumberIn(text);
+                        const int table = tableInRequest ? tableInRequest : inTable ? cursor.value(QStringLiteral("table")).toInt() : 0;
+                        const bool aboutTables = text.contains(QStringLiteral("表格")) || text.contains(QStringLiteral("表"))
+                            || text.contains(QStringLiteral("table"), Qt::CaseInsensitive);
+                        offerDefaultStyle(outline.value, table, aboutTables && !table);
+                        return;
+                    }
                     // Naming a column ("总分有没有算错") points at its table too.
                     const int named = tableMentionedIn(text, outline.value.value(QStringLiteral("blocks")).toArray());
                     if (outline.ok && tables > 0 && tableRequest(text, inTable || named)
@@ -1107,7 +1129,7 @@ void MainWindow::askLocalAi(const QString& text)
                             updateAssistantWorking();
                             return;
                         }
-                        planTableChanges(text, table);
+                        whenLocalAiReady([this, text, table] { planTableChanges(text, table); });
                         return;
                     }
                     // A format request the program can read itself ("把标题加粗居中", "文中所有“截止日期”
@@ -1118,15 +1140,16 @@ void MainWindow::askLocalAi(const QString& text)
                         const QList<PlannedEdit> formats = requestedDocumentFormats(
                             text, outlineParagraphs(outline.value.value(QStringLiteral("blocks")).toArray()), selected, &understood);
                         if (understood) {
-                            showPlan(QStringLiteral("修改格式"), QStringLiteral("这些地方已经是这个格式了，不用改。"), formats);
+                            showPlan(QStringLiteral("修改格式"), QStringLiteral("这些地方已经是这个格式了，不用改。"), formats,
+                                     QStringLiteral("要改 %1 处。可以逐条改，也可以全部改正；改完都能撤销。").arg(formats.size()));
                             return;
                         }
                     }
-                    routeTypedRequest(text, documentText, selection);
+                    whenLocalAiReady([this, text, documentText, selection] { routeTypedRequest(text, documentText, selection); });
                 });
             });
         });
-    });
+    }
 }
 
 void MainWindow::routeTypedRequest(const QString& text, const QString& documentText, const QString& selection)
@@ -1357,6 +1380,11 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
         plan = withSameCleanup(plan, m_planGrid, m_planTable, m_planRequest);
         plan = withDateStyle(plan, m_planGrid, m_planTable, m_planRequest);
         plan = withRequestedFormats(plan, m_planGrid, m_planTable, m_planRequest); // formats the program reads itself
+        // Only formats asked for: the model's text changes are not what the person wanted.
+        if (namesAFormat(m_planRequest) && !asksForTextChanges(m_planRequest))
+            plan.erase(std::remove_if(plan.begin(), plan.end(), [](const PlannedEdit& edit) {
+                return edit.command.name == QStringLiteral("table.setCell");
+            }), plan.end());
         plan = withRequestedScope(plan, m_planGrid, m_planTable, m_planRequest);
         // A check also looks for typos: the cells' words are proofread, the way that works for documents.
         const QString words = check ? tableTexts(m_planGrid) : QString();
@@ -1395,7 +1423,88 @@ void MainWindow::showTablePlan(const QList<PlannedEdit>& plan)
     showPlan(QStringLiteral("修改表格"), QStringLiteral("按这个要求，第 %1 张表格没有需要修改的地方。").arg(m_planTable), plan);
 }
 
-void MainWindow::showPlan(const QString& title, const QString& nothingToDo, const QList<PlannedEdit>& plan)
+void MainWindow::offerDefaultStyle(const QJsonObject& outline, int table, bool allTables)
+{
+    // One table (the one named or with the cursor), every table (the request is about
+    // tables), or the document: paragraphs, then each table's header and numbers.
+    const QList<OutlineParagraph> paragraphs = outlineParagraphs(outline.value(QStringLiteral("blocks")).toArray());
+    const int tables = qMin(outline.value(QStringLiteral("tables")).toInt(), 10);
+    auto plan = std::make_shared<QList<PlannedEdit>>(table || allTables ? QList<PlannedEdit>() : defaultDocumentStyle(paragraphs));
+    auto queue = std::make_shared<QList<int>>();
+    if (table) queue->append(table);
+    else for (int t = 1; t <= tables; ++t) queue->append(t);
+    // One table read after another; the step is kept alive only by the read in flight.
+    auto next = std::make_shared<std::function<void()>>();
+    const std::weak_ptr<std::function<void()>> step = next;
+    *next = [this, plan, queue, step] {
+        if (queue->isEmpty()) {
+            showPlan(QStringLiteral("优化样式"), QStringLiteral("看起来已经很整齐了，没有需要改的地方。"), *plan,
+                     QStringLiteral("按常用的样式，建议改 %1 处。可以逐条改，也可以全部改正；改完都能撤销。").arg(plan->size()));
+            return;
+        }
+        const int number = queue->takeFirst();
+        readForAssistant(QStringLiteral("table.read"), [this, plan, self = step.lock(), number](const CommandOutcome& read) {
+            if (read.ok) plan->append(defaultTableStyle(tableGridFrom(read.value), number));
+            if (self) (*self)();
+        }, {{QStringLiteral("table"), number}});
+    };
+    (*next)();
+}
+
+void MainWindow::updateModelList()
+{
+    QString label = m_localAi->model();
+    if (m_localAi->builtin())
+        if (const CatalogModel* model = findCatalogModel(label)) label = model->title;
+    m_assistantBall->setModelChoices(m_localAi->modelChoices(), label,
+                                     m_localAi->cloud() ? QStringLiteral("云端模型，来自 ") + m_localAi->cloudServiceName() : QStringLiteral("本机模型"));
+}
+
+void MainWindow::switchModel(const QString& key)
+{
+    using Action = AssistantBall::CardAction;
+    if (key == m_localAi->currentModelKey()) return;
+    // Only an answer in progress stands in the way (a quick read of the selection does not).
+    if (m_localAi->state() == LocalAiState::Thinking) {
+        m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("助手还在处理上一个请求，做完再换模型。"), {}, false);
+        return;
+    }
+    if (key.startsWith(QStringLiteral("cloud:"))) {
+        const QString id = key.mid(6).section(QLatin1Char('/'), 0, 0);
+        const std::optional<CloudProvider> provider = findCloudProvider(id);
+        if (!provider) return;
+        if (!cloudConfirmed(id)) {
+            // Once per service: what goes where, before anything is sent.
+            m_assistantBall->showCard(QStringLiteral("切换到云端模型？"),
+                QStringLiteral("切换到 %1（%2）以后，你的提问、选中的文字和相关的文档内容会通过网络发给 %2 处理。"
+                               "要只在这台电脑上处理，就继续用本机模型。").arg(key.section(QLatin1Char('/'), 1), provider->name),
+                {Action{QStringLiteral("切换"), [this, key, id] {
+                     setCloudConfirmed(id);
+                     applyModelSwitch(key);
+                 }},
+                 Action{QStringLiteral("取消"), [] {}}}, true);
+            return;
+        }
+    }
+    applyModelSwitch(key);
+}
+
+void MainWindow::applyModelSwitch(const QString& key)
+{
+    const QString before = m_localAi->currentModelKey().section(QLatin1Char(':'), 0, 0);
+    if (!m_localAi->chooseModel(key)) {
+        m_assistantBall->showCard(QStringLiteral("没有切换"), QStringLiteral("现在不能换模型，请稍后再试。"), {}, false);
+        return;
+    }
+    QString text = m_localAi->cloud()
+        ? QStringLiteral("现在用 %1（云端，%2）。提问和相关的文档内容会发给 %2。").arg(m_localAi->model(), m_localAi->cloudServiceName())
+        : QStringLiteral("现在用 %1（%2）。").arg(m_localAi->model(), m_localAi->builtin() ? QStringLiteral("本机") : QStringLiteral("本机 Ollama"));
+    if (key.section(QLatin1Char(':'), 0, 0) != before)
+        text += QStringLiteral("换了模型来源，它不记得这之前的对话内容。");
+    m_assistantBall->showCard(QStringLiteral("已切换模型"), text, {}, true);
+}
+
+void MainWindow::showPlan(const QString& title, const QString& nothingToDo, const QList<PlannedEdit>& plan, const QString& intro)
 {
     m_edits.clear();
     m_editsTitle = title;
@@ -1411,7 +1520,7 @@ void MainWindow::showPlan(const QString& title, const QString& nothingToDo, cons
         updateAssistantWorking();
         return;
     }
-    m_assistantBall->showCorrections(m_editsTitle, items);
+    m_assistantBall->showCorrections(m_editsTitle, items, intro);
     updateAssistantWorking();
 }
 
@@ -1646,6 +1755,21 @@ void MainWindow::showLocalAiCard()
         m_localAi->refresh();
     }};
     const auto settings = Action{QStringLiteral("打开设置"), [this] { openAiSettings(); }};
+    if (m_localAi->cloud()) {
+        if (m_localAi->state() == LocalAiState::Thinking) {
+            m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("云端模型还在处理上一个请求。"), {}, true);
+            return;
+        }
+        if (m_localAi->state() != LocalAiState::Ready) {
+            m_assistantBall->showCard(QStringLiteral("云端模型不能用"),
+                QStringLiteral("这个云端模型的设置不完整或已被删除。可以在设置里修改，或在模型列表里换一个模型。"), {settings}, false);
+            return;
+        }
+        m_assistantBall->showCard(QStringLiteral("正在使用云端模型"),
+            QStringLiteral("正在使用 %1（%2）。你的提问、选中的文字和相关的文档内容会发给 %2。要只在本机处理，在模型列表里换成本机模型。")
+                .arg(m_localAi->model(), m_localAi->cloudServiceName()), {settings}, true);
+        return;
+    }
     if (m_localAi->builtin()) {
         switch (m_localAi->state()) {
         case LocalAiState::NotInstalled:
@@ -1775,8 +1899,14 @@ void MainWindow::handleProposedCommand(const AssistantCommand& command)
     // for the person's "执行" (the change stays undoable either way).
     // An unknown or malformed call is refused by validation and reported back to the model.
     const CommandSpec* spec = findCommand(command.name);
-    const bool confirm = spec && (spec->changesDocument || command.name == QStringLiteral("document.save")
-                                  || command.name == QStringLiteral("document.create"));
+    // A command that cannot run (wrong or missing arguments) is never put to the person:
+    // the model hears what is wrong and may try again.
+    if (!spec || !validateCommand(command).ok) {
+        runAssistantCommand(command, {}, true);
+        return;
+    }
+    const bool confirm = spec->changesDocument || command.name == QStringLiteral("document.save")
+        || command.name == QStringLiteral("document.create");
     if (!confirm) {
         runAssistantCommand(command);
         return;
@@ -1793,7 +1923,9 @@ void MainWindow::handleProposedCommand(const AssistantCommand& command)
         preview = QStringLiteral("把文档中所有“") + command.arguments.value(QStringLiteral("find")).toString()
             + QStringLiteral("”改为“") + command.arguments.value(QStringLiteral("replace")).toString() + QStringLiteral("”。");
     } else {
-        preview = spec->description;
+        // What exactly changes, not what the command can do in general.
+        preview = describeCommand(command);
+        if (preview.isEmpty()) preview = spec->description;
     }
     using Action = AssistantBall::CardAction;
     m_assistantBall->showCard(QStringLiteral("助手想要") + spec->title, preview,

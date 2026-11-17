@@ -3,6 +3,7 @@
 #include "assistant/chat_client.h"
 
 #include <QList>
+#include <QSettings>
 #include <QString>
 
 namespace openoffice {
@@ -34,6 +35,16 @@ QString modelFolder();
 QString modelFilePath(const CatalogModel& model);
 bool modelInstalled(const CatalogModel& model);
 QList<CatalogModel> installedModels();
+
+// The program's settings (the person's account); OPEN_OFFICE_SETTINGS_FILE puts them in
+// an INI file instead, for tests.
+QSettings aiSettings();
+
+// Which model answers, from the model list: "builtin:qwen3-4b", "ollama:qwen3:8b" or
+// "cloud:<provider id>/<model>". Tests may set OPEN_OFFICE_AI_ACTIVE (or the older
+// OPEN_OFFICE_AI_BACKEND=builtin|ollama).
+QString activeModelKey();
+void setActiveModelKey(const QString& key);
 
 // The model the person chose to use; empty: the best installed one.
 QString chosenBuiltinModel();

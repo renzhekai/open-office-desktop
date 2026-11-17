@@ -1636,6 +1636,147 @@ QList<PlannedEdit> requestedDocumentFormats(const QString& request, const QList<
     return merged;
 }
 
+bool vagueStyleRequest(const QString& request)
+{
+    static const QRegularExpression vague(QStringLiteral(
+        "(优化|美化|调整|整理|改善|规范|设计|弄)[^，。,.!！?？]{0,10}(样式|格式|排版|版式|版面)|排一?下版|排版|好看(一)?(点|些)|美观|更专业|"
+        "\\b(make (it|this|the \\w+) (look )?(nicer|better|prettier|more professional)|tidy up|beautify|"
+        "improve the (format|formatting|layout|style))"),
+        QRegularExpression::CaseInsensitiveOption);
+    return vague.match(request).hasMatch();
+}
+
+bool namesAFormat(const QString& request)
+{
+    static const QRegularExpression formats(QStringLiteral(
+        "加粗|粗体|斜体|倾斜|下划线|居中|对齐|字号|号字|磅|颜色|[红蓝绿黄橙紫灰黑]色|标红|底色|背景|突出显示|高亮|"
+        "[一二三123]\\s*级标题|标题\\s*[123]|正文样式|\\b(bold|italic|underline|center|align|font size|colou?r|highlight|heading)"),
+        QRegularExpression::CaseInsensitiveOption);
+    return formats.match(request).hasMatch();
+}
+
+bool asksForTextChanges(const QString& request)
+{
+    static const QRegularExpression wording(QStringLiteral(
+        "改成|改为|写成|写为|换成|替换|统一|填上|填入|填写|填成|补上|补全|删除|删掉|翻译|纠正|改正|修正|更正|错别字|"
+        "检查|核对|核算|算错|计算|文字|内容|\\b(change .* to|replace|fill in|translate|rewrite|correct|fix|check|spell)"),
+        QRegularExpression::CaseInsensitiveOption);
+    return wording.match(request).hasMatch();
+}
+
+QList<PlannedEdit> defaultTableStyle(const TableGrid& grid, int table)
+{
+    QList<PlannedEdit> edits;
+    if (grid.isEmpty()) return edits;
+    int width = 0;
+    for (const auto& row : grid) width = qMax(width, int(row.size()));
+    const QString fill = QStringLiteral("#D9E2F3");
+    // The header: bold, centred, a light fill.
+    QJsonObject header{{QStringLiteral("table"), table}, {QStringLiteral("rows"), QStringLiteral("1")},
+                       {QStringLiteral("columns"), QStringLiteral("1-%1").arg(width)}};
+    bool bold = true, centred = true, filled = true;
+    for (const TableCell& cell : grid.first()) {
+        bold = bold && cell.bold;
+        centred = centred && cell.align == QStringLiteral("center");
+        filled = filled && !cell.fill.isEmpty();
+    }
+    if (!bold) header.insert(QStringLiteral("bold"), true);
+    if (!centred) header.insert(QStringLiteral("align"), QStringLiteral("center"));
+    if (!filled) header.insert(QStringLiteral("fill"), fill);
+    if (header.size() > 3)
+        edits.append({QStringLiteral("第 %1 张表格的表头").arg(table), QString(), formatWords(header),
+                      QStringLiteral("表头醒目一些，便于阅读"), {QStringLiteral("format.cells"), header, CommandSource::Assistant}});
+    // Columns of numbers: right-aligned, so the digits line up.
+    if (grid.size() >= 3)
+        for (int c = 0; c < width; ++c) {
+            int numbers = 0, filledCells = 0;
+            bool right = true;
+            for (int r = 1; r < grid.size(); ++r) {
+                if (c >= grid[r].size() || grid[r][c].text.trimmed().isEmpty()) continue;
+                ++filledCells;
+                double ignored = 0;
+                if (cellNumber(grid[r][c].text, &ignored)) ++numbers;
+                right = right && grid[r][c].align == QStringLiteral("right");
+            }
+            if (filledCells < 2 || numbers * 10 < filledCells * 8) continue;
+            // Amounts line up on the right; a column of serial numbers (序号) sits in the middle.
+            const QString name = grid.first().value(c).text.simplified();
+            static const QRegularExpression serial(QStringLiteral("^(序号|编号|行号|No\\.?|#)$"), QRegularExpression::CaseInsensitiveOption);
+            const bool centre = serial.match(name).hasMatch();
+            bool already = true;
+            for (int r = 1; r < grid.size(); ++r)
+                if (c < grid[r].size() && !grid[r][c].text.trimmed().isEmpty())
+                    already = already && grid[r][c].align == (centre ? QStringLiteral("center") : QStringLiteral("right"));
+            if (already) continue;
+            Q_UNUSED(right);
+            const QJsonObject column{{QStringLiteral("table"), table}, {QStringLiteral("rows"), QStringLiteral("2-%1").arg(grid.size())},
+                                     {QStringLiteral("columns"), QString::number(c + 1)},
+                                     {QStringLiteral("align"), centre ? QStringLiteral("center") : QStringLiteral("right")}};
+            edits.append({QStringLiteral("第 %1 张表格第 %2 列%3").arg(table).arg(c + 1).arg(name.isEmpty() ? QString() : QStringLiteral("（%1）").arg(name)),
+                          QString(), centre ? QStringLiteral("居中") : QStringLiteral("右对齐"),
+                          centre ? QStringLiteral("序号居中") : QStringLiteral("数字右对齐，个位对齐好比较"),
+                          {QStringLiteral("format.cells"), column, CommandSource::Assistant}});
+        }
+    return edits;
+}
+
+QList<PlannedEdit> defaultDocumentStyle(const QList<OutlineParagraph>& paragraphs)
+{
+    QList<PlannedEdit> edits;
+    QList<const OutlineParagraph*> written;
+    for (const OutlineParagraph& paragraph : paragraphs)
+        if (!paragraph.text.trimmed().isEmpty()) written.append(&paragraph);
+    if (written.isEmpty()) return edits;
+    const auto shortText = [](const OutlineParagraph* paragraph, int limit) { return paragraph->text.trimmed().size() <= limit; };
+    static const QRegularExpression marker(QStringLiteral(
+        "^(第[一二三四五六七八九十\\d]+[章节部分条]|[一二三四五六七八九十]+、|（[一二三四五六七八九十\\d]+）|\\(\\d+\\)|\\d+[.、．])"));
+    static const QRegularExpression sentenceEnd(QStringLiteral("[。！？；：.!?;:，,]$"));
+    static const QRegularExpression closing(QStringLiteral(
+        "^\\d{4}\\s*年\\s*\\d{1,2}\\s*月\\s*\\d{1,2}\\s*日$|^\\d{4}[-/.]\\d{1,2}[-/.]\\d{1,2}$|"
+        "(部|处|室|科|中心|公司|办公室|委员会|小组|团队|集团|学校|学院|医院|局|厅|协会)$"));
+    const OutlineParagraph* title = written.first();
+    const bool hasTitle = written.size() >= 2 && shortText(title, 40) && !sentenceEnd.match(title->text.trimmed()).hasMatch()
+        && !marker.match(title->text.trimmed()).hasMatch();
+    if (hasTitle) {
+        QJsonObject arguments{{QStringLiteral("paragraphs"), QString::number(title->number)}};
+        if (title->align != QStringLiteral("center")) arguments.insert(QStringLiteral("align"), QStringLiteral("center"));
+        if (!title->bold) arguments.insert(QStringLiteral("bold"), true);
+        if (title->size < 16) arguments.insert(QStringLiteral("fontSize"), 18);
+        if (arguments.size() > 1)
+            edits.append({QStringLiteral("标题（%1）").arg(title->text.simplified().left(12)), QString(), formatWords(arguments),
+                          QStringLiteral("标题居中、醒目"), {QStringLiteral("format.paragraphs"), arguments, CommandSource::Assistant}});
+    }
+    QStringList headings;
+    QList<int> shown;
+    for (int i = hasTitle ? 1 : 0; i < written.size(); ++i) {
+        const OutlineParagraph* paragraph = written[i];
+        if (shortText(paragraph, 30) && marker.match(paragraph->text.trimmed()).hasMatch() && !paragraph->bold
+            && !sentenceEnd.match(paragraph->text.trimmed()).hasMatch()) {
+            headings << QString::number(paragraph->number);
+            shown << i + 1;
+        }
+    }
+    if (!headings.isEmpty()) {
+        QStringList people;
+        for (int number : shown) people << QString::number(number);
+        const QJsonObject arguments{{QStringLiteral("paragraphs"), headings.join(QLatin1Char(','))}, {QStringLiteral("bold"), true}};
+        edits.append({QStringLiteral("小标题（第 %1 段）").arg(people.join(QStringLiteral("、"))), QString(), QStringLiteral("加粗"),
+                      QStringLiteral("分出层次"), {QStringLiteral("format.paragraphs"), arguments, CommandSource::Assistant}});
+    }
+    QStringList closings;
+    for (int i = qMax(hasTitle ? 1 : 0, int(written.size()) - 2); i < written.size(); ++i) {
+        const OutlineParagraph* paragraph = written[i];
+        if (shortText(paragraph, 20) && closing.match(paragraph->text.trimmed()).hasMatch() && paragraph->align != QStringLiteral("right"))
+            closings << QString::number(paragraph->number);
+    }
+    if (!closings.isEmpty()) {
+        const QJsonObject arguments{{QStringLiteral("paragraphs"), closings.join(QLatin1Char(','))}, {QStringLiteral("align"), QStringLiteral("right")}};
+        edits.append({QStringLiteral("落款"), QString(), QStringLiteral("右对齐"), QStringLiteral("落款（单位、日期）靠右"),
+                      {QStringLiteral("format.paragraphs"), arguments, CommandSource::Assistant}});
+    }
+    return edits;
+}
+
 QList<PlannedEdit> withRequestedFormats(const QList<PlannedEdit>& plan, const TableGrid& grid, int table, const QString& request)
 {
     bool allUnderstood = true;

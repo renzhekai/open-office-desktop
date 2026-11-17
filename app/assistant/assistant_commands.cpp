@@ -317,7 +317,87 @@ CommandOutcome validateCommand(const AssistantCommand& command)
         if (argument.type == ArgumentType::Choice && !argument.choices.contains(text))
             return failure("invalid_argument", QStringLiteral("参数 %1 只能是 %2。").arg(argument.name, argument.choices.join(QStringLiteral("、"))));
     }
+    // A format command must say which format; selection.select which place (one of them).
+    static const QStringList formats{QStringLiteral("bold"), QStringLiteral("italic"), QStringLiteral("underline"),
+                                     QStringLiteral("fontSize"), QStringLiteral("color"), QStringLiteral("fill"),
+                                     QStringLiteral("align"), QStringLiteral("highlight"), QStringLiteral("style")};
+    if (command.name.startsWith(QStringLiteral("format.")) && command.name != QStringLiteral("format.read")
+        && std::none_of(formats.begin(), formats.end(), [&command](const QString& key) { return command.arguments.contains(key); }))
+        return failure("missing_argument", QStringLiteral("没有说要设置哪种格式：至少给出 bold、italic、fontSize、color、align 等其中一项。"));
+    if (command.name == QStringLiteral("selection.select")) {
+        const int ways = int(command.arguments.contains(QStringLiteral("find"))) + int(command.arguments.contains(QStringLiteral("paragraph")))
+            + int(command.arguments.contains(QStringLiteral("table")));
+        if (ways != 1) return failure("invalid_argument", QStringLiteral("find、paragraph、table 要给出且只给出其中一种。"));
+    }
+    // Ranges like "2-4", "1,3" or "all".
+    static const QRegularExpression span(QStringLiteral("^(all|\\d+(-\\d+)?(,\\d+(-\\d+)?)*)$"));
+    for (const char* name : {"rows", "columns", "paragraphs"}) {
+        const QString value = command.arguments.value(QLatin1String(name)).toString().remove(QLatin1Char(' '));
+        if (command.arguments.contains(QLatin1String(name)) && !span.match(value).hasMatch())
+            return failure("invalid_argument", QStringLiteral("参数 %1 要写成 1、2-4、1,3 或 all。").arg(QLatin1String(name)));
+    }
     return {true, QStringLiteral("valid"), QString(), {}};
+}
+
+QString formatWords(const QJsonObject& arguments)
+{
+    QStringList words;
+    const auto flag = [&arguments, &words](const char* key, const QString& on, const QString& off) {
+        const QJsonValue value = arguments.value(QLatin1String(key));
+        if (value.isUndefined()) return;
+        words << (value.toBool() || value.toString() == QStringLiteral("true") ? on : off);
+    };
+    flag("bold", QStringLiteral("加粗"), QStringLiteral("取消加粗"));
+    flag("italic", QStringLiteral("斜体"), QStringLiteral("取消斜体"));
+    flag("underline", QStringLiteral("下划线"), QStringLiteral("去掉下划线"));
+    if (arguments.contains(QStringLiteral("fontSize")))
+        words << QStringLiteral("字号 %1").arg(arguments.value(QStringLiteral("fontSize")).toVariant().toString());
+    if (arguments.contains(QStringLiteral("color"))) words << QStringLiteral("文字颜色 ") + arguments.value(QStringLiteral("color")).toString();
+    if (arguments.contains(QStringLiteral("fill"))) {
+        const QString fill = arguments.value(QStringLiteral("fill")).toString();
+        words << (fill == QStringLiteral("none") ? QStringLiteral("去掉底色") : QStringLiteral("底色 ") + fill);
+    }
+    static const QHash<QString, QString> aligns{{QStringLiteral("left"), QStringLiteral("左对齐")}, {QStringLiteral("center"), QStringLiteral("居中")},
+                                                {QStringLiteral("right"), QStringLiteral("右对齐")}, {QStringLiteral("justify"), QStringLiteral("两端对齐")}};
+    if (arguments.contains(QStringLiteral("align"))) words << aligns.value(arguments.value(QStringLiteral("align")).toString());
+    if (arguments.contains(QStringLiteral("highlight"))) {
+        const QString color = arguments.value(QStringLiteral("highlight")).toString();
+        words << (color == QStringLiteral("none") ? QStringLiteral("去掉突出显示") : QStringLiteral("突出显示"));
+    }
+    static const QHash<QString, QString> styles{{QStringLiteral("heading1"), QStringLiteral("一级标题")}, {QStringLiteral("heading2"), QStringLiteral("二级标题")},
+                                                {QStringLiteral("heading3"), QStringLiteral("三级标题")}, {QStringLiteral("normal"), QStringLiteral("正文样式")}};
+    if (arguments.contains(QStringLiteral("style"))) words << styles.value(arguments.value(QStringLiteral("style")).toString());
+    return words.join(QStringLiteral("、"));
+}
+
+QString describeCommand(const AssistantCommand& command)
+{
+    const QJsonObject& a = command.arguments;
+    const auto number = [&a](const char* key) { return a.value(QLatin1String(key)).toVariant().toString(); };
+    const auto span = [&a](const char* key, const QString& unit) {
+        const QString value = a.value(QLatin1String(key)).toString();
+        if (value.isEmpty() || value == QStringLiteral("all")) return QStringLiteral("所有") + unit;
+        QString shown = value;
+        shown.replace(QLatin1Char(','), QStringLiteral("、")).replace(QLatin1Char('-'), QStringLiteral("–"));
+        return QStringLiteral("第 %1 %2").arg(shown, unit);
+    };
+    const QString formats = formatWords(a);
+    if (command.name == QStringLiteral("table.setCell")) {
+        const QString text = a.value(QStringLiteral("text")).toString();
+        return QStringLiteral("把第 %1 张表格第 %2 行第 %3 列改为：%4").arg(number("table"), number("row"), number("column"),
+                                                                     text.size() > 200 ? text.left(200) + QStringLiteral("…") : text);
+    }
+    if (command.name == QStringLiteral("format.cells"))
+        return QStringLiteral("第 %1 张表格%2、%3：%4").arg(number("table"), span("rows", QStringLiteral("行")), span("columns", QStringLiteral("列")), formats);
+    if (command.name == QStringLiteral("format.paragraphs"))
+        return QStringLiteral("%1：%2").arg(span("paragraphs", QStringLiteral("段")), formats);
+    if (command.name == QStringLiteral("format.text"))
+        return QStringLiteral("文中所有“%1”：%2").arg(a.value(QStringLiteral("find")).toString(), formats);
+    if (command.name == QStringLiteral("format.selection")) return QStringLiteral("选中的文字：") + formats;
+    if (command.name == QStringLiteral("edit.undo")) return QStringLiteral("撤销上一步修改。");
+    if (command.name == QStringLiteral("edit.redo")) return QStringLiteral("重做刚才撤销的修改。");
+    if (command.name == QStringLiteral("document.save")) return QStringLiteral("保存当前文档。");
+    return {};
 }
 
 QJsonArray commandCatalogJson()

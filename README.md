@@ -6,10 +6,11 @@
 - Windows 原生核心、13 个格式静态库、V8、转换器、桌面核心和 Qt 包装层。
 - 编辑器使用的 5 个 WASM 引擎（字体、zip/图像、拼写、哈希、PDF），以及它们的 Emscripten 胶水代码。
 
-默认入口（2026-11-16 起为 `build/full-source-run-builtin-ai-r11`，安装包装的就是它）：
-- 自动测试：CTest 3 组共 113 项全过；安装包在这台电脑上静默安装、逐文件比对、启动、卸载都通过，[测试记录](evidence/installer/OpenOffice-Setup-0.1.0-dev-20261116-2-win64.json)。
+默认入口（2026-11-17 起为 `build/full-source-run-builtin-ai-r12`，安装包装的就是它）：
+- 自动测试：CTest 3 组共 122 项全过；安装包在这台电脑上静默安装、逐文件比对、启动、卸载都通过，[测试记录](evidence/installer/OpenOffice-Setup-0.1.0-dev-20261117-win64.json)。
 - AI 助手改表格在真实编辑器里自动实测（不用人点屏幕）：4B 模型调试 11 个场景、留出 8 个场景全过；1.7B 调试 8–10/11、留出 7/8，[记录](evidence/assistant-live/)。
 - 段落和文字格式（1.7B）：调试 7 个、留出 7 个场景全过。
+- 云端模型的接入用本机起的兼容 OpenAI 的服务实测过（4 个表格场景全过）；没有用真实的外网服务商测试。
 - 真实模型（Qwen3 1.7B，显卡）：校对、润色、改正式、总结、按要求改写、起草都能在 5–7 秒内给出结果（记录在 [接手文档](Open_Office_AI接手文档.md) 第 41、43、49、50 条）。
 - 用户在这一系列版本里手动试用过对话、改写和起草。
 
@@ -27,17 +28,17 @@
 
 ## 安装
 
-安装程序在 GitHub 的 [Releases 页面](https://github.com/renzhekai/open-office-desktop/releases)下载，每个版本都保留。当前最新：`OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627 MB，SHA256 `cb4f6a00…ac20`，同一页有完整值的 `.sha256.txt`）。安装包太大（超过 100 MB），不放进 git 仓库。
+安装程序在 GitHub 的 [Releases 页面](https://github.com/renzhekai/open-office-desktop/releases)下载，每个版本都保留。当前最新：`OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627 MB，SHA256 `d9be5391…3e70`，同一页有完整值的 `.sha256.txt`）。安装包太大（超过 100 MB），不放进 git 仓库。
 
 1. 双击运行，按中文向导安装。
 2. 默认装到 `%LOCALAPPDATA%\Programs\OpenOffice`，只为当前用户安装，不需要管理员权限。可以选择是否创建桌面快捷方式；开始菜单里会有“Open Office”。
 3. 卸载：在 Windows“设置 → 应用 → 已安装的应用”里卸载“Open Office（开发版）”，或用开始菜单里的“卸载 Open Office”。卸载会一起删除程序生成的 `openoffice-profile`（配置、缓存、对话记录）和下载的模型（`models`）。用“迁移到其他位置”搬过的安装，从新位置卸载也能删干净。
 
 说明：
-- 安装包里装的是默认入口 `build/full-source-run-builtin-ai-r11`，未做任何修改；另外附带 VC++ 运行库（只放在程序文件夹里，没装过运行库的电脑也能启动）和内置引擎 llama.cpp 的许可证原文（`ai-engine\llama.cpp-LICENSES.txt`）。安装包不带模型：第一次用 AI 时，在“本地 AI 设置”里下载（1.8–5 GB，放在程序文件夹的 `models` 里）。
-- 以前的版本也在 Releases 页面：`…-20261116`（r10，改表格，段落格式之前；字号只有一半）、`…-20261109`（r9，改表格之前）、`…-20261107-2`（接 Ollama 的本地 AI）、`…-20261107`（悬浮球，不接模型）、`…-20261106`（新建、另存为；附便携压缩包）。
+- 安装包里装的是默认入口 `build/full-source-run-builtin-ai-r12`，未做任何修改；另外附带 VC++ 运行库（只放在程序文件夹里，没装过运行库的电脑也能启动）和内置引擎 llama.cpp 的许可证原文（`ai-engine\llama.cpp-LICENSES.txt`）。安装包不带模型：第一次用 AI 时，在“本地 AI 设置”里下载（1.8–5 GB，放在程序文件夹的 `models` 里）。
+- 以前的版本也在 Releases 页面：`…-20261116-2`（r11，模型列表和云端模型之前）、`…-20261116`（r10，改表格，段落格式之前；字号只有一半）、`…-20261109`（r9，改表格之前）、`…-20261107-2`（接 Ollama 的本地 AI）、`…-20261107`（悬浮球，不接模型）、`…-20261106`（新建、另存为；附便携压缩包）。
 - 安装程序没有数字签名。从网上下载后运行，Windows 可能提示“Windows 已保护你的电脑”，需点“更多信息 → 仍要运行”。
-- 自动安装测试只在这台电脑上做过，覆盖了安装、逐文件比对、启动和卸载，结果见 [测试记录](evidence/installer/OpenOffice-Setup-0.1.0-dev-20261116-2-win64.json)。还没在别的电脑上装过。
+- 自动安装测试只在这台电脑上做过，覆盖了安装、逐文件比对、启动和卸载，结果见 [测试记录](evidence/installer/OpenOffice-Setup-0.1.0-dev-20261117-win64.json)。还没在别的电脑上装过。
 - 重新生成：`python -I scripts/build_installer.py --test`；同一天再生成时加 `--same-day 2`（3、4…），文件名会带上编号，不覆盖当天已有的安装包。用到项目内的 Inno Setup 6.7.4（`dependencies/innosetup-6.7.4`）。
 - 发布：`python -I scripts/publish_release.py dist/<安装包> --notes <说明.md>`，建一个预发布版本并上传安装包和校验文件，上传后核对大小，记录在 `evidence/releases/`。每次修改都会出一版。
 
@@ -45,7 +46,7 @@
 
 找不到版本时，双击项目根目录的启动文件：`打开稳定版.cmd`（默认入口）、`打开最新版.cmd`（最近构建的版本，可能还没验证完）、`版本一览.cmd`（列出全部版本）。
 
-在资源管理器中打开 `D:\open office\build\full-source-run-builtin-ai-r11`，双击 **OpenOffice.exe**。默认启动和文件选择可用已验证（[首页记录](evidence/full-source-gui/local-ai-default-home/session.json)）；不需要命令行参数。
+在资源管理器中打开 `D:\open office\build\full-source-run-builtin-ai-r12`，双击 **OpenOffice.exe**。默认启动和文件选择可用已验证（[首页记录](evidence/full-source-gui/local-ai-default-home/session.json)）；不需要命令行参数。
 
 1. 打开现有文档：点击“选择本地文件”，选一个 DOCX，再点“打开所选文件”，等界面确认文档就绪。
 2. 新建：点首页“新建文档”或“文件 → 新建”，得到“文档1.docx”。
@@ -57,16 +58,16 @@
 PowerShell 等效入口（从项目目录运行）：
 
 ```powershell
-& '.\build\full-source-run-builtin-ai-r11\OpenOffice.exe'
+& '.\build\full-source-run-builtin-ai-r12\OpenOffice.exe'
 ```
 
 可选直接打开本次已保存的测试样本：
 
 ```powershell
-& '.\build\full-source-run-builtin-ai-r11\OpenOffice.exe' --open 'D:\open office\fixtures\results\wasm-candidate-docx-roundtrip.docx'
+& '.\build\full-source-run-builtin-ai-r12\OpenOffice.exe' --open 'D:\open office\fixtures\results\wasm-candidate-docx-roundtrip.docx'
 ```
 
-请保留整个 `build/full-source-run-builtin-ai-r11` 文件夹。EXE 依赖同目录核心、CEF、Qt、converter、编辑资源、字体和词典；默认 profile 在首次启动时写到该目录的 `openoffice-profile`。当前仅在这台电脑验收；现有安装包装的是上一个默认入口，也还没在干净系统上验证。
+请保留整个 `build/full-source-run-builtin-ai-r12` 文件夹。EXE 依赖同目录核心、CEF、Qt、converter、编辑资源、字体和词典；默认 profile 在首次启动时写到该目录的 `openoffice-profile`。当前仅在这台电脑验收；现有安装包装的是上一个默认入口，也还没在干净系统上验证。
 
 目录来历：
 - 由 `scripts/stage_host_candidate_runtime.py` 从 `build/full-source-run-wasm-candidate` 复制而来，只替换了 `OpenOffice.exe`，记录在 `openoffice-host-candidate.json`。
@@ -80,10 +81,12 @@ PowerShell 等效入口（从项目目录运行）：
 
 小型文字/表格样本通过不代表所有 Office 文件完整保真。
 
-## AI 助手（当前版本，2026-11-16）
+## AI 助手（当前版本，2026-11-17）
 
 打开文档后，窗口里的玻璃球就是助手。下面是现在的做法；再往下的几节是之前各版本的记录。
 
+- **换模型**：输入框上方“新对话”左边的按钮显示正在用的模型，点开可以在本机模型、云端模型、Ollama 模型（在设置里打开 Ollama 选项后）之间切换。推荐的本机模型是 Qwen3 4B。
+- **云端模型**：在“AI 模型设置 → 云端模型（API Key）”里添加：名称、接口地址（Base URL）、API Key、模型名称（可以点“获取模型列表”）。兼容 OpenAI 接口的服务都可以（DeepSeek、通义千问、Kimi、OpenAI 等）。API Key 用 Windows 数据保护加密保存在这台电脑上。用云端模型时，你的提问、选中的文字和相关的文档内容会发给该服务商；第一次切换到某个服务商时会先问你。
 - **本地引擎**：软件自带 llama.cpp（`ai-engine`，有独立显卡用显卡，没有用处理器），不需要另装 Ollama（Ollama 可在设置的“高级”里改用）。模型在“本地 AI 设置”里下载：Qwen3 1.7B、4B、8B（来自魔搭 ModelScope，下载后核对 SHA256），按这台电脑推荐一个。
 - **模型放在哪**：固定放在软件文件夹的 `models` 里；想换盘，在“本地 AI 设置 → 软件位置 → 迁移到其他位置…”把整个软件搬过去，快捷方式和卸载信息会跟着改，搬完自动重新打开。
 - **常用活一键完成**：选中文字后润色、纠错、精简、扩写、改正式、翻译；没选中时总结全文、提取待办、全文校对、起草通知/纪要/总结/邮件/请假条/方案。结果先给你看，再选“替换原文 / 插到后面 / 插入文档 / 复制 / 重写”。
@@ -91,6 +94,7 @@ PowerShell 等效入口（从项目目录运行）：
 - **对话**：每次打开软件、每打开或新建另一份文档，都开一个新对话；`/新对话` 或“新对话”按钮手动开；`/历史` 或“历史”看以前的对话（标题、工作文件、时间），可以打开接着聊、重命名、删除。对话只存在这台电脑的配置文件夹里。
 - **指令**：在输入框打 `/` 会弹出全部指令和说明，可以用方向键选、回车确认。
 - **改表格**：点进表格（或说“第 2 张表格”，或提到某一列的列名）再说要求，例如“帮我检查一下这个表格，有错直接改”“表头加粗居中，加浅蓝底色”“已取消的整行标成浅灰色”“日期统一写成 2026-11-16 这种”“手机号统一成 11 位数字”。助手读出整张表，列出要改的每一处（哪一格、改成什么、为什么），可以一条条“改”，也可以“全部改正”，每一处都能撤销。算术（乘积、相加、加减）、日期写法、格式要求由程序自己算和读，不交给模型；模型算错的数不会被采用。小模型（1.7B）偶尔漏改或把错别字改错，4B 在测试里全对。
+- **优化样式**：说“帮我优化一下样式”“排版好看点”，助手按常用样式列出建议（表头加粗居中加浅色底、数字列右对齐；标题居中加粗加大、编号小标题加粗、落款右对齐），一条条改或全部改正。助手要改文档前，确认卡片会写清楚改哪里、改成什么。
 - **改段落和文字格式**：直接说“把标题加粗居中、字号改成二号”“把文中所有“截止日期”标红加粗”““一、”“二、”开头的小标题改成二级标题”“最后两段右对齐”“含有“负责人”的段落加粗”“全文字号改成小四”，助手马上列出要改的地方（这类要求由程序读懂，不用等模型），一条条改或“全部改正”，都能撤销。选中文字后说“加粗”“改成红色”就是给选中的文字设格式。
 - **自动测试接口（开发用）**：`OpenOffice.exe --mcp-port 0 --mcp-test` 开一个只在本机、要令牌的 MCP 服务，助手的全部命令（读结构、读表格、改单元格、设格式、撤销、保存…）和测试工具（打开文档、像人一样打字和按按钮）都能调用；`python -I scripts/assistant_live.py <标签> --runtime <运行目录> [--model qwen3-4b] <场景.json>` 用它在真实编辑器里跑场景。默认不开。
 
@@ -205,7 +209,7 @@ PowerShell 等效入口（从项目目录运行）：
 | `scripts/prepare_wasm_module_source.py`、`scripts/build_wasm_module.py` | WASM 隔离源码准备与编译（Emscripten 3.1.48） |
 | `scripts/test_wasm_fonts.py`、`scripts/test_wasm_engines.py` | WASM 重建版与官方版的差分测试 |
 | `scripts/stage_wasm_candidate_runtime.py` | 装配 WASM 候选 `build/full-source-run-wasm-candidate`（上一个默认入口） |
-| `scripts/stage_host_candidate_runtime.py` | 从 WASM 候选复制并只替换新宿主，装配宿主候选（当前默认入口 `build/full-source-run-builtin-ai-r11` 也由它装配） |
+| `scripts/stage_host_candidate_runtime.py` | 从 WASM 候选复制并只替换新宿主，装配宿主候选（当前默认入口 `build/full-source-run-builtin-ai-r12` 也由它装配） |
 | `scripts/verify_host_saveas_session.py` | 只读核对新建/另存为回归留下的文件和事件日志 |
 | `scripts/build_installer.py`、`installer/` | 用 Inno Setup 生成并测试安装程序（中文向导、按用户安装、附带 VC++ 运行库） |
 | `scripts/package_portable_zip.py` | 生成便携 zip，并解压试启动 |

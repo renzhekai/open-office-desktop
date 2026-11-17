@@ -1,5 +1,6 @@
 #include "assistant/conversation_store.h"
 #include "assistant/assistant_commands.h"
+#include "assistant/cloud_models.h"
 #include "assistant/assistant_tasks.h"
 #include "assistant/engine_client.h"
 #include "assistant/local_assistant.h"
@@ -15,7 +16,9 @@
 #include <QFile>
 #include <QJsonArray>
 #include <QSet>
+#include <QSignalSpy>
 #include <QTemporaryDir>
+#include <QTemporaryFile>
 #include <QtTest>
 
 #include <algorithm>
@@ -30,6 +33,265 @@ private slots:
     {
         // The Ollama tests below talk to a fake Ollama; the built-in engine tests switch back themselves.
         qputenv("OPEN_OFFICE_AI_BACKEND", "ollama");
+        // Settings go to a file of the tests' own, never the person's.
+        QVERIFY(m_settings.isValid());
+        qputenv("OPEN_OFFICE_SETTINGS_FILE", QFile::encodeName(m_settings.filePath(QStringLiteral("settings.ini"))));
+    }
+
+    void cloudProvidersKeepTheirKeysSealed()
+    {
+        aiSettings().clear();
+        QVERIFY(checkCloudBaseUrl(QStringLiteral("https://api.deepseek.com/v1")).isEmpty());
+        QVERIFY(checkCloudBaseUrl(QStringLiteral("http://127.0.0.1:8000/v1")).isEmpty()); // a server on this computer
+        QVERIFY(!checkCloudBaseUrl(QStringLiteral("http://api.example.com/v1")).isEmpty()); // a key must not travel in clear
+        QVERIFY(!checkCloudBaseUrl(QString()).isEmpty());
+        QVERIFY(!checkCloudBaseUrl(QStringLiteral("ftp://example.com")).isEmpty());
+        QCOMPARE(splitModelNames(QStringLiteral("deepseek-chat, deepseek-reasoner，deepseek-chat\nqwen-plus")),
+                 (QStringList{QStringLiteral("deepseek-chat"), QStringLiteral("deepseek-reasoner"), QStringLiteral("qwen-plus")}));
+        QCOMPARE(newCloudProviderId(QStringLiteral("DeepSeek")), QStringLiteral("deepseek"));
+        QCOMPARE(newCloudProviderId(QStringLiteral("通义千问")), QStringLiteral("cloud"));
+
+        // The key is sealed with Windows data protection: never in the settings as written.
+        const QString secret = QStringLiteral("sk-test-1234567890");
+        const QString sealed = protectSecret(secret);
+        QVERIFY(sealed.startsWith(QStringLiteral("dpapi:")) && !sealed.contains(secret));
+        QCOMPARE(unprotectSecret(sealed), secret);
+        QVERIFY(unprotectSecret(sealed.left(sealed.size() - 4) + QStringLiteral("AAAA")).isEmpty()); // tampered
+        QVERIFY(unprotectSecret(secret).isEmpty()); // plain text is never taken as a key
+
+        CloudProvider provider{QStringLiteral("deepseek"), QStringLiteral("DeepSeek"), QStringLiteral("https://api.deepseek.com/v1"),
+                               {QStringLiteral("deepseek-chat")}};
+        QString error;
+        QVERIFY(saveCloudProvider(provider, secret, &error));
+        QCOMPARE(newCloudProviderId(QStringLiteral("DeepSeek")), QStringLiteral("deepseek-2"));
+        QCOMPARE(cloudProviders().size(), 1);
+        QCOMPARE(cloudApiKey(QStringLiteral("deepseek")), secret);
+        QFile written(QString::fromLocal8Bit(qgetenv("OPEN_OFFICE_SETTINGS_FILE")));
+        QVERIFY(written.open(QIODevice::ReadOnly));
+        QVERIFY(!written.readAll().contains(secret.toUtf8()));
+        written.close();
+        // Changing it without a key keeps the key.
+        provider.models << QStringLiteral("deepseek-reasoner");
+        QVERIFY(saveCloudProvider(provider, QString(), &error));
+        QCOMPARE(cloudApiKey(QStringLiteral("deepseek")), secret);
+        QCOMPARE(findCloudProvider(QStringLiteral("deepseek"))->models.size(), 2);
+        // What is missing is said.
+        CloudProvider broken = provider;
+        broken.models.clear();
+        QVERIFY(!saveCloudProvider(broken, QString(), &error) && error.contains(QStringLiteral("模型")));
+        broken = provider;
+        broken.baseUrl = QStringLiteral("http://api.deepseek.com");
+        QVERIFY(!saveCloudProvider(broken, QString(), &error) && error.contains(QStringLiteral("https")));
+        // Removing it removes the key and the consent too.
+        setCloudConfirmed(QStringLiteral("deepseek"));
+        QVERIFY(cloudConfirmed(QStringLiteral("deepseek")));
+        removeCloudProvider(QStringLiteral("deepseek"));
+        QVERIFY(cloudProviders().isEmpty());
+        QVERIFY(cloudApiKey(QStringLiteral("deepseek")).isEmpty() && !hasCloudApiKey(QStringLiteral("deepseek")));
+        QVERIFY(!cloudConfirmed(QStringLiteral("deepseek")));
+    }
+
+    void cloudRequestsAreOpenAiShaped()
+    {
+        ChatOptions options;
+        options.think = QStringLiteral("false");
+        options.format = QJsonObject{{QStringLiteral("type"), QStringLiteral("object")}};
+        options.tools = QJsonArray{QJsonObject{{QStringLiteral("type"), QStringLiteral("function")}}};
+        const QJsonArray messages{QJsonObject{{QStringLiteral("role"), QStringLiteral("user")}, {QStringLiteral("content"), QStringLiteral("hi")}}};
+        const QJsonObject body = EngineClient::cloudRequestBody(QStringLiteral("deepseek-chat"), messages, options);
+        QCOMPARE(body.value(QStringLiteral("model")).toString(), QStringLiteral("deepseek-chat"));
+        QVERIFY(body.value(QStringLiteral("stream")).toBool());
+        QVERIFY(body.contains(QStringLiteral("tools")));
+        // The engine's own options are left out: services differ in what they accept.
+        QVERIFY(!body.contains(QStringLiteral("response_format")));
+        QVERIFY(!body.contains(QStringLiteral("chat_template_kwargs")));
+        QVERIFY(!body.contains(QStringLiteral("reasoning_effort")));
+        QCOMPARE(EngineClient::serviceUrl(QUrl(QStringLiteral("https://api.example.com/v1/")), QStringLiteral("chat/completions")).toString(),
+                 QStringLiteral("https://api.example.com/v1/chat/completions"));
+        QCOMPARE(EngineClient::serviceUrl(QUrl(QStringLiteral("http://127.0.0.1:9000/compatible-mode/v1")), QStringLiteral("models")).toString(),
+                 QStringLiteral("http://127.0.0.1:9000/compatible-mode/v1/models"));
+    }
+
+    void aCloudModelAnswersThroughItsService()
+    {
+        aiSettings().clear();
+        ScopedEnvironment backend("OPEN_OFFICE_AI_BACKEND", QByteArray()); // the model list decides
+        ScopedEnvironment noOllama("OPEN_OFFICE_OLLAMA_URL", closedOllamaUrl());
+        FakeOllama fake; // as an OpenAI-compatible service
+        fake.chats = {FakeOllama::sse({QStringLiteral("云端"), QStringLiteral("的回答")})};
+        QString error;
+        QVERIFY(saveCloudProvider({QStringLiteral("fake"), QStringLiteral("Fake Cloud"), QString::fromLatin1(fake.url() + "/v1"),
+                                   {QStringLiteral("fake-model"), QStringLiteral("fake-large")}},
+                                  QStringLiteral("test-key"), &error));
+        LocalAssistant assistant;
+        assistant.refresh();
+        QVERIFY(!assistant.cloud());
+        // The list: built-in models (none installed here), the service's models; no Ollama group with the option off.
+        QList<ModelChoice> choices = assistant.modelChoices();
+        const auto has = [&choices](const QString& key, const QString& group) {
+            return std::any_of(choices.begin(), choices.end(), [&](const ModelChoice& choice) { return choice.key == key && choice.group == group; });
+        };
+        QVERIFY(has(QStringLiteral("cloud:fake/fake-model"), QStringLiteral("云端模型")));
+        QVERIFY(has(QStringLiteral("cloud:fake/fake-large"), QStringLiteral("云端模型")));
+        QVERIFY(std::none_of(choices.begin(), choices.end(), [](const ModelChoice& choice) { return choice.group == QStringLiteral("Ollama 模型"); }));
+
+        QVERIFY(assistant.chooseModel(QStringLiteral("cloud:fake/fake-model")));
+        QVERIFY(assistant.cloud());
+        QCOMPARE(assistant.state(), LocalAiState::Ready);
+        QCOMPARE(assistant.currentModelKey(), QStringLiteral("cloud:fake/fake-model"));
+        QVERIFY(assistant.statusText().contains(QStringLiteral("Fake Cloud")) && assistant.statusText().contains(QStringLiteral("发给")));
+        QCOMPARE(activeModelKey(), QStringLiteral("cloud:fake/fake-model")); // remembered
+        choices = assistant.modelChoices();
+        QVERIFY(std::any_of(choices.begin(), choices.end(), [](const ModelChoice& choice) {
+            return choice.key == QStringLiteral("cloud:fake/fake-model") && choice.current;
+        }));
+
+        QSignalSpy finished(&assistant, &LocalAssistant::replyFinished);
+        QVERIFY(assistant.ask(QStringLiteral("你好"), QString()));
+        QTRY_COMPARE(finished.size(), 1);
+        QCOMPARE(finished.first().at(0).toString(), QStringLiteral("云端的回答"));
+        QVERIFY(finished.first().at(1).toBool());
+        // Sent as the service expects: its path, the key, the model by name; the system prompt says it is a cloud service.
+        QCOMPARE(fake.requests.last().first, QStringLiteral("/v1/chat/completions"));
+        QCOMPARE(fake.requestHeaders.last().value("authorization"), QByteArray("Bearer test-key"));
+        const QJsonObject sent = fake.chatRequests().last();
+        QCOMPARE(sent.value(QStringLiteral("model")).toString(), QStringLiteral("fake-model"));
+        QVERIFY(sent.value(QStringLiteral("messages")).toArray().first().toObject().value(QStringLiteral("content")).toString()
+                    .contains(QStringLiteral("云端服务")));
+
+        // A wrong key: the reason in words people can act on.
+        fake.handler = [](const QString& path, const QMap<QByteArray, QByteArray>&, FakeOllama::Response* response) {
+            if (path != QStringLiteral("/v1/chat/completions")) return false;
+            response->status = 401;
+            response->body = R"({"error":{"message":"Invalid API key"}})";
+            return true;
+        };
+        QVERIFY(assistant.ask(QStringLiteral("再说一次"), QString()));
+        QTRY_COMPARE(finished.size(), 2);
+        QVERIFY(!finished.last().at(1).toBool());
+        QVERIFY2(finished.last().at(0).toString().contains(QStringLiteral("API Key")), qPrintable(finished.last().at(0).toString()));
+
+        // Back to the built-in engine; the Ollama option shows its group even when Ollama is not running.
+        QVERIFY(assistant.chooseModel(QStringLiteral("builtin:qwen3-4b")));
+        QVERIFY(!assistant.cloud());
+        assistant.setOllamaEnabled(true);
+        choices = assistant.modelChoices();
+        QTRY_VERIFY(std::any_of(choices.begin(), choices.end(), [](const ModelChoice& choice) { return choice.group == QStringLiteral("Ollama 模型"); }));
+        assistant.setOllamaEnabled(false);
+        aiSettings().clear();
+    }
+
+    void badCommandsAreCaughtAndChangesDescribed()
+    {
+        // The user's screenshot: a format command with no format failed only after "执行".
+        const auto command = [](const char* name, const QJsonObject& arguments) {
+            return AssistantCommand{QString::fromLatin1(name), arguments, CommandSource::Assistant};
+        };
+        QCOMPARE(validateCommand(command("format.cells", {{QStringLiteral("table"), 1}})).code, QStringLiteral("missing_argument"));
+        QCOMPARE(validateCommand(command("format.cells", {{QStringLiteral("table"), 1}, {QStringLiteral("rows"), QStringLiteral("first")},
+                                                          {QStringLiteral("bold"), true}})).code, QStringLiteral("invalid_argument"));
+        QCOMPARE(validateCommand(command("selection.select", {{QStringLiteral("find"), QStringLiteral("a")}, {QStringLiteral("paragraph"), 2}})).code,
+                 QStringLiteral("invalid_argument"));
+        QVERIFY(validateCommand(command("format.read", {{QStringLiteral("find"), QStringLiteral("a")}})).ok);
+        const AssistantCommand header = command("format.cells", {{QStringLiteral("table"), 1}, {QStringLiteral("rows"), QStringLiteral("1")},
+                                                                {QStringLiteral("columns"), QStringLiteral("1-4")}, {QStringLiteral("bold"), true},
+                                                                {QStringLiteral("align"), QStringLiteral("center")},
+                                                                {QStringLiteral("fill"), QStringLiteral("#D9E2F3")}});
+        QVERIFY(validateCommand(header).ok);
+        QCOMPARE(describeCommand(header), QStringLiteral("第 1 张表格第 1 行、第 1–4 列：加粗、底色 #D9E2F3、居中"));
+        QCOMPARE(describeCommand(command("format.paragraphs", {{QStringLiteral("paragraphs"), QStringLiteral("2,5")},
+                                                               {QStringLiteral("style"), QStringLiteral("heading2")}})),
+                 QStringLiteral("第 2、5 段：二级标题"));
+        QCOMPARE(describeCommand(command("format.text", {{QStringLiteral("find"), QStringLiteral("截止日期")}, {QStringLiteral("color"), QStringLiteral("#C00000")}})),
+                 QStringLiteral("文中所有“截止日期”：文字颜色 #C00000"));
+        QCOMPARE(describeCommand(command("table.setCell", {{QStringLiteral("table"), 2}, {QStringLiteral("row"), 3},
+                                                           {QStringLiteral("column"), 1}, {QStringLiteral("text"), QStringLiteral("已完成")}})),
+                 QStringLiteral("把第 2 张表格第 3 行第 1 列改为：已完成"));
+    }
+
+    void vagueStyleRequestsGetTheProgramsDefaults()
+    {
+        QVERIFY(vagueStyleRequest(QStringLiteral("帮我优化一下样式")));
+        QVERIFY(vagueStyleRequest(QStringLiteral("美化一下这个表格的格式")));
+        QVERIFY(vagueStyleRequest(QStringLiteral("排版好看点")));
+        QVERIFY(vagueStyleRequest(QStringLiteral("Make it look more professional")));
+        QVERIFY(!vagueStyleRequest(QStringLiteral("把日期统一写成 2026-11-16")));
+        QVERIFY(namesAFormat(QStringLiteral("优化一下表头，加粗")));
+        QVERIFY(!namesAFormat(QStringLiteral("帮我优化一下样式")));
+        // Formats only: the model's text changes are dropped; asked-for wording changes stay.
+        QVERIFY(!asksForTextChanges(QStringLiteral("把状态是已完成的那几行加上浅绿色底色")));
+        QVERIFY(!asksForTextChanges(QStringLiteral("Make the header row bold")));
+        QVERIFY(asksForTextChanges(QStringLiteral("表头加粗，日期统一写成 11月3日")));
+        QVERIFY(asksForTextChanges(QStringLiteral("空着的格子填上未到，并标成红色")));
+        QVERIFY(asksForTextChanges(QStringLiteral("检查一下表格，有错改正后标黄")));
+        // A plain table: header and the number column; nothing for the text columns.
+        const auto grid = [](const QList<QStringList>& rows) {
+            QJsonArray array;
+            for (const QStringList& row : rows) {
+                QJsonArray cells;
+                for (const QString& text : row) cells.append(QJsonObject{{QStringLiteral("text"), text}});
+                array.append(cells);
+            }
+            return tableGridFrom({{QStringLiteral("rows"), array}});
+        };
+        const TableGrid plain = grid({{QStringLiteral("部门"), QStringLiteral("负责人"), QStringLiteral("人数")},
+                                      {QStringLiteral("市场部"), QStringLiteral("周岚"), QStringLiteral("12")},
+                                      {QStringLiteral("技术部"), QStringLiteral("吴迪"), QStringLiteral("30")}});
+        QList<PlannedEdit> edits = defaultTableStyle(plain, 2);
+        QCOMPARE(edits.size(), 2);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("rows")).toString(), QStringLiteral("1"));
+        QVERIFY(edits[0].command.arguments.value(QStringLiteral("bold")).toBool());
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("table")).toInt(), 2);
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("columns")).toString(), QStringLiteral("3"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("right"));
+        for (const PlannedEdit& edit : edits) QVERIFY(validateCommand(edit.command).ok);
+        // Already like that: nothing.
+        QJsonArray styled;
+        for (int r = 0; r < 3; ++r) {
+            QJsonArray cells;
+            for (int c = 0; c < 3; ++c) {
+                QJsonObject cell{{QStringLiteral("text"), plain[r][c].text}};
+                if (r == 0) {
+                    cell.insert(QStringLiteral("bold"), true);
+                    cell.insert(QStringLiteral("align"), QStringLiteral("center"));
+                    cell.insert(QStringLiteral("fill"), QStringLiteral("#EEEEEE"));
+                } else if (c == 2) {
+                    cell.insert(QStringLiteral("align"), QStringLiteral("right"));
+                }
+                cells.append(cell);
+            }
+            styled.append(cells);
+        }
+        QVERIFY(defaultTableStyle(tableGridFrom({{QStringLiteral("rows"), styled}}), 1).isEmpty());
+        // A document: title, numbered subheadings, the closing lines.
+        const auto block = [](int number, const QString& text, const QJsonObject& extra = {}) {
+            QJsonObject object{{QStringLiteral("id"), QStringLiteral("P%1").arg(number)}, {QStringLiteral("text"), text}};
+            for (auto it = extra.begin(); it != extra.end(); ++it) object.insert(it.key(), it.value());
+            return object;
+        };
+        const QList<OutlineParagraph> letter = outlineParagraphs(QJsonArray{
+            block(1, QStringLiteral("关于调整午休时间的说明")),
+            block(2, QStringLiteral("各位同事：")),
+            block(3, QStringLiteral("一、调整原因")),
+            block(4, QStringLiteral("夏季天气炎热，为了大家休息得更好，决定调整午休时间。")),
+            block(5, QStringLiteral("二、新的时间")),
+            block(6, QStringLiteral("12:00 至 13:30。")),
+            block(7, QStringLiteral("综合管理部")),
+            block(8, QStringLiteral("2026年6月1日"))});
+        edits = defaultDocumentStyle(letter);
+        QCOMPARE(edits.size(), 3);
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("paragraphs")).toString(), QStringLiteral("1"));
+        QCOMPARE(edits[0].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("center"));
+        QCOMPARE(edits[1].command.arguments.value(QStringLiteral("paragraphs")).toString(), QStringLiteral("3,5"));
+        QCOMPARE(edits[2].command.arguments.value(QStringLiteral("paragraphs")).toString(), QStringLiteral("7,8"));
+        QCOMPARE(edits[2].command.arguments.value(QStringLiteral("align")).toString(), QStringLiteral("right"));
+        for (const PlannedEdit& edit : edits) QVERIFY(validateCommand(edit.command).ok);
+        // A title that is already set is left alone.
+        const QList<OutlineParagraph> done = outlineParagraphs(QJsonArray{
+            block(1, QStringLiteral("会议通知"), {{QStringLiteral("bold"), true}, {QStringLiteral("align"), QStringLiteral("center")},
+                                                {QStringLiteral("size"), 18}}),
+            block(2, QStringLiteral("明天下午开会。"))});
+        QVERIFY(defaultDocumentStyle(done).isEmpty());
     }
 
     void catalogNamesAreUniqueAndDescribed()
@@ -200,7 +462,7 @@ private slots:
         QVERIFY(runsSlowly(qwen8, 0)); // on the processor
         QVERIFY(!runsSlowly(qwen4, 0));
 
-        QCOMPARE(recommendDownload(32 * gb, 12 * gb).name, QStringLiteral("qwen3:8b")); // this computer
+        QCOMPARE(recommendDownload(32 * gb, 12 * gb).name, QStringLiteral("qwen3:4b")); // this computer: 4B is the recommendation
         QCOMPARE(recommendDownload(16 * gb, 6 * gb).name, QStringLiteral("qwen3:4b"));
         QCOMPARE(recommendDownload(static_cast<qint64>(15.8 * gb), 0).name, QStringLiteral("qwen3:4b")); // no card
         QCOMPARE(recommendDownload(static_cast<qint64>(7.8 * gb)).name, QStringLiteral("qwen3:4b")); // an "8 GB" laptop
@@ -1362,7 +1624,7 @@ private slots:
     {
         const qint64 gb = 1LL << 30;
         QCOMPARE(supportedModels().size(), 3);
-        QCOMPARE(recommendedCatalogModel(32 * gb, 12 * gb).id, QStringLiteral("qwen3-8b"));
+        QCOMPARE(recommendedCatalogModel(32 * gb, 12 * gb).id, QStringLiteral("qwen3-4b"));
         QCOMPARE(recommendedCatalogModel(16 * gb, 0).id, QStringLiteral("qwen3-4b"));
         QCOMPARE(recommendedCatalogModel(4 * gb, 0).id, QStringLiteral("qwen3-1.7b"));
         QVERIFY(asLocalModel(*findCatalogModel(QStringLiteral("qwen3-4b"))).tools);
@@ -1480,6 +1742,9 @@ private slots:
         QVERIFY(!QFile::exists(done.fileName()));
         QVERIFY(!QFile::exists(part.fileName()));
     }
+
+private:
+    QTemporaryDir m_settings; // its settings.ini: a file QSettings may replace (a QTemporaryFile may not be)
 };
 
 QTEST_GUILESS_MAIN(AssistantTest)
