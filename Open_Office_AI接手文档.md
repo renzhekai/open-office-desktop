@@ -1114,8 +1114,13 @@ python -B scripts/verify_full_source_docx_sample.py
     - **用户中途叫停的：** 打算让程序自己做“统一成 N 位数字”和“空着的格子都填上 X”（不靠模型），写头文件时用户拒绝了这次修改并说“继续”，没有做，记为待用户决定。
     - **测试：** 构建 `live-13`，CTest 3 组共 112 项全过（契约 21、界面 45、助手 46）。新增：`tableArithmeticIsTheProgramsJob`、`aCleanUpTheModelBeganIsFinished`、`theRequestDecidesWhereAndHow`、`theProgramReadsFormatRequestsItself`，扩充了表格计划解析和界面里的表格流程（已加粗的表头不再提议、普通表头由程序提议加粗）。界面测试里两处“点按钮后立刻数命令”改为等待（偶发：命令排在一次读选区后面）。中间失败的构建：`live-5`（新测试的期望文字多了一个空格）、`live-7/9`（上面的偶发）、`live-11`（界面测试按旧行为写）。
     - **装配 r10：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r10 --build-label live-13 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致（另一个是换上的新宿主），宿主 `7934fe8bdbe17e1734d8ccddebf0fca6abb2f78c40f2d245c801dd266808eb6b`；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r10.json`。在 r10 上（用它自带的 `ai-engine`）复跑命令探测和两个 AI 场景（`evidence/assistant-live/r10-check.json`）全过，r10 里没有留下配置或模型文件。
-    - **安装包和发布：** `scripts/build_installer.py` 的 `SOURCE` 改为 r10；`OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`，627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`；编译 74 秒；静默安装 44 秒，21,091 个文件无一不符，多出的正好是卸载程序两件和许可证；装好后启动退出码 0、引擎连上；卸载后卸载信息删除、目录里一个文件也不剩；记录 `evidence/installer/OpenOffice-Setup-0.1.0-dev-20261116-win64.json`。代码推送后用 `scripts/publish_release.py` 发布为 `v0.1.0-dev-20261116`，结果见下一条。
+    - **安装包和发布：** `scripts/build_installer.py` 的 `SOURCE` 改为 r10；`OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`，627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`；编译 74 秒；静默安装 44 秒，21,091 个文件无一不符，多出的正好是卸载程序两件和许可证；装好后启动退出码 0、引擎连上；卸载后卸载信息删除、目录里一个文件也不剩；记录 `evidence/installer/OpenOffice-Setup-0.1.0-dev-20261116-win64.json`。代码推送后用 `scripts/publish_release.py` 发布为 `v0.1.0-dev-20261116`，见第 54 条。
     - **开发工具（`build/wasm-source/tmp/`，不进 git）：** `mcp_dev.py`、`quick_build.cmd`、`summarize_live.py`；`build/full-source-run-dev` 是开发用运行目录（r9 副本换最新 `OpenOffice.exe`，不打包）。
+
+54. **r10 已发布到 GitHub Releases，本机旧安装包已删（2026-11-16，Claude Code）：**
+    - 代码提交 `c566125` 推送后，`scripts/publish_release.py` 发布 `v0.1.0-dev-20261116`（预发布，<https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261116>），安装包和 `.sha256.txt` 上传后大小核对一致，记录 `evidence/releases/v0.1.0-dev-20261116.json`。说明里写了改表格的用法，以及“1.7B 偶尔漏改或改错字，4B 可在设置里下载”。
+    - 先用 GitHub 接口确认 11-09 的安装包（627,732,938 字节）仍在 Releases，再删除本机 `dist/` 里的 11-09 安装包和 `.sha256.txt`。`dist/` 现在只剩 11-16 安装包和两个早期原型文件夹。
+    - 项目根目录有两张不是本会话生成的图片（`assistant-ball-preview.png`、`assistant-shapes-preview.png`，11-16 03:43），没有提交也没有动。
 
 ## 附录 A：requirements.md 完整原文
 
