@@ -1141,7 +1141,13 @@ python -B scripts/verify_full_source_docx_sample.py
     - **实测（1.7B，`evidence/assistant-live/`）：** `documents-1` 5/7，没过的两项都是检查本身写错（没改的段落读回来是 “Normal” 而不是空；标题前的“# ”被当成文字变了）；修好检查后 `documents-2` 7/7、留出 `documents-holdout-1` 7/7。表格复查 `tables-11` 10/11、`holdout-6` 7/8，没过的仍是“笔计本”“办工用品”两处错别字（1.7B 能力，第 53 条）。段落格式请求读懂时 1 秒左右出结果。
     - **测试：** 构建 `live-14`，CTest 3 组共 113 项全过（契约 21、界面 45、助手 47）。新增 `theProgramReadsDocumentFormatRequestsItself`（标题已加粗时只列其余、空段不计数、开头/含有/最后、文字的颜色和突出显示、选中内容、读不懂时交给模型、英文）。
     - **装配 r11：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r11 --build-label live-14 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致（另一个是换上的新宿主），宿主 `44a4911cd991fc3016030d5d1d86b888e011d2174ff416e4fe375d43e0b3c387`（和实测用的开发程序一模一样）；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r11.json`。在 r11 上复跑命令探测、一个段落场景和一个表格场景（`evidence/assistant-live/r11-check.json`）全过，r11 里没有留下配置或模型文件。
-    - **安装包和发布：** `SOURCE` 改为 r11；`OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`，627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`；同日第二版，用 `--same-day 2`；编译 76 秒；静默安装 46 秒，21,091 个文件无一不符，多出的正好是卸载程序两件和许可证；启动退出码 0、引擎连上；卸载后一个文件也不剩；记录 `evidence/installer/OpenOffice-Setup-0.1.0-dev-20261116-2-win64.json`。代码推送后发布为 `v0.1.0-dev-20261116-2`，见第 56 条。
+    - **安装包和发布：** `SOURCE` 改为 r11；`OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`，627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`；同日第二版，用 `--same-day 2`；编译 76 秒；静默安装 46 秒，21,091 个文件无一不符，多出的正好是卸载程序两件和许可证；启动退出码 0、引擎连上；卸载后一个文件也不剩；记录 `evidence/installer/OpenOffice-Setup-0.1.0-dev-20261116-2-win64.json`。代码推送后发布为 `v0.1.0-dev-20261116-2`，见第 56 条（已完成）。
+
+56. **r11 已发布；用户新要求：推荐 4B、云端模型、快速切换模型；用户反馈“优化样式”失败（2026-11-16～17，Claude Code）：**
+    - 代码 `707cddf` 推送后发布 `v0.1.0-dev-20261116-2`（<https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261116-2>），安装包和 `.sha256.txt` 上传后大小核对一致，记录 `evidence/releases/v0.1.0-dev-20261116-2.json`。用 GitHub 接口确认 r10 安装包（627,409,948 字节）还在 Releases 后，删了本机那份；`dist/` 只剩 r11 安装包和两个早期原型文件夹。
+    - **用户新要求（原话）：** “改为推荐4b，然后可以加入apikey，可以通过接入模型供应商的api和baseurl来增加云端模型，增加快速切换模型的模型列表，分为本机模型和云端模型，如果打开了本机ollama选项则有ollama模型”。这是用户自己改了“AI 只在本机运行”的边界：云端模型会把提问和相关文档内容发给服务商，界面要讲清楚，切换前问一次；API Key 用 Windows 数据保护加密保存。
+    - **用户反馈（截图）：** 在 r11 里说“帮我优化一下样式”，走了旧的对话方式，模型提出“设置单元格格式”，卡片只显示命令的通用说明，点“执行”后“命令参数无效”。要改：模型提出的命令先检查参数，不对就让模型改、不让用户确认坏命令；确认卡片写清楚要改什么；“优化样式/美化/好看一点”这类笼统要求由程序给一套默认的格式计划。
+    - 这些在做，见第 57 条。
 
 ## 附录 A：requirements.md 完整原文
 
