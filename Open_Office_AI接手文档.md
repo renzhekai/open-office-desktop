@@ -1,6 +1,6 @@
 # Open Office AI 接手文档（持续维护）
 
-最后更新：2026-11-20（本机时间），更新者：Claude Code（Opus 5.5），第 64 条  
+最后更新：2026-11-20（本机时间），更新者：Claude Code（Opus 5.5），第 65 条  
 项目根目录：`D:\open office`  
 初版：2026-11-03T04:53:07Z 由 Codex 生成，依据当时读取的项目文件和用户指令。此后由接手智能体持续维护，初版校验记录的适用范围见第 11 节。
 
@@ -23,7 +23,7 @@
 
 **已经达到：** 上一个默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
 
-**安装包（2026-11-20 第四版）：** `OpenOffice-Setup-0.1.0-dev-20261120-4-win64.exe`（627,250,592 字节，SHA256 `20c982f663b9b5b71c6eca062f981238596db5319bcc7f959e707969544f0556`），装的是 r17；发布结果见第 65 条。之前的：**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；已发布在 GitHub Releases（`v0.1.0-dev-20261120-3`，第 63 条）。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
+**安装包（2026-11-20 第四版）：** `OpenOffice-Setup-0.1.0-dev-20261120-4-win64.exe`（627,250,592 字节，SHA256 `20c982f663b9b5b71c6eca062f981238596db5319bcc7f959e707969544f0556`），装的是 r17；已发布在 GitHub Releases（`v0.1.0-dev-20261120-4`，第 65 条）。之前的：**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；已发布在 GitHub Releases（`v0.1.0-dev-20261120-3`，第 63 条）。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
 - 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载；卸载会删除配置和模型，迁移过的安装也能删干净（第 47 条）。
 - 本机静默安装、逐文件比对（21,091 个文件）、启动、卸载测试通过（r10 第 53 条，r9 第 51 条）。
 - 以前的安装包（11-06 带便携包、11-07、11-07-2）已补传到 Releases，每个版本一个发布；本机 `dist/` 只留最新的。
@@ -1256,6 +1256,10 @@ python -B scripts/verify_full_source_docx_sample.py
     - **安装包和发布：** `SOURCE` 改为 r17；`OpenOffice-Setup-0.1.0-dev-20261120-4-win64.exe`，627,250,592 字节，SHA256 `20c982f663b9b5b71c6eca062f981238596db5319bcc7f959e707969544f0556`；在这台电脑上静默安装 56 秒，装了 21,091 个文件，逐个比对 0 处不同，启动正常，卸载后不留文件（`evidence/installer/OpenOffice-Setup-0.1.0-dev-20261120-4-win64.json`）。发布到 GitHub 的结果见第 65 条。
     - **发现：** 仓库根目录那两个没提交的图片（`assistant-ball-preview.png`、`assistant-shapes-preview.png`）是界面测试 `continuousCornersStayInsideTheirRect`、`assistantBallArtRendersBothThemes` 存到“当前目录”的预览图（在仓库根目录跑测试时就会生成），不是用户的文件；仍然没有动它们。
     - **还没做：** 从用户已有的文档里提取颜色字体做冷启动；撤销、导出、打印这些信号；学风格包以外的细节（字号、颜色微调）；图表和形状；表格和演示文稿的风格。
+
+65. **r17 已发布；本机只留 r17 的安装包（2026-11-20，Claude Code）：**
+    - 代码和文档已推送（`02afb44`；第一次推送 TLS 握手失败，第二次成功）。`publish_release.py` 第一次就成功：<https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261120-4>（预发布），安装包 627,250,592 字节和 `.sha256.txt` 都上传完整（`evidence/releases/v0.1.0-dev-20261120-4.json`）；`gh api` 核对过 r17 两个文件都是 uploaded、大小一致，r16（`v0.1.0-dev-20261120-3`）还在。
+    - 删掉了本机 `dist/` 里 r16 的安装包和 `.sha256.txt`，只留 r17 的。
 
 ## 附录 A：requirements.md 完整原文
 
