@@ -188,7 +188,8 @@ private:
     QString m_draftText;
     QString m_draftTask;
     TaskInput m_draftInput;              // what the draft was written from (for 重写)
-    QList<ScoredStyle> m_draftScores;    // every pack, scored for this draft
+    QMap<QString, double> m_draftScenes; // what the draft is for (the style profile files signals under it)
+    QList<ScoredStyle> m_draftScores;    // every pack the person did not set to 不用, scored for this draft
     QList<ScoredStyle> m_styleCandidates; // the ones the model chooses from
     QStringList m_draftShown;            // packs shown for this draft: 换个风格 moves on
     QHash<QString, QString> m_documentStyles; // document -> style pack id

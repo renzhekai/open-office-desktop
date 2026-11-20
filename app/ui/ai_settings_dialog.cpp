@@ -2,6 +2,8 @@
 
 #include "assistant/engine_client.h"
 #include "assistant/local_assistant.h"
+#include "assistant/style_profile.h"
+#include "ui/style_profile_dialog.h"
 
 #include <QCheckBox>
 #include <QFormLayout>
@@ -115,6 +117,16 @@ AiSettingsDialog::AiSettingsDialog(LocalAssistant* assistant, QWidget* parent) :
     });
     layout->addWidget(m_ollama);
 
+    // What the assistant learned about the looks of drafts, and what the person set.
+    layout->addWidget(text(QStringLiteral("排版风格档案"), "aiSettingsHeading", this));
+    auto* styleRow = new QHBoxLayout;
+    m_styleSummary = text(QString(), "aiSettingsNote", this);
+    styleRow->addWidget(m_styleSummary, 1);
+    auto* styles = button(QStringLiteral("查看和修改…"), "aiSettingsStyleProfile", this);
+    connect(styles, &QPushButton::clicked, this, &AiSettingsDialog::openStyleProfile);
+    styleRow->addWidget(styles);
+    layout->addLayout(styleRow);
+
     auto* buttons = new QHBoxLayout;
     buttons->addStretch(1);
     auto* close = button(QStringLiteral("关闭"), "aiSettingsClose", this);
@@ -135,6 +147,19 @@ AiSettingsDialog::AiSettingsDialog(LocalAssistant* assistant, QWidget* parent) :
 }
 
 QString AiSettingsDialog::engineText() const { return m_engine->text(); }
+
+QString AiSettingsDialog::styleSummaryText() const { return m_styleSummary->text(); }
+
+void AiSettingsDialog::openStyleProfile()
+{
+    auto* dialog = findChild<StyleProfileDialog*>();
+    if (!dialog) {
+        dialog = new StyleProfileDialog(this);
+        connect(dialog, &QDialog::finished, this, &AiSettingsDialog::rebuild);
+    }
+    dialog->show();
+    dialog->raise();
+}
 
 QStringList AiSettingsDialog::cloudRowTexts() const
 {
@@ -163,6 +188,10 @@ QStringList AiSettingsDialog::rowTexts() const
 
 void AiSettingsDialog::rebuild()
 {
+    const StyleProfile styleProfile = loadStyleProfile();
+    m_styleSummary->setText(QStringLiteral("起草时按你选过的排版风格调整推荐。已记录 %1 次选择，%2 个风格设了常用或不用%3。")
+                                .arg(styleProfile.entries.size()).arg(styleProfile.manual.size())
+                                .arg(styleProfile.paused ? QStringLiteral("，学习已暂停") : QString()));
     // Engine line.
     if (m_ai->cloud()) {
         m_engine->setText(QStringLiteral("正在使用云端模型 %1（%2）。可以在助手输入框旁的模型列表里换回本机模型。")

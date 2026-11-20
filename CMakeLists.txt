@@ -82,7 +82,8 @@ add_library(office_assistant STATIC app/assistant/assistant_commands.h app/assis
     app/assistant/model_downloader.h app/assistant/model_downloader.cpp
     app/assistant/conversation_store.h app/assistant/conversation_store.cpp
     app/assistant/cloud_models.h app/assistant/cloud_models.cpp
-    app/assistant/document_style.h app/assistant/document_style.cpp)
+    app/assistant/document_style.h app/assistant/document_style.cpp
+    app/assistant/style_profile.h app/assistant/style_profile.cpp)
 # The style packs drafts are laid out with (a JSON file, so packs can be read, checked and shared).
 qt_add_resources(office_assistant "style_packs" PREFIX "/" BASE "app/assistant" FILES app/assistant/style_packs.json)
 target_include_directories(office_assistant PUBLIC app)
@@ -94,6 +95,7 @@ endif()
 add_library(office_ui STATIC app/ui/main_window.h app/ui/main_window.cpp
     app/ui/assistant_art.h app/ui/assistant_art.cpp app/ui/assistant_ball.h app/ui/assistant_ball.cpp
     app/ui/ai_settings_dialog.h app/ui/ai_settings_dialog.cpp
+    app/ui/style_profile_dialog.h app/ui/style_profile_dialog.cpp
     app/ui/relocation.h app/ui/relocation.cpp
     app/ui/mcp_server.h app/ui/mcp_server.cpp)
 target_include_directories(office_ui PUBLIC app)

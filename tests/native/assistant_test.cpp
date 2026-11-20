@@ -1,5 +1,6 @@
 #include "assistant/conversation_store.h"
 #include "assistant/document_style.h"
+#include "assistant/style_profile.h"
 #include "assistant/assistant_commands.h"
 #include "assistant/cloud_models.h"
 #include "assistant/assistant_tasks.h"
@@ -821,6 +822,70 @@ private slots:
                  QJsonArray({QStringLiteral("festive-red"), QStringLiteral("vivid-orange")}));
         const QString asked = taskMessages(*choice, input).last().toObject().value(QStringLiteral("content")).toString();
         QVERIFY(asked.contains(QStringLiteral("喜庆红")) && asked.contains(QStringLiteral("活力橙")) && asked.contains(QStringLiteral("中秋游园")));
+    }
+
+    void styleProfileLearnsSlowlyAndCanBeSet()
+    {
+        saveStyleProfile({});
+        const qint64 now = 2000000000;
+        const QMap<QString, double> festive{{QStringLiteral("festive"), 1.0}};
+        StyleProfile profile;
+        const auto add = [&profile](const char* pack, const char* scene, const char* document, const char* action, qint64 time) {
+            recordStyleSignal(&profile, QString::fromLatin1(pack), QString::fromLatin1(scene), QString::fromLatin1(document),
+                              QString::fromLatin1(action), time);
+        };
+        // Two signals are no tendency yet; three in one document neither.
+        add("festive-red", "festive", "D:/a.docx", "chosen", now);
+        add("festive-red", "festive", "D:/a.docx", "chosen", now);
+        QVERIFY(stylePreferences(profile, festive, now).isEmpty());
+        add("festive-red", "festive", "D:/a.docx", "chosen", now);
+        QVERIFY(stylePreferences(profile, festive, now).isEmpty());
+        QVERIFY(!styleStanding(profile, QStringLiteral("festive-red"), now).settled);
+        // In a second document it counts.
+        add("festive-red", "festive", "D:/b.docx", "kept", now);
+        QVERIFY(styleStanding(profile, QStringLiteral("festive-red"), now).settled);
+        QCOMPARE(styleStanding(profile, QStringLiteral("festive-red"), now).documents, 2);
+        QVERIFY(stylePreferences(profile, festive, now).value(QStringLiteral("festive-red")) > 0.6);
+        // Per scene: switched away from in technical writing, it is liked less there than for festivals.
+        add("festive-red", "tech", "D:/c.docx", "rejected", now);
+        add("festive-red", "tech", "D:/c.docx", "rejected", now);
+        const double forFestival = stylePreferences(profile, festive, now).value(QStringLiteral("festive-red"));
+        const double forTech = stylePreferences(profile, {{QStringLiteral("tech"), 1.0}}, now).value(QStringLiteral("festive-red"));
+        QVERIFY2(forFestival > forTech + 0.3, qPrintable(QStringLiteral("%1 %2").arg(forFestival).arg(forTech)));
+        // Older signals fade: 120 days on, a quarter of their weight.
+        StyleProfile old;
+        for (const char* document : {"D:/a.docx", "D:/a.docx", "D:/a.docx", "D:/b.docx"})
+            recordStyleSignal(&old, QStringLiteral("festive-red"), QStringLiteral("festive"), QString::fromLatin1(document),
+                              QStringLiteral("chosen"), now - 120 * 86400);
+        QVERIFY(stylePreferences(old, festive, now).value(QStringLiteral("festive-red")) < 0.4);
+        // Set by hand: before anything learned, with or without signals.
+        profile.manual.insert(QStringLiteral("festive-red"), -1);
+        profile.manual.insert(QStringLiteral("tech-teal"), 1);
+        QCOMPARE(stylePreferences(profile, festive, now).value(QStringLiteral("festive-red")), -1.0);
+        QCOMPARE(stylePreferences(profile, festive, now).value(QStringLiteral("tech-teal")), 1.0);
+        // Paused: nothing new is learned.
+        profile.paused = true;
+        const qsizetype before = profile.entries.size();
+        add("slate-minimal", "general", "D:/d.docx", "chosen", now);
+        QCOMPARE(profile.entries.size(), before);
+        // Kept between runs; the document only as a hash, never its path.
+        saveStyleProfile(profile);
+        const StyleProfile back = loadStyleProfile();
+        QCOMPARE(back.entries.size(), profile.entries.size());
+        QCOMPARE(back.manual, profile.manual);
+        QVERIFY(back.paused);
+        QCOMPARE(back.entries.first().document, documentHash(QStringLiteral("D:/a.docx")));
+        QCOMPARE(back.entries.first().time, now);
+        QVERIFY(!aiSettings().value(QStringLiteral("style/profile")).toString().contains(QStringLiteral("a.docx")));
+        // The latest 300 are kept.
+        StyleProfile many;
+        for (int i = 0; i < 350; ++i)
+            recordStyleSignal(&many, QStringLiteral("p%1").arg(i), QStringLiteral("general"), QStringLiteral("d"), QStringLiteral("kept"), now);
+        QCOMPARE(many.entries.size(), 300);
+        QCOMPARE(many.entries.first().pack, QStringLiteral("p50"));
+        QCOMPARE(mainScene({}), QStringLiteral("general"));
+        QCOMPARE(mainScene({{QStringLiteral("event"), 1.0}, {QStringLiteral("festive"), 0.8}}), QStringLiteral("event"));
+        saveStyleProfile({});
     }
 
     void draftsGoInWithTheirLook()

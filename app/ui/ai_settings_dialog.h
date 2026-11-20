@@ -32,6 +32,8 @@ public:
     QString folderText() const;
     QStringList rowTexts() const;
     QStringList cloudRowTexts() const;
+    QString styleSummaryText() const;
+    void openStyleProfile(); // what 查看和修改… does
 
 signals:
     void relocateRequested(); // 迁移到其他位置…: the main window closes and moves the program
@@ -51,6 +53,7 @@ private:
     QVBoxLayout* m_rows = nullptr;
     QVBoxLayout* m_cloudRows = nullptr;
     QCheckBox* m_ollama = nullptr;
+    QLabel* m_styleSummary = nullptr;
 };
 
 // Adds or changes one cloud service: name, base URL, API key (kept encrypted;

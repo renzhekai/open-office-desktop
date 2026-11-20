@@ -6,8 +6,10 @@
 #include "ui/main_window.h"
 #include "ui/mcp_server.h"
 #include "ui/relocation.h"
+#include "ui/style_profile_dialog.h"
 
 #include "assistant/model_catalog.h"
+#include "assistant/style_profile.h"
 
 #include <QAction>
 #include <QAbstractButton>
@@ -1247,6 +1249,7 @@ private slots:
                       FakeOllama::chat({QString::fromUtf8(QJsonDocument(corrections).toJson(QJsonDocument::Compact))}),
                       FakeOllama::chat({QStringLiteral("# 通知\n\n请于【时间】到三楼参加安全会。")}),
                       FakeOllama::chat({QStringLiteral(R"({"style":"official-classic"})")})};
+        openoffice::saveStyleProfile({}); // what the style profile learns here starts from nothing
         ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
         ControlledEngine engine;
         engine.answerReads = true;
@@ -1334,9 +1337,61 @@ private slots:
         const QString noticeHtml = engine.lastCommandArguments.value(QStringLiteral("html")).toString();
         QVERIFY(noticeHtml.contains(QStringLiteral("通知</h1>")) && noticeHtml.contains(QStringLiteral("<h1 style=")));
         QVERIFY(!noticeHtml.contains(QStringLiteral("FangSong"))); // the look picked second, not the first
+        // The style profile learned: the first look was switched away from, the second chosen.
+        const openoffice::StyleProfile learned = openoffice::loadStyleProfile();
+        QCOMPARE(learned.entries.size(), 2);
+        QCOMPARE(learned.entries[0].pack, QStringLiteral("official-classic"));
+        QCOMPARE(learned.entries[0].action, QStringLiteral("rejected"));
+        QCOMPARE(learned.entries[0].scene, QStringLiteral("official"));
+        QCOMPARE(learned.entries[1].action, QStringLiteral("chosen"));
+        QVERIFY(learned.entries[1].pack != QStringLiteral("official-classic"));
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
         QTRY_VERIFY(!panel->working());
         QCOMPARE(fake.chatRequests().size(), 4);
+    }
+
+    void styleProfileShowsWhatWasLearnedAndCanBeSet()
+    {
+        using namespace openoffice;
+        StyleProfile profile;
+        const qint64 now = QDateTime::currentSecsSinceEpoch();
+        for (const char* document : {"D:/a.docx", "D:/b.docx"})
+            for (int i = 0; i < 2; ++i)
+                recordStyleSignal(&profile, QStringLiteral("tech-teal"), QStringLiteral("tech"), QString::fromLatin1(document),
+                                  QStringLiteral("chosen"), now);
+        recordStyleSignal(&profile, QStringLiteral("festive-red"), QStringLiteral("event"), QStringLiteral("D:/c.docx"),
+                          QStringLiteral("rejected"), now);
+        saveStyleProfile(profile);
+        StyleProfileDialog dialog;
+        QVERIFY(dialog.summaryText().contains(QStringLiteral("已记录 5 次选择")));
+        const auto row = [&dialog](const QString& pack) {
+            for (const QString& text : dialog.rowTexts())
+                if (text.startsWith(pack + QLatin1Char(' '))) return text;
+            return QString();
+        };
+        QCOMPARE(dialog.rowTexts().size(), builtinStylePacks().size());
+        QVERIFY(row(QStringLiteral("tech-teal")).contains(QStringLiteral("你常选它（4 次，2 份文档）")));
+        QVERIFY(row(QStringLiteral("tech-teal")).endsWith(QStringLiteral("[自动]")));
+        QVERIFY(row(QStringLiteral("festive-red")).contains(QStringLiteral("还在观察（1 次，1 份文档）")));
+        QVERIFY(row(QStringLiteral("slate-minimal")).contains(QStringLiteral("还没有记录")));
+        // A picture of it, only when asked for (development: to look at the window).
+        if (const QString folder = qEnvironmentVariable("OPEN_OFFICE_TEST_SNAPSHOTS"); !folder.isEmpty()) {
+            dialog.resize(640, 680);
+            dialog.show();
+            QApplication::processEvents();
+            QVERIFY(dialog.grab().save(QDir(folder).filePath(QStringLiteral("style-profile.png"))));
+        }
+        // Set by hand, paused, cleared: each kept at once.
+        dialog.setManual(QStringLiteral("festive-red"), -1);
+        QVERIFY(row(QStringLiteral("festive-red")).contains(QStringLiteral("你设为不用")) && row(QStringLiteral("festive-red")).endsWith(QStringLiteral("[不用]")));
+        QCOMPARE(loadStyleProfile().manual.value(QStringLiteral("festive-red")), -1);
+        dialog.setPaused(true);
+        QVERIFY(dialog.summaryText().contains(QStringLiteral("学习已暂停")) && loadStyleProfile().paused);
+        dialog.clearLearned();
+        QVERIFY(dialog.summaryText().contains(QStringLiteral("已记录 0 次选择")));
+        QCOMPARE(loadStyleProfile().manual.value(QStringLiteral("festive-red")), -1); // what was set by hand stays
+        QCOMPARE(dialog.rowTexts().size(), builtinStylePacks().size());
+        saveStyleProfile({});
     }
 
     void quickActionBarFitsChipsThatArriveWhileOpen()
@@ -1402,6 +1457,11 @@ private slots:
         openoffice::MainWindow window(&engine);
         auto* dialog = window.openAiSettings();
         QVERIFY(dialog->isVisible());
+        QVERIFY(dialog->styleSummaryText().contains(QStringLiteral("起草时按你选过的排版风格调整推荐")));
+        dialog->openStyleProfile();
+        auto* styles = dialog->findChild<openoffice::StyleProfileDialog*>();
+        QVERIFY(styles && styles->isVisible());
+        styles->close();
         // Shows where the program is (models go with it); no folder of their own to pick.
         QCOMPARE(dialog->folderText(), QDir::toNativeSeparators(QCoreApplication::applicationDirPath()));
         QVERIFY(!dialog->findChild<QPushButton*>(QStringLiteral("aiSettingsChangeFolder")));

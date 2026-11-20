@@ -2,8 +2,10 @@
 
 #include "assistant/local_assistant.h"
 
+#include <algorithm>
 #include <memory>
 #include "assistant/markdown_html.h"
+#include "assistant/style_profile.h"
 #include "engine/office_engine.h"
 #include "ui/ai_settings_dialog.h"
 #include "ui/assistant_art.h"
@@ -1327,15 +1329,28 @@ void MainWindow::offerDraftStyle()
             title = line.trimmed();
             break;
         }
-    m_draftScores = scoreStylePacks(builtinStylePacks(), detectScenes(m_draftTask, m_draftInput.detail + QLatin1Char('\n') + title),
-                                    {}, random);
+    // The person's preferences (learned, or set in the 风格档案) are part of the score; a pack
+    // set to 不用 is left out, one set to 常用 is always among the candidates.
+    const StyleProfile profile = loadStyleProfile();
+    m_draftScenes = detectScenes(m_draftTask, m_draftInput.detail + QLatin1Char('\n') + title);
+    const QList<ScoredStyle> scored = scoreStylePacks(builtinStylePacks(), m_draftScenes,
+                                                      stylePreferences(profile, m_draftScenes), random);
+    m_draftScores.clear();
+    for (const ScoredStyle& item : scored)
+        if (profile.manual.value(item.pack->id) >= 0) m_draftScores.append(item);
+    if (m_draftScores.isEmpty()) m_draftScores = scored;
     m_draftShown.clear();
     // A document that has a drafted look keeps it (换个风格 still offers others).
-    if (const StylePack* kept = findStylePack(m_documentStyles.value(documentKey()))) {
+    if (const StylePack* kept = findStylePack(m_documentStyles.value(documentKey())); kept && profile.manual.value(kept->id) >= 0) {
         showDraftStyle(kept, QStringLiteral("（沿用这份文档之前的排版）"));
         return;
     }
     m_styleCandidates = styleCandidates(m_draftScores, 4, random);
+    for (const ScoredStyle& item : m_draftScores) {
+        const bool listed = std::any_of(m_styleCandidates.begin(), m_styleCandidates.end(),
+                                        [&item](const ScoredStyle& candidate) { return candidate.pack == item.pack; });
+        if (profile.manual.value(item.pack->id) > 0 && !listed && m_styleCandidates.size() < 8) m_styleCandidates.append(item);
+    }
     if (m_styleCandidates.isEmpty()) {
         showDraftStyle(nullptr, QString());
         return;
@@ -1357,14 +1372,25 @@ void MainWindow::showDraftStyle(const StylePack* pack, const QString& why)
     if (pack) m_draftShown.append(pack->id);
     QList<Action> actions{
         Action{QStringLiteral("插入文档"), [this, text, packId] {
-            if (!packId.isEmpty()) m_documentStyles.insert(documentKey(), packId);
+            if (!packId.isEmpty()) {
+                m_documentStyles.insert(documentKey(), packId);
+                // Kept as first shown counts a little; chosen after switching counts a lot.
+                StyleProfile profile = loadStyleProfile();
+                const bool switched = m_draftShown.size() > 1 && m_draftShown.last() == packId;
+                recordStyleSignal(&profile, packId, mainScene(m_draftScenes), documentKey(),
+                                  switched ? QStringLiteral("chosen") : QStringLiteral("kept"));
+                saveStyleProfile(profile);
+            }
             runAssistantCommand({QStringLiteral("text.insert"),
                                  {{QStringLiteral("text"), text.left(20000)}, {QStringLiteral("format"), QStringLiteral("markdown")},
                                   {QStringLiteral("position"), QStringLiteral("after")}},
                                  CommandSource::Assistant}, {}, false);
         }}};
     if (pack && m_draftScores.size() > 1)
-        actions.append(Action{QStringLiteral("换个风格"), [this] {
+        actions.append(Action{QStringLiteral("换个风格"), [this, packId] {
+            StyleProfile profile = loadStyleProfile(); // switched away from: counts against it
+            recordStyleSignal(&profile, packId, mainScene(m_draftScenes), documentKey(), QStringLiteral("rejected"));
+            saveStyleProfile(profile);
             if (m_draftShown.size() >= m_draftScores.size()) m_draftShown = {m_draftShown.last()};
             m_assistantBall->addRequest(QStringLiteral("换个风格"));
             showDraftStyle(drawStyle(m_draftScores, m_draftShown, [] { return QRandomGenerator::global()->generateDouble(); }),
