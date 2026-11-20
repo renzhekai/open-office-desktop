@@ -1,6 +1,6 @@
 # Open Office AI 接手文档（持续维护）
 
-最后更新：2026-11-20（本机时间），更新者：Claude Code（Opus 5.5），第 62 条  
+最后更新：2026-11-20（本机时间），更新者：Claude Code（Opus 5.5），第 63 条  
 项目根目录：`D:\open office`  
 初版：2026-11-03T04:53:07Z 由 Codex 生成，依据当时读取的项目文件和用户指令。此后由接手智能体持续维护，初版校验记录的适用范围见第 11 节。
 
@@ -23,7 +23,7 @@
 
 **已经达到：** 上一个默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
 
-**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；发布结果见第 63 条。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
+**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；已发布在 GitHub Releases（`v0.1.0-dev-20261120-3`，第 63 条）。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
 - 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载；卸载会删除配置和模型，迁移过的安装也能删干净（第 47 条）。
 - 本机静默安装、逐文件比对（21,091 个文件）、启动、卸载测试通过（r10 第 53 条，r9 第 51 条）。
 - 以前的安装包（11-06 带便携包、11-07、11-07-2）已补传到 Releases，每个版本一个发布；本机 `dist/` 只留最新的。
@@ -1236,6 +1236,11 @@ python -B scripts/verify_full_source_docx_sample.py
     - **装配：** `live-25` 的程序在完整构建前已用快速编译生成过、没有重新链接，装配脚本拒绝（“the host executable is not from the named build”），删掉构建产物后用 `live-26` 重新链接装配了 r15；r15 复查发现上面的层级问题，修好用 `live-27` 装配 r16：`python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r16 --build-label live-27 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致（另一个是换上的新宿主），宿主 `2c82246db9daef692263292f2827fe4ad3bf8d790fa784e9782c2acbf82155bb`（和实测用的一模一样）；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r16.json`。在 r16 上用本机 1.7B（CPU 引擎）复跑命令探测、坏表格插入、中秋活动方案、安全会议通知、默认样式 5 个场景：第一次（`r16-check`）活动方案报“没有正文段落”——那篇草稿全是标题和列表，是检查写得太严；改成没有普通段落时看列表项字号，重跑（`r16-check-2`）5 个全过。r16 里没有留下配置或模型文件。
     - **安装包和发布：** `SOURCE` 改为 r16；`OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`，627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`；在这台电脑上静默安装 57 秒，装了 21,091 个文件，逐个比对 0 处不同，启动正常，卸载后不留文件（`evidence/installer/OpenOffice-Setup-0.1.0-dev-20261120-3-win64.json`）。发布到 GitHub 的结果见第 63 条。
     - **还没做：** 学用户的风格（偏好项为 0）、图表和形状（文档命令还不能插图表）、从文件夹读社区风格包、表格和演示文稿的风格；1.7B 起草时会把用户给过的信息也用【】括起来（提示词的问题，没改）。
+
+63. **r16 已发布；本机旧安装包已删（2026-11-20，Claude Code）：**
+    - 代码和文档已推送（`dcc52c9`）。`python -I scripts/publish_release.py dist/OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe --notes <说明>` 第一次就成功：<https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261120-3>（预发布），安装包 627,228,347 字节和 `.sha256.txt` 都上传完整（`evidence/releases/v0.1.0-dev-20261120-3.json`）。用 `gh api` 核对过：r16 的两个文件状态都是 uploaded、大小一致；r12（`v0.1.0-dev-20261117`）还在。
+    - 说明文字写了 r16 的排版风格，以及 r14 的修复（r14、r13、r15 都没有单独发布）。
+    - 按“发布核对后删本机旧安装包”的规则，删掉了 `dist/` 里的 `…-20261117-win64.exe`（r12）、`…-20261117-2-win64.exe`（r13，没发布）、`…-20261120-win64.exe`（r14，没发布）、`…-20261120-2-win64.exe`（r15，没发布）和它们的 `.sha256.txt`；本机只留 r16 的安装包。r13、r14、r15 的运行目录还在 `build/` 里，需要时可以用 `build_installer.py --source` 重新出包。
 
 ## 附录 A：requirements.md 完整原文
 

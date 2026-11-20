@@ -31,7 +31,7 @@
 
 ## 安装
 
-安装程序在 GitHub 的 [Releases 页面](https://github.com/renzhekai/open-office-desktop/releases)下载，每个版本都保留。当前最新已发布的是 `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（r12）；最新版 r16 的 `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe` 已做好（627 MB，SHA256 `b45ad8af…7eb5`），正在发布（之前 r14 上传时网络断开）。安装包太大（超过 100 MB），不放进 git 仓库。
+安装程序在 GitHub 的 [Releases 页面](https://github.com/renzhekai/open-office-desktop/releases)下载，每个版本都保留。当前最新：`OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（r16，627 MB，SHA256 `b45ad8af…7eb5`，同一页有完整值的 `.sha256.txt`）。安装包太大（超过 100 MB），不放进 git 仓库。
 
 1. 双击运行，按中文向导安装。
 2. 默认装到 `%LOCALAPPDATA%\Programs\OpenOffice`，只为当前用户安装，不需要管理员权限。可以选择是否创建桌面快捷方式；开始菜单里会有“Open Office”。
@@ -39,7 +39,7 @@
 
 说明：
 - 安装包里装的是默认入口 `build/full-source-run-builtin-ai-r16`，未做任何修改；另外附带 VC++ 运行库（只放在程序文件夹里，没装过运行库的电脑也能启动）和内置引擎 llama.cpp 的许可证原文（`ai-engine\llama.cpp-LICENSES.txt`）。安装包不带模型：第一次用 AI 时，在“本地 AI 设置”里下载（1.8–5 GB，放在程序文件夹的 `models` 里）。
-- 以前的版本也在 Releases 页面：`…-20261117`（r12，做表格的修正和 DeepSeek 修正之前）、`…-20261116-2`（r11，模型列表和云端模型之前）、`…-20261116`（r10，改表格，段落格式之前；字号只有一半）、`…-20261109`（r9，改表格之前）、`…-20261107-2`（接 Ollama 的本地 AI）、`…-20261107`（悬浮球，不接模型）、`…-20261106`（新建、另存为；附便携压缩包）。
+- 以前的版本也在 Releases 页面：`…-20261117`（r12，起草排版、做表格的修正和 DeepSeek 修正之前）、`…-20261116-2`（r11，模型列表和云端模型之前）、`…-20261116`（r10，改表格，段落格式之前；字号只有一半）、`…-20261109`（r9，改表格之前）、`…-20261107-2`（接 Ollama 的本地 AI）、`…-20261107`（悬浮球，不接模型）、`…-20261106`（新建、另存为；附便携压缩包）。
 - 安装程序没有数字签名。从网上下载后运行，Windows 可能提示“Windows 已保护你的电脑”，需点“更多信息 → 仍要运行”。
 - 自动安装测试只在这台电脑上做过，覆盖了安装、逐文件比对、启动和卸载，结果见 [测试记录](evidence/installer/OpenOffice-Setup-0.1.0-dev-20261120-win64.json)。还没在别的电脑上装过。
 - 重新生成：`python -I scripts/build_installer.py --test`；同一天再生成时加 `--same-day 2`（3、4…），文件名会带上编号，不覆盖当天已有的安装包。用到项目内的 Inno Setup 6.7.4（`dependencies/innosetup-6.7.4`）。
