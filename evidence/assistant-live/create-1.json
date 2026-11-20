@@ -1,0 +1,579 @@
+{
+  "label": "create-1",
+  "started_utc": "2026-11-20T15:07:33.354706+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\create-1\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-1.7b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "起草：中秋游园活动方案（节日、活动）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一份中秋节游园活动方案：9月15日下午在公司花园，全体员工参加，有猜灯谜、套圈和抽奖",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "重试"
+            ],
+            "conversation": "20261120-070735-a1ed7f",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-1/01-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一份中秋节游园活动方案：9月15日下午在公司花园，全体员工参加，有猜灯谜、套圈和抽奖",
+                "title": ""
+              },
+              {
+                "ok": false,
+                "role": "assistant",
+                "text": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+                "title": "按要求起草"
+              }
+            ],
+            "seconds": 6.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [
+            "no button '插入文档' (buttons: ['重试'])",
+            "no button '换个风格' (buttons: ['重试'])"
+          ],
+          "seconds": 8.09
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "no_button",
+            "message": "没有可以按的“插入文档”。",
+            "ok": false
+          },
+          "isError": true,
+          "problems": [
+            "expected ok=True, got isError=True"
+          ],
+          "seconds": 0.0
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": true
+          },
+          "problems": [
+            "no style pack went in with the draft"
+          ],
+          "seconds": 0.0
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-1\\01-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-1\\01-blank.docx",
+        "message": "文档没有新的修改，无需再次写入。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c1-festival-plan.json"
+    },
+    {
+      "name": "起草：安全会议通知（公文、会议）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一份通知：周五下午三点在三楼会议室开安全生产会议，各部门负责人参加，带上本部门的隐患清单",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "重试"
+            ],
+            "conversation": "20261120-070747-737b83",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-1/02-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一份通知：周五下午三点在三楼会议室开安全生产会议，各部门负责人参加，带上本部门的隐患清单",
+                "title": ""
+              },
+              {
+                "ok": false,
+                "role": "assistant",
+                "text": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+                "title": "按要求起草"
+              }
+            ],
+            "seconds": 1.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [
+            "no button '插入文档' (buttons: ['重试'])",
+            "no button '换个风格' (buttons: ['重试'])"
+          ],
+          "seconds": 1.63
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "no_button",
+            "message": "没有可以按的“插入文档”。",
+            "ok": false
+          },
+          "isError": true,
+          "problems": [
+            "expected ok=True, got isError=True"
+          ],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": false
+          },
+          "problems": [
+            "no style pack went in with the draft"
+          ],
+          "seconds": 0.0
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-1\\02-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-1\\02-blank.docx",
+        "message": "文档没有新的修改，无需再次写入。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c2-safety-notice.json"
+    },
+    {
+      "name": "起草：产品上线总结（技术、汇报）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一篇新版本上线总结，介绍这次上线的三个新功能、遇到的问题和下一步计划",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "重试"
+            ],
+            "conversation": "20261120-070750-cf3a45",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-1/03-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一篇新版本上线总结，介绍这次上线的三个新功能、遇到的问题和下一步计划",
+                "title": ""
+              },
+              {
+                "ok": false,
+                "role": "assistant",
+                "text": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+                "title": "按要求起草"
+              }
+            ],
+            "seconds": 1.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [
+            "no button '插入文档' (buttons: ['重试'])",
+            "no button '换个风格' (buttons: ['重试'])"
+          ],
+          "seconds": 1.86
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "no_button",
+            "message": "没有可以按的“插入文档”。",
+            "ok": false
+          },
+          "isError": true,
+          "problems": [
+            "expected ok=True, got isError=True"
+          ],
+          "seconds": 0.0
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": true
+          },
+          "problems": [
+            "no style pack went in with the draft"
+          ],
+          "seconds": 0.03
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-1\\03-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-1\\03-blank.docx",
+        "message": "文档没有新的修改，无需再次写入。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c3-release-summary.json"
+    },
+    {
+      "name": "起草：学习方法文章（教学），先换个风格再插入",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一篇文章，介绍高中生提高学习效率的几个方法",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "重试"
+            ],
+            "conversation": "20261120-070754-4c4c70",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-1/04-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一篇文章，介绍高中生提高学习效率的几个方法",
+                "title": ""
+              },
+              {
+                "ok": false,
+                "role": "assistant",
+                "text": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+                "title": "按要求起草"
+              }
+            ],
+            "seconds": 4.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [
+            "no button '插入文档' (buttons: ['重试'])",
+            "no button '换个风格' (buttons: ['重试'])"
+          ],
+          "seconds": 4.38
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "换个风格"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档"
+              ]
+            }
+          },
+          "result": {
+            "code": "no_button",
+            "message": "没有可以按的“换个风格”。",
+            "ok": false
+          },
+          "isError": true,
+          "problems": [
+            "expected ok=True, got isError=True",
+            "no button '插入文档' (buttons: None)"
+          ],
+          "seconds": 0.0
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "no_button",
+            "message": "没有可以按的“插入文档”。",
+            "ok": false
+          },
+          "isError": true,
+          "problems": [
+            "expected ok=True, got isError=True"
+          ],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": true
+          },
+          "problems": [
+            "no style pack went in with the draft"
+          ],
+          "seconds": 0.02
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-1\\04-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-1\\04-blank.docx",
+        "message": "文档没有新的修改，无需再次写入。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c4-study-article.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-1.7b",
+      "modelKey": "builtin:qwen3-1.7b",
+      "state": "ready",
+      "tokensPerSecond": 0
+    },
+    "conversation": "20261120-070754-4c4c70",
+    "conversationMessages": 2,
+    "document": "D:/open office/build/assistant-live/create-1/04-blank.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "内存或显存不够。请关掉一些程序，或在设置里换一个小一点的模型。",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-20T15:07:59.084115+00:00",
+  "ok": false
+}

@@ -3,6 +3,7 @@
 #include "assistant/assistant_commands.h"
 #include "assistant/assistant_tasks.h"
 #include "assistant/conversation_store.h"
+#include "assistant/document_style.h"
 #include "ui/relocation.h"
 
 #include <QPointer>
@@ -75,6 +76,8 @@ public:
     // a request waiting for the local AI to be detected or started, or an answer.
     bool assistantBusy() const;
     QString lastTaskAnswer() const { return m_lastTaskAnswer; } // the model's raw answer, for tests
+    // The style pack this document's drafts went in with (empty: none yet).
+    QString documentStyleId() const { return m_documentStyles.value(documentKey()); }
     QString openedDocumentPath() const { return m_openedPath; }
 
 protected:
@@ -179,6 +182,21 @@ private:
     void switchModel(const QString& key);
     void applyModelSwitch(const QString& key);
     QList<PlannedEdit> m_pendingPlan; // the plan while the table's words are proofread
+    // A draft's look: the style packs scored for it (weights: prior, scene, preference,
+    // exploration), the model's pick among the best, and the pack a document keeps once a
+    // draft went in (later inserts there use it too).
+    QString m_draftText;
+    QString m_draftTask;
+    TaskInput m_draftInput;              // what the draft was written from (for 重写)
+    QList<ScoredStyle> m_draftScores;    // every pack, scored for this draft
+    QList<ScoredStyle> m_styleCandidates; // the ones the model chooses from
+    QStringList m_draftShown;            // packs shown for this draft: 换个风格 moves on
+    QHash<QString, QString> m_documentStyles; // document -> style pack id
+    DocumentStyle m_currentStyle;        // what currentDocumentStyle() points to
+    void offerDraftStyle();
+    void showDraftStyle(const StylePack* pack, const QString& why);
+    const DocumentStyle* currentDocumentStyle(); // nullptr: no draft went into this document yet
+    QString documentKey() const;
     void routeTypedRequest(const QString& text, const QString& documentText, const QString& selection);
     bool m_speedAdviceShown = false;  // the "slow model" card appears once per session
     QPointer<AiSettingsDialog> m_aiSettings;

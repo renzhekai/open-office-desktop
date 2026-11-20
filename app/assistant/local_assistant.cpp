@@ -569,9 +569,11 @@ bool LocalAssistant::runTask(const TaskSpec& spec, const TaskInput& input)
     options.think = thinkSetting();
     // A reasoning model that cannot stop reasoning (gpt-oss) stalls on a
     // schema-constrained answer; it gets the plain instruction instead.
-    if (options.think != QStringLiteral("low")) options.format = taskFormat(spec);
+    if (options.think != QStringLiteral("low")) options.format = taskFormat(spec, input);
+    // Choosing among a few looks needs no reasoning phase: the answer comes at once.
+    if (spec.output == TaskOutput::Choice && !cloud()) options.think = QStringLiteral("false");
     options.contextLength = contextLengthFor(messages, false);
-    options.temperature = spec.output == TaskOutput::Corrections ? 0.0 : 0.4;
+    options.temperature = spec.output == TaskOutput::Corrections ? 0.0 : spec.output == TaskOutput::Choice ? 0.3 : 0.4;
     m_task = spec.id;
     emit taskStarted(spec.id);
     dispatch(messages, options);

@@ -23,6 +23,7 @@
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QJsonDocument>
+#include <QRandomGenerator>
 #include <QKeySequence>
 #include <QLabel>
 #include <QMenu>
@@ -607,7 +608,8 @@ void MainWindow::buildInterface()
     });
     connect(m_localAi, &LocalAssistant::taskDelta, this, [this](const QString& text) {
         const TaskSpec* spec = findTask(m_localAi->runningTask());
-        if (spec && (spec->output == TaskOutput::Corrections || spec->output == TaskOutput::TablePlan))
+        if (spec && (spec->output == TaskOutput::Corrections || spec->output == TaskOutput::TablePlan
+                     || spec->output == TaskOutput::Choice))
             return; // raw JSON is not for reading
         m_assistantBall->appendReply(text);
     });
@@ -874,7 +876,7 @@ void MainWindow::runAssistantCommand(const AssistantCommand& command, CommandDon
         if (command.name == QStringLiteral("text.insert")
             && (format == QStringLiteral("markdown")
                 || (format.isEmpty() && command.source == CommandSource::Assistant && looksLikeMarkdown(insertText))))
-            engineArguments.insert(QStringLiteral("html"), markdownToHtml(insertText));
+            engineArguments.insert(QStringLiteral("html"), markdownToHtml(insertText, MarkdownTarget::Document, currentDocumentStyle()));
         const quint64 requestId = ++m_nextRequestId;
         const EngineResult accepted = m_engine->requestEditorCommand(requestId, command.name, engineArguments);
         if (!accepted.ok) {
@@ -1302,6 +1304,100 @@ void MainWindow::runQuickAction(const QString& id)
     });
 }
 
+QString MainWindow::documentKey() const
+{
+    return !m_openedPath.isEmpty() ? QDir::cleanPath(m_openedPath) : QStringLiteral("untitled:") + m_untitledTitle;
+}
+
+const DocumentStyle* MainWindow::currentDocumentStyle()
+{
+    const StylePack* pack = findStylePack(m_documentStyles.value(documentKey()));
+    if (!pack) return nullptr;
+    m_currentStyle = documentStyle(*pack);
+    return &m_currentStyle;
+}
+
+void MainWindow::offerDraftStyle()
+{
+    const auto random = [] { return QRandomGenerator::global()->generateDouble(); };
+    // What it is for: the kind of draft, the request and the draft's own title.
+    QString title;
+    for (const QString& line : m_draftText.split(QLatin1Char('\n')))
+        if (!line.trimmed().isEmpty()) {
+            title = line.trimmed();
+            break;
+        }
+    m_draftScores = scoreStylePacks(builtinStylePacks(), detectScenes(m_draftTask, m_draftInput.detail + QLatin1Char('\n') + title),
+                                    {}, random);
+    m_draftShown.clear();
+    // A document that has a drafted look keeps it (换个风格 still offers others).
+    if (const StylePack* kept = findStylePack(m_documentStyles.value(documentKey()))) {
+        showDraftStyle(kept, QStringLiteral("（沿用这份文档之前的排版）"));
+        return;
+    }
+    m_styleCandidates = styleCandidates(m_draftScores, 4, random);
+    if (m_styleCandidates.isEmpty()) {
+        showDraftStyle(nullptr, QString());
+        return;
+    }
+    if (m_localAi->state() != LocalAiState::Ready) {
+        showDraftStyle(drawStyle(m_styleCandidates, {}, random), QStringLiteral("（按场景和权重挑的）"));
+        return;
+    }
+    TaskInput input{m_draftText, m_draftInput.detail.isEmpty() ? title : m_draftInput.detail, currentDocumentName()};
+    for (const ScoredStyle& candidate : m_styleCandidates) input.options.append(candidate.pack->id);
+    startTask(*findTask(QStringLiteral("styleChoice")), input);
+}
+
+void MainWindow::showDraftStyle(const StylePack* pack, const QString& why)
+{
+    using Action = AssistantBall::ReplyAction;
+    const QString text = m_draftText;
+    const QString packId = pack ? pack->id : QString();
+    if (pack) m_draftShown.append(pack->id);
+    QList<Action> actions{
+        Action{QStringLiteral("插入文档"), [this, text, packId] {
+            if (!packId.isEmpty()) m_documentStyles.insert(documentKey(), packId);
+            runAssistantCommand({QStringLiteral("text.insert"),
+                                 {{QStringLiteral("text"), text.left(20000)}, {QStringLiteral("format"), QStringLiteral("markdown")},
+                                  {QStringLiteral("position"), QStringLiteral("after")}},
+                                 CommandSource::Assistant}, {}, false);
+        }}};
+    if (pack && m_draftScores.size() > 1)
+        actions.append(Action{QStringLiteral("换个风格"), [this] {
+            if (m_draftShown.size() >= m_draftScores.size()) m_draftShown = {m_draftShown.last()};
+            m_assistantBall->addRequest(QStringLiteral("换个风格"));
+            showDraftStyle(drawStyle(m_draftScores, m_draftShown, [] { return QRandomGenerator::global()->generateDouble(); }),
+                           QStringLiteral("（按场景和权重换的）"));
+        }});
+    actions.append(Action{QStringLiteral("重写"), [this] {
+        const TaskSpec* spec = findTask(m_draftTask);
+        if (!spec) return;
+        m_assistantBall->addRequest(QStringLiteral("再来一次"));
+        const TaskInput input = m_draftInput;
+        whenLocalAiReady([this, spec, input] { startTask(*spec, input); });
+    }});
+    actions.append(Action{QStringLiteral("复制"), [text] { QGuiApplication::clipboard()->setText(text); }, false});
+    if (!pack) { // no style packs: the plain look
+        m_assistantBall->showRichReply(QStringLiteral("排版"), markdownToHtml(text, MarkdownTarget::Bubble), actions);
+        return;
+    }
+    // The beginning of the draft in this look (a table that starts there is shown whole).
+    QStringList preview;
+    int lines = 0;
+    const QStringList all = text.split(QLatin1Char('\n'));
+    for (const QString& line : all) {
+        if ((lines >= 12 && !line.trimmed().startsWith(QLatin1Char('|'))) || preview.size() >= 40) break;
+        preview.append(line);
+        if (!line.trimmed().isEmpty()) ++lines;
+    }
+    if (preview.size() < all.size()) preview.append(QStringLiteral("……"));
+    const DocumentStyle style = documentStyle(*pack);
+    const QString html = QStringLiteral("<p style=\"color:#6B6B6B\">%1%2</p>").arg(pack->description.toHtmlEscaped(), why.toHtmlEscaped())
+        + markdownToHtml(preview.join(QLatin1Char('\n')), MarkdownTarget::Bubble, &style);
+    m_assistantBall->showRichReply(QStringLiteral("排版：") + pack->name, html, actions);
+}
+
 void MainWindow::startTask(const TaskSpec& spec, const TaskInput& input)
 {
     m_lastTaskId = spec.id;
@@ -1322,6 +1418,24 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
         m_assistantBall->addRequest(QStringLiteral("再来一次"));
         whenLocalAiReady([this, spec] { startTask(*spec, m_lastTaskInput); });
     };
+    if (id == QStringLiteral("styleChoice")) {
+        // The model's pick among the candidates; anything else (no answer, an id that was not
+        // offered) falls back to a draw by the program's weights.
+        m_assistantBall->endReply(QString(), true); // the "thinking" bubble goes
+        const QString chosen = ok ? QJsonDocument::fromJson(stripThinking(text).trimmed().toUtf8()).object()
+                                        .value(QStringLiteral("style")).toString()
+                                  : QString();
+        const StylePack* pack = nullptr;
+        for (const ScoredStyle& candidate : m_styleCandidates)
+            if (candidate.pack->id == chosen) pack = candidate.pack;
+        if (pack) {
+            showDraftStyle(pack, QStringLiteral("（模型从 %1 个候选里挑的）").arg(m_styleCandidates.size()));
+        } else {
+            showDraftStyle(drawStyle(m_styleCandidates, {}, [] { return QRandomGenerator::global()->generateDouble(); }),
+                           QStringLiteral("（按场景和权重挑的）"));
+        }
+        return;
+    }
     if (!ok && id == QStringLiteral("tableProofread")) {
         m_assistantBall->endReply(QString(), true); // the plan stands without the typo check
         showTablePlan(m_pendingPlan);
@@ -1378,6 +1492,16 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
         const QString result = stripThinking(text).trimmed();
         if (result.isEmpty()) {
             m_assistantBall->endReply(QStringLiteral("模型没有给出结果。"), false, {Action{QStringLiteral("重试"), retry}});
+            return;
+        }
+        if (spec->scope == TaskScope::Writing) {
+            // A draft gets a look before it goes in: the program scores the style packs, the
+            // model picks among the best, and the card shows the draft in that look.
+            m_assistantBall->endReply(result, true);
+            m_draftText = draftMarkdown(result); // the title and section levels set by the program
+            m_draftTask = spec->id;
+            m_draftInput = m_lastTaskInput;
+            offerDraftStyle();
             return;
         }
         QList<Action> actions{
@@ -1973,7 +2097,7 @@ void MainWindow::handleProposedCommand(const AssistantCommand& proposed)
         const QString where = position == QStringLiteral("end") ? QStringLiteral("在文档最后插入：")
             : position == QStringLiteral("after") ? QStringLiteral("在当前段落后面插入：") : QStringLiteral("在光标处插入：");
         const QString html = QStringLiteral("<p>") + where.toHtmlEscaped() + QStringLiteral("</p>")
-            + markdownToHtml(text.size() > 3000 ? text.left(3000) : text, MarkdownTarget::Bubble);
+            + markdownToHtml(text.size() > 3000 ? text.left(3000) : text, MarkdownTarget::Bubble, currentDocumentStyle());
         using Action = AssistantBall::CardAction;
         m_assistantBall->showRichCard(QStringLiteral("助手想要") + spec->title, html,
             {Action{QStringLiteral("执行"), [this, command] { runAssistantCommand(command); }},

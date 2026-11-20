@@ -1,4 +1,5 @@
 #include "assistant/conversation_store.h"
+#include "assistant/document_style.h"
 #include "assistant/assistant_commands.h"
 #include "assistant/cloud_models.h"
 #include "assistant/assistant_tasks.h"
@@ -710,6 +711,176 @@ private slots:
         QVERIFY(!assistant.ask(QStringLiteral("你好"), QString()));
         QVERIFY(assistant.recommendation().name.startsWith(QStringLiteral("qwen3:")));
         for (const auto& request : fake.requests) QVERIFY(request.first != QStringLiteral("/api/pull")); // never on its own
+    }
+
+    // --- the look of drafts ---
+
+    void stylePacksAreCheckedAndPaletteKeepsContrast()
+    {
+        // The packs that come with the program are all valid, and there are enough to choose from.
+        QFile file(QStringLiteral(":/style_packs.json"));
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        QStringList errors;
+        const QList<StylePack> packs = parseStylePacks(file.readAll(), &errors);
+        QVERIFY2(errors.isEmpty(), qPrintable(errors.join(QLatin1Char('\n'))));
+        QVERIFY(packs.size() >= 8);
+        QCOMPARE(builtinStylePacks().size(), packs.size());
+        QVERIFY(findStylePack(QStringLiteral("festive-red")) != nullptr);
+        // A pack that breaks a rule is left out, and said: a font that could break out of the
+        // style attribute, a hue out of range, a scene nobody knows, an id twice.
+        const QByteArray good = QJsonDocument(QJsonDocument::fromJson(R"({"id":"a","name":"甲","description":"说明","prior":0.5,
+            "scenes":{"general":0.5},"palette":{"hue":10,"chroma":0.5},"fonts":{"heading":"SimHei","body":"SimSun"},
+            "sizes":{"title":20,"heading":16,"subheading":14,"body":12},"title":{"align":"center"},"headings":{"rule":true},
+            "body":{"lineHeight":1.5,"firstLineIndent":true,"spaceAfter":6},"emphasis":"accent","table":{"header":"solid","banded":true}})")
+            .object()).toJson();
+        const auto variant = [&good](const QString& from, const QString& to) { return QString::fromUtf8(good).replace(from, to); };
+        const QString broken = QStringLiteral(R"({"format":"open-office-style-packs","version":1,"packs":[%1,%2,%3,%4,%5]})")
+            .arg(QString::fromUtf8(good), variant(QStringLiteral("\"SimHei\""), QStringLiteral("\"x;color:red\"")).replace(QStringLiteral("\"a\""), QStringLiteral("\"b\"")),
+                 variant(QStringLiteral("\"hue\": 10"), QStringLiteral("\"hue\": 400")).replace(QStringLiteral("\"a\""), QStringLiteral("\"c\"")),
+                 variant(QStringLiteral("\"general\""), QStringLiteral("\"party\"")).replace(QStringLiteral("\"a\""), QStringLiteral("\"d\"")),
+                 QString::fromUtf8(good));
+        errors.clear();
+        const QList<StylePack> some = parseStylePacks(broken.toUtf8(), &errors);
+        QCOMPARE(some.size(), 1);
+        QCOMPARE(errors.size(), 4);
+        QVERIFY(errors.join(QLatin1Char(' ')).contains(QStringLiteral("id 重复")));
+        QVERIFY(parseStylePacks(QByteArray("{\"packs\":[]}"), &errors).isEmpty());
+
+        // Colours are made, not listed, and every one is held to its contrast, for any hue.
+        for (int hue = 0; hue < 360; hue += 15)
+            for (const double chroma : {0.0, 0.25, 0.5, 0.8, 1.0}) {
+                const StylePalette palette = paletteFor(hue, chroma);
+                const QString where = QStringLiteral("hue %1 chroma %2").arg(hue).arg(chroma);
+                QVERIFY2(contrastRatio(palette.primary, QStringLiteral("#FFFFFF")) >= 7.0, qPrintable(where));
+                QVERIFY2(contrastRatio(palette.accent, QStringLiteral("#FFFFFF")) >= 4.5, qPrintable(where));
+                QVERIFY2(contrastRatio(palette.text, palette.tint) >= 12.0, qPrintable(where));
+                QVERIFY2(contrastRatio(palette.text, palette.tintStrong) >= 7.0, qPrintable(where));
+                QVERIFY2(contrastRatio(palette.primary, palette.tintStrong) >= 4.5, qPrintable(where));
+            }
+        QCOMPARE(paletteFor(0, 0).primary.mid(1, 2), paletteFor(0, 0).primary.mid(3, 2)); // no colour: grey
+        QVERIFY(contrastRatio(QStringLiteral("#000000"), QStringLiteral("#FFFFFF")) > 20.9);
+    }
+
+    void styleWeightsChooseTheLook()
+    {
+        // The scene: from the kind of draft and the words.
+        QCOMPARE(detectScenes(QStringLiteral("plan"), QStringLiteral("中秋节游园活动")).value(QStringLiteral("event")), 1.0);
+        QCOMPARE(detectScenes(QStringLiteral("plan"), QStringLiteral("中秋节游园活动")).value(QStringLiteral("festive")), 0.8);
+        QVERIFY(detectScenes(QStringLiteral("write"), QStringLiteral("写一篇关于学习的文章")).contains(QStringLiteral("education")));
+        QVERIFY(detectScenes(QStringLiteral("write"), QStringLiteral("随便写点什么")).isEmpty());
+
+        const QList<StylePack>& packs = builtinStylePacks();
+        const auto none = [] { return 0.0; };
+        const auto best = [](const QList<ScoredStyle>& scored) {
+            const ScoredStyle* top = &scored.first();
+            for (const ScoredStyle& item : scored) if (item.score > top->score) top = &item;
+            return top->pack->id;
+        };
+        // A rarely used pack wins where it fits: 喜庆红 has a low prior but suits a festival.
+        QCOMPARE(best(scoreStylePacks(packs, {{QStringLiteral("festive"), 1.0}}, {}, none)), QStringLiteral("festive-red"));
+        QCOMPARE(best(scoreStylePacks(packs, {{QStringLiteral("official"), 1.0}}, {}, none)), QStringLiteral("official-classic"));
+        QCOMPARE(best(scoreStylePacks(packs, {{QStringLiteral("tech"), 1.0}}, {}, none)), QStringLiteral("tech-teal"));
+        // The person's preference counts too.
+        const QList<ScoredStyle> general = scoreStylePacks(packs, {}, {}, none);
+        const QList<ScoredStyle> liked = scoreStylePacks(packs, {}, {{QStringLiteral("fresh-green"), 1.0}}, none);
+        for (int i = 0; i < packs.size(); ++i)
+            if (packs[i].id == QStringLiteral("fresh-green")) QVERIFY(qAbs(liked[i].score - general[i].score - 0.15) < 1e-9);
+        // Exploration adds at most 0.12; nothing scores below the floor.
+        const QList<ScoredStyle> explored = scoreStylePacks(packs, {}, {}, [] { return 1.0; });
+        for (int i = 0; i < packs.size(); ++i) QVERIFY(qAbs(explored[i].score - general[i].score - 0.12) < 1e-9);
+        StylePack odd = packs.first();
+        odd.prior = 0;
+        odd.scenes = {{QStringLiteral("tech"), 1.0}};
+        QCOMPARE(scoreStylePacks({odd}, {{QStringLiteral("festive"), 1.0}}, {{odd.id, -1.0}}, none).first().score, 0.05);
+
+        // Candidates: the four best and one more from the rest.
+        const QList<ScoredStyle> candidates = styleCandidates(general, 4, none);
+        QCOMPARE(candidates.size(), 5);
+        for (int i = 1; i < 4; ++i) QVERIFY(candidates[i - 1].score >= candidates[i].score);
+        QStringList ids;
+        for (const ScoredStyle& item : candidates) ids << item.pack->id;
+        QCOMPARE(QSet<QString>(ids.begin(), ids.end()).size(), 5);
+        // Every pack can be drawn, even the least likely; skipped ones never are.
+        QSet<QString> drawn;
+        for (int step = 0; step < 1000; ++step) {
+            const double point = step / 1000.0;
+            const StylePack* pack = drawStyle(general, {QStringLiteral("slate-minimal")}, [point] { return point; });
+            QVERIFY(pack && pack->id != QStringLiteral("slate-minimal"));
+            drawn.insert(pack->id);
+        }
+        QCOMPARE(drawn.size(), int(packs.size()) - 1);
+
+        // The model chooses only among the candidates it is given.
+        TaskInput input{QStringLiteral("# 中秋游园活动方案"), QStringLiteral("写个中秋活动方案"), QString()};
+        input.options = {QStringLiteral("festive-red"), QStringLiteral("vivid-orange")};
+        const TaskSpec* choice = findTask(QStringLiteral("styleChoice"));
+        QVERIFY(choice && !choice->offered);
+        const QJsonObject format = taskFormat(*choice, input);
+        QCOMPARE(format.value(QStringLiteral("properties")).toObject().value(QStringLiteral("style")).toObject()
+                     .value(QStringLiteral("enum")).toArray(),
+                 QJsonArray({QStringLiteral("festive-red"), QStringLiteral("vivid-orange")}));
+        const QString asked = taskMessages(*choice, input).last().toObject().value(QStringLiteral("content")).toString();
+        QVERIFY(asked.contains(QStringLiteral("喜庆红")) && asked.contains(QStringLiteral("活力橙")) && asked.contains(QStringLiteral("中秋游园")));
+    }
+
+    void draftsGoInWithTheirLook()
+    {
+        const QString draft = QStringLiteral(
+            "# 中秋游园活动方案\n\n## 一、活动时间\n\n活动定在**9月15日**下午。\n\n### 1. 分工\n\n- 布置会场\n- 准备奖品\n\n"
+            "| 项目 | 预算 |\n|---|---|\n| 场地 | 2000 |\n| 奖品 | 1500元 |\n| 茶点 | 800 |\n\n【主办部门】\n2026年9月10日");
+        const DocumentStyle blue = documentStyle(*findStylePack(QStringLiteral("steady-blue")));
+        const QString html = markdownToHtml(draft, MarkdownTarget::Document, &blue);
+        const QString primary = blue.palette.primary;
+        // The title: centred, the heading font, the title size, the pack's colour.
+        QVERIFY(html.contains(QStringLiteral("<h1 style=\"text-align:center;color:%1;font-family:'Microsoft YaHei';font-size:22pt;font-weight:bold")
+                                  .arg(primary)));
+        // Sections with a rule under them, sub-sections smaller.
+        QVERIFY(html.contains(QStringLiteral("<h2 style=\"color:%1;font-family:'Microsoft YaHei';font-size:16pt;font-weight:bold;"
+                                             "margin-top:12pt;margin-bottom:6pt;border-bottom:1px solid %2").arg(primary, blue.palette.accent)));
+        QVERIFY(html.contains(QStringLiteral("font-size:14pt")) && html.contains(QStringLiteral(">1. 分工</h3>")));
+        // Body: font, size, line height, space after, a two-character indent; emphasis in the accent colour.
+        QVERIFY(html.contains(QStringLiteral("<p style=\"font-family:'SimSun';font-size:12pt;color:#262626;line-height:1.5;"
+                                             "margin-top:0pt;margin-bottom:6pt;text-indent:2em\">活动定在<b style=\"color:%1\">9月15日</b>下午。</p>")
+                                  .arg(blue.palette.accent)));
+        QVERIFY(html.contains(QStringLiteral("<li style=\"font-family:'SimSun'")));
+        // The table: filled header with white text, banded rows, numbers on the right.
+        QVERIFY(html.contains(QStringLiteral("background-color:%1;border:1px solid").arg(primary)));
+        QVERIFY(html.contains(QStringLiteral("color:#FFFFFF")));
+        QVERIFY(html.contains(QStringLiteral("background-color:%1;text-align:right\">1500元</td>").arg(blue.palette.tint)));
+        QVERIFY(html.contains(QStringLiteral("text-align:right\">2000</td>")));
+        QVERIFY(!html.contains(QStringLiteral("text-align:right\">场地</td>")));
+        // The sender and the date close it on the right.
+        QVERIFY(html.contains(QStringLiteral("margin-bottom:0pt;text-align:right\">【主办部门】</p>")));
+        QVERIFY(html.contains(QStringLiteral("margin-bottom:0pt;text-align:right\">2026年9月10日</p>")));
+        // A three-line table: no frame, rules above and below the header and under the last row.
+        const DocumentStyle academic = documentStyle(*findStylePack(QStringLiteral("academic-three-line")));
+        const QString three = markdownToHtml(draft, MarkdownTarget::Document, &academic);
+        QVERIFY(three.contains(QStringLiteral("style=\"border-collapse:collapse;width:100%;border:none\"")));
+        QVERIFY(three.contains(QStringLiteral("border-top:1.5pt solid #262626;border-bottom:0.75pt solid #262626")));
+        QVERIFY(three.contains(QStringLiteral("border:none;border-bottom:1.5pt solid #262626;text-align:right\">800</td>")));
+        QVERIFY(three.contains(QStringLiteral("<b>9月15日</b>"))); // this pack emphasises with bold only
+        // An insert that starts with a section is no title.
+        QVERIFY(markdownToHtml(QStringLiteral("## 补充\n内容"), MarkdownTarget::Document, &blue).startsWith(QStringLiteral("<h2 ")));
+        // The preview in the bubble has the colours, not the sizes.
+        const QString bubble = markdownToHtml(draft, MarkdownTarget::Bubble, &blue);
+        QVERIFY(bubble.contains(QStringLiteral("<p><b style=\"color:%1\">中秋游园活动方案</b></p>").arg(primary)));
+        QVERIFY(bubble.contains(QStringLiteral("<th style=\"background-color:%1;color:#FFFFFF\">").arg(primary)));
+        QVERIFY(!bubble.contains(QStringLiteral("font-size")));
+        // A draft's levels are set by the program: the 1.7B once wrote "## 标题" and "### 一、…".
+        QCOMPARE(draftMarkdown(QStringLiteral("## 中秋节游园活动方案\n\n### 一、背景\n内容\n#### 1. 细节\n### 二、流程")),
+                 QStringLiteral("# 中秋节游园活动方案\n\n## 一、背景\n内容\n### 1. 细节\n## 二、流程"));
+        QCOMPARE(draftMarkdown(QStringLiteral("关于召开安全会议的通知\n\n各部门：\n请准时参加。")),
+                 QStringLiteral("# 关于召开安全会议的通知\n\n各部门：\n请准时参加。"));
+        QCOMPARE(draftMarkdown(QStringLiteral("# 甲\n# 乙\n## 丙")), QStringLiteral("# 甲\n## 乙\n### 丙"));
+        for (const QString& kept : {QStringLiteral("# 标题\n## 一\n### 二"), QStringLiteral("尊敬的客户：\n感谢支持。"),
+                                    QStringLiteral("- 第一条\n- 第二条"), QStringLiteral("1. 第一步\n2. 第二步"),
+                                    QStringLiteral("只有一行")})
+            QCOMPARE(draftMarkdown(kept), kept);
+        const QString fixed = markdownToHtml(draftMarkdown(QStringLiteral("## 方案\n### 一、背景\n内容")), MarkdownTarget::Document, &blue);
+        QVERIFY(fixed.startsWith(QStringLiteral("<h1 style=\"text-align:center")) && fixed.contains(QStringLiteral(">一、背景</h2>")));
+        // Without a style nothing changes.
+        QVERIFY(markdownToHtml(draft).contains(QStringLiteral("<h1>中秋游园活动方案</h1>")));
+        QVERIFY(markdownToHtml(draft).contains(QStringLiteral("<p>【主办部门】</p>")));
     }
 
     // --- office tasks ---

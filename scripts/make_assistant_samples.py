@@ -263,7 +263,15 @@ DOCUMENTS_HOLDOUT = {
 }
 
 
+# Empty documents for drafting from scratch.
+CREATE = {
+    "blank.docx": document(),
+}
+
+
 def main():
+    for name, xml in CREATE.items():
+        print(write("create/" + name, xml).relative_to(ROOT))
     for name, xml in SAMPLES.items():
         print(write(name, xml).relative_to(ROOT))
     for name, xml in HOLDOUT.items():

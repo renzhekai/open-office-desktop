@@ -1,0 +1,1257 @@
+{
+  "label": "create-3-cpu",
+  "started_utc": "2026-11-20T15:18:54.756163+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\create-3-cpu\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-1.7b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "起草：中秋游园活动方案（节日、活动）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一份中秋节游园活动方案：9月15日下午在公司花园，全体员工参加，有猜灯谜、套圈和抽奖",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 15.812589192885916
+            },
+            "buttons": [
+              "插入文档",
+              "换个风格",
+              "重写",
+              "复制"
+            ],
+            "conversation": "20261120-071856-f344d2",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/01-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p style=\"color:#6B6B6B\">中国红标题、宋体正文、红色实色表头，喜庆隆重（模型从 5 个候选里挑的）</p><p><b style=\"color:#8C1C18\">中秋节游园活动方案</b></p><p><b style=\"color:#8C1C18\">活动背景</b></p><p>为弘扬中华传统文化，增强员工凝聚力，公司计划在中秋节期间组织全员参与的趣味游园活动，通过互动游戏增进团队协作，营造温馨节日氛围。</p><p><b style=\"color:#8C1C18\">活动时间</b></p><p>【9月15日（星期日）下午14:00-17:00】</p><p><b style=\"color:#8C1C18\">活动地点</b></p><p>【公司花园】（具体位置需根据实际场地确认）</p><p><b style=\"color:#8C1C18\">活动内容</b></p><p><b style=\"color:#8C1C18\">一、核心项目</b></p><ol><li><b style=\"color:#CF1D17\">猜灯谜</b></li></ol><ul><li>悬挂30盏主题灯谜（含传统与现代结合题）</li><li>设置&quot;猜中奖品&quot;环节，答对前10题可获小礼品</li></ul><p>……</p>",
+            "lastTaskAnswer": "{\"style\": \"festive-red\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一份中秋节游园活动方案：9月15日下午在公司花园，全体员工参加，有猜灯谜、套圈和抽奖",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "# 中秋节游园活动方案\n\n## 活动背景\n为弘扬中华传统文化，增强员工凝聚力，公司计划在中秋节期间组织全员参与的趣味游园活动，通过互动游戏增进团队协作，营造温馨节日氛围。\n\n## 活动时间\n【9月15日（星期日）下午14:00-17:00】\n\n## 活动地点\n【公司花园】（具体位置需根据实际场地确认）\n\n## 活动内容\n### 一、核心项目\n1. **猜灯谜**  \n   - 悬挂30盏主题灯谜（含传统与现代结合题）  \n   - 设置\"猜中奖品\"环节，答对前10题可获小礼品  \n   - 鼓励团队协作，每组可组合答题\n\n2. **套圈游戏**  \n   - 以小组为单位进行，每组5人  \n   - 用直径10cm圈套中指定目标物（如气球、小奖品）  \n   - 每组限3轮，得分=套中数量×2分/次\n\n3. **抽奖环节**  \n   - 预设50份奖品（含月饼礼盒、纪念品等）  \n   - 采用\"摇奖+抽签\"双机制，确保公平性  \n   - 奖品发放需提前公示名单\n\n### 二、延伸活动\n- 摄影打卡区：设置中秋主题拍照点，提供道具  \n- 自由交流区：安排茶歇与互动交流\n\n## 活动流程\n14:00-14:30 签到入场  \n14:30-14:45 热身游戏（趣味接力赛）  \n14:45-16:00 主题游戏（猜灯谜/套圈）  \n16:00-16:30 抽奖仪式与颁奖  \n16:30-17:00 自由活动与合影\n\n## 活动准备\n- 奖品清单：【需提供具体奖品明细】  \n- 安全措施：安排2名工作人员看护，配备急救包  \n- 资源保障：提前1天布置场地，确保照明与音响设备\n\n## 注意事项\n1. 请全体员工提前10分钟到场签到  \n2. 环保要求：禁止乱扔垃圾，活动结束后需清理现场  \n3. 防暑降温：提供饮用水，高温时段适当调整活动时间  \n4. 保密要求：抽奖名单及奖品信息需保密至活动结束\n\n（注：【】处需根据实际情况补充具体信息）",
+                "title": "按要求起草"
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p style=\"color:#6B6B6B\">中国红标题、宋体正文、红色实色表头，喜庆隆重（模型从 5 个候选里挑的）</p><p><b style=\"color:#8C1C18\">中秋节游园活动方案</b></p><p><b style=\"color:#8C1C18\">活动背景</b></p><p>为弘扬中华传统文化，增强员工凝聚力，公司计划在中秋节期间组织全员参与的趣味游园活动，通过互动游戏增进团队协作，营造温馨节日氛围。</p><p><b style=\"color:#8C1C18\">活动时间</b></p><p>【9月15日（星期日）下午14:00-17:00】</p><p><b style=\"color:#8C1C18\">活动地点</b></p><p>【公司花园】（具体位置需根据实际场地确认）</p><p><b style=\"color:#8C1C18\">活动内容</b></p><p><b style=\"color:#8C1C18\">一、核心项目</b></p><ol><li><b style=\"color:#CF1D17\">猜灯谜</b></li></ol><ul><li>悬挂30盏主题灯谜（含传统与现代结合题）</li><li>设置&quot;猜中奖品&quot;环节，答对前10题可获小礼品</li></ul><p>……</p>",
+                "title": "排版：喜庆红"
+              }
+            ],
+            "seconds": 68.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 68.78
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 15.812589192885916
+            },
+            "buttons": [
+              "复制"
+            ],
+            "conversation": "20261120-071856-f344d2",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/01-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "documentStyle": {
+              "accent": "#CF1D17",
+              "bodyFont": "SimSun",
+              "bodySize": 12,
+              "headingFont": "SimHei",
+              "headingSize": 16,
+              "id": "festive-red",
+              "name": "喜庆红",
+              "primary": "#8C1C18",
+              "titleAlign": "center",
+              "titleSize": 22
+            },
+            "lastMessage": "已插入 834 个字符。",
+            "lastTaskAnswer": "{\"style\": \"festive-red\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入 834 个字符。",
+                "title": "插入文字"
+              }
+            ],
+            "seconds": 1.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.25
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": true
+          },
+          "look": {
+            "accent": "#CF1D17",
+            "bodyFont": "SimSun",
+            "bodySize": 12,
+            "headingFont": "SimHei",
+            "headingSize": 16,
+            "id": "festive-red",
+            "name": "喜庆红",
+            "primary": "#8C1C18",
+            "titleAlign": "center",
+            "titleSize": 22
+          },
+          "actual": [
+            {
+              "align": "center",
+              "bold": true,
+              "id": "P1",
+              "length": 9,
+              "size": 22,
+              "style": "Heading 1",
+              "text": "中秋节游园活动方案"
+            },
+            {
+              "bold": true,
+              "id": "P2",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "活动背景"
+            },
+            {
+              "id": "P3",
+              "length": 64,
+              "size": 12,
+              "style": "",
+              "text": "为弘扬中华传统文化，增强员工凝聚力，公司计划在中秋节期间组织全员参与的趣味游园活动，通过互动游戏增进团队协作，营造温馨节日氛围。"
+            },
+            {
+              "bold": true,
+              "id": "P4",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "活动时间"
+            },
+            {
+              "id": "P5",
+              "length": 25,
+              "size": 12,
+              "style": "",
+              "text": "【9月15日（星期日）下午14:00-17:00】"
+            },
+            {
+              "bold": true,
+              "id": "P6",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "活动地点"
+            },
+            {
+              "id": "P7",
+              "length": 21,
+              "size": 12,
+              "style": "",
+              "text": "【公司花园】（具体位置需根据实际场地确认）"
+            },
+            {
+              "bold": true,
+              "id": "P8",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "活动内容"
+            },
+            {
+              "bold": true,
+              "id": "P9",
+              "length": 6,
+              "size": 14,
+              "style": "Heading 3",
+              "text": "一、核心项目"
+            },
+            {
+              "bold": true,
+              "id": "P10",
+              "length": 6,
+              "size": 12,
+              "style": "List Paragraph",
+              "text": "1.\t猜灯谜"
+            },
+            {
+              "id": "P11",
+              "length": 22,
+              "size": 12,
+              "style": "List Paragraph",
+              "text": "·\t悬挂30盏主题灯谜（含传统与现代结合题）"
+            },
+            {
+              "id": "P12",
+              "length": 24,
+              "size": 12,
+              "style": "List Paragraph",
+              "text": "·\t设置\"猜中奖品\"环节，答对前10题可获小礼品"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.15
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-3-cpu\\01-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-3-cpu\\01-blank.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c1-festival-plan.json"
+    },
+    {
+      "name": "起草：安全会议通知（公文、会议）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一份通知：周五下午三点在三楼会议室开安全生产会议，各部门负责人参加，带上本部门的隐患清单",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 16.573578401312627
+            },
+            "buttons": [
+              "插入文档",
+              "换个风格",
+              "重写",
+              "复制"
+            ],
+            "conversation": "20261120-072009-b2ad82",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/02-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p style=\"color:#6B6B6B\">黑体标题、仿宋正文、不用彩色，像正式公文（模型从 5 个候选里挑的）</p><p><b style=\"color:#525252\">安全生产会议通知</b></p><p><b style=\"color:#525252\">会议时间</b></p><p>周五下午三点</p><p><b style=\"color:#525252\">会议地点</b></p><p>三楼会议室</p><p><b style=\"color:#525252\">参会人员</b></p><p>各部门负责人</p><p><b style=\"color:#525252\">会议内容</b></p><ol><li>审查本部门隐患清单</li><li>分析近期安全生产情况</li><li>部署下一阶段安全工作重点</li></ol><p><b style=\"color:#525252\">请各部门负责人提前准备隐患清单，按时参加会议。</b></p>",
+            "lastTaskAnswer": "{\"style\": \"official-classic\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一份通知：周五下午三点在三楼会议室开安全生产会议，各部门负责人参加，带上本部门的隐患清单",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "# 安全生产会议通知\n\n## 会议时间\n周五下午三点\n\n## 会议地点\n三楼会议室\n\n## 参会人员\n各部门负责人\n\n## 会议内容\n1. 审查本部门隐患清单  \n2. 分析近期安全生产情况  \n3. 部署下一阶段安全工作重点\n\n## 请各部门负责人提前准备隐患清单，按时参加会议。",
+                "title": "按要求起草"
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p style=\"color:#6B6B6B\">黑体标题、仿宋正文、不用彩色，像正式公文（模型从 5 个候选里挑的）</p><p><b style=\"color:#525252\">安全生产会议通知</b></p><p><b style=\"color:#525252\">会议时间</b></p><p>周五下午三点</p><p><b style=\"color:#525252\">会议地点</b></p><p>三楼会议室</p><p><b style=\"color:#525252\">参会人员</b></p><p>各部门负责人</p><p><b style=\"color:#525252\">会议内容</b></p><ol><li>审查本部门隐患清单</li><li>分析近期安全生产情况</li><li>部署下一阶段安全工作重点</li></ol><p><b style=\"color:#525252\">请各部门负责人提前准备隐患清单，按时参加会议。</b></p>",
+                "title": "排版：公文黑白"
+              }
+            ],
+            "seconds": 8.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 8.89
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 16.573578401312627
+            },
+            "buttons": [
+              "复制"
+            ],
+            "conversation": "20261120-072009-b2ad82",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/02-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "documentStyle": {
+              "accent": "#737373",
+              "bodyFont": "FangSong",
+              "bodySize": 16,
+              "headingFont": "SimHei",
+              "headingSize": 16,
+              "id": "official-classic",
+              "name": "公文黑白",
+              "primary": "#525252",
+              "titleAlign": "center",
+              "titleSize": 22
+            },
+            "lastMessage": "已插入 141 个字符。",
+            "lastTaskAnswer": "{\"style\": \"official-classic\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入 141 个字符。",
+                "title": "插入文字"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.0
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": false
+          },
+          "look": {
+            "accent": "#737373",
+            "bodyFont": "FangSong",
+            "bodySize": 16,
+            "headingFont": "SimHei",
+            "headingSize": 16,
+            "id": "official-classic",
+            "name": "公文黑白",
+            "primary": "#525252",
+            "titleAlign": "center",
+            "titleSize": 22
+          },
+          "actual": [
+            {
+              "align": "center",
+              "bold": true,
+              "id": "P1",
+              "length": 8,
+              "size": 22,
+              "style": "Heading 1",
+              "text": "安全生产会议通知"
+            },
+            {
+              "bold": true,
+              "id": "P2",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "会议时间"
+            },
+            {
+              "id": "P3",
+              "length": 6,
+              "size": 16,
+              "style": "",
+              "text": "周五下午三点"
+            },
+            {
+              "bold": true,
+              "id": "P4",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "会议地点"
+            },
+            {
+              "id": "P5",
+              "length": 5,
+              "size": 16,
+              "style": "",
+              "text": "三楼会议室"
+            },
+            {
+              "bold": true,
+              "id": "P6",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "参会人员"
+            },
+            {
+              "id": "P7",
+              "length": 6,
+              "size": 16,
+              "style": "",
+              "text": "各部门负责人"
+            },
+            {
+              "bold": true,
+              "id": "P8",
+              "length": 4,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "会议内容"
+            },
+            {
+              "id": "P9",
+              "length": 12,
+              "size": 16,
+              "style": "List Paragraph",
+              "text": "1.\t审查本部门隐患清单"
+            },
+            {
+              "id": "P10",
+              "length": 13,
+              "size": 16,
+              "style": "List Paragraph",
+              "text": "2.\t分析近期安全生产情况"
+            },
+            {
+              "id": "P11",
+              "length": 15,
+              "size": 16,
+              "style": "List Paragraph",
+              "text": "3.\t部署下一阶段安全工作重点"
+            },
+            {
+              "bold": true,
+              "id": "P12",
+              "length": 23,
+              "size": 16,
+              "style": "Heading 2",
+              "text": "请各部门负责人提前准备隐患清单，按时参加会议。"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.11
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-3-cpu\\02-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-3-cpu\\02-blank.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c2-safety-notice.json"
+    },
+    {
+      "name": "起草：产品上线总结（技术、汇报）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一篇新版本上线总结，介绍这次上线的三个新功能、遇到的问题和下一步计划",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 16.101536287831063
+            },
+            "buttons": [
+              "插入文档",
+              "换个风格",
+              "重写",
+              "复制"
+            ],
+            "conversation": "20261120-072021-d2f063",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/03-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p style=\"color:#6B6B6B\">青色标题、等线正文、青色实色表头，清爽利落（模型从 5 个候选里挑的）</p><p><b style=\"color:#1A606A\">新版本上线总结</b></p><p><b style=\"color:#1A606A\">一、新功能介绍</b></p><p><b style=\"color:#1A606A\">1. <b style=\"color:#1B8292\">智能文档生成功能</b></b></p><p>新增了智能文档生成模块，用户可以通过简单的文本输入，自动生成结构清晰、格式规范的文档，支持 Word、PDF、PPT 等多种格式输出。</p><p><b style=\"color:#1A606A\">2. <b style=\"color:#1B8292\">多语言翻译功能</b></b></p><p>新增多语言翻译模块，支持 10 余种语言的实时翻译，用户可以将文本翻译成目标语言，支持语音输入和文字输入两种方式，提升跨语言沟通效率。</p><p><b style=\"color:#1A606A\">3. <b style=\"color:#1B8292\">数据可视化分析模块</b></b></p><p>新增数据可视化分析功能，用户可以导入数据并生成图表，支持图表交互和数据导出，帮助用户更直观地理解数据趋势和关系。</p><p><b style=\"color:#1A606A\">二、遇到的问题</b></p><p><b style=\"color:#1A606A\">1. <b style=\"color:#1B8292\">功能兼容性问题</b></b></p><p>部分旧版本的文档格式在新版本中无法兼容，导致用户无法正常使用。</p><p><b style=\"color:#1A606A\">2. <b style=\"color:#1B8292\">翻译准确度问题</b></b></p><p>……</p>",
+            "lastTaskAnswer": "{\"style\": \"tech-teal\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一篇新版本上线总结，介绍这次上线的三个新功能、遇到的问题和下一步计划",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "# 新版本上线总结\n\n## 一、新功能介绍\n\n### 1. **智能文档生成功能**\n新增了智能文档生成模块，用户可以通过简单的文本输入，自动生成结构清晰、格式规范的文档，支持 Word、PDF、PPT 等多种格式输出。\n\n### 2. **多语言翻译功能**\n新增多语言翻译模块，支持 10 余种语言的实时翻译，用户可以将文本翻译成目标语言，支持语音输入和文字输入两种方式，提升跨语言沟通效率。\n\n### 3. **数据可视化分析模块**\n新增数据可视化分析功能，用户可以导入数据并生成图表，支持图表交互和数据导出，帮助用户更直观地理解数据趋势和关系。\n\n## 二、遇到的问题\n\n### 1. **功能兼容性问题**\n部分旧版本的文档格式在新版本中无法兼容，导致用户无法正常使用。\n\n### 2. **翻译准确度问题**\n在某些专业术语或复杂句子中，翻译结果存在偏差，影响用户体验。\n\n### 3. **数据导出问题**\n部分数据导出功能在特定系统中出现异常，导致数据丢失或格式错误。\n\n## 三、下一步计划\n\n### 1. **优化功能兼容性**\n对旧版本文档格式进行兼容性测试，确保新版本能够支持更多格式，提升用户使用体验。\n\n### 2. **提升翻译质量**\n增加专业术语库和翻译校验机制，提升翻译准确度，优化翻译体验。\n\n### 3. **完善数据导出功能**\n排查数据导出问题，优化导出流程，确保数据准确无误，提升用户满意度。\n\n【用户可补充具体信息】",
+                "title": "按要求起草"
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p style=\"color:#6B6B6B\">青色标题、等线正文、青色实色表头，清爽利落（模型从 5 个候选里挑的）</p><p><b style=\"color:#1A606A\">新版本上线总结</b></p><p><b style=\"color:#1A606A\">一、新功能介绍</b></p><p><b style=\"color:#1A606A\">1. <b style=\"color:#1B8292\">智能文档生成功能</b></b></p><p>新增了智能文档生成模块，用户可以通过简单的文本输入，自动生成结构清晰、格式规范的文档，支持 Word、PDF、PPT 等多种格式输出。</p><p><b style=\"color:#1A606A\">2. <b style=\"color:#1B8292\">多语言翻译功能</b></b></p><p>新增多语言翻译模块，支持 10 余种语言的实时翻译，用户可以将文本翻译成目标语言，支持语音输入和文字输入两种方式，提升跨语言沟通效率。</p><p><b style=\"color:#1A606A\">3. <b style=\"color:#1B8292\">数据可视化分析模块</b></b></p><p>新增数据可视化分析功能，用户可以导入数据并生成图表，支持图表交互和数据导出，帮助用户更直观地理解数据趋势和关系。</p><p><b style=\"color:#1A606A\">二、遇到的问题</b></p><p><b style=\"color:#1A606A\">1. <b style=\"color:#1B8292\">功能兼容性问题</b></b></p><p>部分旧版本的文档格式在新版本中无法兼容，导致用户无法正常使用。</p><p><b style=\"color:#1A606A\">2. <b style=\"color:#1B8292\">翻译准确度问题</b></b></p><p>……</p>",
+                "title": "排版：科技青"
+              }
+            ],
+            "seconds": 25.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 25.39
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 16.101536287831063
+            },
+            "buttons": [
+              "复制"
+            ],
+            "conversation": "20261120-072021-d2f063",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/03-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "documentStyle": {
+              "accent": "#1B8292",
+              "bodyFont": "DengXian",
+              "bodySize": 11,
+              "headingFont": "Microsoft YaHei",
+              "headingSize": 15,
+              "id": "tech-teal",
+              "name": "科技青",
+              "primary": "#1A606A",
+              "titleAlign": "left",
+              "titleSize": 20
+            },
+            "lastMessage": "已插入 633 个字符。",
+            "lastTaskAnswer": "{\"style\": \"tech-teal\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入 633 个字符。",
+                "title": "插入文字"
+              }
+            ],
+            "seconds": 1.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.26
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": true
+          },
+          "look": {
+            "accent": "#1B8292",
+            "bodyFont": "DengXian",
+            "bodySize": 11,
+            "headingFont": "Microsoft YaHei",
+            "headingSize": 15,
+            "id": "tech-teal",
+            "name": "科技青",
+            "primary": "#1A606A",
+            "titleAlign": "left",
+            "titleSize": 20
+          },
+          "actual": [
+            {
+              "bold": true,
+              "id": "P1",
+              "length": 7,
+              "size": 20,
+              "style": "Heading 1",
+              "text": "新版本上线总结"
+            },
+            {
+              "bold": true,
+              "id": "P2",
+              "length": 7,
+              "size": 15,
+              "style": "Heading 2",
+              "text": "一、新功能介绍"
+            },
+            {
+              "bold": true,
+              "id": "P3",
+              "length": 11,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "1. 智能文档生成功能"
+            },
+            {
+              "id": "P4",
+              "length": 67,
+              "size": 11,
+              "style": "",
+              "text": "新增了智能文档生成模块，用户可以通过简单的文本输入，自动生成结构清晰、格式规范的文档，支持 Word、PDF、PPT 等多种格式输出。"
+            },
+            {
+              "bold": true,
+              "id": "P5",
+              "length": 10,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "2. 多语言翻译功能"
+            },
+            {
+              "id": "P6",
+              "length": 67,
+              "size": 11,
+              "style": "",
+              "text": "新增多语言翻译模块，支持 10 余种语言的实时翻译，用户可以将文本翻译成目标语言，支持语音输入和文字输入两种方式，提升跨语言沟通效率。"
+            },
+            {
+              "bold": true,
+              "id": "P7",
+              "length": 12,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "3. 数据可视化分析模块"
+            },
+            {
+              "id": "P8",
+              "length": 56,
+              "size": 11,
+              "style": "",
+              "text": "新增数据可视化分析功能，用户可以导入数据并生成图表，支持图表交互和数据导出，帮助用户更直观地理解数据趋势和关系。"
+            },
+            {
+              "bold": true,
+              "id": "P9",
+              "length": 7,
+              "size": 15,
+              "style": "Heading 2",
+              "text": "二、遇到的问题"
+            },
+            {
+              "bold": true,
+              "id": "P10",
+              "length": 10,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "1. 功能兼容性问题"
+            },
+            {
+              "id": "P11",
+              "length": 31,
+              "size": 11,
+              "style": "",
+              "text": "部分旧版本的文档格式在新版本中无法兼容，导致用户无法正常使用。"
+            },
+            {
+              "bold": true,
+              "id": "P12",
+              "length": 10,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "2. 翻译准确度问题"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.13
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-3-cpu\\03-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-3-cpu\\03-blank.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c3-release-summary.json"
+    },
+    {
+      "name": "起草：学习方法文章（教学），先换个风格再插入",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "写一篇文章，介绍高中生提高学习效率的几个方法",
+              "timeoutSeconds": 240
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档",
+                "换个风格"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 16.070065485516853
+            },
+            "buttons": [
+              "插入文档",
+              "换个风格",
+              "重写",
+              "复制"
+            ],
+            "conversation": "20261120-072049-4e2e55",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/04-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p style=\"color:#6B6B6B\">黑体标题、仿宋正文、不用彩色，像正式公文（模型从 5 个候选里挑的）</p><p><b style=\"color:#525252\">高中生提高学习效率的几个方法</b></p><p><b style=\"color:#525252\">一、制定合理的学习计划</b></p><p><b style=\"color:#525252\">1. 分阶段规划</b></p><p>高中生的学习任务繁重，建议将学习计划分为短期、中期和长期目标。短期目标如每天完成作业，中期目标如每周复习一次，长期目标如学期末考试准备。</p><p><b style=\"color:#525252\">2. 时间管理</b></p><p>使用时间管理工具如日历、待办清单等，合理分配时间。避免拖延，优先处理重要任务。</p><p><b style=\"color:#525252\">二、提高专注力</b></p><p><b style=\"color:#525252\">1. 保持良好的作息</b></p><p>保证充足睡眠，避免熬夜。良好的作息有助于提高注意力和记忆力。</p><p><b style=\"color:#525252\">2. 环境优化</b></p><p>创造一个安静、整洁的学习环境，减少干扰因素，如关闭手机通知、选择安静的自习室。</p><p><b style=\"color:#525252\">三、有效复习方法</b></p><p>……</p>",
+            "lastTaskAnswer": "{\"style\": \"official-classic\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "写一篇文章，介绍高中生提高学习效率的几个方法",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "# 高中生提高学习效率的几个方法\n\n## 一、制定合理的学习计划\n\n### 1. 分阶段规划\n高中生的学习任务繁重，建议将学习计划分为短期、中期和长期目标。短期目标如每天完成作业，中期目标如每周复习一次，长期目标如学期末考试准备。\n\n### 2. 时间管理\n使用时间管理工具如日历、待办清单等，合理分配时间。避免拖延，优先处理重要任务。\n\n## 二、提高专注力\n\n### 1. 保持良好的作息\n保证充足睡眠，避免熬夜。良好的作息有助于提高注意力和记忆力。\n\n### 2. 环境优化\n创造一个安静、整洁的学习环境，减少干扰因素，如关闭手机通知、选择安静的自习室。\n\n## 三、有效复习方法\n\n### 1. 间隔复习\n采用间隔复习法，将学习内容分散到不同时间段进行复习，有助于长期记忆。\n\n### 2. 多种复习方式\n结合记忆、理解、应用等多种方式复习，提高学习效率。\n\n## 四、利用工具和资源\n\n### 1. 学习软件\n使用如Notion、Forest等学习软件，帮助管理学习任务和提高专注力。\n\n### 2. 教材和参考资料\n充分利用教材和参考资料，及时解决疑问，巩固知识。\n\n## 五、保持积极心态\n\n### 1. 正视困难\n遇到困难时，保持积极心态，相信自己能够克服。\n\n### 2. 自我激励\n通过设定小目标并达成后给予自己奖励，增强学习动力。\n\n## 六、寻求帮助\n\n### 1. 向老师请教\n遇到不懂的问题，及时向老师请教，避免知识盲点。\n\n### 2. 参与学习小组\n与同学一起学习，互相帮助，共同进步。\n\n## 七、健康的生活方式\n\n### 1. 适量运动\n适量运动有助于提高身体素质，增强学习效率。\n\n### 2. 均衡饮食\n保持均衡饮食，避免偏食，保证营养摄入。\n\n## 结语\n\n提高学习效率需要科学的方法和良好的习惯。通过合理规划、专注学习、有效复习、利用工具、保持积极心态和健康生活方式，高中生可以更好地应对学业挑战，实现自我提升。",
+                "title": "按要求起草"
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p style=\"color:#6B6B6B\">黑体标题、仿宋正文、不用彩色，像正式公文（模型从 5 个候选里挑的）</p><p><b style=\"color:#525252\">高中生提高学习效率的几个方法</b></p><p><b style=\"color:#525252\">一、制定合理的学习计划</b></p><p><b style=\"color:#525252\">1. 分阶段规划</b></p><p>高中生的学习任务繁重，建议将学习计划分为短期、中期和长期目标。短期目标如每天完成作业，中期目标如每周复习一次，长期目标如学期末考试准备。</p><p><b style=\"color:#525252\">2. 时间管理</b></p><p>使用时间管理工具如日历、待办清单等，合理分配时间。避免拖延，优先处理重要任务。</p><p><b style=\"color:#525252\">二、提高专注力</b></p><p><b style=\"color:#525252\">1. 保持良好的作息</b></p><p>保证充足睡眠，避免熬夜。良好的作息有助于提高注意力和记忆力。</p><p><b style=\"color:#525252\">2. 环境优化</b></p><p>创造一个安静、整洁的学习环境，减少干扰因素，如关闭手机通知、选择安静的自习室。</p><p><b style=\"color:#525252\">三、有效复习方法</b></p><p>……</p>",
+                "title": "排版：公文黑白"
+              }
+            ],
+            "seconds": 33.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 33.64
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "换个风格"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "插入文档"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 16.070065485516853
+            },
+            "buttons": [
+              "复制",
+              "插入文档",
+              "换个风格",
+              "重写"
+            ],
+            "conversation": "20261120-072049-4e2e55",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/04-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p style=\"color:#6B6B6B\">绿色标题、等线正文、浅绿表头，轻松清新（按场景和权重换的）</p><p><b style=\"color:#21633D\">高中生提高学习效率的几个方法</b></p><p><b style=\"color:#21633D\">一、制定合理的学习计划</b></p><p><b style=\"color:#21633D\">1. 分阶段规划</b></p><p>高中生的学习任务繁重，建议将学习计划分为短期、中期和长期目标。短期目标如每天完成作业，中期目标如每周复习一次，长期目标如学期末考试准备。</p><p><b style=\"color:#21633D\">2. 时间管理</b></p><p>使用时间管理工具如日历、待办清单等，合理分配时间。避免拖延，优先处理重要任务。</p><p><b style=\"color:#21633D\">二、提高专注力</b></p><p><b style=\"color:#21633D\">1. 保持良好的作息</b></p><p>保证充足睡眠，避免熬夜。良好的作息有助于提高注意力和记忆力。</p><p><b style=\"color:#21633D\">2. 环境优化</b></p><p>创造一个安静、整洁的学习环境，减少干扰因素，如关闭手机通知、选择安静的自习室。</p><p><b style=\"color:#21633D\">三、有效复习方法</b></p><p>……</p>",
+            "lastTaskAnswer": "{\"style\": \"official-classic\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "换个风格",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p style=\"color:#6B6B6B\">绿色标题、等线正文、浅绿表头，轻松清新（按场景和权重换的）</p><p><b style=\"color:#21633D\">高中生提高学习效率的几个方法</b></p><p><b style=\"color:#21633D\">一、制定合理的学习计划</b></p><p><b style=\"color:#21633D\">1. 分阶段规划</b></p><p>高中生的学习任务繁重，建议将学习计划分为短期、中期和长期目标。短期目标如每天完成作业，中期目标如每周复习一次，长期目标如学期末考试准备。</p><p><b style=\"color:#21633D\">2. 时间管理</b></p><p>使用时间管理工具如日历、待办清单等，合理分配时间。避免拖延，优先处理重要任务。</p><p><b style=\"color:#21633D\">二、提高专注力</b></p><p><b style=\"color:#21633D\">1. 保持良好的作息</b></p><p>保证充足睡眠，避免熬夜。良好的作息有助于提高注意力和记忆力。</p><p><b style=\"color:#21633D\">2. 环境优化</b></p><p>创造一个安静、整洁的学习环境，减少干扰因素，如关闭手机通知、选择安静的自习室。</p><p><b style=\"color:#21633D\">三、有效复习方法</b></p><p>……</p>",
+                "title": "排版：清新绿"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.04
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "插入文档"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 16.070065485516853
+            },
+            "buttons": [
+              "复制"
+            ],
+            "conversation": "20261120-072049-4e2e55",
+            "conversationMessages": 4,
+            "document": "D:/open office/build/assistant-live/create-3-cpu/04-blank.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "documentStyle": {
+              "accent": "#24854C",
+              "bodyFont": "DengXian",
+              "bodySize": 11,
+              "headingFont": "Microsoft YaHei",
+              "headingSize": 15,
+              "id": "fresh-green",
+              "name": "清新绿",
+              "primary": "#21633D",
+              "titleAlign": "center",
+              "titleSize": 20
+            },
+            "lastMessage": "已插入 828 个字符。",
+            "lastTaskAnswer": "{\"style\": \"official-classic\"}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入 828 个字符。",
+                "title": "插入文字"
+              }
+            ],
+            "seconds": 1.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.26
+        },
+        {
+          "step": {
+            "check": "draftLook",
+            "headings": true
+          },
+          "look": {
+            "accent": "#24854C",
+            "bodyFont": "DengXian",
+            "bodySize": 11,
+            "headingFont": "Microsoft YaHei",
+            "headingSize": 15,
+            "id": "fresh-green",
+            "name": "清新绿",
+            "primary": "#21633D",
+            "titleAlign": "center",
+            "titleSize": 20
+          },
+          "actual": [
+            {
+              "align": "center",
+              "bold": true,
+              "id": "P1",
+              "length": 14,
+              "size": 20,
+              "style": "Heading 1",
+              "text": "高中生提高学习效率的几个方法"
+            },
+            {
+              "bold": true,
+              "id": "P2",
+              "length": 11,
+              "size": 15,
+              "style": "Heading 2",
+              "text": "一、制定合理的学习计划"
+            },
+            {
+              "bold": true,
+              "id": "P3",
+              "length": 8,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "1. 分阶段规划"
+            },
+            {
+              "id": "P4",
+              "length": 68,
+              "size": 11,
+              "style": "",
+              "text": "高中生的学习任务繁重，建议将学习计划分为短期、中期和长期目标。短期目标如每天完成作业，中期目标如每周复习一次，长期目标如学期末考试准备。"
+            },
+            {
+              "bold": true,
+              "id": "P5",
+              "length": 7,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "2. 时间管理"
+            },
+            {
+              "id": "P6",
+              "length": 39,
+              "size": 11,
+              "style": "",
+              "text": "使用时间管理工具如日历、待办清单等，合理分配时间。避免拖延，优先处理重要任务。"
+            },
+            {
+              "bold": true,
+              "id": "P7",
+              "length": 7,
+              "size": 15,
+              "style": "Heading 2",
+              "text": "二、提高专注力"
+            },
+            {
+              "bold": true,
+              "id": "P8",
+              "length": 10,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "1. 保持良好的作息"
+            },
+            {
+              "id": "P9",
+              "length": 30,
+              "size": 11,
+              "style": "",
+              "text": "保证充足睡眠，避免熬夜。良好的作息有助于提高注意力和记忆力。"
+            },
+            {
+              "bold": true,
+              "id": "P10",
+              "length": 7,
+              "size": 13,
+              "style": "Heading 3",
+              "text": "2. 环境优化"
+            },
+            {
+              "id": "P11",
+              "length": 39,
+              "size": 11,
+              "style": "",
+              "text": "创造一个安静、整洁的学习环境，减少干扰因素，如关闭手机通知、选择安静的自习室。"
+            },
+            {
+              "bold": true,
+              "id": "P12",
+              "length": 8,
+              "size": 15,
+              "style": "Heading 2",
+              "text": "三、有效复习方法"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.1
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\create-3-cpu\\04-blank.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\create-3-cpu\\04-blank.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\create\\c4-study-article.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-1.7b",
+      "modelKey": "builtin:qwen3-1.7b",
+      "state": "ready",
+      "tokensPerSecond": 16.070065485516853
+    },
+    "conversation": "20261120-072049-4e2e55",
+    "conversationMessages": 4,
+    "document": "D:/open office/build/assistant-live/create-3-cpu/04-blank.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "documentStyle": {
+      "accent": "#24854C",
+      "bodyFont": "DengXian",
+      "bodySize": 11,
+      "headingFont": "Microsoft YaHei",
+      "headingSize": 15,
+      "id": "fresh-green",
+      "name": "清新绿",
+      "primary": "#21633D",
+      "titleAlign": "center",
+      "titleSize": 20
+    },
+    "lastMessage": "已插入 828 个字符。",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-20T15:21:26.863792+00:00",
+  "ok": true
+}

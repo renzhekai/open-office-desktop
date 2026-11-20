@@ -548,6 +548,16 @@ QJsonObject McpServer::stateReport() const
         state.insert(QStringLiteral("quickActions"), QJsonArray::fromStringList(ball->quickActionIds()));
         state.insert(QStringLiteral("lastMessage"), ball->lastMessageText());
     }
+    // The look a draft went in with: what the document's title, headings and body should show.
+    if (const StylePack* pack = findStylePack(m_window->documentStyleId())) {
+        const DocumentStyle style = documentStyle(*pack);
+        state.insert(QStringLiteral("documentStyle"),
+                     QJsonObject{{QStringLiteral("id"), pack->id}, {QStringLiteral("name"), pack->name},
+                                 {QStringLiteral("primary"), style.palette.primary}, {QStringLiteral("accent"), style.palette.accent},
+                                 {QStringLiteral("titleAlign"), pack->titleAlign}, {QStringLiteral("titleSize"), pack->titleSize},
+                                 {QStringLiteral("headingSize"), pack->headingSize}, {QStringLiteral("bodySize"), pack->bodySize},
+                                 {QStringLiteral("headingFont"), pack->headingFont}, {QStringLiteral("bodyFont"), pack->bodyFont}});
+    }
     return state;
 }
 

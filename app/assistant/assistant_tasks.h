@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QList>
 #include <QString>
+#include <QStringList>
 
 namespace openoffice {
 
@@ -25,7 +26,8 @@ enum class TaskOutput {
     Rewrite,    // plain text that stands in for the selection
     Markdown,   // structured text (headings, lists, tables) to insert
     Corrections, // a list of exact fixes the person can apply one by one
-    TablePlan    // a list of cell changes (text or format), checked and applied one by one
+    TablePlan,   // a list of cell changes (text or format), checked and applied one by one
+    Choice       // one of the options the program offers (TaskInput::options), as {"style": id}
 };
 
 struct TaskSpec {
@@ -151,6 +153,7 @@ struct TaskInput {
     QString detail;       // Writing: what the person typed
     QString documentName; // for context only
     bool insist = false;  // a second try: the first result was the original again
+    QStringList options;  // Choice: the ids the answer must be one of
 };
 
 // Characters of document text a task sends to the model at most.
@@ -158,8 +161,9 @@ constexpr int kTaskTextLimit = 12000;
 
 // The chat messages (system, user) for one task.
 QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input);
-// Ollama "format" for tasks with structured output (corrections); empty otherwise.
-QJsonObject taskFormat(const TaskSpec& spec);
+// Ollama "format" for tasks with structured output (corrections, plans, a choice among
+// input.options); empty otherwise.
+QJsonObject taskFormat(const TaskSpec& spec, const TaskInput& input = {});
 // A context window that fits the messages and the expected answer.
 int contextLengthFor(const QJsonArray& messages, bool withTools);
 

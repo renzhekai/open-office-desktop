@@ -1,0 +1,33 @@
+{
+  "name": "起草：安全会议通知（公文、会议）",
+  "document": "fixtures/assistant-samples/create/blank.docx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "写一份通知：周五下午三点在三楼会议室开安全生产会议，各部门负责人参加，带上本部门的隐患清单",
+        "timeoutSeconds": 240
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "插入文档",
+          "换个风格"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "插入文档"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "draftLook",
+      "headings": false
+    }
+  ]
+}

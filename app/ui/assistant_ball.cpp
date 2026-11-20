@@ -1134,6 +1134,12 @@ void AssistantBall::endReply(const QString& text, bool ok, const QList<ReplyActi
     if (row && !actions.isEmpty()) addButtons(actions);
 }
 
+void AssistantBall::showRichReply(const QString& title, const QString& html, const QList<ReplyAction>& actions)
+{
+    showRichCard(title, html, {});
+    if (!actions.isEmpty()) addButtons(actions);
+}
+
 void AssistantBall::addButtons(const QList<ReplyAction>& actions)
 {
     QWidget* bubble = nullptr;

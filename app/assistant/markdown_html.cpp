@@ -1,5 +1,7 @@
 #include "markdown_html.h"
 
+#include "document_style.h"
+
 #include <QSet>
 
 #include <QList>
@@ -251,6 +253,49 @@ QString withTableHeader(const QString& markdown, const QStringList& header)
     return markdown;
 }
 
+QString draftMarkdown(const QString& markdown)
+{
+    QString source = stripThinking(markdown);
+    source.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
+    QStringList lines = source.split(QLatin1Char('\n'));
+    static const QRegularExpression heading(QStringLiteral("^(#{1,6})\\s+(.*?)\\s*#*\\s*$"));
+    int first = -1;
+    for (int i = 0; i < lines.size() && first < 0; ++i)
+        if (!lines[i].trimmed().isEmpty()) first = i;
+    if (first < 0) return source;
+    const QString top = lines[first].trimmed();
+    bool titled = false;
+    if (const QRegularExpressionMatch match = heading.match(top); match.hasMatch()) {
+        lines[first] = QStringLiteral("# ") + match.captured(2);
+        titled = true;
+    } else {
+        // A short line on its own before the rest ("关于召开安全会议的通知"): the title.
+        static const QRegularExpression block(QStringLiteral("^([#|>*+•·-]|\\d{1,3}[.)．、]\\s)"));
+        static const QRegularExpression ends(QStringLiteral("[。，；：:,;！？!?、]$"));
+        bool more = false;
+        for (int i = first + 1; i < lines.size() && !more; ++i) more = !lines[i].trimmed().isEmpty();
+        if (more && top.size() >= 2 && top.size() <= 30 && !block.match(top).hasMatch() && !ends.match(top).hasMatch()
+            && !top.contains(QLatin1Char('|'))) {
+            lines[first] = QStringLiteral("# ") + top;
+            titled = true;
+        }
+    }
+    if (!titled) return source;
+    // The sections below it: the highest of them becomes "##", the rest keep their depth under it.
+    int least = 7;
+    for (int i = first + 1; i < lines.size(); ++i)
+        if (const QRegularExpressionMatch match = heading.match(lines[i].trimmed()); match.hasMatch())
+            least = std::min(least, int(match.captured(1).size()));
+    if (least <= 6 && least != 2) {
+        for (int i = first + 1; i < lines.size(); ++i)
+            if (const QRegularExpressionMatch match = heading.match(lines[i].trimmed()); match.hasMatch()) {
+                const int level = std::clamp(int(match.captured(1).size()) - least + 2, 2, 6);
+                lines[i] = QString(level, QLatin1Char('#')) + QLatin1Char(' ') + match.captured(2);
+            }
+    }
+    return lines.join(QLatin1Char('\n'));
+}
+
 QString plainCellText(const QString& cell)
 {
     QString text = cell;
@@ -271,7 +316,36 @@ QString stripThinking(const QString& text)
     return result;
 }
 
-QString markdownToHtml(const QString& markdown, MarkdownTarget target)
+namespace {
+
+QString points(double value)
+{
+    return QString::number(value, 'g', 4) + QStringLiteral("pt");
+}
+
+// The last short lines of a notice or letter: who sends it and the date, put on the right.
+bool closingLine(const QString& line)
+{
+    static const QRegularExpression date(QStringLiteral(
+        "^(?:[0-9０-９〇零一二三四五六七八九十【】\\s]{2,10}年[0-9０-９一二三四五六七八九十【】\\s]{1,5}月"
+        "(?:[0-9０-９一二三四五六七八九十【】\\s]{1,5}日)?|\\d{4}[-/.]\\d{1,2}[-/.]\\d{1,2}|【[^】]{0,8}(?:日期|时间)[^】]{0,8}】)$"));
+    static const QRegularExpression sender(QStringLiteral(
+        "^(?:【[^】]{1,12}】|(?:申请人|请假人|报告人|发件人|落款)[:：]\\s*\\S{1,16}|[^，。；：:！？!?\\s]{2,24}"
+        "(?:部|处|室|科|办|办公室|公司|中心|委员会|学校|学院|小组|协会|工会|局|厅|委|组|团队|集团|部门|班|年级|医院|银行|商会|联合会))$"));
+    const QString text = line.trimmed();
+    return text.size() <= 26 && (date.match(text).hasMatch() || sender.match(text).hasMatch());
+}
+
+bool numericCell(const QString& cell)
+{
+    static const QRegularExpression number(QStringLiteral(
+        "^[-+]?[¥￥$€]?\\s*[\\d,]+(?:\\.\\d+)?\\s*(?:%|％|元|万元|万|亿|个|件|人|次|天|小时|分|kg|g|km|m|kPa|℃|°C)?$"));
+    return number.match(plainCellText(cell)).hasMatch();
+}
+
+} // namespace
+
+QString markdownToHtml(const QString& markdown, MarkdownTarget target, const DocumentStyle* style)
 {
     QString source = stripThinking(markdown);
     source.replace(QStringLiteral("\r\n"), QStringLiteral("\n")).replace(QLatin1Char('\r'), QLatin1Char('\n'));
@@ -281,6 +355,57 @@ QString markdownToHtml(const QString& markdown, MarkdownTarget target)
     static const QRegularExpression bullet(QStringLiteral("^\\s*[-*+•·]\\s+(.*)$"));
     static const QRegularExpression numbered(QStringLiteral("^\\s*\\d{1,3}[.)．、]\\s*(.+)$"));
     static const QRegularExpression quote(QStringLiteral("^>\\s?(.*)$"));
+    const bool document = target == MarkdownTarget::Document;
+    const StylePack* pack = style ? &style->pack : nullptr;
+    const StylePalette* colors = style ? &style->palette : nullptr;
+
+    // With a style: the parts of the look, as inline styles the editor's paste keeps
+    // (measured: colours, fonts, sizes, alignment, line height, indent, rules, cell fills).
+    QString titleCss, headingCss, subheadingCss, paragraphCss, closingCss, itemCss, strongOpen = QStringLiteral("<b>");
+    if (pack) {
+        const QString headingFont = QStringLiteral("font-family:'%1';").arg(pack->headingFont);
+        const QString bodyFont = QStringLiteral("font-family:'%1';").arg(pack->bodyFont);
+        const QString body = bodyFont + QStringLiteral("font-size:%1;color:%2;line-height:%3;")
+            .arg(points(pack->bodySize), colors->text, QString::number(pack->lineHeight));
+        titleCss = QStringLiteral("text-align:%1;color:%2;%3font-size:%4;font-weight:bold;margin-top:0pt;margin-bottom:12pt")
+            .arg(pack->titleAlign, colors->primary, headingFont, points(pack->titleSize));
+        headingCss = QStringLiteral("color:%1;%2font-size:%3;font-weight:bold;margin-top:12pt;margin-bottom:6pt")
+            .arg(colors->primary, headingFont, points(pack->headingSize));
+        if (pack->headingRule) headingCss += QStringLiteral(";border-bottom:1px solid %1;padding-bottom:2pt").arg(colors->accent);
+        subheadingCss = QStringLiteral("color:%1;%2font-size:%3;font-weight:bold;margin-top:8pt;margin-bottom:4pt")
+            .arg(colors->primary, headingFont, points(pack->subheadingSize));
+        paragraphCss = body + QStringLiteral("margin-top:0pt;margin-bottom:%1").arg(points(pack->spaceAfter));
+        if (pack->firstLineIndent) paragraphCss += QStringLiteral(";text-indent:2em");
+        closingCss = body + QStringLiteral("margin-top:0pt;margin-bottom:0pt;text-align:right");
+        itemCss = body;
+        if (pack->emphasis == QStringLiteral("accent")) strongOpen = QStringLiteral("<b style=\"color:%1\">").arg(colors->accent);
+    }
+    const auto inlineStyled = [&](const QString& text) {
+        QString html = inlineHtml(text);
+        if (pack) html.replace(QStringLiteral("<b>"), strongOpen);
+        return html;
+    };
+    const auto styled = [](const QString& tag, const QString& css) {
+        return css.isEmpty() ? QLatin1Char('<') + tag + QLatin1Char('>') : QStringLiteral("<%1 style=\"%2\">").arg(tag, css);
+    };
+
+    // Which lines close the text (sender, date): the last one or two plain lines.
+    QSet<int> closing;
+    int firstLine = -1;
+    for (int i = 0; i < lines.size(); ++i)
+        if (!lines[i].trimmed().isEmpty()) {
+            firstLine = i;
+            break;
+        }
+    if (pack && document) {
+        for (int i = lines.size() - 1, found = 0; i >= 0 && found < 2; --i) {
+            const QString trimmed = lines[i].trimmed();
+            if (trimmed.isEmpty()) continue;
+            if (!closingLine(trimmed) || i == firstLine) break;
+            closing.insert(i);
+            ++found;
+        }
+    }
 
     QString html;
     QString openList;
@@ -295,7 +420,8 @@ QString markdownToHtml(const QString& markdown, MarkdownTarget target)
             html += QLatin1Char('<') + tag + QLatin1Char('>');
             openList = tag;
         }
-        html += QStringLiteral("<li>") + inlineHtml(text.trimmed()) + QStringLiteral("</li>");
+        html += (document ? styled(QStringLiteral("li"), itemCss) : QStringLiteral("<li>")) + inlineStyled(text.trimmed())
+            + QStringLiteral("</li>");
     };
 
     for (int i = 0; i < lines.size(); ++i) {
@@ -315,11 +441,20 @@ QString markdownToHtml(const QString& markdown, MarkdownTarget target)
         if (const auto match = heading.match(trimmed); match.hasMatch()) {
             closeList();
             const int level = match.captured(1).size();
-            const QString text = inlineHtml(match.captured(2));
-            if (target == MarkdownTarget::Document)
+            const QString text = inlineStyled(match.captured(2));
+            if (document && pack) {
+                // A "# " first line is the title; then sections (# and ##) and sub-sections.
+                const bool title = i == firstLine && level == 1;
+                const int tag = title ? 1 : level <= 2 ? 2 : 3;
+                html += QStringLiteral("<h%1 style=\"%2\">%3</h%1>")
+                            .arg(tag).arg(title ? titleCss : level <= 2 ? headingCss : subheadingCss, text);
+            } else if (document) {
                 html += QStringLiteral("<h%1>%2</h%1>").arg(level).arg(text);
-            else
+            } else if (pack) {
+                html += QStringLiteral("<p><b style=\"color:%1\">%2</b></p>").arg(colors->primary, text);
+            } else {
                 html += QStringLiteral("<p><b>%1</b></p>").arg(text);
+            }
             continue;
         }
         if (rule.match(trimmed).hasMatch()) {
@@ -333,19 +468,68 @@ QString markdownToHtml(const QString& markdown, MarkdownTarget target)
             // then written as a page-wide table with a shaded header: without a width the
             // editor squeezes every column to its narrowest (measured in the real editor).
             closeList();
-            html += target == MarkdownTarget::Document
-                ? QStringLiteral("<table border=\"1\" cellpadding=\"5\" style=\"border-collapse:collapse;width:100%\">")
-                : QStringLiteral("<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">");
+            const int columns = int(rows.first().size());
+            QList<bool> numeric(columns, rows.size() > 1);
+            for (int c = 0; c < columns; ++c) {
+                bool any = false;
+                for (int r = 1; r < rows.size() && numeric[c]; ++r) {
+                    const QString cell = rows[r].value(c).trimmed();
+                    if (cell.isEmpty()) continue;
+                    any = true;
+                    numeric[c] = numericCell(cell);
+                }
+                numeric[c] = numeric[c] && any;
+            }
+            const bool lineTable = pack && pack->tableHeader == QStringLiteral("line");
+            const QString fill = !pack ? QString() : pack->tableHeader == QStringLiteral("solid") ? colors->primary
+                : pack->tableHeader == QStringLiteral("tint") ? colors->tintStrong : QString();
+            const QString headText = !pack ? QString() : pack->tableHeader == QStringLiteral("solid") ? QStringLiteral("#FFFFFF")
+                : pack->tableHeader == QStringLiteral("tint") ? colors->primary : colors->text;
+            const QString cellFont = pack ? QStringLiteral("font-family:'%1';font-size:%2;")
+                .arg(pack->bodyFont, points(std::min(pack->bodySize, 12.0))) : QString();
+            if (document && pack) {
+                html += lineTable
+                    ? QStringLiteral("<table cellpadding=\"5\" style=\"border-collapse:collapse;width:100%;border:none\">")
+                    : QStringLiteral("<table border=\"1\" cellpadding=\"5\" style=\"border-collapse:collapse;width:100%;border:1px solid %1\">")
+                          .arg(colors->border);
+            } else if (document) {
+                html += QStringLiteral("<table border=\"1\" cellpadding=\"5\" style=\"border-collapse:collapse;width:100%\">");
+            } else {
+                html += QStringLiteral("<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">");
+            }
             for (int r = 0; r < rows.size(); ++r) {
                 html += QStringLiteral("<tr>");
-                for (const QString& cell : rows[r]) {
-                    if (r == 0 && target == MarkdownTarget::Document)
-                        html += QStringLiteral("<th style=\"background-color:#D9E2F3;font-weight:bold;width:%1%\">")
-                                    .arg(100 / qMax(1, int(rows.first().size()))) + inlineHtml(cell) + QStringLiteral("</th>");
-                    else if (r == 0)
-                        html += QStringLiteral("<th>") + inlineHtml(cell) + QStringLiteral("</th>");
-                    else
-                        html += QStringLiteral("<td>") + inlineHtml(cell) + QStringLiteral("</td>");
+                const bool last = r == rows.size() - 1;
+                for (int c = 0; c < columns; ++c) {
+                    const QString cell = inlineStyled(rows[r].value(c));
+                    if (r == 0) {
+                        QString css;
+                        if (document && pack) {
+                            css = QStringLiteral("font-weight:bold;width:%1%;color:%2;").arg(100 / qMax(1, columns)).arg(headText) + cellFont;
+                            css += lineTable ? QStringLiteral("border-top:1.5pt solid %1;border-bottom:0.75pt solid %1;border-left:none;border-right:none")
+                                                   .arg(colors->text)
+                                             : QStringLiteral("background-color:%1;border:1px solid %2").arg(fill, colors->border);
+                            if (numeric[c]) css += QStringLiteral(";text-align:right");
+                        } else if (document) {
+                            css = QStringLiteral("background-color:#D9E2F3;font-weight:bold;width:%1%").arg(100 / qMax(1, columns));
+                        } else if (pack && !fill.isEmpty()) {
+                            css = QStringLiteral("background-color:%1;color:%2").arg(fill, headText);
+                        }
+                        html += styled(QStringLiteral("th"), css) + cell + QStringLiteral("</th>");
+                        continue;
+                    }
+                    QString css;
+                    const bool band = pack && pack->banded && r % 2 == 0;
+                    if (document && pack) {
+                        css = cellFont + QStringLiteral("color:%1;").arg(colors->text);
+                        css += lineTable ? (last ? QStringLiteral("border:none;border-bottom:1.5pt solid %1").arg(colors->text) : QStringLiteral("border:none"))
+                                         : QStringLiteral("border:1px solid %1").arg(colors->border);
+                        if (band) css += QStringLiteral(";background-color:%1").arg(colors->tint);
+                        if (numeric[c]) css += QStringLiteral(";text-align:right");
+                    } else if (band) {
+                        css = QStringLiteral("background-color:%1").arg(colors->tint);
+                    }
+                    html += styled(QStringLiteral("td"), css) + cell + QStringLiteral("</td>");
                 }
                 html += QStringLiteral("</tr>");
             }
@@ -362,11 +546,9 @@ QString markdownToHtml(const QString& markdown, MarkdownTarget target)
             continue;
         }
         closeList();
-        if (const auto match = quote.match(trimmed); match.hasMatch()) {
-            html += QStringLiteral("<p>") + inlineHtml(match.captured(1)) + QStringLiteral("</p>");
-            continue;
-        }
-        html += QStringLiteral("<p>") + inlineHtml(trimmed) + QStringLiteral("</p>");
+        const QString text = quote.match(trimmed).hasMatch() ? quote.match(trimmed).captured(1) : trimmed;
+        const QString css = !(document && pack) ? QString() : closing.contains(i) ? closingCss : paragraphCss;
+        html += styled(QStringLiteral("p"), css) + inlineStyled(text) + QStringLiteral("</p>");
     }
     closeList();
     return html;

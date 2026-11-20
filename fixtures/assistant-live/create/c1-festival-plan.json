@@ -1,0 +1,33 @@
+{
+  "name": "起草：中秋游园活动方案（节日、活动）",
+  "document": "fixtures/assistant-samples/create/blank.docx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "写一份中秋节游园活动方案：9月15日下午在公司花园，全体员工参加，有猜灯谜、套圈和抽奖",
+        "timeoutSeconds": 240
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "插入文档",
+          "换个风格"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "插入文档"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "draftLook",
+      "headings": true
+    }
+  ]
+}

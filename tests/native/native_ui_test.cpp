@@ -1245,7 +1245,8 @@ private slots:
                         {QStringLiteral("reason"), QStringLiteral("模型编的")}}}}};
         fake.chats = {FakeOllama::chat({QStringLiteral("以下是润色后的文字：\n"), QStringLiteral("请大家准时参加会议。")}),
                       FakeOllama::chat({QString::fromUtf8(QJsonDocument(corrections).toJson(QJsonDocument::Compact))}),
-                      FakeOllama::chat({QStringLiteral("# 通知\n\n请于【时间】到三楼参加安全会。")})};
+                      FakeOllama::chat({QStringLiteral("# 通知\n\n请于【时间】到三楼参加安全会。")}),
+                      FakeOllama::chat({QStringLiteral(R"({"style":"official-classic"})")})};
         ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
         ControlledEngine engine;
         engine.answerReads = true;
@@ -1307,18 +1308,35 @@ private slots:
         QCOMPARE(panel->draftMode(), QStringLiteral("notice"));
         panel->submitText(QStringLiteral("周五下午三点三楼安全会"));
         QCOMPARE(panel->draftMode(), QString());
-        QTRY_VERIFY(button(QStringLiteral("插入文档")) != nullptr);
+        // The draft gets a look: the program scores the style packs, the model picks one of the best.
+        QTRY_VERIFY(button(QStringLiteral("换个风格")) != nullptr);
         QVERIFY(fake.chatRequests().at(2).value(QStringLiteral("messages")).toArray().last().toObject()
                     .value(QStringLiteral("content")).toString().contains(QStringLiteral("周五下午三点三楼安全会")));
+        const QJsonObject styleAsk = fake.chatRequests().at(3);
+        QVERIFY(!styleAsk.contains(QStringLiteral("tools")));
+        const QJsonArray offered = styleAsk.value(QStringLiteral("format")).toObject().value(QStringLiteral("properties")).toObject()
+                                       .value(QStringLiteral("style")).toObject().value(QStringLiteral("enum")).toArray();
+        QCOMPARE(offered.size(), 5);
+        QVERIFY(offered.contains(QStringLiteral("official-classic"))); // a notice: the official look scores best
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("黑体标题、仿宋正文")));
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("模型从 5 个候选里挑的")));
+        QCOMPARE(engine.editorCommandCalls, 2); // nothing goes in before the person chooses
+        // 换个风格: another pack by the weights, shown at once (no model call).
+        QTRY_VERIFY(!panel->working());
+        button(QStringLiteral("换个风格"))->click();
+        QTRY_VERIFY(!panel->lastMessageText().contains(QStringLiteral("黑体标题、仿宋正文")) && button(QStringLiteral("插入文档")) != nullptr);
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("按场景和权重换的")));
         button(QStringLiteral("插入文档"))->click();
         QTRY_COMPARE(engine.editorCommandCalls, 3);
         QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("format")).toString(), QStringLiteral("markdown"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("position")).toString(), QStringLiteral("after"));
-        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h1>通知</h1>")));
+        const QString noticeHtml = engine.lastCommandArguments.value(QStringLiteral("html")).toString();
+        QVERIFY(noticeHtml.contains(QStringLiteral("通知</h1>")) && noticeHtml.contains(QStringLiteral("<h1 style=")));
+        QVERIFY(!noticeHtml.contains(QStringLiteral("FangSong"))); // the look picked second, not the first
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
         QTRY_VERIFY(!panel->working());
-        QCOMPARE(fake.chatRequests().size(), 3);
+        QCOMPARE(fake.chatRequests().size(), 4);
     }
 
     void quickActionBarFitsChipsThatArriveWhileOpen()
@@ -1411,6 +1429,7 @@ private slots:
                                         {QStringLiteral("completion"), QStringLiteral("tools")})});
         fake.chats = {FakeOllama::chat({QStringLiteral("扩写以后更加详细的句子。")}),
                       FakeOllama::chat({QStringLiteral("# 学习方法\n\n- 制定计划\n- 坚持复习")}),
+                      FakeOllama::chat({QStringLiteral(R"({"style":"fresh-green"})")}),
                       FakeOllama::chat({}, QStringLiteral("text_insert"),
                                        {{QStringLiteral("text"), QStringLiteral("## 小标题\n- 第一条要点内容\n- 第二条要点内容")}}),
                       FakeOllama::chat({QStringLiteral("已插入，内容如下：\n\n## 小标题\n- 第一条要点内容\n- 第二条要点内容")})};
@@ -1451,10 +1470,14 @@ private slots:
         panel->submitText(QStringLiteral("写一篇关于学习的文章"));
         QTRY_VERIFY(button(QStringLiteral("插入文档")) != nullptr);
         QVERIFY(!fake.chatRequests().at(1).contains(QStringLiteral("tools")));
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("绿色标题"))); // 清新绿, the model's pick
         QTRY_VERIFY(!panel->working()); // the quick actions read the selection right after a result
         button(QStringLiteral("插入文档"))->click();
         QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
-        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h1>学习方法</h1>")));
+        const QString green = openoffice::paletteFor(145, 0.5).primary;
+        const QString draftHtml = engine.lastCommandArguments.value(QStringLiteral("html")).toString();
+        QVERIFY(draftHtml.contains(QStringLiteral("<h1 style=\"text-align:center;color:%1").arg(green)) && draftHtml.contains(QStringLiteral("学习方法</h1>")));
+        QVERIFY(draftHtml.contains(QStringLiteral("<li style=\"font-family:'DengXian'")));
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 12 个字符。"));
         QTRY_VERIFY(!panel->working());
 
@@ -1462,10 +1485,12 @@ private slots:
         // its answer does not repeat what it wrote.
         panel->submitText(QStringLiteral("在后面加两条要点"));
         QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
-        QVERIFY(fake.chatRequests().at(2).contains(QStringLiteral("tools")));
+        QVERIFY(fake.chatRequests().at(3).contains(QStringLiteral("tools")));
         button(QStringLiteral("执行"))->click(); // the answer waits for this, so the ball stays busy
         QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
-        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("html")).toString().contains(QStringLiteral("<h2>小标题</h2>")));
+        // The document keeps the look its draft went in with: a section, not a second title.
+        const QString pointsHtml = engine.lastCommandArguments.value(QStringLiteral("html")).toString();
+        QVERIFY(pointsHtml.contains(QStringLiteral("<h2 style=\"color:%1").arg(green)) && pointsHtml.contains(QStringLiteral("小标题</h2>")));
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
         QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("已经写进文档了，可以在文档里查看。需要调整的话告诉我。"));
         QTRY_VERIFY(!panel->working());
@@ -1492,7 +1517,7 @@ private slots:
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("position")).toString(), QStringLiteral("end"));
         const QString tableHtml = engine.lastCommandArguments.value(QStringLiteral("html")).toString();
         QVERIFY(tableHtml.contains(QStringLiteral("width:100%")) && tableHtml.contains(QStringLiteral(">姓名</th>"))
-                && tableHtml.contains(QStringLiteral("<td>13800000002</td>")));
+                && tableHtml.contains(QStringLiteral("13800000002</td>")));
         QVERIFY(!tableHtml.contains(QStringLiteral("&lt;")));
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 30 个字符。"));
         QTRY_VERIFY(!panel->working());

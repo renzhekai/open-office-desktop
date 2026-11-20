@@ -26,7 +26,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "build" / "full-source-run-builtin-ai-r14"  # the default entry; --source overrides
+SOURCE = ROOT / "build" / "full-source-run-builtin-ai-r16"  # the default entry; --source overrides
 CRT = Path(r"D:\Microsoft Visual Studio\18\Community\VC\Redist\MSVC\14.51.36231\x64\Microsoft.VC145.CRT")
 CRT_FILES = ["msvcp140.dll", "msvcp140_1.dll", "msvcp140_2.dll", "vcruntime140.dll", "vcruntime140_1.dll"]
 CRT_DESTINATIONS = ["", "converter"]

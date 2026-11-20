@@ -83,6 +83,8 @@ public:
         bool once = true;
     };
     void endReply(const QString& text, bool ok, const QList<ReplyAction>& actions);
+    // A formatted card (HTML as markdownToHtml writes for bubbles) with reply buttons.
+    void showRichReply(const QString& title, const QString& html, const QList<ReplyAction>& actions);
     // One line about the local AI in the welcome block, plus the input hint.
     void setStatus(const QString& text, bool ready);
 

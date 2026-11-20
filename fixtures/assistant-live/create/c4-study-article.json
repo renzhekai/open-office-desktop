@@ -1,0 +1,45 @@
+{
+  "name": "起草：学习方法文章（教学），先换个风格再插入",
+  "document": "fixtures/assistant-samples/create/blank.docx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "写一篇文章，介绍高中生提高学习效率的几个方法",
+        "timeoutSeconds": 240
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "插入文档",
+          "换个风格"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "换个风格"
+      },
+      "expect": {
+        "ok": true,
+        "buttonsInclude": [
+          "插入文档"
+        ]
+      }
+    },
+    {
+      "tool": "test.press",
+      "args": {
+        "button": "插入文档"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "check": "draftLook",
+      "headings": true
+    }
+  ]
+}

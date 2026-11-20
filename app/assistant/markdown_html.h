@@ -10,12 +10,19 @@ namespace openoffice {
 // tables) or a reply bubble (headings become bold lines at the bubble's size).
 enum class MarkdownTarget { Document, Bubble };
 
+struct DocumentStyle; // document_style.h
+
 // Converts the Markdown a model writes into the small HTML subset the editor's
 // paste understands: headings, paragraphs, bold/italic/strike/code, ordered and
 // unordered lists, pipe tables and fenced code. Every line that is not part of
 // a list or table becomes its own paragraph, as office text expects. All text
 // is HTML-escaped; links keep their text only; <think> blocks are dropped.
-QString markdownToHtml(const QString& markdown, MarkdownTarget target = MarkdownTarget::Document);
+// With a style (a chosen style pack) the look goes with it as inline styles: the first line
+// as the title, coloured headings, body font, line height and indent, emphasis, tables in the
+// pack's way (filled, light or three-line; banded; numbers on the right), and a closing sender
+// and date on the right. Without one, the plain look (shaded header, default fonts).
+QString markdownToHtml(const QString& markdown, MarkdownTarget target = MarkdownTarget::Document,
+                       const DocumentStyle* style = nullptr);
 
 // Text a rewrite should put back into the document: no Markdown emphasis or
 // heading markers, no code fences, no quotes wrapped around the whole answer
@@ -37,6 +44,11 @@ QString htmlAsMarkdown(const QString& text);
 // the first row, and that row clearly data (numbers in a column, as in the next row).
 // Otherwise the text as it is.
 QString withTableHeader(const QString& markdown, const QStringList& header);
+// A drafted piece made ready to be laid out: its first line is the title ("# ", whatever
+// level the model gave it, or a short line on its own such as "关于召开…的通知"), and the
+// sections below start at "##" (a model that wrote "## 标题" and "### 一、…" gets "# " and "## ").
+// Text with no such first line comes back as it is.
+QString draftMarkdown(const QString& markdown);
 // A cell's text as it reads in the document (no ** __ ` ~~).
 QString plainCellText(const QString& cell);
 // Headings, lists, bold or tables: text a model meant as Markdown even when it did not say so.

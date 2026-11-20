@@ -257,6 +257,42 @@ def run_document_check(mcp, step, entry, before):
             later = [b for b in blocks[blocks.index(table) + 1:] if not b.get("id", "").startswith("P") or b.get("text", "").strip()]
             if later:
                 problems.append(f"{table['id']} is not at the end: {later[0].get('id')} {later[0].get('text', '')[:20]!r} follows")
+    elif step["check"] == "draftLook":
+        # A draft went in with its style pack: the title, section headings and body show it.
+        state, error = mcp.call("test.state")
+        look = (state or {}).get("documentStyle")
+        if error or not look:
+            return ["no style pack went in with the draft"]
+        entry["look"] = look
+        paragraphs = paragraphs_of(mcp)
+        if paragraphs is None:
+            return ["the outline cannot be read"]
+        texts = [p for p in paragraphs if p.get("text", "").strip()]
+        if not texts:
+            return ["nothing was inserted"]
+        entry["actual"] = texts[:12]
+        def text_color(paragraph):
+            # A paragraph's own colour reads as "automatic" when its style has another one;
+            # the colour of its words is read where they are.
+            content, error = mcp.call("format.read", {"find": paragraph["text"].strip()[:12]})
+            found = [] if error else content.get("value", {}).get("occurrences", [])
+            return dict(paragraph, color=found[0].get("color")) if found else paragraph
+
+        title = text_color(texts[0])
+        problems += looks_like(title, {"align": "center" if look["titleAlign"] == "center" else "left", "color": look["primary"],
+                                       "size": look["titleSize"], "bold": True}, "title " + title["text"][:12])
+        headings = [p for p in texts[1:] if p.get("style") == "Heading 2"]
+        if step.get("headings", True) and not headings:
+            problems.append("no section heading (## …) in the draft")
+        for heading in headings[:3]:
+            problems += looks_like(text_color(heading), {"color": look["primary"], "size": look["headingSize"]},
+                                   heading["id"] + " " + heading["text"][:12])
+        body = [p for p in texts[1:] if p.get("style", "") in ("", "Normal") and p.get("align", "left") in ("left", "justify")]
+        body = body or [p for p in texts[1:] if p.get("style") == "List Paragraph"]  # a draft of lists only
+        if body:
+            problems += looks_like(body[0], {"size": look["bodySize"]}, body[0]["id"] + " " + body[0]["text"][:12])
+        elif step.get("body", True):
+            problems.append("no body paragraph")
     elif step["check"] == "textSnapshot":
         content, _ = mcp.call("document.getText")
         before["text"] = words_of(content.get("value", {}).get("text"))
@@ -301,7 +337,7 @@ def run_step(mcp, step, entry, before):
         entry["result"] = content
         entry["isError"] = error
         return check_expectation(step.get("expect", {}), content, error)
-    if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged", "tableShape"):
+    if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged", "tableShape", "draftLook"):
         return run_document_check(mcp, step, entry, before)
     table = step.get("table", 1)
     grid = table_grid(mcp, table)

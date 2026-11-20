@@ -1,5 +1,7 @@
 #include "assistant_tasks.h"
 
+#include "document_style.h"
+
 #include "markdown_html.h"
 
 #include <QJsonDocument>
@@ -61,6 +63,9 @@ QList<TaskSpec> buildTasks()
         {QStringLiteral("write"), QStringLiteral("按要求起草"), TaskScope::Writing, TaskOutput::Markdown, QString(),
          QString(), false},
         {QStringLiteral("table"), QStringLiteral("修改表格"), TaskScope::Table, TaskOutput::TablePlan, QString(),
+         QString(), false},
+        // After a draft: the model picks its look among the style packs the program scored.
+        {QStringLiteral("styleChoice"), QStringLiteral("选择排版风格"), TaskScope::Document, TaskOutput::Choice, QString(),
          QString(), false},
         // The second look of a table check: the cells' words, proofread like a document.
         {QStringLiteral("tableProofread"), QStringLiteral("修改表格"), TaskScope::Document, TaskOutput::Corrections,
@@ -262,6 +267,21 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
     QString instruction = spec.instruction;
     QString user;
     bool truncated = false;
+    if (spec.output == TaskOutput::Choice) {
+        // A small, plain decision: which of a few looks suits this piece of writing.
+        system = QStringLiteral("你是 Open Office 里的排版助手，有很好的审美。根据文档的内容、用途和语气，"
+                                "从候选的排版风格里选一个最合适的。只输出 JSON。");
+        user = QStringLiteral("用户的要求：") + input.detail.trimmed() + QStringLiteral("\n\n文档开头：\n")
+            + input.text.left(400).trimmed() + QStringLiteral("\n\n候选的排版风格：\n");
+        for (const QString& id : input.options) {
+            const StylePack* pack = findStylePack(id);
+            user += QStringLiteral("- ") + id + QStringLiteral("：")
+                + (pack ? pack->name + QStringLiteral("。") + pack->description : QString()) + QLatin1Char('\n');
+        }
+        user += QStringLiteral("\n回答 {\"style\": 候选风格的 id}。");
+        return {QJsonObject{{QStringLiteral("role"), QStringLiteral("system")}, {QStringLiteral("content"), system}},
+                QJsonObject{{QStringLiteral("role"), QStringLiteral("user")}, {QStringLiteral("content"), user}}};
+    }
     switch (spec.scope) {
     case TaskScope::Selection: {
         // A typed instruction that matches a quick action gets that action's instruction too.
@@ -339,8 +359,15 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
             QJsonObject{{QStringLiteral("role"), QStringLiteral("user")}, {QStringLiteral("content"), user}}};
 }
 
-QJsonObject taskFormat(const TaskSpec& spec)
+QJsonObject taskFormat(const TaskSpec& spec, const TaskInput& input)
 {
+    if (spec.output == TaskOutput::Choice) {
+        return {{QStringLiteral("type"), QStringLiteral("object")},
+                {QStringLiteral("properties"), QJsonObject{{QStringLiteral("style"),
+                    QJsonObject{{QStringLiteral("type"), QStringLiteral("string")},
+                                {QStringLiteral("enum"), QJsonArray::fromStringList(input.options)}}}}},
+                {QStringLiteral("required"), QJsonArray{QStringLiteral("style")}}};
+    }
     if (spec.output == TaskOutput::TablePlan) {
         const QJsonObject text{{QStringLiteral("type"), QStringLiteral("string")}};
         // Sorted keys: cells, change, reason, value (where, what, why, then the new value).
