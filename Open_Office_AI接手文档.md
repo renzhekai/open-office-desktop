@@ -1,6 +1,6 @@
 # Open Office AI 接手文档（持续维护）
 
-最后更新：2026-11-20（本机时间），更新者：Claude Code（Opus 5.5），第 60 条  
+最后更新：2026-11-20（本机时间），更新者：Claude Code（Opus 5.5），第 61 条  
 项目根目录：`D:\open office`  
 初版：2026-11-03T04:53:07Z 由 Codex 生成，依据当时读取的项目文件和用户指令。此后由接手智能体持续维护，初版校验记录的适用范围见第 11 节。
 
@@ -23,7 +23,7 @@
 
 **已经达到：** 上一个默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
 
-**安装包（2026-11-20，还没发布到 GitHub：上传 5 次都被网络断开，见第 60 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
+**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
 - 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载；卸载会删除配置和模型，迁移过的安装也能删干净（第 47 条）。
 - 本机静默安装、逐文件比对（21,091 个文件）、启动、卸载测试通过（r10 第 53 条，r9 第 51 条）。
 - 以前的安装包（11-06 带便携包、11-07、11-07-2）已补传到 Releases，每个版本一个发布；本机 `dist/` 只留最新的。
@@ -216,6 +216,7 @@
 | 2026-11-17 | （截图）“帮我优化一下样式”→“助手想要设置单元格格式”→ 执行 →“命令参数无效” | 第 57 条：坏命令先拦下、卡片写清、笼统样式要求给默认计划 |
 | 2026-11-17 | 做表格会有问题，而且无法检查出来，我觉得图2的模型列表很丑，而且不符合我软件风格 | 第 59 条：r14 |
 | 2026-11-17 | 连接云端模型时返回 ds：…status code 400（An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'…） | 第 59 条：r14 |
+| 2026-11-20 | 不需要，继续做吧（回答“要不要让程序自己做‘统一成 N 位数字’和‘空格都填上 X’”） | 第 61 条：不做，仍靠模型；继续发布 r14 |
 
 ## 3. 目录、代码与运行入口
 
@@ -1210,6 +1211,11 @@ python -B scripts/verify_full_source_docx_sample.py
     - `python -I scripts/publish_release.py dist/OpenOffice-Setup-0.1.0-dev-20261120-win64.exe --notes <说明>` 试了 5 次，每次都在上传安装包时断开：第 1 次 `EOF`，后 4 次 `write tcp 198.18.0.1:… -> 198.18.0.212:443: wsasend: An existing connection was forcibly closed by the remote host`（198.18.x 是用户的 TUN 代理；用户说过不要关 TUN，没有动）。每次失败后 `gh` 都删掉了半成品，查过 GitHub 上没有留下 `v0.1.0-dev-20261120` 的草稿或标签；r12（`v0.1.0-dev-20261117`）和更早的版本都还在。
     - 因为 r14 还没发布，按“发布核对后才删本机旧安装包”的规则，`dist/` 里的 r12（`…-20261117-win64.exe`）、没发布的 r13（`…-20261117-2-win64.exe`）和 r14（`…-20261120-win64.exe`）都先留着。
     - **接手要做：** 网络通了以后重跑上面的发布命令（说明文字在 `build/wasm-source/tmp/release-notes-r14-final.md`，不在仓库里，内容就是第 59 条的要点）；发布成功、核对大小后删掉本机的 r12、r13 安装包和它们的 `.sha256.txt`，在这里记一条。
+
+61. **用户决定：程序不做“统一成 N 位数字”和“空格都填上 X”；再试发布仍失败（2026-11-20，Claude Code）：**
+    - 用户回答“不需要，继续做吧”。我理解为回答第 59、60 条里留着的问题“要不要让程序自己做‘统一成 N 位数字’和‘空着的格子都填上 X’”：不需要，这两类继续交给模型（1.7B 会漏改或改错，见第 59 条的实测），以后不要再加这一步；“继续做吧”是接着把 r14 发布完。
+    - 第 6 次发布又失败：`read tcp 198.18.0.1:… -> 198.18.0.212:443: wsarecv: A connection attempt failed because the connected party did not properly respond…`（超时，仍走用户的 TUN 代理，没有动）。查过 GitHub 上没有留下 `v0.1.0-dev-20261120`，最新的仍是 r12。连续 6 次都在上传 627 MB 的安装包时断开，像是这条网络对大文件上传不稳定；没有再试。
+    - 本机 `dist/` 的 r12、r13、r14 安装包都还留着。发布成功后的步骤见第 60 条。
 
 ## 附录 A：requirements.md 完整原文
 
