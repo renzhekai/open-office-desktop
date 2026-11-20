@@ -103,6 +103,8 @@ public:
     // What the model remembers of the current conversation (user, assistant and
     // tool messages). A new conversation passes {}, a reopened one its saved history.
     QJsonArray conversation() const { return m_history; }
+    // What the person asked last (the newest user message), for the window's checks.
+    QString lastRequest() const;
     void setConversation(const QJsonArray& history); // only while no answer is running
 
     // Where the Ollama desktop app is installed, if anywhere.

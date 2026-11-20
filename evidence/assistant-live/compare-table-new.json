@@ -1,0 +1,155 @@
+{
+  "label": "compare-table-new",
+  "started_utc": "2026-11-18T04:18:29.208458+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\compare-table-new\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "(settings)",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "对照：坏表格用 after 插入",
+      "steps": [
+        {
+          "step": {
+            "tool": "text.insert",
+            "args": {
+              "text": "|\n|------|------|------|\n| 项目 | 数值 | 单位 |\n| 温度 | 25 | °C |\n| 湿度 | 60 | % |\n| 压力 | 101 | kPa |",
+              "format": "markdown",
+              "position": "after"
+            },
+            "expect": {
+              "ok": true,
+              "valueIncludes": []
+            }
+          },
+          "result": {
+            "code": "inserted",
+            "message": "已插入 93 个字符。 插入后核对：表格的行数、列数和表头都对。",
+            "ok": true,
+            "value": {
+              "length": 93
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.19
+        },
+        {
+          "step": {
+            "check": "tableShape",
+            "table": -1,
+            "rows": 4,
+            "columns": 3,
+            "header": [
+              "项目",
+              "数值",
+              "单位"
+            ],
+            "headerFilled": true,
+            "minWidth": 80
+          },
+          "actual": {
+            "columns": 3,
+            "firstRow": [
+              "项目",
+              "数值",
+              "单位"
+            ],
+            "id": "T1",
+            "rows": 4,
+            "width": 104
+          },
+          "problems": [],
+          "seconds": 0.04
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\compare-table-new\\01-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\compare-table-new\\01-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "build\\wasm-source\\tmp\\t1-after.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "",
+      "modelKey": "builtin:",
+      "state": "unknown",
+      "tokensPerSecond": 0
+    },
+    "conversation": "20261117-201830-216b9f",
+    "conversationMessages": 0,
+    "document": "D:/open office/build/assistant-live/compare-table-new/01-notice.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-18T04:18:33.269128+00:00",
+  "ok": true
+}

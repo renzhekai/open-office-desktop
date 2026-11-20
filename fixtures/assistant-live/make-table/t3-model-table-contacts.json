@@ -1,0 +1,31 @@
+{
+  "name": "做表格：让模型做一个两列的联系人表格",
+  "document": "fixtures/assistant-samples/documents/minutes.docx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "在文档最后加一个表格，两列：姓名、电话。张三 13800000001，李四 13800000002，王五 13800000003"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "tableShape",
+      "table": -1,
+      "rows": 4,
+      "columns": 2,
+      "headerFilled": true,
+      "minWidth": 80,
+      "last": true,
+      "header": [
+        "姓名",
+        "电话"
+      ]
+    }
+  ]
+}

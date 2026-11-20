@@ -1,0 +1,690 @@
+{
+  "label": "live23-make-table-4b",
+  "started_utc": "2026-11-18T13:36:14.133386+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-4b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "做表格：截图里那种坏的 Markdown 表格（表头前多一行“|”）直接插入",
+      "steps": [
+        {
+          "step": {
+            "tool": "text.insert",
+            "args": {
+              "text": "|\n|------|------|------|\n| 项目 | 数值 | 单位 |\n| 温度 | 25 | °C |\n| 湿度 | 60 | % |\n| 压力 | 101 | kPa |",
+              "format": "markdown",
+              "position": "end"
+            },
+            "expect": {
+              "ok": true,
+              "valueIncludes": []
+            }
+          },
+          "result": {
+            "code": "inserted",
+            "message": "已插入 93 个字符。 插入后核对：表格的行数、列数和表头都对。",
+            "ok": true,
+            "value": {
+              "length": 93
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.29
+        },
+        {
+          "step": {
+            "check": "tableShape",
+            "table": -1,
+            "rows": 4,
+            "columns": 3,
+            "header": [
+              "项目",
+              "数值",
+              "单位"
+            ],
+            "headerFilled": true,
+            "minWidth": 80,
+            "last": true
+          },
+          "actual": {
+            "columns": 3,
+            "firstRow": [
+              "项目",
+              "数值",
+              "单位"
+            ],
+            "id": "T1",
+            "rows": 4,
+            "width": 104
+          },
+          "problems": [],
+          "seconds": 0.04
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\01-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\01-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\make-table\\t1-broken-markdown.json"
+    },
+    {
+      "name": "做表格：让模型在文末做一个三列表格",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "帮我在文末做一个表格，列出温度25℃、湿度60%、压力101kPa，列为项目、数值、单位"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 68.70594337554377
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261118-053615-aca47a",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/live23-make-table-4b/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p>在文档最后插入：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><th>项目</th><th>数值</th><th>单位</th></tr><tr><td>温度</td><td>25℃</td><td>25℃</td></tr><tr><td>湿度</td><td>60%</td><td>60%</td></tr><tr><td>压力</td><td>101kPa</td><td>101kPa</td></tr></table>",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "帮我在文末做一个表格，列出温度25℃、湿度60%、压力101kPa，列为项目、数值、单位",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p>在文档最后插入：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><th>项目</th><th>数值</th><th>单位</th></tr><tr><td>温度</td><td>25℃</td><td>25℃</td></tr><tr><td>湿度</td><td>60%</td><td>60%</td></tr><tr><td>压力</td><td>101kPa</td><td>101kPa</td></tr></table>",
+                "title": "助手想要插入文字"
+              }
+            ],
+            "seconds": 15.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 15.64
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 70.55789310585563
+            },
+            "buttons": [],
+            "conversation": "20261118-053615-aca47a",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/live23-make-table-4b/02-notice.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已经写进文档了，可以在文档里查看。需要调整的话告诉我。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入 104 个字符。 插入后核对：表格的行数、列数和表头都对。",
+                "title": "插入文字"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已经写进文档了，可以在文档里查看。需要调整的话告诉我。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 6.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 6.79
+        },
+        {
+          "step": {
+            "check": "tableShape",
+            "table": -1,
+            "rows": 4,
+            "columns": 3,
+            "headerFilled": true,
+            "minWidth": 80,
+            "last": true,
+            "header": [
+              "项目",
+              "数值",
+              "单位"
+            ]
+          },
+          "actual": {
+            "columns": 3,
+            "firstRow": [
+              "项目",
+              "数值",
+              "单位"
+            ],
+            "id": "T1",
+            "rows": 4,
+            "width": 104
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\02-notice.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\02-notice.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\make-table\\t2-model-table-end.json"
+    },
+    {
+      "name": "做表格：让模型做一个两列的联系人表格",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "在文档最后加一个表格，两列：姓名、电话。张三 13800000001，李四 13800000002，王五 13800000003"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 64.51873337650684
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261118-053643-f8ba87",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/live23-make-table-4b/03-minutes.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p>在文档最后插入：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><th>姓名</th><th>电话</th></tr><tr><td>张三</td><td>13800000001</td></tr><tr><td>李四</td><td>13800000002</td></tr><tr><td>王五</td><td>13800000003</td></tr></table>",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "在文档最后加一个表格，两列：姓名、电话。张三 13800000001，李四 13800000002，王五 13800000003",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p>在文档最后插入：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><th>姓名</th><th>电话</th></tr><tr><td>张三</td><td>13800000001</td></tr><tr><td>李四</td><td>13800000002</td></tr><tr><td>王五</td><td>13800000003</td></tr></table>",
+                "title": "助手想要插入文字"
+              }
+            ],
+            "seconds": 10.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 10.46
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 49.574833953991785
+            },
+            "buttons": [],
+            "conversation": "20261118-053643-f8ba87",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/live23-make-table-4b/03-minutes.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "表格已成功添加至文档末尾。现在文档内容为：\n\n产品周会会议纪要\n时间：2026年11月12日 14:00\n地点：三楼会议室\n参会人：陈晨、林悦、周航、吴桐",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入 88 个字符。 插入后核对：表格的行数、列数和表头都对。",
+                "title": "插入文字"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "表格已成功添加至文档末尾。现在文档内容为：\n\n产品周会会议纪要\n时间：2026年11月12日 14:00\n地点：三楼会议室\n参会人：陈晨、林悦、周航、吴桐",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 11.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 11.32
+        },
+        {
+          "step": {
+            "check": "tableShape",
+            "table": -1,
+            "rows": 4,
+            "columns": 2,
+            "headerFilled": true,
+            "minWidth": 80,
+            "last": true,
+            "header": [
+              "姓名",
+              "电话"
+            ]
+          },
+          "actual": {
+            "columns": 2,
+            "firstRow": [
+              "姓名",
+              "电话"
+            ],
+            "id": "T1",
+            "rows": 4,
+            "width": 104
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\03-minutes.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\03-minutes.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\make-table\\t3-model-table-contacts.json"
+    },
+    {
+      "name": "做表格：文档里已有一张表格、光标还在表格里，说“在文末再加一个表格”（要新建，不能去改原表格）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.1
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 1
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 1,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "在文末再加一个表格，两列：日期、事项。11月20日 交周报，11月21日 开例会"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 50.62925305502715
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261118-053707-d3ba64",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/live23-make-table-4b/04-duty.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p>在文档最后插入：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><th>日期</th><th>事项</th></tr><tr><td>2026/11/20</td><td>交周报</td></tr><tr><td>2026/11/21</td><td>开例会</td></tr></table>",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "在文末再加一个表格，两列：日期、事项。11月20日 交周报，11月21日 开例会",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p>在文档最后插入：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><th>日期</th><th>事项</th></tr><tr><td>2026/11/20</td><td>交周报</td></tr><tr><td>2026/11/21</td><td>开例会</td></tr></table>",
+                "title": "助手想要插入文字"
+              }
+            ],
+            "seconds": 11.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 11.4
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 56.51125130703045
+            },
+            "buttons": [],
+            "conversation": "20261118-053707-d3ba64",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/live23-make-table-4b/04-duty.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已经写进文档了，可以在文档里查看。需要调整的话告诉我。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入 67 个字符。 插入后核对：表格的行数、列数和表头都对。",
+                "title": "插入文字"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已经写进文档了，可以在文档里查看。需要调整的话告诉我。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 7.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 7.3
+        },
+        {
+          "step": {
+            "check": "tableShape",
+            "table": -1,
+            "rows": 3,
+            "columns": 2,
+            "headerFilled": true,
+            "minWidth": 80,
+            "last": true,
+            "header": [
+              "日期",
+              "事项"
+            ]
+          },
+          "actual": {
+            "columns": 2,
+            "firstRow": [
+              "日期",
+              "事项"
+            ],
+            "id": "T2",
+            "rows": 3,
+            "width": 104
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [],
+            "sameSize": true
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\04-duty.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live23-make-table-4b\\04-duty.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\make-table\\t4-new-table-beside-one.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-4b",
+      "modelKey": "builtin:qwen3-4b",
+      "state": "ready",
+      "tokensPerSecond": 56.51125130703045
+    },
+    "conversation": "20261118-053707-d3ba64",
+    "conversationMessages": 3,
+    "document": "D:/open office/build/assistant-live/live23-make-table-4b/04-duty.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已经写进文档了，可以在文档里查看。需要调整的话告诉我。",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-18T13:37:26.969297+00:00",
+  "ok": true
+}

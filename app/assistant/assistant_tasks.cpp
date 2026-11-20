@@ -150,6 +150,12 @@ bool tableRequest(const QString& request, bool cursorInTable)
     static const QRegularExpression check(QStringLiteral("检查|核对|看看|看一下|有没有.{0,6}(错|问题)|算错|写错|错误|对不对"));
     static const QRegularExpression writing(QStringLiteral("^(请你?|帮我|给我)?((写|起草|生成)|(做|画|列)一?[张个份])"));
     if (writing.match(text).hasMatch()) return false; // "做一个表格" makes a new one, "写一段…" is writing
+    // "在文末加一个表格" or "把这些整理成表格" anywhere in the sentence is a new table too, even in a
+    // document that has one; "增加表格的行高" or "表格加一个表头" changes the one there.
+    static const QRegularExpression newTable(QStringLiteral(
+        "(加|添加|增加|新增|做|画|插入|插|新建|建|生成|制作|创建|弄)(上|出)?(一|1)?[张个份]?(新的?)?(表格(?![头里中的])|表(?=$|[，。,.:：、；;\\s]))"
+        "|列(一|1)?[张个份](表格|表)|(做成|整理成|转成|变成|改成|列成|写成)(一|1)?[张个份]?(表格|表(?=$|[，。,.:：、；;\\s]))"));
+    if (newTable.match(text).hasMatch()) return false;
     if (!names.match(text).hasMatch() && !cursorInTable) return false;
     return !isQuestion(text) || check.match(text).hasMatch();
 }
@@ -226,8 +232,10 @@ RequestKind classifyRequest(const QString& text, bool hasSelection)
     static const QRegularExpression small(QStringLiteral(
         "^(好的?|好吧|好嘞|谢谢|多谢|感谢|辛苦了|可以了?|行|嗯+|不错|很好|收到|明白|知道了|你好|在吗|ok|OK|Ok)[。！!~～,，]*$"));
     if (small.match(request).hasMatch()) return RequestKind::Chat;
-    // With text selected, a short instruction is about that text: 详细点, 改得正式一些, 翻译成英文.
-    if (hasSelection && request.size() <= 60) return RequestKind::ReworkSelection;
+    // With text selected, a short instruction is about that text: 详细点, 改得正式一些, 翻译成英文;
+    // unless it names another place in the document ("在文末再加一个表格").
+    static const QRegularExpression elsewhere(QStringLiteral("文末|文档的?(最后|末尾|结尾)|全文的?(最后|末尾)"));
+    if (hasSelection && request.size() <= 60 && !elsewhere.match(request).hasMatch()) return RequestKind::ReworkSelection;
     static const QRegularExpression write(QStringLiteral(
         "^(请你?|麻烦你?|你)?(帮我|给我|替我)?(写|起草|草拟|拟|撰写|编写|生成|写作)"));
     if (write.match(request).hasMatch()) return RequestKind::Write;
@@ -1646,6 +1654,19 @@ bool vagueStyleRequest(const QString& request)
     return vague.match(request).hasMatch();
 }
 
+QStringList requestedColumns(const QString& request)
+{
+    static const QString name = QStringLiteral("[^，。；;,.:：、/\\s]{1,12}");
+    static const QRegularExpression columns(
+        QStringLiteral("(?:[两二三四五六七八九十0-9]+\\s*列\\s*[，,]?\\s*(?:分别)?(?:是|为)?\\s*[:：]?"
+                       "|列名?\\s*(?:分别)?(?:为|是|[:：])\\s*[:：]?|表头\\s*(?:分别)?(?:为|是|[:：])\\s*[:：]?)\\s*(")
+        + name + QStringLiteral("(?:\\s*[、/]\\s*") + name + QStringLiteral(")+)"));
+    const QRegularExpressionMatch match = columns.match(request);
+    if (!match.hasMatch()) return {};
+    static const QRegularExpression separator(QStringLiteral("\\s*[、/]\\s*"));
+    return match.captured(1).split(separator, Qt::SkipEmptyParts);
+}
+
 bool namesAFormat(const QString& request)
 {
     static const QRegularExpression formats(QStringLiteral(
@@ -1798,6 +1819,39 @@ QList<PlannedEdit> withRequestedFormats(const QList<PlannedEdit>& plan, const Ta
         result.append(edit);
     }
     return result;
+}
+
+QString insertedTableProblems(const QList<QList<QStringList>>& meant, const QJsonArray& outlineBlocks)
+{
+    QStringList problems;
+    for (int t = 0; t < meant.size(); ++t) {
+        const QList<QStringList>& table = meant[t];
+        if (table.isEmpty()) continue;
+        const int rows = table.size();
+        const int columns = table.first().size();
+        QStringList header;
+        for (const QString& cell : table.first()) header << plainCellText(cell).left(40);
+        bool found = false;
+        int width = -1;
+        for (const QJsonValue& value : outlineBlocks) {
+            const QJsonObject block = value.toObject();
+            if (!block.value(QStringLiteral("id")).toString().startsWith(QLatin1Char('T'))) continue;
+            QStringList first;
+            for (const QJsonValue& cell : block.value(QStringLiteral("firstRow")).toArray()) first << cell.toString().simplified();
+            if (block.value(QStringLiteral("rows")).toInt() == rows && block.value(QStringLiteral("columns")).toInt() == columns
+                && first == header) {
+                found = true;
+                width = block.contains(QStringLiteral("width")) ? block.value(QStringLiteral("width")).toInt() : -1;
+            }
+        }
+        const QString name = meant.size() > 1 ? QStringLiteral("第 %1 个表格").arg(t + 1) : QStringLiteral("表格");
+        if (!found)
+            problems << QStringLiteral("%1应为 %2 行 %3 列（表头：%4），文档里没有找到这样的表格")
+                            .arg(name).arg(rows).arg(columns).arg(header.join(QStringLiteral("、")));
+        else if (width >= 0 && width < 50)
+            problems << QStringLiteral("%1太窄，只占页面宽度的 %2%").arg(name).arg(width);
+    }
+    return problems.join(QStringLiteral("；"));
 }
 
 bool cellDate(const QString& text, CellDate* date)

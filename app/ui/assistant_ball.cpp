@@ -7,6 +7,7 @@
 #include <QAbstractButton>
 #include <QApplication>
 #include <QClipboard>
+#include <QGraphicsDropShadowEffect>
 #include <QGraphicsOpacityEffect>
 #include <QGridLayout>
 #include <QHash>
@@ -23,6 +24,7 @@
 #include <QPainterPath>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QScreen>
 #include <QScrollBar>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -1002,11 +1004,19 @@ QVBoxLayout* AssistantBall::lastBubbleLayout(QWidget** bubbleOut) const
     return nullptr;
 }
 
+void AssistantBall::showRichCard(const QString& title, const QString& html, const QList<CardAction>& actions, bool ok)
+{
+    m_richCard = true;
+    showCard(title, html, actions, ok);
+}
+
 void AssistantBall::showCard(const QString& title, const QString& text, const QList<CardAction>& actions, bool ok)
 {
     if (!m_expanded) expand();
     m_welcome->hide();
-    addAssistantMessage(title, text, ok);
+    const bool rich = m_richCard;
+    m_richCard = false;
+    addAssistantMessage(title, text, ok, {}, rich);
     emit cardShown(title, text, ok);
     if (actions.isEmpty()) return;
     // The new card is the last row; give it a row of buttons.
@@ -1293,34 +1303,135 @@ void AssistantBall::chooseModel(const QString& key)
     if (!key.isEmpty()) emit modelChosen(key);
 }
 
-QMenu* AssistantBall::showModelMenu()
+QWidget* AssistantBall::showModelMenu()
 {
     if (m_modelMenu) m_modelMenu->close();
-    auto* menu = new QMenu(this);
-    menu->setObjectName(QStringLiteral("assistantModelMenu"));
-    menu->setAttribute(Qt::WA_DeleteOnClose);
-    m_modelMenu = menu;
+    // A card like the ball's bubbles (frosted surface, hairline, round corners, soft shadow),
+    // rows like its chips, the model in use in the accent colour: not the system menu.
+    const Colors colors = colorsFor(m_dark);
+    auto* popup = new QWidget(this, Qt::Popup | Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint);
+    popup->setObjectName(QStringLiteral("assistantModelMenu"));
+    popup->setAttribute(Qt::WA_TranslucentBackground);
+    popup->setAttribute(Qt::WA_DeleteOnClose);
+    m_modelMenu = popup;
+    auto* outer = new QVBoxLayout(popup);
+    outer->setContentsMargins(12, 12, 12, 12); // room for the shadow
+    auto* card = new QFrame(popup);
+    card->setObjectName(QStringLiteral("modelCard"));
+    auto* shadow = new QGraphicsDropShadowEffect(card);
+    shadow->setBlurRadius(28);
+    shadow->setOffset(0, 6);
+    shadow->setColor(QColor(0, 0, 0, m_dark ? 110 : 46));
+    card->setGraphicsEffect(shadow);
+    outer->addWidget(card);
+    auto* rows = new QVBoxLayout(card);
+    rows->setContentsMargins(8, 8, 8, 8);
+    rows->setSpacing(2);
+    const auto text = [card](const QString& value, const char* name) {
+        auto* widget = new QLabel(value, card);
+        widget->setObjectName(QString::fromLatin1(name));
+        widget->setTextFormat(Qt::PlainText);
+        widget->setAttribute(Qt::WA_TransparentForMouseEvents);
+        return widget;
+    };
     QString group;
     for (const ModelChoice& choice : m_modelChoices) {
         if (choice.group != group) {
             group = choice.group;
-            menu->addSection(group);
+            rows->addWidget(text(group, "modelGroup"));
         }
-        QAction* action = menu->addAction(choice.note.isEmpty() ? choice.label
-                                                                : choice.label + QStringLiteral("   ") + choice.note);
-        action->setCheckable(!choice.key.isEmpty() && choice.key != QStringLiteral("setup"));
-        action->setChecked(choice.current);
-        action->setEnabled(choice.enabled && !choice.key.isEmpty());
-        action->setData(choice.key);
+        auto* row = new QPushButton(card);
+        row->setObjectName(QStringLiteral("modelRow"));
+        row->setCursor(Qt::PointingHandCursor);
+        row->setProperty("current", choice.current);
+        row->setProperty("modelKey", choice.key);
+        row->setEnabled(choice.enabled && !choice.key.isEmpty());
+        row->setMinimumHeight(36);
+        auto* line = new QHBoxLayout(row);
+        line->setContentsMargins(10, 6, 10, 6);
+        line->setSpacing(8);
+        QLabel* name = text(choice.label, "modelName");
+        name->setProperty("current", choice.current);
+        name->setProperty("off", !row->isEnabled());
+        line->addWidget(name);
+        // "2.5 GB · 推荐": the size as a note, the recommendation as a small accent pill.
+        QString note = choice.note;
+        const bool recommended = note.endsWith(QStringLiteral("推荐"));
+        if (recommended) note = note.left(note.lastIndexOf(QStringLiteral("推荐"))).remove(QRegularExpression(QStringLiteral("[\\s·]+$")));
+        if (recommended) line->addWidget(text(QStringLiteral("推荐"), "modelBadge"));
+        line->addStretch(1);
+        if (!note.isEmpty()) line->addWidget(text(note, "modelNote"));
+        if (choice.current) line->addWidget(text(QStringLiteral("✓"), "modelCheck"));
         const QString key = choice.key;
-        connect(action, &QAction::triggered, this, [this, key] { chooseModel(key); });
+        connect(row, &QPushButton::clicked, this, [this, popup, key] {
+            popup->close();
+            chooseModel(key);
+        });
+        rows->addWidget(row);
     }
-    menu->addSeparator();
-    QAction* manage = menu->addAction(QStringLiteral("管理模型…（下载本机模型、添加云端模型）"));
-    manage->setData(QStringLiteral("setup"));
-    connect(manage, &QAction::triggered, this, [this] { chooseModel(QStringLiteral("setup")); });
-    menu->popup(m_modelButton->mapToGlobal(QPoint(0, m_modelButton->height())));
-    return menu;
+    auto* rule = new QFrame(card);
+    rule->setObjectName(QStringLiteral("modelRule"));
+    rule->setFixedHeight(1);
+    rows->addSpacing(4);
+    rows->addWidget(rule);
+    rows->addSpacing(2);
+    auto* manage = new QPushButton(QStringLiteral("管理模型…  下载本机模型、添加云端模型"), card);
+    manage->setObjectName(QStringLiteral("modelManage"));
+    manage->setCursor(Qt::PointingHandCursor);
+    connect(manage, &QPushButton::clicked, this, [this, popup] {
+        popup->close();
+        chooseModel(QStringLiteral("setup"));
+    });
+    rows->addWidget(manage);
+    const QColor tint(colors.accentA.red(), colors.accentA.green(), colors.accentA.blue(), m_dark ? 56 : 26);
+    popup->setStyleSheet(QStringLiteral(R"(
+        QFrame#modelCard { background: %1; border: 1px solid %2; border-radius: 16px; }
+        QLabel#modelGroup { color: %4; font-size: 11px; font-weight: 600; padding: 8px 10px 3px 10px; }
+        QPushButton#modelRow { background: transparent; border: none; border-radius: 10px; text-align: left; }
+        QPushButton#modelRow:hover { background: %5; }
+        QPushButton#modelRow[current="true"] { background: %7; }
+        QLabel#modelName { color: %3; font-size: 13px; }
+        QLabel#modelName[current="true"] { color: %6; font-weight: 600; }
+        QLabel#modelName[off="true"] { color: %4; }
+        QLabel#modelNote { color: %4; font-size: 11px; }
+        QLabel#modelCheck { color: %6; font-size: 13px; font-weight: 700; }
+        QLabel#modelBadge { color: %6; background: %7; border-radius: 8px; padding: 1px 7px; font-size: 10px; font-weight: 600; }
+        QFrame#modelRule { background: %2; border: none; margin: 0 6px; }
+        QPushButton#modelManage { color: %6; background: transparent; border: none; border-radius: 10px; text-align: left;
+                                  padding: 8px 10px; font-size: 12px; }
+        QPushButton#modelManage:hover { background: %5; }
+    )").arg(rgba(colors.surface), rgba(colors.hairline), colors.text.name(), colors.secondary.name(),
+             colors.chipHover.name(), colors.accentA.name(), rgba(tint)));
+    popup->setFixedWidth(300);
+    popup->adjustSize();
+    // Above the button when there is room (it sits above the input box), else below it.
+    const QPoint anchor = m_modelButton->mapToGlobal(QPoint(-12, 0));
+    QPoint place(anchor.x(), anchor.y() - popup->height() + 8);
+    if (const QScreen* screen = m_modelButton->screen(); screen && place.y() < screen->availableGeometry().top())
+        place.setY(anchor.y() + m_modelButton->height() - 8);
+    popup->move(place);
+    popup->show();
+    return popup;
+}
+
+QStringList AssistantBall::modelMenuLines() const
+{
+    QStringList lines;
+    if (!m_modelMenu) return lines;
+    for (QWidget* widget : m_modelMenu->findChildren<QWidget*>()) {
+        if (widget->objectName() == QStringLiteral("modelGroup")) {
+            lines << static_cast<QLabel*>(widget)->text();
+        } else if (widget->objectName() == QStringLiteral("modelRow")) {
+            QStringList parts;
+            for (QLabel* label : widget->findChildren<QLabel*>())
+                if (label->objectName() != QStringLiteral("modelCheck")) parts << label->text();
+            lines << parts.join(QStringLiteral(" · ")) + (widget->property("current").toBool() ? QStringLiteral(" ✓") : QString())
+                     + (widget->isEnabled() ? QString() : QStringLiteral(" (不可用)"));
+        } else if (widget->objectName() == QStringLiteral("modelManage")) {
+            lines << static_cast<QPushButton*>(widget)->text();
+        }
+    }
+    return lines;
 }
 
 void AssistantBall::showCorrections(const QString& title, const QList<CorrectionItem>& items, const QString& intro)
@@ -1433,7 +1544,7 @@ void AssistantBall::addUserMessage(const QString& text)
     record(QStringLiteral("user"), QString(), text, true);
 }
 
-void AssistantBall::addAssistantMessage(const QString& title, const QString& text, bool ok, const QString& quote)
+void AssistantBall::addAssistantMessage(const QString& title, const QString& text, bool ok, const QString& quote, bool rich)
 {
     const Colors colors = colorsFor(m_dark);
     auto* row = new QWidget;
@@ -1449,6 +1560,7 @@ void AssistantBall::addAssistantMessage(const QString& title, const QString& tex
     heading->addWidget(label(title, "assistantBubbleTitle", bubble), 1);
     inner->addLayout(heading);
     auto* body = label(text, "assistantBody", bubble);
+    if (rich) body->setTextFormat(Qt::RichText); // a preview: tables, headings, lists as they will look
     body->setTextInteractionFlags(Qt::TextSelectableByMouse);
     fitWidth(body, kTextWidth);
     inner->addWidget(body);

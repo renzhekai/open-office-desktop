@@ -117,12 +117,22 @@ void EngineClient::fetchModels()
 
 QJsonArray EngineClient::toOpenAiMessages(const QJsonArray& messages)
 {
+    // OpenAI-style services (DeepSeek, OpenAI...) refuse a conversation in which a tool call
+    // has no answer before the next message, or an answer has no call: every call gets one
+    // ("没有执行" if the program never ran it), and an answer to nothing is left out.
     QJsonArray result;
     QStringList pendingIds; // calls still waiting for their result, oldest first
     int counter = 0;
+    const auto answerTheRest = [&result, &pendingIds] {
+        for (const QString& id : pendingIds)
+            result.append(QJsonObject{{QStringLiteral("role"), QStringLiteral("tool")}, {QStringLiteral("tool_call_id"), id},
+                                      {QStringLiteral("content"), QStringLiteral(R"({"ok":false,"code":"not_run","message":"没有执行这个操作。"})")}});
+        pendingIds.clear();
+    };
     for (const QJsonValue& value : messages) {
         QJsonObject message = value.toObject();
         const QString role = message.value(QStringLiteral("role")).toString();
+        if (role != QStringLiteral("tool")) answerTheRest();
         if (role == QStringLiteral("assistant") && message.contains(QStringLiteral("tool_calls"))) {
             QJsonArray calls;
             for (const QJsonValue& callValue : message.value(QStringLiteral("tool_calls")).toArray()) {
@@ -142,12 +152,13 @@ QJsonArray EngineClient::toOpenAiMessages(const QJsonArray& messages)
             message.insert(QStringLiteral("tool_calls"), calls);
             if (!message.contains(QStringLiteral("content"))) message.insert(QStringLiteral("content"), QString());
         } else if (role == QStringLiteral("tool")) {
+            if (pendingIds.isEmpty()) continue; // an answer to no call
             message.remove(QStringLiteral("tool_name"));
-            message.insert(QStringLiteral("tool_call_id"),
-                           pendingIds.isEmpty() ? QStringLiteral("call_0") : pendingIds.takeFirst());
+            message.insert(QStringLiteral("tool_call_id"), pendingIds.takeFirst());
         }
         result.append(message);
     }
+    answerTheRest();
     return result;
 }
 

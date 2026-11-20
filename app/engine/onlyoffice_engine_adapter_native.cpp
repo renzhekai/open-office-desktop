@@ -176,7 +176,7 @@ const QHash<QString, QList<EngineArgument>>& editorCommandArguments()
         {QStringLiteral("text.insert"),
          {{"text", true, 20000, {}},
           {"format", false, 0, {QStringLiteral("plain"), QStringLiteral("markdown")}},
-          {"position", false, 0, {QStringLiteral("cursor"), QStringLiteral("after")}},
+          {"position", false, 0, {QStringLiteral("cursor"), QStringLiteral("after"), QStringLiteral("end")}},
           {"html", false, 400000, {}}}},
         {QStringLiteral("selection.replace"), {{"text", true, 20000, {}}, {"expected", false, 20000, {}}}},
         {QStringLiteral("document.replaceText"), {{"find", true, 200, {}}, {"replace", true, 200, {}}}},
@@ -306,7 +306,12 @@ for(var i=0;i<all.length;i++){var e=all[i],k=e.GetClassType();
     if(curPara&&e.GetInternalId()===curPara)cursor={paragraph:tp};}
   else if(k==='table'){tt++;var rows=e.GetRowsCount(),cols=0,first=[];for(var r=0;r<rows;r++)cols=Math.max(cols,e.GetRow(r).GetCellsCount());
     var r0=e.GetRow(0);for(var c=0;c<r0.GetCellsCount();c++)first.push(cellText(r0.GetCell(c)).replace(/\n/g,' ').slice(0,40));
-    if(out.length<400)out.push({id:'T'+tt,rows:rows,columns:cols,firstRow:first});
+    var to={id:'T'+tt,rows:rows,columns:cols,firstRow:first};
+    try{var s=B.GetDocument().GetFinalSection().Section,textMm=s.PageSize.W-s.PageMargins.Left-s.PageMargins.Right,
+      grid=e.Table.TableGrid||[],sum=0;for(var g=0;g<grid.length;g++)sum+=+grid[g]||0;
+      var tw=e.Table.Pr&&e.Table.Pr.TableW;
+      if(sum>0&&textMm>0)to.width=Math.round(100*sum/textMm);else if(tw&&tw.Type===3)to.width=Math.round(tw.W);}catch(x){}
+    if(out.length<400)out.push(to);
     if(curCell){var pt=curCell.GetParentTable();if(pt&&pt.GetInternalId()===e.GetInternalId())
       cursor={table:tt,row:curCell.GetRowIndex()+1,column:curCell.GetIndex()+1};}}}
 reply(true,'outline',{blocks:out,paragraphs:tp,tables:tt,cursor:cursor,truncated:out.length>=400});
@@ -423,6 +428,8 @@ QString editorCommandScript(quint64 id, const QString& name, const QJsonObject& 
         // and starts a new one, unless the cursor already sits in an empty one.
         body = QStringLiteral("var t=%1,h=%2,pos=%3;"
             "var done=function(){reply(true,'inserted',{length:t.length});};"
+            "if(pos==='end'){if(!logic){reply(false,'editor_not_ready',null);return;}"
+            "logic.RemoveSelection();logic.MoveCursorToEndPos(false);pos='after';}"
             "if(pos==='after'){if(!logic||!B){reply(false,'editor_not_ready',null);return;}"
             "var empty=false;if(!logic.IsSelectionUse()){var cp=logic.GetCurrentParagraph();var ap=cp&&B.GetByInternalId(cp.GetId());"
             "empty=!!ap&&ap.GetText().replace(/[\\r\\n]/g,'')==='';}"

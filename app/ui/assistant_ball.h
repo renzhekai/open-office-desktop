@@ -67,6 +67,9 @@ public:
     // Each button works once; afterwards the card's buttons are disabled.
     using CardAction = QPair<QString, std::function<void()>>;
     void showCard(const QString& title, const QString& text, const QList<CardAction>& actions, bool ok = true);
+    // A card whose body is formatted (a preview of what goes into the document: tables,
+    // headings, lists), given as the HTML markdownToHtml writes for bubbles.
+    void showRichCard(const QString& title, const QString& html, const QList<CardAction>& actions, bool ok = true);
     // A streamed reply from the local AI; markdown replies are shown formatted.
     void beginReply(const QString& title, bool markdown = false);
     void appendReply(const QString& text);
@@ -112,7 +115,11 @@ public:
     QString modelButtonText() const;
     // What picking a line in the list does (test seam): modelChosen, or setupRequested for "setup".
     void chooseModel(const QString& key);
-    QMenu* showModelMenu(); // opens the list under the button; returns it (test seam)
+    // Opens the model list, a card in the ball's own style next to the button; returns it.
+    QWidget* showModelMenu();
+    // The open list's lines as shown (test seam): group headings, then "名称 · 说明" with a
+    // trailing " ✓" for the model in use and " (不可用)" for lines that cannot be picked.
+    QStringList modelMenuLines() const;
     void markCorrection(int index, bool ok);
     int correctionCount() const { return m_correctionButtons.size(); }
 
@@ -184,7 +191,8 @@ private:
     void animateScale(qreal target, int duration, bool spring);
     void submit();
     void addUserMessage(const QString& text);
-    void addAssistantMessage(const QString& title, const QString& text, bool ok, const QString& quote = {});
+    void addAssistantMessage(const QString& title, const QString& text, bool ok, const QString& quote = {}, bool rich = false);
+    bool m_richCard = false; // the next card's body is HTML
     QVBoxLayout* lastBubbleLayout(QWidget** bubble) const;
     void addButtons(const QList<ReplyAction>& actions);
     void rebuildQuickActions();
@@ -230,7 +238,7 @@ private:
     QPushButton* m_history = nullptr;
     QPushButton* m_modelButton = nullptr;
     QList<ModelChoice> m_modelChoices;
-    QPointer<QMenu> m_modelMenu;
+    QPointer<QWidget> m_modelMenu;
     QListWidget* m_slashList = nullptr;
     QTimer* m_timer = nullptr;
     QElapsedTimer m_clock;

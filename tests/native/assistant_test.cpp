@@ -171,6 +171,55 @@ private slots:
         QVERIFY(!finished.last().at(1).toBool());
         QVERIFY2(finished.last().at(0).toString().contains(QStringLiteral("API Key")), qPrintable(finished.last().at(0).toString()));
 
+        // A service as strict as DeepSeek: the model asks for two tools at once; the person writes
+        // again instead of answering 执行/不要. The next request still has an answer for its call.
+        fake.handler = [&fake](const QString& path, const QMap<QByteArray, QByteArray>&, FakeOllama::Response* response) {
+            if (path != QStringLiteral("/v1/chat/completions")) return false;
+            const QJsonArray sent = fake.requests.last().second.value(QStringLiteral("messages")).toArray();
+            QStringList waiting;
+            for (const QJsonValue& value : sent) {
+                const QJsonObject message = value.toObject();
+                const QString role = message.value(QStringLiteral("role")).toString();
+                if (role == QStringLiteral("tool")) waiting.removeOne(message.value(QStringLiteral("tool_call_id")).toString());
+                else if (!waiting.isEmpty()) break; // a message while calls wait: refused below
+                for (const QJsonValue& call : message.value(QStringLiteral("tool_calls")).toArray())
+                    waiting << call.toObject().value(QStringLiteral("id")).toString();
+            }
+            if (!waiting.isEmpty()) {
+                response->status = 400;
+                response->body = R"({"error":{"message":"An assistant message with 'tool_calls' must be followed by tool messages"}})";
+                return true;
+            }
+            return false; // the canned answers
+        };
+        // DeepSeek may ask for two tools in one answer; one runs (the window confirms it), and the
+        // next request must not leave the other unanswered.
+        const auto chunk = [](const QJsonObject& delta, const QString& finish = QString()) {
+            QJsonObject choice{{QStringLiteral("index"), 0}, {QStringLiteral("delta"), delta}};
+            if (!finish.isEmpty()) choice.insert(QStringLiteral("finish_reason"), finish);
+            return "data: " + QJsonDocument(QJsonObject{{QStringLiteral("choices"), QJsonArray{choice}}}).toJson(QJsonDocument::Compact) + "\n\n";
+        };
+        const auto toolCall = [](int index, const char* id, const char* name, const char* arguments) {
+            return QJsonObject{{QStringLiteral("index"), index}, {QStringLiteral("id"), QString::fromLatin1(id)},
+                               {QStringLiteral("type"), QStringLiteral("function")},
+                               {QStringLiteral("function"), QJsonObject{{QStringLiteral("name"), QString::fromLatin1(name)},
+                                                                        {QStringLiteral("arguments"), QString::fromLatin1(arguments)}}}};
+        };
+        const QByteArray twoCalls = chunk({{QStringLiteral("tool_calls"), QJsonArray{toolCall(0, "call_a", "text_insert", R"({"text":"x"})"),
+                                                                                     toolCall(1, "call_b", "edit_undo", "{}")}}})
+            + chunk({}, QStringLiteral("tool_calls")) + "data: [DONE]\n\n";
+        fake.chats = {twoCalls, FakeOllama::sse({QStringLiteral("好的，已经插入。")})};
+        QSignalSpy proposed(&assistant, &LocalAssistant::commandProposed);
+        QVERIFY(assistant.ask(QStringLiteral("做个表格"), QString()));
+        QTRY_COMPARE(proposed.size(), 1); // one at a time
+        const AssistantCommand first = proposed.first().first().value<AssistantCommand>();
+        QCOMPARE(first.name, QStringLiteral("text.insert"));
+        assistant.commandFinished(first, {true, QStringLiteral("inserted"), QStringLiteral("已插入。"), {}});
+        QTRY_COMPARE(finished.size(), 4);
+        QVERIFY2(finished.last().at(1).toBool(), qPrintable(finished.last().at(0).toString()));
+        QCOMPARE(finished.last().at(0).toString(), QStringLiteral("好的，已经插入。"));
+        fake.handler = nullptr;
+
         // Back to the built-in engine; the Ollama option shows its group even when Ollama is not running.
         QVERIFY(assistant.chooseModel(QStringLiteral("builtin:qwen3-4b")));
         QVERIFY(!assistant.cloud());
@@ -675,8 +724,84 @@ private slots:
         QVERIFY(html.contains(QStringLiteral("<p>正文<b>加粗</b>和<i>倾斜</i></p>")));
         QVERIFY(html.contains(QStringLiteral("<ul><li>一</li><li>二</li></ul>")));
         QVERIFY(html.contains(QStringLiteral("<ol><li>甲</li><li>乙</li></ol>")));
-        QVERIFY(html.contains(QStringLiteral("<th>项目</th>")));
+        QVERIFY(html.contains(QStringLiteral(">项目</th>")));
         QVERIFY(html.contains(QStringLiteral("<td>3</td>")));
+        // Page-wide with a shaded header: without a width the editor squeezes every column.
+        QVERIFY(html.contains(QStringLiteral("width:100%")));
+        QVERIFY(html.contains(QStringLiteral("background-color:#D9E2F3")));
+
+        // The user's screenshot: a "|" line before the separator, the header after it.
+        const QString broken = QStringLiteral("|\n|------|------|------|\n| 项目 | 数值 | 单位 |\n| 温度 | 25 | °C |\n| 湿度 | 60 | % |\n| **压力** | 101 | kPa |");
+        const QList<QList<QStringList>> tables = markdownTables(broken);
+        QCOMPARE(tables.size(), 1);
+        QCOMPARE(tables.first().size(), 4);
+        QCOMPARE(tables.first().first(), (QStringList{QStringLiteral("项目"), QStringLiteral("数值"), QStringLiteral("单位")}));
+        const QString fixedHtml = markdownToHtml(broken);
+        QCOMPARE(fixedHtml.count(QStringLiteral("<tr>")), 4);
+        QCOMPARE(fixedHtml.count(QStringLiteral("</th>")), 3);
+        QVERIFY(!fixedHtml.contains(QStringLiteral("\"></th>"))); // no empty header cell
+        // Uneven rows are evened out; a lone "a | b" line in a sentence is no table.
+        QCOMPARE(markdownTables(QStringLiteral("| 姓名 | 电话 | 备注 |\n|---|---|---|\n| 张三 | 138 |\n| 李四 | 139 | 新 | 多出 |")).first(),
+                 (QList<QStringList>{{QStringLiteral("姓名"), QStringLiteral("电话"), QStringLiteral("备注")},
+                                     {QStringLiteral("张三"), QStringLiteral("138"), QString()},
+                                     {QStringLiteral("李四"), QStringLiteral("139"), QStringLiteral("新 | 多出")}}));
+        QVERIFY(markdownTables(QStringLiteral("选 A | 选 B 都可以。")).isEmpty());
+        // What the 1.7B wrote for "两列：姓名、电话": an HTML table. The program reads it as a table.
+        const QString htmlTable = QStringLiteral(
+            "<p>联系人如下：</p>\n<table border=\"1\">\n<thead>\n<tr>\n<th>姓名</th>\n<th>电话</th>\n</tr>\n</thead>\n<tbody>\n"
+            "<tr>\n<td>张三</td>\n<td>13800000001</td>\n</tr>\n<tr><td><b>李四</b></td><td>138&nbsp;0000&#48;002</td></tr>\n"
+            "<tr><td>王五 | 小王<td>13800000003</tr>\n</tbody>\n</table>\n<h2>备注</h2><ul><li>甲 &amp; 乙</li><li>丙</li></ul>");
+        const QString converted = htmlAsMarkdown(htmlTable);
+        QCOMPARE(markdownTables(converted).size(), 1);
+        QCOMPARE(markdownTables(converted).first(),
+                 (QList<QStringList>{{QStringLiteral("姓名"), QStringLiteral("电话")},
+                                     {QStringLiteral("张三"), QStringLiteral("13800000001")},
+                                     {QStringLiteral("李四"), QStringLiteral("138 00000002")},
+                                     {QStringLiteral("王五 ｜ 小王"), QStringLiteral("13800000003")}}));
+        QVERIFY(converted.startsWith(QStringLiteral("联系人如下：\n\n| 姓名 | 电话 |")));
+        QVERIFY(converted.endsWith(QStringLiteral("## 备注\n- 甲 & 乙\n- 丙")));
+        QVERIFY(!converted.contains(QLatin1Char('<')));
+        QVERIFY(markdownToHtml(converted).contains(QStringLiteral("<h2>备注</h2>")));
+        // The columns the person named; the header the model left out is put back.
+        QCOMPARE(requestedColumns(QStringLiteral("在文档最后加一个表格，两列：姓名、电话。张三 13800000001")),
+                 (QStringList{QStringLiteral("姓名"), QStringLiteral("电话")}));
+        QCOMPARE(requestedColumns(QStringLiteral("帮我在文末做一个表格，列出温度25℃、湿度60%、压力101kPa，列为项目、数值、单位")),
+                 (QStringList{QStringLiteral("项目"), QStringLiteral("数值"), QStringLiteral("单位")}));
+        QCOMPARE(requestedColumns(QStringLiteral("做个表，三列，分别是名称、数量、单价")),
+                 (QStringList{QStringLiteral("名称"), QStringLiteral("数量"), QStringLiteral("单价")}));
+        QCOMPARE(requestedColumns(QStringLiteral("表头是日期/事项")), (QStringList{QStringLiteral("日期"), QStringLiteral("事项")}));
+        QVERIFY(requestedColumns(QStringLiteral("在文末加一个表格")).isEmpty());
+        const QStringList contacts{QStringLiteral("姓名"), QStringLiteral("电话")};
+        const QString noHeader = QStringLiteral("联系人：\n| 张三 | 13800000001 |\n|---|---|\n| 李四 | 13800000002 |\n| 王五 | 13800000003 |\n完");
+        const QString headed = withTableHeader(noHeader, contacts);
+        QVERIFY(headed.startsWith(QStringLiteral("联系人：\n| 姓名 | 电话 |")) && headed.endsWith(QStringLiteral("\n完")));
+        QCOMPARE(markdownTables(headed).first().size(), 4);
+        QCOMPARE(markdownTables(headed).first().at(1), (QStringList{QStringLiteral("张三"), QStringLiteral("13800000001")}));
+        // The 4B's "| - | |" before the rows is no header: dropped, and the names put in its place.
+        const QString dashes = QStringLiteral("| - | |\n|---|---|\n| 11月20日 | 交周报 |\n| 11月21日 | 开例会 |");
+        QCOMPARE(markdownTables(dashes).first(), (QList<QStringList>{{QStringLiteral("11月20日"), QStringLiteral("交周报")},
+                                                                    {QStringLiteral("11月21日"), QStringLiteral("开例会")}}));
+        QCOMPARE(markdownTables(withTableHeader(dashes, {QStringLiteral("日期"), QStringLiteral("事项")})).first().first(),
+                 (QStringList{QStringLiteral("日期"), QStringLiteral("事项")}));
+        // A header in other words, a table that has it, or rows of words only: left as they are.
+        for (const QString& kept : {QStringLiteral("| 名字 | 手机号 |\n|---|---|\n| 李四 | 13800000002 |"),
+                                    QStringLiteral("| 姓名 | 电话 |\n|---|---|\n| 李四 | 13800000002 |"),
+                                    QStringLiteral("| 张三 | 销售部 |\n|---|---|\n| 李四 | 市场部 |"),
+                                    QStringLiteral("| 张三 | 138 | 备注 |\n|---|---|---|\n| 李四 | 139 | 无 |")})
+            QCOMPARE(withTableHeader(kept, contacts), kept);
+        // Text without HTML stays exactly as it is, "<" and all.
+        for (const QString& kept : {QStringLiteral("a < b，且 b > c。"), QStringLiteral("## 标题\n| 甲 | 乙 |\n|---|---|\n| 1 | 2 |"),
+                                    QStringLiteral("<自定义>不是网页标记")})
+            QCOMPARE(htmlAsMarkdown(kept), kept);
+        // After inserting: found as meant, wider than half the page; or what is wrong, in words.
+        const auto block = [](int rows, int columns, const QStringList& first, int width) {
+            return QJsonObject{{QStringLiteral("id"), QStringLiteral("T1")}, {QStringLiteral("rows"), rows}, {QStringLiteral("columns"), columns},
+                               {QStringLiteral("firstRow"), QJsonArray::fromStringList(first)}, {QStringLiteral("width"), width}};
+        };
+        const QStringList header{QStringLiteral("项目"), QStringLiteral("数值"), QStringLiteral("单位")};
+        QVERIFY(insertedTableProblems(tables, QJsonArray{block(4, 3, header, 100)}).isEmpty());
+        QVERIFY(insertedTableProblems(tables, QJsonArray{block(5, 3, {QString()}, 30)}).contains(QStringLiteral("没有找到")));
+        QVERIFY(insertedTableProblems(tables, QJsonArray{block(4, 3, header, 30)}).contains(QStringLiteral("太窄")));
         QVERIFY(html.contains(QStringLiteral("&lt;script&gt;"))); // text, never markup
         QVERIFY(!html.contains(QStringLiteral("<script>")));
         QVERIFY(html.contains(QStringLiteral("<p>引用</p>")));
@@ -883,6 +1008,14 @@ private slots:
         QVERIFY(!tableRequest(QStringLiteral("帮我改改"), false));
         QVERIFY(!tableRequest(QStringLiteral("这张表是什么意思？"), true));
         QVERIFY(!tableRequest(QStringLiteral("做一个表格"), false));
+        // A new table, wherever the words are, even with the cursor in a table.
+        for (const char* request : {"帮我在文末做一个表格，列出温度、湿度", "在文档最后加一个表格，两列：姓名、电话",
+                                    "插入表格", "把下面的数据整理成表格", "在后面再加一张新表格", "列一个表格比较三种方案"})
+            QVERIFY2(!tableRequest(QString::fromUtf8(request), true), request);
+        // Changes to the table that is there stay table requests.
+        for (const char* request : {"增加表格的行高", "表格加一个表头", "给表格增加一列", "在表格里插入一行合计",
+                                    "把表格做成三列", "表格的字体加粗"})
+            QVERIFY2(tableRequest(QString::fromUtf8(request), false), request);
         QVERIFY(!tableRequest(QStringLiteral("/保存"), true));
         QCOMPARE(tableNumberIn(QStringLiteral("把第二张表格的表头加粗")), 2);
         QCOMPARE(tableNumberIn(QStringLiteral("表3里的数字右对齐")), 3);
@@ -1311,6 +1444,9 @@ private slots:
         QCOMPARE(classifyRequest(QStringLiteral("改得正式一些"), true), RequestKind::ReworkSelection);
         QCOMPARE(classifyRequest(QStringLiteral("翻译成英文"), true), RequestKind::ReworkSelection);
         QCOMPARE(classifyRequest(QStringLiteral("写一篇文章"), true), RequestKind::ReworkSelection); // the selection wins
+        QCOMPARE(classifyRequest(QStringLiteral("这段末尾加一句总结"), true), RequestKind::ReworkSelection);
+        QCOMPARE(classifyRequest(QStringLiteral("在文末再加一个表格，两列：日期、事项"), true), RequestKind::Chat); // another place
+        QCOMPARE(classifyRequest(QStringLiteral("在文档最后加一段说明"), true), RequestKind::Chat);
         QCOMPARE(classifyRequest(QStringLiteral("这段话是什么意思"), true), RequestKind::Chat);
         QCOMPARE(classifyRequest(QStringLiteral("有错别字吗"), true), RequestKind::Chat);
         QCOMPARE(classifyRequest(QStringLiteral("这样写可以？"), true), RequestKind::Chat);
@@ -1566,6 +1702,26 @@ private slots:
         const QJsonObject result = converted.at(2).toObject();
         QCOMPARE(result.value("tool_call_id").toString(), call.value("id").toString()); // the answer matches its call
         QVERIFY(!result.contains("tool_name"));
+
+        // The user's DeepSeek error ("An assistant message with 'tool_calls' must be followed by tool
+        // messages responding to each 'tool_call_id'"): every call is answered before the next message,
+        // and an answer to no call is left out.
+        const auto call2 = [](const char* id, const char* name) {
+            return QJsonObject{{"id", id}, {"function", QJsonObject{{"name", name}, {"arguments", QJsonObject{}}}}};
+        };
+        const QJsonArray unanswered{
+            QJsonObject{{"role", "user"}, {"content", "做个表格"}},
+            QJsonObject{{"role", "assistant"}, {"content", ""}, {"tool_calls", QJsonArray{call2("a", "text_insert"), call2("b", "edit_undo")}}},
+            QJsonObject{{"role", "tool"}, {"content", "{\"ok\":true}"}},             // answers a only
+            QJsonObject{{"role", "user"}, {"content", "重做表格"}},                    // b never answered
+            QJsonObject{{"role", "tool"}, {"content", "{\"ok\":true}"}},             // an answer to nothing
+            QJsonObject{{"role", "assistant"}, {"content", ""}, {"tool_calls", QJsonArray{call2("c", "text_insert")}}}};
+        const QJsonArray fixed = EngineClient::toOpenAiMessages(unanswered);
+        QStringList shape;
+        for (const QJsonValue& value : fixed)
+            shape << value.toObject().value("role").toString() + QLatin1Char(':') + value.toObject().value("tool_call_id").toString();
+        QCOMPARE(shape, (QStringList{"user:", "assistant:", "tool:a", "tool:b", "user:", "assistant:", "tool:c"}));
+        QVERIFY(fixed.at(3).toObject().value("content").toString().contains(QStringLiteral("没有执行")));
 
         ChatOptions options;
         options.think = QStringLiteral("false");

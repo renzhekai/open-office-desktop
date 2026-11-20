@@ -7,6 +7,8 @@
 #include <QRegularExpression>
 #include <QStringList>
 
+#include <algorithm>
+
 namespace openoffice {
 namespace {
 
@@ -42,7 +44,220 @@ QStringList tableCells(QString line)
     return cells;
 }
 
+bool tableLine(const QString& line)
+{
+    const QString trimmed = line.trimmed();
+    return !trimmed.isEmpty() && (trimmed.startsWith(QLatin1Char('|')) || isTableSeparator(trimmed)
+                                  || (trimmed.count(QLatin1Char('|')) >= 1 && !trimmed.startsWith(QLatin1Char('#'))));
+}
+
+// From line `start`, the lines of one table and the table made regular; false when they are not one.
+bool readTable(const QStringList& lines, int start, int* end, QList<QStringList>* rows)
+{
+    int i = start;
+    bool separator = false;
+    bool piped = true; // every line starts with "|"
+    QList<QStringList> found;
+    for (; i < lines.size() && tableLine(lines[i]); ++i) {
+        const QString trimmed = lines[i].trimmed();
+        piped = piped && (trimmed.startsWith(QLatin1Char('|')) || isTableSeparator(trimmed));
+        if (isTableSeparator(trimmed)) {
+            separator = true;
+            continue;
+        }
+        QStringList cells = tableCells(trimmed);
+        // A line of nothing but pipes and dashes ("|", "| | |", "| - | |") is no row: small
+        // models write one before the header.
+        static const QRegularExpression blank(QStringLiteral("^[\\s:\\-\u2013\u2014_]*$"));
+        if (std::all_of(cells.begin(), cells.end(), [](const QString& cell) { return blank.match(cell).hasMatch(); })) continue;
+        found.append(cells);
+    }
+    // A table has a separator line, or (without one) at least two rows written with pipes.
+    if (found.isEmpty() || (!separator && (!piped || found.size() < 2))) return false;
+    // As many columns as the header has (a row with a stray "|" does not widen the table);
+    // a header of one cell takes the widest row's.
+    int columns = int(found.first().size());
+    if (columns < 2)
+        for (const QStringList& row : found) columns = qMax(columns, int(row.size()));
+    if (columns < 2 && found.size() < 2) return false;
+    columns = qMin(columns, 20);
+    for (QStringList& row : found) {
+        while (row.size() < columns) row.append(QString());
+        while (row.size() > columns) {
+            // Extra cells (a "|" inside a cell) go back into the last one.
+            const QString extra = row.takeLast();
+            if (!extra.isEmpty()) row.last() += QStringLiteral(" | ") + extra;
+        }
+    }
+    *end = i;
+    *rows = found;
+    return true;
+}
+
+constexpr auto kHtmlOptions = QRegularExpression::CaseInsensitiveOption | QRegularExpression::DotMatchesEverythingOption;
+
+QString withoutEntities(QString text)
+{
+    static const QRegularExpression number(QStringLiteral("&#(x?)([0-9a-fA-F]{1,6});"));
+    QString result;
+    int last = 0;
+    for (auto it = number.globalMatch(text); it.hasNext();) {
+        const QRegularExpressionMatch match = it.next();
+        result += text.mid(last, match.capturedStart() - last);
+        bool ok = false;
+        const uint code = match.captured(2).toUInt(&ok, match.captured(1).isEmpty() ? 10 : 16);
+        if (ok && code > 0 && code <= 0x10FFFF) {
+            const char32_t character = code;
+            result += QString::fromUcs4(&character, 1);
+        }
+        last = match.capturedEnd();
+    }
+    result += text.mid(last);
+    result.replace(QStringLiteral("&nbsp;"), QStringLiteral(" "));
+    result.replace(QStringLiteral("&lt;"), QStringLiteral("<"));
+    result.replace(QStringLiteral("&gt;"), QStringLiteral(">"));
+    result.replace(QStringLiteral("&quot;"), QStringLiteral("\""));
+    result.replace(QStringLiteral("&apos;"), QStringLiteral("'"));
+    result.replace(QStringLiteral("&amp;"), QStringLiteral("&"));
+    return result;
+}
+
+// A cell's text: no tags, entities read, one line, and no "|" that would split it.
+QString htmlCellText(QString cell)
+{
+    static const QRegularExpression br(QStringLiteral("<br\\s*/?>"), kHtmlOptions);
+    static const QRegularExpression tag(QStringLiteral("<[^>]*>"));
+    cell.replace(br, QStringLiteral(" "));
+    cell.remove(tag);
+    cell = withoutEntities(cell);
+    cell.replace(QLatin1Char('|'), QChar(0xFF5C));
+    return cell.simplified();
+}
+
+// HTML outside tables as Markdown lines: headings, bold, list items and paragraphs.
+QString htmlBlocksAsMarkdown(QString html)
+{
+    static const QRegularExpression heading(QStringLiteral("<h([1-6])\\b[^>]*>(.*?)</h\\1\\s*>"), kHtmlOptions);
+    static const QRegularExpression strong(QStringLiteral("<(b|strong)\\b[^>]*>(.*?)</\\1\\s*>"), kHtmlOptions);
+    static const QRegularExpression item(QStringLiteral("<li\\b[^>]*>"), kHtmlOptions);
+    static const QRegularExpression lineEnd(QStringLiteral("<br\\s*/?>|</(p|div|li|h[1-6])\\s*>"), kHtmlOptions);
+    static const QRegularExpression tag(QStringLiteral("<[^>]*>"));
+    QString text;
+    int last = 0;
+    for (auto it = heading.globalMatch(html); it.hasNext();) {
+        const QRegularExpressionMatch match = it.next();
+        text += html.mid(last, match.capturedStart() - last);
+        text += QStringLiteral("\n") + QString(match.captured(1).toInt(), QLatin1Char('#')) + QLatin1Char(' ')
+              + match.captured(2) + QLatin1Char('\n');
+        last = match.capturedEnd();
+    }
+    text += html.mid(last);
+    text.replace(strong, QStringLiteral("**\\2**"));
+    text.replace(item, QStringLiteral("\n- "));
+    text.replace(lineEnd, QStringLiteral("\n"));
+    text.remove(tag);
+    text = withoutEntities(text);
+    QStringList lines;
+    for (const QString& line : text.split(QLatin1Char('\n'))) {
+        const QString trimmed = line.trimmed();
+        if (!trimmed.isEmpty()) lines.append(trimmed);
+    }
+    return lines.join(QLatin1Char('\n'));
+}
+
 } // namespace
+
+QList<QList<QStringList>> markdownTables(const QString& markdown)
+{
+    QString source = stripThinking(markdown);
+    source.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
+    const QStringList lines = source.split(QLatin1Char('\n'));
+    QList<QList<QStringList>> tables;
+    for (int i = 0; i < lines.size(); ++i) {
+        int end = i;
+        QList<QStringList> rows;
+        if (tableLine(lines[i]) && readTable(lines, i, &end, &rows)) {
+            tables.append(rows);
+            i = end - 1;
+        }
+    }
+    return tables;
+}
+
+QString htmlAsMarkdown(const QString& text)
+{
+    static const QRegularExpression html(QStringLiteral("<(table|tr|td|th|p|br|h[1-6]|li|ul|ol|div|strong|b)\\b[^>]*>"),
+                                         QRegularExpression::CaseInsensitiveOption);
+    if (!html.match(text).hasMatch()) return text;
+    // A <tr> or cell may be left open (the next one starts it again); the table may end with the text.
+    static const QRegularExpression table(QStringLiteral("<table\\b[^>]*>(.*?)(?:</table\\s*>|$)"), kHtmlOptions);
+    static const QRegularExpression row(QStringLiteral("<tr\\b[^>]*>(.*?)(?=<tr\\b|</table|$)"), kHtmlOptions);
+    static const QRegularExpression cell(QStringLiteral("<t[hd]\\b[^>]*>(.*?)(?=<t[hd]\\b|</tr|$)"), kHtmlOptions);
+    const auto line = [](const QStringList& cells) {
+        return QStringLiteral("| ") + cells.join(QStringLiteral(" | ")) + QStringLiteral(" |");
+    };
+    QStringList parts;
+    int last = 0;
+    for (auto it = table.globalMatch(text); it.hasNext();) {
+        const QRegularExpressionMatch match = it.next();
+        QList<QStringList> rows;
+        for (auto r = row.globalMatch(match.captured(1)); r.hasNext();) {
+            const QString rowHtml = r.next().captured(1);
+            QStringList cells;
+            for (auto c = cell.globalMatch(rowHtml); c.hasNext();) cells.append(htmlCellText(c.next().captured(1)));
+            if (!cells.isEmpty()) rows.append(cells);
+        }
+        if (rows.isEmpty()) continue; // no rows: left as it is
+        parts.append(htmlBlocksAsMarkdown(text.mid(last, match.capturedStart() - last)));
+        QStringList lines{line(rows.first()), line(QStringList(rows.first().size(), QStringLiteral("---")))};
+        for (int i = 1; i < rows.size(); ++i) lines.append(line(rows[i]));
+        parts.append(lines.join(QLatin1Char('\n')));
+        last = match.capturedEnd();
+    }
+    parts.append(htmlBlocksAsMarkdown(text.mid(last)));
+    parts.removeAll(QString());
+    return parts.join(QStringLiteral("\n\n"));
+}
+
+QString withTableHeader(const QString& markdown, const QStringList& header)
+{
+    if (header.size() < 2) return markdown;
+    QString source = markdown;
+    source.replace(QStringLiteral("\r\n"), QStringLiteral("\n"));
+    QStringList lines = source.split(QLatin1Char('\n'));
+    static const QRegularExpression digit(QStringLiteral("\\d"));
+    const auto line = [](const QStringList& cells) {
+        return QStringLiteral("| ") + cells.join(QStringLiteral(" | ")) + QStringLiteral(" |");
+    };
+    for (int i = 0; i < lines.size(); ++i) {
+        int end = i;
+        QList<QStringList> rows;
+        if (!tableLine(lines[i]) || !readTable(lines, i, &end, &rows)) continue;
+        // The first table only, as wide as the names, with a first row that is data: none of
+        // the names in it, and a column with numbers in it and in the next row (张三 | 138…).
+        if (rows.size() < 2 || rows.first().size() != header.size()) return markdown;
+        for (const QString& cell : rows.first())
+            if (header.contains(plainCellText(cell))) return markdown;
+        bool data = false;
+        for (int c = 0; c < header.size(); ++c)
+            data = data || (rows[0][c].contains(digit) && rows[1][c].contains(digit));
+        if (!data) return markdown;
+        QStringList table{line(header), line(QStringList(header.size(), QStringLiteral("---")))};
+        for (const QStringList& row : rows) table.append(line(row));
+        lines.remove(i, end - i);
+        for (int k = 0; k < table.size(); ++k) lines.insert(i + k, table[k]);
+        return lines.join(QLatin1Char('\n'));
+    }
+    return markdown;
+}
+
+QString plainCellText(const QString& cell)
+{
+    QString text = cell;
+    static const QRegularExpression marks(QStringLiteral("\\*\\*|__|`|~~"));
+    text.remove(marks);
+    return text.simplified();
+}
 
 QString stripThinking(const QString& text)
 {
@@ -111,21 +326,31 @@ QString markdownToHtml(const QString& markdown, MarkdownTarget target)
             closeList();
             continue;
         }
-        if (trimmed.startsWith(QLatin1Char('|')) && i + 1 < lines.size() && isTableSeparator(lines[i + 1])) {
+        int tableEnd = i;
+        QList<QStringList> rows;
+        if (tableLine(line) && readTable(lines, i, &tableEnd, &rows)) {
+            // Made regular first (a stray "|" line, the header after the separator, uneven rows),
+            // then written as a page-wide table with a shaded header: without a width the
+            // editor squeezes every column to its narrowest (measured in the real editor).
             closeList();
             html += target == MarkdownTarget::Document
-                ? QStringLiteral("<table border=\"1\" cellpadding=\"4\" style=\"border-collapse:collapse\">")
+                ? QStringLiteral("<table border=\"1\" cellpadding=\"5\" style=\"border-collapse:collapse;width:100%\">")
                 : QStringLiteral("<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">");
-            html += QStringLiteral("<tr>");
-            for (const QString& cell : tableCells(trimmed)) html += QStringLiteral("<th>") + inlineHtml(cell) + QStringLiteral("</th>");
-            html += QStringLiteral("</tr>");
-            for (i += 2; i < lines.size() && lines[i].trimmed().startsWith(QLatin1Char('|')); ++i) {
+            for (int r = 0; r < rows.size(); ++r) {
                 html += QStringLiteral("<tr>");
-                for (const QString& cell : tableCells(lines[i])) html += QStringLiteral("<td>") + inlineHtml(cell) + QStringLiteral("</td>");
+                for (const QString& cell : rows[r]) {
+                    if (r == 0 && target == MarkdownTarget::Document)
+                        html += QStringLiteral("<th style=\"background-color:#D9E2F3;font-weight:bold;width:%1%\">")
+                                    .arg(100 / qMax(1, int(rows.first().size()))) + inlineHtml(cell) + QStringLiteral("</th>");
+                    else if (r == 0)
+                        html += QStringLiteral("<th>") + inlineHtml(cell) + QStringLiteral("</th>");
+                    else
+                        html += QStringLiteral("<td>") + inlineHtml(cell) + QStringLiteral("</td>");
+                }
                 html += QStringLiteral("</tr>");
             }
-            --i;
             html += QStringLiteral("</table>");
+            i = tableEnd - 1;
             continue;
         }
         if (const auto match = bullet.match(line); match.hasMatch()) {

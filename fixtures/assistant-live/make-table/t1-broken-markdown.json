@@ -1,0 +1,32 @@
+{
+  "name": "做表格：截图里那种坏的 Markdown 表格（表头前多一行“|”）直接插入",
+  "document": "fixtures/assistant-samples/documents/notice.docx",
+  "steps": [
+    {
+      "tool": "text.insert",
+      "args": {
+        "text": "|\n|------|------|------|\n| 项目 | 数值 | 单位 |\n| 温度 | 25 | °C |\n| 湿度 | 60 | % |\n| 压力 | 101 | kPa |",
+        "format": "markdown",
+        "position": "end"
+      },
+      "expect": {
+        "ok": true,
+        "valueIncludes": []
+      }
+    },
+    {
+      "check": "tableShape",
+      "table": -1,
+      "rows": 4,
+      "columns": 3,
+      "header": [
+        "项目",
+        "数值",
+        "单位"
+      ],
+      "headerFilled": true,
+      "minWidth": 80,
+      "last": true
+    }
+  ]
+}

@@ -43,7 +43,7 @@ QString systemPrompt(const QString& context, bool cloud)
         "用简体中文回答，简洁、友好，面向不熟悉电脑的人；可以用 Markdown 列表和表格。\n"
         "下面附有当前文档的内容和用户选中的文字。回答关于文档的问题时以它为准，不要编造文档里没有的内容。\n"
         "只是回答问题时直接回答，不要调用工具。用户要你修改文档时才调用工具，不要假装已经改了：\n"
-        "- 往文档里写新内容：text_insert，format 用 markdown，position 用 after；只写正文，不要加解释；\n"
+        "- 往文档里写新内容：text_insert，format 用 markdown，position 用 after；用户说放在文末、最后时 position 用 end；只写正文，不要加解释；\n"
         "- 修改用户选中的文字：selection_replace，text 是改好的文字，expected 填原来选中的文字；\n"
         "- 把文档里某个词或句子改掉：document_replaceText；\n"
         "- 改几个字的格式（加粗、颜色、字号、突出显示）：format_text，find 填要改的那几个字；\n"
@@ -416,6 +416,10 @@ bool LocalAssistant::ask(const QString& text, const QString& documentContext)
 {
     if (m_state != LocalAiState::Ready || text.trimmed().isEmpty()) return false;
     m_context = documentContext;
+    // The person wrote again instead of answering 执行/不要: the call still gets its answer.
+    if (!m_pendingTool.isEmpty())
+        m_history.append(QJsonObject{{QStringLiteral("role"), QStringLiteral("tool")}, {QStringLiteral("tool_name"), m_pendingTool},
+                                     {QStringLiteral("content"), QStringLiteral(R"({"ok":false,"code":"not_run","message":"用户没有执行这个操作，接着说了新的话。"})")}});
     m_history.append(QJsonObject{{QStringLiteral("role"), QStringLiteral("user")}, {QStringLiteral("content"), text}});
     m_rounds = 0;
     m_pendingTool.clear();
@@ -515,9 +519,12 @@ void LocalAssistant::handleFinished(quint64 id, bool ok, const QString& content,
     const QString answer = toolCalls.isEmpty() && !m_writtenThisTurn.isEmpty()
         ? withoutEchoedText(content, m_writtenThisTurn) : content;
     QJsonObject message{{QStringLiteral("role"), QStringLiteral("assistant")}, {QStringLiteral("content"), answer}};
-    if (!toolCalls.isEmpty()) message.insert(QStringLiteral("tool_calls"), toolCalls);
+    // One call runs at a time, so the history keeps that one (a service wants an answer to
+    // every call it sees); past the round limit none runs, so none is kept.
+    const bool runsTool = !toolCalls.isEmpty() && m_rounds < kMaxToolRounds;
+    if (runsTool) message.insert(QStringLiteral("tool_calls"), QJsonArray{toolCalls.first()});
     m_history.append(message);
-    if (!toolCalls.isEmpty() && m_rounds < kMaxToolRounds) {
+    if (runsTool) {
         // One tool at a time: the window validates, may ask, then reports back.
         const QJsonObject function = toolCalls.first().toObject().value(QStringLiteral("function")).toObject();
         QJsonValue arguments = function.value(QStringLiteral("arguments"));
@@ -597,6 +604,16 @@ void LocalAssistant::commandFinished(const AssistantCommand& command, const Comm
     m_pendingTool.clear();
     emit replyStarted();
     send(); // let the model tell the person what happened
+}
+
+QString LocalAssistant::lastRequest() const
+{
+    for (qsizetype i = m_history.size() - 1; i >= 0; --i) {
+        const QJsonObject message = m_history.at(i).toObject();
+        if (message.value(QStringLiteral("role")).toString() == QStringLiteral("user"))
+            return message.value(QStringLiteral("content")).toString();
+    }
+    return {};
 }
 
 void LocalAssistant::commandDeclined(const AssistantCommand& command)

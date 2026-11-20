@@ -1,0 +1,2180 @@
+{
+  "label": "live22-tables",
+  "started_utc": "2026-11-18T13:25:48.853852+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\live22-tables\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-1.7b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "采购清单：点进表格说“检查一下，有错直接改”（错别字、金额算错）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.13
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 2
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 2,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.09
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "帮我检查一下这个表格，有错的地方直接改"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 196.26526623919244
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052550-46cd42",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/01-purchase-list.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 2 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\"corrections\":[{\"error\":\"笔计本\",\"fix\":\"笔本\",\"reason\":\"错别字\"}]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "帮我检查一下这个表格，有错的地方直接改",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 2 处可能的问题：\n第 3 行第 5 列：80 → 60（按“单价（元） × 数量”算，应为 60）\n第 2 行第 2 列：笔计本 → 笔本（错别字）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 10,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 10.38
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 196.26526623919244
+            },
+            "buttons": [],
+            "conversation": "20261118-052550-46cd42",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/01-purchase-list.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\"corrections\":[{\"error\":\"笔计本\",\"fix\":\"笔本\",\"reason\":\"错别字\"}]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.02
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 2,
+            "equals": "笔记本"
+          },
+          "actual": "笔本",
+          "problems": [
+            "R2C2 is '笔本', expected '笔记本'"
+          ],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 5,
+            "matches": "60(\\.0+)?"
+          },
+          "actual": "60",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C2",
+              "R3C5",
+              "R2C3",
+              "R3C3",
+              "R4C3",
+              "R5C3",
+              "R6C3",
+              "R2C5",
+              "R3C5",
+              "R4C5",
+              "R5C5",
+              "R6C5"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R2C2",
+            "R3C5"
+          ],
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\01-purchase-list.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\01-purchase-list.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\01-purchase-check.json"
+    },
+    {
+      "name": "采购清单：表头加粗、居中、浅蓝底色（只改格式）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.07
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把表格的表头加粗居中，再加一个浅蓝色的底色"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 181.18651054560874
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052604-e2be6a",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/02-purchase-list.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 2 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1-R1C5\",\n      \"change\": \"bold\",\n      \"reason\": \"表头需加粗居中并添加浅蓝色底色\",\n      \"value\": \"bold: true, align: center, fill: #ADD8E6\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把表格的表头加粗居中，再加一个浅蓝色的底色",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 2 处可能的问题：\n第 1 行 → 加粗、居中（按你的要求：把表格的表头加粗居中）\n第 1 行 → 底色 #DDEBF7（按你的要求：加一个浅蓝色的底色）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 3.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 3.86
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 181.18651054560874
+            },
+            "buttons": [],
+            "conversation": "20261118-052604-e2be6a",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/02-purchase-list.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1-R1C5\",\n      \"change\": \"bold\",\n      \"reason\": \"表头需加粗居中并添加浅蓝色底色\",\n      \"value\": \"bold: true, align: center, fill: #ADD8E6\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.99
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R1C1-R1C5",
+            "bold": true,
+            "align": "center",
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C1-R6C5",
+            "bold": false,
+            "filled": false
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": []
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\02-purchase-list.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\02-purchase-list.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\02-purchase-header.json"
+    },
+    {
+      "name": "培训安排：日期统一写成“11月3日”",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把表格里的日期统一写成“11月3日”这种格式"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 193.23478912769164
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052611-6a68a3",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/03-course-schedule.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 3 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R3C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从'2026-11-04'改为'2026年11月4日'并加粗显示日期部分\",\n      \"value\": \"2026年11月4日\"\n    },\n    {\n      \"cells\": \"R4C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从'11/5'改为'11月5日'并加粗显示日期部分\",\n      \"value\": \"11月5日\"\n    },\n    {\n      \"cells\": \"R5C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从'2026年11月6日'改为'2026年11月6日'并加粗显示日期部分\",\n      \"value\": \"2026年11月6日\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把表格里的日期统一写成“11月3日”这种格式",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 3 处可能的问题：\n第 3 行第 1 列：2026-11-04 → 11月4日（统一写成“11月3日”的格式）\n第 4 行第 1 列：11/5 → 11月5日（统一写成“11月3日”的格式）\n第 5 行第 1 列：2026年11月6日 → 11月6日（统一写成“11月3日”的格式）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 6.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 6.63
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 193.23478912769164
+            },
+            "buttons": [],
+            "conversation": "20261118-052611-6a68a3",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/03-course-schedule.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 3 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R3C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从'2026-11-04'改为'2026年11月4日'并加粗显示日期部分\",\n      \"value\": \"2026年11月4日\"\n    },\n    {\n      \"cells\": \"R4C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从'11/5'改为'11月5日'并加粗显示日期部分\",\n      \"value\": \"11月5日\"\n    },\n    {\n      \"cells\": \"R5C1\",\n      \"change\": \"bold\",\n      \"reason\": \"将日期格式从'2026年11月6日'改为'2026年11月6日'并加粗显示日期部分\",\n      \"value\": \"2026年11月6日\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 3 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 1,
+            "matches": "11月0?3日"
+          },
+          "actual": "11月3日",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 1,
+            "matches": "11月0?4日"
+          },
+          "actual": "11月4日",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 4,
+            "column": 1,
+            "matches": "11月0?5日"
+          },
+          "actual": "11月5日",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 5,
+            "column": 1,
+            "matches": "11月0?6日"
+          },
+          "actual": "11月6日",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C1",
+              "R3C1",
+              "R4C1",
+              "R5C1"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R3C1",
+            "R4C1",
+            "R5C1"
+          ],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\03-course-schedule.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\03-course-schedule.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\03-course-dates.json"
+    },
+    {
+      "name": "通讯录：手机号统一成 11 位数字，邮箱写错的改正",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.08
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "整理一下通讯录表格：手机号统一写成11位数字，邮箱写错的改正"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 201.41542903531212
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052621-c67e30",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/04-contacts.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\"corrections\":[{\"error\":\"lina@example,com\",\"fix\":\"lina@example.com\",\"reason\":\"用错的词（逗号应改为点号）\"}]}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "整理一下通讯录表格：手机号统一写成11位数字，邮箱写错的改正",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 1 处可能的问题：\n第 3 行第 4 列：lina@example,com → lina@example.com（邮箱格式错误（逗号应为点号））",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 9.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 9.38
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 201.41542903531212
+            },
+            "buttons": [],
+            "conversation": "20261118-052621-c67e30",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/04-contacts.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\"corrections\":[{\"error\":\"lina@example,com\",\"fix\":\"lina@example.com\",\"reason\":\"用错的词（逗号应改为点号）\"}]}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.99
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 3,
+            "equals": "13800138000"
+          },
+          "actual": "138 0013 8000",
+          "problems": [
+            "R2C3 is '138 0013 8000', expected '13800138000'"
+          ],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 4,
+            "column": 3,
+            "equals": "13700137000"
+          },
+          "actual": "137-0013-7000",
+          "problems": [
+            "R4C3 is '137-0013-7000', expected '13700137000'"
+          ],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 5,
+            "column": 3,
+            "equals": "13600136000"
+          },
+          "actual": "136 0013 6000",
+          "problems": [
+            "R5C3 is '136 0013 6000', expected '13600136000'"
+          ],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 4,
+            "equals": "lina@example.com"
+          },
+          "actual": "lina@example.com",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C3",
+              "R3C3",
+              "R4C3",
+              "R5C3",
+              "R2C4",
+              "R3C4",
+              "R4C4",
+              "R5C4"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R3C4"
+          ],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": false,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\04-contacts.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\04-contacts.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\04-contacts.json"
+    },
+    {
+      "name": "成绩表：点进表格问“总分有没有算错”（一处错）",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 3,
+              "column": 1
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 1,
+              "row": 3,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "看看总分有没有算错"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 207.4499010402732
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052633-135e70",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/05-scores.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "看看总分有没有算错",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 1 处可能的问题：\n第 2 行第 5 列：255 → 265（总分应为语文+数学+英语之和（88+92+85=265），当前值255错误）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 6.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 6.65
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 207.4499010402732
+            },
+            "buttons": [],
+            "conversation": "20261118-052633-135e70",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/05-scores.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 2,
+            "column": 5,
+            "equals": "265"
+          },
+          "actual": "265",
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C5"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R2C5"
+          ],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\05-scores.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\05-scores.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\05-scores-wrong.json"
+    },
+    {
+      "name": "成绩表（全对）：检查总分，不应该改任何地方",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.07
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "检查一下这张表的总分对不对"
+            },
+            "expect": {
+              "ok": true,
+              "saidIncludes": [
+                "没有需要修改的地方"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 206.24515313494712
+            },
+            "buttons": [],
+            "conversation": "20261118-052642-effaa1",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/live22-tables/06-scores-correct.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "按这个要求，第 1 张表格没有需要修改的地方。",
+            "lastTaskAnswer": "{\"corrections\":[]}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "检查一下这张表的总分对不对",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "按这个要求，第 1 张表格没有需要修改的地方。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 6.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 6.37
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": []
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\06-scores-correct.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\06-scores-correct.docx",
+        "message": "文档没有新的修改，无需再次写入。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\06-scores-correct.json"
+    },
+    {
+      "name": "项目进度：状态统一成“已完成 / 进行中 / 未开始”",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把表格里的状态统一成三种写法：已完成、进行中、未开始"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 189.06009330671665
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052650-a0f28a",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/07-project-status.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 2 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R3C3\",\n      \"change\": \"text\",\n      \"reason\": \"将'完成'统一为'已完成'（标准状态写法）\",\n      \"value\": \"已完成\"\n    },\n    {\n      \"cells\": \"R5C3\",\n      \"change\": \"text\",\n      \"reason\": \"将'done'统一为'已完成'（标准状态写法）\",\n      \"value\": \"已完成\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把表格里的状态统一成三种写法：已完成、进行中、未开始",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 2 处可能的问题：\n第 3 行第 3 列：完成 → 已完成（将'完成'统一为'已完成'（标准状态写法））\n第 5 行第 3 列：done → 已完成（将'done'统一为'已完成'（标准状态写法））",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 3.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 3.64
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 189.06009330671665
+            },
+            "buttons": [],
+            "conversation": "20261118-052650-a0f28a",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/07-project-status.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R3C3\",\n      \"change\": \"text\",\n      \"reason\": \"将'完成'统一为'已完成'（标准状态写法）\",\n      \"value\": \"已完成\"\n    },\n    {\n      \"cells\": \"R5C3\",\n      \"change\": \"text\",\n      \"reason\": \"将'done'统一为'已完成'（标准状态写法）\",\n      \"value\": \"已完成\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 3,
+            "equals": "已完成"
+          },
+          "actual": "已完成",
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 5,
+            "column": 3,
+            "equals": "已完成"
+          },
+          "actual": "已完成",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R2C3",
+              "R3C3",
+              "R4C3",
+              "R5C3",
+              "R6C3"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R3C3",
+            "R5C3"
+          ],
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\07-project-status.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\07-project-status.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\07-status-words.json"
+    },
+    {
+      "name": "项目进度：点进表格说“已完成的行标浅绿色底色”",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 1
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 1,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把状态是已完成的那几行加上浅绿色底色"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 189.38169422289104
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052657-906031",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/08-project-status.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 1 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C3\",\n      \"change\": \"fill\",\n      \"reason\": \"将状态为'已完成'的行添加浅绿色底色\",\n      \"value\": \"#00CC99\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把状态是已完成的那几行加上浅绿色底色",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 1 处可能的问题：\n第 2 行 → 底色 #E2EFDA（按你的要求：把状态是已完成的那几行加上浅绿色底色）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 3,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 3.14
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 189.38169422289104
+            },
+            "buttons": [],
+            "conversation": "20261118-052657-906031",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/08-project-status.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R2C3\",\n      \"change\": \"fill\",\n      \"reason\": \"将状态为'已完成'的行添加浅绿色底色\",\n      \"value\": \"#00CC99\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C1-R2C4",
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R4C1-R4C4",
+            "filled": false
+          },
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R6C1-R6C4",
+            "filled": false
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": []
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\08-project-status.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\08-project-status.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\08-status-fill.json"
+    },
+    {
+      "name": "英文规格表：英文要求，表头加粗加灰底，价格列右对齐",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "In the table, make the header row bold with a light gray background, and right-align the Price column."
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 189.0108526082087
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052703-d1c790",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/09-product-specs.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 2 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1-R1C4\",\n      \"change\": \"bold\",\n      \"reason\": \"将表头行加粗并设置浅灰色背景色\",\n      \"value\": \"bold: true; fill: #D3D3D3\"\n    },\n    {\n      \"cells\": \"R1C4\",\n      \"change\": \"align\",\n      \"reason\": \"右对齐价格列\",\n      \"value\": \"align: right\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "In the table, make the header row bold with a light gray background, and right-align the Price column.",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 2 处可能的问题：\n第 1 行 → 加粗、底色 #D9D9D9（按你的要求：make the header row bold with a light gr）\n第 4 列 → 右对齐（按你的要求：right-align the Price column.）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 7.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 7.37
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 189.0108526082087
+            },
+            "buttons": [],
+            "conversation": "20261118-052703-d1c790",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/09-product-specs.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1-R1C4\",\n      \"change\": \"bold\",\n      \"reason\": \"将表头行加粗并设置浅灰色背景色\",\n      \"value\": \"bold: true; fill: #D3D3D3\"\n    },\n    {\n      \"cells\": \"R1C4\",\n      \"change\": \"align\",\n      \"reason\": \"右对齐价格列\",\n      \"value\": \"align: right\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R1C1-R1C4",
+            "bold": true,
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R2C4-R4C4",
+            "align": "right"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": []
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\09-product-specs.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\09-product-specs.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\09-specs-english.json"
+    },
+    {
+      "name": "两张表：只把第二张表的表头加粗、加浅黄底色",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 2
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把第二张表格的表头加粗，加上浅黄色底色"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 193.98718762381506
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052713-fa16b0",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/10-two-tables.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 2 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1\",\n      \"change\": \"bold\",\n      \"reason\": \"添加表头加粗格式\",\n      \"value\": \"事项\"\n    },\n    {\n      \"cells\": \"R1C2\",\n      \"change\": \"bold\",\n      \"reason\": \"添加表头加粗格式\",\n      \"value\": \"负责人\"\n    },\n    {\n      \"cells\": \"R1C3\",\n      \"change\": \"bold\",\n      \"reason\": \"添加表头加粗格式\",\n      \"value\": \"备注\"\n    },\n    {\n      \"cells\": \"R1C1-R1C3\",\n      \"change\": \"fill\",\n      \"reason\": \"添加表头浅黄色底色\",\n      \"value\": \"#FFFFE0\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把第二张表格的表头加粗，加上浅黄色底色",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 2 处可能的问题：\n第 1 行 → 加粗（按你的要求：把第二张表格的表头加粗）\n第 1 行 → 底色 #FFF2CC（按你的要求：加上浅黄色底色）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 4.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 4.39
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 193.98718762381506
+            },
+            "buttons": [],
+            "conversation": "20261118-052713-fa16b0",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/10-two-tables.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R1C1\",\n      \"change\": \"bold\",\n      \"reason\": \"添加表头加粗格式\",\n      \"value\": \"事项\"\n    },\n    {\n      \"cells\": \"R1C2\",\n      \"change\": \"bold\",\n      \"reason\": \"添加表头加粗格式\",\n      \"value\": \"负责人\"\n    },\n    {\n      \"cells\": \"R1C3\",\n      \"change\": \"bold\",\n      \"reason\": \"添加表头加粗格式\",\n      \"value\": \"备注\"\n    },\n    {\n      \"cells\": \"R1C1-R1C3\",\n      \"change\": \"fill\",\n      \"reason\": \"添加表头浅黄色底色\",\n      \"value\": \"#FFFFE0\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 2,
+            "cells": "R1C1-R1C3",
+            "bold": true,
+            "filled": true
+          },
+          "problems": [],
+          "seconds": 0.05
+        },
+        {
+          "step": {
+            "check": "format",
+            "table": 1,
+            "cells": "R1C1-R1C2",
+            "bold": false,
+            "filled": false
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": []
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 2,
+            "cells": []
+          },
+          "changed": [],
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\10-two-tables.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\10-two-tables.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\10-two-tables.json"
+    },
+    {
+      "name": "签到表：点进表格说“空着的签到格填上未到”",
+      "steps": [
+        {
+          "step": {
+            "check": "snapshot",
+            "table": 1
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "tool": "selection.select",
+            "args": {
+              "table": 1,
+              "row": 2,
+              "column": 3
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "code": "selected",
+            "message": "已选中。",
+            "ok": true,
+            "value": {
+              "column": 3,
+              "row": 2,
+              "table": 1,
+              "what": "cell"
+            }
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "签到那一列空着的格子都填上“未到”"
+            },
+            "expect": {
+              "ok": true,
+              "buttonsInclude": [
+                "全部改正"
+              ]
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 191.7830441047939
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-052720-61cd91",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/11-meeting-signin.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "找到 2 处可能的问题。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R3C3\",\n      \"change\": \"text\",\n      \"reason\": \"签到列空格填入‘未到’\",\n      \"value\": \"未到\"\n    },\n    {\n      \"cells\": \"R5C3\",\n      \"change\": \"text\",\n      \"reason\": \"签到列空格填入‘未到’\",\n      \"value\": \"未到\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "签到那一列空着的格子都填上“未到”",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "找到 2 处可能的问题：\n第 3 行第 3 列 → 未到（签到列空格填入‘未到’）\n第 5 行第 3 列 → 未到（签到列空格填入‘未到’）",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 5.16
+        },
+        {
+          "step": {
+            "tool": "test.press",
+            "args": {
+              "button": "全部改正"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 191.7830441047939
+            },
+            "buttons": [],
+            "conversation": "20261118-052720-61cd91",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live22-tables/11-meeting-signin.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "{\n  \"plan\": [\n    {\n      \"cells\": \"R3C3\",\n      \"change\": \"text\",\n      \"reason\": \"签到列空格填入‘未到’\",\n      \"value\": \"未到\"\n    },\n    {\n      \"cells\": \"R5C3\",\n      \"change\": \"text\",\n      \"reason\": \"签到列空格填入‘未到’\",\n      \"value\": \"未到\"\n    }\n  ]\n}",
+            "ok": true,
+            "quickActions": [
+              "polish",
+              "correct",
+              "shorten",
+              "expand",
+              "formal",
+              "translate"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 2 处，每处都可以用撤销恢复。",
+                "title": "修改表格"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.01
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 3,
+            "column": 3,
+            "equals": "未到"
+          },
+          "actual": "未到",
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "cell",
+            "table": 1,
+            "row": 5,
+            "column": 3,
+            "equals": "未到"
+          },
+          "actual": "未到",
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "unchangedExcept",
+            "table": 1,
+            "cells": [
+              "R3C3",
+              "R5C3"
+            ],
+            "someChanged": true
+          },
+          "changed": [
+            "R3C3",
+            "R5C3"
+          ],
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live22-tables\\11-meeting-signin.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live22-tables\\11-meeting-signin.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\tables\\11-signin-empty.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-1.7b",
+      "modelKey": "builtin:qwen3-1.7b",
+      "state": "ready",
+      "tokensPerSecond": 191.7830441047939
+    },
+    "conversation": "20261118-052720-61cd91",
+    "conversationMessages": 2,
+    "document": "D:/open office/build/assistant-live/live22-tables/11-meeting-signin.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已改好 2 处，每处都可以用撤销恢复。",
+    "quickActions": [
+      "polish",
+      "correct",
+      "shorten",
+      "expand",
+      "formal",
+      "translate"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-18T13:27:28.138399+00:00",
+  "ok": false
+}

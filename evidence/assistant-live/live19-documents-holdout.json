@@ -1,0 +1,1305 @@
+{
+  "label": "live19-documents-holdout",
+  "started_utc": "2026-11-18T13:17:12.649373+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-1.7b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "（留出）培训安排：标题居中、小二",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "标题居中，字号改成小二"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-051713-129f7e",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/01-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "标题居中，字号改成小二",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 1 段（新员工入职培训安排） → 居中、字号 18（按你的要求：标题居中）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.34
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261118-051713-129f7e",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/01-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.04
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 1,
+            "align": "center",
+            "size": 18
+          },
+          "actual": [
+            {
+              "align": "center",
+              "id": "P1",
+              "length": 9,
+              "size": 18,
+              "style": "Normal",
+              "text": "新员工入职培训安排"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\01-training.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\01-training.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents-holdout\\e1-training-title.json"
+    },
+    {
+      "name": "（留出）培训安排：所有“注意”改成红色",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把所有的“注意”改成红色"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-051719-6f4bda",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/02-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把所有的“注意”改成红色",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n文中所有“注意” → 文字颜色 #C00000（按你的要求：把所有的“注意”改成红色）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.13
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261118-051719-6f4bda",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/02-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.04
+        },
+        {
+          "step": {
+            "check": "text",
+            "find": "注意",
+            "color": "red"
+          },
+          "actual": [
+            {
+              "color": "#C00000",
+              "size": 10
+            },
+            {
+              "color": "#C00000",
+              "size": 10
+            },
+            {
+              "color": "#C00000",
+              "size": 10
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\02-training.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\02-training.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents-holdout\\e2-training-red.json"
+    },
+    {
+      "name": "（留出）培训安排：（一）（二）（三）开头的段落改成三级标题",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "（一）（二）（三）开头的那几段改成三级标题"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-051723-e8715b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/03-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "（一）（二）（三）开头的那几段改成三级标题",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 3、5、7 段 → 三级标题（按你的要求：（一）（二）（三）开头的那几段改成三级标题）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.13
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261118-051723-e8715b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/03-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.04
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "（一）",
+            "style": "Heading 3"
+          },
+          "actual": [
+            {
+              "color": "#0F4761",
+              "id": "P3",
+              "length": 7,
+              "size": 14,
+              "style": "Heading 3",
+              "text": "（一）培训时间"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "（二）",
+            "style": "Heading 3"
+          },
+          "actual": [
+            {
+              "color": "#0F4761",
+              "id": "P5",
+              "length": 7,
+              "size": 14,
+              "style": "Heading 3",
+              "text": "（二）培训地点"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "startsWith": "（三）",
+            "style": "Heading 3"
+          },
+          "actual": [
+            {
+              "color": "#0F4761",
+              "id": "P7",
+              "length": 7,
+              "size": 14,
+              "style": "Heading 3",
+              "text": "（三）注意事项"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\03-training.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\03-training.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents-holdout\\e3-training-headings.json"
+    },
+    {
+      "name": "（留出）培训安排：第二段改成斜体",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "第二段改成斜体"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-051727-c6db9b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/04-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "第二段改成斜体",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 2 段（培训对象：2026年11…） → 斜体（按你的要求：第二段改成斜体）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.12
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261118-051727-c6db9b",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/04-training.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 2,
+            "italic": true
+          },
+          "actual": [
+            {
+              "id": "P2",
+              "italic": true,
+              "length": 21,
+              "size": 10,
+              "style": "",
+              "text": "培训对象：2026年11月入职的全体新员工"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 3,
+            "italic": false
+          },
+          "actual": [
+            {
+              "id": "P3",
+              "length": 7,
+              "size": 10,
+              "style": "",
+              "text": "（一）培训时间"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\04-training.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\04-training.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents-holdout\\e4-training-italic.json"
+    },
+    {
+      "name": "（留出）客户信：文中的“张三”都加下划线",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.06
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把文中的“张三”都加下划线"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-051731-d1ff22",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/05-letter.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把文中的“张三”都加下划线",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n文中所有“张三” → 下划线（按你的要求：把文中的“张三”都加下划线）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.13
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261118-051731-d1ff22",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/05-letter.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "text",
+            "find": "张三",
+            "underline": true
+          },
+          "actual": [
+            {
+              "size": 10,
+              "underline": true
+            },
+            {
+              "size": 10,
+              "underline": true
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\05-letter.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\05-letter.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents-holdout\\e5-letter-underline.json"
+    },
+    {
+      "name": "（留出）客户信：最后一段右对齐并加粗",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "最后一段右对齐并加粗"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-051735-fbcf0d",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/06-letter.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "最后一段右对齐并加粗",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 7 段（华东销售部） → 加粗、右对齐（按你的要求：最后一段右对齐并加粗）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.12
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261118-051735-fbcf0d",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/06-letter.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -1,
+            "align": "right",
+            "bold": true
+          },
+          "actual": [
+            {
+              "align": "right",
+              "bold": true,
+              "id": "P7",
+              "length": 5,
+              "size": 10,
+              "style": "",
+              "text": "华东销售部"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": -2,
+            "bold": false
+          },
+          "actual": [
+            {
+              "id": "P6",
+              "length": 2,
+              "size": 10,
+              "style": "",
+              "text": "敬礼"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\06-letter.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\06-letter.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents-holdout\\e6-letter-last.json"
+    },
+    {
+      "name": "（留出）客户信：第三段到第四段字号 14 磅",
+      "steps": [
+        {
+          "step": {
+            "check": "textSnapshot"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "第三段到第四段的字号改成14磅"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [
+              "改",
+              "全部改正"
+            ],
+            "conversation": "20261118-051739-57c3cf",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/07-letter.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "第三段到第四段的字号改成14磅",
+                "title": ""
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "要改 1 处。可以逐条改，也可以全部改正；改完都能撤销。\n第 3–4 段 → 字号 14（按你的要求：第三段到第四段的字号改成14磅）",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.12
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "全部改正"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 0
+            },
+            "buttons": [],
+            "conversation": "20261118-051739-57c3cf",
+            "conversationMessages": 2,
+            "document": "D:/open office/build/assistant-live/live19-documents-holdout/07-letter.docx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "summary",
+              "todos",
+              "proofread",
+              "setup"
+            ],
+            "said": [
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "已改好 1 处，每处都可以用撤销恢复。",
+                "title": "修改格式"
+              }
+            ],
+            "seconds": 1,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 1.02
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 3,
+            "size": 14
+          },
+          "actual": [
+            {
+              "id": "P3",
+              "length": 33,
+              "size": 14,
+              "style": "",
+              "text": "感谢您一直以来对我们的支持。张三经理将于下月起负责贵司的对接工作。"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "paragraph",
+            "paragraph": 4,
+            "size": 14
+          },
+          "actual": [
+            {
+              "id": "P4",
+              "length": 21,
+              "size": 14,
+              "style": "",
+              "text": "如有任何问题，请联系张三，或拨打客服电话。"
+            }
+          ],
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "textUnchanged"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\07-letter.docx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\live19-documents-holdout\\07-letter.docx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\documents-holdout\\e7-letter-size.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "test.state",
+    "test.open",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-1.7b",
+      "modelKey": "builtin:qwen3-1.7b",
+      "state": "ready",
+      "tokensPerSecond": 0
+    },
+    "conversation": "20261118-051739-57c3cf",
+    "conversationMessages": 2,
+    "document": "D:/open office/build/assistant-live/live19-documents-holdout/07-letter.docx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已改好 1 处，每处都可以用撤销恢复。",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-18T13:17:42.638823+00:00",
+  "ok": true
+}

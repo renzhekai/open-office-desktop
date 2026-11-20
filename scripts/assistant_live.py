@@ -228,6 +228,35 @@ def run_document_check(mcp, step, entry, before):
         entry["actual"] = occurrences
         for number, occurrence in enumerate(occurrences, 1):
             problems += looks_like(occurrence, step, f"{step['find']}#{number}")
+    elif step["check"] == "tableShape":
+        # A table as it ended up in the document: size, header, width, and where it is.
+        content, error = mcp.call("document.outline")
+        if error:
+            return ["the outline cannot be read"]
+        blocks = content.get("value", {}).get("blocks", [])
+        tables = [b for b in blocks if b.get("id", "").startswith("T")]
+        if not tables:
+            return ["no table in the document"]
+        index = step.get("table", -1)
+        table = tables[index] if -len(tables) <= index < len(tables) else None
+        if table is None:
+            return [f"no table {index}"]
+        entry["actual"] = table
+        if "rows" in step and table.get("rows") != step["rows"]:
+            problems.append(f"{table['id']} has {table.get('rows')} rows, expected {step['rows']}")
+        if "columns" in step and table.get("columns") != step["columns"]:
+            problems.append(f"{table['id']} has {table.get('columns')} columns, expected {step['columns']}")
+        first = [cell.strip() for cell in table.get("firstRow", [])]
+        if "header" in step and first != step["header"]:
+            problems.append(f"{table['id']} header is {first}, expected {step['header']}")
+        if step.get("headerFilled") and (not first or any(not cell for cell in first)):
+            problems.append(f"{table['id']} has an empty header cell: {first}")
+        if "minWidth" in step and (table.get("width") or 0) < step["minWidth"]:
+            problems.append(f"{table['id']} is {table.get('width')}% of the page wide, expected at least {step['minWidth']}%")
+        if step.get("last"):
+            later = [b for b in blocks[blocks.index(table) + 1:] if not b.get("id", "").startswith("P") or b.get("text", "").strip()]
+            if later:
+                problems.append(f"{table['id']} is not at the end: {later[0].get('id')} {later[0].get('text', '')[:20]!r} follows")
     elif step["check"] == "textSnapshot":
         content, _ = mcp.call("document.getText")
         before["text"] = words_of(content.get("value", {}).get("text"))
@@ -251,6 +280,9 @@ def apply_changes(mcp, entry):
             break
         content, error = mcp.call("test.press", {"button": "执行"})
         if error:
+            content, error = mcp.call("test.press", {"button": "插入文档"})
+            if not error:
+                pressed.append("插入文档")
             break
         pressed.append("执行")
         if not content.get("waitingForConfirmation"):
@@ -269,7 +301,7 @@ def run_step(mcp, step, entry, before):
         entry["result"] = content
         entry["isError"] = error
         return check_expectation(step.get("expect", {}), content, error)
-    if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged"):
+    if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged", "tableShape"):
         return run_document_check(mcp, step, entry, before)
     table = step.get("table", 1)
     grid = table_grid(mcp, table)
@@ -314,6 +346,8 @@ def run_step(mcp, step, entry, before):
             problems.append(f"cells changed that should not: {stray}")
         if step.get("someChanged") and not changed:
             problems.append("nothing changed")
+        if step.get("sameSize") and (len(grid) != len(old) or any(len(a) != len(b) for a, b in zip(grid, old))):
+            problems.append(f"the table's size changed: {len(old)} rows before, {len(grid)} now")
     return problems
 
 
@@ -323,7 +357,7 @@ def main():
     parser.add_argument("scenarios", nargs="+", type=Path)
     parser.add_argument("--runtime", type=Path, required=True, help="runtime folder (editor, CEF, Qt, ai-engine)")
     parser.add_argument("--exe", type=Path, help="another OpenOffice.exe to run with that runtime (a fresh build)")
-    parser.add_argument("--model", help="built-in model id (qwen3-1.7b, qwen3-4b...); default: the one chosen in the settings")
+    parser.add_argument("--model", default="qwen3-1.7b", help="built-in model id (qwen3-1.7b, qwen3-4b...)")
     args = parser.parse_args()
     runtime = (args.runtime if args.runtime.is_absolute() else ROOT / args.runtime).resolve()
     exe = (args.exe if args.exe and args.exe.is_absolute() else ROOT / args.exe).resolve() if args.exe else runtime / "OpenOffice.exe"
@@ -336,12 +370,15 @@ def main():
     environment = dict(os.environ)
     environment["PATH"] = os.pathsep.join([str(runtime), str(Path(os.environ["SystemRoot"]) / "System32")])
     environment["OPEN_OFFICE_MODEL_DIR"] = str(MODELS)
-    if args.model:
-        environment["OPEN_OFFICE_AI_MODEL"] = args.model  # the settings stay as they are
+    # Always the built-in model, with settings of its own: the person's settings may make a cloud
+    # model active, and a test must never send documents to a service on their key.
+    environment["OPEN_OFFICE_SETTINGS_FILE"] = str(work / "settings.ini")
+    environment["OPEN_OFFICE_AI_MODEL"] = args.model
     if not (exe.parent / "ai-engine").is_dir():
         environment["OPEN_OFFICE_AI_ENGINE"] = str(runtime / "ai-engine") if (runtime / "ai-engine").is_dir() else str(ENGINE)
-    for name in ("QT_PLUGIN_PATH", "QT_QPA_PLATFORM_PLUGIN_PATH", "OPEN_OFFICE_AI_BACKEND", "OPEN_OFFICE_AI_ENGINE_URL"):
+    for name in ("QT_PLUGIN_PATH", "QT_QPA_PLATFORM_PLUGIN_PATH", "OPEN_OFFICE_AI_ACTIVE", "OPEN_OFFICE_AI_ENGINE_URL"):
         environment.pop(name, None)
+    environment["OPEN_OFFICE_AI_BACKEND"] = "builtin"
     command = [str(exe), "--engine-profile", str(profile), "--mcp-port", "0", "--mcp-test"]
     if exe.parent != runtime:
         command += ["--onlyoffice-runtime", str(runtime)]
@@ -349,7 +386,7 @@ def main():
     with open(work / "stdout.log", "wb") as out, open(work / "stderr.log", "wb") as err:
         process = subprocess.Popen(command, cwd=runtime, env=environment, stdout=out, stderr=err)
     record = {"label": args.label, "started_utc": started.isoformat(), "command": command, "runtime": str(runtime),
-              "model": args.model or "(settings)",
+              "model": args.model,
               "exe": str(exe), "scenarios": []}
     try:
         endpoint_path = profile / "mcp-endpoint.json"
@@ -362,6 +399,12 @@ def main():
         record["initialize"] = mcp.request("initialize", {"protocolVersion": "2025-06-18", "capabilities": {},
                                                           "clientInfo": {"name": "assistant_live", "version": "1"}})
         record["tools"] = [tool["name"] for tool in mcp.request("tools/list")["tools"]]
+        state, error = mcp.call("test.state")
+        ai = (state or {}).get("ai", {})
+        record["start_state"] = ai
+        # The model id is filled in when the engine loads it; until then the key is "builtin:".
+        if error or ai.get("backend") != "builtin" or ai.get("modelKey") not in ("builtin:", "builtin:" + args.model):
+            raise RuntimeError(f"not the built-in {args.model}: {ai.get('modelKey')!r}; stopped before asking anything")
         for number, path in enumerate(args.scenarios, 1):
             scenario = json.loads((path if path.is_absolute() else ROOT / path).read_text(encoding="utf-8"))
             try:
@@ -374,6 +417,9 @@ def main():
                               "problems": [p for s in result["steps"] for p in s["problems"]][:6]}, ensure_ascii=False))
         state, _ = mcp.call("test.state")
         record["final_state"] = state
+        final = (state or {}).get("ai", {})
+        if final.get("backend") != "builtin" or final.get("modelKey") not in ("builtin:", "builtin:" + args.model):
+            raise RuntimeError(f"the answers did not come from the built-in {args.model}: {final.get('modelKey')!r}")
     except Exception as error:  # the record still says what happened
         record["error"] = repr(error)
     finally:

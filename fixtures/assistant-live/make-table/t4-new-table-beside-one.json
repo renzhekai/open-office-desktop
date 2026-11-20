@@ -1,0 +1,52 @@
+{
+  "name": "做表格：文档里已有一张表格、光标还在表格里，说“在文末再加一个表格”（要新建，不能去改原表格）",
+  "document": "fixtures/assistant-samples/holdout/duty.docx",
+  "steps": [
+    {
+      "check": "snapshot",
+      "table": 1
+    },
+    {
+      "tool": "selection.select",
+      "args": {
+        "table": 1,
+        "row": 2,
+        "column": 1
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "在文末再加一个表格，两列：日期、事项。11月20日 交周报，11月21日 开例会"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "tableShape",
+      "table": -1,
+      "rows": 3,
+      "columns": 2,
+      "headerFilled": true,
+      "minWidth": 80,
+      "last": true,
+      "header": [
+        "日期",
+        "事项"
+      ]
+    },
+    {
+      "check": "unchangedExcept",
+      "table": 1,
+      "cells": [],
+      "sameSize": true
+    }
+  ]
+}

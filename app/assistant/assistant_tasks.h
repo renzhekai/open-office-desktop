@@ -207,6 +207,9 @@ QList<PlannedEdit> requestedDocumentFormats(const QString& request, const QList<
 // "帮我优化一下样式", "美化表格", "排版好看点": a request about style that names no format.
 bool vagueStyleRequest(const QString& request);
 // A request that names a format (加粗、居中、底色、字号…): then the readers above decide.
+// The column names a request gives a new table ("两列：姓名、电话", "列为项目、数值、单位",
+// "表头是日期、事项"); empty when it gives none.
+QStringList requestedColumns(const QString& request);
 bool namesAFormat(const QString& request);
 // The request asks for wording to change (改成、统一、填上、替换、检查…), not only formats.
 // A request that names formats and no such thing gets no text changes from the model.
@@ -217,6 +220,11 @@ bool asksForTextChanges(const QString& request);
 // 1.) bold, and a closing department name or date right-aligned.
 QList<PlannedEdit> defaultTableStyle(const TableGrid& grid, int table);
 QList<PlannedEdit> defaultDocumentStyle(const QList<OutlineParagraph>& paragraphs);
+
+// After inserting text with tables: each table meant (as markdownTables made it regular)
+// looked for in document.outline's blocks by its size and header; what is wrong, in words
+// (empty when every table is there as meant and spans at least half the page).
+QString insertedTableProblems(const QList<QList<QStringList>>& meant, const QJsonArray& outlineBlocks);
 
 // Dates are the program's job too. "2026-11-04", "2026/11/4", "2026年11月4日", "11月4日", "11/4".
 struct CellDate {

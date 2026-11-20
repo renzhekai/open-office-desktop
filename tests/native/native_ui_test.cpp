@@ -354,10 +354,13 @@ private slots:
         panel->expand();
         QTRY_VERIFY(panel->modelButtonText().contains(QStringLiteral("1.7B")));
         // The list: grouped, the model in use ticked, a way to manage models.
-        QMenu* menu = panel->showModelMenu();
-        QStringList lines;
-        for (QAction* action : menu->actions()) lines << action->text() + (action->isChecked() ? QStringLiteral(" ✓") : QString());
+        QWidget* menu = panel->showModelMenu();
+        QVERIFY(menu && menu->isVisible());
+        const QStringList lines = panel->modelMenuLines();
         QVERIFY2(lines.contains(QStringLiteral("本机模型")) && lines.contains(QStringLiteral("云端模型")), qPrintable(lines.join(QLatin1Char('|'))));
+        // In the ball's own style, not the system menu: no QMenu, rounded card, the current model marked.
+        QVERIFY(!qobject_cast<QMenu*>(menu));
+        QVERIFY(menu->findChild<QFrame*>(QStringLiteral("modelCard")));
         QVERIFY(std::any_of(lines.begin(), lines.end(), [](const QString& line) { return line.startsWith(QStringLiteral("Qwen3 1.7B")) && line.endsWith(QStringLiteral(" ✓")); }));
         QVERIFY(std::any_of(lines.begin(), lines.end(), [](const QString& line) { return line.startsWith(QStringLiteral("fake-model")); }));
         QVERIFY(std::any_of(lines.begin(), lines.end(), [](const QString& line) { return line.startsWith(QStringLiteral("管理模型")); }));
@@ -1466,6 +1469,35 @@ private slots:
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 20 个字符。"));
         QTRY_COMPARE(panel->lastMessageText(), QStringLiteral("已经写进文档了，可以在文档里查看。需要调整的话告诉我。"));
         QTRY_VERIFY(!panel->working());
+
+        // A table the model wrote as HTML (the 1.7B does): previewed and inserted as a real,
+        // page-wide table at the end as asked, and read back after inserting.
+        fake.chats.append(FakeOllama::chat({}, QStringLiteral("text_insert"),
+            {{QStringLiteral("text"), QStringLiteral("<table border=\"1\"><thead><tr><th>姓名</th><th>电话</th></tr></thead><tbody>"
+                                                     "<tr><td>张三</td><td>13800000001</td></tr><tr><td>李四</td><td>13800000002</td></tr>"
+                                                     "</tbody></table>")},
+             {QStringLiteral("format"), QStringLiteral("markdown")}}));
+        fake.chats.append(FakeOllama::chat({QStringLiteral("表格加在文档最后了。")}));
+        panel->submitText(QStringLiteral("在文末加一个表格，两列：姓名、电话"));
+        QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("在文档最后插入")));
+        QVERIFY(!panel->lastMessageText().contains(QStringLiteral("&lt;td")));
+        engine.outlineValue = {{QStringLiteral("tables"), 1}, {QStringLiteral("paragraphs"), 1},
+                               {QStringLiteral("blocks"), QJsonArray{QJsonObject{
+                                   {QStringLiteral("id"), QStringLiteral("T1")}, {QStringLiteral("rows"), 3}, {QStringLiteral("columns"), 2},
+                                   {QStringLiteral("firstRow"), QJsonArray{QStringLiteral("姓名"), QStringLiteral("电话")}},
+                                   {QStringLiteral("width"), 100}}}}};
+        button(QStringLiteral("执行"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("text.insert"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("position")).toString(), QStringLiteral("end"));
+        const QString tableHtml = engine.lastCommandArguments.value(QStringLiteral("html")).toString();
+        QVERIFY(tableHtml.contains(QStringLiteral("width:100%")) && tableHtml.contains(QStringLiteral(">姓名</th>"))
+                && tableHtml.contains(QStringLiteral("<td>13800000002</td>")));
+        QVERIFY(!tableHtml.contains(QStringLiteral("&lt;")));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已插入 30 个字符。"));
+        QTRY_VERIFY(!panel->working());
+        const QJsonArray sent = fake.chatRequests().last().value(QStringLiteral("messages")).toArray();
+        QVERIFY(sent.last().toObject().value(QStringLiteral("content")).toString().contains(QStringLiteral("插入后核对")));
     }
 
     void tableRequestsArePlannedAndAppliedOneByOne()
@@ -1496,9 +1528,10 @@ private slots:
             return found;
         };
 
-        // The cursor is in the table: the table is read and planned, not rewritten.
+        // The cursor is in the table: the table is read and planned, not rewritten. A check
+        // changes words and numbers: the model's "表头加粗" is no error, and the no-op is dropped.
         panel->submitText(QStringLiteral("帮我检查一下这个表格"));
-        QTRY_COMPARE(panel->correctionCount(), 2); // the no-op is dropped
+        QTRY_COMPARE(panel->correctionCount(), 1);
         QCOMPARE(engine.lastReadArguments.value(QStringLiteral("table")).toInt(), 1);
         const QJsonObject request = fake.chatRequests().first();
         QVERIFY(!request.contains(QStringLiteral("tools")));
@@ -1509,15 +1542,19 @@ private slots:
 
         // 全部改正: one change after another, each its own command.
         QTRY_VERIFY(!panel->working());
+        const auto shown = [panel] {
+            QStringList texts;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                texts << candidate->text() + (candidate->isEnabled() ? QString() : QStringLiteral("(off)"));
+            return texts.join(QLatin1Char(',')) + QStringLiteral(" | ") + panel->lastMessageText();
+        };
+        QTRY_VERIFY2(button(QStringLiteral("全部改正")) != nullptr, qPrintable(shown()));
         button(QStringLiteral("全部改正"))->click();
         QTRY_COMPARE(engine.lastCommandName, QStringLiteral("table.setCell"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("text")).toString(), QStringLiteral("笔记本"));
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已修改第 1 张表格第 2 行第 1 列，可以撤销。"));
-        QTRY_COMPARE(engine.lastCommandName, QStringLiteral("format.cells"));
-        QVERIFY(engine.lastCommandArguments.value(QStringLiteral("bold")).toBool());
-        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("columns")).toString(), QStringLiteral("1-3"));
-        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已设置 3 个单元格的格式，可以撤销。"));
-        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("已改好 2 处")));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("已改好 1 处")));
+        QCOMPARE(engine.lastCommandName, QStringLiteral("table.setCell")); // no format.cells
         QTRY_VERIFY(!panel->working());
 
         // Two tables and the cursor in neither: ask which one; "第 2 张表格" says it.
@@ -1541,7 +1578,10 @@ private slots:
             QJsonArray{cell(QStringLiteral("布置")), cell(QStringLiteral("孙悦"))}}}};
         fake.chats = {FakeOllama::chat({QStringLiteral(R"({"plan":[]})")})};
         panel->submitText(QStringLiteral("把第 2 张表格的表头加粗"));
-        QTRY_COMPARE(panel->correctionCount(), 1);
+        // The count from the first plan is 1 too: wait for this plan's list.
+        QTRY_VERIFY2(panel->lastMessageText().contains(QStringLiteral("找到 1 处")) && button(QStringLiteral("全部改正")) != nullptr,
+                     qPrintable(shown()));
+        QCOMPARE(panel->correctionCount(), 1);
         button(QStringLiteral("全部改正"))->click();
         QTRY_COMPARE(engine.lastCommandName, QStringLiteral("format.cells"));
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("table")).toInt(), 2);

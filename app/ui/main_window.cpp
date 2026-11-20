@@ -954,7 +954,32 @@ void MainWindow::handleEditorCommandFinished(quint64 requestId, const EngineResu
     m_assistantDone = {};
     const bool quiet = m_assistantQuiet;
     m_assistantQuiet = false;
-    finishAssistantCommand(m_assistantCommand, {result.ok, result.code, result.message, value}, done, quiet);
+    const AssistantCommand command = m_assistantCommand;
+    const CommandOutcome outcome{result.ok, result.code, result.message, value};
+    // A table written into the document is read back and compared with what was meant, so a
+    // broken one is reported (to the person and the model) instead of "written".
+    const QString text = command.arguments.value(QStringLiteral("text")).toString();
+    const QString format = command.arguments.value(QStringLiteral("format")).toString();
+    const bool markdown = format == QStringLiteral("markdown") || (format.isEmpty() && command.source == CommandSource::Assistant && looksLikeMarkdown(text));
+    const QList<QList<QStringList>> tables = command.name == QStringLiteral("text.insert") && result.ok && markdown
+        ? markdownTables(text) : QList<QList<QStringList>>();
+    if (!tables.isEmpty()) {
+        readForAssistant(QStringLiteral("document.outline"), [this, command, outcome, done, quiet, tables](const CommandOutcome& outline) {
+            CommandOutcome checked = outcome;
+            const QString problems = outline.ok ? insertedTableProblems(tables, outline.value.value(QStringLiteral("blocks")).toArray())
+                                                : QString();
+            if (!problems.isEmpty()) {
+                checked.ok = false;
+                checked.code = QStringLiteral("table_mismatch");
+                checked.message += QStringLiteral(" 但插入后核对发现：%1。可以撤销后再试。").arg(problems);
+            } else if (outline.ok) {
+                checked.message += QStringLiteral(" 插入后核对：表格的行数、列数和表头都对。");
+            }
+            finishAssistantCommand(command, checked, done, quiet);
+        });
+        return;
+    }
+    finishAssistantCommand(command, outcome, done, quiet);
 }
 
 void MainWindow::finishAssistantCommand(const AssistantCommand& command, const CommandOutcome& outcome,
@@ -1384,6 +1409,12 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
         if (namesAFormat(m_planRequest) && !asksForTextChanges(m_planRequest))
             plan.erase(std::remove_if(plan.begin(), plan.end(), [](const PlannedEdit& edit) {
                 return edit.command.name == QStringLiteral("table.setCell");
+            }), plan.end());
+        // And only text when no format was named: "检查一下" or "手机号统一写成 11 位" is no
+        // reason to make a cell bold (the 1.7B planned that as a "problem").
+        if (!namesAFormat(m_planRequest) && asksForTextChanges(m_planRequest) && !vagueStyleRequest(m_planRequest))
+            plan.erase(std::remove_if(plan.begin(), plan.end(), [](const PlannedEdit& edit) {
+                return edit.command.name.startsWith(QStringLiteral("format."));
             }), plan.end());
         plan = withRequestedScope(plan, m_planGrid, m_planTable, m_planRequest);
         // A check also looks for typos: the cells' words are proofread, the way that works for documents.
@@ -1893,8 +1924,28 @@ void MainWindow::showLocalAiCard()
     }
 }
 
-void MainWindow::handleProposedCommand(const AssistantCommand& command)
+void MainWindow::handleProposedCommand(const AssistantCommand& proposed)
 {
+    // "放在文末": the end of the document, whatever position the model chose.
+    AssistantCommand command = proposed;
+    static const QRegularExpression atTheEnd(QStringLiteral("文末|末尾|结尾|最后面|文档最后|全文最后|\\bat the end\\b"),
+                                             QRegularExpression::CaseInsensitiveOption);
+    if (command.name == QStringLiteral("text.insert") && atTheEnd.match(m_localAi->lastRequest()).hasMatch())
+        command.arguments.insert(QStringLiteral("position"), QStringLiteral("end"));
+    if (command.name == QStringLiteral("text.insert")) {
+        // A table written as HTML (small models do), or as Markdown marked "plain": the program
+        // makes it a Markdown table, so it goes in as a table and is checked after inserting,
+        // instead of "<td>" or "|" landing in the text.
+        const QString text = command.arguments.value(QStringLiteral("text")).toString();
+        QString asMarkdown = htmlAsMarkdown(text);
+        // The columns the person named are the header, also when the model left it out.
+        const QStringList columns = requestedColumns(m_localAi->lastRequest());
+        if (!columns.isEmpty()) asMarkdown = withTableHeader(asMarkdown, columns);
+        if (asMarkdown != text || !markdownTables(text).isEmpty()) {
+            command.arguments.insert(QStringLiteral("text"), asMarkdown);
+            command.arguments.insert(QStringLiteral("format"), QStringLiteral("markdown"));
+        }
+    }
     // Reading is immediate; anything that changes or saves the document waits
     // for the person's "执行" (the change stays undoable either way).
     // An unknown or malformed call is refused by validation and reported back to the model.
@@ -1914,6 +1965,21 @@ void MainWindow::handleProposedCommand(const AssistantCommand& command)
     QString preview;
     const QString text = command.arguments.value(QStringLiteral("text")).toString();
     const QString shown = text.size() > 300 ? text.left(300) + QStringLiteral("…") : text;
+    const QString format = command.arguments.value(QStringLiteral("format")).toString();
+    if (command.name == QStringLiteral("text.insert")
+        && (format == QStringLiteral("markdown") || (format.isEmpty() && looksLikeMarkdown(text)))) {
+        // What goes in, as it will look: a table as a table, not "|---|".
+        const QString position = command.arguments.value(QStringLiteral("position")).toString();
+        const QString where = position == QStringLiteral("end") ? QStringLiteral("在文档最后插入：")
+            : position == QStringLiteral("after") ? QStringLiteral("在当前段落后面插入：") : QStringLiteral("在光标处插入：");
+        const QString html = QStringLiteral("<p>") + where.toHtmlEscaped() + QStringLiteral("</p>")
+            + markdownToHtml(text.size() > 3000 ? text.left(3000) : text, MarkdownTarget::Bubble);
+        using Action = AssistantBall::CardAction;
+        m_assistantBall->showRichCard(QStringLiteral("助手想要") + spec->title, html,
+            {Action{QStringLiteral("执行"), [this, command] { runAssistantCommand(command); }},
+             Action{QStringLiteral("不要"), [this, command] { m_localAi->commandDeclined(command); }}}, true);
+        return;
+    }
     if (command.name == QStringLiteral("text.insert")) {
         preview = (command.arguments.value(QStringLiteral("position")).toString() == QStringLiteral("after")
                        ? QStringLiteral("在当前段落后面插入：\n") : QStringLiteral("在光标处插入：\n")) + shown;

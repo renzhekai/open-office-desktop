@@ -1,6 +1,8 @@
 #pragma once
 
+#include <QList>
 #include <QString>
+#include <QStringList>
 
 namespace openoffice {
 
@@ -22,6 +24,21 @@ QString cleanRewrite(const QString& text);
 
 // Drops <think>…</think> reasoning that some models put into the answer.
 QString stripThinking(const QString& text);
+// The tables in a Markdown text, each made regular as markdownToHtml writes it: rows of
+// cells (the first row is the header), every row as wide as the widest; lines of nothing
+// but pipes are dropped, and the separator may come before or after the header.
+QList<QList<QStringList>> markdownTables(const QString& markdown);
+// HTML a model wrote where Markdown was meant (small models write <table><tr><td>…): its
+// tables become Markdown tables, headings, bold, list items and paragraphs Markdown lines,
+// other tags are dropped. Text without such tags comes back as it is.
+QString htmlAsMarkdown(const QString& text);
+// The first table in a Markdown text with `header` (the column names the person gave) as
+// its header row, when the model left the header out: as many columns, none of the names in
+// the first row, and that row clearly data (numbers in a column, as in the next row).
+// Otherwise the text as it is.
+QString withTableHeader(const QString& markdown, const QStringList& header);
+// A cell's text as it reads in the document (no ** __ ` ~~).
+QString plainCellText(const QString& cell);
 // Headings, lists, bold or tables: text a model meant as Markdown even when it did not say so.
 bool looksLikeMarkdown(const QString& text);
 // After the model wrote text into the document, its answer often repeats it all.
