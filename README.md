@@ -30,7 +30,7 @@
 
 ## 安装
 
-安装程序在 GitHub 的 [Releases 页面](https://github.com/renzhekai/open-office-desktop/releases)下载，每个版本都保留。当前最新：`OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627 MB，SHA256 `139b49ac…a0d9`，同一页有完整值的 `.sha256.txt`）。安装包太大（超过 100 MB），不放进 git 仓库。
+安装程序在 GitHub 的 [Releases 页面](https://github.com/renzhekai/open-office-desktop/releases)下载，每个版本都保留。当前最新已发布的是 `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（r12）；r14 的 `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe` 已做好，上传 GitHub 时网络断开，还没发布（627 MB，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`）。安装包太大（超过 100 MB），不放进 git 仓库。
 
 1. 双击运行，按中文向导安装。
 2. 默认装到 `%LOCALAPPDATA%\Programs\OpenOffice`，只为当前用户安装，不需要管理员权限。可以选择是否创建桌面快捷方式；开始菜单里会有“Open Office”。
