@@ -8,6 +8,7 @@
 
 #include <QAction>
 #include <QCoreApplication>
+#include <QDir>
 #include <QFileInfo>
 #include <QHostAddress>
 #include <QJsonDocument>
@@ -316,6 +317,10 @@ QJsonArray McpServer::tools() const
     list.append(testTool(QStringLiteral("test.state"), QStringLiteral("测试用：当前文档、助手是否在忙、本地 AI 状态、快捷操作、最后一条消息。"), {}));
     list.append(testTool(QStringLiteral("test.open"), QStringLiteral("测试用：在窗口里打开这份文档，等它就绪。"),
                          {{QStringLiteral("path"), stringProperty(QStringLiteral("文档的完整路径。"))}}, {QStringLiteral("path")}));
+    list.append(testTool(QStringLiteral("test.saveAs"),
+                         QStringLiteral("测试用：把当前文档另存到这个路径（代替保存对话框里选的位置），等它保存完。"),
+                         {{QStringLiteral("path"), stringProperty(QStringLiteral("保存到的完整路径，扩展名和文档类型一致。"))}},
+                         {QStringLiteral("path")}));
     list.append(testTool(QStringLiteral("test.ask"), QStringLiteral("测试用：像用户一样在助手输入框里输入并发送，等助手做完，返回它说的话和可以按的按钮。"),
                          {{QStringLiteral("text"), stringProperty(QStringLiteral("要发送的文字（也可以是 / 指令）。"))},
                           {QStringLiteral("timeoutSeconds"), timeout}}, {QStringLiteral("text")}));
@@ -370,6 +375,32 @@ void McpServer::callTestTool(const QString& name, const QJsonObject& arguments, 
     const auto fail = [done](const QString& code, const QString& message) { done(toolResult(failureJson(code, message), true)); };
     if (name == QStringLiteral("test.state")) {
         done(toolResult(stateReport(), false));
+        return;
+    }
+    if (name == QStringLiteral("test.saveAs")) {
+        const QString path = QDir::cleanPath(QFileInfo(arguments.value(QStringLiteral("path")).toString()).absoluteFilePath());
+        if (!QFileInfo(QFileInfo(path).absolutePath()).isDir())
+            return fail(QStringLiteral("invalid_path"), QStringLiteral("保存的文件夹不存在。"));
+        auto* saveAs = m_window->findChild<QAction*>(QStringLiteral("saveAsDocumentAction"));
+        if (!saveAs || !saveAs->isEnabled()) return fail(QStringLiteral("cannot_save"), QStringLiteral("现在不能另存为。"));
+        // The place the person would pick in the dialog, given; taken back once saved.
+        m_window->setSaveDestinationChooser([path](const QString&, DocumentKind) { return path; });
+        saveAs->trigger();
+        auto* timer = new QTimer(this);
+        auto elapsed = std::make_shared<int>(0);
+        connect(timer, &QTimer::timeout, this, [this, timer, elapsed, path, done] {
+            *elapsed += 250;
+            const bool saved = m_window && !m_window->documentBusy() && QFileInfo(path).isFile()
+                && QFileInfo(m_window->openedDocumentPath()).canonicalFilePath().compare(
+                       QFileInfo(path).canonicalFilePath(), Qt::CaseInsensitive) == 0;
+            if (!saved && *elapsed < 120000) return;
+            timer->deleteLater();
+            if (m_window) m_window->setSaveDestinationChooser({});
+            QJsonObject report = stateReport();
+            report.insert(QStringLiteral("ok"), saved);
+            done(toolResult(report, !saved));
+        });
+        timer->start(250);
         return;
     }
     if (name == QStringLiteral("test.open")) {

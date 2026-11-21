@@ -1,6 +1,6 @@
 # Open Office AI 接手文档（持续维护）
 
-最后更新：2026-11-20（本机时间），更新者：Claude Code（Opus 5.5），第 65 条  
+最后更新：2026-11-21（本机时间），更新者：Claude Code（Opus 5.5），第 66 条  
 项目根目录：`D:\open office`  
 初版：2026-11-03T04:53:07Z 由 Codex 生成，依据当时读取的项目文件和用户指令。此后由接手智能体持续维护，初版校验记录的适用范围见第 11 节。
 
@@ -19,11 +19,11 @@
 
 **最终目标：** 用户自己的 Windows 开源办公软件。第一版不含 AI，功能接近 Microsoft Office，所有功能免费，文件兼容性高；第二阶段再加本地部署的 AI 助手和专用 MCP。底座已定为 ONLYOFFICE v10.0.0，保留其署名和标识。详见第 2 节和附录 A。
 
-**默认入口（2026-11-20 起）：** `build/full-source-run-builtin-ai-r17`（按用户规则“每次装最新版”，与安装包一致；第 64 条）。同日更早是 r16（第 62 条）。同日更早是 r14（第 59 条）；r15 装配后发现草稿标题层级的问题，改好出了 r16，r15 没有发布。之前是 r12（2026-11-17，第 57 条）；r13 装配后发现问题，没有发布（第 59 条）。以后每次修改后都换成新的最新版本。之前是 r11、r10（2026-11-16，第 55、53 条）、r9（2026-11-09，第 51 条）。
+**默认入口（2026-11-21 起）：** `build/full-source-run-builtin-ai-r18`（按用户规则“每次装最新版”，与安装包一致；第 66 条）。之前是 r17（2026-11-20，第 64 条）。同日更早是 r16（第 62 条）。同日更早是 r14（第 59 条）；r15 装配后发现草稿标题层级的问题，改好出了 r16，r15 没有发布。之前是 r12（2026-11-17，第 57 条）；r13 装配后发现问题，没有发布（第 59 条）。以后每次修改后都换成新的最新版本。之前是 r11、r10（2026-11-16，第 55、53 条）、r9（2026-11-09，第 51 条）。
 
 **已经达到：** 上一个默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
 
-**安装包（2026-11-20 第四版）：** `OpenOffice-Setup-0.1.0-dev-20261120-4-win64.exe`（627,250,592 字节，SHA256 `20c982f663b9b5b71c6eca062f981238596db5319bcc7f959e707969544f0556`），装的是 r17；已发布在 GitHub Releases（`v0.1.0-dev-20261120-4`，第 65 条）。之前的：**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；已发布在 GitHub Releases（`v0.1.0-dev-20261120-3`，第 63 条）。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
+**安装包（2026-11-21）：** `OpenOffice-Setup-0.1.0-dev-20261121-win64.exe`（663,920,326 字节，SHA256 `e88bcfe81c600192307fb10ab8849acc2d41df84801f8a1599d7cc35d7d88321`），装的是 r18；发布结果见第 67 条。之前的：**安装包（2026-11-20 第四版）：** `OpenOffice-Setup-0.1.0-dev-20261120-4-win64.exe`（627,250,592 字节，SHA256 `20c982f663b9b5b71c6eca062f981238596db5319bcc7f959e707969544f0556`），装的是 r17；已发布在 GitHub Releases（`v0.1.0-dev-20261120-4`，第 65 条）。之前的：**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；已发布在 GitHub Releases（`v0.1.0-dev-20261120-3`，第 63 条）。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
 - 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载；卸载会删除配置和模型，迁移过的安装也能删干净（第 47 条）。
 - 本机静默安装、逐文件比对（21,091 个文件）、启动、卸载测试通过（r10 第 53 条，r9 第 51 条）。
 - 以前的安装包（11-06 带便携包、11-07、11-07-2）已补传到 Releases，每个版本一个发布；本机 `dist/` 只留最新的。
@@ -53,7 +53,8 @@
 - **对话（2026-11-09 用户要求，第 48 条）：** 每次启动软件、每打开或新建另一份文档，都自动开一个新对话；`/新对话` 或悬浮球里的“新对话”手动开；`/历史` 或“历史”列出以前的对话（标题、工作文件、时间、条数），可以打开（AI 接着记得）、重命名、删除（点两次）、删除其他所有。对话存在程序配置文件夹的 `conversations`，只在本机。输入 `/` 时在输入框上方弹出指令列表，可筛选、↑↓ 选、回车或 Tab 确认。
 - **打字提要求（2026-11-09 用户反馈，第 49 条）：** 选中文字后打“详细点”“改正式一些”“翻译成英文”这类修改要求，由程序判定为“按要求改写”，先给结果再选“替换原文/插到后面/复制/重写”；“写一篇…”“帮我起草…”按“按要求起草”先给全文再“插入文档”；提问和其他话照旧对话。模型插入没标格式的 Markdown 时自动按格式插入；插入后的回答不再重复整篇。
 - **改写没改动（2026-11-09 用户反馈，第 50 条）：** “详细一点”这类说法会换成对应快捷操作的明确指令（含具体字数），短要求不再把原话塞进提示；结果和原文一样时自动再改一次，两次都一样就如实说明并给“重试”。
-- 最新版本：`build/full-source-run-builtin-ai-r17`（构建 `live-30`，CTest 127 项全过；2026-11-20 装配，第 64 条），在 r16 基础上加了排版风格档案（学用户的排版偏好，可查看、设常用/不用、暂停、清除）。
+- 最新版本：`build/full-source-run-builtin-ai-r18`（构建 `live-35`，CTest 128 项全过；2026-11-21 装配，并补了演示主题和中文语言包，第 66 条），在 r17 基础上：表格（XLSX）和演示文稿（PPTX）能新建、打开、编辑、保存、另存为；在表格和演示文稿里助手能回答和起草（复制），还不能直接改。
+- 上一个：`build/full-source-run-builtin-ai-r17`（构建 `live-30`，CTest 127 项全过；2026-11-20 装配，第 64 条），在 r16 基础上加了排版风格档案（学用户的排版偏好，可查看、设常用/不用、暂停、清除）。
 - 上一个：`build/full-source-run-builtin-ai-r16`（构建 `live-27`，CTest 125 项全过；2026-11-20 装配，第 62 条），在 r14 基础上加了起草的排版风格（风格包＋权重＋模型挑选）。
 - 没有发布：`build/full-source-run-builtin-ai-r15`（构建 `live-26`），复查时发现 1.7B 把标题写成“##”后整篇层级下降，改好出了 r16。
 - 上一个：`build/full-source-run-builtin-ai-r14`（构建 `live-23`，CTest 122 项全过；2026-11-20 装配，第 59 条），在 r12 基础上：修 DeepSeek 的 400（工具调用没回复）；做表格整理成规整的整页表格、插入后读回核对；模型写成 HTML 的表格也变成真表格；用户说了列名而模型漏了表头时补上；表头前的“| - | |”这种空行丢掉；只要求改文字时不跟着改格式；文档里已有表格时“在文末加一个表格”是新建；“文末”插到文档最后；确认卡片里预览表格；模型列表改成悬浮球风格。
@@ -224,6 +225,7 @@
 | 2026-11-20 | 接下来我们的目标是什么 | 回答：建议先补齐第一版（xlsx/pptx、导出 PDF、兼容性回归、差距清单），另一个方向是继续做 AI；用户选了 AI 审美 |
 | 2026-11-20 | 尝试加入模型审美，当用户想要让ai助手创作时能有好的审美，加入之前我说的权重 | 第 62 条：r16 |
 | 2026-11-20 | 开始做 | 理解为按“还没做的”顺序做第一项：学用户的排版偏好（风格档案）；第 64 条：r17 |
+| 2026-11-21 | 开始做表格和演示文稿 | 第 66 条：先让表格和演示文稿能新建、打开、编辑、保存（r18） |
 
 ## 3. 目录、代码与运行入口
 
@@ -1260,6 +1262,19 @@ python -B scripts/verify_full_source_docx_sample.py
 65. **r17 已发布；本机只留 r17 的安装包（2026-11-20，Claude Code）：**
     - 代码和文档已推送（`02afb44`；第一次推送 TLS 握手失败，第二次成功）。`publish_release.py` 第一次就成功：<https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261120-4>（预发布），安装包 627,250,592 字节和 `.sha256.txt` 都上传完整（`evidence/releases/v0.1.0-dev-20261120-4.json`）；`gh api` 核对过 r17 两个文件都是 uploaded、大小一致，r16（`v0.1.0-dev-20261120-3`）还在。
     - 删掉了本机 `dist/` 里 r16 的安装包和 `.sha256.txt`，只留 r17 的。
+
+66. **表格（XLSX）和演示文稿（PPTX）能用了：新建、打开、编辑、保存、另存为；修演示编辑器一打开就只读；装配 r18（2026-11-21，Claude Code）：**
+    - **用户要求：** “开始做表格和演示文稿”。理解为先让软件能真正用表格和演示文稿（第一版的要求，也是给它们做排版风格和 AI 的前提）。
+    - **之前挡住的地方：** 原生适配层 `requestOpen` 只认 DOCX、`canCreate` 只认文字、`requestCreate` 固定用文字编辑器（`etDocument`）；保存/另存为本来就按文档类型处理。改法：打开时按扩展名认三种并核对引擎识别的格式（`editableFormat`）；新建三种，按类型选编辑器（`etSpreadsheet`、`etPresentation`），空白模板 `converter/empty/zh-CN/new.xlsx|pptx` 存在才算能建；提示文字改为三种。助手的编辑命令都是按文字编辑器的 API 写的，`supportsEditorCommand` 只在当前是文字文档时给。
+    - **演示编辑器一打开就只读（重要）：** 在真实编辑器里打开或新建演示文稿都会弹“使用文档时出错，使用另存为备份副本”并转成只读（`isViewMode` 为真）。用编辑器调试端口抓到两处：①运行目录缺 `editors/sdkjs/slide/themes/themes.js` 和主题缩略图——官方打包时会跑 `converter/allthemesgen` 生成，我们装配运行目录时漏了；②上游 v10.0.0 的中文语言包 `presentationeditor/main/locale/zh.json` 比英文少 107 条，“视图”页的 `tipOutlineView` 等没有，`ViewTab.js` 又没写默认值，按钮更新提示时读 `hint[0]` 报错，编辑器把它当成编辑错误转为只读。上游源码本身就这样（中文缺这些条目），不是我们的构建弄坏的。
+    - **补充脚本 `scripts/complete_runtime_extras.py <运行目录>`：** 用运行目录自带、从源码编译的 `allfontsgen`、`allthemesgen` 在运行目录外（`build/runtime-extras/`）生成主题，再把 `themes.js`、`theme1`–`theme36`、`themes_thumbnail*.png` 加进运行目录（已有的文件不覆盖）；把各编辑器 `main/locale/zh.json` 缺的条目用英文原文补上（文字 41、表格 35、演示 107、PDF 259 条）。每个新增或改动的文件都记了 SHA-256（`evidence/host-candidate/runtime-extras-<运行目录>.json`）。**以后每次装配新版本都要在装配后跑它**；`build_installer.py` 加了检查：来源目录没有 `themes.js` 就拒绝出包。（装配脚本 `stage_host_candidate_runtime.py` 还是从 `full-source-run-wasm-candidate` 原样复制，没有改动已验收的运行目录。）
+    - **助手在表格和演示文稿里：** 快捷栏写明“在表格里，助手能回答问题、起草文字（可以复制过去），还不能直接改单元格”（演示文稿同理），只有“起草…”和“本地 AI”；打字提问不读文档文字、不给模型改文档的工具（`LocalAssistant::setDocumentTools`）；“写一份……”起草后只有“复制”“重写”（不出排版卡片）。另修：助手面板开着时换了文档，快捷栏会立刻按新文档刷新。
+    - **测试接口：** `document.create` 三种都可以；新增 `test.saveAs`（代替保存对话框给出路径，另存为并等它完成）。
+    - **真实编辑器验证（自动，不点屏幕）：** `scripts/verify_office_kinds.py <标签> --runtime <运行目录>`：启动程序（自己的配置和设置、打开调试端口），对 XLSX 和 PPTX 各做：打开示例→确认可编辑→用编辑器自己的方法改（表格：选中 D2 粘贴文字；演示：加一页再粘贴文字）→保存→在保存的文件里找到文字；新建→确认可编辑→改→`test.saveAs`→文件里找到文字；再打开→在编辑器里读回。改内容通过 `scripts/editor_eval.mjs`（经调试端口在编辑器页面执行）。r18 上 18 步全过（`evidence/office-kinds/kinds-r18.json`）。开发时还用调试端口截图看过演示编辑器改好后的样子（工具栏可用，新加的页上有文本框）。
+    - **测试：** CTest 128 项全过（构建 `live-35`）。新增界面测试 `spreadsheetsAndPresentationsGetAnAssistantThatAnswersAndDrafts`（表格里快捷栏和说明、提问不带工具且上下文写着“XLSX 表格”、起草只给复制、不读文档；演示文稿同样；回到文字文档功能都在）。中间：`live-31`、`live-32` 这个测试没过——测试里窗口没显示，换文档后悬浮球被收起，测试改为先显示窗口、换文档后再展开；`live-34` 没有重新链接程序（之前快速编译过），删掉产物后 `live-35` 装配。
+    - **装配：** `python -I scripts/stage_host_candidate_runtime.py --target build/full-source-run-builtin-ai-r18 --build-label live-35 --ai-engine dependencies/llama.cpp-b12202`：复制 20,972 个文件，20,971 个逐个一致（另一个是换上的新宿主），宿主 `e3bea2b2c4aaa2422160189a1c83e76ea193215453e35e96e22f571d8cb63aea`（和 `live-35` 构建出的一模一样）；记录 `evidence/host-candidate/candidate-runtime-full-source-run-builtin-ai-r18.json`。随后 `python -I scripts/complete_runtime_extras.py build/full-source-run-builtin-ai-r18`：新增 562 个主题文件、补 4 个中文语言包（`evidence/host-candidate/runtime-extras-full-source-run-builtin-ai-r18.json`）。在 r18 上：`verify_office_kinds.py kinds-r18` 18 步全过；助手复查（命令探测、坏表格插入、中秋活动方案、默认样式，本机 1.7B、CPU 引擎）全过（`evidence/assistant-live/r18-check.json`）；r18 里没有留下配置或模型文件。
+    - **安装包和发布：** `SOURCE` 改为 r18；`OpenOffice-Setup-0.1.0-dev-20261121-win64.exe`，663,920,326 字节（比上一版大约 36 MB，多了主题）；SHA256 `e88bcfe81c600192307fb10ab8849acc2d41df84801f8a1599d7cc35d7d88321`；在这台电脑上静默安装 46 秒，装了 21,655 个文件，逐个比对 0 处不同，启动正常，卸载后不留文件（`evidence/installer/OpenOffice-Setup-0.1.0-dev-20261121-win64.json`）。发布到 GitHub 的结果见第 67 条。
+    - **还没做：** 助手直接改表格和幻灯片（这版 sdkjs 里没有表格和演示的 Builder API，要用编辑器内部的方法另写命令）；表格和演示文稿的排版风格；导出 PDF；docx/xlsx/pptx 兼容性回归测试集；和官方桌面版打包对比还缺哪些步骤（这次发现了主题和语言包两处）。
 
 ## 附录 A：requirements.md 完整原文
 

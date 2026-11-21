@@ -26,7 +26,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "build" / "full-source-run-builtin-ai-r17"  # the default entry; --source overrides
+SOURCE = ROOT / "build" / "full-source-run-builtin-ai-r18"  # the default entry; --source overrides
 CRT = Path(r"D:\Microsoft Visual Studio\18\Community\VC\Redist\MSVC\14.51.36231\x64\Microsoft.VC145.CRT")
 CRT_FILES = ["msvcp140.dll", "msvcp140_1.dll", "msvcp140_2.dll", "vcruntime140.dll", "vcruntime140_1.dll"]
 CRT_DESTINATIONS = ["", "converter"]
@@ -218,6 +218,9 @@ def main():
     marker = json.loads((SOURCE / "openoffice-host-candidate.json").read_text(encoding="utf-8"))
     if sha256(SOURCE / "OpenOffice.exe") != marker["host"]["sha256"]:
         sys.exit("the source runtime host is not the recorded one")
+    # Without its themes (and the filled Chinese strings) the presentation editor opens read-only.
+    if not (SOURCE / "editors" / "sdkjs" / "slide" / "themes" / "themes.js").is_file():
+        sys.exit("the source runtime has no presentation themes; run scripts/complete_runtime_extras.py on it first")
     compiler_signature = signature(ISCC)
     if compiler_signature["status"] != "Valid" or "Pyrsys B.V." not in compiler_signature["subject"]:
         sys.exit(f"ISCC.exe signature not valid: {compiler_signature}")

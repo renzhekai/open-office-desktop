@@ -66,7 +66,7 @@ QList<CommandSpec> buildCatalog()
         {QStringLiteral("document.create"), QStringLiteral("新建文档"),
          QStringLiteral("新建一份空白文档。当前文档有未保存修改时，由用户在提示里决定保存、不保存或取消。"),
          {A{QStringLiteral("kind"), ArgumentType::DocumentKind, true, 0,
-            QStringLiteral("文档类型：text、spreadsheet 或 presentation（当前版本只开放 text）。")}},
+            QStringLiteral("文档类型：text（文字）、spreadsheet（表格）或 presentation（演示文稿）。")}},
          CommandTarget::Host, false, false},
         {QStringLiteral("document.save"), QStringLiteral("保存"),
          QStringLiteral("保存当前文档；新文档第一次保存时由用户选择位置。"), {}, CommandTarget::Host, true, false},

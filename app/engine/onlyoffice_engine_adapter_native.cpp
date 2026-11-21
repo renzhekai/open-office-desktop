@@ -82,6 +82,27 @@ int editableFormat(DocumentKind kind)
     }
 }
 
+// The native editor for a kind, and the blank seed CreateLocalFile starts it from
+// (converter/empty/<lang>/new.<ext>, chosen by the lang editor parameter).
+AscEditorType editorType(DocumentKind kind)
+{
+    switch (kind) {
+    case DocumentKind::Spreadsheet: return AscEditorType::etSpreadsheet;
+    case DocumentKind::Presentation: return AscEditorType::etPresentation;
+    default: return AscEditorType::etDocument;
+    }
+}
+
+QString blankSeed(DocumentKind kind)
+{
+    switch (kind) {
+    case DocumentKind::Text: return QStringLiteral("converter/empty/zh-CN/new.docx");
+    case DocumentKind::Spreadsheet: return QStringLiteral("converter/empty/zh-CN/new.xlsx");
+    case DocumentKind::Presentation: return QStringLiteral("converter/empty/zh-CN/new.pptx");
+    default: return {};
+    }
+}
+
 // The title becomes the new document's name in the native recovery folder and
 // the editor header, so it must be a plain file name.
 bool validTitle(const QString& title, DocumentKind kind)
@@ -1011,7 +1032,7 @@ struct OnlyOfficeEngineAdapter::Native final : CAscCefMenuEventListener {
         if (pending.operation == EngineOperation::Open) {
             actual = loaded ? canonicalFile(QString::fromStdWString(loaded->GetLocalFilePath())) : QString();
             if (!samePath(actual, pending.path)) {
-                const EngineResult failed = refused("open_path_unconfirmed", QStringLiteral("引擎就绪事件未确认请求的 DOCX 路径。"));
+                const EngineResult failed = refused("open_path_unconfirmed", QStringLiteral("引擎就绪事件未确认请求的文档路径。"));
                 if (replacing) abandonIncoming(failed);
                 else fault(failed);
                 return;
@@ -1399,7 +1420,7 @@ EngineResult OnlyOfficeEngineAdapter::initializeNative(const QString& runtimeRoo
     state.initialized = true;
     state.log("initialized_not_roundtrip_verified");
     emit capabilitiesChanged();
-    return {true, QStringLiteral("initialized"), QStringLiteral("原生引擎已初始化，可以打开 DOCX 或新建文档。")};
+    return {true, QStringLiteral("initialized"), QStringLiteral("原生引擎已初始化，可以打开或新建 DOCX、XLSX、PPTX。")};
 }
 
 EngineCapabilities OnlyOfficeEngineAdapter::capabilities() const noexcept
@@ -1410,8 +1431,10 @@ EngineCapabilities OnlyOfficeEngineAdapter::capabilities() const noexcept
 
 bool OnlyOfficeEngineAdapter::canCreate(DocumentKind kind) const noexcept
 {
-    // Spreadsheet and presentation editing is a later, separately verified step.
-    return capabilities().create && kind == DocumentKind::Text;
+    // Text, spreadsheets and presentations, each from its blank seed in the runtime.
+    if (!capabilities().create || !editableFormat(kind)) return false;
+    const QString seed = blankSeed(kind);
+    return !seed.isEmpty() && QFileInfo(QDir(QCoreApplication::applicationDirPath()).filePath(seed)).isFile();
 }
 
 bool OnlyOfficeEngineAdapter::documentModified() const noexcept
@@ -1462,12 +1485,14 @@ EngineResult OnlyOfficeEngineAdapter::requestOpen(quint64 requestId, const QStri
     const bool replacing = state.loadRequested;
     if (replacing && !discardCurrentChanges && state.currentModified())
         return refused("unsaved_changes", QStringLiteral("当前文档仍有未保存修改。"));
-    if (classifyDocument(path) != DocumentKind::Text)
-        return refused("unsupported_document", QStringLiteral("当前原生阶段只支持已有、可读的 DOCX 文件。"));
+    const DocumentKind kind = classifyDocument(path);
+    if (!editableFormat(kind))
+        return refused("unsupported_document", QStringLiteral("只能打开已有、可读的 DOCX、XLSX、PPTX 文件。"));
     const QString canonical = canonicalFile(path);
     const int format = CCefViewEditor::GetFileFormat(canonical.toStdWString());
-    if (format != AVS_OFFICESTUDIO_FILE_DOCUMENT_DOCX)
-        return refused("unsupported_document", QStringLiteral("引擎未将此文件识别为 DOCX。"));
+    if (format != editableFormat(kind))
+        return refused("unsupported_document", QStringLiteral("文件内容和扩展名对不上（引擎没有把它识别为 .%1）。")
+                                                   .arg(QFileInfo(canonical).suffix().toLower()));
     if (replacing && samePath(canonical, state.currentPath))
         return refused("already_open", QStringLiteral("该文档已在当前窗口打开。"));
     EditorHost* target = state.host;
@@ -1480,8 +1505,7 @@ EngineResult OnlyOfficeEngineAdapter::requestOpen(quint64 requestId, const QStri
         state.incomingViewId = target->GetCefView()->GetId();
         state.incomingModified = false;
     }
-    EngineResult accepted = state.begin(requestId, EngineOperation::Open, canonical, discardCurrentChanges,
-                                        DocumentKind::Text);
+    EngineResult accepted = state.begin(requestId, EngineOperation::Open, canonical, discardCurrentChanges, kind);
     if (!accepted.ok) return accepted; // admissible() above makes this unreachable.
     if (!replacing) {
         state.ready = false;
@@ -1566,7 +1590,9 @@ void OnlyOfficeEngineAdapter::setEditorAppearance(bool dark)
 
 bool OnlyOfficeEngineAdapter::supportsEditorCommand(const QString& name) const noexcept
 {
-    return capabilities().edit && editorCommandNames().contains(name);
+    // The commands are written for the text editor's API; spreadsheets and presentations
+    // have their own, not wired yet.
+    return capabilities().edit && native_->currentKind == DocumentKind::Text && editorCommandNames().contains(name);
 }
 
 EngineResult OnlyOfficeEngineAdapter::requestEditorCommand(quint64 requestId, const QString& name,
@@ -1602,7 +1628,7 @@ EngineResult OnlyOfficeEngineAdapter::requestCreate(quint64 requestId, DocumentK
     const EngineResult allowed = state.admissible(requestId);
     if (!allowed.ok) return allowed;
     if (!canCreate(kind))
-        return refused("create_unsupported", QStringLiteral("当前版本只支持新建文字文档。"));
+        return refused("create_unsupported", QStringLiteral("这个版本不能新建这类文档。"));
     if (!validTitle(title, kind))
         return refused("invalid_title", QStringLiteral("新文档名称无效。"));
     if (!state.editor()) return refused("editor_host_missing", QStringLiteral("请先创建原生编辑视图。"));
@@ -1625,9 +1651,9 @@ EngineResult OnlyOfficeEngineAdapter::requestCreate(quint64 requestId, DocumentK
         state.loadRequested = true;
     }
     state.show(target);
-    // Blank seed: converter/empty/zh-CN/new.docx (selected by the lang editor
+    // Blank seed: converter/empty/zh-CN/new.<ext> (selected by the lang editor
     // parameter). The title names the document until its first save.
-    Native::editorOf(target)->CreateLocalFile(AscEditorType::etDocument, title.toStdWString());
+    Native::editorOf(target)->CreateLocalFile(editorType(kind), title.toStdWString());
     emit capabilitiesChanged();
     return accepted;
 }

@@ -442,7 +442,7 @@ void LocalAssistant::send()
     for (const QJsonValue& message : m_history) messages.append(message);
     const LocalModel model = currentModel();
     ChatOptions options;
-    options.tools = model.tools ? tools() : QJsonArray();
+    options.tools = model.tools && m_documentTools ? tools() : QJsonArray();
     options.think = thinkSetting();
     options.contextLength = contextLengthFor(messages, !options.tools.isEmpty());
     dispatch(messages, options);

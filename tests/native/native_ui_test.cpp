@@ -1394,6 +1394,63 @@ private slots:
         saveStyleProfile({});
     }
 
+    void spreadsheetsAndPresentationsGetAnAssistantThatAnswersAndDrafts()
+    {
+        FakeOllama fake;
+        fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
+                                        {QStringLiteral("completion"), QStringLiteral("tools")})});
+        fake.chats = {FakeOllama::chat({QStringLiteral("可以在合计那一格输入 =SUM(B2:B5)。")}),
+                      FakeOllama::chat({QStringLiteral("# 季度销售说明\n\n本季度销售额稳步增长。")})};
+        ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
+        ControlledEngine engine;
+        engine.answerReads = true;
+        openoffice::MainWindow window(&engine);
+        window.show(); // the ball shows (and stays open) only with the window
+        auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
+        const auto button = [panel](const QString& text) -> QPushButton* {
+            QPushButton* found = nullptr;
+            for (QPushButton* candidate : panel->findChildren<QPushButton*>())
+                if (candidate->text() == text && candidate->isEnabled()) found = candidate;
+            return found;
+        };
+        window.selectDocument(QStringLiteral(PROJECT_FIXTURES_DIR "/values-formula.xlsx"));
+        action(window, "openDocumentAction")->trigger();
+        engine.complete(engine.lastId, openoffice::EngineOperation::Open, true, engine.lastPath, openoffice::DocumentKind::Spreadsheet);
+        QTRY_VERIFY(window.documentOpened());
+
+        // It says what it can do here, and offers drafting and the AI setup only.
+        panel->expand();
+        QTRY_VERIFY(panel->quickContext().contains(QStringLiteral("在表格里，助手能回答问题、起草文字")));
+        QCOMPARE(panel->quickActionIds(), (QStringList{QStringLiteral("draft"), QStringLiteral("setup")}));
+        // A question: answered without the text-document commands, and nothing is read as text.
+        panel->submitText(QStringLiteral("合计怎么算？"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("SUM")));
+        const QJsonObject asked = fake.chatRequests().at(0);
+        QVERIFY(!asked.contains(QStringLiteral("tools")) || asked.value(QStringLiteral("tools")).toArray().isEmpty());
+        QVERIFY(asked.value(QStringLiteral("messages")).toArray().first().toObject().value(QStringLiteral("content"))
+                    .toString().contains(QStringLiteral("XLSX 表格")));
+        QTRY_VERIFY(!panel->working());
+        // "写一份…": drafted to copy, not put into the spreadsheet (and no look to choose).
+        panel->submitText(QStringLiteral("写一份季度销售说明"));
+        QTRY_VERIFY(button(QStringLiteral("复制")) != nullptr);
+        QVERIFY(button(QStringLiteral("插入文档")) == nullptr && button(QStringLiteral("换个风格")) == nullptr);
+        QTRY_VERIFY(!panel->working());
+        QCOMPARE(fake.chatRequests().size(), 2);
+        QCOMPARE(engine.editorCommandCalls, 0);
+
+        // A presentation says so too; a text document again has everything.
+        window.selectDocument(QStringLiteral(PROJECT_FIXTURES_DIR "/text-shape.pptx"));
+        action(window, "openDocumentAction")->trigger();
+        engine.complete(engine.lastId, openoffice::EngineOperation::Open, true, engine.lastPath, openoffice::DocumentKind::Presentation);
+        panel->expand(); // another document collapses the ball; opened again it offers what fits
+        QTRY_VERIFY(panel->quickContext().contains(QStringLiteral("在演示文稿里")));
+        QVERIFY(!window.localAssistant()->documentTools());
+        openFixture(window, engine, "text-table.docx");
+        QTRY_VERIFY(window.localAssistant()->documentTools());
+        panel->expand();
+        QTRY_VERIFY(panel->quickActionIds().contains(QStringLiteral("proofread")));
+    }
+
     void quickActionBarFitsChipsThatArriveWhileOpen()
     {
         // The selection is read after the ball opens, so its chips arrive while it is open. They used to be

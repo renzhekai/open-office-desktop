@@ -1,0 +1,196 @@
+{
+  "label": "kinds-r18",
+  "runtime": "D:\\open office\\build\\full-source-run-builtin-ai-r18",
+  "command": [
+    "D:\\open office\\build\\full-source-run-builtin-ai-r18\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\office-kinds\\kinds-r18\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "started_utc": "2026-11-21T12:54:07.765507+00:00",
+  "steps": [
+    {
+      "step": "spreadsheet: open values-formula.xlsx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r18/existing.xlsx"
+    },
+    {
+      "step": "spreadsheet: editable after opening",
+      "ok": true,
+      "state": {
+        "type": "spreadsheet_api",
+        "viewMode": false,
+        "modified": false
+      }
+    },
+    {
+      "step": "spreadsheet: changed in the editor",
+      "ok": true,
+      "editor": {
+        "value": "表格往返验证",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "spreadsheet: saved",
+      "ok": true,
+      "message": "引擎已确认保存。"
+    },
+    {
+      "step": "spreadsheet: created",
+      "ok": true,
+      "message": "新文档已由 ONLYOFFICE 创建。"
+    },
+    {
+      "step": "spreadsheet: new one editable",
+      "ok": true,
+      "state": {
+        "type": "spreadsheet_api",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "spreadsheet: new one changed",
+      "ok": true,
+      "editor": {
+        "value": "表格往返验证（新建）",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "spreadsheet: saved as new.xlsx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r18/new.xlsx"
+    },
+    {
+      "step": "spreadsheet: reopened and read back",
+      "ok": true,
+      "editor": {
+        "values": [
+          "数量 A",
+          "数量 B",
+          "总计",
+          "2",
+          "3",
+          "5",
+          "表格往返验证",
+          "中文 English 123",
+          "0.125",
+          "TRUE"
+        ],
+        "viewMode": false
+      }
+    },
+    {
+      "step": "presentation: open text-shape.pptx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r18/existing.pptx"
+    },
+    {
+      "step": "presentation: editable after opening",
+      "ok": true,
+      "state": {
+        "type": "asc_docs_api",
+        "viewMode": false,
+        "modified": false
+      }
+    },
+    {
+      "step": "presentation: changed in the editor",
+      "ok": true,
+      "editor": {
+        "slidesBefore": 1,
+        "slides": 2,
+        "texts": [
+          "Open Office 演示样本",
+          "中文 / English / 123",
+          "演示往返验证"
+        ],
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "presentation: saved",
+      "ok": true,
+      "message": "引擎已确认保存。"
+    },
+    {
+      "step": "presentation: created",
+      "ok": true,
+      "message": "新文档已由 ONLYOFFICE 创建。"
+    },
+    {
+      "step": "presentation: new one editable",
+      "ok": true,
+      "state": {
+        "type": "asc_docs_api",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "presentation: new one changed",
+      "ok": true,
+      "editor": {
+        "slidesBefore": 1,
+        "slides": 1,
+        "texts": [
+          "",
+          "",
+          "演示往返验证（新建）"
+        ],
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "presentation: saved as new.pptx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r18/new.pptx"
+    },
+    {
+      "step": "presentation: reopened and read back",
+      "ok": true,
+      "editor": {
+        "texts": [
+          "Open Office 演示样本",
+          "中文 / English / 123",
+          "演示往返验证"
+        ],
+        "viewMode": false
+      }
+    }
+  ],
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "",
+      "modelKey": "builtin:",
+      "state": "unknown",
+      "tokensPerSecond": 0
+    },
+    "conversation": "20261121-045408-0168b2",
+    "conversationMessages": 0,
+    "document": "D:/open office/build/office-kinds/kinds-r18/existing.pptx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-21T12:54:49.780318+00:00",
+  "ok": true
+}

@@ -916,7 +916,7 @@ void MainWindow::runAssistantCommand(const AssistantCommand& command, CommandDon
         const DocumentKind kind = word == QStringLiteral("spreadsheet") ? DocumentKind::Spreadsheet
             : word == QStringLiteral("presentation") ? DocumentKind::Presentation : DocumentKind::Text;
         if (!m_engine || !m_engine->canCreate(kind)) {
-            finishNow({false, QStringLiteral("create_unsupported"), QStringLiteral("当前版本只开放新建文字文档。"), {}});
+            finishNow({false, QStringLiteral("create_unsupported"), QStringLiteral("这个版本不能新建这类文档。"), {}});
             return;
         }
         startHostCommand(command, EngineOperation::Create, [this, kind] { createDocument(kind); }, std::move(done), quiet);
@@ -1122,6 +1122,12 @@ void MainWindow::askLocalAi(const QString& text)
         m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("助手还在处理上一个请求。"), {}, false);
         return;
     }
+    // A spreadsheet or presentation has no text to read with the document commands:
+    // "写一份…" is drafted to copy, anything else is a conversation without them.
+    if (m_openedKind != DocumentKind::Text) {
+        whenLocalAiReady([this, text] { routeTypedRequest(text, QString(), QString()); });
+        return;
+    }
     // The document is read first: what the program can do itself (formats, the default
     // style) needs no model at all, so it works before any model is downloaded.
     {
@@ -1221,6 +1227,14 @@ void MainWindow::planTableChanges(const QString& request, int table)
 
 void MainWindow::refreshQuickActions()
 {
+    // A spreadsheet or presentation: the assistant answers and drafts; it does not change them yet.
+    if (m_documentOpened && m_openedKind != DocumentKind::Text) {
+        m_assistantBall->setQuickActions(QStringLiteral("在%1里，助手能回答问题、起草文字（可以复制过去），还不能直接改%2。")
+                                             .arg(m_openedKind == DocumentKind::Spreadsheet ? QStringLiteral("表格") : QStringLiteral("演示文稿"),
+                                                  m_openedKind == DocumentKind::Spreadsheet ? QStringLiteral("单元格") : QStringLiteral("幻灯片")),
+                                         {{QStringLiteral("draft"), QStringLiteral("起草…")}, {QStringLiteral("setup"), QStringLiteral("本地 AI")}});
+        return;
+    }
     // Without a ready local AI the actions only lead to its setup; no need to read.
     if (!m_documentOpened || m_localAi->state() != LocalAiState::Ready
         || m_assistantEditorRequest || m_assistantHostRequest) {
@@ -1518,6 +1532,13 @@ void MainWindow::finishTask(const QString& id, const QString& text, bool ok, con
         const QString result = stripThinking(text).trimmed();
         if (result.isEmpty()) {
             m_assistantBall->endReply(QStringLiteral("模型没有给出结果。"), false, {Action{QStringLiteral("重试"), retry}});
+            return;
+        }
+        if (spec->scope == TaskScope::Writing && m_openedKind != DocumentKind::Text && m_documentOpened) {
+            // Not into a spreadsheet or presentation yet: to copy, or written again.
+            m_assistantBall->endReply(result, true, {
+                Action{QStringLiteral("复制"), [result] { QGuiApplication::clipboard()->setText(result); }, false},
+                Action{QStringLiteral("重写"), retry}});
             return;
         }
         if (spec->scope == TaskScope::Writing) {
@@ -2247,6 +2268,7 @@ void MainWindow::handleOperationFinished(quint64 requestId, EngineOperation oper
     const QString previousPath = m_openedPath;
     m_openedPath = path;
     m_openedKind = kind;
+    m_localAi->setDocumentTools(kind == DocumentKind::Text);
     if (operation == EngineOperation::Create) {
         m_untitledTitle = m_pendingTitle;
         ++m_untitledCounts[static_cast<int>(kind)];
@@ -2275,6 +2297,8 @@ void MainWindow::handleOperationFinished(quint64 requestId, EngineOperation oper
                 ? QStringLiteral("文档已由编辑引擎加载") : QStringLiteral("文件已选择 · 尚未打开"));
         m_workspace->setCurrentWidget(m_editorPage);
         updateAssistantVisibility();
+        // An open assistant follows the document: what it offers depends on the kind.
+        if (m_assistantBall->expanded()) refreshQuickActions();
         showFeedback(operation == EngineOperation::Create
             ? QStringLiteral("已新建文档，编辑引擎已确认就绪。")
             : QStringLiteral("编辑引擎已确认文档就绪。"));
