@@ -1,6 +1,6 @@
 # Open Office AI 接手文档（持续维护）
 
-最后更新：2026-11-21（本机时间），更新者：Claude Code（Opus 5.5），第 67 条  
+最后更新：2026-11-22（本机时间），更新者：Claude Code（Opus 5.5），第 68 条  
 项目根目录：`D:\open office`  
 初版：2026-11-03T04:53:07Z 由 Codex 生成，依据当时读取的项目文件和用户指令。此后由接手智能体持续维护，初版校验记录的适用范围见第 11 节。
 
@@ -23,7 +23,7 @@
 
 **已经达到：** 上一个默认入口 `build/full-source-run-local-ai/OpenOffice.exe`（2026-11-07 用户第二次要求“设为默认入口”，第 13 节第 33 条）能启动，能打开、编辑、保存现有 DOCX，退出后能重开。它还能新建 DOCX、首次保存时选位置、另存为，在同一窗口换文档（第 26、27 条）。它带有 AI 助手悬浮球（第 29、30 条），并能接本机 Ollama 本地模型（第 32 条）。原生核心、V8、转换器、桌面核心以及编辑器的 5 个 WASM 引擎均已从源码编译（边界：PDF 加载器模板 JS 与两个原生桥 JS 取自官方生成文件；CEF、Qt 为第三方预编译）。已验收的 `build/full-source-run-assistant-ball-r7`（上一个默认入口，2026-11-07 的安装包装的是它）、`build/full-source-run-host-saveas-r2`（更早的默认入口，2026-11-06 的安装包和便携包装的是它）、`build/full-source-run-wasm-candidate`、`build/full-source-run` 与 `build/native-engine-run` 保留为回退。
 
-**安装包（2026-11-21）：** `OpenOffice-Setup-0.1.0-dev-20261121-win64.exe`（663,920,326 字节，SHA256 `e88bcfe81c600192307fb10ab8849acc2d41df84801f8a1599d7cc35d7d88321`），装的是 r18；还没发布到 GitHub（上传 3 次都被网络断开，第 67 条），GitHub 上最新的是 r17。之前的：**安装包（2026-11-20 第四版）：** `OpenOffice-Setup-0.1.0-dev-20261120-4-win64.exe`（627,250,592 字节，SHA256 `20c982f663b9b5b71c6eca062f981238596db5319bcc7f959e707969544f0556`），装的是 r17；已发布在 GitHub Releases（`v0.1.0-dev-20261120-4`，第 65 条）。之前的：**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；已发布在 GitHub Releases（`v0.1.0-dev-20261120-3`，第 63 条）。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
+**安装包（2026-11-21）：** `OpenOffice-Setup-0.1.0-dev-20261121-win64.exe`（663,920,326 字节，SHA256 `e88bcfe81c600192307fb10ab8849acc2d41df84801f8a1599d7cc35d7d88321`），装的是 r18；已发布在 GitHub Releases（`v0.1.0-dev-20261121`，第 68 条）。之前的：**安装包（2026-11-20 第四版）：** `OpenOffice-Setup-0.1.0-dev-20261120-4-win64.exe`（627,250,592 字节，SHA256 `20c982f663b9b5b71c6eca062f981238596db5319bcc7f959e707969544f0556`），装的是 r17；已发布在 GitHub Releases（`v0.1.0-dev-20261120-4`，第 65 条）。之前的：**安装包（2026-11-20 第三版）：** `OpenOffice-Setup-0.1.0-dev-20261120-3-win64.exe`（627,228,347 字节，SHA256 `b45ad8af30a66e3b5e7e4bb86422723e8aa39c147e034d2f2373b965788c7eb5`），装的是 r16；已发布在 GitHub Releases（`v0.1.0-dev-20261120-3`，第 63 条）。之前的：**安装包（2026-11-20，还没发布到 GitHub：上传 6 次都被网络断开，见第 60、61 条；GitHub 上最新的仍是 2026-11-17 的 r12）：** `OpenOffice-Setup-0.1.0-dev-20261120-win64.exe`（627,140,366 字节，SHA256 `139b49ac5f4a68f4c6d146c789e6cf7d40fe38ea3fa30e342b6233644d46a0d9`），装的是 r14。之前的：**安装包（2026-11-17）：** `OpenOffice-Setup-0.1.0-dev-20261117-win64.exe`（627,172,291 字节，SHA256 `d9be5391c10aa810d614edddca42f03c9b59ae638d3b2411967e65eed1723e70`），装的是 r12。之前的：**安装包（2026-11-16 第二版）：** `OpenOffice-Setup-0.1.0-dev-20261116-2-win64.exe`（627,241,227 字节，SHA256 `cb4f6a0038b26144d0132dc1cc15161fbbef64e23aa47c7ae96d431e8d1eac20`），装的是 r11。同日第一版 `OpenOffice-Setup-0.1.0-dev-20261116-win64.exe`（627,409,948 字节，SHA256 `11380a9365c90775e3e8d17a310b33a7fcb11fb0a9b2ff752402c8afba695ca7`），装的是 r10，另带 `ai-engine\llama.cpp-LICENSES.txt`。上一个是 11-09 的 r9 安装包（仍在 Releases，本机已删）。
 - 用 Inno Setup 6.7.4 生成：中文向导，按当前用户安装，附带 VC++ 运行库，带卸载；卸载会删除配置和模型，迁移过的安装也能删干净（第 47 条）。
 - 本机静默安装、逐文件比对（21,091 个文件）、启动、卸载测试通过（r10 第 53 条，r9 第 51 条）。
 - 以前的安装包（11-06 带便携包、11-07、11-07-2）已补传到 Releases，每个版本一个发布；本机 `dist/` 只留最新的。
@@ -1281,6 +1281,10 @@ python -B scripts/verify_full_source_docx_sample.py
     - `publish_release.py` 试了 3 次，每次都在上传 664 MB 的安装包时断开：`write tcp 198.18.0.1:… -> 198.18.1.14:443: wsasend: An existing connection was forcibly closed by the remote host`（经过用户的 TUN 代理，没有动）。每次失败后都查过，GitHub 上没有留下 `v0.1.0-dev-20261121` 的草稿或标签；r17（`v0.1.0-dev-20261120-4`）还在。
     - 本机 `dist/` 里 r17 和 r18 的安装包都留着，发布成功、核对后再删 r17 的。
     - **接手要做：** 网络通了重跑 `python -I scripts/publish_release.py dist/OpenOffice-Setup-0.1.0-dev-20261121-win64.exe --notes <说明>`（说明在 `build/wasm-source/tmp/release-notes-r18.md`，内容是第 66 条的要点）。
+
+68. **r18 已发布；本机只留 r18 的安装包（2026-11-22，Claude Code）：**
+    - 用户说“现在再试”。`publish_release.py` 这次第一次就成功：<https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261121>（预发布），安装包 663,920,326 字节和 `.sha256.txt` 都上传完整（`evidence/releases/v0.1.0-dev-20261121.json`）；`gh api` 核对过两个文件都是 uploaded、大小一致，r17（`v0.1.0-dev-20261120-4`）还在。发布前查过没有前几次留下的半成品。
+    - 删掉了本机 `dist/` 里 r17 的安装包和 `.sha256.txt`，只留 r18 的。
 
 ## 附录 A：requirements.md 完整原文
 
