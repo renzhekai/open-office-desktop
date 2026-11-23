@@ -257,6 +257,45 @@ def run_document_check(mcp, step, entry, before):
             later = [b for b in blocks[blocks.index(table) + 1:] if not b.get("id", "").startswith("P") or b.get("text", "").strip()]
             if later:
                 problems.append(f"{table['id']} is not at the end: {later[0].get('id')} {later[0].get('text', '')[:20]!r} follows")
+    elif step["check"] in ("sheetCell", "sheetStyle"):
+        # A spreadsheet cell, read with the assistant's own sheet.read: its value or formula, or its look.
+        content, error = mcp.call("sheet.read", {"range": step["cell"]})
+        if error:
+            return [f"{step['cell']} cannot be read"]
+        read = content.get("value", {})
+        entry["actual"] = read
+        if step["check"] == "sheetCell":
+            value = (read.get("rows") or [[""]])[0][0] if read.get("rows") else ""
+            formula = read.get("formulas", {}).get(step["cell"].upper(), "")
+            if "equals" in step and value != step["equals"]:
+                problems.append(f"{step['cell']} is {value!r}, expected {step['equals']!r}")
+            if "formulaHas" in step and not all(part in formula.replace("$", "").upper() for part in step["formulaHas"]):
+                problems.append(f"{step['cell']} formula is {formula!r}, expected one with {step['formulaHas']}")
+            if "valueOrFormula" in step and value != step["valueOrFormula"][0] and step["valueOrFormula"][1] not in formula.upper():
+                problems.append(f"{step['cell']} is {value!r} ({formula!r})")
+        else:
+            style = read.get("styles", {}).get(step["cell"].upper(), {})
+            if step.get("bold") and not style.get("bold"):
+                problems.append(f"{step['cell']} is not bold")
+            if step.get("filled") and not style.get("fill"):
+                problems.append(f"{step['cell']} has no fill")
+    elif step["check"] == "slides":
+        content, error = mcp.call("slides.read")
+        if error:
+            return ["the slides cannot be read"]
+        read = content.get("value", {})
+        entry["actual"] = read
+        slides = read.get("slides", [])
+        if "count" in step and read.get("count") != step["count"]:
+            problems.append(f"{read.get('count')} slides, expected {step['count']}")
+        index = step.get("slide", 0)
+        slide = slides[index] if -len(slides) <= index < len(slides) else {}
+        words = " ".join([slide.get("title", ""), slide.get("subtitle", "")] + slide.get("body", []) + slide.get("other", []))
+        if "title" in step and step["title"] not in slide.get("title", ""):
+            problems.append(f"slide {index} title is {slide.get('title')!r}, expected {step['title']!r}")
+        for word in step.get("has", []):
+            if word not in words:
+                problems.append(f"slide {index} has no {word!r}: {words[:120]!r}")
     elif step["check"] == "draftLook":
         # A draft went in with its style pack: the title, section headings and body show it.
         state, error = mcp.call("test.state")
@@ -337,7 +376,8 @@ def run_step(mcp, step, entry, before):
         entry["result"] = content
         entry["isError"] = error
         return check_expectation(step.get("expect", {}), content, error)
-    if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged", "tableShape", "draftLook"):
+    if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged", "tableShape", "draftLook",
+                         "sheetCell", "sheetStyle", "slides"):
         return run_document_check(mcp, step, entry, before)
     table = step.get("table", 1)
     grid = table_grid(mcp, table)

@@ -245,6 +245,16 @@ QList<PlannedEdit> withDateStyle(const QList<PlannedEdit>& plan, const TableGrid
 // The table's words for proofreading: each distinct cell text that is not a number or a
 // date, one per line.
 QString tableTexts(const TableGrid& grid);
+
+// What sheet.read and slides.read returned, written out for the model: the cells row by row
+// with their column letters (formulas beside their values), or each slide's title and lines.
+QString sheetContext(const QJsonObject& read);
+// Where a block of cells with formulas really belongs. Small models put a header with its
+// column of formulas one row too low ("D2: 乘积, D3: =A2*B2"): when every formula that refers
+// to one row refers to the row just above (or below) where it lands, the start moves by that
+// row. Otherwise the start as given.
+QString alignedFormulaStart(const QString& start, const QJsonArray& rows);
+QString slidesContext(const QJsonObject& read);
 // Proofreading fixes as cell edits: each cell that contains the wrong text and that the
 // plan does not already change.
 QList<PlannedEdit> withTypoFixes(const QList<PlannedEdit>& plan, const QList<Correction>& corrections, const TableGrid& grid, int table);

@@ -91,6 +91,15 @@ public:
             });
             return {true, QStringLiteral("test"), QStringLiteral("test read")};
         }
+        if (answerReads && (name == QStringLiteral("sheet.read") || name == QStringLiteral("slides.read"))) {
+            ++readCalls;
+            const QJsonObject value = name == QStringLiteral("sheet.read") ? sheetValue : slidesValue;
+            QTimer::singleShot(0, this, [this, id, name, value] {
+                emit editorCommandFinished(id, {true, name == QStringLiteral("sheet.read") ? QStringLiteral("sheet") : QStringLiteral("slides"),
+                                                QStringLiteral("read")}, value);
+            });
+            return {true, QStringLiteral("test"), QStringLiteral("test read")};
+        }
         if (answerReads && (name == QStringLiteral("document.outline") || name == QStringLiteral("table.read"))) {
             // The structure reads too: by default a document without tables.
             ++readCalls;
@@ -142,11 +151,15 @@ public:
                                QStringLiteral("edit.redo"), QStringLiteral("document.outline"),
                                QStringLiteral("table.read"), QStringLiteral("table.setCell"),
                                QStringLiteral("format.cells"), QStringLiteral("format.paragraphs"),
-                               QStringLiteral("format.text"), QStringLiteral("selection.select")};
+                               QStringLiteral("format.text"), QStringLiteral("selection.select"),
+                               QStringLiteral("sheet.read"), QStringLiteral("cells.set"), QStringLiteral("cells.format"),
+                               QStringLiteral("slides.read"), QStringLiteral("slide.add"), QStringLiteral("slide.setText")};
     int editorCommandCalls = 0;
     bool answerReads = false; // answer document/selection reads automatically, outside editorCommandCalls
     QJsonObject outlineValue{{QStringLiteral("paragraphs"), 1}, {QStringLiteral("tables"), 0}, {QStringLiteral("blocks"), QJsonArray()}};
     QJsonObject tableValue;
+    QJsonObject sheetValue;  // what sheet.read answers
+    QJsonObject slidesValue; // what slides.read answers
     QJsonObject lastReadArguments;
     QString documentText;
     QString selectionText;
@@ -1394,16 +1407,32 @@ private slots:
         saveStyleProfile({});
     }
 
-    void spreadsheetsAndPresentationsGetAnAssistantThatAnswersAndDrafts()
+    void spreadsheetsAndPresentationsGetTheirOwnCommands()
     {
         FakeOllama fake;
         fake.running({FakeOllama::model(QStringLiteral("fake-qwen3:test"), 1.2, QStringLiteral("qwen3"),
                                         {QStringLiteral("completion"), QStringLiteral("tools")})});
-        fake.chats = {FakeOllama::chat({QStringLiteral("可以在合计那一格输入 =SUM(B2:B5)。")}),
-                      FakeOllama::chat({QStringLiteral("# 季度销售说明\n\n本季度销售额稳步增长。")})};
+        fake.chats = {FakeOllama::chat({QStringLiteral("合计已经用公式 =SUM(A2:B2) 算好了。")}),
+                      FakeOllama::chat({}, QStringLiteral("cells_set"),
+                                       {{QStringLiteral("start"), QStringLiteral("D1")},
+                                        {QStringLiteral("rows"), QJsonArray{QJsonArray{QStringLiteral("乘积")}, QJsonArray{QStringLiteral("=A2*B2")}}}}),
+                      FakeOllama::chat({QStringLiteral("已在 D 列写好乘积公式。")}),
+                      FakeOllama::chat({}, QStringLiteral("slide_add"),
+                                       {{QStringLiteral("title"), QStringLiteral("项目进度")},
+                                        {QStringLiteral("points"), QJsonArray{QStringLiteral("需求已完成"), QStringLiteral("开发进行中")}}}),
+                      FakeOllama::chat({QStringLiteral("加好了。")})};
         ScopedEnvironment url("OPEN_OFFICE_OLLAMA_URL", fake.url());
         ControlledEngine engine;
         engine.answerReads = true;
+        engine.sheetValue = {{QStringLiteral("sheet"), QStringLiteral("兼容性")}, {QStringLiteral("range"), QStringLiteral("A1:C2")},
+                             {QStringLiteral("rows"), QJsonArray{QJsonArray{QStringLiteral("数量 A"), QStringLiteral("数量 B"), QStringLiteral("总计")},
+                                                                 QJsonArray{QStringLiteral("2"), QStringLiteral("3"), QStringLiteral("5")}}},
+                             {QStringLiteral("formulas"), QJsonObject{{QStringLiteral("C2"), QStringLiteral("=SUM(A2:B2)")}}},
+                             {QStringLiteral("selection"), QStringLiteral("D2")}};
+        engine.slidesValue = {{QStringLiteral("count"), 1}, {QStringLiteral("current"), 1},
+                              {QStringLiteral("slides"), QJsonArray{QJsonObject{{QStringLiteral("slide"), 1},
+                                                                               {QStringLiteral("title"), QStringLiteral("季度汇报")},
+                                                                               {QStringLiteral("body"), QJsonArray{QStringLiteral("销售增长")}}}}}};
         openoffice::MainWindow window(&engine);
         window.show(); // the ball shows (and stays open) only with the window
         auto* panel = window.findChild<openoffice::AssistantBall*>(QStringLiteral("assistantBall"));
@@ -1417,36 +1446,56 @@ private slots:
         action(window, "openDocumentAction")->trigger();
         engine.complete(engine.lastId, openoffice::EngineOperation::Open, true, engine.lastPath, openoffice::DocumentKind::Spreadsheet);
         QTRY_VERIFY(window.documentOpened());
+        QCOMPARE(window.localAssistant()->documentKind(), QStringLiteral("spreadsheet"));
 
-        // It says what it can do here, and offers drafting and the AI setup only.
+        // It says what it can do here.
         panel->expand();
-        QTRY_VERIFY(panel->quickContext().contains(QStringLiteral("在表格里，助手能回答问题、起草文字")));
-        QCOMPARE(panel->quickActionIds(), (QStringList{QStringLiteral("draft"), QStringLiteral("setup")}));
-        // A question: answered without the text-document commands, and nothing is read as text.
-        panel->submitText(QStringLiteral("合计怎么算？"));
+        QTRY_COMPARE(panel->quickContext(), QStringLiteral("读表、写公式、设格式；改前先给你看")); // whole, not cut
+        // A question: the sheet is read first and goes along; the model gets the sheet commands only.
+        panel->submitText(QStringLiteral("合计怎么算的？"));
         QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("SUM")));
         const QJsonObject asked = fake.chatRequests().at(0);
-        QVERIFY(!asked.contains(QStringLiteral("tools")) || asked.value(QStringLiteral("tools")).toArray().isEmpty());
-        QVERIFY(asked.value(QStringLiteral("messages")).toArray().first().toObject().value(QStringLiteral("content"))
-                    .toString().contains(QStringLiteral("XLSX 表格")));
+        const QString system = asked.value(QStringLiteral("messages")).toArray().first().toObject().value(QStringLiteral("content")).toString();
+        QVERIFY(system.contains(QStringLiteral("现在打开的是表格")) && system.contains(QStringLiteral("5（公式 =SUM(A2:B2)）")));
+        QStringList tools;
+        for (const QJsonValue& tool : asked.value(QStringLiteral("tools")).toArray())
+            tools << tool.toObject().value(QStringLiteral("function")).toObject().value(QStringLiteral("name")).toString();
+        QVERIFY(tools.contains(QStringLiteral("cells_set")) && !tools.contains(QStringLiteral("text_insert")));
         QTRY_VERIFY(!panel->working());
-        // "写一份…": drafted to copy, not put into the spreadsheet (and no look to choose).
-        panel->submitText(QStringLiteral("写一份季度销售说明"));
-        QTRY_VERIFY(button(QStringLiteral("复制")) != nullptr);
-        QVERIFY(button(QStringLiteral("插入文档")) == nullptr && button(QStringLiteral("换个风格")) == nullptr);
+        // A change: shown as a table first, then written with the sheet command.
+        panel->submitText(QStringLiteral("在 D 列算出 A 乘 B"));
+        QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("从 D1 开始写入 2 行 × 1 列（含 1 个公式）")));
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("<td>=A2*B2</td>")));
+        QCOMPARE(engine.editorCommandCalls, 0); // nothing before 执行
+        button(QStringLiteral("执行"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("cells.set"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("start")).toString(), QStringLiteral("D1"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已写入 D1–D2 的 2 格（含 1 个公式），可以撤销。"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("乘积公式")));
         QTRY_VERIFY(!panel->working());
-        QCOMPARE(fake.chatRequests().size(), 2);
-        QCOMPARE(engine.editorCommandCalls, 0);
 
-        // A presentation says so too; a text document again has everything.
+        // A presentation: its own commands; "加一页…" becomes a slide.
         window.selectDocument(QStringLiteral(PROJECT_FIXTURES_DIR "/text-shape.pptx"));
         action(window, "openDocumentAction")->trigger();
         engine.complete(engine.lastId, openoffice::EngineOperation::Open, true, engine.lastPath, openoffice::DocumentKind::Presentation);
+        QTRY_COMPARE(window.localAssistant()->documentKind(), QStringLiteral("presentation"));
         panel->expand(); // another document collapses the ball; opened again it offers what fits
-        QTRY_VERIFY(panel->quickContext().contains(QStringLiteral("在演示文稿里")));
-        QVERIFY(!window.localAssistant()->documentTools());
+        QTRY_COMPARE(panel->quickContext(), QStringLiteral("读各页、加一页、改标题；改前先给你看"));
+        panel->submitText(QStringLiteral("加一页项目进度：需求已完成、开发进行中"));
+        QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("<b>项目进度</b>")) && panel->lastMessageText().contains(QStringLiteral("<li>开发进行中</li>")));
+        const QString slideSystem = fake.chatRequests().last().value(QStringLiteral("messages")).toArray().first().toObject()
+                                        .value(QStringLiteral("content")).toString();
+        QVERIFY(slideSystem.contains(QStringLiteral("第 1 页：标题“季度汇报”；正文：销售增长")));
+        button(QStringLiteral("执行"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("slide.add"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已加了一页幻灯片（第 2 页），可以撤销。"));
+        QTRY_VERIFY(!panel->working());
+
+        // A text document again has everything.
         openFixture(window, engine, "text-table.docx");
-        QTRY_VERIFY(window.localAssistant()->documentTools());
+        QTRY_COMPARE(window.localAssistant()->documentKind(), QStringLiteral("text"));
         panel->expand();
         QTRY_VERIFY(panel->quickActionIds().contains(QStringLiteral("proofread")));
     }

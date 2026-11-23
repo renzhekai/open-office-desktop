@@ -27,7 +27,10 @@ enum class ArgumentType {
     Choice,
     Integer, // a JSON number (or a string of digits) between minimum and maximum
     Boolean, // true or false (or the strings "true"/"false")
-    Color    // "#RRGGBB" (the # may be left out); "none" too where the description says so
+    Color,   // "#RRGGBB" (the # may be left out); "none" too where the description says so
+    Address, // a cell or a range in A1 notation: D2, A1:C10
+    Grid,    // rows of cell texts: [["名称","数量"],["笔","3"]]; at most maximum rows, maxLength per cell
+    Lines    // lines of text: ["第一点","第二点"]; at most maximum lines, maxLength per line
 };
 
 struct CommandArgument {
@@ -54,7 +57,13 @@ struct CommandSpec {
     CommandTarget target = CommandTarget::Host;
     bool needsDocument = false;
     bool changesDocument = false;
+    // Editor commands work in one kind of document: text, spreadsheet, presentation, or any.
+    QString documents = QStringLiteral("text");
 };
+
+// Whether a command can run in a document of this kind ("text", "spreadsheet",
+// "presentation"; empty: no document yet, as text). Host commands always can.
+bool commandFitsDocument(const CommandSpec& spec, const QString& kind);
 
 struct AssistantCommand {
     QString name;

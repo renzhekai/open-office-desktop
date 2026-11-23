@@ -99,10 +99,10 @@ public:
     // The Ollama option: shows Ollama's models in the list (remembered). Turning it off
     // while an Ollama model answers goes back to the built-in engine.
     void setOllamaEnabled(bool enabled);
-    // Whether the model gets the commands that change the document (they are written for
-    // text documents; in a spreadsheet or presentation it answers and drafts only).
-    void setDocumentTools(bool enabled) { m_documentTools = enabled; }
-    bool documentTools() const { return m_documentTools; }
+    // The kind of the open document ("text", "spreadsheet", "presentation"; empty: none):
+    // the model gets the commands written for it (and the prompt that explains them).
+    void setDocumentKind(const QString& kind) { m_documentKind = kind; }
+    QString documentKind() const { return m_documentKind; }
     void cancel(); // stops the running answer or task, and an Ollama download
     // What the model remembers of the current conversation (user, assistant and
     // tool messages). A new conversation passes {}, a reopened one its saved history.
@@ -116,7 +116,7 @@ public:
     bool launchOllama();
 
     // The command catalog as tools (names use '_' instead of '.').
-    static QJsonArray tools();
+    QJsonArray tools() const; // the commands for the open document's kind, as model tools
     static QString toolName(const QString& command);
     static QString commandName(const QString& tool);
 
@@ -164,7 +164,7 @@ private:
     QString m_selectAfterRefresh; // the model just downloaded for the person
     QJsonArray m_history; // user/assistant/tool messages; the system prompt is added per request
     QString m_context;
-    bool m_documentTools = true;
+    QString m_documentKind;
     QString m_pendingTool;
     QStringList m_writtenThisTurn; // texts the model put into the document since the person's message
     quint64 m_chatId = 0;

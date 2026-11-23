@@ -1,0 +1,883 @@
+{
+  "label": "office-4b-1",
+  "started_utc": "2026-11-23T10:11:50.218165+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\office-4b-1\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-4b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "演示文稿：在最后加一页带要点的幻灯片",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "在最后加一页幻灯片，标题是项目进度，要点：需求已完成、开发进行中、下周测试"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 101.6319388673227
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261123-021151-b642e0",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/office-4b-1/01-text-shape.pptx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p>在最后加一页幻灯片：标题“项目进度”，3 个要点</p><p><b>项目进度</b></p><ul><li>需求已完成</li><li>开发进行中</li><li>下周测试</li></ul>",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "在最后加一页幻灯片，标题是项目进度，要点：需求已完成、开发进行中、下周测试",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p>在最后加一页幻灯片：标题“项目进度”，3 个要点</p><p><b>项目进度</b></p><ul><li>需求已完成</li><li>开发进行中</li><li>下周测试</li></ul>",
+                "title": "助手想要加一页幻灯片"
+              }
+            ],
+            "seconds": 8.75,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 9.14
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 99.79251141027576
+            },
+            "buttons": [],
+            "conversation": "20261123-021151-b642e0",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/office-4b-1/01-text-shape.pptx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已成功在最后添加一页幻灯片，标题为“项目进度”，内容包含三个要点：需求已完成、开发进行中、下周测试。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已加了一页幻灯片（第 2 页），可以撤销。",
+                "title": "加一页幻灯片"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已成功在最后添加一页幻灯片，标题为“项目进度”，内容包含三个要点：需求已完成、开发进行中、下周测试。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 3.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 3.56
+        },
+        {
+          "step": {
+            "check": "slides",
+            "count": 2,
+            "slide": -1,
+            "title": "项目进度",
+            "has": [
+              "需求已完成",
+              "开发进行中",
+              "下周测试"
+            ]
+          },
+          "actual": {
+            "count": 2,
+            "current": 2,
+            "slides": [
+              {
+                "body": [
+                  "中文 / English / 123"
+                ],
+                "slide": 1,
+                "title": "Open Office 演示样本"
+              },
+              {
+                "body": [
+                  "需求已完成",
+                  "开发进行中",
+                  "下周测试"
+                ],
+                "slide": 2,
+                "title": "项目进度"
+              }
+            ],
+            "truncated": false
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "slides",
+            "slide": 0,
+            "title": "Open Office 演示样本"
+          },
+          "actual": {
+            "count": 2,
+            "current": 2,
+            "slides": [
+              {
+                "body": [
+                  "中文 / English / 123"
+                ],
+                "slide": 1,
+                "title": "Open Office 演示样本"
+              },
+              {
+                "body": [
+                  "需求已完成",
+                  "开发进行中",
+                  "下周测试"
+                ],
+                "slide": 2,
+                "title": "项目进度"
+              }
+            ],
+            "truncated": false
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\office-4b-1\\01-text-shape.pptx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\office-4b-1\\01-text-shape.pptx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\p1-add-slide.json"
+    },
+    {
+      "name": "演示文稿：把第 1 页标题改成“季度汇报”",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把第1页的标题改成季度汇报"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 115.19517799211691
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261123-021207-707cef",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/office-4b-1/02-text-shape.pptx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "把第 1 页的标题改为：季度汇报",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把第1页的标题改成季度汇报",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "把第 1 页的标题改为：季度汇报",
+                "title": "助手想要修改幻灯片文字"
+              }
+            ],
+            "seconds": 3.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 3.27
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 105.95443655052911
+            },
+            "buttons": [],
+            "conversation": "20261123-021207-707cef",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/office-4b-1/02-text-shape.pptx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已将第1页标题改为“季度汇报”。可随时撤销此修改。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已改第 1 页的文字，可以撤销。",
+                "title": "修改幻灯片文字"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已将第1页标题改为“季度汇报”。可随时撤销此修改。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 3,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 3.04
+        },
+        {
+          "step": {
+            "check": "slides",
+            "count": 1,
+            "slide": 0,
+            "title": "季度汇报",
+            "has": [
+              "中文 / English / 123"
+            ]
+          },
+          "actual": {
+            "count": 1,
+            "current": 1,
+            "slides": [
+              {
+                "body": [
+                  "中文 / English / 123"
+                ],
+                "slide": 1,
+                "title": "季度汇报"
+              }
+            ],
+            "truncated": false
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\office-4b-1\\02-text-shape.pptx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\office-4b-1\\02-text-shape.pptx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\p2-change-title.json"
+    },
+    {
+      "name": "表格：在 D 列算出 A 乘 B，D1 写表头（要用公式）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "在D列算出A列乘以B列的结果，D1写表头“乘积”，D2用公式"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 89.43220837821676
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261123-021216-315f16",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/office-4b-1/03-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p>从 D1 开始写入 3 行 × 1 列（含 2 个公式）：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><td>乘积</td></tr><tr><td>=A2*B2</td></tr><tr><td>=A3*B3</td></tr></table>",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "在D列算出A列乘以B列的结果，D1写表头“乘积”，D2用公式",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p>从 D1 开始写入 3 行 × 1 列（含 2 个公式）：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><td>乘积</td></tr><tr><td>=A2*B2</td></tr><tr><td>=A3*B3</td></tr></table>",
+                "title": "助手想要写入单元格"
+              }
+            ],
+            "seconds": 12.75,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 12.77
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 87.77101641879742
+            },
+            "buttons": [],
+            "conversation": "20261123-021216-315f16",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/office-4b-1/03-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已正确在D列设置“乘积”标题及公式，D2=D3的公式分别为=A2*B2和=A3*B3。公式已写入单元格，可随时撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已写入 D1–D3 的 3 格（含 2 个公式），可以撤销。",
+                "title": "写入单元格"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已正确在D列设置“乘积”标题及公式，D2=D3的公式分别为=A2*B2和=A3*B3。公式已写入单元格，可随时撤销。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 5.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 5.28
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "D1",
+            "equals": "乘积"
+          },
+          "actual": {
+            "formulas": {},
+            "range": "D1:D1",
+            "rows": [
+              [
+                "乘积"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D3"
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "D2",
+            "equals": "6",
+            "formulaHas": [
+              "A2",
+              "B2"
+            ]
+          },
+          "actual": {
+            "formulas": {
+              "D2": "=A2*B2"
+            },
+            "range": "D2:D2",
+            "rows": [
+              [
+                "6"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D3"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "C2",
+            "equals": "5",
+            "formulaHas": [
+              "SUM"
+            ]
+          },
+          "actual": {
+            "formulas": {
+              "C2": "=SUM(A2:B2)"
+            },
+            "range": "C2:C2",
+            "rows": [
+              [
+                "5"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D3"
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\office-4b-1\\03-values-formula.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\office-4b-1\\03-values-formula.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x1-product-column.json"
+    },
+    {
+      "name": "表格：表头加粗、加浅蓝底色",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把第一行表头（A1到C1）加粗，加上浅蓝色底色"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 83.3777735000814
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261123-021236-0a5f53",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/office-4b-1/04-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "A1:C1：加粗、底色 #ADD8E6",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把第一行表头（A1到C1）加粗，加上浅蓝色底色",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "A1:C1：加粗、底色 #ADD8E6",
+                "title": "助手想要设置单元格格式"
+              }
+            ],
+            "seconds": 4.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 4.27
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 82.7310025252222
+            },
+            "buttons": [],
+            "conversation": "20261123-021236-0a5f53",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/office-4b-1/04-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已为A1:C1设置加粗和浅蓝色底色，可撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已设置 3 个单元格的格式，可以撤销。",
+                "title": "设置单元格格式"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已为A1:C1设置加粗和浅蓝色底色，可撤销。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 5.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 5.57
+        },
+        {
+          "step": {
+            "check": "sheetStyle",
+            "cell": "A1",
+            "bold": true,
+            "filled": true
+          },
+          "actual": {
+            "formulas": {},
+            "range": "A1:A1",
+            "rows": [
+              [
+                "数量 A"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {
+              "A1": {
+                "bold": true,
+                "fill": "#ADD8E6"
+              }
+            },
+            "truncated": false,
+            "used": "A1:C3"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "sheetStyle",
+            "cell": "C1",
+            "bold": true,
+            "filled": true
+          },
+          "actual": {
+            "formulas": {},
+            "range": "C1:C1",
+            "rows": [
+              [
+                "总计"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {
+              "C1": {
+                "bold": true,
+                "fill": "#ADD8E6"
+              }
+            },
+            "truncated": false,
+            "used": "A1:C3"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A1",
+            "equals": "数量 A"
+          },
+          "actual": {
+            "formulas": {},
+            "range": "A1:A1",
+            "rows": [
+              [
+                "数量 A"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {
+              "A1": {
+                "bold": true,
+                "fill": "#ADD8E6"
+              }
+            },
+            "truncated": false,
+            "used": "A1:C3"
+          },
+          "problems": [],
+          "seconds": 0.04
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\office-4b-1\\04-values-formula.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\office-4b-1\\04-values-formula.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x2-header-look.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "sheet.read",
+    "cells.set",
+    "cells.format",
+    "slides.read",
+    "slide.add",
+    "slide.setText",
+    "test.state",
+    "test.open",
+    "test.saveAs",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-4b",
+      "modelKey": "builtin:qwen3-4b",
+      "state": "ready",
+      "tokensPerSecond": 82.7310025252222
+    },
+    "conversation": "20261123-021236-0a5f53",
+    "conversationMessages": 3,
+    "document": "D:/open office/build/assistant-live/office-4b-1/04-values-formula.xlsx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已为A1:C1设置加粗和浅蓝色底色，可撤销。",
+    "quickActions": [
+      "draft",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-23T10:12:46.932471+00:00",
+  "ok": true
+}

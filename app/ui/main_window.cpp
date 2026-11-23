@@ -1122,10 +1122,17 @@ void MainWindow::askLocalAi(const QString& text)
         m_assistantBall->showCard(QStringLiteral("请稍等"), QStringLiteral("助手还在处理上一个请求。"), {}, false);
         return;
     }
-    // A spreadsheet or presentation has no text to read with the document commands:
-    // "写一份…" is drafted to copy, anything else is a conversation without them.
+    // A spreadsheet or presentation is read with its own command, and everything typed is a
+    // conversation with the commands written for it ("写一页…" adds a slide, not a draft).
     if (m_openedKind != DocumentKind::Text) {
-        whenLocalAiReady([this, text] { routeTypedRequest(text, QString(), QString()); });
+        const bool sheet = m_openedKind == DocumentKind::Spreadsheet;
+        readForAssistant(sheet ? QStringLiteral("sheet.read") : QStringLiteral("slides.read"), [this, text, sheet](const CommandOutcome& read) {
+            const QString content = read.ok ? (sheet ? sheetContext(read.value) : slidesContext(read.value)) : QString();
+            whenLocalAiReady([this, text, content] {
+                if (!m_localAi->ask(text, assistantContext(content, QString()))) showLocalAiCard();
+                updateAssistantWorking();
+            });
+        });
         return;
     }
     // The document is read first: what the program can do itself (formats, the default
@@ -1229,9 +1236,9 @@ void MainWindow::refreshQuickActions()
 {
     // A spreadsheet or presentation: the assistant answers and drafts; it does not change them yet.
     if (m_documentOpened && m_openedKind != DocumentKind::Text) {
-        m_assistantBall->setQuickActions(QStringLiteral("在%1里，助手能回答问题、起草文字（可以复制过去），还不能直接改%2。")
-                                             .arg(m_openedKind == DocumentKind::Spreadsheet ? QStringLiteral("表格") : QStringLiteral("演示文稿"),
-                                                  m_openedKind == DocumentKind::Spreadsheet ? QStringLiteral("单元格") : QStringLiteral("幻灯片")),
+        m_assistantBall->setQuickActions(m_openedKind == DocumentKind::Spreadsheet
+                                             ? QStringLiteral("读表、写公式、设格式；改前先给你看")
+                                             : QStringLiteral("读各页、加一页、改标题；改前先给你看"), // one line: longer is cut
                                          {{QStringLiteral("draft"), QStringLiteral("起草…")}, {QStringLiteral("setup"), QStringLiteral("本地 AI")}});
         return;
     }
@@ -2103,6 +2110,12 @@ void MainWindow::handleProposedCommand(const AssistantCommand& proposed)
                                              QRegularExpression::CaseInsensitiveOption);
     if (command.name == QStringLiteral("text.insert") && atTheEnd.match(m_localAi->lastRequest()).hasMatch())
         command.arguments.insert(QStringLiteral("position"), QStringLiteral("end"));
+    if (command.name == QStringLiteral("cells.set")) {
+        // A header and its formulas one row off (small models do): put where they refer to.
+        const QString start = command.arguments.value(QStringLiteral("start")).toString();
+        const QString aligned = alignedFormulaStart(start, command.arguments.value(QStringLiteral("rows")).toArray());
+        if (aligned != start) command.arguments.insert(QStringLiteral("start"), aligned);
+    }
     if (command.name == QStringLiteral("text.insert")) {
         // A table written as HTML (small models do), or as Markdown marked "plain": the program
         // makes it a Markdown table, so it goes in as a table and is checked after inserting,
@@ -2145,6 +2158,38 @@ void MainWindow::handleProposedCommand(const AssistantCommand& proposed)
             : position == QStringLiteral("after") ? QStringLiteral("在当前段落后面插入：") : QStringLiteral("在光标处插入：");
         const QString html = QStringLiteral("<p>") + where.toHtmlEscaped() + QStringLiteral("</p>")
             + markdownToHtml(text.size() > 3000 ? text.left(3000) : text, MarkdownTarget::Bubble, currentDocumentStyle());
+        using Action = AssistantBall::CardAction;
+        m_assistantBall->showRichCard(QStringLiteral("助手想要") + spec->title, html,
+            {Action{QStringLiteral("执行"), [this, command] { runAssistantCommand(command); }},
+             Action{QStringLiteral("不要"), [this, command] { m_localAi->commandDeclined(command); }}}, true);
+        return;
+    }
+    if (command.name == QStringLiteral("cells.set") || command.name == QStringLiteral("slide.add")) {
+        // What goes in, as it will look: the cells as a table, the slide as a title and its points.
+        QString html = QStringLiteral("<p>") + describeCommand(command).toHtmlEscaped() + QStringLiteral("</p>");
+        if (command.name == QStringLiteral("cells.set")) {
+            html += QStringLiteral("<table border=\"1\" cellspacing=\"0\" cellpadding=\"3\">");
+            const QJsonArray rows = command.arguments.value(QStringLiteral("rows")).toArray();
+            for (int r = 0; r < rows.size() && r < 20; ++r) {
+                html += QStringLiteral("<tr>");
+                const QJsonArray cells = rows[r].toArray();
+                for (int c = 0; c < cells.size() && c < 10; ++c)
+                    html += QStringLiteral("<td>") + cells[c].toVariant().toString().toHtmlEscaped() + QStringLiteral("</td>");
+                html += QStringLiteral("</tr>");
+            }
+            html += QStringLiteral("</table>");
+            if (rows.size() > 20) html += QStringLiteral("<p>……共 %1 行</p>").arg(rows.size());
+        } else {
+            html += QStringLiteral("<p><b>") + command.arguments.value(QStringLiteral("title")).toString().toHtmlEscaped() + QStringLiteral("</b></p>");
+            if (command.arguments.contains(QStringLiteral("subtitle")))
+                html += QStringLiteral("<p>") + command.arguments.value(QStringLiteral("subtitle")).toString().toHtmlEscaped() + QStringLiteral("</p>");
+            const QJsonArray points = command.arguments.value(QStringLiteral("points")).toArray();
+            if (!points.isEmpty()) {
+                html += QStringLiteral("<ul>");
+                for (const QJsonValue& point : points) html += QStringLiteral("<li>") + point.toVariant().toString().toHtmlEscaped() + QStringLiteral("</li>");
+                html += QStringLiteral("</ul>");
+            }
+        }
         using Action = AssistantBall::CardAction;
         m_assistantBall->showRichCard(QStringLiteral("助手想要") + spec->title, html,
             {Action{QStringLiteral("执行"), [this, command] { runAssistantCommand(command); }},
@@ -2268,7 +2313,9 @@ void MainWindow::handleOperationFinished(quint64 requestId, EngineOperation oper
     const QString previousPath = m_openedPath;
     m_openedPath = path;
     m_openedKind = kind;
-    m_localAi->setDocumentTools(kind == DocumentKind::Text);
+    m_localAi->setDocumentKind(kind == DocumentKind::Text ? QStringLiteral("text")
+                               : kind == DocumentKind::Spreadsheet ? QStringLiteral("spreadsheet")
+                               : kind == DocumentKind::Presentation ? QStringLiteral("presentation") : QString());
     if (operation == EngineOperation::Create) {
         m_untitledTitle = m_pendingTitle;
         ++m_untitledCounts[static_cast<int>(kind)];

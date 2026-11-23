@@ -9,7 +9,10 @@ Starts OpenOffice.exe from a runtime with the MCP test server and the engine's d
     the text in the saved file;
   - creates a new document (document.create), changes it, saves it to a path (test.saveAs) and
     finds the text in that file;
-  - opens that file again and reads the text back in the editor.
+  - opens that file again and reads the text back in the editor;
+  - runs the assistant's own commands for the kind through MCP (sheet.read, cells.set with a
+    formula, cells.format, edit.undo, save; slides.read, slide.add with and without layouts,
+    slide.setText, edit.undo, save as) and checks what they did.
 The changes go through the editor's own API in the editor frame (scripts/editor_eval.mjs);
 the assistant's commands are for text documents only. A record goes to
 evidence/office-kinds/<label>.json.
@@ -91,6 +94,65 @@ def file_has(path, text, prefix):
                    for name in archive.namelist() if name.startswith(prefix) and name.endswith(".xml"))
 
 
+def commands(mcp, kind, step, work, prefix):
+    """The assistant's own commands for this kind, called through MCP on the open document."""
+    def value(tool, arguments=None):
+        content, error = mcp.call(tool, arguments or {})
+        return (None if error else content.get("value", {})), content
+
+    if kind == "spreadsheet":
+        read, content = value("sheet.read")
+        step("sheet.read", read and read.get("rows", [[None]])[0][0] == "数量 A" and read.get("formulas", {}).get("C2") == "=SUM(A2:B2)",
+             value=read, message=content.get("message"))
+        done, content = value("cells.set", {"start": "E1", "rows": [["乘积"], ["=A2*B2"]]})
+        read, _ = value("sheet.read", {"range": "E1:E2"})
+        step("cells.set (a formula)", done is not None and read and read.get("rows") == [["乘积"], ["6"]]
+             and read.get("formulas", {}).get("E2") == "=A2*B2", message=content.get("message"), read=read)
+        done, content = value("cells.format", {"range": "A1:E1", "bold": True, "fill": "#D9E2F3"})
+        read, _ = value("sheet.read", {"range": "A1:E1"})
+        styles = (read or {}).get("styles", {})
+        step("cells.format", done is not None and styles.get("A1", {}).get("bold") and styles.get("E1", {}).get("fill") == "#D9E2F3",
+             message=content.get("message"), styles=styles)
+        done, content = value("edit.undo")
+        read, _ = value("sheet.read", {"range": "A1:E1"})
+        step("edit.undo (the format)", done is not None and "fill" not in (read or {}).get("styles", {}).get("E1", {}),
+             message=content.get("message"), styles=(read or {}).get("styles"))
+        content, error = mcp.call("document.save")
+        saved = work / "existing.xlsx"
+        step("saved with the formula", not error and file_has(saved, "A2*B2", "xl/") and file_has(saved, "乘积", "xl/"))
+        return
+    # A presentation of plain text boxes: the first box is the title, and that is what changes.
+    done, content = value("slide.setText", {"slide": 1, "part": "title", "text": "改过的第一页标题"})
+    read, _ = value("slides.read")
+    step("slide.setText on text boxes", done is not None and read["slides"][0].get("title") == "改过的第一页标题",
+         message=content.get("message"), slide=read["slides"][0] if read else None)
+    # Only a blank layout to use: the new slide is made of text boxes.
+    done, content = value("slide.add", {"title": "命令加的页", "points": ["要点一", "要点二"], "position": "end"})
+    read, _ = value("slides.read")
+    last = (read or {}).get("slides", [{}])[-1]
+    texts = [last.get("title", "")] + last.get("body", []) + last.get("other", [])
+    step("slide.add (no layout to use)", done is not None and "命令加的页" in texts and "要点二" in texts,
+         message=content.get("message"), slide=last)
+    # A new presentation has the usual layouts: title and content placeholders.
+    mcp.call("document.save")  # the current one first: no question about unsaved changes
+    mcp.call("document.create", {"kind": "presentation"})
+    editor(WAIT % 2500 + STATE)
+    done, content = value("slide.add", {"title": "项目进度", "points": ["需求已完成", "开发进行中", "下周测试"]})
+    read, _ = value("slides.read")
+    second = (read or {}).get("slides", [{}, {}])[1] if read and len(read.get("slides", [])) > 1 else {}
+    step("slide.add (title and content)", done is not None and second.get("title") == "项目进度"
+         and second.get("body") == ["需求已完成", "开发进行中", "下周测试"], message=content.get("message"), slide=second)
+    done, content = value("slide.setText", {"slide": 2, "part": "title", "text": "改过的标题"})
+    read, _ = value("slides.read")
+    step("slide.setText", done is not None and read["slides"][1].get("title") == "改过的标题", message=content.get("message"))
+    done, content = value("edit.undo")
+    read, _ = value("slides.read")
+    step("edit.undo (the title)", done is not None and read["slides"][1].get("title") == "项目进度", message=content.get("message"))
+    target = work / "commands.pptx"
+    content, error = mcp.call("test.saveAs", {"path": str(target)})
+    step("saved with the slide", not error and target.is_file() and file_has(target, "开发进行中", prefix))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("label")
@@ -164,6 +226,7 @@ def main():
             back = editor(SHEET_READ if kind == "spreadsheet" else SLIDE_READ)
             found = back and (marker in back.get("values", []) if kind == "spreadsheet" else marker in back.get("texts", []))
             step(f"{kind}: reopened and read back", not error and found and back.get("viewMode") is False, editor=back)
+            commands(mcp, kind, step, work, prefix)
         state, _ = mcp.call("test.state")
         record["final_state"] = state
     except Exception as error:

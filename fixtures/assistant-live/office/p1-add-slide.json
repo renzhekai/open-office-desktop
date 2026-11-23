@@ -1,0 +1,34 @@
+{
+  "name": "演示文稿：在最后加一页带要点的幻灯片",
+  "document": "fixtures/generated/text-shape.pptx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "在最后加一页幻灯片，标题是项目进度，要点：需求已完成、开发进行中、下周测试"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "slides",
+      "count": 2,
+      "slide": -1,
+      "title": "项目进度",
+      "has": [
+        "需求已完成",
+        "开发进行中",
+        "下周测试"
+      ]
+    },
+    {
+      "check": "slides",
+      "slide": 0,
+      "title": "Open Office 演示样本"
+    }
+  ]
+}

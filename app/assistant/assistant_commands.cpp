@@ -55,10 +55,15 @@ CommandArgument alignArgument()
             {QStringLiteral("left"), QStringLiteral("center"), QStringLiteral("right"), QStringLiteral("justify")}};
 }
 
+CommandArgument addressArgument(const QString& name, bool required, const QString& description)
+{
+    return {name, ArgumentType::Address, required, 20, description};
+}
+
 QList<CommandSpec> buildCatalog()
 {
     using A = CommandArgument;
-    return {
+    QList<CommandSpec> catalog{
         {QStringLiteral("assistant.listCommands"), QStringLiteral("全部命令"),
          QStringLiteral("列出助手可以执行的全部命令及其参数。"), {}, CommandTarget::Host, false, false},
         {QStringLiteral("document.status"), QStringLiteral("文档状态"),
@@ -161,10 +166,57 @@ QList<CommandSpec> buildCatalog()
           A{QStringLiteral("column"), ArgumentType::Integer, false, 0, QStringLiteral("列号。"), {}, 1, 100}},
          CommandTarget::Editor, true, false},
         {QStringLiteral("edit.undo"), QStringLiteral("撤销"),
-         QStringLiteral("撤销编辑器中的上一步操作。"), {}, CommandTarget::Editor, true, true},
+         QStringLiteral("撤销编辑器中的上一步操作。"), {}, CommandTarget::Editor, true, true, QStringLiteral("any")},
         {QStringLiteral("edit.redo"), QStringLiteral("重做"),
-         QStringLiteral("重做上一步被撤销的操作。"), {}, CommandTarget::Editor, true, true},
+         QStringLiteral("重做上一步被撤销的操作。"), {}, CommandTarget::Editor, true, true, QStringLiteral("any")},
+        // Spreadsheets.
+        {QStringLiteral("sheet.read"), QStringLiteral("读取工作表"),
+         QStringLiteral("读取当前工作表：已用范围里每一格的值（公式格同时给出公式），加粗和底色，以及选中的单元格。"
+                        "最多 60 行 × 26 列；range 可以只读一部分，例如 A1:F20。改表格前先用它看清楚。"),
+         {addressArgument(QStringLiteral("range"), false, QStringLiteral("只读这一部分，例如 A1:F20；不给就读已用范围。"))},
+         CommandTarget::Editor, true, false, QStringLiteral("spreadsheet")},
+        {QStringLiteral("cells.set"), QStringLiteral("写入单元格"),
+         QStringLiteral("从 start 这一格开始，按行写入 rows：rows 的每一项是一行，每行是这一行从左到右各格的内容。"
+                        "以 = 开头的是公式（例如 \"=B2*C2\"、\"=SUM(D2:D9)\"），会自动计算；空字符串表示清空这一格。可用撤销恢复。"),
+         {addressArgument(QStringLiteral("start"), true, QStringLiteral("从哪一格开始写，例如 D2。")),
+          A{QStringLiteral("rows"), ArgumentType::Grid, true, 1000,
+            QStringLiteral("要写的内容，例如 [[\"乘积\"],[\"=A2*B2\"],[\"=A3*B3\"]]；最多 200 行，每格最多 1000 个字符。"), {}, 0, 200}},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("cells.format"), QStringLiteral("设置单元格格式"),
+         QStringLiteral("给 range 里的单元格设置格式：加粗、斜体、字号、文字颜色、底色、水平对齐、数字格式、边框。只给出要改的那几项。可用撤销恢复。"),
+         {addressArgument(QStringLiteral("range"), true, QStringLiteral("要设置的单元格，例如 A1:D1 或 B2。")),
+          boolArgument(QStringLiteral("bold"), QStringLiteral("加粗")), boolArgument(QStringLiteral("italic"), QStringLiteral("斜体")),
+          fontSizeArgument(), colorArgument(QStringLiteral("color"), QStringLiteral("文字颜色"), false),
+          colorArgument(QStringLiteral("fill"), QStringLiteral("单元格底色"), true),
+          A{QStringLiteral("align"), ArgumentType::Choice, false, 0, QStringLiteral("水平对齐：left、center 或 right。"),
+            {QStringLiteral("left"), QStringLiteral("center"), QStringLiteral("right")}},
+          A{QStringLiteral("numberFormat"), ArgumentType::String, false, 40,
+            QStringLiteral("数字格式，例如 0.00（两位小数）、#,##0（千分位）、0%（百分比）、yyyy-mm-dd（日期）。")},
+          boolArgument(QStringLiteral("borders"), QStringLiteral("细边框（每一格四周）"))},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        // Presentations.
+        {QStringLiteral("slides.read"), QStringLiteral("读取幻灯片"),
+         QStringLiteral("按顺序列出每一页幻灯片的标题、副标题和正文各行（最多 50 页），以及现在在第几页。"),
+         {}, CommandTarget::Editor, true, false, QStringLiteral("presentation")},
+        {QStringLiteral("slide.add"), QStringLiteral("加一页幻灯片"),
+         QStringLiteral("加一页幻灯片：有 points 时用“标题和内容”版式，标题写 title、正文每个要点一行；只有 subtitle 时用标题页版式。"
+                        "默认加在当前页后面，position 为 end 时加在最后。可用撤销恢复。"),
+         {A{QStringLiteral("title"), ArgumentType::String, true, 200, QStringLiteral("这一页的标题，1 到 200 个字符。")},
+          A{QStringLiteral("points"), ArgumentType::Lines, false, 300, QStringLiteral("正文的要点，每项一行，最多 12 行。"), {}, 0, 12},
+          A{QStringLiteral("subtitle"), ArgumentType::String, false, 300, QStringLiteral("副标题（标题页用），最多 300 个字符。")},
+          A{QStringLiteral("position"), ArgumentType::Choice, false, 0, QStringLiteral("after（默认，当前页后面）或 end（最后）。"),
+            {QStringLiteral("after"), QStringLiteral("end")}}},
+         CommandTarget::Editor, true, true, QStringLiteral("presentation")},
+        {QStringLiteral("slide.setText"), QStringLiteral("修改幻灯片文字"),
+         QStringLiteral("把第 slide 页的标题（part 为 title）、副标题（subtitle）或正文（body）换成 text（一段）或 points（每项一行）。只给 text 或 points 其中一个。可用撤销恢复。"),
+         {A{QStringLiteral("slide"), ArgumentType::Integer, true, 0, QStringLiteral("第几页，从 1 开始。"), {}, 1, 500},
+          A{QStringLiteral("part"), ArgumentType::Choice, true, 0, QStringLiteral("title、subtitle 或 body。"),
+            {QStringLiteral("title"), QStringLiteral("subtitle"), QStringLiteral("body")}},
+          A{QStringLiteral("text"), ArgumentType::String, false, 2000, QStringLiteral("新的文字（一段）。")},
+          A{QStringLiteral("points"), ArgumentType::Lines, false, 300, QStringLiteral("新的各行文字，最多 12 行。"), {}, 0, 12}},
+         CommandTarget::Editor, true, true, QStringLiteral("presentation")},
     };
+    return catalog;
 }
 
 struct SlashAlias {
@@ -272,6 +324,12 @@ bool integerArgument(const QJsonValue& value, int minimum, int maximum)
     return number == static_cast<double>(static_cast<qint64>(number)) && number >= minimum && (maximum <= 0 || number <= maximum);
 }
 
+bool commandFitsDocument(const CommandSpec& spec, const QString& kind)
+{
+    if (spec.target == CommandTarget::Host || spec.documents == QStringLiteral("any")) return true;
+    return spec.documents == (kind.isEmpty() ? QStringLiteral("text") : kind);
+}
+
 CommandOutcome validateCommand(const AssistantCommand& command)
 {
     const CommandSpec* spec = findCommand(command.name);
@@ -299,6 +357,25 @@ CommandOutcome validateCommand(const AssistantCommand& command)
                 return failure("invalid_argument", QStringLiteral("参数 %1 只能是 true 或 false。").arg(argument.name));
             continue;
         }
+        if (argument.type == ArgumentType::Grid || argument.type == ArgumentType::Lines) {
+            // Rows of cells, or lines: arrays of texts (numbers are taken as their text).
+            const bool grid = argument.type == ArgumentType::Grid;
+            const QJsonArray outer = value.toArray();
+            if (!value.isArray() || outer.isEmpty() || (argument.maximum > 0 && outer.size() > argument.maximum))
+                return failure("invalid_argument", QStringLiteral("参数 %1 要是 1 到 %2 项的数组。").arg(argument.name).arg(argument.maximum));
+            for (const QJsonValue& item : outer) {
+                const QJsonArray cells = grid ? item.toArray() : QJsonArray{item};
+                if ((grid && (!item.isArray() || cells.size() > 50)))
+                    return failure("invalid_argument", QStringLiteral("参数 %1 的每一行要是最多 50 格的数组。").arg(argument.name));
+                for (const QJsonValue& cell : cells) {
+                    if (!cell.isString() && !cell.isDouble() && !cell.isBool())
+                        return failure("invalid_argument", QStringLiteral("参数 %1 里的每一项要是文字或数字。").arg(argument.name));
+                    if (argument.maxLength > 0 && cell.toVariant().toString().size() > argument.maxLength)
+                        return failure("argument_too_long", QStringLiteral("参数 %1 里有一项超过 %2 个字符。").arg(argument.name).arg(argument.maxLength));
+                }
+            }
+            continue;
+        }
         if (!value.isString())
             return failure("invalid_argument", QStringLiteral("参数 %1 必须是文字。").arg(argument.name));
         const QString text = value.toString();
@@ -313,6 +390,9 @@ CommandOutcome validateCommand(const AssistantCommand& command)
             return failure("invalid_argument", QStringLiteral("参数 %1 不能为空。").arg(argument.name));
         if (argument.maxLength > 0 && text.size() > argument.maxLength)
             return failure("argument_too_long", QStringLiteral("参数 %1 超过 %2 个字符。").arg(argument.name).arg(argument.maxLength));
+        static const QRegularExpression address(QStringLiteral("^\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?$"));
+        if (argument.type == ArgumentType::Address && !address.match(text).hasMatch())
+            return failure("invalid_argument", QStringLiteral("参数 %1 要写成单元格地址，例如 D2 或 A1:C10。").arg(argument.name));
         if (argument.type == ArgumentType::DocumentKind && !documentKinds().contains(text))
             return failure("invalid_argument", QStringLiteral("文档类型只能是 text、spreadsheet 或 presentation。"));
         if (argument.type == ArgumentType::Choice && !argument.choices.contains(text))
@@ -325,6 +405,15 @@ CommandOutcome validateCommand(const AssistantCommand& command)
     if (command.name.startsWith(QStringLiteral("format.")) && command.name != QStringLiteral("format.read")
         && std::none_of(formats.begin(), formats.end(), [&command](const QString& key) { return command.arguments.contains(key); }))
         return failure("missing_argument", QStringLiteral("没有说要设置哪种格式：至少给出 bold、italic、fontSize、color、align 等其中一项。"));
+    static const QStringList cellFormats{QStringLiteral("bold"), QStringLiteral("italic"), QStringLiteral("fontSize"),
+                                         QStringLiteral("color"), QStringLiteral("fill"), QStringLiteral("align"),
+                                         QStringLiteral("numberFormat"), QStringLiteral("borders")};
+    if (command.name == QStringLiteral("cells.format")
+        && std::none_of(cellFormats.begin(), cellFormats.end(), [&command](const QString& key) { return command.arguments.contains(key); }))
+        return failure("missing_argument", QStringLiteral("没有说要设置哪种格式：至少给出 bold、fill、align、numberFormat 等其中一项。"));
+    if (command.name == QStringLiteral("slide.setText")
+        && command.arguments.contains(QStringLiteral("text")) == command.arguments.contains(QStringLiteral("points")))
+        return failure("invalid_argument", QStringLiteral("text 和 points 要给出且只给出其中一个。"));
     if (command.name == QStringLiteral("selection.select")) {
         const int ways = int(command.arguments.contains(QStringLiteral("find"))) + int(command.arguments.contains(QStringLiteral("paragraph")))
             + int(command.arguments.contains(QStringLiteral("table")));
@@ -333,8 +422,10 @@ CommandOutcome validateCommand(const AssistantCommand& command)
     // Ranges like "2-4", "1,3" or "all".
     static const QRegularExpression span(QStringLiteral("^(all|\\d+(-\\d+)?(,\\d+(-\\d+)?)*)$"));
     for (const char* name : {"rows", "columns", "paragraphs"}) {
-        const QString value = command.arguments.value(QLatin1String(name)).toString().remove(QLatin1Char(' '));
-        if (command.arguments.contains(QLatin1String(name)) && !span.match(value).hasMatch())
+        // (cells.set has "rows" too: an array of cells, checked above.)
+        const QJsonValue given = command.arguments.value(QLatin1String(name));
+        const QString value = given.toString().remove(QLatin1Char(' '));
+        if (given.isString() && !span.match(value).hasMatch())
             return failure("invalid_argument", QStringLiteral("参数 %1 要写成 1、2-4、1,3 或 all。").arg(QLatin1String(name)));
     }
     return {true, QStringLiteral("valid"), QString(), {}};
@@ -368,6 +459,9 @@ QString formatWords(const QJsonObject& arguments)
     static const QHash<QString, QString> styles{{QStringLiteral("heading1"), QStringLiteral("一级标题")}, {QStringLiteral("heading2"), QStringLiteral("二级标题")},
                                                 {QStringLiteral("heading3"), QStringLiteral("三级标题")}, {QStringLiteral("normal"), QStringLiteral("正文样式")}};
     if (arguments.contains(QStringLiteral("style"))) words << styles.value(arguments.value(QStringLiteral("style")).toString());
+    if (arguments.contains(QStringLiteral("numberFormat")))
+        words << QStringLiteral("数字格式 ") + arguments.value(QStringLiteral("numberFormat")).toString();
+    flag("borders", QStringLiteral("加细边框"), QStringLiteral("去掉边框"));
     return words.join(QStringLiteral("、"));
 }
 
@@ -395,6 +489,39 @@ QString describeCommand(const AssistantCommand& command)
     if (command.name == QStringLiteral("format.text"))
         return QStringLiteral("文中所有“%1”：%2").arg(a.value(QStringLiteral("find")).toString(), formats);
     if (command.name == QStringLiteral("format.selection")) return QStringLiteral("选中的文字：") + formats;
+    if (command.name == QStringLiteral("cells.set")) {
+        const QJsonArray rows = a.value(QStringLiteral("rows")).toArray();
+        int columns = 0;
+        int formulas = 0;
+        for (const QJsonValue& row : rows) {
+            columns = std::max(columns, int(row.toArray().size()));
+            for (const QJsonValue& cell : row.toArray()) formulas += cell.toVariant().toString().startsWith(QLatin1Char('=')) ? 1 : 0;
+        }
+        return QStringLiteral("从 %1 开始写入 %2 行 × %3 列%4：").arg(a.value(QStringLiteral("start")).toString().toUpper())
+            .arg(rows.size()).arg(columns).arg(formulas ? QStringLiteral("（含 %1 个公式）").arg(formulas) : QString());
+    }
+    if (command.name == QStringLiteral("cells.format"))
+        return QStringLiteral("%1：%2").arg(a.value(QStringLiteral("range")).toString().toUpper(), formats);
+    if (command.name == QStringLiteral("slide.add")) {
+        const int points = int(a.value(QStringLiteral("points")).toArray().size());
+        return QStringLiteral("%1加一页幻灯片：标题“%2”%3").arg(
+            a.value(QStringLiteral("position")).toString() == QStringLiteral("end") ? QStringLiteral("在最后") : QStringLiteral("在当前页后面"),
+            a.value(QStringLiteral("title")).toString(),
+            points ? QStringLiteral("，%1 个要点").arg(points) : QString());
+    }
+    if (command.name == QStringLiteral("slide.setText")) {
+        static const QHash<QString, QString> parts{{QStringLiteral("title"), QStringLiteral("标题")},
+                                                   {QStringLiteral("subtitle"), QStringLiteral("副标题")},
+                                                   {QStringLiteral("body"), QStringLiteral("正文")}};
+        QString text = a.value(QStringLiteral("text")).toString();
+        if (a.contains(QStringLiteral("points"))) {
+            QStringList lines;
+            for (const QJsonValue& line : a.value(QStringLiteral("points")).toArray()) lines << line.toVariant().toString();
+            text = lines.join(QStringLiteral(" / "));
+        }
+        return QStringLiteral("把第 %1 页的%2改为：%3").arg(number("slide"), parts.value(a.value(QStringLiteral("part")).toString()),
+                                                       text.size() > 200 ? text.left(200) + QStringLiteral("…") : text);
+    }
     if (command.name == QStringLiteral("edit.undo")) return QStringLiteral("撤销上一步修改。");
     if (command.name == QStringLiteral("edit.redo")) return QStringLiteral("重做刚才撤销的修改。");
     if (command.name == QStringLiteral("document.save")) return QStringLiteral("保存当前文档。");
@@ -416,6 +543,18 @@ QJsonArray commandCatalogJson()
                 if (argument.maximum > 0) property.insert(QStringLiteral("maximum"), argument.maximum);
             }
             if (argument.type == ArgumentType::Boolean) property.insert(QStringLiteral("type"), QStringLiteral("boolean"));
+            if (argument.type == ArgumentType::Grid) {
+                property.insert(QStringLiteral("type"), QStringLiteral("array"));
+                property.insert(QStringLiteral("items"), QJsonObject{{QStringLiteral("type"), QStringLiteral("array")},
+                                                                     {QStringLiteral("items"), QJsonObject{{QStringLiteral("type"), QStringLiteral("string")}}}});
+                property.insert(QStringLiteral("maxItems"), argument.maximum);
+            }
+            if (argument.type == ArgumentType::Lines) {
+                property.insert(QStringLiteral("type"), QStringLiteral("array"));
+                property.insert(QStringLiteral("items"), QJsonObject{{QStringLiteral("type"), QStringLiteral("string")},
+                                                                     {QStringLiteral("maxLength"), argument.maxLength}});
+                property.insert(QStringLiteral("maxItems"), argument.maximum);
+            }
             if (argument.type == ArgumentType::Color)
                 property.insert(QStringLiteral("pattern"), argument.allowNone ? QStringLiteral("^(#?[0-9A-Fa-f]{6}|none)$")
                                                                               : QStringLiteral("^#?[0-9A-Fa-f]{6}$"));
@@ -423,7 +562,8 @@ QJsonArray commandCatalogJson()
                 property.insert(QStringLiteral("enum"), QJsonArray::fromStringList(documentKinds()));
             if (argument.type == ArgumentType::Choice)
                 property.insert(QStringLiteral("enum"), QJsonArray::fromStringList(argument.choices));
-            if (argument.maxLength > 0) property.insert(QStringLiteral("maxLength"), argument.maxLength);
+            if (argument.maxLength > 0 && argument.type != ArgumentType::Grid && argument.type != ArgumentType::Lines)
+                property.insert(QStringLiteral("maxLength"), argument.maxLength);
             if (argument.required) {
                 if (argument.type == ArgumentType::String) property.insert(QStringLiteral("minLength"), 1);
                 required.append(argument.name);

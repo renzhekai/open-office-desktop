@@ -1,0 +1,27 @@
+{
+  "name": "演示文稿：把第 1 页标题改成“季度汇报”",
+  "document": "fixtures/generated/text-shape.pptx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把第1页的标题改成季度汇报"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "slides",
+      "count": 1,
+      "slide": 0,
+      "title": "季度汇报",
+      "has": [
+        "中文 / English / 123"
+      ]
+    }
+  ]
+}

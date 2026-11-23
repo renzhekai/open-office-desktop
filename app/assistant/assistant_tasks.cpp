@@ -359,6 +359,99 @@ QJsonArray taskMessages(const TaskSpec& spec, const TaskInput& input)
             QJsonObject{{QStringLiteral("role"), QStringLiteral("user")}, {QStringLiteral("content"), user}}};
 }
 
+QString sheetContext(const QJsonObject& read)
+{
+    static const QRegularExpression start(QStringLiteral("^([A-Za-z]+)([0-9]+)"));
+    const QRegularExpressionMatch at = start.match(read.value(QStringLiteral("range")).toString());
+    int column = 0;
+    for (const QChar letter : at.captured(1).toUpper()) column = column * 26 + (letter.unicode() - 'A' + 1);
+    column = std::max(column - 1, 0);
+    const int firstRow = at.hasMatch() ? at.captured(2).toInt() : 1;
+    const auto letters = [](int c) {
+        QString text;
+        for (++c; c > 0; c = (c - 1) / 26) text.prepend(QChar('A' + (c - 1) % 26));
+        return text;
+    };
+    const QJsonArray rows = read.value(QStringLiteral("rows")).toArray();
+    const QJsonObject formulas = read.value(QStringLiteral("formulas")).toObject();
+    int width = 0;
+    for (const QJsonValue& row : rows) width = std::max(width, int(row.toArray().size()));
+    QString text = QStringLiteral("工作表“%1”（读到的范围 %2").arg(read.value(QStringLiteral("sheet")).toString(),
+                                                              read.value(QStringLiteral("range")).toString());
+    if (!read.value(QStringLiteral("selection")).toString().isEmpty())
+        text += QStringLiteral("；选中 ") + read.value(QStringLiteral("selection")).toString();
+    text += QStringLiteral("）：\n列 |");
+    for (int c = 0; c < width; ++c) text += QLatin1Char(' ') + letters(column + c) + QStringLiteral(" |");
+    for (int r = 0; r < rows.size(); ++r) {
+        text += QStringLiteral("\n%1 |").arg(firstRow + r);
+        const QJsonArray cells = rows[r].toArray();
+        for (int c = 0; c < width; ++c) {
+            const QString name = letters(column + c) + QString::number(firstRow + r);
+            QString value = cells.at(c).toVariant().toString();
+            if (formulas.contains(name)) value += QStringLiteral("（公式 %1）").arg(formulas.value(name).toString());
+            text += QLatin1Char(' ') + value + QStringLiteral(" |");
+        }
+    }
+    const QJsonObject styles = read.value(QStringLiteral("styles")).toObject();
+    QStringList bold, fills;
+    for (auto it = styles.begin(); it != styles.end(); ++it) {
+        const QJsonObject style = it.value().toObject();
+        if (style.value(QStringLiteral("bold")).toBool()) bold << it.key();
+        if (style.contains(QStringLiteral("fill"))) fills << it.key() + QLatin1Char(' ') + style.value(QStringLiteral("fill")).toString();
+    }
+    if (!bold.isEmpty()) text += QStringLiteral("\n加粗的格：") + bold.mid(0, 40).join(QStringLiteral("、"));
+    if (!fills.isEmpty()) text += QStringLiteral("\n有底色的格：") + fills.mid(0, 40).join(QStringLiteral("、"));
+    if (read.value(QStringLiteral("truncated")).toBool()) text += QStringLiteral("\n（表格更大，只读了前 60 行 × 26 列。）");
+    return text;
+}
+
+QString alignedFormulaStart(const QString& start, const QJsonArray& rows)
+{
+    static const QRegularExpression cell(QStringLiteral("^\\$?([A-Za-z]{1,3})\\$?([0-9]{1,7})$"));
+    static const QRegularExpression reference(QStringLiteral("(?<![A-Za-z0-9_.])\\$?[A-Za-z]{1,3}\\$?([0-9]{1,7})(?![0-9(A-Za-z_])"));
+    const QRegularExpressionMatch at = cell.match(start.trimmed());
+    if (!at.hasMatch()) return start;
+    const int top = at.captured(2).toInt();
+    int shift = 0;
+    bool seen = false;
+    for (int r = 0; r < rows.size(); ++r) {
+        for (const QJsonValue& value : rows[r].toArray()) {
+            const QString text = value.toVariant().toString();
+            if (!text.startsWith(QLatin1Char('='))) continue;
+            QSet<int> referenced;
+            for (auto it = reference.globalMatch(text.mid(1)); it.hasNext();) referenced.insert(it.next().captured(1).toInt());
+            if (referenced.size() != 1) continue; // a total over many rows says nothing about the row it is on
+            const int delta = *referenced.begin() - (top + r);
+            if (seen && delta != shift) return start; // they disagree: leave it
+            shift = delta;
+            seen = true;
+        }
+    }
+    if (!seen || (shift != -1 && shift != 1) || top + shift < 1) return start;
+    return at.captured(1).toUpper() + QString::number(top + shift);
+}
+
+QString slidesContext(const QJsonObject& read)
+{
+    QString text = QStringLiteral("演示文稿共 %1 页，现在在第 %2 页：").arg(read.value(QStringLiteral("count")).toInt())
+                       .arg(read.value(QStringLiteral("current")).toInt());
+    for (const QJsonValue& value : read.value(QStringLiteral("slides")).toArray()) {
+        const QJsonObject slide = value.toObject();
+        QStringList parts;
+        parts << QStringLiteral("标题“%1”").arg(slide.value(QStringLiteral("title")).toString());
+        if (slide.contains(QStringLiteral("subtitle")))
+            parts << QStringLiteral("副标题“%1”").arg(slide.value(QStringLiteral("subtitle")).toString());
+        QStringList body;
+        for (const QJsonValue& line : slide.value(QStringLiteral("body")).toArray()) body << line.toString();
+        if (!body.isEmpty()) parts << QStringLiteral("正文：") + body.join(QStringLiteral(" / "));
+        QStringList other;
+        for (const QJsonValue& line : slide.value(QStringLiteral("other")).toArray()) other << line.toString();
+        if (!other.isEmpty()) parts << QStringLiteral("其他文字：") + other.join(QStringLiteral(" / "));
+        text += QStringLiteral("\n第 %1 页：").arg(slide.value(QStringLiteral("slide")).toInt()) + parts.join(QStringLiteral("；"));
+    }
+    return text;
+}
+
 QJsonObject taskFormat(const TaskSpec& spec, const TaskInput& input)
 {
     if (spec.output == TaskOutput::Choice) {

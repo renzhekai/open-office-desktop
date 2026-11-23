@@ -576,8 +576,27 @@ private slots:
 
     void toolsMirrorTheCommandCatalog()
     {
-        const QJsonArray tools = LocalAssistant::tools();
-        QCOMPARE(tools.size(), commandCatalog().size() - 1); // listing commands means nothing to a model
+        LocalAssistant assistant;
+        const QJsonArray tools = assistant.tools();
+        int forText = 0;
+        for (const CommandSpec& spec : commandCatalog()) forText += commandFitsDocument(spec, QStringLiteral("text")) ? 1 : 0;
+        QCOMPARE(tools.size(), forText - 1); // listing commands means nothing to a model
+        // Each kind of document gets the commands written for it, and the ones for any document.
+        const auto names = [&assistant] {
+            QStringList list;
+            for (const QJsonValue& value : assistant.tools())
+                list << value.toObject().value(QStringLiteral("function")).toObject().value(QStringLiteral("name")).toString();
+            return list;
+        };
+        QVERIFY(names().contains(QStringLiteral("text_insert")) && !names().contains(QStringLiteral("cells_set")));
+        assistant.setDocumentKind(QStringLiteral("spreadsheet"));
+        QVERIFY(names().contains(QStringLiteral("cells_set")) && names().contains(QStringLiteral("sheet_read"))
+                && names().contains(QStringLiteral("cells_format")) && names().contains(QStringLiteral("edit_undo"))
+                && names().contains(QStringLiteral("document_save")));
+        QVERIFY(!names().contains(QStringLiteral("text_insert")) && !names().contains(QStringLiteral("slide_add")));
+        assistant.setDocumentKind(QStringLiteral("presentation"));
+        QVERIFY(names().contains(QStringLiteral("slide_add")) && names().contains(QStringLiteral("slides_read"))
+                && !names().contains(QStringLiteral("cells_set")) && !names().contains(QStringLiteral("table_setCell")));
         for (const QJsonValue& value : tools) {
             const QJsonObject function = value.toObject().value(QStringLiteral("function")).toObject();
             QCOMPARE(value.toObject().value(QStringLiteral("type")).toString(), QStringLiteral("function"));
@@ -589,6 +608,85 @@ private slots:
         }
         QCOMPARE(LocalAssistant::commandName(QStringLiteral("text_insert")), QStringLiteral("text.insert"));
         QCOMPARE(LocalAssistant::commandName(QStringLiteral("file_delete")), QStringLiteral("file_delete")); // refused later
+    }
+
+    void spreadsheetAndSlideCommandsAreChecked()
+    {
+        const auto valid = [](const char* name, const QJsonObject& arguments) {
+            return validateCommand({QString::fromLatin1(name), arguments, CommandSource::Assistant}).ok;
+        };
+        const QJsonArray rows{QJsonArray{QStringLiteral("乘积")}, QJsonArray{QStringLiteral("=A2*B2"), 3}};
+        QVERIFY(valid("cells.set", {{QStringLiteral("start"), QStringLiteral("D1")}, {QStringLiteral("rows"), rows}}));
+        QVERIFY(!valid("cells.set", {{QStringLiteral("start"), QStringLiteral("第四列")}, {QStringLiteral("rows"), rows}}));
+        QVERIFY(!valid("cells.set", {{QStringLiteral("start"), QStringLiteral("D1")}, {QStringLiteral("rows"), QStringLiteral("乘积")}}));
+        QVERIFY(!valid("cells.set", {{QStringLiteral("start"), QStringLiteral("D1")}, {QStringLiteral("rows"), QJsonArray{QStringLiteral("不是一行")}}}));
+        QJsonArray tooMany;
+        for (int i = 0; i < 201; ++i) tooMany.append(QJsonArray{QStringLiteral("x")});
+        QVERIFY(!valid("cells.set", {{QStringLiteral("start"), QStringLiteral("A1")}, {QStringLiteral("rows"), tooMany}}));
+        QVERIFY(valid("cells.format", {{QStringLiteral("range"), QStringLiteral("A1:D1")}, {QStringLiteral("bold"), true},
+                                       {QStringLiteral("fill"), QStringLiteral("#D9E2F3")}, {QStringLiteral("numberFormat"), QStringLiteral("0.00")}}));
+        QVERIFY(!valid("cells.format", {{QStringLiteral("range"), QStringLiteral("A1:D1")}})); // which format?
+        QVERIFY(!valid("cells.format", {{QStringLiteral("range"), QStringLiteral("A1-D1")}, {QStringLiteral("bold"), true}}));
+        QVERIFY(valid("sheet.read", {}) && valid("sheet.read", {{QStringLiteral("range"), QStringLiteral("$A$1:F20")}}));
+        QVERIFY(valid("slide.add", {{QStringLiteral("title"), QStringLiteral("项目进度")},
+                                    {QStringLiteral("points"), QJsonArray{QStringLiteral("需求已完成"), QStringLiteral("开发进行中")}}}));
+        QVERIFY(!valid("slide.add", {{QStringLiteral("points"), QJsonArray{QStringLiteral("没有标题")}}}));
+        QVERIFY(valid("slide.setText", {{QStringLiteral("slide"), 2}, {QStringLiteral("part"), QStringLiteral("title")}, {QStringLiteral("text"), QStringLiteral("新标题")}}));
+        QVERIFY(!valid("slide.setText", {{QStringLiteral("slide"), 2}, {QStringLiteral("part"), QStringLiteral("title")}})); // text or points
+        QVERIFY(!valid("slide.setText", {{QStringLiteral("slide"), 2}, {QStringLiteral("part"), QStringLiteral("body")}, {QStringLiteral("text"), QStringLiteral("a")},
+                                         {QStringLiteral("points"), QJsonArray{QStringLiteral("b")}}}));
+        // Which documents they are for.
+        QVERIFY(commandFitsDocument(*findCommand(QStringLiteral("cells.set")), QStringLiteral("spreadsheet")));
+        QVERIFY(!commandFitsDocument(*findCommand(QStringLiteral("cells.set")), QStringLiteral("text")));
+        QVERIFY(!commandFitsDocument(*findCommand(QStringLiteral("text.insert")), QStringLiteral("presentation")));
+        QVERIFY(commandFitsDocument(*findCommand(QStringLiteral("edit.undo")), QStringLiteral("presentation")));
+        QVERIFY(commandFitsDocument(*findCommand(QStringLiteral("document.save")), QStringLiteral("spreadsheet")));
+        QVERIFY(commandFitsDocument(*findCommand(QStringLiteral("text.insert")), QString())); // no document yet: as text
+        // What the person reads before 执行.
+        QCOMPARE(describeCommand({QStringLiteral("cells.set"), {{QStringLiteral("start"), QStringLiteral("d1")}, {QStringLiteral("rows"), rows}},
+                                  CommandSource::Assistant}),
+                 QStringLiteral("从 D1 开始写入 2 行 × 2 列（含 1 个公式）："));
+        QCOMPARE(describeCommand({QStringLiteral("cells.format"), {{QStringLiteral("range"), QStringLiteral("a1:d1")}, {QStringLiteral("bold"), true},
+                                                                 {QStringLiteral("borders"), true}}, CommandSource::Assistant}),
+                 QStringLiteral("A1:D1：加粗、加细边框"));
+        QCOMPARE(describeCommand({QStringLiteral("slide.add"), {{QStringLiteral("title"), QStringLiteral("项目进度")},
+                                                               {QStringLiteral("points"), QJsonArray{QStringLiteral("a"), QStringLiteral("b")}}},
+                                  CommandSource::Assistant}),
+                 QStringLiteral("在当前页后面加一页幻灯片：标题“项目进度”，2 个要点"));
+        QCOMPARE(describeCommand({QStringLiteral("slide.setText"), {{QStringLiteral("slide"), 3}, {QStringLiteral("part"), QStringLiteral("body")},
+                                                                   {QStringLiteral("points"), QJsonArray{QStringLiteral("甲"), QStringLiteral("乙")}}},
+                                  CommandSource::Assistant}),
+                 QStringLiteral("把第 3 页的正文改为：甲 / 乙"));
+        // A header and its formulas one row too low go where the formulas refer to.
+        const auto rowsOf = [](std::initializer_list<const char*> cells) {
+            QJsonArray rows;
+            for (const char* cell : cells) rows.append(QJsonArray{QString::fromUtf8(cell)});
+            return rows;
+        };
+        QCOMPARE(alignedFormulaStart(QStringLiteral("D2"), rowsOf({"乘积", "=A2*B2", "=A3*B3"})), QStringLiteral("D1"));
+        QCOMPARE(alignedFormulaStart(QStringLiteral("D1"), rowsOf({"乘积", "=A2*B2", "=A3*B3"})), QStringLiteral("D1"));
+        QCOMPARE(alignedFormulaStart(QStringLiteral("d1"), rowsOf({"=A2*B2", "=A3*B3"})), QStringLiteral("D2")); // one too high
+        QCOMPARE(alignedFormulaStart(QStringLiteral("D2"), rowsOf({"乘积", "=A2*B2", "=SUM(D2:D3)"})), QStringLiteral("D1"));
+        QCOMPARE(alignedFormulaStart(QStringLiteral("D3"), rowsOf({"=D2+B3", "=D3+B4"})), QStringLiteral("D3")); // running sums stay
+        QCOMPARE(alignedFormulaStart(QStringLiteral("E5"), rowsOf({"=$B$2*C5"})), QStringLiteral("E5"));       // two rows: no say
+        QCOMPARE(alignedFormulaStart(QStringLiteral("D2"), rowsOf({"=LOG10(A1)"})), QStringLiteral("D1"));   // LOG10 is no cell
+        QCOMPARE(alignedFormulaStart(QStringLiteral("A1"), rowsOf({"=A0"})), QStringLiteral("A1"));
+        QCOMPARE(alignedFormulaStart(QStringLiteral("D2"), rowsOf({"总计", "说明"})), QStringLiteral("D2"));
+        // The sheet and the slides written out for the model.
+        const QString sheet = sheetContext({{QStringLiteral("sheet"), QStringLiteral("销售")}, {QStringLiteral("range"), QStringLiteral("B2:C3")},
+                                            {QStringLiteral("rows"), QJsonArray{QJsonArray{QStringLiteral("单价"), QStringLiteral("数量")},
+                                                                                QJsonArray{QStringLiteral("2"), QStringLiteral("6")}}},
+                                            {QStringLiteral("formulas"), QJsonObject{{QStringLiteral("C3"), QStringLiteral("=B3*3")}}},
+                                            {QStringLiteral("styles"), QJsonObject{{QStringLiteral("B2"), QJsonObject{{QStringLiteral("bold"), true}}}}},
+                                            {QStringLiteral("selection"), QStringLiteral("D3")}});
+        QCOMPARE(sheet, QStringLiteral("工作表“销售”（读到的范围 B2:C3；选中 D3）：\n列 | B | C |\n2 | 单价 | 数量 |\n3 | 2 | 6（公式 =B3*3） |\n加粗的格：B2"));
+        const QString slides = slidesContext({{QStringLiteral("count"), 2}, {QStringLiteral("current"), 1},
+                                              {QStringLiteral("slides"), QJsonArray{
+                                                  QJsonObject{{QStringLiteral("slide"), 1}, {QStringLiteral("title"), QStringLiteral("年会")},
+                                                              {QStringLiteral("subtitle"), QStringLiteral("2026")}},
+                                                  QJsonObject{{QStringLiteral("slide"), 2}, {QStringLiteral("title"), QStringLiteral("议程")},
+                                                              {QStringLiteral("body"), QJsonArray{QStringLiteral("致辞"), QStringLiteral("抽奖")}}}}}});
+        QCOMPARE(slides, QStringLiteral("演示文稿共 2 页，现在在第 1 页：\n第 1 页：标题“年会”；副标题“2026”\n第 2 页：标题“议程”；正文：致辞 / 抽奖"));
     }
 
     void unreachableOllamaLeadsToSetup()

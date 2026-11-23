@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QHash>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QRegularExpression>
 #include <QPointer>
@@ -141,8 +142,21 @@ const QStringList& editorCommandNames()
                                    QStringLiteral("table.read"), QStringLiteral("table.setCell"),
                                    QStringLiteral("format.cells"), QStringLiteral("format.paragraphs"),
                                    QStringLiteral("format.text"), QStringLiteral("selection.select"),
-                                   QStringLiteral("format.read"), QStringLiteral("format.selection")};
+                                   QStringLiteral("format.read"), QStringLiteral("format.selection"),
+                                   QStringLiteral("sheet.read"), QStringLiteral("cells.set"), QStringLiteral("cells.format"),
+                                   QStringLiteral("slides.read"), QStringLiteral("slide.add"), QStringLiteral("slide.setText")};
     return names;
+}
+
+// The commands that fit the open document: those written for its editor, and undo/redo.
+bool commandFitsKind(const QString& name, DocumentKind kind)
+{
+    if (name == QStringLiteral("edit.undo") || name == QStringLiteral("edit.redo")) return true;
+    static const QStringList sheet{QStringLiteral("sheet.read"), QStringLiteral("cells.set"), QStringLiteral("cells.format")};
+    static const QStringList slides{QStringLiteral("slides.read"), QStringLiteral("slide.add"), QStringLiteral("slide.setText")};
+    if (kind == DocumentKind::Spreadsheet) return sheet.contains(name);
+    if (kind == DocumentKind::Presentation) return slides.contains(name);
+    return kind == DocumentKind::Text && !sheet.contains(name) && !slides.contains(name);
 }
 
 // What the engine itself accepts for each editor command, checked again here
@@ -153,7 +167,8 @@ struct EngineArgument {
     bool required;
     int maxLength;
     QStringList choices;
-    char kind = 's'; // s text, i integer (minimum..maximum), b true/false, c color #RRGGBB, n color or "none"
+    char kind = 's'; // s text, i integer (minimum..maximum), b true/false, c color #RRGGBB, n color or "none",
+                     // a cell address (A1 or A1:C3), g rows of texts (maximum rows), l lines (maximum lines)
     int minimum = 0;
     int maximum = 0;
 };
@@ -182,6 +197,23 @@ bool engineValueValid(const EngineArgument& argument, const QJsonValue& value)
     case 'c':
     case 'n':
         return value.isString() && (hex.match(value.toString()).hasMatch() || (argument.kind == 'n' && value.toString() == QStringLiteral("none")));
+    case 'a': {
+        static const QRegularExpression address(QStringLiteral("^\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?$"));
+        return value.isString() && address.match(value.toString()).hasMatch();
+    }
+    case 'g':
+    case 'l': {
+        const QJsonArray outer = value.toArray();
+        if (!value.isArray() || outer.isEmpty() || outer.size() > argument.maximum) return false;
+        for (const QJsonValue& item : outer) {
+            const QJsonArray cells = argument.kind == 'g' ? item.toArray() : QJsonArray{item};
+            if (argument.kind == 'g' && (!item.isArray() || cells.size() > 50)) return false;
+            for (const QJsonValue& cell : cells)
+                if ((!cell.isString() && !cell.isDouble() && !cell.isBool()) || cell.toVariant().toString().size() > argument.maxLength)
+                    return false;
+        }
+        return true;
+    }
     default: {
         if (!value.isString()) return false;
         const QString text = value.toString();
@@ -226,6 +258,17 @@ const QHash<QString, QList<EngineArgument>>& editorCommandArguments()
                                                                      QStringLiteral("lightGray"), QStringLiteral("none")}},
                                               {"style", false, 0, {QStringLiteral("heading1"), QStringLiteral("heading2"),
                                                                  QStringLiteral("heading3"), QStringLiteral("normal")}}}},
+        {QStringLiteral("sheet.read"), {{"range", false, 20, {}, 'a'}}},
+        {QStringLiteral("cells.set"), {{"start", true, 20, {}, 'a'}, {"rows", true, 1000, {}, 'g', 0, 200}}},
+        {QStringLiteral("cells.format"), {{"range", true, 20, {}, 'a'}, flag("bold"), flag("italic"), fontSize(),
+                                          {"color", false, 0, {}, 'c'}, {"fill", false, 0, {}, 'n'},
+                                          {"align", false, 0, {QStringLiteral("left"), QStringLiteral("center"), QStringLiteral("right")}},
+                                          {"numberFormat", false, 40, {}}, flag("borders")}},
+        {QStringLiteral("slide.add"), {{"title", true, 200, {}}, {"points", false, 300, {}, 'l', 0, 12}, {"subtitle", false, 300, {}},
+                                       {"position", false, 0, {QStringLiteral("after"), QStringLiteral("end")}}}},
+        {QStringLiteral("slide.setText"), {{"slide", true, 0, {}, 'i', 1, 500},
+                                           {"part", true, 0, {QStringLiteral("title"), QStringLiteral("subtitle"), QStringLiteral("body")}},
+                                           {"text", false, 2000, {}}, {"points", false, 300, {}, 'l', 0, 12}}},
         {QStringLiteral("selection.select"), {{"find", false, 200, {}}, {"paragraph", false, 0, {}, 'i', 1, 100000},
                                               table(false), {"row", false, 0, {}, 'i', 1, 500},
                                               {"column", false, 0, {}, 'i', 1, 100}}},
@@ -241,6 +284,14 @@ bool editorArgumentsComplete(const QString& name, const QJsonObject& arguments)
                                      QStringLiteral("align"), QStringLiteral("highlight"), QStringLiteral("style")};
     if (name.startsWith(QStringLiteral("format.")) && name != QStringLiteral("format.read"))
         return std::any_of(formats.begin(), formats.end(), [&arguments](const QString& key) { return arguments.contains(key); });
+    if (name == QStringLiteral("cells.format")) {
+        static const QStringList cellFormats{QStringLiteral("bold"), QStringLiteral("italic"), QStringLiteral("fontSize"),
+                                             QStringLiteral("color"), QStringLiteral("fill"), QStringLiteral("align"),
+                                             QStringLiteral("numberFormat"), QStringLiteral("borders")};
+        return std::any_of(cellFormats.begin(), cellFormats.end(), [&arguments](const QString& key) { return arguments.contains(key); });
+    }
+    if (name == QStringLiteral("slide.setText"))
+        return arguments.contains(QStringLiteral("text")) != arguments.contains(QStringLiteral("points"));
     if (name == QStringLiteral("selection.select")) {
         const int ways = (arguments.contains(QStringLiteral("find")) ? 1 : 0)
             + (arguments.contains(QStringLiteral("paragraph")) ? 1 : 0) + (arguments.contains(QStringLiteral("table")) ? 1 : 0);
@@ -287,13 +338,10 @@ var span=function(spec,count){var s=String(spec===undefined||spec===null?'all':s
     var a=+m[1],b=m[2]?+m[2]:a;if(a<1||b<a||b>count)return null;for(var k=a;k<=b;k++)if(out.indexOf(k-1)<0)out.push(k-1);}
   return out;};
 var cellText=function(cell){return String(cell.GetContent().GetText({})||'').replace(/\r\n?/g,'\n').replace(/[\t\n]+$/,'');};
-var rgb=function(hex){var h=String(hex).replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];};
 var hexOf=function(c){var x=function(v){v=(v|0).toString(16).toUpperCase();return v.length<2?'0'+v:v;};return '#'+x(c.r)+x(c.g)+x(c.b);};
 var looks=function(range){var o={};if(!range)return o;try{var t=range.private_GetTextPr();
   if(t.Bold)o.bold=true;if(t.Italic)o.italic=true;if(t.Underline)o.underline=true;if(t.FontSize!==undefined)o.size=t.FontSize;
   if(t.Color&&!t.Color.Auto){var h=hexOf(t.Color);if(h!=='#000000')o.color=h;}if(t.HighLight&&t.HighLight!==-1)o.highlight=true;}catch(x){}return o;};
-var bool=function(v){return v===true||v==='true';};
-var has=function(v){return v!==undefined&&v!==null&&v!=='';};
 var textFormat=function(range,a){if(!range)return 0;var n=0;
   if(has(a.bold)){range.SetBold(bool(a.bold));n++;}
   if(has(a.italic)){range.SetItalic(bool(a.italic));n++;}
@@ -303,15 +351,6 @@ var textFormat=function(range,a){if(!range)return 0;var n=0;
   if(has(a.highlight)){range.SetHighlight(a.highlight);n++;}
   return n;};
 var alignOf=function(v){return v==='justify'?'both':v;};
-var edit=function(change,code){var settled=false,finish=function(ok,c,v){if(settled)return;settled=true;reply(ok,c,v);};
-  var guard=setTimeout(function(){finish(false,'editor_locked',null);},10000);
-  api.runBuilderScript(function(){var value=null,error=null;api._beforeEvalCommand();
-    try{value=change();}catch(e){error=String((e&&e.message)||e).slice(0,200);}
-    var end=function(){api.onEndBuilderScript(function(){clearTimeout(guard);
-      if(error)finish(false,'edit_failed',error);
-      else if(value&&value.refused)finish(false,value.refused,value);
-      else finish(true,value&&value.code?value.code:code,value);});};
-    if(!AscCommon.History.Is_LastPointEmpty())api._afterEvalCommand(end);else end();},'');};
 if(!B){reply(false,'editor_not_ready',null);return;}
 )JS";
 
@@ -430,10 +469,155 @@ var range=e.GetRow(r-1).GetCell(c-1).GetContent().GetRange();if(range)range.Sele
 reply(true,'selected',{what:'cell',table:+a.table,row:r,column:c});
 )JS";
 
-QString structureScript(const char* script, const QJsonObject& arguments)
+// The one undoable step every change runs in (the way the editor runs a plugin command:
+// runBuilderScript opens it, _afterEvalCommand recalculates and redraws, onEndBuilderScript
+// closes it). Shared by the text, spreadsheet and presentation commands.
+const char* const kEditHelpers = R"JS(
+var rgb=function(hex){var h=String(hex).replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];};
+var bool=function(v){return v===true||v==='true';};
+var has=function(v){return v!==undefined&&v!==null&&v!=='';};
+var edit=function(change,code){var settled=false,finish=function(ok,c,v){if(settled)return;settled=true;reply(ok,c,v);};
+  var guard=setTimeout(function(){finish(false,'editor_locked',null);},10000);
+  api.runBuilderScript(function(){var value=null,error=null;api._beforeEvalCommand();
+    try{value=change();}catch(e){error=String((e&&e.message)||e).slice(0,200);}
+    var end=function(){api.onEndBuilderScript(function(){clearTimeout(guard);
+      if(error)finish(false,'edit_failed',error);
+      else if(value&&value.refused)finish(false,value.refused,value);
+      else finish(true,value&&value.code?value.code:code,value);});};
+    if(!AscCommon.History.Is_LastPointEmpty())api._afterEvalCommand(end);else end();},'');};
+)JS";
+
+// Spreadsheets, through the editor's spreadsheet builder API (AscBuilder.Cell.Api) and,
+// for reading, its workbook model. Addresses are A1 notation.
+const char* const kSheetHelpers = R"JS(
+var C=window.AscBuilder&&AscBuilder.Cell&&AscBuilder.Cell.Api;
+if(!C||!api.wbModel){reply(false,'editor_not_ready',null);return;}
+var colOf=function(letters){var n=0;letters=letters.toUpperCase();for(var i=0;i<letters.length;i++)n=n*26+(letters.charCodeAt(i)-64);return n-1;};
+var letterOf=function(c){var s='';c++;while(c>0){var m=(c-1)%26;s=String.fromCharCode(65+m)+s;c=Math.floor((c-1)/26);}return s;};
+var cellAt=function(text){var m=/^\$?([A-Za-z]{1,3})\$?([0-9]{1,7})$/.exec(String(text||''));return m?{r:+m[2]-1,c:colOf(m[1])}:null;};
+var area=function(text){var parts=String(text||'').split(':'),a=cellAt(parts[0]),b=parts.length>1?cellAt(parts[1]):a;
+  if(!a||!b)return null;return {r1:Math.min(a.r,b.r),c1:Math.min(a.c,b.c),r2:Math.max(a.r,b.r),c2:Math.max(a.c,b.c)};};
+var name=function(r,c){return letterOf(c)+(r+1);};
+var hexOfRgb=function(v){var h=(v&0xFFFFFF).toString(16).toUpperCase();while(h.length<6)h='0'+h;return '#'+h;};
+)JS";
+
+const char* const kSheetReadScript = R"JS(
+var ws=api.wbModel.getActiveWs(),sheets=[];for(var i=0;i<api.wbModel.getWorksheetCount();i++)sheets.push(api.wbModel.getWorksheet(i).getName());
+var used={r1:0,c1:0,r2:Math.max(ws.getRowsCount()-1,0),c2:Math.max(ws.getColsCount()-1,0)};
+var box=has(args.range)?area(args.range):used;if(!box){reply(false,'bad_address',{range:args.range});return;}
+var r2=Math.min(box.r2,box.r1+59),c2=Math.min(box.c2,box.c1+25),rows=[],formulas={},styles={};
+for(var r=box.r1;r<=r2;r++){var row=[];for(var c=box.c1;c<=c2;c++){var cell=ws.getCell3(r,c),v=cell.getValue(),f=cell.getFormula();
+    row.push(v);if(f)formulas[name(r,c)]='='+f;
+    try{var g=ws.getRange3(r,c,r,c),font=g.getFont(),fill=g.getFill(),o={};
+      if(font&&font.getBold&&font.getBold())o.bold=true;var bg=fill&&fill.bg?fill.bg():null;if(bg&&bg.rgb!==undefined&&(bg.rgb&0xFFFFFF)!==0xFFFFFF)o.fill=hexOfRgb(bg.rgb);
+      if(o.bold||o.fill)styles[name(r,c)]=o;}catch(x){}}
+  rows.push(row);}
+var sel=null;try{var last=ws.selectionRange.getLast();sel=name(last.r1,last.c1)+(last.r2!==last.r1||last.c2!==last.c1?':'+name(last.r2,last.c2):'');}catch(x){}
+reply(true,'sheet',{sheet:ws.getName(),sheets:sheets,range:name(box.r1,box.c1)+':'+name(r2,c2),used:name(used.r1,used.c1)+':'+name(used.r2,used.c2),
+  rows:rows,formulas:formulas,styles:styles,selection:sel,truncated:r2<box.r2||c2<box.c2});
+)JS";
+
+const char* const kCellsSetScript = R"JS(
+var start=cellAt(args.start);if(!start){reply(false,'bad_address',{start:args.start});return;}
+edit(function(){var sh=C.GetActiveSheet(),n=0,f=0,width=0;
+  for(var r=0;r<args.rows.length;r++){var row=args.rows[r]||[];width=Math.max(width,row.length);
+    for(var c=0;c<row.length;c++){var v=row[c];if(v===null||v===undefined)continue;v=String(v);
+      sh.GetRangeByNumber(start.r+r,start.c+c).SetValue(v);n++;if(v.charAt(0)==='=')f++;}}
+  return {cells:n,formulas:f,start:name(start.r,start.c),end:name(start.r+args.rows.length-1,start.c+Math.max(width,1)-1)};},'cells_set');
+)JS";
+
+const char* const kCellsFormatScript = R"JS(
+var box=area(args.range);if(!box){reply(false,'bad_address',{range:args.range});return;}
+edit(function(){var sh=C.GetActiveSheet(),g=sh.GetRange(name(box.r1,box.c1)+':'+name(box.r2,box.c2));
+  if(has(args.bold))g.SetBold(bool(args.bold));
+  if(has(args.italic))g.SetItalic(bool(args.italic));
+  if(has(args.fontSize))g.SetFontSize(+args.fontSize);
+  if(has(args.color)){var c=rgb(args.color);g.SetFontColor(C.CreateColorFromRGB(c[0],c[1],c[2]));}
+  if(has(args.fill)){if(args.fill==='none')g.SetFillColor('No Fill');else{var b=rgb(args.fill);g.SetFillColor(C.CreateColorFromRGB(b[0],b[1],b[2]));}}
+  if(has(args.align))g.SetAlignHorizontal(args.align);
+  if(has(args.numberFormat))g.SetNumberFormat(String(args.numberFormat));
+  if(has(args.borders)){var on=bool(args.borders),black=C.CreateColorFromRGB(0,0,0);
+    ['Top','Bottom','Left','Right','InsideHorizontal','InsideVertical'].forEach(function(side){g.SetBorders(side,on?'Thin':'None',black);});}
+  return {cells:(box.r2-box.r1+1)*(box.c2-box.c1+1),range:name(box.r1,box.c1)+':'+name(box.r2,box.c2)};},'formatted');
+)JS";
+
+// Presentations, through the editor's presentation builder API (AscBuilder.Slide.Api).
+const char* const kSlideHelpers = R"JS(
+var S=window.AscBuilder&&AscBuilder.Slide&&AscBuilder.Slide.Api;
+if(!S){reply(false,'editor_not_ready',null);return;}
+var kindOf=function(shape){try{var ph=shape.GetPlaceholder&&shape.GetPlaceholder();return ph?String(ph.GetType()):'';}catch(x){return '';}};
+var isTitle=function(k){return k==='title'||k==='ctrTitle';};
+var isBody=function(k){return k==='body'||k==='unknown'||k==='object';};
+var linesOf=function(shape){var dc=shape.GetDocContent&&shape.GetDocContent();if(!dc)return [];var out=[];
+  for(var i=0;i<dc.GetElementsCount();i++){var e=dc.GetElement(i);if(e&&e.GetText){
+    var t=String(e.GetText({Numbering:false})).replace(/[\r\n]+$/,'').replace(/^[\u2022\u00B7\u25AA\u25E6\u25CF\u25A0\u2013\u2014]\s*/,'');
+    if(t.trim()!=='')out.push(t);}}return out;};
+var setLines=function(shape,lines){var dc=shape.GetDocContent();dc.RemoveAllElements();
+  var first=dc.GetElementsCount()>0?dc.GetElement(0):null;
+  for(var i=0;i<lines.length;i++){if(i===0&&first){first.AddText(String(lines[0]));continue;}var p=S.CreateParagraph();p.AddText(String(lines[i]));dc.Push(p);}};
+var current=function(){try{return api.WordControl.m_oLogicDocument.CurPage;}catch(x){return 0;}};
+// A slide's parts: its placeholders; on a slide made of plain text boxes (no title placeholder),
+// the first box with text is the title and the second the body, the way people read them.
+var partsOf=function(slide){var shapes=slide.GetAllShapes(),parts={title:null,subtitle:null,body:null,others:[]},boxes=[];
+  shapes.forEach(function(shape){var k=kindOf(shape);var dc=shape.GetDocContent&&shape.GetDocContent();if(!dc)return;
+    if(isTitle(k)&&!parts.title)parts.title=shape;else if(k==='subTitle'&&!parts.subtitle)parts.subtitle=shape;
+    else if(isBody(k)&&!parts.body)parts.body=shape;else if(!k)boxes.push(shape);else parts.others.push(shape);});
+  if(!parts.title&&!parts.subtitle&&!parts.body){parts.title=boxes.shift()||null;parts.body=boxes.shift()||null;}
+  parts.others=parts.others.concat(boxes);return parts;};
+)JS";
+
+const char* const kSlidesReadScript = R"JS(
+var p=S.GetPresentation(),n=p.GetSlidesCount(),out=[];
+for(var i=0;i<n&&i<50;i++){var parts=partsOf(p.GetSlideByIndex(i)),o={slide:i+1,title:'',body:[]},other=[];
+  if(parts.title)o.title=linesOf(parts.title).join(' ');
+  if(parts.subtitle){var st=linesOf(parts.subtitle);if(st.length)o.subtitle=st.join(' ');}
+  if(parts.body)o.body=linesOf(parts.body).slice(0,20);
+  parts.others.forEach(function(shape){other=other.concat(linesOf(shape));});
+  if(other.length)o.other=other.slice(0,20);out.push(o);}
+reply(true,'slides',{count:n,current:current()+1,slides:out,truncated:n>50});
+)JS";
+
+const char* const kSlideAddScript = R"JS(
+edit(function(){var p=S.GetPresentation(),m=p.GetMaster(0),points=args.points||[],want=points.length?'content':has(args.subtitle)?'cover':'title';
+  var layout=null,layoutName='';
+  for(var i=0;m&&i<m.GetLayoutsCount()&&!layout;i++){var l=m.GetLayout(i),kinds=l.GetAllShapes().map(kindOf);
+    var titles=kinds.filter(isTitle).length,bodies=kinds.filter(isBody).length,subs=kinds.filter(function(k){return k==='subTitle';}).length,pics=kinds.filter(function(k){return k==='picture';}).length;
+    if((want==='content'&&kinds.indexOf('title')>=0&&bodies===1&&!pics)||(want==='cover'&&kinds.indexOf('ctrTitle')>=0&&subs===1)
+       ||(want==='title'&&kinds.indexOf('title')>=0&&!bodies&&!subs&&!pics)){layout=l;layoutName=l.GetName?l.GetName():'';}}
+  var slide=S.CreateSlide();p.AddSlide(slide);if(layout)slide.ApplyLayout(layout);
+  var index=p.GetSlidesCount()-1;
+  if(args.position!=='end'){var at=Math.min(current()+1,index);if(at<index&&slide.MoveTo)slide.MoveTo(at);index=at;}
+  var shapes=slide.GetAllShapes(),title=null,body=null,sub=null;
+  shapes.forEach(function(shape){var k=kindOf(shape);if(isTitle(k)&&!title)title=shape;else if(isBody(k)&&!body)body=shape;else if(k==='subTitle'&&!sub)sub=shape;});
+  var W=p.GetWidth(),H=p.GetHeight();
+  var box=function(lines,y,h,size,bold){var s=S.CreateShape('rect',W-W/6,h,S.CreateNoFill(),S.CreateStroke(0,S.CreateNoFill()));
+    s.SetPosition(W/12,y);var dc=s.GetDocContent();dc.RemoveAllElements();var first=dc.GetElementsCount()>0?dc.GetElement(0):null;
+    for(var i=0;i<lines.length;i++){var run=S.CreateRun();run.AddText(String(lines[i]));run.SetFontSize(size*2);if(bold)run.SetBold(true);
+      if(i===0&&first){first.AddElement(run);continue;}var para=S.CreateParagraph();para.AddElement(run);dc.Push(para);}
+    slide.AddObject(s);return s;};
+  if(title)setLines(title,[args.title]);else box([args.title],H/12,H/6,32,true);
+  if(points.length){if(body)setLines(body,points);else box(points,H/4,H*2/3,20,false);}
+  if(has(args.subtitle)){if(sub)setLines(sub,[args.subtitle]);else if(body&&!points.length)setLines(body,[args.subtitle]);else box([args.subtitle],H/2,H/6,20,false);}
+  return {slide:index+1,layout:layoutName,points:points.length,count:p.GetSlidesCount()};},'slide_added');
+)JS";
+
+const char* const kSlideSetTextScript = R"JS(
+edit(function(){var p=S.GetPresentation(),slide=p.GetSlideByIndex(+args.slide-1);if(!slide)return {refused:'no_slide',slide:+args.slide};
+  var target=partsOf(slide)[args.part];
+  if(!target)return {refused:'no_placeholder',slide:+args.slide,part:args.part};
+  var lines=args.points?args.points:String(args.text).replace(/\r\n?/g,'\n').split('\n');setLines(target,lines);
+  return {slide:+args.slide,part:args.part,lines:lines.length};},'slide_text_set');
+)JS";
+
+QString officeScript(const char* helpers, const char* script, const QJsonObject& arguments)
 {
     return QStringLiteral("var args=") + QString::fromUtf8(QJsonDocument(arguments).toJson(QJsonDocument::Compact))
-        + QLatin1Char(';') + QString::fromUtf8(kStructureHelpers) + QString::fromUtf8(script);
+        + QLatin1Char(';') + QString::fromUtf8(kEditHelpers) + QString::fromUtf8(helpers) + QString::fromUtf8(script);
+}
+
+QString structureScript(const char* script, const QJsonObject& arguments)
+{
+    return officeScript(kStructureHelpers, script, arguments);
 }
 
 // The editor answers through AscDesktopEditor.execCommand("openoffice:command"),
@@ -511,6 +695,18 @@ QString editorCommandScript(quint64 id, const QString& name, const QJsonObject& 
                    .arg(jsValue(arguments, "find"), jsValue(arguments, "replace"));
     } else if (name == QStringLiteral("document.outline")) {
         body = structureScript(kOutlineScript, arguments);
+    } else if (name == QStringLiteral("sheet.read")) {
+        body = officeScript(kSheetHelpers, kSheetReadScript, arguments);
+    } else if (name == QStringLiteral("cells.set")) {
+        body = officeScript(kSheetHelpers, kCellsSetScript, arguments);
+    } else if (name == QStringLiteral("cells.format")) {
+        body = officeScript(kSheetHelpers, kCellsFormatScript, arguments);
+    } else if (name == QStringLiteral("slides.read")) {
+        body = officeScript(kSlideHelpers, kSlidesReadScript, arguments);
+    } else if (name == QStringLiteral("slide.add")) {
+        body = officeScript(kSlideHelpers, kSlideAddScript, arguments);
+    } else if (name == QStringLiteral("slide.setText")) {
+        body = officeScript(kSlideHelpers, kSlideSetTextScript, arguments);
     } else if (name == QStringLiteral("table.read")) {
         body = structureScript(kTableReadScript, arguments);
     } else if (name == QStringLiteral("table.setCell")) {
@@ -623,6 +819,28 @@ QString commandMessage(const QString& code, const QJsonObject& value, const QStr
         return QStringLiteral("已设置 %1 处文字的格式，可以撤销。").arg(value.value(QStringLiteral("count")).toInt());
     }
     if (code == QStringLiteral("selected")) return QStringLiteral("已选中。");
+    if (code == QStringLiteral("sheet"))
+        return QStringLiteral("已读取工作表“%1”（%2）。").arg(value.value(QStringLiteral("sheet")).toString(),
+                                                         value.value(QStringLiteral("range")).toString());
+    if (code == QStringLiteral("cells_set")) {
+        const int formulas = value.value(QStringLiteral("formulas")).toInt();
+        return QStringLiteral("已写入 %1–%2 的 %3 格%4，可以撤销。").arg(value.value(QStringLiteral("start")).toString(),
+                                                                    value.value(QStringLiteral("end")).toString())
+            .arg(value.value(QStringLiteral("cells")).toInt())
+            .arg(formulas ? QStringLiteral("（含 %1 个公式）").arg(formulas) : QString());
+    }
+    if (code == QStringLiteral("slides"))
+        return QStringLiteral("已读取 %1 页幻灯片（现在在第 %2 页）。").arg(value.value(QStringLiteral("count")).toInt())
+            .arg(value.value(QStringLiteral("current")).toInt());
+    if (code == QStringLiteral("slide_added"))
+        return QStringLiteral("已加了一页幻灯片（第 %1 页%2），可以撤销。").arg(value.value(QStringLiteral("slide")).toInt())
+            .arg(value.value(QStringLiteral("layout")).toString().isEmpty() ? QString()
+                 : QStringLiteral("，版式“%1”").arg(value.value(QStringLiteral("layout")).toString()));
+    if (code == QStringLiteral("slide_text_set"))
+        return QStringLiteral("已改第 %1 页的文字，可以撤销。").arg(value.value(QStringLiteral("slide")).toInt());
+    if (code == QStringLiteral("bad_address")) return QStringLiteral("单元格地址写得不对。");
+    if (code == QStringLiteral("no_slide")) return QStringLiteral("没有这一页幻灯片。");
+    if (code == QStringLiteral("no_placeholder")) return QStringLiteral("这一页没有这个位置（标题、副标题或正文）。");
     if (code == QStringLiteral("no_table")) return QStringLiteral("文档里没有这张表格。");
     if (code == QStringLiteral("no_cell")) return QStringLiteral("表格里没有这一格。");
     if (code == QStringLiteral("no_paragraph")) return QStringLiteral("文档里没有这一段。");
@@ -1592,7 +1810,7 @@ bool OnlyOfficeEngineAdapter::supportsEditorCommand(const QString& name) const n
 {
     // The commands are written for the text editor's API; spreadsheets and presentations
     // have their own, not wired yet.
-    return capabilities().edit && native_->currentKind == DocumentKind::Text && editorCommandNames().contains(name);
+    return capabilities().edit && editorCommandNames().contains(name) && commandFitsKind(name, native_->currentKind);
 }
 
 EngineResult OnlyOfficeEngineAdapter::requestEditorCommand(quint64 requestId, const QString& name,

@@ -35,8 +35,31 @@ void saveModel(const QString& name)
     aiSettings().setValue(QStringLiteral("ai/model"), name);
 }
 
-QString systemPrompt(const QString& context, bool cloud)
+QString systemPrompt(const QString& context, bool cloud, const QString& kind)
 {
+    const QString intro = QStringLiteral("你通过云端服务运行，用户已同意把提问和文档内容发给这个服务。");
+    if (kind == QStringLiteral("spreadsheet") || kind == QStringLiteral("presentation")) {
+        const bool sheet = kind == QStringLiteral("spreadsheet");
+        QString prompt = QStringLiteral("你是 Open Office 里的办公助手，现在打开的是%1。").arg(sheet ? QStringLiteral("表格") : QStringLiteral("演示文稿"))
+            + (cloud ? intro : QStringLiteral("你运行在用户自己的电脑上，不联网。")) + QStringLiteral(
+            "用简体中文回答，简洁、友好。下面附有%1的内容，回答时以它为准，不要编造。\n"
+            "只是回答问题时直接回答，不要调用工具。用户要你修改时才调用工具，不要假装已经改了：\n").arg(sheet ? QStringLiteral("工作表") : QStringLiteral("各页幻灯片"));
+        prompt += sheet ? QStringLiteral(
+            "- 先看附带的工作表内容（不够时用 sheet_read 读），单元格地址用 A1 这种写法；\n"
+            "- 写内容或公式：cells_set，start 是起始格，rows 是一行一个数组；公式以 = 开头，引用别的格，例如 \"=B2*C2\"、\"=SUM(D2:D9)\"，不要自己算出数字填进去；\n"
+            "  一整列要在一次 cells_set 里写完：表头和下面每一行一起写，有几行数据就写几行。例如表格第 2 到 4 行有数据，"
+            "在 D 列算 A 乘 B：start 是 D1，rows 是 [[\"乘积\"],[\"=A2*B2\"],[\"=A3*B3\"],[\"=A4*B4\"]]；\n"
+            "- 设格式（加粗、底色、文字颜色、对齐、数字格式、边框）：cells_format，range 写成 A1:D1；\n"
+            "- 撤销刚才的修改：edit_undo。\n")
+            : QStringLiteral(
+            "- 先看附带的幻灯片内容（不够时用 slides_read 读）；\n"
+            "- 加一页：slide_add，title 是标题，points 是要点（每项一行，简短）；\n"
+            "- 改某一页的标题或正文：slide_setText，slide 是第几页，part 是 title、subtitle 或 body；\n"
+            "- 撤销刚才的修改：edit_undo。\n");
+        prompt += QStringLiteral("工具执行后，用一句话告诉用户结果。");
+        if (!context.isEmpty()) prompt += QStringLiteral("\n\n") + context;
+        return prompt;
+    }
     QString prompt = QStringLiteral("你是 Open Office 文字处理软件里的办公助手。") + (cloud
         ? QStringLiteral("你通过云端服务运行，用户已同意把提问和文档内容发给这个服务。")
         : QStringLiteral("你运行在用户自己的电脑上，不联网。")) + QStringLiteral(
@@ -438,11 +461,11 @@ void LocalAssistant::send()
             m_history.removeFirst();
     }
     QJsonArray messages{QJsonObject{{QStringLiteral("role"), QStringLiteral("system")},
-                                    {QStringLiteral("content"), systemPrompt(m_context, cloud())}}};
+                                    {QStringLiteral("content"), systemPrompt(m_context, cloud(), m_documentKind)}}};
     for (const QJsonValue& message : m_history) messages.append(message);
     const LocalModel model = currentModel();
     ChatOptions options;
-    options.tools = model.tools && m_documentTools ? tools() : QJsonArray();
+    options.tools = model.tools ? tools() : QJsonArray();
     options.think = thinkSetting();
     options.contextLength = contextLengthFor(messages, !options.tools.isEmpty());
     dispatch(messages, options);
@@ -787,13 +810,16 @@ QString LocalAssistant::commandName(const QString& tool)
     return tool;
 }
 
-QJsonArray LocalAssistant::tools()
+QJsonArray LocalAssistant::tools() const
 {
     QJsonArray result;
     for (const QJsonValue& value : commandCatalogJson()) {
         const QJsonObject tool = value.toObject();
         const QString name = tool.value(QStringLiteral("name")).toString();
         if (name == QStringLiteral("assistant.listCommands")) continue; // meaningless to a model
+        // Only what works in the open document: a spreadsheet gets the sheet commands, and so on.
+        const CommandSpec* spec = findCommand(name);
+        if (!spec || !commandFitsDocument(*spec, m_documentKind)) continue;
         result.append(QJsonObject{
             {QStringLiteral("type"), QStringLiteral("function")},
             {QStringLiteral("function"), QJsonObject{

@@ -1,0 +1,35 @@
+{
+  "name": "表格：表头加粗、加浅蓝底色",
+  "document": "fixtures/generated/values-formula.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把第一行表头（A1到C1）加粗，加上浅蓝色底色"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetStyle",
+      "cell": "A1",
+      "bold": true,
+      "filled": true
+    },
+    {
+      "check": "sheetStyle",
+      "cell": "C1",
+      "bold": true,
+      "filled": true
+    },
+    {
+      "check": "sheetCell",
+      "cell": "A1",
+      "equals": "数量 A"
+    }
+  ]
+}

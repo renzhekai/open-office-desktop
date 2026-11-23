@@ -1,0 +1,40 @@
+{
+  "name": "表格：在 D 列算出 A 乘 B，D1 写表头（要用公式）",
+  "document": "fixtures/generated/values-formula.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "在D列算出A列乘以B列的结果，D1写表头“乘积”，D2用公式"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetCell",
+      "cell": "D1",
+      "equals": "乘积"
+    },
+    {
+      "check": "sheetCell",
+      "cell": "D2",
+      "equals": "6",
+      "formulaHas": [
+        "A2",
+        "B2"
+      ]
+    },
+    {
+      "check": "sheetCell",
+      "cell": "C2",
+      "equals": "5",
+      "formulaHas": [
+        "SUM"
+      ]
+    }
+  ]
+}
