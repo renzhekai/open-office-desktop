@@ -1,0 +1,25 @@
+{
+  "tag": "v0.1.0-dev-20261123",
+  "title": "Open Office 0.1.0 开发版 2026-11-23",
+  "url": "https://github.com/renzhekai/open-office-desktop/releases/tag/v0.1.0-dev-20261123",
+  "prerelease": true,
+  "commit": "a3b06d3f9f41497c4e2f9a03ea2a085281254938",
+  "repository": "renzhekai/open-office-desktop",
+  "started_utc": "2026-11-23T10:24:24.807806+00:00",
+  "finished_utc": "2026-11-23T10:27:39.808773+00:00",
+  "assets": [
+    {
+      "name": "OpenOffice-Setup-0.1.0-dev-20261123-win64.exe",
+      "bytes": 663885181,
+      "sha256": "325d834e92cebab0b3b72a115823ae78fe7a605b52b50db15da7b2a76af1e402",
+      "uploaded_bytes": 663885181
+    },
+    {
+      "name": "OpenOffice-Setup-0.1.0-dev-20261123-win64.exe.sha256.txt",
+      "bytes": 113,
+      "sha256": "04d4e2420fd882c7c2e4644b3444f2604b3381f80ce3abd602953ec097c37cd3",
+      "uploaded_bytes": 113
+    }
+  ],
+  "all_uploaded_intact": true
+}
