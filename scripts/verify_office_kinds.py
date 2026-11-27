@@ -120,6 +120,7 @@ def commands(mcp, kind, step, work, prefix):
         content, error = mcp.call("document.save")
         saved = work / "existing.xlsx"
         step("saved with the formula", not error and file_has(saved, "A2*B2", "xl/") and file_has(saved, "乘积", "xl/"))
+        sheet_tools(mcp, value, step, work)
         return
     # A presentation of plain text boxes: the first box is the title, and that is what changes.
     done, content = value("slide.setText", {"slide": 1, "part": "title", "text": "改过的第一页标题"})
@@ -151,6 +152,73 @@ def commands(mcp, kind, step, work, prefix):
     target = work / "commands.pptx"
     content, error = mcp.call("test.saveAs", {"path": str(target)})
     step("saved with the slide", not error and target.is_file() and file_has(target, "开发进行中", prefix))
+
+
+def sheet_tools(mcp, value, step, work):
+    """Sorting, filtering, repeated rows, a chart, worksheets and a wrong formula, on sales-regions.xlsx."""
+    copy = work / "sales.xlsx"
+    shutil.copy2(FIXTURES / "sales-regions.xlsx", copy)
+    content, error = mcp.call("test.open", {"path": str(copy)})
+    step("spreadsheet: open sales-regions.xlsx", not error, document=content.get("document"))
+    editor(WAIT % 2000 + STATE)
+
+    def column(letter, sheet=None):
+        read, _ = value("sheet.read", {"range": f"{letter}1:{letter}9", **({"sheet": sheet} if sheet else {})})
+        return [row[0] if row else "" for row in (read or {}).get("rows", [])]
+
+    done, content = value("cells.sort", {"by": "C", "order": "desc"})
+    sales = column("C")
+    step("cells.sort (from large to small, the header stays)", done is not None and sales[:3] == ["销售额", "1610", "1520"]
+         and column("A")[1] == "华南", message=content.get("message"), column=sales)
+    done, content = value("edit.undo")
+    step("edit.undo (the sort)", done is not None and column("C")[1] == "1200", column=column("C"))
+    done, content = value("cells.filter", {"column": "A", "values": ["华东"]})
+    read, _ = value("sheet.read")
+    step("cells.filter (values)", done is not None and done.get("shown") == 3 and (read or {}).get("filter", {}).get("hiddenRows") == 5,
+         message=content.get("message"), filter=(read or {}).get("filter"))
+    done, content = value("cells.filter", {"column": "C", "condition": ">1300"})
+    step("cells.filter (a comparison on top)", done is not None and done.get("shown") == 2, message=content.get("message"))
+    done, content = value("cells.clearFilter")
+    read, _ = value("sheet.read")
+    step("cells.clearFilter", done is not None and (read or {}).get("filter") is None and not (read or {}).get("hiddenRows"),
+         message=content.get("message"))
+    done, content = value("cells.removeDuplicates", {"sheet": "名单"})
+    names = column("A", "名单")
+    step("cells.removeDuplicates (another sheet)", done is not None and done.get("removed") == 2 and names[:4] == ["姓名", "张三", "李四", "王五"]
+         and names[4:] in ([], [""] * len(names[4:])), message=content.get("message"), names=names)
+    done, content = value("chart.add", {"range": "A1:A9,C1:C9", "type": "column", "title": "各区域销售额", "sheet": "销售明细"})
+    read, _ = value("sheet.read")
+    charts = (read or {}).get("charts", [])
+    step("chart.add", done is not None and len(charts) == 1 and charts[0].get("title") == "各区域销售额",
+         message=content.get("message"), charts=charts)
+    done, content = value("chart.add", {"range": "B1:C9", "type": "line"})
+    step("chart.add without a title is named by its header", done is not None and done.get("title") == "销售额"
+         and done.get("at", "F1") != "F1",  # below the first chart, not over it
+         message=content.get("message"), value=done)
+    done, content = value("edit.undo")
+    done, content = value("sheet.add", {"name": "汇总"})
+    step("sheet.add", done is not None and "汇总" in done.get("sheets", []), message=content.get("message"))
+    done, content = value("cells.set", {"sheet": "汇总", "start": "A1",
+                                        "rows": [["区域", "销售额"], ["华东", "=SUMIF(销售明细!A:A,A2,销售明细!C:C)"]]})
+    read, _ = value("sheet.read", {"sheet": "汇总", "range": "B2"})
+    step("cells.set on another sheet (a formula over sheets)", done is not None and (read or {}).get("rows") == [["4100"]],
+         message=content.get("message"), read=read)
+    content, error = mcp.call("cells.set", {"start": "B3", "rows": [["=求和(B2)"]]})
+    read, _ = value("sheet.read", {"range": "B3"})
+    step("cells.set refuses a wrong formula and writes nothing", error and content.get("code") == "bad_formula"
+         and (read or {}).get("rows") in ([[""]], [[]]), message=content.get("message"))
+    done, content = value("sheet.rename", {"sheet": "汇总", "name": "区域汇总"})
+    read, _ = value("sheet.read")
+    step("sheet.rename", done is not None and "区域汇总" in (read or {}).get("sheets", []), message=content.get("message"))
+    content, error = mcp.call("document.save")
+    step("saved with the chart and the sheets", not error and file_has(copy, "各区域销售额", "xl/") and file_has(copy, "区域汇总", "xl/")
+         and file_has(copy, "SUMIF", "xl/"), message=content.get("message"))
+    content, error = mcp.call("test.open", {"path": str(copy)})
+    editor(WAIT % 2000 + STATE)
+    read, _ = value("sheet.read", {"sheet": "销售明细"})
+    step("reopened: the sheets, the chart and the rows are there", not error and read is not None
+         and read.get("sheets") == ["销售明细", "名单", "区域汇总"] and len(read.get("charts", [])) == 1
+         and column("A", "名单")[3] == "王五", sheets=(read or {}).get("sheets"), charts=(read or {}).get("charts"))
 
 
 def main():

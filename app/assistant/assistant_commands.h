@@ -30,7 +30,9 @@ enum class ArgumentType {
     Color,   // "#RRGGBB" (the # may be left out); "none" too where the description says so
     Address, // a cell or a range in A1 notation: D2, A1:C10
     Grid,    // rows of cell texts: [["名称","数量"],["笔","3"]]; at most maximum rows, maxLength per cell
-    Lines    // lines of text: ["第一点","第二点"]; at most maximum lines, maxLength per line
+    Lines,   // lines of text: ["第一点","第二点"]; at most maximum lines, maxLength per line
+    Column,  // a spreadsheet column: C (or a cell of it, C1)
+    Areas    // one to four cell ranges split by commas: A1:A9,C1:C9
 };
 
 struct CommandArgument {

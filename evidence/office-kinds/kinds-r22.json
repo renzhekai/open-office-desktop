@@ -1,0 +1,541 @@
+{
+  "label": "kinds-r22",
+  "runtime": "D:\\open office\\build\\full-source-run-builtin-ai-r22",
+  "command": [
+    "D:\\open office\\build\\full-source-run-builtin-ai-r22\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\office-kinds\\kinds-r22\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "started_utc": "2026-11-27T12:16:44.099607+00:00",
+  "steps": [
+    {
+      "step": "spreadsheet: open values-formula.xlsx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r22/existing.xlsx"
+    },
+    {
+      "step": "spreadsheet: editable after opening",
+      "ok": true,
+      "state": {
+        "type": "spreadsheet_api",
+        "viewMode": false,
+        "modified": false
+      }
+    },
+    {
+      "step": "spreadsheet: changed in the editor",
+      "ok": true,
+      "editor": {
+        "value": "表格往返验证",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "spreadsheet: saved",
+      "ok": true,
+      "message": "引擎已确认保存。"
+    },
+    {
+      "step": "spreadsheet: created",
+      "ok": true,
+      "message": "新文档已由 ONLYOFFICE 创建。"
+    },
+    {
+      "step": "spreadsheet: new one editable",
+      "ok": true,
+      "state": {
+        "type": "spreadsheet_api",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "spreadsheet: new one changed",
+      "ok": true,
+      "editor": {
+        "value": "表格往返验证（新建）",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "spreadsheet: saved as new.xlsx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r22/new.xlsx"
+    },
+    {
+      "step": "spreadsheet: reopened and read back",
+      "ok": true,
+      "editor": {
+        "values": [
+          "数量 A",
+          "数量 B",
+          "总计",
+          "2",
+          "3",
+          "5",
+          "表格往返验证",
+          "中文 English 123",
+          "0.125",
+          "TRUE"
+        ],
+        "viewMode": false
+      }
+    },
+    {
+      "step": "sheet.read",
+      "ok": true,
+      "value": {
+        "active": "兼容性",
+        "charts": [],
+        "filter": null,
+        "formulas": {
+          "C2": "=SUM(A2:B2)"
+        },
+        "hiddenRows": [],
+        "range": "A1:D3",
+        "rows": [
+          [
+            "数量 A",
+            "数量 B",
+            "总计",
+            ""
+          ],
+          [
+            "2",
+            "3",
+            "5",
+            "表格往返验证"
+          ],
+          [
+            "中文 English 123",
+            "0.125",
+            "TRUE",
+            ""
+          ]
+        ],
+        "selection": "D2",
+        "sheet": "兼容性",
+        "sheets": [
+          "兼容性"
+        ],
+        "styles": {
+          "A1": {
+            "bold": true
+          },
+          "B1": {
+            "bold": true
+          },
+          "C1": {
+            "bold": true
+          }
+        },
+        "truncated": false,
+        "used": "A1:D3"
+      },
+      "message": "已读取工作表“兼容性”（A1:D3）。"
+    },
+    {
+      "step": "cells.set (a formula)",
+      "ok": true,
+      "message": "已写入 E1–E2 的 2 格（含 1 个公式），可以撤销。",
+      "read": {
+        "active": "兼容性",
+        "charts": [],
+        "filter": null,
+        "formulas": {
+          "E2": "=A2*B2"
+        },
+        "hiddenRows": [],
+        "range": "E1:E2",
+        "rows": [
+          [
+            "乘积"
+          ],
+          [
+            "6"
+          ]
+        ],
+        "selection": "D2",
+        "sheet": "兼容性",
+        "sheets": [
+          "兼容性"
+        ],
+        "styles": {},
+        "truncated": false,
+        "used": "A1:E3"
+      }
+    },
+    {
+      "step": "cells.format",
+      "ok": true,
+      "message": "已设置 5 个单元格的格式，可以撤销。",
+      "styles": {
+        "A1": {
+          "bold": true,
+          "fill": "#D9E2F3"
+        },
+        "B1": {
+          "bold": true,
+          "fill": "#D9E2F3"
+        },
+        "C1": {
+          "bold": true,
+          "fill": "#D9E2F3"
+        },
+        "D1": {
+          "bold": true,
+          "fill": "#D9E2F3"
+        },
+        "E1": {
+          "bold": true,
+          "fill": "#D9E2F3"
+        }
+      }
+    },
+    {
+      "step": "edit.undo (the format)",
+      "ok": true,
+      "message": "已撤销上一步。",
+      "styles": {
+        "A1": {
+          "bold": true
+        },
+        "B1": {
+          "bold": true
+        },
+        "C1": {
+          "bold": true
+        }
+      }
+    },
+    {
+      "step": "saved with the formula",
+      "ok": true
+    },
+    {
+      "step": "spreadsheet: open sales-regions.xlsx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r22/sales.xlsx"
+    },
+    {
+      "step": "cells.sort (from large to small, the header stays)",
+      "ok": true,
+      "message": "已把 A1:D9 按 C 列从大到小排好（8 行），可以撤销。",
+      "column": [
+        "销售额",
+        "1610",
+        "1520",
+        "1430",
+        "1380",
+        "1200",
+        "1010",
+        "950",
+        "870"
+      ]
+    },
+    {
+      "step": "edit.undo (the sort)",
+      "ok": true,
+      "column": [
+        "销售额",
+        "1200",
+        "950",
+        "1430",
+        "1380",
+        "870",
+        "1610",
+        "1520",
+        "1010"
+      ]
+    },
+    {
+      "step": "cells.filter (values)",
+      "ok": true,
+      "message": "已筛选：显示 3 行，隐藏 5 行（没有删除），可以撤销。",
+      "filter": {
+        "hiddenRows": 5,
+        "range": "A1:D9"
+      }
+    },
+    {
+      "step": "cells.filter (a comparison on top)",
+      "ok": true,
+      "message": "已筛选：显示 2 行，隐藏 6 行（没有删除），可以撤销。"
+    },
+    {
+      "step": "cells.clearFilter",
+      "ok": true,
+      "message": "已取消筛选，所有行都显示出来了，可以撤销。"
+    },
+    {
+      "step": "cells.removeDuplicates (another sheet)",
+      "ok": true,
+      "message": "已删除 2 行重复的（每组留第一行），可以撤销。",
+      "names": [
+        "姓名",
+        "张三",
+        "李四",
+        "王五",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "step": "chart.add",
+      "ok": true,
+      "message": "已在 F1 插入一张柱形图，可以撤销。",
+      "charts": [
+        {
+          "title": "各区域销售额",
+          "type": "bar"
+        }
+      ]
+    },
+    {
+      "step": "chart.add without a title is named by its header",
+      "ok": true,
+      "message": "已在 F19 插入一张折线图，可以撤销。",
+      "value": {
+        "at": "F19",
+        "charts": 2,
+        "range": "B1:C9",
+        "series": 1,
+        "sheet": "销售明细",
+        "title": "销售额",
+        "type": "line"
+      }
+    },
+    {
+      "step": "sheet.add",
+      "ok": true,
+      "message": "已新建工作表“汇总”，可以撤销。"
+    },
+    {
+      "step": "cells.set on another sheet (a formula over sheets)",
+      "ok": true,
+      "message": "已写入 A1–B2 的 4 格（含 1 个公式），可以撤销。",
+      "read": {
+        "active": "汇总",
+        "charts": [],
+        "filter": null,
+        "formulas": {
+          "B2": "=SUMIF(销售明细!A:A,A2,销售明细!C:C)"
+        },
+        "hiddenRows": [],
+        "range": "B2:B2",
+        "rows": [
+          [
+            "4100"
+          ]
+        ],
+        "selection": "A1",
+        "sheet": "汇总",
+        "sheets": [
+          "销售明细",
+          "名单",
+          "汇总"
+        ],
+        "styles": {},
+        "truncated": false,
+        "used": "A1:B2"
+      }
+    },
+    {
+      "step": "cells.set refuses a wrong formula and writes nothing",
+      "ok": true,
+      "message": "公式写得不对，一格也没有写：B3 的 =求和(B2)（没有“求和”这个函数，函数名要用英文，例如 SUM、AVERAGE）。"
+    },
+    {
+      "step": "sheet.rename",
+      "ok": true,
+      "message": "已把工作表“汇总”改名为“区域汇总”，可以撤销。"
+    },
+    {
+      "step": "saved with the chart and the sheets",
+      "ok": true,
+      "message": "引擎已确认保存。"
+    },
+    {
+      "step": "reopened: the sheets, the chart and the rows are there",
+      "ok": true,
+      "sheets": [
+        "销售明细",
+        "名单",
+        "区域汇总"
+      ],
+      "charts": [
+        {
+          "title": "各区域销售额",
+          "type": "bar"
+        }
+      ]
+    },
+    {
+      "step": "presentation: open text-shape.pptx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r22/existing.pptx"
+    },
+    {
+      "step": "presentation: editable after opening",
+      "ok": true,
+      "state": {
+        "type": "asc_docs_api",
+        "viewMode": false,
+        "modified": false
+      }
+    },
+    {
+      "step": "presentation: changed in the editor",
+      "ok": true,
+      "editor": {
+        "slidesBefore": 1,
+        "slides": 2,
+        "texts": [
+          "Open Office 演示样本",
+          "中文 / English / 123",
+          "演示往返验证"
+        ],
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "presentation: saved",
+      "ok": true,
+      "message": "引擎已确认保存。"
+    },
+    {
+      "step": "presentation: created",
+      "ok": true,
+      "message": "新文档已由 ONLYOFFICE 创建。"
+    },
+    {
+      "step": "presentation: new one editable",
+      "ok": true,
+      "state": {
+        "type": "asc_docs_api",
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "presentation: new one changed",
+      "ok": true,
+      "editor": {
+        "slidesBefore": 1,
+        "slides": 1,
+        "texts": [
+          "",
+          "",
+          "演示往返验证（新建）"
+        ],
+        "viewMode": false,
+        "modified": true
+      }
+    },
+    {
+      "step": "presentation: saved as new.pptx",
+      "ok": true,
+      "document": "D:/open office/build/office-kinds/kinds-r22/new.pptx"
+    },
+    {
+      "step": "presentation: reopened and read back",
+      "ok": true,
+      "editor": {
+        "texts": [
+          "Open Office 演示样本",
+          "中文 / English / 123",
+          "演示往返验证"
+        ],
+        "viewMode": false
+      }
+    },
+    {
+      "step": "slide.setText on text boxes",
+      "ok": true,
+      "message": "已改第 1 页的文字，可以撤销。",
+      "slide": {
+        "body": [
+          "中文 / English / 123"
+        ],
+        "slide": 1,
+        "title": "改过的第一页标题"
+      }
+    },
+    {
+      "step": "slide.add (no layout to use)",
+      "ok": true,
+      "message": "已加了一页幻灯片（第 3 页），可以撤销。",
+      "slide": {
+        "body": [
+          "要点一",
+          "要点二"
+        ],
+        "slide": 3,
+        "title": "命令加的页"
+      }
+    },
+    {
+      "step": "slide.add (title and content)",
+      "ok": true,
+      "message": "已加了一页幻灯片（第 2 页，版式“标题和内容”），可以撤销。",
+      "slide": {
+        "body": [
+          "需求已完成",
+          "开发进行中",
+          "下周测试"
+        ],
+        "slide": 2,
+        "title": "项目进度"
+      }
+    },
+    {
+      "step": "slide.setText",
+      "ok": true,
+      "message": "已改第 2 页的文字，可以撤销。"
+    },
+    {
+      "step": "edit.undo (the title)",
+      "ok": true,
+      "message": "已撤销上一步。"
+    },
+    {
+      "step": "saved with the slide",
+      "ok": true
+    }
+  ],
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "",
+      "modelKey": "builtin:",
+      "state": "unknown",
+      "tokensPerSecond": 0
+    },
+    "conversation": "20261127-041645-045e02",
+    "conversationMessages": 0,
+    "document": "D:/open office/build/office-kinds/kinds-r22/commands.pptx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "",
+    "quickActions": [
+      "draft",
+      "summary",
+      "todos",
+      "proofread",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-27T12:17:40.920226+00:00",
+  "ok": true
+}

@@ -153,6 +153,9 @@ public:
                                QStringLiteral("format.cells"), QStringLiteral("format.paragraphs"),
                                QStringLiteral("format.text"), QStringLiteral("selection.select"),
                                QStringLiteral("sheet.read"), QStringLiteral("cells.set"), QStringLiteral("cells.format"),
+                               QStringLiteral("cells.sort"), QStringLiteral("cells.filter"), QStringLiteral("cells.clearFilter"),
+                               QStringLiteral("cells.removeDuplicates"), QStringLiteral("chart.add"), QStringLiteral("sheet.add"),
+                               QStringLiteral("sheet.rename"),
                                QStringLiteral("slides.read"), QStringLiteral("slide.add"), QStringLiteral("slide.setText")};
     int editorCommandCalls = 0;
     bool answerReads = false; // answer document/selection reads automatically, outside editorCommandCalls
@@ -1417,6 +1420,13 @@ private slots:
                                        {{QStringLiteral("start"), QStringLiteral("D1")},
                                         {QStringLiteral("rows"), QJsonArray{QJsonArray{QStringLiteral("乘积")}, QJsonArray{QStringLiteral("=A2*B2")}}}}),
                       FakeOllama::chat({QStringLiteral("已在 D 列写好乘积公式。")}),
+                      FakeOllama::chat({}, QStringLiteral("cells_sort"),
+                                       {{QStringLiteral("by"), QStringLiteral("C")}, {QStringLiteral("order"), QStringLiteral("desc")}}),
+                      FakeOllama::chat({QStringLiteral("排好了。")}),
+                      FakeOllama::chat({}, QStringLiteral("chart_add"),
+                                       {{QStringLiteral("range"), QStringLiteral("A1:C2")}, {QStringLiteral("type"), QStringLiteral("pie")},
+                                        {QStringLiteral("title"), QStringLiteral("数量")}}),
+                      FakeOllama::chat({QStringLiteral("图表插好了。")}),
                       FakeOllama::chat({}, QStringLiteral("slide_add"),
                                        {{QStringLiteral("title"), QStringLiteral("项目进度")},
                                         {QStringLiteral("points"), QJsonArray{QStringLiteral("需求已完成"), QStringLiteral("开发进行中")}}}),
@@ -1428,7 +1438,9 @@ private slots:
                              {QStringLiteral("rows"), QJsonArray{QJsonArray{QStringLiteral("数量 A"), QStringLiteral("数量 B"), QStringLiteral("总计")},
                                                                  QJsonArray{QStringLiteral("2"), QStringLiteral("3"), QStringLiteral("5")}}},
                              {QStringLiteral("formulas"), QJsonObject{{QStringLiteral("C2"), QStringLiteral("=SUM(A2:B2)")}}},
-                             {QStringLiteral("selection"), QStringLiteral("D2")}};
+                             {QStringLiteral("selection"), QStringLiteral("D2")},
+                             {QStringLiteral("sheets"), QJsonArray{QStringLiteral("兼容性"), QStringLiteral("说明")}},
+                             {QStringLiteral("charts"), QJsonArray{QJsonObject{{QStringLiteral("title"), QStringLiteral("销量")}}}}};
         engine.slidesValue = {{QStringLiteral("count"), 1}, {QStringLiteral("current"), 1},
                               {QStringLiteral("slides"), QJsonArray{QJsonObject{{QStringLiteral("slide"), 1},
                                                                                {QStringLiteral("title"), QStringLiteral("季度汇报")},
@@ -1450,13 +1462,14 @@ private slots:
 
         // It says what it can do here.
         panel->expand();
-        QTRY_COMPARE(panel->quickContext(), QStringLiteral("读表、写公式、设格式；改前先给你看")); // whole, not cut
+        QTRY_COMPARE(panel->quickContext(), QStringLiteral("写公式、排序筛选、图表；改前先给你看")); // whole, not cut
         // A question: the sheet is read first and goes along; the model gets the sheet commands only.
         panel->submitText(QStringLiteral("合计怎么算的？"));
         QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("SUM")));
         const QJsonObject asked = fake.chatRequests().at(0);
         const QString system = asked.value(QStringLiteral("messages")).toArray().first().toObject().value(QStringLiteral("content")).toString();
         QVERIFY(system.contains(QStringLiteral("现在打开的是表格")) && system.contains(QStringLiteral("5（公式 =SUM(A2:B2)）")));
+        QVERIFY(system.contains(QStringLiteral("这个文件有 2 个工作表：兼容性、说明")) && system.contains(QStringLiteral("图表 1 张：“销量”")));
         QStringList tools;
         for (const QJsonValue& tool : asked.value(QStringLiteral("tools")).toArray())
             tools << tool.toObject().value(QStringLiteral("function")).toObject().value(QStringLiteral("name")).toString();
@@ -1473,6 +1486,24 @@ private slots:
         QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("start")).toString(), QStringLiteral("D1"));
         engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已写入 D1–D2 的 2 格（含 1 个公式），可以撤销。"));
         QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("乘积公式")));
+        QTRY_VERIFY(!panel->working());
+        // Sorting and a chart: each said in words first, run on 执行.
+        panel->submitText(QStringLiteral("按总计从大到小排序"));
+        QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("整张表按 C 列从大到小排序（表头不动）")));
+        button(QStringLiteral("执行"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("cells.sort"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已把 A1:C2 按 C 列从大到小排好（1 行），可以撤销。"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("排好了")));
+        QTRY_VERIFY(!panel->working());
+        panel->submitText(QStringLiteral("做个饼图"));
+        QTRY_VERIFY(button(QStringLiteral("执行")) != nullptr);
+        QVERIFY(panel->lastMessageText().contains(QStringLiteral("用 A1:C2 的数据插一张饼图，标题“数量”")));
+        button(QStringLiteral("执行"))->click();
+        QCOMPARE(engine.lastCommandName, QStringLiteral("chart.add"));
+        QCOMPARE(engine.lastCommandArguments.value(QStringLiteral("type")).toString(), QStringLiteral("pie"));
+        engine.completeCommand(engine.lastCommandId, true, QStringLiteral("已在 E1 插入一张饼图，可以撤销。"));
+        QTRY_VERIFY(panel->lastMessageText().contains(QStringLiteral("图表插好了")));
         QTRY_VERIFY(!panel->working());
 
         // A presentation: its own commands; "加一页…" becomes a slide.

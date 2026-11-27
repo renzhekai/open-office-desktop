@@ -264,6 +264,7 @@ QString draftMarkdown(const QString& markdown)
         if (!lines[i].trimmed().isEmpty()) first = i;
     if (first < 0) return source;
     const QString top = lines[first].trimmed();
+    static const QRegularExpression ends(QStringLiteral("[。，；：:,;！？!?、]$"));
     bool titled = false;
     if (const QRegularExpressionMatch match = heading.match(top); match.hasMatch()) {
         lines[first] = QStringLiteral("# ") + match.captured(2);
@@ -271,7 +272,6 @@ QString draftMarkdown(const QString& markdown)
     } else {
         // A short line on its own before the rest ("关于召开安全会议的通知"): the title.
         static const QRegularExpression block(QStringLiteral("^([#|>*+•·-]|\\d{1,3}[.)．、]\\s)"));
-        static const QRegularExpression ends(QStringLiteral("[。，；：:,;！？!?、]$"));
         bool more = false;
         for (int i = first + 1; i < lines.size() && !more; ++i) more = !lines[i].trimmed().isEmpty();
         if (more && top.size() >= 2 && top.size() <= 30 && !block.match(top).hasMatch() && !ends.match(top).hasMatch()
@@ -286,6 +286,25 @@ QString draftMarkdown(const QString& markdown)
     for (int i = first + 1; i < lines.size(); ++i)
         if (const QRegularExpressionMatch match = heading.match(lines[i].trimmed()); match.hasMatch())
             least = std::min(least, int(match.captured(1).size()));
+    // No Markdown sections, but Chinese ones written as plain lines (the 1.7B does: "一、活动背景"
+    // alone on its line): two or more of them are the sections, "（一）…" under them.
+    if (least == 7) {
+        static const QRegularExpression chapter(QStringLiteral("^[一二三四五六七八九十]{1,3}[、．.]\\s*\\S.{0,24}$"));
+        static const QRegularExpression part(QStringLiteral("^[（(][一二三四五六七八九十]{1,3}[）)]\\s*\\S.{0,24}$"));
+        QList<int> chapters;
+        QList<int> parts;
+        for (int i = first + 1; i < lines.size(); ++i) {
+            const QString text = lines[i].trimmed();
+            if (ends.match(text).hasMatch()) continue;
+            if (chapter.match(text).hasMatch()) chapters << i;
+            else if (part.match(text).hasMatch()) parts << i;
+        }
+        if (chapters.size() >= 2) {
+            for (int i : chapters) lines[i] = QStringLiteral("## ") + lines[i].trimmed();
+            for (int i : parts) lines[i] = QStringLiteral("### ") + lines[i].trimmed();
+        }
+        return lines.join(QLatin1Char('\n'));
+    }
     if (least <= 6 && least != 2) {
         for (int i = first + 1; i < lines.size(); ++i)
             if (const QRegularExpressionMatch match = heading.match(lines[i].trimmed()); match.hasMatch()) {

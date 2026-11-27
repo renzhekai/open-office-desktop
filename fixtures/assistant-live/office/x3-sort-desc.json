@@ -1,0 +1,38 @@
+{
+  "name": "表格：按销售额从高到低排序（表头不动）",
+  "document": "fixtures/generated/sales-regions.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "按销售额从高到低排序"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetCell",
+      "cell": "A1",
+      "equals": "区域"
+    },
+    {
+      "check": "sheetCell",
+      "cell": "C2",
+      "equals": "1610"
+    },
+    {
+      "check": "sheetCell",
+      "cell": "A2",
+      "equals": "华南"
+    },
+    {
+      "check": "sheetCell",
+      "cell": "C9",
+      "equals": "870"
+    }
+  ]
+}

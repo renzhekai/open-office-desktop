@@ -1128,10 +1128,22 @@ void MainWindow::askLocalAi(const QString& text)
         const bool sheet = m_openedKind == DocumentKind::Spreadsheet;
         readForAssistant(sheet ? QStringLiteral("sheet.read") : QStringLiteral("slides.read"), [this, text, sheet](const CommandOutcome& read) {
             const QString content = read.ok ? (sheet ? sheetContext(read.value) : slidesContext(read.value)) : QString();
-            whenLocalAiReady([this, text, content] {
-                if (!m_localAi->ask(text, assistantContext(content, QString()))) showLocalAiCard();
-                updateAssistantWorking();
-            });
+            const auto ask = [this, text](const QString& context) {
+                whenLocalAiReady([this, text, context] {
+                    if (!m_localAi->ask(text, assistantContext(context, QString()))) showLocalAiCard();
+                    updateAssistantWorking();
+                });
+            };
+            m_sheetRead = sheet && read.ok ? read.value : QJsonObject();
+            // Another worksheet named in the request ("名单工作表里…") is read too and goes along.
+            const QStringList others = sheet && read.ok ? sheetsNamedIn(text, read.value) : QStringList();
+            if (others.isEmpty()) {
+                ask(content);
+                return;
+            }
+            readForAssistant(QStringLiteral("sheet.read"), [ask, content](const CommandOutcome& other) {
+                ask(other.ok ? content + QStringLiteral("\n\n") + sheetContext(other.value) : content);
+            }, {{QStringLiteral("sheet"), others.first()}});
         });
         return;
     }
@@ -1234,10 +1246,10 @@ void MainWindow::planTableChanges(const QString& request, int table)
 
 void MainWindow::refreshQuickActions()
 {
-    // A spreadsheet or presentation: the assistant answers and drafts; it does not change them yet.
+    // A spreadsheet or presentation: the assistant changes it with the commands written for it.
     if (m_documentOpened && m_openedKind != DocumentKind::Text) {
         m_assistantBall->setQuickActions(m_openedKind == DocumentKind::Spreadsheet
-                                             ? QStringLiteral("读表、写公式、设格式；改前先给你看")
+                                             ? QStringLiteral("写公式、排序筛选、图表；改前先给你看")
                                              : QStringLiteral("读各页、加一页、改标题；改前先给你看"), // one line: longer is cut
                                          {{QStringLiteral("draft"), QStringLiteral("起草…")}, {QStringLiteral("setup"), QStringLiteral("本地 AI")}});
         return;
@@ -2110,6 +2122,25 @@ void MainWindow::handleProposedCommand(const AssistantCommand& proposed)
                                              QRegularExpression::CaseInsensitiveOption);
     if (command.name == QStringLiteral("text.insert") && atTheEnd.match(m_localAi->lastRequest()).hasMatch())
         command.arguments.insert(QStringLiteral("position"), QStringLiteral("end"));
+    // The column a sort or filter is for, and the columns of a chart, as the person named them
+    // (small models miscount columns); only on the sheet that was read.
+    const QString onSheet = command.arguments.value(QStringLiteral("sheet")).toString();
+    if (!m_sheetRead.isEmpty() && (onSheet.isEmpty() || onSheet == m_sheetRead.value(QStringLiteral("sheet")).toString())) {
+        const QString request = m_localAi->lastRequest();
+        const char* key = command.name == QStringLiteral("cells.sort") ? "by" : command.name == QStringLiteral("cells.filter") ? "column" : nullptr;
+        if (key) {
+            QStringList values;
+            for (const QJsonValue& value : command.arguments.value(QStringLiteral("values")).toArray()) values << value.toVariant().toString();
+            const QString chosen = command.arguments.value(QLatin1String(key)).toString();
+            const QString meant = sheetColumnFor(request, m_sheetRead, chosen, values);
+            if (meant != chosen) command.arguments.insert(QLatin1String(key), meant);
+        }
+        if (command.name == QStringLiteral("chart.add")) {
+            const QString chosen = command.arguments.value(QStringLiteral("range")).toString();
+            const QString meant = chartRangeFor(request, m_sheetRead, chosen);
+            if (meant != chosen) command.arguments.insert(QStringLiteral("range"), meant);
+        }
+    }
     if (command.name == QStringLiteral("cells.set")) {
         // A header and its formulas one row off (small models do): put where they refer to.
         const QString start = command.arguments.value(QStringLiteral("start")).toString();

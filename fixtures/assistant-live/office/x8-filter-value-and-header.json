@@ -1,0 +1,22 @@
+{
+  "name": "表格：只看华东的销售额（筛选的值在“区域”列，句中还提到“销售额”）",
+  "document": "fixtures/generated/sales-regions.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "只看华东的销售额"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetInfo",
+      "hiddenRows": 5
+    }
+  ]
+}

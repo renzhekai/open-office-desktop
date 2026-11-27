@@ -1,0 +1,33 @@
+{
+  "name": "留出·表格：数学成绩从低到高排",
+  "document": "fixtures/generated/class-scores.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把学生按数学成绩从低到高排一下"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetCell",
+      "cell": "A1",
+      "equals": "姓名"
+    },
+    {
+      "check": "sheetCell",
+      "cell": "A2",
+      "equals": "陈静"
+    },
+    {
+      "check": "sheetCell",
+      "cell": "D8",
+      "equals": "99"
+    }
+  ]
+}

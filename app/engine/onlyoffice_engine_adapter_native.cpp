@@ -144,6 +144,9 @@ const QStringList& editorCommandNames()
                                    QStringLiteral("format.text"), QStringLiteral("selection.select"),
                                    QStringLiteral("format.read"), QStringLiteral("format.selection"),
                                    QStringLiteral("sheet.read"), QStringLiteral("cells.set"), QStringLiteral("cells.format"),
+                                   QStringLiteral("cells.sort"), QStringLiteral("cells.filter"), QStringLiteral("cells.clearFilter"),
+                                   QStringLiteral("cells.removeDuplicates"), QStringLiteral("chart.add"), QStringLiteral("sheet.add"),
+                                   QStringLiteral("sheet.rename"),
                                    QStringLiteral("slides.read"), QStringLiteral("slide.add"), QStringLiteral("slide.setText")};
     return names;
 }
@@ -152,7 +155,10 @@ const QStringList& editorCommandNames()
 bool commandFitsKind(const QString& name, DocumentKind kind)
 {
     if (name == QStringLiteral("edit.undo") || name == QStringLiteral("edit.redo")) return true;
-    static const QStringList sheet{QStringLiteral("sheet.read"), QStringLiteral("cells.set"), QStringLiteral("cells.format")};
+    static const QStringList sheet{QStringLiteral("sheet.read"), QStringLiteral("cells.set"), QStringLiteral("cells.format"),
+                                   QStringLiteral("cells.sort"), QStringLiteral("cells.filter"), QStringLiteral("cells.clearFilter"),
+                                   QStringLiteral("cells.removeDuplicates"), QStringLiteral("chart.add"), QStringLiteral("sheet.add"),
+                                   QStringLiteral("sheet.rename")};
     static const QStringList slides{QStringLiteral("slides.read"), QStringLiteral("slide.add"), QStringLiteral("slide.setText")};
     if (kind == DocumentKind::Spreadsheet) return sheet.contains(name);
     if (kind == DocumentKind::Presentation) return slides.contains(name);
@@ -168,13 +174,15 @@ struct EngineArgument {
     int maxLength;
     QStringList choices;
     char kind = 's'; // s text, i integer (minimum..maximum), b true/false, c color #RRGGBB, n color or "none",
-                     // a cell address (A1 or A1:C3), g rows of texts (maximum rows), l lines (maximum lines)
+                     // a cell address (A1 or A1:C3), g rows of texts (maximum rows), l lines (maximum lines),
+                     // k a column (C, or a cell of it), A up to 4 addresses split by commas, w a worksheet name
     int minimum = 0;
     int maximum = 0;
 };
 
 EngineArgument table(bool required) { return {"table", required, 0, {}, 'i', 1, 200}; }
 EngineArgument flag(const char* name) { return {name, false, 0, {}, 'b'}; }
+EngineArgument sheet() { return {"sheet", false, 31, {}, 'w'}; }
 EngineArgument fontSize() { return {"fontSize", false, 0, {}, 'i', 6, 72}; }
 EngineArgument align()
 {
@@ -200,6 +208,22 @@ bool engineValueValid(const EngineArgument& argument, const QJsonValue& value)
     case 'a': {
         static const QRegularExpression address(QStringLiteral("^\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?$"));
         return value.isString() && address.match(value.toString()).hasMatch();
+    }
+    case 'A': {
+        static const QRegularExpression addresses(QStringLiteral(
+            "^\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?"
+            "(\\s*,\\s*\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?){0,3}$"));
+        return value.isString() && addresses.match(value.toString()).hasMatch();
+    }
+    case 'k': { // a column letter or a header text
+        const QString text = value.toString().trimmed();
+        return value.isString() && !text.isEmpty() && text.size() <= argument.maxLength && !text.contains(QLatin1Char('\n'));
+    }
+    case 'w': {
+        static const QRegularExpression forbidden(QStringLiteral("[\\[\\]:*?/\\\\]"));
+        const QString text = value.toString().trimmed();
+        return value.isString() && !text.isEmpty() && text.size() <= 31 && !forbidden.match(text).hasMatch()
+            && !text.startsWith(QLatin1Char('\'')) && !text.endsWith(QLatin1Char('\''));
     }
     case 'g':
     case 'l': {
@@ -258,12 +282,27 @@ const QHash<QString, QList<EngineArgument>>& editorCommandArguments()
                                                                      QStringLiteral("lightGray"), QStringLiteral("none")}},
                                               {"style", false, 0, {QStringLiteral("heading1"), QStringLiteral("heading2"),
                                                                  QStringLiteral("heading3"), QStringLiteral("normal")}}}},
-        {QStringLiteral("sheet.read"), {{"range", false, 20, {}, 'a'}}},
-        {QStringLiteral("cells.set"), {{"start", true, 20, {}, 'a'}, {"rows", true, 1000, {}, 'g', 0, 200}}},
+        {QStringLiteral("sheet.read"), {{"range", false, 20, {}, 'a'}, sheet()}},
+        {QStringLiteral("cells.set"), {{"start", true, 20, {}, 'a'}, {"rows", true, 1000, {}, 'g', 0, 200}, sheet()}},
         {QStringLiteral("cells.format"), {{"range", true, 20, {}, 'a'}, flag("bold"), flag("italic"), fontSize(),
                                           {"color", false, 0, {}, 'c'}, {"fill", false, 0, {}, 'n'},
                                           {"align", false, 0, {QStringLiteral("left"), QStringLiteral("center"), QStringLiteral("right")}},
-                                          {"numberFormat", false, 40, {}}, flag("borders")}},
+                                          {"numberFormat", false, 40, {}}, flag("borders"), sheet()}},
+        {QStringLiteral("cells.sort"), {{"by", true, 40, {}, 'k'}, {"order", false, 0, {QStringLiteral("asc"), QStringLiteral("desc")}},
+                                        {"range", false, 20, {}, 'a'}, flag("header"), sheet()}},
+        {QStringLiteral("cells.filter"), {{"column", true, 40, {}, 'k'}, {"values", false, 100, {}, 'l', 0, 20},
+                                          {"condition", false, 60, {}}, {"top", false, 0, {}, 'i', 1, 500},
+                                          {"bottom", false, 0, {}, 'i', 1, 500}, {"range", false, 20, {}, 'a'}, sheet()}},
+        {QStringLiteral("cells.clearFilter"), {sheet()}},
+        {QStringLiteral("cells.removeDuplicates"), {{"range", false, 20, {}, 'a'}, {"columns", false, 40, {}, 'l', 0, 10},
+                                                    flag("header"), sheet()}},
+        {QStringLiteral("chart.add"), {{"range", true, 100, {}, 'A'},
+                                       {"type", false, 0, {QStringLiteral("column"), QStringLiteral("bar"), QStringLiteral("line"),
+                                                           QStringLiteral("pie"), QStringLiteral("doughnut"), QStringLiteral("area"),
+                                                           QStringLiteral("scatter")}},
+                                       {"title", false, 100, {}}, sheet()}},
+        {QStringLiteral("sheet.add"), {{"name", true, 31, {}, 'w'}}},
+        {QStringLiteral("sheet.rename"), {{"name", true, 31, {}, 'w'}, sheet()}},
         {QStringLiteral("slide.add"), {{"title", true, 200, {}}, {"points", false, 300, {}, 'l', 0, 12}, {"subtitle", false, 300, {}},
                                        {"position", false, 0, {QStringLiteral("after"), QStringLiteral("end")}}}},
         {QStringLiteral("slide.setText"), {{"slide", true, 0, {}, 'i', 1, 500},
@@ -292,6 +331,14 @@ bool editorArgumentsComplete(const QString& name, const QJsonObject& arguments)
     }
     if (name == QStringLiteral("slide.setText"))
         return arguments.contains(QStringLiteral("text")) != arguments.contains(QStringLiteral("points"));
+    if (name == QStringLiteral("cells.filter")) {
+        // One way to say which rows stay: values, a comparison, or the largest or smallest few.
+        static const QRegularExpression comparison(QStringLiteral("^(>=|<=|<>|>|<|=)\\s*\\S.*$"));
+        const int ways = (arguments.contains(QStringLiteral("values")) ? 1 : 0) + (arguments.contains(QStringLiteral("condition")) ? 1 : 0)
+            + (arguments.contains(QStringLiteral("top")) ? 1 : 0) + (arguments.contains(QStringLiteral("bottom")) ? 1 : 0);
+        return ways == 1 && (!arguments.contains(QStringLiteral("condition"))
+                             || comparison.match(arguments.value(QStringLiteral("condition")).toString().trimmed()).hasMatch());
+    }
     if (name == QStringLiteral("selection.select")) {
         const int ways = (arguments.contains(QStringLiteral("find")) ? 1 : 0)
             + (arguments.contains(QStringLiteral("paragraph")) ? 1 : 0) + (arguments.contains(QStringLiteral("table")) ? 1 : 0);
@@ -499,11 +546,30 @@ var area=function(text){var parts=String(text||'').split(':'),a=cellAt(parts[0])
   if(!a||!b)return null;return {r1:Math.min(a.r,b.r),c1:Math.min(a.c,b.c),r2:Math.max(a.r,b.r),c2:Math.max(a.c,b.c)};};
 var name=function(r,c){return letterOf(c)+(r+1);};
 var hexOfRgb=function(v){var h=(v&0xFFFFFF).toString(16).toUpperCase();while(h.length<6)h='0'+h;return '#'+h;};
+// The sheet a command is for: the one named (made active by the change, so the person sees it), or the active one.
+var sheetOf=function(text){if(!has(text))return C.GetActiveSheet();return C.GetSheet(String(text))||null;};
+var usedOf=function(ws){return {r1:0,c1:0,r2:Math.max(ws.getRowsCount()-1,0),c2:Math.max(ws.getColsCount()-1,0)};};
+var boxName=function(b){return name(b.r1,b.c1)+':'+name(b.r2,b.c2);};
+var columnOf=function(text){var m=/^\$?([A-Za-z]{1,3})(\$?[0-9]{1,7})?$/.exec(String(text||'').trim());return m?colOf(m[1]):-1;};
+var valueAt=function(ws,r,c){return String(ws.getCell3(r,c).getValue());};
+var numeric=function(v){return v!==''&&!isNaN(Number(v));};
+// A header row when it is not said: every cell of the first row is a text that is not a number.
+var headerOf=function(ws,box,given){if(has(given))return bool(given);
+  for(var c=box.c1;c<=box.c2;c++){var v=valueAt(ws,box.r1,c);if(v===''||numeric(v))return false;}return box.r2>box.r1;};
+// A column named by its letter (C, C1) or by its header in the first row of the range ("销售额").
+var columnIn=function(ws,box,text){var t=String(text||'').trim();if(!t)return -1;
+  for(var c=box.c1;c<=box.c2;c++)if(valueAt(ws,box.r1,c).trim()===t)return c;return columnOf(t);};
+// The range a sort, filter or clean-up works on: the one given, or what the sheet uses; one row
+// is never meant (small models write "A1:Z1"), so that is taken as not given.
+var rangeOf=function(ws,text){if(!has(text))return usedOf(ws);var b=area(text);if(b&&b.r1===b.r2)return usedOf(ws);return b;};
+var sheetName=function(t){return t.length>0&&t.length<=31&&!/[\[\]:*?\/\\]/.test(t)&&t.charAt(0)!=="'"&&t.charAt(t.length-1)!=="'";};
 )JS";
 
 const char* const kSheetReadScript = R"JS(
-var ws=api.wbModel.getActiveWs(),sheets=[];for(var i=0;i<api.wbModel.getWorksheetCount();i++)sheets.push(api.wbModel.getWorksheet(i).getName());
-var used={r1:0,c1:0,r2:Math.max(ws.getRowsCount()-1,0),c2:Math.max(ws.getColsCount()-1,0)};
+var ws=has(args.sheet)?api.wbModel.getWorksheetByName(String(args.sheet)):api.wbModel.getActiveWs(),sheets=[];
+if(!ws){reply(false,'no_sheet',{sheet:args.sheet});return;}
+for(var i=0;i<api.wbModel.getWorksheetCount();i++)sheets.push(api.wbModel.getWorksheet(i).getName());
+var used=usedOf(ws);
 var box=has(args.range)?area(args.range):used;if(!box){reply(false,'bad_address',{range:args.range});return;}
 var r2=Math.min(box.r2,box.r1+59),c2=Math.min(box.c2,box.c1+25),rows=[],formulas={},styles={};
 for(var r=box.r1;r<=r2;r++){var row=[];for(var c=box.c1;c<=c2;c++){var cell=ws.getCell3(r,c),v=cell.getValue(),f=cell.getFormula();
@@ -513,22 +579,39 @@ for(var r=box.r1;r<=r2;r++){var row=[];for(var c=box.c1;c<=c2;c++){var cell=ws.g
       if(o.bold||o.fill)styles[name(r,c)]=o;}catch(x){}}
   rows.push(row);}
 var sel=null;try{var last=ws.selectionRange.getLast();sel=name(last.r1,last.c1)+(last.r2!==last.r1||last.c2!==last.c1?':'+name(last.r2,last.c2):'');}catch(x){}
-reply(true,'sheet',{sheet:ws.getName(),sheets:sheets,range:name(box.r1,box.c1)+':'+name(r2,c2),used:name(used.r1,used.c1)+':'+name(used.r2,used.c2),
-  rows:rows,formulas:formulas,styles:styles,selection:sel,truncated:r2<box.r2||c2<box.c2});
+var hidden=[];for(var h=box.r1;h<=r2;h++)if(ws.getRowHidden(h))hidden.push(h+1);
+var charts=[];try{var all=C.GetSheet(ws.getName()).GetAllCharts();for(var k=0;k<all.length&&k<20;k++){var t=null;try{t=all[k].GetTitle();}catch(x){}
+  charts.push({title:t?String(t).trim().slice(0,100):'',type:String(all[k].GetChartType?all[k].GetChartType():'')});}}catch(x){}
+var filter=null;if(ws.AutoFilter&&ws.AutoFilter.Ref){var fr=ws.AutoFilter.Ref,off=0;for(var q=fr.r1+1;q<=fr.r2;q++)if(ws.getRowHidden(q))off++;
+  filter={range:boxName(fr),hiddenRows:off};}
+reply(true,'sheet',{sheet:ws.getName(),active:api.wbModel.getActiveWs().getName(),sheets:sheets,range:name(box.r1,box.c1)+':'+name(r2,c2),
+  used:name(used.r1,used.c1)+':'+name(used.r2,used.c2),rows:rows,formulas:formulas,styles:styles,selection:sel,hiddenRows:hidden,
+  charts:charts,filter:filter,truncated:r2<box.r2||c2<box.c2});
 )JS";
 
 const char* const kCellsSetScript = R"JS(
 var start=cellAt(args.start);if(!start){reply(false,'bad_address',{start:args.start});return;}
-edit(function(){var sh=C.GetActiveSheet(),n=0,f=0,width=0;
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+var why={'-309':'reference','-300':'parentheses','-308':'parentheses','-301':'operator','-307':'operand','-302':'arguments','-303':'arguments'};
+for(var fr=0;fr<args.rows.length;fr++){var cellsOf=args.rows[fr]||[];for(var fc=0;fc<cellsOf.length;fc++){var text=cellsOf[fc];
+  if(typeof text!=='string'||text.charAt(0)!=='='||text.length<2)continue;
+  var at=name(start.r+fr,start.c+fc),parsed=null,result=null;
+  try{parsed=new AscCommonExcel.parserFormula(text.slice(1),null,sh.worksheet);result=new AscCommonExcel.ParseResult([]);}catch(x){parsed=null;}
+  if(!parsed)continue;
+  if(!parsed.parse(false,null,result)){reply(false,'bad_formula',{cell:at,formula:text.slice(0,200),why:why[String(result.error)]||'syntax'});return;}
+  var unknown=(parsed.outStack||[]).filter(function(e){return e instanceof AscCommonExcel.cUnknownFunction;});
+  if(unknown.length){reply(false,'bad_formula',{cell:at,formula:text.slice(0,200),why:'function',function:String(unknown[0].name)});return;}}}
+edit(function(){if(has(args.sheet))sh.SetActive();var n=0,f=0,width=0;
   for(var r=0;r<args.rows.length;r++){var row=args.rows[r]||[];width=Math.max(width,row.length);
     for(var c=0;c<row.length;c++){var v=row[c];if(v===null||v===undefined)continue;v=String(v);
       sh.GetRangeByNumber(start.r+r,start.c+c).SetValue(v);n++;if(v.charAt(0)==='=')f++;}}
-  return {cells:n,formulas:f,start:name(start.r,start.c),end:name(start.r+args.rows.length-1,start.c+Math.max(width,1)-1)};},'cells_set');
+  return {sheet:sh.GetName(),cells:n,formulas:f,start:name(start.r,start.c),end:name(start.r+args.rows.length-1,start.c+Math.max(width,1)-1)};},'cells_set');
 )JS";
 
 const char* const kCellsFormatScript = R"JS(
 var box=area(args.range);if(!box){reply(false,'bad_address',{range:args.range});return;}
-edit(function(){var sh=C.GetActiveSheet(),g=sh.GetRange(name(box.r1,box.c1)+':'+name(box.r2,box.c2));
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+edit(function(){if(has(args.sheet))sh.SetActive();var g=sh.GetRange(boxName(box));
   if(has(args.bold))g.SetBold(bool(args.bold));
   if(has(args.italic))g.SetItalic(bool(args.italic));
   if(has(args.fontSize))g.SetFontSize(+args.fontSize);
@@ -539,6 +622,107 @@ edit(function(){var sh=C.GetActiveSheet(),g=sh.GetRange(name(box.r1,box.c1)+':'+
   if(has(args.borders)){var on=bool(args.borders),black=C.CreateColorFromRGB(0,0,0);
     ['Top','Bottom','Left','Right','InsideHorizontal','InsideVertical'].forEach(function(side){g.SetBorders(side,on?'Thin':'None',black);});}
   return {cells:(box.r2-box.r1+1)*(box.c2-box.c1+1),range:name(box.r1,box.c1)+':'+name(box.r2,box.c2)};},'formatted');
+)JS";
+
+// Sorting rows by one column (ApiRange.SetSort, the way 数据 > 排序 does); a header row stays on top.
+const char* const kCellsSortScript = R"JS(
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+var ws=sh.worksheet,box=rangeOf(ws,args.range);if(!box){reply(false,'bad_address',{range:args.range});return;}
+var kc=columnIn(ws,box,args.by);if(kc<0){reply(false,'no_column',{by:args.by});return;}
+if(kc<box.c1||kc>box.c2){reply(false,'outside_range',{by:args.by,range:boxName(box)});return;}
+var header=headerOf(ws,box,args.header),top=box.r1+(header?1:0),desc=args.order==='desc';
+if(box.r2-top<1){reply(false,'too_few_rows',{range:boxName(box)});return;}
+edit(function(){if(has(args.sheet))sh.SetActive();
+  sh.GetRange(boxName(box)).SetSort(name(box.r1,kc),desc?'xlDescending':'xlAscending',null,null,null,null,header?'xlYes':'xlNo');
+  var keys=[];for(var r=top;r<=box.r2;r++)keys.push(valueAt(ws,r,kc));
+  if(keys.every(numeric))for(var i=1;i<keys.length;i++)if(desc?Number(keys[i])>Number(keys[i-1]):Number(keys[i])<Number(keys[i-1]))return {refused:'not_sorted',range:boxName(box)};
+  return {sheet:ws.getName(),range:boxName(box),by:letterOf(kc),order:desc?'desc':'asc',header:header,rows:box.r2-top+1,first:keys.slice(0,5)};},'sorted');
+)JS";
+
+// Filtering (ApiRange.SetAutoFilter): the rows that do not fit are hidden, not deleted.
+const char* const kCellsFilterScript = R"JS(
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+var ws=sh.worksheet,ref=ws.AutoFilter&&ws.AutoFilter.Ref,box=ref?{r1:ref.r1,c1:ref.c1,r2:ref.r2,c2:ref.c2}:rangeOf(ws,args.range);
+if(!box){reply(false,'bad_address',{range:args.range});return;}
+var kc=columnIn(ws,box,args.column);if(kc<0){reply(false,'no_column',{column:args.column});return;}
+if(kc<box.c1||kc>box.c2){reply(false,'outside_range',{column:args.column,range:boxName(box)});return;}
+if(box.r2<=box.r1){reply(false,'too_few_rows',{range:boxName(box)});return;}
+var field=kc-box.c1+1,values=args.values||[];
+edit(function(){if(has(args.sheet))sh.SetActive();var g=sh.GetRange(boxName(box));
+  if(values.length)g.SetAutoFilter(field,values.map(String),'xlFilterValues');
+  else if(has(args.top))g.SetAutoFilter(field,String(args.top),'xlTop10Items');
+  else if(has(args.bottom))g.SetAutoFilter(field,String(args.bottom),'xlBottom10Items');
+  else g.SetAutoFilter(field,String(args.condition).trim());
+  var now=ws.AutoFilter&&ws.AutoFilter.Ref,hidden=0,rows=0;if(!now)return {refused:'not_filtered'};
+  for(var r=now.r1+1;r<=now.r2;r++){rows++;if(ws.getRowHidden(r))hidden++;}
+  return {sheet:ws.getName(),range:boxName(now),column:letterOf(kc),rows:rows,shown:rows-hidden,hidden:hidden};},'filtered');
+)JS";
+
+const char* const kCellsClearFilterScript = R"JS(
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+var ws=sh.worksheet,ref=ws.AutoFilter&&ws.AutoFilter.Ref;if(!ref){reply(false,'no_filter',{sheet:ws.getName()});return;}
+var box={r1:ref.r1,c1:ref.c1,r2:ref.r2,c2:ref.c2};
+edit(function(){if(has(args.sheet))sh.SetActive();sh.GetRange(boxName(box)).SetAutoFilter();
+  var hidden=0;for(var r=box.r1+1;r<=box.r2;r++)if(ws.getRowHidden(r))hidden++;
+  return {sheet:ws.getName(),range:boxName(box),hidden:hidden};},'unfiltered');
+)JS";
+
+// Removing repeated rows (ApiRange.RemoveDuplicates, as 数据 > 删除重复项 does): the first stays.
+const char* const kCellsRemoveDuplicatesScript = R"JS(
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+var ws=sh.worksheet,box=rangeOf(ws,args.range);if(!box){reply(false,'bad_address',{range:args.range});return;}
+if(box.r2<=box.r1){reply(false,'too_few_rows',{range:boxName(box)});return;}
+var columns=null;if(args.columns&&args.columns.length){columns=[];for(var i=0;i<args.columns.length;i++){var c=columnIn(ws,box,args.columns[i]);
+  if(c<box.c1||c>box.c2){reply(false,'outside_range',{column:args.columns[i],range:boxName(box)});return;}columns.push(c-box.c1+1);}}
+var header=headerOf(ws,box,args.header);
+edit(function(){if(has(args.sheet))sh.SetActive();var removed=sh.GetRange(boxName(box)).RemoveDuplicates(columns||undefined,header?'xlYes':'xlNo');
+  if(removed===null||removed===undefined)return {refused:'cannot_dedupe',range:boxName(box)};
+  if(removed===0)return {code:'no_duplicates',range:boxName(box)};
+  return {sheet:ws.getName(),range:boxName(box),removed:removed,header:header};},'deduped');
+)JS";
+
+// A chart (ApiWorksheet.AddChart) to the right of what the sheet uses, below the charts already there.
+// A single series needs no legend; a pie's legend names its slices.
+const char* const kChartAddScript = R"JS(
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+var ws=sh.worksheet,areas=String(args.range||'').split(',').map(function(t){return area(t.trim());});
+if(!areas.length||areas.some(function(b){return !b;})){reply(false,'bad_address',{range:args.range});return;}
+var types={column:'ColumnClustered',bar:'BarClustered',line:'LineMarkers',pie:'Pie',doughnut:'Doughnut',area:'Area',scatter:'XYScatter'};
+var kind=has(args.type)?args.type:'column',type=types[kind];if(!type){reply(false,'bad_chart_type',{type:args.type});return;}
+var all={r1:1e9,c1:1e9,r2:-1,c2:-1};areas.forEach(function(b){all.r1=Math.min(all.r1,b.r1);all.c1=Math.min(all.c1,b.c1);all.r2=Math.max(all.r2,b.r2);all.c2=Math.max(all.c2,b.c2);});
+if(all.r2===all.r1&&all.c2===all.c1){reply(false,'too_few_cells',{range:args.range});return;}
+var quote="'"+ws.getName().replace(/'/g,"''")+"'!",abs=function(b){return '$'+letterOf(b.c1)+'$'+(b.r1+1)+':$'+letterOf(b.c2)+'$'+(b.r2+1);};
+var ref=areas.map(function(b){return quote+abs(b);}).join(',');
+var inRows=areas.length===1&&(all.c2-all.c1)>(all.r2-all.r1);
+var used=usedOf(ws),col=used.c2+2,row=all.r1;
+for(var i=0;i<ws.Drawings.length;i++){var d=ws.Drawings[i];if(d&&d.from&&d.to&&d.to.col>=col)row=Math.max(row,d.to.row+2);}
+edit(function(){if(has(args.sheet))sh.SetActive();
+  var chart=sh.AddChart(ref,inRows,type,2,5400000,2880000,col,0,row,0);if(!chart)return {refused:'no_chart'};
+  var series=chart.GetAllSeries?chart.GetAllSeries().length:0,round=kind==='pie'||kind==='doughnut';
+  // No title given: one series is named by its header ("销售额"), the way a person would title it.
+  var title=has(args.title)?String(args.title):'';
+  if(!title&&series===1&&!inRows){var last=areas[areas.length-1],head=valueAt(ws,last.r1,last.c2).trim();if(head&&!numeric(head))title=head;}
+  if(title)chart.SetTitle(title,28,false);
+  chart.SetLegendPos(round?'right':series<=1?'none':'bottom');
+  return {sheet:ws.getName(),type:kind,range:areas.map(boxName).join(','),at:name(row,col),series:series,title:title,charts:sh.GetAllCharts().length};},'chart_added');
+)JS";
+
+const char* const kSheetAddScript = R"JS(
+var title=String(args.name||'').trim();
+if(!sheetName(title)){reply(false,'bad_sheet_name',{name:args.name});return;}
+if(C.GetSheet(title)){reply(false,'sheet_exists',{name:title});return;}
+edit(function(){var list=C.GetSheets();if(list.length)list[list.length-1].SetActive(); // a new sheet goes last
+  C.AddSheet(title);var made=C.GetSheet(title);if(!made)return {refused:'not_added',name:title};
+  made.SetActive();return {name:title,sheets:C.GetSheets().map(function(s){return s.GetName();})};},'sheet_added');
+)JS";
+
+const char* const kSheetRenameScript = R"JS(
+var sh=sheetOf(args.sheet);if(!sh){reply(false,'no_sheet',{sheet:args.sheet});return;}
+var title=String(args.name||'').trim(),before=sh.GetName();
+if(!sheetName(title)){reply(false,'bad_sheet_name',{name:args.name});return;}
+if(title===before){reply(false,'unchanged_name',{name:title});return;}
+if(C.GetSheet(title)){reply(false,'sheet_exists',{name:title});return;}
+edit(function(){sh.SetName(title);if(sh.GetName()!==title)return {refused:'not_renamed',name:title};return {before:before,name:title};},'sheet_renamed');
 )JS";
 
 // Presentations, through the editor's presentation builder API (AscBuilder.Slide.Api).
@@ -701,6 +885,20 @@ QString editorCommandScript(quint64 id, const QString& name, const QJsonObject& 
         body = officeScript(kSheetHelpers, kCellsSetScript, arguments);
     } else if (name == QStringLiteral("cells.format")) {
         body = officeScript(kSheetHelpers, kCellsFormatScript, arguments);
+    } else if (name == QStringLiteral("cells.sort")) {
+        body = officeScript(kSheetHelpers, kCellsSortScript, arguments);
+    } else if (name == QStringLiteral("cells.filter")) {
+        body = officeScript(kSheetHelpers, kCellsFilterScript, arguments);
+    } else if (name == QStringLiteral("cells.clearFilter")) {
+        body = officeScript(kSheetHelpers, kCellsClearFilterScript, arguments);
+    } else if (name == QStringLiteral("cells.removeDuplicates")) {
+        body = officeScript(kSheetHelpers, kCellsRemoveDuplicatesScript, arguments);
+    } else if (name == QStringLiteral("chart.add")) {
+        body = officeScript(kSheetHelpers, kChartAddScript, arguments);
+    } else if (name == QStringLiteral("sheet.add")) {
+        body = officeScript(kSheetHelpers, kSheetAddScript, arguments);
+    } else if (name == QStringLiteral("sheet.rename")) {
+        body = officeScript(kSheetHelpers, kSheetRenameScript, arguments);
     } else if (name == QStringLiteral("slides.read")) {
         body = officeScript(kSlideHelpers, kSlidesReadScript, arguments);
     } else if (name == QStringLiteral("slide.add")) {
@@ -838,6 +1036,63 @@ QString commandMessage(const QString& code, const QJsonObject& value, const QStr
                  : QStringLiteral("，版式“%1”").arg(value.value(QStringLiteral("layout")).toString()));
     if (code == QStringLiteral("slide_text_set"))
         return QStringLiteral("已改第 %1 页的文字，可以撤销。").arg(value.value(QStringLiteral("slide")).toInt());
+    if (code == QStringLiteral("sorted"))
+        return QStringLiteral("已把 %1 按 %2 列%3排好（%4 行），可以撤销。").arg(value.value(QStringLiteral("range")).toString(),
+                                                                      value.value(QStringLiteral("by")).toString(),
+                                                                      value.value(QStringLiteral("order")).toString() == QStringLiteral("desc")
+                                                                          ? QStringLiteral("从大到小") : QStringLiteral("从小到大"))
+            .arg(value.value(QStringLiteral("rows")).toInt());
+    if (code == QStringLiteral("filtered"))
+        return QStringLiteral("已筛选：显示 %1 行，隐藏 %2 行（没有删除），可以撤销。").arg(value.value(QStringLiteral("shown")).toInt())
+            .arg(value.value(QStringLiteral("hidden")).toInt());
+    if (code == QStringLiteral("unfiltered")) return QStringLiteral("已取消筛选，所有行都显示出来了，可以撤销。");
+    if (code == QStringLiteral("no_filter")) return QStringLiteral("这个工作表没有筛选。");
+    if (code == QStringLiteral("deduped"))
+        return QStringLiteral("已删除 %1 行重复的（每组留第一行），可以撤销。").arg(value.value(QStringLiteral("removed")).toInt());
+    if (code == QStringLiteral("no_duplicates")) return QStringLiteral("没有重复的行，没有改动。");
+    if (code == QStringLiteral("chart_added")) {
+        static const QHash<QString, QString> kinds{{QStringLiteral("column"), QStringLiteral("柱形图")}, {QStringLiteral("bar"), QStringLiteral("条形图")},
+                                                   {QStringLiteral("line"), QStringLiteral("折线图")}, {QStringLiteral("pie"), QStringLiteral("饼图")},
+                                                   {QStringLiteral("doughnut"), QStringLiteral("圆环图")}, {QStringLiteral("area"), QStringLiteral("面积图")},
+                                                   {QStringLiteral("scatter"), QStringLiteral("散点图")}};
+        return QStringLiteral("已在 %1 插入一张%2，可以撤销。").arg(value.value(QStringLiteral("at")).toString(),
+                                                              kinds.value(value.value(QStringLiteral("type")).toString(), QStringLiteral("图表")));
+    }
+    if (code == QStringLiteral("sheet_added"))
+        return QStringLiteral("已新建工作表“%1”，可以撤销。").arg(value.value(QStringLiteral("name")).toString());
+    if (code == QStringLiteral("sheet_renamed"))
+        return QStringLiteral("已把工作表“%1”改名为“%2”，可以撤销。").arg(value.value(QStringLiteral("before")).toString(),
+                                                                    value.value(QStringLiteral("name")).toString());
+    if (code == QStringLiteral("bad_formula")) {
+        static const QHash<QString, QString> reasons{
+            {QStringLiteral("reference"), QStringLiteral("引用了不存在的工作表或单元格")},
+            {QStringLiteral("parentheses"), QStringLiteral("括号不配对")},
+            {QStringLiteral("operator"), QStringLiteral("运算符写错了")},
+            {QStringLiteral("operand"), QStringLiteral("运算符后面缺少数或单元格")},
+            {QStringLiteral("arguments"), QStringLiteral("函数的参数个数不对")}};
+        const QString why = value.value(QStringLiteral("why")).toString();
+        const QString reason = why == QStringLiteral("function")
+            ? QStringLiteral("没有“%1”这个函数，函数名要用英文，例如 SUM、AVERAGE").arg(value.value(QStringLiteral("function")).toString())
+            : reasons.value(why, QStringLiteral("写法不对"));
+        return QStringLiteral("公式写得不对，一格也没有写：%1 的 %2（%3）。").arg(value.value(QStringLiteral("cell")).toString(),
+                                                                         value.value(QStringLiteral("formula")).toString(), reason);
+    }
+    if (code == QStringLiteral("no_sheet")) return QStringLiteral("没有这个工作表。");
+    if (code == QStringLiteral("bad_sheet_name"))
+        return QStringLiteral("工作表名称要有 1 到 31 个字，不能有 [ ] : * ? / \\ 这些符号。");
+    if (code == QStringLiteral("sheet_exists")) return QStringLiteral("已经有这个名称的工作表了。");
+    if (code == QStringLiteral("unchanged_name")) return QStringLiteral("工作表本来就叫这个名称，没有改动。");
+    if (code == QStringLiteral("outside_range")) return QStringLiteral("这一列不在要处理的范围里。");
+    if (code == QStringLiteral("no_column")) return QStringLiteral("表头里没有这一列，请写列字母（例如 C）或表头上的名字。");
+    if (code == QStringLiteral("too_few_rows")) return QStringLiteral("范围里的行太少，没法这样做。");
+    if (code == QStringLiteral("not_sorted")) return QStringLiteral("没能排序（范围里可能有合并的单元格）。");
+    if (code == QStringLiteral("not_filtered")) return QStringLiteral("没能筛选。");
+    if (code == QStringLiteral("cannot_dedupe")) return QStringLiteral("没能删除重复的行（范围里可能有合并的单元格或表格）。");
+    if (code == QStringLiteral("bad_chart_type")) return QStringLiteral("不认识这种图表。");
+    if (code == QStringLiteral("too_few_cells")) return QStringLiteral("做图表至少要两格以上的数据。");
+    if (code == QStringLiteral("no_chart")) return QStringLiteral("没能插入图表（数据可能不合适）。");
+    if (code == QStringLiteral("not_added")) return QStringLiteral("没能新建工作表。");
+    if (code == QStringLiteral("not_renamed")) return QStringLiteral("没能给工作表改名。");
     if (code == QStringLiteral("bad_address")) return QStringLiteral("单元格地址写得不对。");
     if (code == QStringLiteral("no_slide")) return QStringLiteral("没有这一页幻灯片。");
     if (code == QStringLiteral("no_placeholder")) return QStringLiteral("这一页没有这个位置（标题、副标题或正文）。");

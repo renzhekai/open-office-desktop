@@ -593,6 +593,8 @@ private slots:
         QVERIFY(names().contains(QStringLiteral("cells_set")) && names().contains(QStringLiteral("sheet_read"))
                 && names().contains(QStringLiteral("cells_format")) && names().contains(QStringLiteral("edit_undo"))
                 && names().contains(QStringLiteral("document_save")));
+        for (const char* name : {"cells_sort", "cells_filter", "cells_clearFilter", "cells_removeDuplicates", "chart_add", "sheet_add", "sheet_rename"})
+            QVERIFY2(names().contains(QLatin1String(name)), name);
         QVERIFY(!names().contains(QStringLiteral("text_insert")) && !names().contains(QStringLiteral("slide_add")));
         assistant.setDocumentKind(QStringLiteral("presentation"));
         QVERIFY(names().contains(QStringLiteral("slide_add")) && names().contains(QStringLiteral("slides_read"))
@@ -628,6 +630,33 @@ private slots:
         QVERIFY(!valid("cells.format", {{QStringLiteral("range"), QStringLiteral("A1:D1")}})); // which format?
         QVERIFY(!valid("cells.format", {{QStringLiteral("range"), QStringLiteral("A1-D1")}, {QStringLiteral("bold"), true}}));
         QVERIFY(valid("sheet.read", {}) && valid("sheet.read", {{QStringLiteral("range"), QStringLiteral("$A$1:F20")}}));
+        QVERIFY(valid("sheet.read", {{QStringLiteral("sheet"), QStringLiteral("名单")}}));
+        QVERIFY(valid("cells.set", {{QStringLiteral("start"), QStringLiteral("A1")}, {QStringLiteral("rows"), rows}, {QStringLiteral("sheet"), QStringLiteral("汇总")}}));
+        QVERIFY(!valid("cells.set", {{QStringLiteral("start"), QStringLiteral("A1")}, {QStringLiteral("rows"), rows}, {QStringLiteral("sheet"), QStringLiteral("a:b")}}));
+        // Sorting, filtering, repeated rows, charts, worksheets.
+        QVERIFY(valid("cells.sort", {{QStringLiteral("by"), QStringLiteral("C")}, {QStringLiteral("order"), QStringLiteral("desc")}}));
+        QVERIFY(valid("cells.sort", {{QStringLiteral("by"), QStringLiteral("c1")}, {QStringLiteral("range"), QStringLiteral("A1:D9")}, {QStringLiteral("header"), true}}));
+        QVERIFY(valid("cells.sort", {{QStringLiteral("by"), QStringLiteral("销售额")}})); // a header is a column too
+        QVERIFY(!valid("cells.sort", {{QStringLiteral("by"), QStringLiteral(" ")}}));
+        QVERIFY(!valid("cells.sort", {{QStringLiteral("by"), QStringLiteral("C")}, {QStringLiteral("order"), QStringLiteral("down")}}));
+        QVERIFY(valid("cells.filter", {{QStringLiteral("column"), QStringLiteral("A")}, {QStringLiteral("values"), QJsonArray{QStringLiteral("华东")}}}));
+        QVERIFY(valid("cells.filter", {{QStringLiteral("column"), QStringLiteral("C")}, {QStringLiteral("condition"), QStringLiteral(">= 1000")}}));
+        QVERIFY(valid("cells.filter", {{QStringLiteral("column"), QStringLiteral("C")}, {QStringLiteral("top"), 3}}));
+        QVERIFY(!valid("cells.filter", {{QStringLiteral("column"), QStringLiteral("A")}}));                       // which rows?
+        QVERIFY(!valid("cells.filter", {{QStringLiteral("column"), QStringLiteral("C")}, {QStringLiteral("condition"), QStringLiteral("大于1000")}}));
+        QVERIFY(!valid("cells.filter", {{QStringLiteral("column"), QStringLiteral("C")}, {QStringLiteral("top"), 3},
+                                        {QStringLiteral("condition"), QStringLiteral(">1")}}));                     // one way only
+        QVERIFY(valid("cells.clearFilter", {}));
+        QVERIFY(valid("cells.removeDuplicates", {{QStringLiteral("columns"), QJsonArray{QStringLiteral("A"), QStringLiteral("B")}}}));
+        QVERIFY(valid("cells.removeDuplicates", {{QStringLiteral("columns"), QJsonArray{QStringLiteral("姓名")}}}));
+        QVERIFY(valid("chart.add", {{QStringLiteral("range"), QStringLiteral("A1:A9, C1:C9")}, {QStringLiteral("type"), QStringLiteral("pie")}}));
+        QVERIFY(!valid("chart.add", {{QStringLiteral("range"), QStringLiteral("A1:A9;C1:C9")}}));
+        QVERIFY(!valid("chart.add", {{QStringLiteral("range"), QStringLiteral("A1:C9")}, {QStringLiteral("type"), QStringLiteral("radar")}}));
+        QVERIFY(valid("sheet.add", {{QStringLiteral("name"), QStringLiteral("汇总")}}));
+        QVERIFY(!valid("sheet.add", {{QStringLiteral("name"), QStringLiteral("a/b")}}));
+        QVERIFY(!valid("sheet.add", {{QStringLiteral("name"), QString(32, QLatin1Char('x'))}}));
+        QVERIFY(valid("sheet.rename", {{QStringLiteral("name"), QStringLiteral("明细")}, {QStringLiteral("sheet"), QStringLiteral("销售明细")}}));
+        QVERIFY(!commandFitsDocument(*findCommand(QStringLiteral("chart.add")), QStringLiteral("text")));
         QVERIFY(valid("slide.add", {{QStringLiteral("title"), QStringLiteral("项目进度")},
                                     {QStringLiteral("points"), QJsonArray{QStringLiteral("需求已完成"), QStringLiteral("开发进行中")}}}));
         QVERIFY(!valid("slide.add", {{QStringLiteral("points"), QJsonArray{QStringLiteral("没有标题")}}}));
@@ -649,6 +678,31 @@ private slots:
         QCOMPARE(describeCommand({QStringLiteral("cells.format"), {{QStringLiteral("range"), QStringLiteral("a1:d1")}, {QStringLiteral("bold"), true},
                                                                  {QStringLiteral("borders"), true}}, CommandSource::Assistant}),
                  QStringLiteral("A1:D1：加粗、加细边框"));
+        const auto said = [](const char* name, const QJsonObject& arguments) {
+            return describeCommand({QString::fromLatin1(name), arguments, CommandSource::Assistant});
+        };
+        QCOMPARE(said("cells.sort", {{QStringLiteral("by"), QStringLiteral("c")}, {QStringLiteral("order"), QStringLiteral("desc")}}),
+                 QStringLiteral("整张表按 C 列从大到小排序（表头不动）"));
+        QCOMPARE(said("cells.sort", {{QStringLiteral("by"), QStringLiteral("$C1")}, {QStringLiteral("range"), QStringLiteral("a1:d9")},
+                                     {QStringLiteral("sheet"), QStringLiteral("名单")}}),
+                 QStringLiteral("工作表“名单”：A1:D9 按 C 列从小到大排序（表头不动）"));
+        QCOMPARE(said("cells.sort", {{QStringLiteral("by"), QStringLiteral("销售额")}, {QStringLiteral("order"), QStringLiteral("desc")}}),
+                 QStringLiteral("整张表按“销售额”列从大到小排序（表头不动）"));
+        QCOMPARE(said("cells.filter", {{QStringLiteral("column"), QStringLiteral("A")},
+                                       {QStringLiteral("values"), QJsonArray{QStringLiteral("华东"), QStringLiteral("华南")}}}),
+                 QStringLiteral("筛选：只显示 A 列是“华东”“华南”的行（其余的隐藏，不删除）"));
+        QCOMPARE(said("cells.filter", {{QStringLiteral("column"), QStringLiteral("C")}, {QStringLiteral("condition"), QStringLiteral(">1000")}}),
+                 QStringLiteral("筛选：只显示 C 列 >1000 的行（其余的隐藏，不删除）"));
+        QCOMPARE(said("cells.filter", {{QStringLiteral("column"), QStringLiteral("C")}, {QStringLiteral("top"), 3}}),
+                 QStringLiteral("筛选：只显示 C 列最大的 3 行（其余的隐藏，不删除）"));
+        QCOMPARE(said("cells.removeDuplicates", {{QStringLiteral("columns"), QJsonArray{QStringLiteral("a"), QStringLiteral("B")}}}),
+                 QStringLiteral("删除整张表里重复的行，只比较 A 列、B 列（每组留第一行，表头不动）"));
+        QCOMPARE(said("chart.add", {{QStringLiteral("range"), QStringLiteral("a1:a9, c1:c9")}, {QStringLiteral("title"), QStringLiteral("各区域销售额")}}),
+                 QStringLiteral("用 A1:A9、C1:C9 的数据插一张柱形图，标题“各区域销售额”"));
+        QCOMPARE(said("sheet.add", {{QStringLiteral("name"), QStringLiteral("汇总")}}), QStringLiteral("新建工作表“汇总”"));
+        QCOMPARE(said("sheet.rename", {{QStringLiteral("name"), QStringLiteral("明细")}, {QStringLiteral("sheet"), QStringLiteral("销售明细")}}),
+                 QStringLiteral("把工作表“销售明细”改名为“明细”"));
+        QCOMPARE(said("cells.clearFilter", {}), QStringLiteral("取消筛选，显示所有行"));
         QCOMPARE(describeCommand({QStringLiteral("slide.add"), {{QStringLiteral("title"), QStringLiteral("项目进度")},
                                                                {QStringLiteral("points"), QJsonArray{QStringLiteral("a"), QStringLiteral("b")}}},
                                   CommandSource::Assistant}),
@@ -672,6 +726,32 @@ private slots:
         QCOMPARE(alignedFormulaStart(QStringLiteral("D2"), rowsOf({"=LOG10(A1)"})), QStringLiteral("D1"));   // LOG10 is no cell
         QCOMPARE(alignedFormulaStart(QStringLiteral("A1"), rowsOf({"=A0"})), QStringLiteral("A1"));
         QCOMPARE(alignedFormulaStart(QStringLiteral("D2"), rowsOf({"总计", "说明"})), QStringLiteral("D2"));
+        // The columns the person named win over the ones a model miscounted.
+        const QJsonObject sales{{QStringLiteral("sheet"), QStringLiteral("销售明细")},
+                                {QStringLiteral("sheets"), QJsonArray{QStringLiteral("销售明细"), QStringLiteral("名单")}},
+                                {QStringLiteral("range"), QStringLiteral("A1:D3")},
+                                {QStringLiteral("rows"), QJsonArray{
+                                    QJsonArray{QStringLiteral("区域"), QStringLiteral("月份"), QStringLiteral("销售额"), QStringLiteral("成本")},
+                                    QJsonArray{QStringLiteral("华东"), QStringLiteral("1月"), QStringLiteral("1200"), QStringLiteral("800")},
+                                    QJsonArray{QStringLiteral("华北"), QStringLiteral("1月"), QStringLiteral("950"), QStringLiteral("600")}}}};
+        QCOMPARE(sheetColumnFor(QStringLiteral("按销售额从高到低排序"), sales, QStringLiteral("D")), QStringLiteral("C"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("按销售额从高到低排序"), sales, QStringLiteral("C")), QStringLiteral("C"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("按销售额从高到低排序"), sales, QStringLiteral("销售额")), QStringLiteral("销售额"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("按销售额和成本排序"), sales, QStringLiteral("D")), QStringLiteral("D")); // two named: no say
+        QCOMPARE(sheetColumnFor(QStringLiteral("按月排序"), sales, QStringLiteral("B")), QStringLiteral("B"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("只显示华东的数据"), sales, QStringLiteral("B"), {QStringLiteral("华东")}), QStringLiteral("A"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("只显示华东的数据"), sales, QStringLiteral("A"), {QStringLiteral("华东")}), QStringLiteral("A"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("只看西南"), sales, QStringLiteral("A"), {QStringLiteral("西南")}), QStringLiteral("A")); // nowhere
+        // The values decide, not a header also named: 华东 is in 区域, whatever "销售额" says.
+        QCOMPARE(sheetColumnFor(QStringLiteral("只看华东的销售额"), sales, QStringLiteral("A"), {QStringLiteral("华东")}), QStringLiteral("A"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("只看华东的销售额"), sales, QStringLiteral("区域"), {QStringLiteral("华东")}), QStringLiteral("区域"));
+        QCOMPARE(sheetColumnFor(QStringLiteral("只看华东的销售额"), sales, QStringLiteral("C"), {QStringLiteral("华东")}), QStringLiteral("A"));
+        QCOMPARE(chartRangeFor(QStringLiteral("用区域和销售额做柱形图"), sales, QStringLiteral("A1:A3,D1:D3")), QStringLiteral("A1:A3,C1:C3"));
+        QCOMPARE(chartRangeFor(QStringLiteral("用区域和销售额做柱形图"), sales, QStringLiteral("A1:C3")), QStringLiteral("A1:A3,C1:C3"));
+        QCOMPARE(chartRangeFor(QStringLiteral("用区域和销售额做柱形图"), sales, QStringLiteral("$A$1:$A$3, C1:C3")), QStringLiteral("$A$1:$A$3, C1:C3"));
+        QCOMPARE(chartRangeFor(QStringLiteral("把销售额做成图"), sales, QStringLiteral("A1:D3")), QStringLiteral("A1:D3")); // one named: no say
+        QCOMPARE(sheetsNamedIn(QStringLiteral("把名单工作表里重复的行删掉"), sales), QStringList{QStringLiteral("名单")});
+        QVERIFY(sheetsNamedIn(QStringLiteral("把销售明细按销售额排序"), sales).isEmpty()); // the one already read
         // The sheet and the slides written out for the model.
         const QString sheet = sheetContext({{QStringLiteral("sheet"), QStringLiteral("销售")}, {QStringLiteral("range"), QStringLiteral("B2:C3")},
                                             {QStringLiteral("rows"), QJsonArray{QJsonArray{QStringLiteral("单价"), QStringLiteral("数量")},
@@ -680,6 +760,18 @@ private slots:
                                             {QStringLiteral("styles"), QJsonObject{{QStringLiteral("B2"), QJsonObject{{QStringLiteral("bold"), true}}}}},
                                             {QStringLiteral("selection"), QStringLiteral("D3")}});
         QCOMPARE(sheet, QStringLiteral("工作表“销售”（读到的范围 B2:C3；选中 D3）：\n列 | B | C |\n2 | 单价 | 数量 |\n3 | 2 | 6（公式 =B3*3） |\n加粗的格：B2"));
+        // More sheets, a filter that hides a row, a chart: all said.
+        const QString filtered = sheetContext({{QStringLiteral("sheet"), QStringLiteral("明细")}, {QStringLiteral("active"), QStringLiteral("明细")},
+                                               {QStringLiteral("sheets"), QJsonArray{QStringLiteral("明细"), QStringLiteral("名单")}},
+                                               {QStringLiteral("range"), QStringLiteral("A1:A3")},
+                                               {QStringLiteral("rows"), QJsonArray{QJsonArray{QStringLiteral("区域")}, QJsonArray{QStringLiteral("华东")},
+                                                                                   QJsonArray{QStringLiteral("华北")}}},
+                                               {QStringLiteral("hiddenRows"), QJsonArray{3}},
+                                               {QStringLiteral("filter"), QJsonObject{{QStringLiteral("range"), QStringLiteral("A1:A3")},
+                                                                                      {QStringLiteral("hiddenRows"), 1}}},
+                                               {QStringLiteral("charts"), QJsonArray{QJsonObject{{QStringLiteral("title"), QStringLiteral("销量")}}}}});
+        QCOMPARE(filtered, QStringLiteral("这个文件有 2 个工作表：明细、名单；现在显示的是“明细”。\n工作表“明细”（读到的范围 A1:A3）：\n列 | A |\n"
+                                          "1 | 区域 |\n2 | 华东 |\n3（隐藏） | 华北 |\n筛选：A1:A3，隐藏了 1 行\n图表 1 张：“销量”"));
         const QString slides = slidesContext({{QStringLiteral("count"), 2}, {QStringLiteral("current"), 1},
                                               {QStringLiteral("slides"), QJsonArray{
                                                   QJsonObject{{QStringLiteral("slide"), 1}, {QStringLiteral("title"), QStringLiteral("年会")},
@@ -1035,6 +1127,11 @@ private slots:
         QCOMPARE(draftMarkdown(QStringLiteral("关于召开安全会议的通知\n\n各部门：\n请准时参加。")),
                  QStringLiteral("# 关于召开安全会议的通知\n\n各部门：\n请准时参加。"));
         QCOMPARE(draftMarkdown(QStringLiteral("# 甲\n# 乙\n## 丙")), QStringLiteral("# 甲\n## 乙\n### 丙"));
+        // Sections written as plain lines (the 1.7B did, 2026-11-27): "一、…" become sections, "（一）…" under them.
+        QCOMPARE(draftMarkdown(QStringLiteral("# 中秋节游园活动方案\n一、活动背景\n为弘扬传统文化。\n二、活动内容\n（一）猜灯谜\n现场设灯谜。")),
+                 QStringLiteral("# 中秋节游园活动方案\n## 一、活动背景\n为弘扬传统文化。\n## 二、活动内容\n### （一）猜灯谜\n现场设灯谜。"));
+        QCOMPARE(draftMarkdown(QStringLiteral("# 通知\n一、请于周五前提交材料，逾期不候。\n谢谢。")), // one, and a sentence: kept
+                 QStringLiteral("# 通知\n一、请于周五前提交材料，逾期不候。\n谢谢。"));
         for (const QString& kept : {QStringLiteral("# 标题\n## 一\n### 二"), QStringLiteral("尊敬的客户：\n感谢支持。"),
                                     QStringLiteral("- 第一条\n- 第二条"), QStringLiteral("1. 第一步\n2. 第二步"),
                                     QStringLiteral("只有一行")})

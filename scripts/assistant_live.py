@@ -19,6 +19,9 @@ Document checks: {"check": "paragraph", "paragraph": 1 | -1, or "contains"/"star
 {"check": "textUnchanged"}. {"apply": true} presses 全部改正, or 执行 for each command asked.
 Expectations: ok (true/false), code, saidIncludes (text in what the assistant said),
 buttonsInclude (button titles), valueIncludes (text in the JSON of the tool's value).
+Spreadsheets: {"check": "sheetCell", "cell": "C2", "equals": "...", "formulaHas": [...], "sheet": "..."},
+{"check": "sheetStyle", "cell": "A1", "bold": true, "filled": true} and {"check": "sheetInfo",
+"sheetsHave": [...], "charts": 1 (at least), "hiddenRows": 5, "noFilter": true}.
 A step may also be {"check": "cell", "table": 1, "row": 2, "column": 3, "equals": "..."} or
 {"check": "unchangedExcept", "table": 1, "cells": ["R2C3"]} (compares with the table as it was
 when the scenario started).
@@ -259,7 +262,7 @@ def run_document_check(mcp, step, entry, before):
                 problems.append(f"{table['id']} is not at the end: {later[0].get('id')} {later[0].get('text', '')[:20]!r} follows")
     elif step["check"] in ("sheetCell", "sheetStyle"):
         # A spreadsheet cell, read with the assistant's own sheet.read: its value or formula, or its look.
-        content, error = mcp.call("sheet.read", {"range": step["cell"]})
+        content, error = mcp.call("sheet.read", {"range": step["cell"], **({"sheet": step["sheet"]} if "sheet" in step else {})})
         if error:
             return [f"{step['cell']} cannot be read"]
         read = content.get("value", {})
@@ -279,6 +282,22 @@ def run_document_check(mcp, step, entry, before):
                 problems.append(f"{step['cell']} is not bold")
             if step.get("filled") and not style.get("fill"):
                 problems.append(f"{step['cell']} has no fill")
+    elif step["check"] == "sheetInfo":
+        # The workbook as a whole: its sheets, the charts and the filter of one sheet.
+        content, error = mcp.call("sheet.read", {"range": "A1", **({"sheet": step["sheet"]} if "sheet" in step else {})})
+        if error:
+            return ["the sheet cannot be read"]
+        read = content.get("value", {})
+        entry["actual"] = {key: read.get(key) for key in ("sheet", "sheets", "charts", "filter")}
+        for name in step.get("sheetsHave", []):
+            if name not in read.get("sheets", []):
+                problems.append(f"no sheet {name!r}: {read.get('sheets')}")
+        if "charts" in step and len(read.get("charts", [])) < step["charts"]:
+            problems.append(f"{len(read.get('charts', []))} charts, expected at least {step['charts']}")
+        if "hiddenRows" in step and (read.get("filter") or {}).get("hiddenRows") != step["hiddenRows"]:
+            problems.append(f"filter {read.get('filter')}, expected {step['hiddenRows']} hidden rows")
+        if step.get("noFilter") and read.get("filter"):
+            problems.append(f"still filtered: {read.get('filter')}")
     elif step["check"] == "slides":
         content, error = mcp.call("slides.read")
         if error:
@@ -377,7 +396,7 @@ def run_step(mcp, step, entry, before):
         entry["isError"] = error
         return check_expectation(step.get("expect", {}), content, error)
     if step["check"] in ("paragraph", "text", "textSnapshot", "textUnchanged", "tableShape", "draftLook",
-                         "sheetCell", "sheetStyle", "slides"):
+                         "sheetCell", "sheetStyle", "sheetInfo", "slides"):
         return run_document_check(mcp, step, entry, before)
     table = step.get("table", 1)
     grid = table_grid(mcp, table)

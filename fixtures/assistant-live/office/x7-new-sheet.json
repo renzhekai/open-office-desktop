@@ -1,0 +1,26 @@
+{
+  "name": "表格：新建一个叫“汇总”的工作表",
+  "document": "fixtures/generated/sales-regions.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "新建一个工作表，名字叫汇总"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetInfo",
+      "sheetsHave": [
+        "销售明细",
+        "名单",
+        "汇总"
+      ]
+    }
+  ]
+}

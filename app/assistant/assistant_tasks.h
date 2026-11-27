@@ -255,6 +255,18 @@ QString sheetContext(const QJsonObject& read);
 // row. Otherwise the start as given.
 QString alignedFormulaStart(const QString& start, const QJsonArray& rows);
 QString slidesContext(const QJsonObject& read);
+// The column a sort or filter is meant for, from the person's own words and the sheet as read
+// (sheet.read of the whole sheet): small models miscount columns ("销售额" taken as D). With
+// values to keep (a filter): the model's column when it holds them all, else the one column that
+// does. Without: when the request names exactly one header and the model chose another column,
+// that header's letter. Otherwise the column as chosen.
+QString sheetColumnFor(const QString& request, const QJsonObject& read, const QString& chosen, const QStringList& values = {});
+// The data a chart is meant to show: when the request names two or more headers and the
+// model's range has other columns, those headers' columns from the header row to the last row
+// ("A1:A9,C1:C9"). Otherwise the range as chosen.
+QString chartRangeFor(const QString& request, const QJsonObject& read, const QString& chosen);
+// The other worksheets the request names ("名单工作表里…"), so they are read too.
+QStringList sheetsNamedIn(const QString& request, const QJsonObject& read);
 // Proofreading fixes as cell edits: each cell that contains the wrong text and that the
 // plan does not already change.
 QList<PlannedEdit> withTypoFixes(const QList<PlannedEdit>& plan, const QList<Correction>& corrections, const TableGrid& grid, int table);

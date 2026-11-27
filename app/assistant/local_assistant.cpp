@@ -50,6 +50,12 @@ QString systemPrompt(const QString& context, bool cloud, const QString& kind)
             "  一整列要在一次 cells_set 里写完：表头和下面每一行一起写，有几行数据就写几行。例如表格第 2 到 4 行有数据，"
             "在 D 列算 A 乘 B：start 是 D1，rows 是 [[\"乘积\"],[\"=A2*B2\"],[\"=A3*B3\"],[\"=A4*B4\"]]；\n"
             "- 设格式（加粗、底色、文字颜色、对齐、数字格式、边框）：cells_format，range 写成 A1:D1；\n"
+            "- 排序：cells_sort，by 写表头上的名字（例如 \"销售额\"）或列字母，从大到小时 order 用 desc；\n"
+            "- 只看某些行：cells_filter，column 写表头上的名字或列字母，values 是要看的值，或 condition 写成 >1000 这样；取消筛选：cells_clearFilter；\n"
+            "  排序、筛选、删除重复时不用给 range，程序会用整张表；\n"
+            "- 插图表：chart_add，range 包括表头和类别那一列，例如 A1:C9，不相邻的列用逗号分开，例如 A1:A9,C1:C9；"
+            "type 用 column（柱形）、bar（条形）、line（折线）、pie（饼图）；title 写图表标题；\n"
+            "- 删除重复的行：cells_removeDuplicates；新建工作表：sheet_add；工作表改名：sheet_rename；改别的工作表时给 sheet（工作表名称）；\n"
             "- 撤销刚才的修改：edit_undo。\n")
             : QStringLiteral(
             "- 先看附带的幻灯片内容（不够时用 slides_read 读）；\n"

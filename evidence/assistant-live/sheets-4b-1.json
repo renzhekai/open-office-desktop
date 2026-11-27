@@ -1,0 +1,2359 @@
+{
+  "label": "sheets-4b-1",
+  "started_utc": "2026-11-27T11:58:44.670044+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\sheets-4b-1\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-4b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "表格：在 D 列算出 A 乘 B，D1 写表头（要用公式）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "在D列算出A列乘以B列的结果，D1写表头“乘积”，D2用公式"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 77.32705879484826
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035845-4f8a4d",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/01-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "<p>从 D1 开始写入 2 行 × 1 列（含 1 个公式）：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><td>乘积</td></tr><tr><td>=A2*B2</td></tr></table>",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "在D列算出A列乘以B列的结果，D1写表头“乘积”，D2用公式",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "<p>从 D1 开始写入 2 行 × 1 列（含 1 个公式）：</p><table border=\"1\" cellspacing=\"0\" cellpadding=\"3\"><tr><td>乘积</td></tr><tr><td>=A2*B2</td></tr></table>",
+                "title": "助手想要写入单元格"
+              }
+            ],
+            "seconds": 16.5,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 16.83
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 79.8053152687184
+            },
+            "buttons": [],
+            "conversation": "20261127-035845-4f8a4d",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/01-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已按要求在D1写入“乘积”并设置D2的公式为=A2*B2，公式已正确应用到D列。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已写入 D1–D2 的 2 格（含 1 个公式），可以撤销。",
+                "title": "写入单元格"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已按要求在D1写入“乘积”并设置D2的公式为=A2*B2，公式已正确应用到D列。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 7,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 7.08
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "D1",
+            "equals": "乘积"
+          },
+          "actual": {
+            "active": "兼容性",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "D1:D1",
+            "rows": [
+              [
+                "乘积"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D3"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "D2",
+            "equals": "6",
+            "formulaHas": [
+              "A2",
+              "B2"
+            ]
+          },
+          "actual": {
+            "active": "兼容性",
+            "charts": [],
+            "filter": null,
+            "formulas": {
+              "D2": "=A2*B2"
+            },
+            "hiddenRows": [],
+            "range": "D2:D2",
+            "rows": [
+              [
+                "6"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D3"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "C2",
+            "equals": "5",
+            "formulaHas": [
+              "SUM"
+            ]
+          },
+          "actual": {
+            "active": "兼容性",
+            "charts": [],
+            "filter": null,
+            "formulas": {
+              "C2": "=SUM(A2:B2)"
+            },
+            "hiddenRows": [],
+            "range": "C2:C2",
+            "rows": [
+              [
+                "5"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D3"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\01-values-formula.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\01-values-formula.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x1-product-column.json"
+    },
+    {
+      "name": "表格：表头加粗、加浅蓝底色",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把第一行表头（A1到C1）加粗，加上浅蓝色底色"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 80.15411450197425
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035913-c261dd",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/02-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "A1:C1：加粗、底色 #E0F0FF",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把第一行表头（A1到C1）加粗，加上浅蓝色底色",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "A1:C1：加粗、底色 #E0F0FF",
+                "title": "助手想要设置单元格格式"
+              }
+            ],
+            "seconds": 4.5,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 4.53
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 77.72118349735905
+            },
+            "buttons": [],
+            "conversation": "20261127-035913-c261dd",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/02-values-formula.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已成功将A1到C1的表头加粗并设置浅蓝色底色。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已设置 3 个单元格的格式，可以撤销。",
+                "title": "设置单元格格式"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已成功将A1到C1的表头加粗并设置浅蓝色底色。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 4.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 4.8
+        },
+        {
+          "step": {
+            "check": "sheetStyle",
+            "cell": "A1",
+            "bold": true,
+            "filled": true
+          },
+          "actual": {
+            "active": "兼容性",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A1:A1",
+            "rows": [
+              [
+                "数量 A"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {
+              "A1": {
+                "bold": true,
+                "fill": "#E0F0FF"
+              }
+            },
+            "truncated": false,
+            "used": "A1:C3"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetStyle",
+            "cell": "C1",
+            "bold": true,
+            "filled": true
+          },
+          "actual": {
+            "active": "兼容性",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "C1:C1",
+            "rows": [
+              [
+                "总计"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {
+              "C1": {
+                "bold": true,
+                "fill": "#E0F0FF"
+              }
+            },
+            "truncated": false,
+            "used": "A1:C3"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A1",
+            "equals": "数量 A"
+          },
+          "actual": {
+            "active": "兼容性",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A1:A1",
+            "rows": [
+              [
+                "数量 A"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "兼容性",
+            "sheets": [
+              "兼容性"
+            ],
+            "styles": {
+              "A1": {
+                "bold": true,
+                "fill": "#E0F0FF"
+              }
+            },
+            "truncated": false,
+            "used": "A1:C3"
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\02-values-formula.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\02-values-formula.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x2-header-look.json"
+    },
+    {
+      "name": "表格：按销售额从高到低排序（表头不动）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "按销售额从高到低排序"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 73.35416487196957
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035925-84ab95",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/03-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "工作表“销售明细',”：A1:D9 按“销售额”列从大到小排序（表头不动）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "按销售额从高到低排序",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "工作表“销售明细',”：A1:D9 按“销售额”列从大到小排序（表头不动）",
+                "title": "助手想要排序"
+              }
+            ],
+            "seconds": 5,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 5.02
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行",
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 77.85541531010239
+            },
+            "buttons": [],
+            "conversation": "20261127-035925-84ab95",
+            "conversationMessages": 4,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/03-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已按销售额从高到低排序，结果如下：\n- 华南 2月 1610\n- 华东 3月 1520\n- 华南 1月 1430\n- 华东 2月 1380\n- 华东 1月 1200\n- 华北 2月 870\n- 华北 3月 1010\n- 华北 1月 950\n\n（排序后数据共8行，可随时撤销）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已把 A1:D9 按 C 列从大到小排好（8 行），可以撤销。",
+                "title": "排序"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已按销售额从高到低排序，结果如下：\n- 华南 2月 1610\n- 华东 3月 1520\n- 华南 1月 1430\n- 华东 2月 1380\n- 华东 1月 1200\n- 华北 2月 870\n- 华北 3月 1010\n- 华北 1月 950\n\n（排序后数据共8行，可随时撤销）",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 6.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 10.79
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A1",
+            "equals": "区域"
+          },
+          "actual": {
+            "active": "销售明细",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A1:A1",
+            "rows": [
+              [
+                "区域"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D9"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "C2",
+            "equals": "1610"
+          },
+          "actual": {
+            "active": "销售明细",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "C2:C2",
+            "rows": [
+              [
+                "1610"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D9"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A2",
+            "equals": "华南"
+          },
+          "actual": {
+            "active": "销售明细",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A2:A2",
+            "rows": [
+              [
+                "华南"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D9"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "C9",
+            "equals": "870"
+          },
+          "actual": {
+            "active": "销售明细",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "C9:C9",
+            "rows": [
+              [
+                "870"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D9"
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\03-sales-regions.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\03-sales-regions.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x3-sort-desc.json"
+    },
+    {
+      "name": "表格：只看华东的数据（筛选，不删除）",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "只显示华东的数据"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 78.58631597089091
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035943-77e781",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/04-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "筛选：只显示“区域”列 =华东 的行（其余的隐藏，不删除）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "只显示华东的数据",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "筛选：只显示“区域”列 =华东 的行（其余的隐藏，不删除）",
+                "title": "助手想要筛选"
+              }
+            ],
+            "seconds": 16.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 16.3
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 74.51234156192439
+            },
+            "buttons": [],
+            "conversation": "20261127-035943-77e781",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/04-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已显示3行华东区域数据（行2、5、8），隐藏其他5行。可以撤销筛选。需要进一步操作吗？",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选：显示 3 行，隐藏 5 行（没有删除），可以撤销。",
+                "title": "筛选"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已显示3行华东区域数据（行2、5、8），隐藏其他5行。可以撤销筛选。需要进一步操作吗？",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 4,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 4.06
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "hiddenRows": 5
+          },
+          "actual": {
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "charts": [],
+            "filter": {
+              "hiddenRows": 5,
+              "range": "A1:D9"
+            }
+          },
+          "problems": [],
+          "seconds": 0.04
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A3",
+            "equals": "华北"
+          },
+          "actual": {
+            "active": "销售明细",
+            "charts": [],
+            "filter": {
+              "hiddenRows": 5,
+              "range": "A1:D9"
+            },
+            "formulas": {},
+            "hiddenRows": [
+              3
+            ],
+            "range": "A3:A3",
+            "rows": [
+              [
+                "华北"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D9"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\04-sales-regions.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\04-sales-regions.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x4-filter-values.json"
+    },
+    {
+      "name": "表格：用区域和销售额做柱形图",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "用区域和销售额这两列做一个柱形图"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 75.27454427343902
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040005-730efa",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/05-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "工作表“销售明细”：用 A1:A9、C1:C9 的数据插一张柱形图，标题“区域与销售额柱形图”",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "用区域和销售额这两列做一个柱形图",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "工作表“销售明细”：用 A1:A9、C1:C9 的数据插一张柱形图，标题“区域与销售额柱形图”",
+                "title": "助手想要插入图表"
+              }
+            ],
+            "seconds": 7.75,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 7.8
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 76.49388458711971
+            },
+            "buttons": [],
+            "conversation": "20261127-040005-730efa",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/05-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已在F1插入柱形图，显示“区域”与“销售额”的对比。可以撤销修改。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已在 F1 插入一张柱形图，可以撤销。",
+                "title": "插入图表"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已在F1插入柱形图，显示“区域”与“销售额”的对比。可以撤销修改。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 3.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 3.61
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "charts": 1
+          },
+          "actual": {
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "charts": [
+              {
+                "title": "区域与销售额柱形图",
+                "type": "bar"
+              }
+            ],
+            "filter": null
+          },
+          "problems": [],
+          "seconds": 0.02
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "C2",
+            "equals": "1200"
+          },
+          "actual": {
+            "active": "销售明细",
+            "charts": [
+              {
+                "title": "区域与销售额柱形图",
+                "type": "bar"
+              }
+            ],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "C2:C2",
+            "rows": [
+              [
+                "1200"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D9"
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\05-sales-regions.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\05-sales-regions.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x5-chart.json"
+    },
+    {
+      "name": "表格：删除“名单”工作表里重复的行",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把名单工作表里重复的行删掉"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 74.29184403932122
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040019-470dd4",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/06-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "工作表“名单',”：删除 A1:C6 里重复的行（每组留第一行，表头不动）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把名单工作表里重复的行删掉",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "工作表“名单',”：删除 A1:C6 里重复的行（每组留第一行，表头不动）",
+                "title": "助手想要删除重复的行"
+              }
+            ],
+            "seconds": 6,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 6.03
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行",
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 76.7001121990123
+            },
+            "buttons": [],
+            "conversation": "20261127-040019-470dd4",
+            "conversationMessages": 4,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/06-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已删除“名单”工作表中2行重复记录（每组保留第一行），可撤销修改。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已删除 2 行重复的（每组留第一行），可以撤销。",
+                "title": "删除重复的行"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已删除“名单”工作表中2行重复记录（每组保留第一行），可撤销修改。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 3.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 8.86
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "sheet": "名单",
+            "cell": "A4",
+            "equals": "王五"
+          },
+          "actual": {
+            "active": "名单",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A4:A4",
+            "rows": [
+              [
+                "王五"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "名单",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:C6"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "sheet": "名单",
+            "cell": "A5",
+            "equals": ""
+          },
+          "actual": {
+            "active": "名单",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A5:A5",
+            "rows": [
+              [
+                ""
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "名单",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:C6"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "sheet": "销售明细",
+            "cell": "A9",
+            "equals": "华北"
+          },
+          "actual": {
+            "active": "名单",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A9:A9",
+            "rows": [
+              [
+                "华北"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "销售明细",
+            "sheets": [
+              "销售明细",
+              "名单"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D9"
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\06-sales-regions.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\06-sales-regions.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x6-dedupe-other-sheet.json"
+    },
+    {
+      "name": "表格：新建一个叫“汇总”的工作表",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "新建一个工作表，名字叫汇总"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 75.88547582757043
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040036-60d41b",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/07-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "新建工作表“汇总”",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "新建一个工作表，名字叫汇总",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "新建工作表“汇总”",
+                "title": "助手想要新建工作表"
+              }
+            ],
+            "seconds": 4.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 4.28
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 76.59654913532817
+            },
+            "buttons": [],
+            "conversation": "20261127-040036-60d41b",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/07-sales-regions.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已新建工作表“汇总”，当前工作表为“汇总”。所有工作表名称：销售明细、名单、汇总。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已新建工作表“汇总”，可以撤销。",
+                "title": "新建工作表"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已新建工作表“汇总”，当前工作表为“汇总”。所有工作表名称：销售明细、名单、汇总。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 3,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 3.05
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "sheetsHave": [
+              "销售明细",
+              "名单",
+              "汇总"
+            ]
+          },
+          "actual": {
+            "sheet": "汇总",
+            "sheets": [
+              "销售明细",
+              "名单",
+              "汇总"
+            ],
+            "charts": [],
+            "filter": null
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\07-sales-regions.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\07-sales-regions.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office\\x7-new-sheet.json"
+    },
+    {
+      "name": "留出·表格：数学成绩从低到高排",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把学生按数学成绩从低到高排一下"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 74.61963250642074
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040046-23650f",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/08-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "工作表“成绩',”：A1:D8 按“数学”列从小到大排序（表头不动）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把学生按数学成绩从低到高排一下",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "工作表“成绩',”：A1:D8 按“数学”列从小到大排序（表头不动）",
+                "title": "助手想要排序"
+              }
+            ],
+            "seconds": 6.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 6.27
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行",
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 76.85162771459666
+            },
+            "buttons": [],
+            "conversation": "20261127-040046-23650f",
+            "conversationMessages": 4,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/08-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已按数学成绩从低到高排序，结果在A1:D8区域。当前排序是永久性的，可随时撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已把 A1:D8 按 D 列从小到大排好（7 行），可以撤销。",
+                "title": "排序"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已按数学成绩从低到高排序，结果在A1:D8区域。当前排序是永久性的，可随时撤销。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 4.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 11.31
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A1",
+            "equals": "姓名"
+          },
+          "actual": {
+            "active": "成绩",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A1:A1",
+            "rows": [
+              [
+                "姓名"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D8"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A2",
+            "equals": "陈静"
+          },
+          "actual": {
+            "active": "成绩",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A2:A2",
+            "rows": [
+              [
+                "陈静"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D8"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "D8",
+            "equals": "99"
+          },
+          "actual": {
+            "active": "成绩",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "D8:D8",
+            "rows": [
+              [
+                "99"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D8"
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\08-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\08-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx1-sort-asc.json"
+    },
+    {
+      "name": "留出·表格：只看一班的学生",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "我只想看一班的学生"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 73.26267301151941
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040106-5a4120",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/09-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "工作表“成绩”：筛选：只显示“班级”列 =一班 的行（其余的隐藏，不删除）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "我只想看一班的学生",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "工作表“成绩”：筛选：只显示“班级”列 =一班 的行（其余的隐藏，不删除）",
+                "title": "助手想要筛选"
+              }
+            ],
+            "seconds": 6.5,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 6.53
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 76.24989591889207
+            },
+            "buttons": [],
+            "conversation": "20261127-040106-5a4120",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/09-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已筛选出“一班”学生，显示3行（张伟、李娜、杨磊），隐藏4行。可随时撤销筛选。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选：显示 3 行，隐藏 4 行（没有删除），可以撤销。",
+                "title": "筛选"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选出“一班”学生，显示3行（张伟、李娜、杨磊），隐藏4行。可随时撤销筛选。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 4.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 4.26
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "hiddenRows": 4
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "charts": [],
+            "filter": {
+              "hiddenRows": 4,
+              "range": "A1:D8"
+            }
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\09-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\09-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx2-filter-class.json"
+    },
+    {
+      "name": "留出·表格：筛出数学 90 分以上的",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "筛选出数学90分以上的同学"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 78.72096018171548
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040119-5fecfc",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/10-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "筛选：只显示 D 列 >=90 的行（其余的隐藏，不删除）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "筛选出数学90分以上的同学",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "筛选：只显示 D 列 >=90 的行（其余的隐藏，不删除）",
+                "title": "助手想要筛选"
+              }
+            ],
+            "seconds": 5.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 5.28
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 77.77206391185773
+            },
+            "buttons": [],
+            "conversation": "20261127-040119-5fecfc",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/10-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已筛选出数学90分以上的3位同学（张伟、刘洋、赵敏）。数学成绩分别为92、96、99。可以撤销筛选查看全部数据。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选：显示 3 行，隐藏 4 行（没有删除），可以撤销。",
+                "title": "筛选"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选出数学90分以上的3位同学（张伟、刘洋、赵敏）。数学成绩分别为92、96、99。可以撤销筛选查看全部数据。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 5.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 5.55
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "hiddenRows": 4
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "charts": [],
+            "filter": {
+              "hiddenRows": 4,
+              "range": "A1:D8"
+            }
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\10-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\10-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx3-filter-condition.json"
+    },
+    {
+      "name": "留出·表格：每个人的语文成绩做条形图",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "给每个人的语文成绩做一个条形图"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 69.48926972061878
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040134-934e8f",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/11-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "用 A1:C8 的数据插一张条形图，标题“语文成绩条形图”",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "给每个人的语文成绩做一个条形图",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "用 A1:C8 的数据插一张条形图，标题“语文成绩条形图”",
+                "title": "助手想要插入图表"
+              }
+            ],
+            "seconds": 5,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 5.02
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 71.51914520055801
+            },
+            "buttons": [],
+            "conversation": "20261127-040134-934e8f",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/11-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已为“成绩”工作表的语文成绩生成条形图，位于F1单元格。图表包含所有学生的语文成绩数据，可点击查看可视化结果。需要调整图表样式或数据范围可以随时告知。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已在 F1 插入一张条形图，可以撤销。",
+                "title": "插入图表"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已为“成绩”工作表的语文成绩生成条形图，位于F1单元格。图表包含所有学生的语文成绩数据，可点击查看可视化结果。需要调整图表样式或数据范围可以随时告知。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 7.25,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 7.28
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "charts": 1
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "charts": [
+              {
+                "title": "语文成绩条形图",
+                "type": "horizontalBar"
+              }
+            ],
+            "filter": null
+          },
+          "problems": [],
+          "seconds": 0.05
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\11-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\11-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx4-chart.json"
+    },
+    {
+      "name": "留出·表格：教师工作表改名为老师名单",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把教师这个工作表改名为老师名单"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "thinking",
+              "tokensPerSecond": 78.00130776660681
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-040148-99dd8e",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/12-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "把工作表“教师”改名为“老师名单”",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把教师这个工作表改名为老师名单",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "把工作表“教师”改名为“老师名单”",
+                "title": "助手想要工作表改名"
+              }
+            ],
+            "seconds": 4.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 4.27
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-4b",
+              "modelKey": "builtin:qwen3-4b",
+              "state": "ready",
+              "tokensPerSecond": 77.7574481493051
+            },
+            "buttons": [],
+            "conversation": "20261127-040148-99dd8e",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-4b-1/12-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已将“教师”工作表更名为“老师名单”，可随时撤销修改。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已把工作表“教师”改名为“老师名单”，可以撤销。",
+                "title": "工作表改名"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已将“教师”工作表更名为“老师名单”，可随时撤销修改。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 4,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 4.06
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "sheetsHave": [
+              "成绩",
+              "老师名单"
+            ]
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "老师名单"
+            ],
+            "charts": [],
+            "filter": null
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\12-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-4b-1\\12-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx5-rename.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "sheet.read",
+    "cells.set",
+    "cells.format",
+    "cells.sort",
+    "cells.filter",
+    "cells.clearFilter",
+    "cells.removeDuplicates",
+    "chart.add",
+    "sheet.add",
+    "sheet.rename",
+    "slides.read",
+    "slide.add",
+    "slide.setText",
+    "test.state",
+    "test.open",
+    "test.saveAs",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-4b",
+      "modelKey": "builtin:qwen3-4b",
+      "state": "ready",
+      "tokensPerSecond": 77.7574481493051
+    },
+    "conversation": "20261127-040148-99dd8e",
+    "conversationMessages": 3,
+    "document": "D:/open office/build/assistant-live/sheets-4b-1/12-class-scores.xlsx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已将“教师”工作表更名为“老师名单”，可随时撤销修改。",
+    "quickActions": [
+      "draft",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-27T12:01:57.632005+00:00",
+  "ok": true
+}

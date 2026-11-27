@@ -1,0 +1,27 @@
+{
+  "name": "表格：只看华东的数据（筛选，不删除）",
+  "document": "fixtures/generated/sales-regions.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "只显示华东的数据"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetInfo",
+      "hiddenRows": 5
+    },
+    {
+      "check": "sheetCell",
+      "cell": "A3",
+      "equals": "华北"
+    }
+  ]
+}

@@ -1,0 +1,910 @@
+{
+  "label": "sheets-h1",
+  "started_utc": "2026-11-27T11:56:28.516597+00:00",
+  "command": [
+    "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+    "--engine-profile",
+    "D:\\open office\\build\\assistant-live\\sheets-h1\\profile",
+    "--mcp-port",
+    "0",
+    "--mcp-test"
+  ],
+  "runtime": "D:\\open office\\build\\full-source-run-dev",
+  "model": "qwen3-1.7b",
+  "exe": "D:\\open office\\build\\full-source-run-dev\\OpenOffice.exe",
+  "scenarios": [
+    {
+      "name": "留出·表格：数学成绩从低到高排",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把学生按数学成绩从低到高排一下"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "thinking",
+              "tokensPerSecond": 169.62133767194712
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035629-803b1d",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-h1/01-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "A1:D8 按“数学”列从小到大排序（表头不动）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把学生按数学成绩从低到高排一下",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "A1:D8 按“数学”列从小到大排序（表头不动）",
+                "title": "助手想要排序"
+              }
+            ],
+            "seconds": 4.75,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 5.03
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 132.27241263509947
+            },
+            "buttons": [],
+            "conversation": "20261127-035629-803b1d",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-h1/01-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已将A1:D8按D列（数学成绩）从低到高排序，结果如下：\n67（陈静）、73（赵敏）、78（王芳）、85（李娜）、92（张伟）、96（刘洋）、99（杨磊）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已把 A1:D8 按 D 列从小到大排好（7 行），可以撤销。",
+                "title": "排序"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已将A1:D8按D列（数学成绩）从低到高排序，结果如下：\n67（陈静）、73（赵敏）、78（王芳）、85（李娜）、92（张伟）、96（刘洋）、99（杨磊）",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 2.5,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 2.53
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A1",
+            "equals": "姓名"
+          },
+          "actual": {
+            "active": "成绩",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A1:A1",
+            "rows": [
+              [
+                "姓名"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D8"
+          },
+          "problems": [],
+          "seconds": 0.03
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "A2",
+            "equals": "陈静"
+          },
+          "actual": {
+            "active": "成绩",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "A2:A2",
+            "rows": [
+              [
+                "陈静"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D8"
+          },
+          "problems": [],
+          "seconds": 0.01
+        },
+        {
+          "step": {
+            "check": "sheetCell",
+            "cell": "D8",
+            "equals": "99"
+          },
+          "actual": {
+            "active": "成绩",
+            "charts": [],
+            "filter": null,
+            "formulas": {},
+            "hiddenRows": [],
+            "range": "D8:D8",
+            "rows": [
+              [
+                "99"
+              ]
+            ],
+            "selection": "A1",
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "styles": {},
+            "truncated": false,
+            "used": "A1:D8"
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-h1\\01-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-h1\\01-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx1-sort-asc.json"
+    },
+    {
+      "name": "留出·表格：只看一班的学生",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "我只想看一班的学生"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "thinking",
+              "tokensPerSecond": 143.06134869327528
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035641-e5eef8",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-h1/02-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "筛选：只显示 B 列是“一班”的行（其余的隐藏，不删除）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "我只想看一班的学生",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "筛选：只显示 B 列是“一班”的行（其余的隐藏，不删除）",
+                "title": "助手想要筛选"
+              }
+            ],
+            "seconds": 1.5,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.5
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 139.73423623147514
+            },
+            "buttons": [],
+            "conversation": "20261127-035641-e5eef8",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-h1/02-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已筛选：显示 3 行，隐藏 4 行（没有删除），可以撤销。当前显示一班学生数据。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选：显示 3 行，隐藏 4 行（没有删除），可以撤销。",
+                "title": "筛选"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选：显示 3 行，隐藏 4 行（没有删除），可以撤销。当前显示一班学生数据。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 2.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 2.77
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "hiddenRows": 4
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "charts": [],
+            "filter": {
+              "hiddenRows": 4,
+              "range": "A1:D8"
+            }
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-h1\\02-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-h1\\02-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx2-filter-class.json"
+    },
+    {
+      "name": "留出·表格：筛出数学 90 分以上的",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "筛选出数学90分以上的同学"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "thinking",
+              "tokensPerSecond": 142.4269026292006
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035647-7fb991",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-h1/03-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "筛选：只显示“数学”列 >90 的行（其余的隐藏，不删除）",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "筛选出数学90分以上的同学",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "筛选：只显示“数学”列 >90 的行（其余的隐藏，不删除）",
+                "title": "助手想要筛选"
+              }
+            ],
+            "seconds": 1.75,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 1.78
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 157.2638971549683
+            },
+            "buttons": [],
+            "conversation": "20261127-035647-7fb991",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-h1/03-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已筛选出数学成绩大于90分的同学（共3人）：  \n1. 张伟（92分）  \n2. 刘洋（96分）  \n3. 杨磊（99分）  \n当前显示3行数据，隐藏4行。如需进一步操作可随时告知。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选：显示 3 行，隐藏 4 行（没有删除），可以撤销。",
+                "title": "筛选"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已筛选出数学成绩大于90分的同学（共3人）：  \n1. 张伟（92分）  \n2. 刘洋（96分）  \n3. 杨磊（99分）  \n当前显示3行数据，隐藏4行。如需进一步操作可随时告知。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 2.75,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 2.78
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "hiddenRows": 4
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "charts": [],
+            "filter": {
+              "hiddenRows": 4,
+              "range": "A1:D8"
+            }
+          },
+          "problems": [],
+          "seconds": 0.02
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-h1\\03-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-h1\\03-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx3-filter-condition.json"
+    },
+    {
+      "name": "留出·表格：每个人的语文成绩做条形图",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "给每个人的语文成绩做一个条形图"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "thinking",
+              "tokensPerSecond": 143.661396159452
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035654-98f432",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-h1/04-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "工作表“成绩”：用 A1:C8 的数据插一张条形图",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "给每个人的语文成绩做一个条形图",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "工作表“成绩”：用 A1:C8 的数据插一张条形图",
+                "title": "助手想要插入图表"
+              }
+            ],
+            "seconds": 2.25,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 2.28
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 146.28320428349284
+            },
+            "buttons": [],
+            "conversation": "20261127-035654-98f432",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-h1/04-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已插入条形图至F1，数据范围A1:C8（语文成绩），类型为条形图。可随时撤销操作。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已在 F1 插入一张条形图，可以撤销。",
+                "title": "插入图表"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已插入条形图至F1，数据范围A1:C8（语文成绩），类型为条形图。可随时撤销操作。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 2,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 2.02
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "charts": 1
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "教师"
+            ],
+            "charts": [
+              {
+                "title": "",
+                "type": "horizontalBar"
+              }
+            ],
+            "filter": null
+          },
+          "problems": [],
+          "seconds": 0.03
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-h1\\04-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-h1\\04-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx4-chart.json"
+    },
+    {
+      "name": "留出·表格：教师工作表改名为老师名单",
+      "steps": [
+        {
+          "step": {
+            "tool": "test.ask",
+            "args": {
+              "text": "把教师这个工作表改名为老师名单"
+            },
+            "expect": {
+              "ok": true
+            }
+          },
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "thinking",
+              "tokensPerSecond": 154.70482813282575
+            },
+            "buttons": [
+              "执行",
+              "不要"
+            ],
+            "conversation": "20261127-035700-509ee6",
+            "conversationMessages": 1,
+            "document": "D:/open office/build/assistant-live/sheets-h1/05-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "把工作表“教师”改名为“老师名单”",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "user",
+                "text": "把教师这个工作表改名为老师名单",
+                "title": ""
+              },
+              {
+                "card": true,
+                "ok": true,
+                "role": "assistant",
+                "text": "把工作表“教师”改名为“老师名单”",
+                "title": "助手想要工作表改名"
+              }
+            ],
+            "seconds": 2,
+            "timedOut": false,
+            "waitingForConfirmation": true,
+            "working": true
+          },
+          "isError": false,
+          "problems": [],
+          "seconds": 2.03
+        },
+        {
+          "step": {
+            "apply": true
+          },
+          "pressed": [
+            "执行"
+          ],
+          "result": {
+            "ai": {
+              "backend": "builtin",
+              "builtin": true,
+              "model": "qwen3-1.7b",
+              "modelKey": "builtin:qwen3-1.7b",
+              "state": "ready",
+              "tokensPerSecond": 170.70808124116684
+            },
+            "buttons": [],
+            "conversation": "20261127-035700-509ee6",
+            "conversationMessages": 3,
+            "document": "D:/open office/build/assistant-live/sheets-h1/05-class-scores.xlsx",
+            "documentBusy": false,
+            "documentOpened": true,
+            "lastMessage": "已将工作表“教师”改名为“老师名单”，可以撤销。",
+            "lastTaskAnswer": "",
+            "ok": true,
+            "quickActions": [
+              "draft",
+              "setup"
+            ],
+            "said": [
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已把工作表“教师”改名为“老师名单”，可以撤销。",
+                "title": "工作表改名"
+              },
+              {
+                "ok": true,
+                "role": "assistant",
+                "text": "已将工作表“教师”改名为“老师名单”，可以撤销。",
+                "title": "本地 AI"
+              }
+            ],
+            "seconds": 2,
+            "timedOut": false,
+            "waitingForConfirmation": false,
+            "working": false
+          },
+          "problems": [],
+          "seconds": 2.04
+        },
+        {
+          "step": {
+            "check": "sheetInfo",
+            "sheetsHave": [
+              "成绩",
+              "老师名单"
+            ]
+          },
+          "actual": {
+            "sheet": "成绩",
+            "sheets": [
+              "成绩",
+              "老师名单"
+            ],
+            "charts": [],
+            "filter": null
+          },
+          "problems": [],
+          "seconds": 0.01
+        }
+      ],
+      "ok": true,
+      "open": {
+        "ok": true,
+        "document": "D:\\open office\\build\\assistant-live\\sheets-h1\\05-class-scores.xlsx"
+      },
+      "saved": {
+        "ok": true,
+        "file": "D:\\open office\\build\\assistant-live\\sheets-h1\\05-class-scores.xlsx",
+        "message": "引擎已确认保存。"
+      },
+      "file": "fixtures\\assistant-live\\office-holdout\\hx5-rename.json"
+    }
+  ],
+  "initialize": {
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "instructions": "Open Office 文字文档的编辑命令。先用 document.outline 看文档结构（段落 P1、P2…，表格 T1、T2…），用 table.read 读表格的每个单元格；再按编号和行列，用 table.setCell、format.cells、format.paragraphs、format.text 等一处一处地改，不要整段重写。每次修改都能用 edit.undo 撤销；是否保存由用户决定。",
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "open-office",
+      "title": "Open Office",
+      "version": "0.1.0"
+    }
+  },
+  "tools": [
+    "assistant.listCommands",
+    "document.status",
+    "document.create",
+    "document.save",
+    "text.insert",
+    "selection.getText",
+    "selection.replace",
+    "document.getText",
+    "document.replaceText",
+    "document.outline",
+    "table.read",
+    "table.setCell",
+    "format.cells",
+    "format.paragraphs",
+    "format.text",
+    "format.selection",
+    "format.read",
+    "selection.select",
+    "edit.undo",
+    "edit.redo",
+    "sheet.read",
+    "cells.set",
+    "cells.format",
+    "cells.sort",
+    "cells.filter",
+    "cells.clearFilter",
+    "cells.removeDuplicates",
+    "chart.add",
+    "sheet.add",
+    "sheet.rename",
+    "slides.read",
+    "slide.add",
+    "slide.setText",
+    "test.state",
+    "test.open",
+    "test.saveAs",
+    "test.ask",
+    "test.press",
+    "test.quick",
+    "test.wait",
+    "test.model"
+  ],
+  "start_state": {
+    "backend": "builtin",
+    "builtin": true,
+    "model": "",
+    "modelKey": "builtin:",
+    "state": "unknown",
+    "tokensPerSecond": 0
+  },
+  "final_state": {
+    "ai": {
+      "backend": "builtin",
+      "builtin": true,
+      "model": "qwen3-1.7b",
+      "modelKey": "builtin:qwen3-1.7b",
+      "state": "ready",
+      "tokensPerSecond": 170.70808124116684
+    },
+    "conversation": "20261127-035700-509ee6",
+    "conversationMessages": 3,
+    "document": "D:/open office/build/assistant-live/sheets-h1/05-class-scores.xlsx",
+    "documentBusy": false,
+    "documentOpened": true,
+    "lastMessage": "已将工作表“教师”改名为“老师名单”，可以撤销。",
+    "quickActions": [
+      "draft",
+      "setup"
+    ],
+    "working": false
+  },
+  "finished_utc": "2026-11-27T11:57:05.443922+00:00",
+  "ok": true
+}

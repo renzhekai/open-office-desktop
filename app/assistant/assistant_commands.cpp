@@ -60,6 +60,50 @@ CommandArgument addressArgument(const QString& name, bool required, const QStrin
     return {name, ArgumentType::Address, required, 20, description};
 }
 
+CommandArgument sheetArgument()
+{
+    return {QStringLiteral("sheet"), ArgumentType::String, false, 31, QStringLiteral("哪个工作表（名称）；不给就是当前的工作表。")};
+}
+
+CommandArgument headerArgument()
+{
+    return {QStringLiteral("header"), ArgumentType::Boolean, false, 0,
+            QStringLiteral("第一行是不是表头（表头不动）；不给由程序判断。")};
+}
+
+// Worksheet names: 1 to 31 characters, none of [ ] : * ? / \, not starting or ending with '.
+bool sheetNameValid(const QString& text)
+{
+    static const QRegularExpression forbidden(QStringLiteral("[\\[\\]:*?/\\\\]"));
+    const QString name = text.trimmed();
+    return !name.isEmpty() && name.size() <= 31 && !forbidden.match(name).hasMatch()
+        && !name.startsWith(QLatin1Char('\'')) && !name.endsWith(QLatin1Char('\''));
+}
+
+const QRegularExpression& columnPattern()
+{
+    static const QRegularExpression pattern(QStringLiteral("^\\$?[A-Za-z]{1,3}(\\$?[0-9]{1,7})?$"));
+    return pattern;
+}
+
+// A column named by a person or a model: its letter (" C 列", spaced from the Chinese before it)
+// or its header ("“销售额”列").
+QString columnWords(const QString& given)
+{
+    QString text = given.trimmed();
+    if (!columnPattern().match(text).hasMatch()) return QStringLiteral("“%1”列").arg(text);
+    text = text.toUpper().remove(QLatin1Char('$'));
+    return QLatin1Char(' ') + text.remove(QRegularExpression(QStringLiteral("[0-9]+$"))) + QStringLiteral(" 列");
+}
+
+const QRegularExpression& areasPattern()
+{
+    static const QRegularExpression pattern(QStringLiteral(
+        "^\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?"
+        "(\\s*,\\s*\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?){0,3}$"));
+    return pattern;
+}
+
 QList<CommandSpec> buildCatalog()
 {
     using A = CommandArgument;
@@ -171,16 +215,17 @@ QList<CommandSpec> buildCatalog()
          QStringLiteral("重做上一步被撤销的操作。"), {}, CommandTarget::Editor, true, true, QStringLiteral("any")},
         // Spreadsheets.
         {QStringLiteral("sheet.read"), QStringLiteral("读取工作表"),
-         QStringLiteral("读取当前工作表：已用范围里每一格的值（公式格同时给出公式），加粗和底色，以及选中的单元格。"
-                        "最多 60 行 × 26 列；range 可以只读一部分，例如 A1:F20。改表格前先用它看清楚。"),
-         {addressArgument(QStringLiteral("range"), false, QStringLiteral("只读这一部分，例如 A1:F20；不给就读已用范围。"))},
+         QStringLiteral("读取工作表（sheet 不给就是当前的）：已用范围里每一格的值（公式格同时给出公式），加粗和底色，选中的单元格，"
+                        "还有所有工作表的名称、这张表上的图表和筛选。最多 60 行 × 26 列；range 可以只读一部分，例如 A1:F20。改表格前先用它看清楚。"),
+         {addressArgument(QStringLiteral("range"), false, QStringLiteral("只读这一部分，例如 A1:F20；不给就读已用范围。")), sheetArgument()},
          CommandTarget::Editor, true, false, QStringLiteral("spreadsheet")},
         {QStringLiteral("cells.set"), QStringLiteral("写入单元格"),
          QStringLiteral("从 start 这一格开始，按行写入 rows：rows 的每一项是一行，每行是这一行从左到右各格的内容。"
                         "以 = 开头的是公式（例如 \"=B2*C2\"、\"=SUM(D2:D9)\"），会自动计算；空字符串表示清空这一格。可用撤销恢复。"),
          {addressArgument(QStringLiteral("start"), true, QStringLiteral("从哪一格开始写，例如 D2。")),
           A{QStringLiteral("rows"), ArgumentType::Grid, true, 1000,
-            QStringLiteral("要写的内容，例如 [[\"乘积\"],[\"=A2*B2\"],[\"=A3*B3\"]]；最多 200 行，每格最多 1000 个字符。"), {}, 0, 200}},
+            QStringLiteral("要写的内容，例如 [[\"乘积\"],[\"=A2*B2\"],[\"=A3*B3\"]]；最多 200 行，每格最多 1000 个字符。"), {}, 0, 200},
+          sheetArgument()},
          CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
         {QStringLiteral("cells.format"), QStringLiteral("设置单元格格式"),
          QStringLiteral("给 range 里的单元格设置格式：加粗、斜体、字号、文字颜色、底色、水平对齐、数字格式、边框。只给出要改的那几项。可用撤销恢复。"),
@@ -192,7 +237,58 @@ QList<CommandSpec> buildCatalog()
             {QStringLiteral("left"), QStringLiteral("center"), QStringLiteral("right")}},
           A{QStringLiteral("numberFormat"), ArgumentType::String, false, 40,
             QStringLiteral("数字格式，例如 0.00（两位小数）、#,##0（千分位）、0%（百分比）、yyyy-mm-dd（日期）。")},
-          boolArgument(QStringLiteral("borders"), QStringLiteral("细边框（每一格四周）"))},
+          boolArgument(QStringLiteral("borders"), QStringLiteral("细边框（每一格四周）")), sheetArgument()},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("cells.sort"), QStringLiteral("排序"),
+         QStringLiteral("把 range（不给就是整张表的已用范围）的行按 by 这一列排序：order 为 asc 从小到大（默认），desc 从大到小。"
+                        "表头那一行不动。可用撤销恢复。"),
+         {A{QStringLiteral("by"), ArgumentType::Column, true, 40, QStringLiteral("按哪一列排序：列字母（例如 C）或表头上的名字（例如 销售额）。")},
+          A{QStringLiteral("order"), ArgumentType::Choice, false, 0, QStringLiteral("asc（从小到大，默认）或 desc（从大到小）。"),
+            {QStringLiteral("asc"), QStringLiteral("desc")}},
+          addressArgument(QStringLiteral("range"), false, QStringLiteral("要排序的范围，例如 A1:D9；不给就是已用范围。")),
+          headerArgument(), sheetArgument()},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("cells.filter"), QStringLiteral("筛选"),
+         QStringLiteral("只显示 column 这一列符合要求的行，其余的行隐藏（不删除）。values 是要显示的值；condition 是比较条件，"
+                        "例如 >1000、<=60、<>完成；top / bottom 是最大 / 最小的几行。四种只给一种。已有筛选时会叠加在上面。可用撤销恢复。"),
+         {A{QStringLiteral("column"), ArgumentType::Column, true, 40, QStringLiteral("按哪一列筛选：列字母（例如 A）或表头上的名字（例如 区域）。")},
+          A{QStringLiteral("values"), ArgumentType::Lines, false, 100, QStringLiteral("要显示的值，例如 [\"华东\",\"华南\"]；最多 20 个。"), {}, 0, 20},
+          A{QStringLiteral("condition"), ArgumentType::String, false, 60,
+            QStringLiteral("比较条件：>、>=、<、<=、=、<> 后面跟数或文字，例如 >1000。")},
+          A{QStringLiteral("top"), ArgumentType::Integer, false, 0, QStringLiteral("只显示这一列最大的几行。"), {}, 1, 500},
+          A{QStringLiteral("bottom"), ArgumentType::Integer, false, 0, QStringLiteral("只显示这一列最小的几行。"), {}, 1, 500},
+          addressArgument(QStringLiteral("range"), false, QStringLiteral("要筛选的范围（含表头），例如 A1:D9；不给就是已用范围。")),
+          sheetArgument()},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("cells.clearFilter"), QStringLiteral("取消筛选"),
+         QStringLiteral("去掉工作表上的筛选，所有行都显示出来。可用撤销恢复。"),
+         {sheetArgument()}, CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("cells.removeDuplicates"), QStringLiteral("删除重复的行"),
+         QStringLiteral("删除 range（不给就是已用范围）里重复的行，每组只留第一行；columns 给出时只比较这几列（列字母）。"
+                        "表头那一行不动。可用撤销恢复。"),
+         {addressArgument(QStringLiteral("range"), false, QStringLiteral("范围，例如 A1:C20；不给就是已用范围。")),
+          A{QStringLiteral("columns"), ArgumentType::Lines, false, 40,
+            QStringLiteral("只比较这几列（列字母或表头上的名字），例如 [\"A\",\"B\"]；不给就比较整行。"), {}, 0, 10},
+          headerArgument(), sheetArgument()},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("chart.add"), QStringLiteral("插入图表"),
+         QStringLiteral("用 range 里的数据插一张图表，放在数据右边。range 要包括表头那一行和类别那一列，例如 A1:C9；"
+                        "不相邻的列用逗号分开，例如 A1:A9,C1:C9。type：column 柱形图（默认）、bar 条形图、line 折线图、pie 饼图、"
+                        "doughnut 圆环图、area 面积图、scatter 散点图。可用撤销恢复。"),
+         {A{QStringLiteral("range"), ArgumentType::Areas, true, 100, QStringLiteral("数据所在的范围，例如 A1:C9 或 A1:A9,C1:C9。")},
+          A{QStringLiteral("type"), ArgumentType::Choice, false, 0, QStringLiteral("图表类型，默认 column。"),
+            {QStringLiteral("column"), QStringLiteral("bar"), QStringLiteral("line"), QStringLiteral("pie"), QStringLiteral("doughnut"),
+             QStringLiteral("area"), QStringLiteral("scatter")}},
+          A{QStringLiteral("title"), ArgumentType::String, false, 100, QStringLiteral("图表标题，最多 100 个字符。")}, sheetArgument()},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("sheet.add"), QStringLiteral("新建工作表"),
+         QStringLiteral("新建一个名为 name 的工作表，并切换过去。可用撤销恢复。"),
+         {A{QStringLiteral("name"), ArgumentType::String, true, 31, QStringLiteral("新工作表的名称，1 到 31 个字，不能有 [ ] : * ? / \\。")}},
+         CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
+        {QStringLiteral("sheet.rename"), QStringLiteral("工作表改名"),
+         QStringLiteral("把工作表 sheet（不给就是当前的）改名为 name。可用撤销恢复。"),
+         {A{QStringLiteral("name"), ArgumentType::String, true, 31, QStringLiteral("新名称，1 到 31 个字，不能有 [ ] : * ? / \\。")},
+          sheetArgument()},
          CommandTarget::Editor, true, true, QStringLiteral("spreadsheet")},
         // Presentations.
         {QStringLiteral("slides.read"), QStringLiteral("读取幻灯片"),
@@ -393,6 +489,13 @@ CommandOutcome validateCommand(const AssistantCommand& command)
         static const QRegularExpression address(QStringLiteral("^\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7}(:\\$?[A-Za-z]{1,3}\\$?[0-9]{1,7})?$"));
         if (argument.type == ArgumentType::Address && !address.match(text).hasMatch())
             return failure("invalid_argument", QStringLiteral("参数 %1 要写成单元格地址，例如 D2 或 A1:C10。").arg(argument.name));
+        if (argument.type == ArgumentType::Column && (text.trimmed().isEmpty() || text.contains(QLatin1Char('\n'))))
+            return failure("invalid_argument", QStringLiteral("参数 %1 要写成列字母（例如 C）或表头上的名字。").arg(argument.name));
+        if (argument.type == ArgumentType::Areas && !areasPattern().match(text).hasMatch())
+            return failure("invalid_argument", QStringLiteral("参数 %1 要写成单元格范围，例如 A1:C9，不相邻的用逗号分开：A1:A9,C1:C9。").arg(argument.name));
+        if ((argument.name == QStringLiteral("sheet") || (argument.name == QStringLiteral("name") && command.name.startsWith(QStringLiteral("sheet."))))
+            && !sheetNameValid(text))
+            return failure("invalid_argument", QStringLiteral("工作表名称要有 1 到 31 个字，不能有 [ ] : * ? / \\ 这些符号。"));
         if (argument.type == ArgumentType::DocumentKind && !documentKinds().contains(text))
             return failure("invalid_argument", QStringLiteral("文档类型只能是 text、spreadsheet 或 presentation。"));
         if (argument.type == ArgumentType::Choice && !argument.choices.contains(text))
@@ -414,6 +517,15 @@ CommandOutcome validateCommand(const AssistantCommand& command)
     if (command.name == QStringLiteral("slide.setText")
         && command.arguments.contains(QStringLiteral("text")) == command.arguments.contains(QStringLiteral("points")))
         return failure("invalid_argument", QStringLiteral("text 和 points 要给出且只给出其中一个。"));
+    if (command.name == QStringLiteral("cells.filter")) {
+        const int ways = int(command.arguments.contains(QStringLiteral("values"))) + int(command.arguments.contains(QStringLiteral("condition")))
+            + int(command.arguments.contains(QStringLiteral("top"))) + int(command.arguments.contains(QStringLiteral("bottom")));
+        if (ways != 1) return failure("invalid_argument", QStringLiteral("values、condition、top、bottom 要给出且只给出其中一种。"));
+        static const QRegularExpression comparison(QStringLiteral("^(>=|<=|<>|>|<|=)\\s*\\S.*$"));
+        if (command.arguments.contains(QStringLiteral("condition"))
+            && !comparison.match(command.arguments.value(QStringLiteral("condition")).toString().trimmed()).hasMatch())
+            return failure("invalid_argument", QStringLiteral("condition 要以 >、>=、<、<=、=、<> 开头，例如 >1000。"));
+    }
     if (command.name == QStringLiteral("selection.select")) {
         const int ways = int(command.arguments.contains(QStringLiteral("find"))) + int(command.arguments.contains(QStringLiteral("paragraph")))
             + int(command.arguments.contains(QStringLiteral("table")));
@@ -489,6 +601,59 @@ QString describeCommand(const AssistantCommand& command)
     if (command.name == QStringLiteral("format.text"))
         return QStringLiteral("文中所有“%1”：%2").arg(a.value(QStringLiteral("find")).toString(), formats);
     if (command.name == QStringLiteral("format.selection")) return QStringLiteral("选中的文字：") + formats;
+    // The sheet, when the command is for one other than the one shown.
+    const QString onSheet = a.value(QStringLiteral("sheet")).toString().trimmed().isEmpty()
+        ? QString() : QStringLiteral("工作表“%1”：").arg(a.value(QStringLiteral("sheet")).toString().trimmed());
+    const auto column = [&a](const char* key) { return columnWords(a.value(QLatin1String(key)).toString()); };
+    const auto whole = [&a]() {
+        const QString range = a.value(QStringLiteral("range")).toString().trimmed().toUpper();
+        return range.isEmpty() ? QStringLiteral("整张表") : range + QLatin1Char(' ');
+    };
+    if (command.name == QStringLiteral("cells.sort"))
+        return onSheet + QStringLiteral("%1按%2%3排序（表头不动）").arg(whole(), column("by"),
+            a.value(QStringLiteral("order")).toString() == QStringLiteral("desc") ? QStringLiteral("从大到小") : QStringLiteral("从小到大"));
+    if (command.name == QStringLiteral("cells.filter")) {
+        QString which;
+        if (a.contains(QStringLiteral("values"))) {
+            QStringList values;
+            for (const QJsonValue& value : a.value(QStringLiteral("values")).toArray())
+                values << QStringLiteral("“%1”").arg(value.toVariant().toString());
+            which = QStringLiteral("%1是%2的行").arg(column("column"), values.join(QString()));
+        } else if (a.contains(QStringLiteral("top"))) {
+            which = QStringLiteral("%1最大的 %2 行").arg(column("column"), number("top"));
+        } else if (a.contains(QStringLiteral("bottom"))) {
+            which = QStringLiteral("%1最小的 %2 行").arg(column("column"), number("bottom"));
+        } else {
+            which = QStringLiteral("%1 %2 的行").arg(column("column"), a.value(QStringLiteral("condition")).toString().trimmed());
+        }
+        return onSheet + QStringLiteral("筛选：只显示%1（其余的隐藏，不删除）").arg(which);
+    }
+    if (command.name == QStringLiteral("cells.clearFilter")) return onSheet + QStringLiteral("取消筛选，显示所有行");
+    if (command.name == QStringLiteral("cells.removeDuplicates")) {
+        QStringList columns;
+        for (const QJsonValue& value : a.value(QStringLiteral("columns")).toArray()) columns << columnWords(value.toVariant().toString());
+        return onSheet + QStringLiteral("删除%1里重复的行%2（每组留第一行，表头不动）").arg(
+            a.value(QStringLiteral("range")).toString().isEmpty() ? QStringLiteral("整张表") : QLatin1Char(' ') + a.value(QStringLiteral("range")).toString().toUpper() + QLatin1Char(' '),
+            columns.isEmpty() ? QString() : QStringLiteral("，只比较%1").arg(columns.join(QStringLiteral("、")).replace(QStringLiteral("、 "), QStringLiteral("、"))));
+    }
+    if (command.name == QStringLiteral("chart.add")) {
+        static const QHash<QString, QString> kinds{{QStringLiteral("column"), QStringLiteral("柱形图")}, {QStringLiteral("bar"), QStringLiteral("条形图")},
+                                                   {QStringLiteral("line"), QStringLiteral("折线图")}, {QStringLiteral("pie"), QStringLiteral("饼图")},
+                                                   {QStringLiteral("doughnut"), QStringLiteral("圆环图")}, {QStringLiteral("area"), QStringLiteral("面积图")},
+                                                   {QStringLiteral("scatter"), QStringLiteral("散点图")}};
+        QString range = a.value(QStringLiteral("range")).toString().toUpper();
+        range.replace(QRegularExpression(QStringLiteral("\\s*,\\s*")), QStringLiteral("、"));
+        const QString title = a.value(QStringLiteral("title")).toString().trimmed();
+        return onSheet + QStringLiteral("用 %1 的数据插一张%2%3").arg(range, kinds.value(a.value(QStringLiteral("type")).toString(), QStringLiteral("柱形图")),
+                                                                  title.isEmpty() ? QString() : QStringLiteral("，标题“%1”").arg(title));
+    }
+    if (command.name == QStringLiteral("sheet.add"))
+        return QStringLiteral("新建工作表“%1”").arg(a.value(QStringLiteral("name")).toString().trimmed());
+    if (command.name == QStringLiteral("sheet.rename")) {
+        const QString from = a.value(QStringLiteral("sheet")).toString().trimmed();
+        return QStringLiteral("把%1改名为“%2”").arg(from.isEmpty() ? QStringLiteral("当前工作表") : QStringLiteral("工作表“%1”").arg(from),
+                                                    a.value(QStringLiteral("name")).toString().trimmed());
+    }
     if (command.name == QStringLiteral("cells.set")) {
         const QJsonArray rows = a.value(QStringLiteral("rows")).toArray();
         int columns = 0;
@@ -497,11 +662,11 @@ QString describeCommand(const AssistantCommand& command)
             columns = std::max(columns, int(row.toArray().size()));
             for (const QJsonValue& cell : row.toArray()) formulas += cell.toVariant().toString().startsWith(QLatin1Char('=')) ? 1 : 0;
         }
-        return QStringLiteral("从 %1 开始写入 %2 行 × %3 列%4：").arg(a.value(QStringLiteral("start")).toString().toUpper())
+        return onSheet + QStringLiteral("从 %1 开始写入 %2 行 × %3 列%4：").arg(a.value(QStringLiteral("start")).toString().toUpper())
             .arg(rows.size()).arg(columns).arg(formulas ? QStringLiteral("（含 %1 个公式）").arg(formulas) : QString());
     }
     if (command.name == QStringLiteral("cells.format"))
-        return QStringLiteral("%1：%2").arg(a.value(QStringLiteral("range")).toString().toUpper(), formats);
+        return onSheet + QStringLiteral("%1：%2").arg(a.value(QStringLiteral("range")).toString().toUpper(), formats);
     if (command.name == QStringLiteral("slide.add")) {
         const int points = int(a.value(QStringLiteral("points")).toArray().size());
         return QStringLiteral("%1加一页幻灯片：标题“%2”%3").arg(
@@ -555,6 +720,7 @@ QJsonArray commandCatalogJson()
                                                                      {QStringLiteral("maxLength"), argument.maxLength}});
                 property.insert(QStringLiteral("maxItems"), argument.maximum);
             }
+            if (argument.type == ArgumentType::Areas) property.insert(QStringLiteral("pattern"), areasPattern().pattern());
             if (argument.type == ArgumentType::Color)
                 property.insert(QStringLiteral("pattern"), argument.allowNone ? QStringLiteral("^(#?[0-9A-Fa-f]{6}|none)$")
                                                                               : QStringLiteral("^#?[0-9A-Fa-f]{6}$"));

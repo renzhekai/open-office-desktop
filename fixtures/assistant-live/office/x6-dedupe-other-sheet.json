@@ -1,0 +1,36 @@
+{
+  "name": "表格：删除“名单”工作表里重复的行",
+  "document": "fixtures/generated/sales-regions.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "把名单工作表里重复的行删掉"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetCell",
+      "sheet": "名单",
+      "cell": "A4",
+      "equals": "王五"
+    },
+    {
+      "check": "sheetCell",
+      "sheet": "名单",
+      "cell": "A5",
+      "equals": ""
+    },
+    {
+      "check": "sheetCell",
+      "sheet": "销售明细",
+      "cell": "A9",
+      "equals": "华北"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "留出·表格：只看一班的学生",
+  "document": "fixtures/generated/class-scores.xlsx",
+  "steps": [
+    {
+      "tool": "test.ask",
+      "args": {
+        "text": "我只想看一班的学生"
+      },
+      "expect": {
+        "ok": true
+      }
+    },
+    {
+      "apply": true
+    },
+    {
+      "check": "sheetInfo",
+      "hiddenRows": 4
+    }
+  ]
+}

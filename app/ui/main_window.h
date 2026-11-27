@@ -234,6 +234,7 @@ private:
     QString m_pendingTitle;
     QHash<int, int> m_untitledCounts; // Per DocumentKind, like Word's 文档1/文档2.
     DocumentKind m_openedKind;
+    QJsonObject m_sheetRead; // the sheet as last read for the model (to check the columns it chooses)
     SaveDestinationChooser m_saveDestinationChooser;
     FolderChooser m_relocationFolderChooser;
     RelocationPlan m_relocation; // set once the person confirmed; cleared if closing fails

@@ -376,14 +376,25 @@ QString sheetContext(const QJsonObject& read)
     const QJsonObject formulas = read.value(QStringLiteral("formulas")).toObject();
     int width = 0;
     for (const QJsonValue& row : rows) width = std::max(width, int(row.toArray().size()));
-    QString text = QStringLiteral("工作表“%1”（读到的范围 %2").arg(read.value(QStringLiteral("sheet")).toString(),
-                                                              read.value(QStringLiteral("range")).toString());
+    QString text;
+    const QJsonArray sheets = read.value(QStringLiteral("sheets")).toArray();
+    if (sheets.size() > 1) {
+        QStringList names;
+        for (const QJsonValue& sheet : sheets) names << sheet.toString();
+        text += QStringLiteral("这个文件有 %1 个工作表：%2；现在显示的是“%3”。\n").arg(sheets.size())
+                    .arg(names.join(QStringLiteral("、")),
+                         read.value(QStringLiteral("active")).toString(read.value(QStringLiteral("sheet")).toString()));
+    }
+    text += QStringLiteral("工作表“%1”（读到的范围 %2").arg(read.value(QStringLiteral("sheet")).toString(),
+                                                         read.value(QStringLiteral("range")).toString());
     if (!read.value(QStringLiteral("selection")).toString().isEmpty())
         text += QStringLiteral("；选中 ") + read.value(QStringLiteral("selection")).toString();
     text += QStringLiteral("）：\n列 |");
     for (int c = 0; c < width; ++c) text += QLatin1Char(' ') + letters(column + c) + QStringLiteral(" |");
+    QSet<int> hidden;
+    for (const QJsonValue& row : read.value(QStringLiteral("hiddenRows")).toArray()) hidden.insert(row.toInt());
     for (int r = 0; r < rows.size(); ++r) {
-        text += QStringLiteral("\n%1 |").arg(firstRow + r);
+        text += QStringLiteral("\n%1%2 |").arg(firstRow + r).arg(hidden.contains(firstRow + r) ? QStringLiteral("（隐藏）") : QString());
         const QJsonArray cells = rows[r].toArray();
         for (int c = 0; c < width; ++c) {
             const QString name = letters(column + c) + QString::number(firstRow + r);
@@ -401,6 +412,19 @@ QString sheetContext(const QJsonObject& read)
     }
     if (!bold.isEmpty()) text += QStringLiteral("\n加粗的格：") + bold.mid(0, 40).join(QStringLiteral("、"));
     if (!fills.isEmpty()) text += QStringLiteral("\n有底色的格：") + fills.mid(0, 40).join(QStringLiteral("、"));
+    const QJsonObject filter = read.value(QStringLiteral("filter")).toObject();
+    if (!filter.isEmpty())
+        text += QStringLiteral("\n筛选：%1，隐藏了 %2 行").arg(filter.value(QStringLiteral("range")).toString())
+                    .arg(filter.value(QStringLiteral("hiddenRows")).toInt());
+    const QJsonArray charts = read.value(QStringLiteral("charts")).toArray();
+    if (!charts.isEmpty()) {
+        QStringList titles;
+        for (const QJsonValue& chart : charts) {
+            const QString title = chart.toObject().value(QStringLiteral("title")).toString();
+            titles << (title.isEmpty() ? QStringLiteral("（无标题）") : QStringLiteral("“%1”").arg(title));
+        }
+        text += QStringLiteral("\n图表 %1 张：%2").arg(charts.size()).arg(titles.join(QStringLiteral("、")));
+    }
     if (read.value(QStringLiteral("truncated")).toBool()) text += QStringLiteral("\n（表格更大，只读了前 60 行 × 26 列。）");
     return text;
 }
@@ -429,6 +453,147 @@ QString alignedFormulaStart(const QString& start, const QJsonArray& rows)
     }
     if (!seen || (shift != -1 && shift != 1) || top + shift < 1) return start;
     return at.captured(1).toUpper() + QString::number(top + shift);
+}
+
+namespace {
+
+struct SheetHeader {
+    int firstColumn = 0; // of the range read
+    int firstRow = 1;
+    int lastRow = 1;
+    QStringList headers; // the first row's texts, one per column
+    QList<QStringList> columns; // each column's other cells
+};
+
+QString columnLetters(int column)
+{
+    QString text;
+    for (++column; column > 0; column = (column - 1) / 26) text.prepend(QChar('A' + (column - 1) % 26));
+    return text;
+}
+
+int columnIndex(const QString& letters)
+{
+    int column = 0;
+    for (const QChar letter : letters.toUpper()) column = column * 26 + (letter.unicode() - 'A' + 1);
+    return column - 1;
+}
+
+SheetHeader sheetHeader(const QJsonObject& read)
+{
+    static const QRegularExpression start(QStringLiteral("^([A-Za-z]+)([0-9]+)"));
+    SheetHeader header;
+    const QRegularExpressionMatch at = start.match(read.value(QStringLiteral("range")).toString());
+    if (at.hasMatch()) {
+        header.firstColumn = columnIndex(at.captured(1));
+        header.firstRow = at.captured(2).toInt();
+    }
+    const QJsonArray rows = read.value(QStringLiteral("rows")).toArray();
+    header.lastRow = header.firstRow + std::max(int(rows.size()) - 1, 0);
+    const QJsonArray first = rows.isEmpty() ? QJsonArray() : rows.first().toArray();
+    for (const QJsonValue& cell : first) header.headers << cell.toVariant().toString().trimmed();
+    header.columns.resize(header.headers.size());
+    for (int r = 1; r < rows.size(); ++r) {
+        const QJsonArray cells = rows[r].toArray();
+        for (int c = 0; c < header.headers.size() && c < cells.size(); ++c) header.columns[c] << cells[c].toVariant().toString().trimmed();
+    }
+    return header;
+}
+
+// The headers the request names: each header (not a number) found in it, the longest when one
+// contains another ("销售额" over "销售").
+QList<int> namedHeaders(const QString& request, const SheetHeader& header)
+{
+    QList<int> named;
+    for (int c = 0; c < header.headers.size(); ++c) {
+        const QString text = header.headers[c];
+        bool number = false;
+        text.toDouble(&number);
+        if (text.isEmpty() || number || !request.contains(text, Qt::CaseInsensitive)) continue;
+        named << c;
+    }
+    QList<int> longest;
+    for (int c : named) {
+        const bool inside = std::any_of(named.begin(), named.end(), [&](int other) {
+            return other != c && header.headers[other].size() > header.headers[c].size()
+                && header.headers[other].contains(header.headers[c], Qt::CaseInsensitive);
+        });
+        if (!inside) longest << c;
+    }
+    return longest;
+}
+
+// Which column (0-based, in the range read) a model's column means: a header text or a letter.
+int chosenColumn(const QString& chosen, const SheetHeader& header)
+{
+    const QString text = chosen.trimmed();
+    const int byHeader = header.headers.indexOf(text);
+    if (byHeader >= 0) return byHeader;
+    static const QRegularExpression letters(QStringLiteral("^\\$?([A-Za-z]{1,3})(\\$?[0-9]{1,7})?$"));
+    const QRegularExpressionMatch match = letters.match(text);
+    return match.hasMatch() ? columnIndex(match.captured(1)) - header.firstColumn : -1;
+}
+
+} // namespace
+
+QString sheetColumnFor(const QString& request, const QJsonObject& read, const QString& chosen, const QStringList& values)
+{
+    const SheetHeader header = sheetHeader(read);
+    if (header.headers.isEmpty()) return chosen;
+    const int current = chosenColumn(chosen, header);
+    // Values to keep say which column they are in ("只看华东的销售额" keeps 华东 rows of 区域,
+    // whatever header the request also names); the request's header only counts without them.
+    if (!values.isEmpty()) {
+        const auto holds = [&header, &values](int c) {
+            const QStringList& cells = header.columns[c];
+            return std::all_of(values.begin(), values.end(), [&cells](const QString& value) { return cells.contains(value.trimmed()); });
+        };
+        if (current >= 0 && current < header.columns.size() && holds(current)) return chosen;
+        QList<int> holding;
+        for (int c = 0; c < header.columns.size(); ++c)
+            if (holds(c)) holding << c;
+        return holding.size() == 1 ? columnLetters(header.firstColumn + holding.first()) : chosen;
+    }
+    const QList<int> named = namedHeaders(request, header);
+    if (named.size() == 1)
+        return named.first() == current ? chosen : columnLetters(header.firstColumn + named.first());
+    return chosen;
+}
+
+QString chartRangeFor(const QString& request, const QJsonObject& read, const QString& chosen)
+{
+    const SheetHeader header = sheetHeader(read);
+    const QList<int> named = namedHeaders(request, header);
+    if (named.size() < 2 || header.lastRow <= header.firstRow) return chosen;
+    // The columns the model's range covers.
+    static const QRegularExpression area(QStringLiteral("\\$?([A-Za-z]{1,3})\\$?[0-9]{1,7}(?::\\$?([A-Za-z]{1,3})\\$?[0-9]{1,7})?"));
+    QSet<int> covered;
+    for (auto it = area.globalMatch(chosen); it.hasNext();) {
+        const QRegularExpressionMatch match = it.next();
+        const int from = columnIndex(match.captured(1)) - header.firstColumn;
+        const int to = match.captured(2).isEmpty() ? from : columnIndex(match.captured(2)) - header.firstColumn;
+        for (int c = std::min(from, to); c <= std::max(from, to); ++c) covered.insert(c);
+    }
+    QList<int> sorted = named;
+    std::sort(sorted.begin(), sorted.end());
+    if (covered == QSet<int>(sorted.begin(), sorted.end())) return chosen;
+    QStringList areas;
+    for (int c : sorted) {
+        const QString letters = columnLetters(header.firstColumn + c);
+        areas << QStringLiteral("%1%2:%1%3").arg(letters).arg(header.firstRow).arg(header.lastRow);
+    }
+    return areas.join(QLatin1Char(','));
+}
+
+QStringList sheetsNamedIn(const QString& request, const QJsonObject& read)
+{
+    QStringList named;
+    const QString current = read.value(QStringLiteral("sheet")).toString();
+    for (const QJsonValue& sheet : read.value(QStringLiteral("sheets")).toArray()) {
+        const QString name = sheet.toString();
+        if (!name.isEmpty() && name != current && request.contains(name, Qt::CaseInsensitive) && named.size() < 2) named << name;
+    }
+    return named;
 }
 
 QString slidesContext(const QJsonObject& read)
